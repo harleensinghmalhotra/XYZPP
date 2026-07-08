@@ -3,7 +3,7 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 
 // Counts from 0 → value once, when scrolled into view. transform/opacity-free,
 // so it never triggers layout thrash beyond the text node it owns.
-export default function CountUp({ value, decimals = 0, prefix = '', suffix = '', duration = 1600, className = '' }) {
+export default function CountUp({ value, decimals = 0, prefix = '', suffix = '', duration = 1600, grouping = true, className = '' }) {
   const ref = useRef(null)
   const [display, setDisplay] = useState(prefersReduced() ? value : 0)
 
@@ -39,7 +39,7 @@ export default function CountUp({ value, decimals = 0, prefix = '', suffix = '',
   }, [value, duration])
 
   const fmt = (n) =>
-    n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+    n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals, useGrouping: grouping })
 
   // Reserve the final width with a hidden ghost so counting never reflows
   // neighbouring layout (CLS-safe), and lock digit widths with tabular-nums.

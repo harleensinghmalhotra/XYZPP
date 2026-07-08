@@ -4,9 +4,6 @@
 // cards (#f3fafd, radius 48) with the product image overhanging the card top.
 const BG = '/alternativ/63593f0be598de94c00afe92_graph_bg-services.svg'
 const PLUS = '/alternativ/63593cb9249b2164e302ac93_icon_plus.svg'
-// Reference curved divider: a white shape with a curved TOP edge. On a navy strip
-// it produces the bowed navy→white boundary (and the hero book overhangs over it).
-const DIVISOR = '/alternativ/63593d7f7bc52cd841099af4_graph_services-divisor.svg'
 
 const CARDS = [
   { key: 'book', label: 'Book Printing', img: '/alternativ/63daf2a9248b190f81e7be4b_books.webp', imgMax: '92%', rot: 18, mt: -48 },
@@ -18,13 +15,8 @@ const CARDS = [
 export default function PrintingServices() {
   return (
     <section id="services" data-theme="light" className="relative overflow-hidden bg-[#fffffc] font-metrisch">
-      {/* Curved navy→white boundary. Navy strip behind a white curved-top shape:
-          navy shows above the curve, white below. The single hero book overhangs
-          over this (no duplicate book here anymore). */}
-      <div className="w-full bg-[#0c2f4a] leading-[0]">
-        <img src={DIVISOR} alt="" aria-hidden="true" className="block w-full" draggable="false" />
-      </div>
-
+      {/* Flat top: the navy→white landing curve now lives at the top of the
+          TrustStrips landing zone (the book lands there, not here). */}
       <div className="relative z-[2] px-6 pt-[150px] pb-[120px]">
         {/* header: heading left, copy right */}
         <div

@@ -158,8 +158,14 @@ export default function Hero() {
             at 64vh (peeking) at rest; the rise raises it into view. */}
         <div ref={riseWrap} className="absolute inset-x-0 top-0 z-[15] mt-[64vh] flex flex-col items-center will-change-transform">
           <div className="relative flex w-full justify-center">
-            {/* lettered base (always present) */}
-            <img src={BOOK_BASE} alt="Open book" className="block w-full select-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]" draggable="false" />
+            {/* lettered base (always present). clip-path cuts the bottom 19% —
+                the image's transparent shadow-padding zone, below the cover
+                pixels — so the baked + CSS drop-shadow stop at the TrustStrips
+                gold-border line instead of bleeding onto the strips. The cut is
+                always below the cover, so it never truncates the visible book at
+                any scroll position. (clip-path applies after filter, so it clips
+                the drop-shadow too.) */}
+            <img src={BOOK_BASE} alt="Open book" className="block w-full select-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]" style={{ clipPath: 'inset(0 0 19% 0)' }} draggable="false" />
             {/* blank overlay on top at the same footprint — fades out to reveal the lettering */}
             <img ref={overlay} src={BOOK_OVER} alt="" aria-hidden="true" className="pointer-events-none absolute left-0 top-0 w-full select-none object-contain" draggable="false" />
 

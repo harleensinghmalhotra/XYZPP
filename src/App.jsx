@@ -1,6 +1,7 @@
 import { SmoothScrollProvider } from '@/lib/smooth-scroll'
 import SiteNav from '@/components/SiteNav'
 import Hero from '@/sections/Hero'
+import TrustStrips from '@/sections/TrustStrips'
 import PrintingServices from '@/sections/PrintingServices'
 import Marquee from '@/sections/Marquee'
 import BookFan from '@/sections/BookFan'
@@ -19,6 +20,7 @@ export default function App() {
       <main id="main" className="relative" style={{ '--video-tone': '#2d2926' }}>
         <span id="top" />
         <Hero />
+        <TrustStrips />
         <PrintingServices />
         <Marquee />
         <BookFan />
