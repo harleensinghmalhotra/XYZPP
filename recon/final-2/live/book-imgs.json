@@ -1,0 +1,18 @@
+[
+  {
+    "cls": "hero-section_graph_book over",
+    "src": "https://cdn.prod.website-files.com/632b67171587d4389caa1723/632b6a18fae8d578a9e88390_graph_book-hero-p-2000.webp",
+    "z": "15",
+    "pos": "absolute",
+    "op": "1",
+    "mb": "0px"
+  },
+  {
+    "cls": "hero-section_graph_book",
+    "src": "https://cdn.prod.website-files.com/632b67171587d4389caa1723/6390a6a0423aac54ece86d59_graph_book-hero-(1)%20(1).webp",
+    "z": "auto",
+    "pos": "static",
+    "op": "1",
+    "mb": "0px"
+  }
+]

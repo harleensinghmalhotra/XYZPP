@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Metrisch — the reference site's typeface (self-hosted from public CDN otf) */
+@font-face {
+  font-family: 'Metrisch';
+  src: url('/fonts/Metrisch-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Metrisch';
+  src: url('/fonts/Metrisch-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Metrisch';
+  src: url('/fonts/Metrisch-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* CMYK process */
+  --cyan: #00aeef;
+  --magenta: #ec008c;
+  --yellow: #ffc800;
+
+  /* Warm ink + paper (no pure black/white) */
+  --ink: #16130f;
+  --ink-600: #463e32;
+  --ink-500: #5c5346;
+  --ink-400: #7a7061;
+  --paper: #f3ede1;
+  --paper-raised: #ede6d7;
+  --paper-sunk: #e7dfcd;
+  --paper-deep: #ded4be;
+
+  /* Average tone sampled from a settled open-book hero frame — dark sections
+     melt into the footage. Re-sample if the hero master is replaced. */
+  --video-tone: #2d2926;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Space Mono', ui-monospace, monospace;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--magenta);
+  color: var(--paper);
+}
+
+/* ---- Print-craft primitives ---------------------------------------- */
+
+/* Metrisch utility — explicit so it applies even if the Tailwind config
+   isn't hot-reloaded by the running dev server. */
+.font-metrisch {
+  font-family: 'Metrisch', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* mono utility label */
+.label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* registration mark (printer's crosshair-in-circle) */
+.reg-mark {
+  display: inline-block;
+  aspect-ratio: 1;
+  background:
+    linear-gradient(currentColor, currentColor) center / 1px 100% no-repeat,
+    linear-gradient(currentColor, currentColor) center / 100% 1px no-repeat;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  position: relative;
+}
+.reg-mark::after {
+  content: '';
+  position: absolute;
+  inset: 32%;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+}
+
+/* corner crop marks on a framed element */
+.crop-frame {
+  position: relative;
+}
+.crop-frame::before,
+.crop-frame::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: currentColor;
+  border-style: solid;
+  opacity: 0.5;
+}
+.crop-frame::before {
+  top: -6px;
+  left: -6px;
+  border-width: 1px 0 0 1px;
+}
+.crop-frame::after {
+  bottom: -6px;
+  right: -6px;
+  border-width: 0 1px 1px 0;
+}
+
+/* film-grain / paper tooth overlay */
+.paper-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+/* CMYK calibration color bar (footer signature) */
+.calibration-bar {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  height: 100%;
+}
+
+.will-float {
+  will-change: transform;
+}
+
+/* ---- Reduced motion: tiered, art-directed --------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@keyframes seal-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}

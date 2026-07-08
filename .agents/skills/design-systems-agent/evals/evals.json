@@ -1,0 +1,44 @@
+{
+  "skill_name": "design-systems-agent",
+  "_note": "Functional evals: run each prompt with the skill, save the four artifacts, and check the assertions. The smoke test on 2026-06-13 ran eval 1 and passed (4 artifacts, valid DTCG JSON, correct routing, KB untouched). Assertions are checkable by script (artifact presence + python3 -m json.tool) plus a reviewer pass for routing/guardrails.",
+  "evals": [
+    {
+      "id": 1,
+      "name": "create-ceramics-portfolio",
+      "prompt": "Create a design system for a portfolio website for a small ceramics studio. Soft/organic visual direction, fluid motion personality, no WebGL. I just want the spec, not the build.",
+      "expected_output": "Four artifacts in ./design/: design-system-spec.md, design-tokens.tokens.json (valid DTCG, parses), motion-spec.md, implementation-plan.md. Routes 01/04/05/06/03/07/09 and skips 08. Guardrails applied; versions only from _facts.md; KB left read-only.",
+      "files": [],
+      "assertions": [
+        "all four artifacts exist in the target ./design/ directory",
+        "design-tokens.tokens.json parses as JSON and uses DTCG $type/$value with primitive->semantic->component tiers",
+        "08-webgl-effects.md was NOT read (no WebGL in brief)",
+        "every shipped library version appears in _facts.md; anything else is flagged UNVERIFIED",
+        "the knowledge-base directory is left byte-for-byte unchanged (templates not mutated)"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "recreate-from-url",
+      "prompt": "Reverse-engineer the design language of an existing studio site (I'll give the URL) into a clean design system — extract the type scale, colors as OKLCH tokens, spacing rhythm, and fonts, and detect the animation libraries. Give me a spec plus tokens with per-dimension confidence scores.",
+      "expected_output": "recreate mode: extraction checklist applied; artifacts carry the 8-dimension confidence block; tokens in OKLCH DTCG; libraries detected via runtime signatures (window.gsap, lenis, THREE, __NEXT_DATA__, etc.).",
+      "files": [],
+      "assertions": [
+        "the design-system spec includes the recreate-only per-dimension confidence block (8 dimensions)",
+        "color tokens are expressed in OKLCH",
+        "the report lists detected libraries with the runtime signature used to detect each"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "modify-token-audit",
+      "prompt": "We have an existing design-tokens.tokens.json that's grown messy and inconsistent. Audit it against the quality bar and propose a v2 that preserves consistency, with a semver bump and rationale.",
+      "expected_output": "modify mode: ingests current tokens, proposes consistency-preserving diffs, bumps the token-file semver, documents rationale; confidence block omitted (recreate-only).",
+      "files": [],
+      "assertions": [
+        "proposed changes preserve the primitive->semantic->component aliasing (no raw values above the primitive tier)",
+        "the token file version is bumped per semver with a documented rationale",
+        "no confidence block is emitted (create/modify omit it)"
+      ]
+    }
+  ]
+}
