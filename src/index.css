@@ -624,10 +624,13 @@ body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-/* Stats bar */
+/* Stats bar — numbers-led, Ekta's gold-numeral treatment. Her flat-outline
+   icons and the straight gray column dividers were retired per Harry's bar; a
+   short gold hairline (her signature top-border detail) accents each metric,
+   and the four blocks fade up in a subtle stagger on first view. */
 .ts-stats {
   background: #fdfaf4;
-  padding: 34px 56px;
+  padding: 46px 56px;
   border-bottom: 1px solid rgba(15, 36, 68, 0.08);
 }
 .ts-stats-grid {
@@ -637,92 +640,85 @@ body {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
 }
 .ts-stat {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 0 32px;
-  border-right: 1px solid rgba(15, 36, 68, 0.1);
+  padding: 0;
+  /* Reveal — fade up; gated by .is-in on the grid (set once on scroll-in). */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.ts-stat:first-child {
-  padding-left: 0;
+.ts-stats-grid.is-in .ts-stat {
+  opacity: 1;
+  transform: none;
 }
-.ts-stat:last-child {
-  padding-right: 0;
-  border-right: none;
+.ts-stats-grid.is-in .ts-stat:nth-child(2) {
+  transition-delay: 0.08s;
 }
-.ts-stat-ico {
-  width: 46px;
-  height: 46px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.ts-stats-grid.is-in .ts-stat:nth-child(3) {
+  transition-delay: 0.16s;
 }
-.ts-stat-ico svg {
-  width: 38px;
-  height: 38px;
-  stroke: #0f2444;
-  fill: none;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.ts-stats-grid.is-in .ts-stat:nth-child(4) {
+  transition-delay: 0.24s;
+}
+.ts-stat-rule {
+  display: block;
+  width: 30px;
+  height: 3px;
+  margin-bottom: 16px;
+  background: #9b7420;
 }
 .ts-stat-num {
   display: flex;
   align-items: baseline;
-  gap: 7px;
+  flex-wrap: wrap;
+  gap: 8px;
   font-family: 'Inter Tight', sans-serif;
   font-weight: 700;
-  font-size: 26px;
+  font-size: clamp(28px, 3.2vw, 34px);
   line-height: 1;
+  letter-spacing: -0.4px;
+  /* Her signature: the whole numeral is gold. ≥28px = WCAG "large text" (3:1),
+     so gold #9B7420 on cream (4.11:1) stays AA-compliant. */
+  color: #9b7420;
+}
+.ts-stat-accent {
+  /* Her 4th-stat treatment: "98%" gold, "On-Time" navy. */
+  font-size: 0.62em;
+  font-weight: 600;
   letter-spacing: 0;
   color: #0f2444;
 }
-.ts-stat-accent {
-  /* ≥18.66px @700 = WCAG "large text" (3:1), so the gold accent (4.10:1 on
-     cream) stays AA-compliant while keeping the metric highlight. */
-  font-size: 19px;
-  font-weight: 700;
-  color: #9b7420;
-}
 .ts-stat-lbl {
-  margin-top: 7px;
-  font-family: 'DM Mono', monospace;
+  margin-top: 12px;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 11px;
-  letter-spacing: 0.3px;
-  line-height: 1.45;
-  color: #1c2019;
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  line-height: 1.5;
+  color: #555;
 }
 @media (max-width: 900px) {
   .ts-stats {
-    padding: 26px 24px;
+    padding: 36px 24px;
   }
   .ts-stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 26px;
-  }
-  .ts-stat {
-    padding: 0 22px;
-  }
-  .ts-stat:nth-child(2) {
-    border-right: none;
-    padding-right: 0;
-  }
-  .ts-stat:nth-child(3) {
-    padding-left: 0;
+    gap: 30px 32px;
   }
 }
 @media (max-width: 560px) {
   .ts-stats-grid {
     grid-template-columns: 1fr;
-    row-gap: 22px;
+    gap: 26px;
   }
+}
+@media (prefers-reduced-motion: reduce) {
   .ts-stat {
-    border-right: none;
-    padding: 0;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

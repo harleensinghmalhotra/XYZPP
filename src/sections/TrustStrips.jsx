@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import CountUp from '@/components/CountUp'
 import { useReducedMotion } from '@/lib/useReducedMotion'
@@ -39,13 +39,16 @@ const INSTITUTIONS_ALL = [
 ].map((it, idx) => ({ ...it, idx }))
 const INSTITUTIONS = INSTITUTIONS_ALL.filter((it) => SHOW_MINISTRY_NAMES || !it.ministry)
 
-// Strip 3 — four stats, icons + numeric values are law; text is resolved via
-// t(`stats.${key}.label|accent|sr`). Count-up on first view.
+// Strip 3 — four stats, numeric values are law; text is resolved via
+// t(`stats.${key}.label|accent|sr`). Count-up on first view. Numbers-led in
+// Ekta's gold-numeral treatment — her dated flat-outline stat icons and the
+// straight gray column dividers were retired per Harry's quality bar; a short
+// gold hairline (her signature top-border detail) now accents each metric.
 const STATS = [
-  { key: 'books', icon: 'books', value: 400, suffix: 'M+' },
-  { key: 'countries', icon: 'globe40', value: 25, suffix: '+' },
-  { key: 'containers', icon: 'truck', value: 1000, suffix: '+' },
-  { key: 'ontime', icon: 'people', value: 98, suffix: '%', accent: true },
+  { key: 'books', value: 400, suffix: 'M+' },
+  { key: 'countries', value: 25, suffix: '+' },
+  { key: 'containers', value: 1000, suffix: '+' },
+  { key: 'ontime', value: 98, suffix: '%', accent: true },
 ]
 
 // Institution icons — ported from source, gold stroke, uniform 1.6 (set in CSS).
@@ -62,23 +65,6 @@ function InstIcon({ type }) {
       return <svg {...p}><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
     case 'bank':
       return <svg {...p}><path d="M3 21V8l9-5 9 5v13" /><path d="M9 21V12h6v9" /></svg>
-    default:
-      return null
-  }
-}
-
-// Stat icons — ported from source, navy stroke.
-function StatIcon({ type }) {
-  const p = { viewBox: '0 0 40 40', 'aria-hidden': true, focusable: 'false' }
-  switch (type) {
-    case 'books':
-      return <svg {...p}><rect x="6" y="4" width="22" height="32" rx="2" /><rect x="12" y="4" width="22" height="32" rx="2" /><line x1="16" y1="12" x2="26" y2="12" /><line x1="16" y1="16" x2="26" y2="16" /><line x1="16" y1="20" x2="22" y2="20" /></svg>
-    case 'globe40':
-      return <svg {...p}><circle cx="20" cy="20" r="15" /><path d="M5 20h30" /><path d="M20 5a25 25 0 0 1 7 15 25 25 0 0 1-7 15 25 25 0 0 1-7-15 25 25 0 0 1 7-15z" /></svg>
-    case 'truck':
-      return <svg {...p}><rect x="2" y="16" width="28" height="16" rx="2" /><path d="M30 24h5l3-6h-8" /><circle cx="10" cy="34" r="3" /><circle cx="24" cy="34" r="3" /><circle cx="35" cy="34" r="3" /><path d="M2 20V10l6-4h14l8 10" /></svg>
-    case 'people':
-      return <svg {...p}><circle cx="14" cy="12" r="5" /><circle cx="26" cy="12" r="5" /><path d="M4 32c0-5.5 4.5-10 10-10h12c5.5 0 10 4.5 10 10" /><path d="M20 12v8" /></svg>
     default:
       return null
   }
@@ -111,6 +97,30 @@ export default function TrustStrips() {
   const reduced = useReducedMotion()
   const track1 = useRef(null)
   const track2 = useRef(null)
+  const statsRef = useRef(null)
+  const [statsIn, setStatsIn] = useState(false)
+
+  // Subtle staggered fade-up when the stats grid scrolls into view. Instant
+  // (no transform) under reduced-motion; the number count-up is CountUp's own.
+  useEffect(() => {
+    if (reduced) {
+      setStatsIn(true)
+      return
+    }
+    const el = statsRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setStatsIn(true)
+          io.disconnect()
+        }
+      },
+      { threshold: 0.4 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [reduced])
 
   useEffect(() => {
     if (reduced) return
@@ -200,14 +210,14 @@ export default function TrustStrips() {
         </div>
       </div>
 
-      {/* Stats bar */}
+      {/* Stats bar — numbers-led in Ekta's gold-numeral treatment */}
       <div className="ts-stats">
-        <ul className="ts-stats-grid">
+        <ul className={`ts-stats-grid${statsIn ? ' is-in' : ''}`} ref={statsRef}>
           {STATS.map((s) => (
             <li key={s.key} className="ts-stat">
               <span className="sr-only">{t(`stats.${s.key}.sr`)}</span>
-              <div className="ts-stat-ico" aria-hidden="true"><StatIcon type={s.icon} /></div>
               <div aria-hidden="true">
+                <span className="ts-stat-rule" />
                 <div className="ts-stat-num">
                   <CountUp value={s.value} suffix={s.suffix} grouping={false} duration={1200} />
                   {s.accent && <span className="ts-stat-accent">{t(`stats.${s.key}.accent`)}</span>}
