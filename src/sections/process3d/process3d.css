@@ -1,0 +1,72 @@
+/* Scoped styles for the /dev/conveyor scaffold. Self-contained — touches nothing
+   global (no index.css / token edits). */
+.conv-root {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #fdfaf4;
+}
+.conv-root canvas {
+  display: block;
+  touch-action: pan-y;
+}
+
+/* scroll affordance */
+.conv-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(15, 36, 68, 0.62);
+  pointer-events: none;
+  user-select: none;
+}
+.conv-hint-arrow {
+  width: 1px;
+  height: 22px;
+  background: linear-gradient(rgba(155, 116, 32, 0.85), rgba(155, 116, 32, 0));
+  animation: conv-bob 2.4s ease-in-out infinite;
+}
+@keyframes conv-bob {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(7px); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .conv-hint-arrow { animation: none; }
+}
+
+/* mobile poster fallback */
+.conv-poster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.conv-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.conv-poster-cap {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Inter Tight', Inter, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+  color: #0f2444;
+  background: rgba(253, 250, 244, 0.86);
+  padding: 6px 16px;
+  margin: 0;
+}
