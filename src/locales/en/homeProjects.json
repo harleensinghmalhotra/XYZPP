@@ -22,8 +22,8 @@
   },
   "ledger": {
     "heroLabel": "Milestone Projects",
-    "heroStory": "Books for the <strong>Tanzania Institute of Education</strong> — 4M of them delivered within 60 days.",
-    "heroStoryFallback": "Books for a <strong>national education programme</strong> — 4M of them delivered within 60 days.",
+    "heroStory": "Books for the <strong>Tanzania Institute of Education</strong>: 4M of them delivered within 60 days.",
+    "heroStoryFallback": "Books for a <strong>national education programme</strong>: 4M of them delivered within 60 days.",
     "units": {
       "books": "Books",
       "kits": "Learning Kits"

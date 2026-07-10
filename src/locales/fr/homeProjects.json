@@ -22,8 +22,8 @@
   },
   "ledger": {
     "heroLabel": "Projets marquants",
-    "heroStory": "Livres pour le <strong>Tanzania Institute of Education</strong> — dont 4 millions livrés en 60 jours.",
-    "heroStoryFallback": "Livres pour un <strong>programme éducatif national</strong> — dont 4 millions livrés en 60 jours.",
+    "heroStory": "Livres pour le <strong>Tanzania Institute of Education</strong> : dont 4 millions livrés en 60 jours.",
+    "heroStoryFallback": "Livres pour un <strong>programme éducatif national</strong> : dont 4 millions livrés en 60 jours.",
     "units": {
       "books": "Livres",
       "kits": "Kits d'apprentissage"

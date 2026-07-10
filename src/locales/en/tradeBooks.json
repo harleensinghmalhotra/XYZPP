@@ -19,7 +19,7 @@
     "ledeBold": "These are bound to be kept."
   },
   "gallery": {
-    "imageAlt": "{{name}} — Quarterfold trade book, view {{index}}",
+    "imageAlt": "{{name}}, Quarterfold trade book, view {{index}}",
     "viewsLabel": "{{name}} views",
     "viewLabel": "View {{index}}"
   },
@@ -36,7 +36,7 @@
     "options": "The Options",
     "delivery": "Delivery"
   },
-  "delivery": "Export-ready from our Taloja and Vashi facilities — printed, packed, palletised and shipped to educational and trade partners in 25+ countries.",
+  "delivery": "Export-ready from our Taloja and Vashi facilities: printed, packed, palletised and shipped to educational and trade partners in 25+ countries.",
   "life": {
     "regionLabel": "Trade Books, kept",
     "light": "Some books inform. ",
@@ -73,21 +73,21 @@
     "coffee-table": {
       "name": "Coffee-Table Books",
       "story": "Made to be left out, not shelved.",
-      "craft": "Case-bound and hand-finished, with foil blocking and embossing on cloth and board covers — the expert binding that lets a large-format book lie flat and open true.",
+      "craft": "Case-bound and hand-finished, with foil blocking and embossing on cloth and board covers: the expert binding that lets a large-format book lie flat and open true.",
       "materials": "Premium coated and uncoated paper stocks, printed 4-colour process on offset presses, then dressed with metallic foils and spot UV.",
       "options": "Portrait or landscape formats, custom trim sizes, matte or gloss lamination, and specialty finishes to order."
     },
     "notebooks": {
       "name": "Premium Notebooks",
       "story": "A blank page worth keeping.",
-      "craft": "Perfect bound or case bound, with debossed and embossed covers and foil-blocked detailing — counterbooks, pads and branded stationery built to be used daily.",
+      "craft": "Perfect bound or case bound, with debossed and embossed covers and foil-blocked detailing: counterbooks, pads and branded stationery built to be used daily.",
       "materials": "Premium paper stocks with ruled, dotted or plain interiors; leatherette, cloth and board covers finished with foil.",
       "options": "A6 to A4 and bespoke sizes, rounded corners, elastic closures and ribbon markers, printed or blind-blocked."
     },
     "diaries": {
       "name": "Leather Diaries",
       "story": "A year, bound in leather.",
-      "craft": "Luxury leather-case, hard-bound and soft-bound builds, foil blocked and embossed by hand — the expert binding techniques that make a diary last a year and beyond.",
+      "craft": "Luxury leather-case, hard-bound and soft-bound builds, foil blocked and embossed by hand: the expert binding techniques that make a diary last a year and beyond.",
       "materials": "Genuine and bonded leather cases over premium paper stocks, with gilt and matte foil edging.",
       "options": "Dated or undated, week-to-view or day-per-page, with elastic bands, pen loops and personalised foil."
     },
@@ -101,14 +101,14 @@
     "autobiographies": {
       "name": "Autobiographies",
       "story": "A life, set in type.",
-      "craft": "Case bound with printed or foil-blocked jackets, offset printed and hand-finished — heritage and collector's editions built to be kept.",
+      "craft": "Case bound with printed or foil-blocked jackets, offset printed and hand-finished: heritage and collector's editions built to be kept.",
       "materials": "Cream and white book-wove paper stocks, printed cloth or board covers, head and tail bands, and foiled spines.",
       "options": "Royal, demy and custom trim sizes, dust jackets, ribbon markers and slipcases to order."
     },
     "novels": {
       "name": "Novels",
       "story": "Perfectly bound, cover to cover.",
-      "craft": "Perfect bound on offset and lithographic presses — trade paperbacks and hardbacks, printed clean and bound to open flat.",
+      "craft": "Perfect bound on offset and lithographic presses: trade paperbacks and hardbacks, printed clean and bound to open flat.",
       "materials": "Book-wove and bulk paper stocks, matte or gloss laminated covers, with foil and spot UV options.",
       "options": "A-format to royal, French flaps, custom trims, and short or long print runs."
     }

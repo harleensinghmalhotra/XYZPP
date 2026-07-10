@@ -215,7 +215,7 @@ export default function Contact() {
       '',
       form.message,
     ].filter((l) => l !== false && l != null)
-    const subject = `${t('mailto.subject')}: ${enquiryLabel} — ${form.first} ${form.last}`.trim()
+    const subject = `${t('mailto.subject')}: ${enquiryLabel}, ${form.first} ${form.last}`.trim()
     return `mailto:${EMAIL_ENQ}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
   }
 

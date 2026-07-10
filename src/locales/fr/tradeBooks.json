@@ -19,7 +19,7 @@
     "ledeBold": "Ceux-ci sont faits pour être conservés."
   },
   "gallery": {
-    "imageAlt": "{{name}} — livre grand public Quarterfold, vue {{index}}",
+    "imageAlt": "{{name}}, livre grand public Quarterfold, vue {{index}}",
     "viewsLabel": "Vues : {{name}}",
     "viewLabel": "Vue {{index}}"
   },
@@ -36,7 +36,7 @@
     "options": "Les options",
     "delivery": "Livraison"
   },
-  "delivery": "Prêts pour l'export depuis nos sites de Taloja et Vashi — imprimés, conditionnés, palettisés et expédiés à nos partenaires éducatifs et grand public dans plus de 25 pays.",
+  "delivery": "Prêts pour l'export depuis nos sites de Taloja et Vashi : imprimés, conditionnés, palettisés et expédiés à nos partenaires éducatifs et grand public dans plus de 25 pays.",
   "life": {
     "regionLabel": "Livres grand public, conservés",
     "light": "Certains livres informent. ",
@@ -73,21 +73,21 @@
     "coffee-table": {
       "name": "Beaux livres",
       "story": "Faits pour rester en vue, pas pour être rangés.",
-      "craft": "Reliure cartonnée et finition à la main, avec marquage à chaud et gaufrage sur couvertures toilées et cartonnées — la reliure experte qui permet à un ouvrage grand format de reposer bien à plat et de s'ouvrir sans forcer.",
+      "craft": "Reliure cartonnée et finition à la main, avec marquage à chaud et gaufrage sur couvertures toilées et cartonnées : la reliure experte qui permet à un ouvrage grand format de reposer bien à plat et de s'ouvrir sans forcer.",
       "materials": "Papiers couchés et non couchés haut de gamme, imprimés en quadrichromie sur presses offset, puis rehaussés de dorures métalliques et de vernis UV sélectif.",
       "options": "Formats portrait ou paysage, formats de coupe sur mesure, pelliculage mat ou brillant, et finitions spéciales sur commande."
     },
     "notebooks": {
       "name": "Cahiers haut de gamme",
       "story": "Une page blanche qui vaut la peine d'être conservée.",
-      "craft": "Reliure dos carré collé ou reliure cartonnée, avec couvertures gaufrées en creux et en relief et détails en marquage à chaud — registres, blocs et papeterie personnalisée conçus pour un usage quotidien.",
+      "craft": "Reliure dos carré collé ou reliure cartonnée, avec couvertures gaufrées en creux et en relief et détails en marquage à chaud : registres, blocs et papeterie personnalisée conçus pour un usage quotidien.",
       "materials": "Papiers haut de gamme à intérieurs lignés, pointillés ou unis ; couvertures en simili-cuir, toile et carton, finies au marquage à chaud.",
       "options": "Du A6 au A4 et formats sur mesure, coins arrondis, fermetures élastiques et signets rubans, imprimés ou marqués à froid."
     },
     "diaries": {
       "name": "Agendas en cuir",
       "story": "Une année, reliée en cuir.",
-      "craft": "Fabrications en étui de cuir luxueux, en version reliée rigide ou souple, marquées à chaud et gaufrées à la main — les techniques de reliure expertes qui font durer un agenda une année et au-delà.",
+      "craft": "Fabrications en étui de cuir luxueux, en version reliée rigide ou souple, marquées à chaud et gaufrées à la main : les techniques de reliure expertes qui font durer un agenda une année et au-delà.",
       "materials": "Étuis en cuir véritable et reconstitué sur papiers haut de gamme, avec tranches dorées et marquage à chaud mat.",
       "options": "Daté ou non daté, une semaine sur deux pages ou une page par jour, avec bandes élastiques, passants pour stylo et marquage à chaud personnalisé."
     },
@@ -101,14 +101,14 @@
     "autobiographies": {
       "name": "Autobiographies",
       "story": "Une vie, mise en caractères.",
-      "craft": "Reliure cartonnée avec jaquettes imprimées ou marquées à chaud, impression offset et finition à la main — éditions patrimoniales et de collection conçues pour être conservées.",
+      "craft": "Reliure cartonnée avec jaquettes imprimées ou marquées à chaud, impression offset et finition à la main : éditions patrimoniales et de collection conçues pour être conservées.",
       "materials": "Papiers vergés crème et blancs, couvertures toilées ou cartonnées imprimées, tranchefiles, et dos dorés au marquage à chaud.",
       "options": "Formats royal, demy et formats de coupe sur mesure, jaquettes, signets rubans et étuis sur commande."
     },
     "novels": {
       "name": "Romans",
       "story": "Parfaitement reliés, d'une couverture à l'autre.",
-      "craft": "Reliure dos carré collé sur presses offset et lithographiques — livres de poche et reliés grand public, imprimés avec netteté et reliés pour s'ouvrir bien à plat.",
+      "craft": "Reliure dos carré collé sur presses offset et lithographiques : livres de poche et reliés grand public, imprimés avec netteté et reliés pour s'ouvrir bien à plat.",
       "materials": "Papiers vergés et bouffants, couvertures pelliculées mates ou brillantes, avec options de marquage à chaud et de vernis UV sélectif.",
       "options": "Du format A au format royal, rabats à la française, coupes sur mesure, et tirages courts ou longs."
     }

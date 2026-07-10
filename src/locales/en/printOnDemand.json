@@ -1,26 +1,26 @@
 {
   "seo": {
     "title": "Print on Demand | Quarterfold Printabilities",
-    "description": "Build your book online — pick format, size, paper, binding and finish. From a single copy to a short run, printed to our millions-scale standard.",
+    "description": "Build your book online: pick format, size, paper, binding and finish. From a single copy to a short run, printed to our millions-scale standard.",
     "breadcrumbHome": "Home",
     "breadcrumbCurrent": "Print on Demand"
   },
   "hero": {
     "eyebrow": "Print on Demand",
     "title": "Your Book. <em>Exactly</em> as You Imagined.",
-    "sub": "From a single copy to a short run — printed to the same standard as our millions. Choose how your book looks and feels, and we’ll turn your files into finished copies you’ll be proud to hold.",
+    "sub": "From a single copy to a short run, printed to the same standard as our millions. Choose how your book looks and feels, and we’ll turn your files into finished copies you’ll be proud to hold.",
     "cta": "Start building"
   },
   "build": {
     "eyebrow": "The Configurator",
     "title": "Build your book",
-    "lede": "Make each choice below. The preview and your spec sheet update as you go — no prices, no commitment, just the book you have in mind.",
+    "lede": "Make each choice below. The preview and your spec sheet update as you go. No prices, no commitment, just the book you have in mind.",
     "previewTag": "Live preview",
     "previewCaptionSep": " · "
   },
   "steps": {
     "format": { "num": "①", "title": "Format", "help": "How the book is bound and held." },
-    "size": { "num": "②", "title": "Size", "help": "Standard trims — no setup fuss." },
+    "size": { "num": "②", "title": "Size", "help": "Standard trims, no setup fuss." },
     "paper": { "num": "③", "title": "Paper", "help": "How the pages feel in the hand." },
     "binding": { "num": "④", "title": "Binding", "help": "What holds the pages together." },
     "finish": { "num": "⑤", "title": "Finish", "help": "The surface of your cover." },
@@ -28,8 +28,8 @@
   },
   "options": {
     "format": {
-      "paperback": { "label": "Paperback", "desc": "Soft, flexible cover — the classic trade look readers reach for.", "sub": "Soft cover" },
-      "hardcover": { "label": "Hardcover", "desc": "Rigid boards and a squared spine — a keepsake made to last.", "sub": "Case bound" },
+      "paperback": { "label": "Paperback", "desc": "Soft, flexible cover: the classic trade look readers reach for.", "sub": "Soft cover" },
+      "hardcover": { "label": "Hardcover", "desc": "Rigid boards and a squared spine: a keepsake made to last.", "sub": "Case bound" },
       "landscape": { "label": "Landscape", "desc": "Wide format that lets photography and illustration breathe.", "sub": "Wide format" }
     },
     "size": {
@@ -39,17 +39,17 @@
       "a4": { "label": "A4", "sub": "210 × 297 mm" }
     },
     "paper": {
-      "cream": { "label": "Cream 80gsm", "desc": "Warm, easy on the eyes — the natural home for a novel.", "sub": "Uncoated, warm" },
+      "cream": { "label": "Cream 80gsm", "desc": "Warm, easy on the eyes: the natural home for a novel.", "sub": "Uncoated, warm" },
       "white": { "label": "White 100gsm", "desc": "Bright and crisp, so fine text and line art stay sharp.", "sub": "Uncoated, bright" },
       "art": { "label": "Art 150gsm", "desc": "Smooth coated stock that makes full-colour images sing.", "sub": "Coated, smooth" }
     },
     "binding": {
-      "perfect": { "label": "Perfect Bound", "desc": "Glued square spine — clean, economical, print-ready.", "sub": "Glued spine" },
+      "perfect": { "label": "Perfect Bound", "desc": "Glued square spine: clean, economical, print-ready.", "sub": "Glued spine" },
       "sewn": { "label": "Section-Sewn", "desc": "Stitched signatures that open flat and endure re-reads.", "sub": "Stitched, lay-flat" },
-      "wiro": { "label": "Wiro", "desc": "Twin-loop coil that lies perfectly flat — great for workbooks.", "sub": "Twin-loop coil" }
+      "wiro": { "label": "Wiro", "desc": "Twin-loop coil that lies perfectly flat, great for workbooks.", "sub": "Twin-loop coil" }
     },
     "finish": {
-      "matte": { "label": "Matte Lamination", "desc": "Soft, tactile, glare-free — understated and modern.", "sub": "Soft-touch film" },
+      "matte": { "label": "Matte Lamination", "desc": "Soft, tactile, glare-free, understated and modern.", "sub": "Soft-touch film" },
       "gloss": { "label": "Gloss Lamination", "desc": "High shine that makes cover colours pop off the shelf.", "sub": "High-shine film" },
       "layflat": { "label": "Lay-Flat Lamination", "desc": "Durable satin film that resists scuffs and fingerprints.", "sub": "Satin film" }
     },
@@ -65,7 +65,7 @@
     "head": "Included with every order",
     "proof": { "name": "Free digital proof", "desc": "See a colour-accurate proof and sign off before we print a single page." },
     "check": { "name": "Hand quality check", "desc": "Every copy is inspected for colour, trim and binding by a real person." },
-    "packing": { "name": "Secure packing", "desc": "Books are wrapped to arrive crisp — no dinged corners, no scuffs." },
+    "packing": { "name": "Secure packing", "desc": "Books are wrapped to arrive crisp: no dinged corners, no scuffs." },
     "delivery": { "name": "Doorstep delivery", "desc": "Tracked shipping to your door, whether it is one book or five hundred." }
   },
   "summary": {
@@ -81,13 +81,13 @@
       "quantity": "Quantity"
     },
     "request": "Request This Book",
-    "note": "No prices, no obligation — we’ll send a tailored quote and a free proof. Prefer to talk it through? <link>Speak to us.</link>"
+    "note": "No prices, no obligation. We’ll send a tailored quote and a free proof. Prefer to talk it through? <link>Speak to us.</link>"
   },
   "qtyBadgeSr": "Quantity",
   "how": {
     "eyebrow": "How it works",
     "title": "Three steps to finished copies",
-    "upload": { "step": "Step 01", "name": "Upload", "desc": "Send your print-ready files — or your manuscript and cover. We check them for you." },
+    "upload": { "step": "Step 01", "name": "Upload", "desc": "Send your print-ready files, or your manuscript and cover. We check them for you." },
     "approve": { "step": "Step 02", "name": "Approve Proof", "desc": "We send a colour-accurate proof. Nothing prints until you are happy with it." },
     "ship": { "step": "Step 03", "name": "We Print & Ship", "desc": "Your book runs on the same presses as our millions, then ships to your door." }
   },
@@ -95,15 +95,15 @@
     "eyebrow": "The same presses",
     "quote": "One book gets the same presses as <em>one million.</em>",
     "sub": "There is no “small order” shortcut here. Whether you print a single proof or a full run, your book moves through the same colour-managed presses and the same hands that produce our millions of books a year.",
-    "stat1Label": "Copy — our smallest run",
+    "stat1Label": "Copy, our smallest run",
     "stat2Label": "Books a year on the same presses",
     "stat3Num": "Days",
-    "stat3Label": "Not weeks — sample turnaround"
+    "stat3Label": "Not weeks: sample turnaround"
   },
   "cta": {
     "eyebrow": "Take it slowly",
     "title": "Not sure yet? Order a sample first.",
-    "sub": "Hold the paper, check the colour, feel the binding — then decide. Tell us what you’re making and we’ll help you get a single sample copy into your hands.",
+    "sub": "Hold the paper, check the colour, feel the binding, then decide. Tell us what you’re making and we’ll help you get a single sample copy into your hands.",
     "btn": "Order a sample"
   }
 }

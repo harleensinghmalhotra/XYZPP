@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Educational Book Printing | Quarterfold Printabilities",
-    "description": "We print 25 million educational books a year for ministries and World Bank & USAID programmes across 25+ countries — curriculum-aligned and export-ready.",
+    "description": "We print 25 million educational books a year for ministries and World Bank & USAID programmes across 25+ countries: curriculum-aligned and export-ready.",
     "breadcrumbHome": "Home",
     "breadcrumbCurrent": "Educational Books"
   },
@@ -9,7 +9,7 @@
     "cornerLabel": "Educational Books",
     "cornerMeta": "25+ Countries · Since 2002",
     "title": "We put 25 million <1>books</1> a year into the hands of children across 25+ <3>countries</3>.",
-    "sub": "One partner for national textbook programmes — from ministry tender to the classroom desk."
+    "sub": "One partner for national textbook programmes, from ministry tender to the classroom desk."
   },
   "floats": {
     "textbooks": "Textbooks",
@@ -33,7 +33,7 @@
     "steps": {
       "tender": {
         "name": "Tender & Specification",
-        "desc": "We win government and ministry tenders, then lock exact specs — trim, paper, binding and the curriculum edition."
+        "desc": "We win government and ministry tenders, then lock exact specs: trim, paper, binding and the curriculum edition."
       },
       "print": {
         "name": "Curriculum-Aligned Print",
@@ -45,14 +45,14 @@
       },
       "classroom": {
         "name": "Into the Classroom",
-        "desc": "Delivered to ministries and schools — into the hands of children across Africa and beyond."
+        "desc": "Delivered to ministries and schools, into the hands of children across Africa and beyond."
       }
     }
   },
   "impact": {
     "eyebrow": "Africa programmes",
     "title": "National syllabuses, printed and delivered.",
-    "lede": "Textbooks printed in India and shipped to ministries of education across the continent — tens of millions of books, one syllabus at a time.",
+    "lede": "Textbooks printed in India and shipped to ministries of education across the continent: tens of millions of books, one syllabus at a time.",
     "countries": {
       "tanzania": "Tanzania",
       "ghana": "Ghana",
@@ -75,11 +75,11 @@
       "drCongo": "5M books",
       "nationalProgramme": "National programme"
     },
-    "awards": "<1>Four consecutive CAPEXIL export awards</1> — Education Export Company of the Year, 2024."
+    "awards": "<1>Four consecutive CAPEXIL export awards</1>: Education Export Company of the Year, 2024."
   },
   "cta": {
     "title": "Print your programme with us.",
-    "sub": "Ten million textbooks for a national rollout, or a first curriculum edition — tell us the specification and we’ll come back within one business day.",
+    "sub": "Ten million textbooks for a national rollout, or a first curriculum edition. Tell us the specification and we’ll come back within one business day.",
     "btn": "Start your programme"
   }
 }

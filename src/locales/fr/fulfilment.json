@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Entreposage et logistique | Quarterfold Printabilities",
-    "description": "Assemblage, entreposage de 100 000 pi², cartons 5 couleurs fabriqués sur site et livraison du dernier kilomètre — vos livres pris en charge sous un même toit, de la presse au port.",
+    "description": "Assemblage, entreposage de 100 000 pi², cartons 5 couleurs fabriqués sur site et livraison du dernier kilomètre : vos livres pris en charge sous un même toit, de la presse au port.",
     "breadcrumb": {
       "home": "Accueil",
       "fulfilment": "Entreposage et logistique"
@@ -16,7 +16,7 @@
       "to": "début à la",
       "finish": "fin."
     },
-    "sub": "Imprimer, conditionner, entreposer, expédier — vos livres pris en charge sous un même toit jusqu'à ce qu'ils atteignent le leur.",
+    "sub": "Imprimer, conditionner, entreposer, expédier : vos livres pris en charge sous un même toit jusqu'à ce qu'ils atteignent le leur.",
     "cue": "Faites défiler"
   },
   "trust": {
@@ -25,7 +25,7 @@
   },
   "partners": {
     "tie": { "label": "Tanzania Institute of Education", "sub": "Programme national" },
-    "ghana": { "label": "Ghana — USAID Programmes", "sub": "Fournitures éducatives" },
+    "ghana": { "label": "Ghana : USAID Programmes", "sub": "Fournitures éducatives" },
     "ivory": { "label": "Côte d'Ivoire", "sub": "Appel d'offres ministériel" },
     "balbharti": { "label": "Maharashtra Bal Bharti", "sub": "Bureau national des manuels scolaires" },
     "worldbank": { "label": "World Bank Programmes", "sub": "Projets financés" },
@@ -42,7 +42,7 @@
   "cards": {
     "01": {
       "name": "Assemblage et montage",
-      "text": "Composants collationnés, montés et vérifiés en kits finis — prêts le jour où ils sont attendus."
+      "text": "Composants collationnés, montés et vérifiés en kits finis, prêts le jour où ils sont attendus."
     },
     "02": {
       "name": "Entreposage et stockage",
@@ -69,32 +69,32 @@
     "01": {
       "eyebrow": "Stockage",
       "title": "L'entrepôt",
-      "body": "Un entrepôt dédié de 100 000 pi² ancre tout ce qui suit en aval — un entreposage de pointe qui abrite les produits finis en toute sécurité sur de longues périodes, prêts à partir dès qu'un programme l'exige.",
+      "body": "Un entrepôt dédié de 100 000 pi² ancre tout ce qui suit en aval : un entreposage de pointe qui abrite les produits finis en toute sécurité sur de longues périodes, prêts à partir dès qu'un programme l'exige.",
       "more": "Rayonné, codé à barres et organisé pour une récupération rapide, l'espace est conçu aussi bien pour le stockage de longue durée que pour un débit élevé, le collationnement automatisé alimentant directement l'assemblage."
     },
     "02": {
       "eyebrow": "Montage",
       "title": "Assemblage et montage",
-      "body": "L'assemblage et le montage de bout en bout transforment des composants isolés en kits finis et vérifiés — collationnés, montés et contrôlés qualité sous un même toit, pour que rien ne soit expédié incomplet.",
+      "body": "L'assemblage et le montage de bout en bout transforment des composants isolés en kits finis et vérifiés, collationnés, montés et contrôlés qualité sous un même toit, pour que rien ne soit expédié incomplet.",
       "more": "Les lignes automatisées de collationnement et de filmage traitent jusqu'à 10 000 kits par jour, chacun monté selon une spécification reproductible et inspecté avant de quitter l'atelier."
     },
     "03": {
       "eyebrow": "Protection",
       "title": "Conditionnement sur site",
-      "body": "Les cartons ondulés et micro-cannelure sont fabriqués sur site grâce à une impression avancée 5 couleurs — un conditionnement conçu sur mesure pour les présentoirs de vente et le transport en toute sécurité.",
+      "body": "Les cartons ondulés et micro-cannelure sont fabriqués sur site grâce à une impression avancée 5 couleurs : un conditionnement conçu sur mesure pour les présentoirs de vente et le transport en toute sécurité.",
       "more": "Fabriquer nous-mêmes nos cartons et nos plaques nous permet de maîtriser l'ajustement, la résistance et la finition de bout en bout : conditionnement prêt pour la vente et cartons d'export sortent d'une même ligne maîtrisée."
     },
     "04": {
       "eyebrow": "Livraison",
       "title": "Expédition mondiale",
-      "body": "Une logistique optimisée gère la livraison du dernier kilomètre et l'expédition à l'export — des livres pris en charge depuis notre atelier jusqu'à leur destination dans plus de 25 pays et sur quatre continents.",
+      "body": "Une logistique optimisée gère la livraison du dernier kilomètre et l'expédition à l'export, avec des livres pris en charge depuis notre atelier jusqu'à leur destination dans plus de 25 pays et sur quatre continents.",
       "more": "Situés à quelques minutes du JNPT, le plus grand port à conteneurs de l'Inde, nous expédions plus de 800 conteneurs d'export par an avec un taux de livraison dans les délais de 98 %, chaque année sans exception."
     }
   },
   "feature": {
     "showLess": "Afficher moins",
     "learnMore": "En savoir plus",
-    "panelLabel": "{{title}} — en savoir plus"
+    "panelLabel": "En savoir plus sur {{title}}"
   },
   "sections": {
     "featuresLabel": "Le fonctionnement de la logistique, étape par étape"
@@ -111,7 +111,7 @@
   "cta": {
     "eyebrow": "Un même toit, du début à la fin",
     "title": "Faisons voyager vos livres.",
-    "sub": "Dites-nous ce que vous imprimez et où cela doit arriver. Nous nous occupons du reste — conditionné, entreposé et expédié.",
+    "sub": "Dites-nous ce que vous imprimez et où cela doit arriver. Nous nous occupons du reste : conditionné, entreposé et expédié.",
     "pill": "Entamer la conversation"
   }
 }

@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Warehousing & Fulfilment | Quarterfold Printabilities",
-    "description": "Kitting, 100,000 sq ft warehousing, in-house 5-colour cartons and last-mile shipping — your books handled under one roof, from press to port.",
+    "description": "Kitting, 100,000 sq ft warehousing, in-house 5-colour cartons and last-mile shipping: your books handled under one roof, from press to port.",
     "breadcrumb": {
       "home": "Home",
       "fulfilment": "Warehousing & Fulfilment"
@@ -16,7 +16,7 @@
       "to": "to",
       "finish": "Finish."
     },
-    "sub": "Print, pack, warehouse, ship — your books handled under one roof until they reach theirs.",
+    "sub": "Print, pack, warehouse, ship: your books handled under one roof until they reach theirs.",
     "cue": "Scroll"
   },
   "trust": {
@@ -25,7 +25,7 @@
   },
   "partners": {
     "tie": { "label": "Tanzania Institute of Education", "sub": "National Curriculum" },
-    "ghana": { "label": "Ghana — USAID Programmes", "sub": "Education Supply" },
+    "ghana": { "label": "Ghana: USAID Programmes", "sub": "Education Supply" },
     "ivory": { "label": "Ivory Coast", "sub": "Ministry Tender" },
     "balbharti": { "label": "Maharashtra Bal Bharti", "sub": "State Textbook Bureau" },
     "worldbank": { "label": "World Bank Programmes", "sub": "Funded Projects" },
@@ -42,7 +42,7 @@
   "cards": {
     "01": {
       "name": "Kitting & Assembly",
-      "text": "Components collated, built and checked into finished kits — ready the day they are needed."
+      "text": "Components collated, built and checked into finished kits, ready the day they are needed."
     },
     "02": {
       "name": "Warehousing & Storage",
@@ -69,32 +69,32 @@
     "01": {
       "eyebrow": "Storage",
       "title": "The Warehouse",
-      "body": "A dedicated 100,000 sq. ft warehouse anchors everything downstream — state-of-the-art storage that houses finished product securely for extended periods, ready to move the moment a programme calls.",
+      "body": "A dedicated 100,000 sq. ft warehouse anchors everything downstream: state-of-the-art storage that houses finished product securely for extended periods, ready to move the moment a programme calls.",
       "more": "Racked, barcoded and organised for fast retrieval, the floor is engineered for long-dwell storage and high-volume throughput alike, with automated collating feeding straight into kitting."
     },
     "02": {
       "eyebrow": "Build",
       "title": "Kitting & Assembly",
-      "body": "End-to-end kitting and assembly turns loose components into finished, checked kits — collated, built and quality-verified under one roof so nothing ships incomplete.",
+      "body": "End-to-end kitting and assembly turns loose components into finished, checked kits, collated, built and quality-verified under one roof so nothing ships incomplete.",
       "more": "Automated collating and shrink-wrapping lines process up to 10,000 kits a day, each assembled to a repeatable spec and inspected before it leaves the floor."
     },
     "03": {
       "eyebrow": "Protect",
       "title": "In-House Packaging",
-      "body": "Corrugated and e-flute cartons are produced in-house with advanced 5-colour printing — custom-designed packaging engineered for retail displays and safe transit.",
+      "body": "Corrugated and e-flute cartons are produced in-house with advanced 5-colour printing: custom-designed packaging engineered for retail displays and safe transit.",
       "more": "Making our own board and cartons means we control fit, strength and finish end-to-end, so retail-ready packaging and export cartons come off the same controlled line."
     },
     "04": {
       "eyebrow": "Deliver",
       "title": "Global Shipping",
-      "body": "Streamlined logistics manage last-mile delivery and export dispatch — books handled from our floor to their destination across 25+ countries and four continents.",
+      "body": "Streamlined logistics manage last-mile delivery and export dispatch, with books handled from our floor to their destination across 25+ countries and four continents.",
       "more": "Sited minutes from JNPT, India’s largest container port, we ship 800+ export containers a year with a 98% on-time record, every single year."
     }
   },
   "feature": {
     "showLess": "Show less",
     "learnMore": "Learn more",
-    "panelLabel": "{{title}} — more"
+    "panelLabel": "More about {{title}}"
   },
   "sections": {
     "featuresLabel": "How fulfilment works, step by step"
@@ -111,7 +111,7 @@
   "cta": {
     "eyebrow": "One roof, start to finish",
     "title": "Let's move your books.",
-    "sub": "Tell us what you are printing and where it needs to land. We handle the rest — packed, stored and shipped.",
+    "sub": "Tell us what you are printing and where it needs to land. We handle the rest: packed, stored and shipped.",
     "pill": "Start a conversation"
   }
 }

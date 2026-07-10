@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Impression de livres éducatifs | Quarterfold Printabilities",
-    "description": "Nous imprimons 25 millions de livres éducatifs par an pour des ministères et les programmes de la World Bank et de l'USAID dans plus de 25 pays — alignés sur les programmes scolaires et prêts à l'export.",
+    "description": "Nous imprimons 25 millions de livres éducatifs par an pour des ministères et les programmes de la World Bank et de l'USAID dans plus de 25 pays : alignés sur les programmes scolaires et prêts à l'export.",
     "breadcrumbHome": "Accueil",
     "breadcrumbCurrent": "Livres éducatifs"
   },
@@ -9,7 +9,7 @@
     "cornerLabel": "Livres éducatifs",
     "cornerMeta": "Plus de 25 pays · Depuis 2002",
     "title": "Nous mettons 25 millions de <1>livres</1> par an entre les mains des enfants dans plus de 25 <3>pays</3>.",
-    "sub": "Un seul partenaire pour les programmes nationaux de manuels scolaires — de l'appel d'offres ministériel au pupitre de la classe."
+    "sub": "Un seul partenaire pour les programmes nationaux de manuels scolaires, de l'appel d'offres ministériel au pupitre de la classe."
   },
   "floats": {
     "textbooks": "Manuels scolaires",
@@ -33,7 +33,7 @@
     "steps": {
       "tender": {
         "name": "Appel d'offres et cahier des charges",
-        "desc": "Nous remportons les appels d'offres publics et ministériels, puis nous verrouillons les spécifications exactes — format, papier, reliure et édition alignée sur le programme scolaire."
+        "desc": "Nous remportons les appels d'offres publics et ministériels, puis nous verrouillons les spécifications exactes : format, papier, reliure et édition alignée sur le programme scolaire."
       },
       "print": {
         "name": "Impression alignée sur le programme scolaire",
@@ -45,14 +45,14 @@
       },
       "classroom": {
         "name": "Jusque dans la classe",
-        "desc": "Livrés aux ministères et aux écoles — jusqu'entre les mains des enfants à travers l'Afrique et au-delà."
+        "desc": "Livrés aux ministères et aux écoles, jusqu'entre les mains des enfants à travers l'Afrique et au-delà."
       }
     }
   },
   "impact": {
     "eyebrow": "Programmes en Afrique",
     "title": "Programmes scolaires nationaux, imprimés et livrés.",
-    "lede": "Des manuels scolaires imprimés en Inde et expédiés aux ministères de l'Éducation à travers le continent — des dizaines de millions de livres, un programme scolaire à la fois.",
+    "lede": "Des manuels scolaires imprimés en Inde et expédiés aux ministères de l'Éducation à travers le continent : des dizaines de millions de livres, un programme scolaire à la fois.",
     "countries": {
       "tanzania": "Tanzanie",
       "ghana": "Ghana",
@@ -75,11 +75,11 @@
       "drCongo": "5 M de livres",
       "nationalProgramme": "Programme national"
     },
-    "awards": "<1>Quatre prix à l'export CAPEXIL consécutifs</1> — Entreprise d'exportation éducative de l'année, 2024."
+    "awards": "<1>Quatre prix à l'export CAPEXIL consécutifs</1> : Entreprise d'exportation éducative de l'année, 2024."
   },
   "cta": {
     "title": "Imprimez votre programme avec nous.",
-    "sub": "Dix millions de manuels scolaires pour un déploiement national, ou une première édition alignée sur le programme scolaire — indiquez-nous le cahier des charges et nous vous recontactons sous un jour ouvré.",
+    "sub": "Dix millions de manuels scolaires pour un déploiement national, ou une première édition alignée sur le programme scolaire. Indiquez-nous le cahier des charges et nous vous recontactons sous un jour ouvré.",
     "btn": "Lancez votre programme"
   }
 }
