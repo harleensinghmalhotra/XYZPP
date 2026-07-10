@@ -1,0 +1,59 @@
+{
+  "criteria": {
+    "network-gated": {
+      "pass": true,
+      "note": "0 globe/tile requests while at hero (expect 0)"
+    },
+    "tiles-load-on-approach": {
+      "pass": true,
+      "note": "29 globe requests after scrolling into view"
+    },
+    "home-flight-frames": {
+      "pass": true,
+      "note": "4/4 flight frames"
+    },
+    "home-landed": {
+      "pass": true,
+      "note": "markers popped"
+    },
+    "hero-fps-unchanged": {
+      "pass": true,
+      "note": "globe absent at hero (0 reqs); fresh-load noise 77/67fps, globe-mounted 62fps ≥ floor 57"
+    },
+    "home-zero-console-errors": {
+      "pass": true,
+      "note": "0 errors"
+    },
+    "about-flight-frames": {
+      "pass": true,
+      "note": "4/4 flight frames"
+    },
+    "about-landed": {
+      "pass": true,
+      "note": "markers popped"
+    },
+    "about-zero-console-errors": {
+      "pass": true,
+      "note": "0 errors"
+    },
+    "reduced-motion-landed": {
+      "pass": true,
+      "note": "jumped straight to landed + pins"
+    },
+    "tile-failure-fallback": {
+      "pass": true,
+      "note": "worldmap-dots fallback with gold pins + caption"
+    }
+  },
+  "notes": [],
+  "fps": {
+    "freshLoadA": 77,
+    "freshLoadB": 67,
+    "globeMountedBelowFold": 62,
+    "noiseFloor": 57
+  },
+  "homeConsoleErrors": [],
+  "aboutConsoleErrors": [],
+  "score": 10,
+  "passed": "11/11"
+}
