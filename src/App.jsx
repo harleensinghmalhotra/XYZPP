@@ -2,6 +2,10 @@ import { Routes, Route } from 'react-router-dom'
 import SiteLayout from '@/components/SiteLayout'
 import Home from '@/pages/Home'
 import ShellPage from '@/pages/ShellPage'
+import About from '@/pages/About'
+import EducationalBooks from '@/pages/EducationalBooks'
+import PrintOnDemand from '@/pages/PrintOnDemand'
+import TradeBooks from '@/pages/TradeBooks'
 
 // App is now the routing host, not the scroll stack. Every route renders inside
 // <SiteLayout> (nav + footer chrome). The homepage ("/") owns the scroll engine;
@@ -12,10 +16,10 @@ export default function App() {
       <Route element={<SiteLayout />}>
         <Route index element={<Home />} />
 
-        <Route path="/about" element={<ShellPage title="About" />} />
-        <Route path="/educational-books" element={<ShellPage title="Educational Books" />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/educational-books" element={<EducationalBooks />} />
         <Route path="/trade-books" element={<ShellPage title="Trade Books" />} />
-        <Route path="/print-on-demand" element={<ShellPage title="Print on Demand" />} />
+        <Route path="/print-on-demand" element={<PrintOnDemand />} />
         <Route path="/infrastructure" element={<ShellPage title="Infrastructure" />} />
         <Route path="/fulfilment" element={<ShellPage title="Fulfilment" />} />
         <Route path="/contact" element={<ShellPage title="Contact" />} />
