@@ -44,6 +44,9 @@
   position: relative; overflow: hidden; background: #0f2444; color: #fdfaf4;
   padding: clamp(140px, 20vh, 200px) 0 clamp(88px, 13vh, 140px);
 }
+/* atmosphere: wave canvas sits behind the beam + content; content lifts above */
+.inf-waves { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; pointer-events: none; opacity: 0.9; }
+.inf-z { position: relative; z-index: 10; }
 /* edge-origin soft beams — no straight interior lines */
 .inf-hero-beam {
   position: absolute; inset: 0; pointer-events: none;
@@ -90,7 +93,7 @@
 }
 
 /* ── 2 · TRUST STRIP — certifications (cream) ─────────────────────────────── */
-.inf-strip { background: #fdfaf4; padding: clamp(48px, 7vh, 82px) 0; border-bottom: 1px solid rgba(28,32,25,0.08); }
+.inf-strip { position: relative; overflow: hidden; background: #fdfaf4; padding: clamp(48px, 7vh, 82px) 0; border-bottom: 1px solid rgba(28,32,25,0.08); }
 .inf-strip-eyebrow {
   margin: 0 0 clamp(28px, 4vh, 44px); text-align: center;
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
@@ -114,7 +117,7 @@
 .inf-strip-code { margin: 8px 0 0; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.5px; color: #836013; }
 
 /* ── 3 · CAPABILITY ACCORDION (beige) ─────────────────────────────────────── */
-.inf-acc { background: #f0ebe0; padding: clamp(72px, 11vh, 130px) 0; }
+.inf-acc { position: relative; overflow: hidden; background: #f0ebe0; padding: clamp(72px, 11vh, 130px) 0; }
 .inf-acc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 76px); align-items: start; }
 .inf-acc-rows { margin-top: clamp(10px, 2vh, 20px); border-top: 1px solid rgba(28,32,25,0.14); }
 .inf-acc-row { border-bottom: 1px solid rgba(28,32,25,0.14); }
@@ -143,7 +146,7 @@
 .inf-acc-quote-text { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 14px; line-height: 1.4; color: #1c2019; }
 
 /* ── 4 · MACHINE CARDS — 2 large + 2 small (cream) ────────────────────────── */
-.inf-mach-sec { background: #fdfaf4; padding: clamp(72px, 11vh, 130px) 0; }
+.inf-mach-sec { position: relative; overflow: hidden; background: #fdfaf4; padding: clamp(72px, 11vh, 130px) 0; }
 .inf-machines { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2vw, 28px); }
 .inf-machine {
   display: flex; flex-direction: column;
@@ -203,9 +206,12 @@
   transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
 }
 .inf-video-thumb::after {
-  content: ''; position: absolute; inset: 0; opacity: 0.45;
+  content: ''; position: absolute; inset: 0; z-index: 1; opacity: 0.45;
   background-image: radial-gradient(rgba(200,154,60,0.14) 1px, transparent 1.4px); background-size: 18px 18px;
 }
+.inf-video-img { position: absolute; inset: 0; z-index: 0; background-position: center; background-size: cover; background-repeat: no-repeat; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+.inf-video-thumb:hover .inf-video-img { transform: scale(1.04); }
+.inf-video-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(155deg, rgba(15,36,68,0.42) 0%, rgba(11,28,56,0.62) 100%); }
 .inf-video-thumb:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(0,0,0,0.34), 0 28px 60px -20px rgba(0,0,0,0.66); }
 .inf-video-thumb:focus-visible { outline: 2px solid #c89a3c; outline-offset: 3px; }
 .inf-video-note {
@@ -224,7 +230,7 @@
 @keyframes inf-pulse { 0% { transform: scale(0.9); opacity: 0.7; } 100% { transform: scale(1.35); opacity: 0; } }
 
 /* ── 6 · RECOGNITION — typographic plaques (beige) ────────────────────────── */
-.inf-recognition { background: #f0ebe0; padding: clamp(72px, 11vh, 130px) 0; }
+.inf-recognition { position: relative; overflow: hidden; background: #f0ebe0; padding: clamp(72px, 11vh, 130px) 0; }
 .inf-awards { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2vw, 28px); }
 .inf-award {
   display: flex; flex-direction: column;
@@ -238,7 +244,7 @@
 .inf-award-body { margin: 0; font-family: 'Inter', sans-serif; font-size: 14.5px; line-height: 1.65; color: #40453b; }
 
 /* ── 7 · GALLERY — facility photos only (cream) ───────────────────────────── */
-.inf-gallery { background: #fdfaf4; padding: clamp(72px, 11vh, 130px) 0; }
+.inf-gallery { position: relative; overflow: hidden; background: #fdfaf4; padding: clamp(72px, 11vh, 130px) 0; }
 .inf-gallery-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 1.5vw, 20px); }
 .inf-gallery-item { margin: 0; }
 .inf-gallery-photo { aspect-ratio: 4 / 5; border-radius: 18px; }
@@ -246,7 +252,7 @@
 .inf-gallery-cap { margin-top: 12px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #836013; }
 
 /* ── 8 · CTA (beige) ──────────────────────────────────────────────────────── */
-.inf-cta { background: #f0ebe0; padding: clamp(80px, 12vh, 150px) 0; text-align: center; }
+.inf-cta { position: relative; overflow: hidden; background: #f0ebe0; padding: clamp(80px, 12vh, 150px) 0; text-align: center; }
 .inf-cta-inner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
 .inf-cta-title { margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(30px, 4vw, 52px); line-height: 1.05; letter-spacing: -0.6px; color: #0f2444; }
 .inf-cta-sub { margin: 18px 0 clamp(28px, 4vh, 40px); max-width: 44ch; font-family: 'Inter', sans-serif; font-size: clamp(15px, 1.2vw, 18px); line-height: 1.65; color: #40453b; }

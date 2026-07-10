@@ -5,7 +5,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Seo from '@/components/Seo'
 import CountUp from '@/components/CountUp'
 import VideoBackdrop from '@/components/VideoBackdrop'
+import SectionCurve from '@/components/SectionCurve'
+import { DotField, PaperGrain } from '@/components/atmosphere'
 import { useReducedMotion } from '@/lib/useReducedMotion'
+import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -22,7 +25,7 @@ gsap.registerPlugin(ScrollTrigger)
 //                            programmes only). Named commercial clients (HDFC,
 //                            ZEE, Reliance) stay OUT of the DOM until sign-off.
 // ─────────────────────────────────────────────────────────────────────────────
-const VIDEO_READY = false
+const VIDEO_READY = true
 const VIDEO_SRC = '/qfp/fulfil/hero.mp4'
 const SHOW_RESTRICTED_CLIENTS = false
 
@@ -86,6 +89,10 @@ const VIcon = {
 }
 
 // ── data ──────────────────────────────────────────────────────────────────────
+// These "safe" partners are all government / ministry / programme names — gated
+// behind SHOW_MINISTRY_NAMES (permission pending). If the switch is off AND no
+// restricted clients are shown, PARTNERS is empty and the whole marquee section
+// hides cleanly (see TrustMarquee) rather than leaving an empty strip.
 const SAFE_PARTNERS = [
   { label: 'Tanzania Institute of Education', sub: 'National Curriculum', icon: 'bank' },
   { label: 'Ghana — USAID Programmes', sub: 'Education Supply', icon: 'pin' },
@@ -100,7 +107,8 @@ const RESTRICTED_PARTNERS = [
   { label: 'HDFC Bank Ltd', sub: 'Corporate', icon: 'bank' },
   { label: 'ZEE Learn / Kidzee', sub: 'Education', icon: 'globe' },
 ]
-const PARTNERS = SHOW_RESTRICTED_CLIENTS ? [...SAFE_PARTNERS, ...RESTRICTED_PARTNERS] : SAFE_PARTNERS
+const MINISTRY_PARTNERS = SHOW_MINISTRY_NAMES ? SAFE_PARTNERS : []
+const PARTNERS = SHOW_RESTRICTED_CLIENTS ? [...MINISTRY_PARTNERS, ...RESTRICTED_PARTNERS] : MINISTRY_PARTNERS
 
 const CARDS = [
   { n: '01', name: 'Kitting & Assembly', src: `${BASE}/card-01.webp`,
@@ -192,6 +200,9 @@ function MqIcon({ type }) {
 
 function TrustMarquee({ reduced }) {
   const track = useRef(null)
+  // Every partner here is a gated ministry/programme name; if all are hidden the
+  // strip has nothing to show, so drop the whole section (no empty marquee).
+  const empty = PARTNERS.length === 0
   useLayoutEffect(() => {
     if (reduced || !track.current) return
     const anim = track.current.animate(
@@ -213,6 +224,8 @@ function TrustMarquee({ reduced }) {
     }
   }, [reduced])
 
+  if (empty) return null
+
   const Seq = ({ clone }) => (
     <div className="ff-mq-seq" aria-hidden={clone || undefined}>
       {PARTNERS.map((p, i) => (
@@ -229,6 +242,8 @@ function TrustMarquee({ reduced }) {
 
   return (
     <section data-theme="light" className="ff-trust" aria-labelledby="ff-trust-title">
+      <SectionCurve position="top" fill="#f0ebe0" />
+      <PaperGrain />
       <div className="ff-trust-head">
         <p className="ff-shared-eyebrow ff-trust-eyebrow ff-reveal">They trust us</p>
         <h2 id="ff-trust-title" className="ff-trust-title ff-reveal">
@@ -250,6 +265,8 @@ function Conviction() {
   const q2 = 'delivery is part of printing.'.split(' ')
   return (
     <section data-theme="light" className="ff-conv" aria-labelledby="ff-conv-title">
+      <SectionCurve position="top" fill="#fdfaf4" />
+      <PaperGrain />
       <div className="ff-conv-inner">
         <p className="ff-shared-eyebrow ff-conv-eyebrow ff-reveal">Our conviction</p>
         <h2 id="ff-conv-title" className="ff-conv-quote ff-reveal">
@@ -277,6 +294,8 @@ function Conviction() {
 function ValueGrid() {
   return (
     <section data-theme="dark" className="ff-value" aria-labelledby="ff-value-title">
+      <SectionCurve position="top" fill="#0f2444" />
+      <DotField tone="navy" />
       <div className="ff-value-inner">
         <p className="ff-shared-eyebrow ff-value-eyebrow ff-reveal">Why trust our fulfilment</p>
         <h2 id="ff-value-title" className="ff-value-title ff-reveal">
@@ -338,6 +357,8 @@ function FeatureRow({ f, i }) {
 function Features() {
   return (
     <section data-theme="light" className="ff-features" aria-label="How fulfilment works, step by step">
+      <SectionCurve position="top" fill="#fdfaf4" />
+      <PaperGrain />
       <div className="ff-features-inner">
         {FEATURES.map((f, i) => <FeatureRow key={f.n} f={f} i={i} />)}
       </div>
@@ -348,6 +369,7 @@ function Features() {
 function Journey() {
   return (
     <section data-theme="dark" className="ff-journey" aria-labelledby="ff-journey-title">
+      <SectionCurve position="top" fill="#0f2444" />
       <div className="ff-journey-media" style={{ backgroundImage: `url(${BASE}/journey.webp)` }} aria-hidden="true" />
       <div className="ff-journey-scrim" aria-hidden="true" />
       <div className="ff-journey-inner">
@@ -373,6 +395,8 @@ function Journey() {
 function CTA() {
   return (
     <section data-theme="light" className="ff-cta" aria-labelledby="ff-cta-title">
+      <SectionCurve position="top" fill="#f0ebe0" />
+      <PaperGrain />
       <p className="ff-shared-eyebrow ff-cta-eyebrow ff-reveal">One roof, start to finish</p>
       <h2 id="ff-cta-title" className="ff-cta-title ff-reveal">Let&apos;s move your books.</h2>
       <p className="ff-cta-sub ff-reveal">

@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import CountUp from '@/components/CountUp'
+import SectionCurve from '@/components/SectionCurve'
+import { WavyBackground, DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 import { prefersReduced } from '@/lib/useReducedMotion'
+import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -44,10 +47,13 @@ const STEPS = [
 
 // Africa programme footprint (educational-books.md) + ministry milestone figures
 // (homepage.md). No client corporate names anywhere on this page.
+// `figureSafe` neutralises the named programme (UBEC / World Bank / USAID) when
+// SHOW_MINISTRY_NAMES is off — the country tile stays, only the programme name
+// drops, so the grid keeps its shape.
 const COUNTRIES = [
   { name: 'Tanzania', figure: '10M books', key: true },
-  { name: 'Ghana', figure: '10M · World Bank / USAID', key: true },
-  { name: 'Nigeria', figure: '8M · UBEC', key: true },
+  { name: 'Ghana', figure: '10M · World Bank / USAID', figureSafe: '10M books', key: true },
+  { name: 'Nigeria', figure: '8M · UBEC', figureSafe: '8M books', key: true },
   { name: 'Ivory Coast', figure: '7M books', key: true },
   { name: 'DR Congo', figure: '5M books', key: true },
   { name: 'Senegal', figure: 'National programme' },
@@ -196,6 +202,7 @@ export default function EducationalBooks() {
     <main id="main" ref={root}>
       {/* ── 1. HERO ── */}
       <section ref={heroRef} data-theme="light" className="edu-hero" aria-labelledby="edu-h1">
+        <PaperGrain />
         <div className="edu-hero-labels" aria-hidden="true">
           <span className="edu-corner" style={{ top: '116px', left: '32px' }}>Educational Books</span>
           <span className="edu-corner" style={{ top: '116px', right: '32px' }}>25+ Countries · Since 2002</span>
@@ -215,7 +222,8 @@ export default function EducationalBooks() {
       </section>
 
       {/* ── 2. BOOK REVEAL (scroll-scrub) ── */}
-      <section data-theme="light" className="edu-book" aria-label="Programme partner proof">
+      <section data-theme="light" className="edu-book overflow-hidden" aria-label="Programme partner proof">
+        <PaperGrain />
         <div className="edu-book-pin">
           <span className="edu-book-kicker">Trusted with the work that matters</span>
           <img
@@ -229,8 +237,9 @@ export default function EducationalBooks() {
       </section>
 
       {/* ── 2b. NAVY PROOF LEDGER (gold stats pass contrast on navy) ── */}
-      <section data-theme="dark" className="edu-proof" aria-label="Programme statistics">
-        <div className="edu-proof-inner">
+      <section data-theme="dark" className="edu-proof relative" aria-label="Programme statistics">
+        <EdgeGlow tone="navy" />
+        <div className="edu-proof-inner relative z-10">
           <div className="edu-proof-cell">
             <div className="edu-proof-num">World Bank<span style={{ opacity: 0.5 }}> · </span>USAID</div>
             <div className="edu-proof-label">Programme partner on government-funded print</div>
@@ -247,8 +256,10 @@ export default function EducationalBooks() {
       </section>
 
       {/* ── 3. PROCESS ── */}
-      <section id="process" data-theme="light" className="edu-proc" aria-labelledby="edu-proc-title">
-        <div className="edu-proc-inner">
+      <section id="process" data-theme="light" className="edu-proc relative overflow-hidden" aria-labelledby="edu-proc-title">
+        <SectionCurve position="top" fill="#f0ebe0" />
+        <PaperGrain />
+        <div className="edu-proc-inner relative z-10">
           <p className="edu-proc-eyebrow">How a programme runs</p>
           <h2 id="edu-proc-title" className="edu-proc-title">From ministry tender to the classroom desk.</h2>
           <div className="edu-proc-grid">
@@ -269,8 +280,10 @@ export default function EducationalBooks() {
       </section>
 
       {/* ── 4. IMPACT BAND (navy) ── */}
-      <section data-theme="dark" className="edu-impact" aria-labelledby="edu-impact-title">
-        <div className="edu-impact-inner">
+      <section data-theme="dark" className="edu-impact relative overflow-hidden" aria-labelledby="edu-impact-title">
+        <WavyBackground className="pointer-events-none absolute inset-0 h-full w-full" />
+        <SectionCurve position="top" fill="#0f2444" />
+        <div className="edu-impact-inner relative z-10">
           <div className="edu-impact-head">
             <div>
               <p className="edu-impact-eyebrow">Africa programmes</p>
@@ -285,7 +298,7 @@ export default function EducationalBooks() {
             {COUNTRIES.map((c) => (
               <div className="edu-country" key={c.name}>
                 <div className="edu-country-name">{c.name}</div>
-                <div className={`edu-country-figure${c.key ? '' : ' muted'}`}>{c.figure}</div>
+                <div className={`edu-country-figure${c.key ? '' : ' muted'}`}>{SHOW_MINISTRY_NAMES ? c.figure : (c.figureSafe || c.figure)}</div>
               </div>
             ))}
           </div>
@@ -298,12 +311,14 @@ export default function EducationalBooks() {
       </section>
 
       {/* ── 5. CTA (beige) ── */}
-      <section data-theme="light" className="edu-cta" aria-labelledby="edu-cta-title">
-        <h2 id="edu-cta-title" className="edu-cta-title">Print your programme with us.</h2>
-        <p className="edu-cta-sub">
+      <section data-theme="light" className="edu-cta relative overflow-hidden" aria-labelledby="edu-cta-title">
+        <SectionCurve position="top" fill="#f0ebe0" />
+        <PaperGrain />
+        <h2 id="edu-cta-title" className="edu-cta-title relative z-10">Print your programme with us.</h2>
+        <p className="edu-cta-sub relative z-10">
           Ten million textbooks for a national rollout, or a first curriculum edition — tell us the specification and we’ll come back within one business day.
         </p>
-        <Link to="/contact" className="edu-cta-pill">
+        <Link to="/contact" className="edu-cta-pill relative z-10">
           Start your programme
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m11 5 7 7-7 7" /></svg>
         </Link>

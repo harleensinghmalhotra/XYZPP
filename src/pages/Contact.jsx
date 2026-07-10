@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
+import SectionCurve from '@/components/SectionCurve'
+import { WavyBackground, DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -306,8 +308,9 @@ export default function Contact() {
   return (
     <main id="main" ref={root}>
       {/* ── 1. HERO (navy, compact) ── */}
-      <section data-theme="dark" className="ctc-hero" aria-labelledby="ctc-h1">
-        <div className="ctc-hero-inner">
+      <section data-theme="dark" className="ctc-hero relative overflow-hidden" aria-labelledby="ctc-h1">
+        <WavyBackground className="pointer-events-none absolute inset-0 h-full w-full" />
+        <div className="ctc-hero-inner relative z-10">
           <nav className="ctc-crumb" aria-label="Breadcrumb">
             <Link to="/">Home</Link>
             <span aria-hidden="true">»</span>
@@ -342,8 +345,10 @@ export default function Contact() {
       </section>
 
       {/* ── 3. WELCOME STATEMENT ── */}
-      <section data-theme="light" className="ctc-welcome">
-        <div className="ctc-welcome-inner ctc-reveal">
+      <section data-theme="light" className="ctc-welcome relative overflow-hidden">
+        <SectionCurve position="top" fill="#fdfaf4" />
+        <PaperGrain />
+        <div className="ctc-welcome-inner ctc-reveal relative z-10">
           <p className="ctc-eyebrow">We&apos;d love to hear from you</p>
           <h2 className="ctc-welcome-head">
             One partner for the whole print journey, from a national textbook
@@ -358,8 +363,9 @@ export default function Contact() {
       </section>
 
       {/* ── 4. QUICK-ACTION TILES ── */}
-      <section data-theme="light" className="ctc-tiles-sec" aria-label="Ways to reach us">
-        <div className="ctc-tiles">
+      <section data-theme="light" className="ctc-tiles-sec relative overflow-hidden" aria-label="Ways to reach us">
+        <PaperGrain />
+        <div className="ctc-tiles relative z-10">
           {TILES.map((t) => {
             const props = t.external
               ? { href: t.href, target: '_blank', rel: 'noreferrer' }
@@ -387,8 +393,19 @@ export default function Contact() {
       </section>
 
       {/* ── 5. ADDRESSES & HOURS (navy) ── */}
-      <section data-theme="dark" className="ctc-addr" aria-labelledby="ctc-addr-title">
-        <div className="ctc-addr-inner">
+      <section data-theme="dark" className="ctc-addr relative overflow-hidden" aria-labelledby="ctc-addr-title">
+        <SectionCurve position="top" fill="#0f2444" />
+        {/* Real QFP facility exterior (navy duotone) — grounds "our locations" in the actual building */}
+        <img
+          src="/qfp/contact/facility-navy.webp"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          draggable="false"
+          className="ctc-addr-bg pointer-events-none absolute inset-0 h-full w-full object-cover"
+        />
+        <EdgeGlow />
+        <div className="ctc-addr-inner relative z-10">
           <div className="ctc-addr-head ctc-reveal">
             <p className="ctc-eyebrow gold">Our locations</p>
             <h2 id="ctc-addr-title" className="ctc-addr-title">Two sites in Navi Mumbai.</h2>
@@ -435,8 +452,10 @@ export default function Contact() {
       </section>
 
       {/* ── 6. ENQUIRY FORM ── */}
-      <section id="enquiry" data-theme="light" className="ctc-form-sec" aria-labelledby="ctc-form-title">
-        <div className="ctc-form-inner">
+      <section id="enquiry" data-theme="light" className="ctc-form-sec relative overflow-hidden" aria-labelledby="ctc-form-title">
+        <SectionCurve position="top" fill="#f0ebe0" />
+        <PaperGrain />
+        <div className="ctc-form-inner relative z-10">
           <div className="ctc-form-intro ctc-reveal">
             <p className="ctc-eyebrow">Send an enquiry</p>
             <h2 id="ctc-form-title" className="ctc-form-title">Tell us about your project.</h2>
@@ -563,8 +582,10 @@ export default function Contact() {
       </section>
 
       {/* ── 7. FAQ (audience tabs) ── */}
-      <section data-theme="light" className="ctc-faq" aria-labelledby="ctc-faq-title">
-        <div className="ctc-faq-inner">
+      <section data-theme="light" className="ctc-faq relative overflow-hidden" aria-labelledby="ctc-faq-title">
+        <SectionCurve position="top" fill="#fdfaf4" />
+        <PaperGrain />
+        <div className="ctc-faq-inner relative z-10">
           <div className="ctc-reveal">
             <p className="ctc-eyebrow">Questions, answered</p>
             <h2 id="ctc-faq-title" className="ctc-faq-title">Frequently asked questions.</h2>
@@ -625,8 +646,10 @@ export default function Contact() {
       </section>
 
       {/* ── 8. CTA BAND (beige) — quiet email closer ── */}
-      <section data-theme="light" className="ctc-closer">
-        <div className="ctc-closer-inner ctc-reveal">
+      <section data-theme="light" className="ctc-closer relative overflow-hidden">
+        <SectionCurve position="top" fill="#f0ebe0" />
+        <PaperGrain />
+        <div className="ctc-closer-inner ctc-reveal relative z-10">
           <p className="ctc-closer-line">Prefer email?</p>
           <a className="ctc-closer-mail focus-ring" href={`mailto:${EMAIL_ENQ}`}>{EMAIL_ENQ}</a>
         </div>

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import CountUp from '@/components/CountUp'
 import { useReducedMotion } from '@/lib/useReducedMotion'
+import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 
 // ── Trust strips (sits directly below the hero's book landing) ──────────────
 // Content ported verbatim from the client's vibe-coded homepage v17
@@ -16,20 +17,23 @@ const COUNTRIES = [
 ]
 
 // Strip 2 — institutions, exact source order + exact per-item icon. Drifts RIGHT (~38s).
-const INSTITUTIONS = [
-  { label: 'World Bank-Funded Projects', icon: 'layers' },
-  { label: 'USAID Programmes', icon: 'pin' },
-  { label: 'UN AID Programmes', icon: 'globe' },
-  { label: 'Government Ministry Tenders', icon: 'monitor' },
-  { label: 'Tanzania Institute of Education', icon: 'bank' },
-  { label: 'Maharashtra State Bureau', icon: 'monitor' },
+// `ministry: true` marks government / ministry / programme names gated behind
+// SHOW_MINISTRY_NAMES (permission pending); they filter out cleanly when off.
+const INSTITUTIONS_ALL = [
+  { label: 'World Bank-Funded Projects', icon: 'layers', ministry: true },
+  { label: 'USAID Programmes', icon: 'pin', ministry: true },
+  { label: 'UN AID Programmes', icon: 'globe', ministry: true },
+  { label: 'Government Ministry Tenders', icon: 'monitor', ministry: true },
+  { label: 'Tanzania Institute of Education', icon: 'bank', ministry: true },
+  { label: 'Maharashtra State Bureau', icon: 'monitor', ministry: true },
   { label: 'HDFC Bank Ltd', icon: 'pin' },
   { label: 'ZEE Learn / Kidzee', icon: 'globe' },
   { label: 'Reliance Industries', icon: 'bank' },
-  { label: 'World Bank-Funded Projects', icon: 'pin' },
-  { label: 'USAID Programmes', icon: 'globe' },
-  { label: 'Government Ministry Tenders', icon: 'monitor' },
+  { label: 'World Bank-Funded Projects', icon: 'pin', ministry: true },
+  { label: 'USAID Programmes', icon: 'globe', ministry: true },
+  { label: 'Government Ministry Tenders', icon: 'monitor', ministry: true },
 ]
+const INSTITUTIONS = INSTITUTIONS_ALL.filter((it) => SHOW_MINISTRY_NAMES || !it.ministry)
 
 // Strip 3 — four stats, exact source text + icons. Count-up on first view.
 const STATS = [

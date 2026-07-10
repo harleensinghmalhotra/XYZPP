@@ -2458,7 +2458,7 @@ body {
 }
 .aw-clip-head { display: flex; align-items: baseline; justify-content: space-between; }
 .aw-clip-masthead { font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 0.01em; color: #0f2444; }
-.aw-clip-date { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; color: rgba(15, 36, 68, 0.55); }
+.aw-clip-date { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: rgba(15, 36, 68, 0.55); white-space: nowrap; }
 .aw-clip-rule { height: 1px; background: rgba(15, 36, 68, 0.28); }
 .aw-clip-headline { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 15px; line-height: 1.25; color: #0f2444; }
 .aw-clip-lines { display: flex; flex-direction: column; gap: 6px; margin-top: 2px; }
@@ -2978,6 +2978,14 @@ body {
     #0f2444;
   padding: 116px 24px 108px; color: #fdfaf4;
 }
+/* Real QFP facility exterior — sunk deep under a navy scrim so it grounds the
+   "our locations" section without ever competing with the address copy. */
+.ctc-addr-bg {
+  opacity: 0.16;
+  object-position: center 40%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 70%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 70%, transparent 100%);
+}
 .ctc-addr-inner { max-width: 1180px; margin: 0 auto; }
 .ctc-addr-head { margin-bottom: 48px; }
 .ctc-addr-title {
@@ -3480,6 +3488,18 @@ body {
 }
 .ff-cta-pill svg { width: 18px; height: 18px; stroke: #0f2444; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .ff-cta-pill:hover { background: #e6bd6a; transform: translateY(-2px); }
+
+/* ── Phase 2.5 atmosphere enabling — host sections become the positioning context
+   for SectionCurve / PaperGrain / DotField (absolutely-positioned, aria-hidden
+   decoration). No layout/visual change to content; content is lifted above the
+   ambient layers so nothing overlaps the copy. ─────────────────────────────── */
+.ff-trust, .ff-conv, .ff-features, .ff-cta { position: relative; overflow: hidden; }
+.ff-trust > .ff-trust-head, .ff-trust > .ff-mq { position: relative; z-index: 2; }
+.ff-conv > .ff-conv-inner,
+.ff-features > .ff-features-inner { position: relative; z-index: 2; }
+.ff-cta > .ff-cta-eyebrow, .ff-cta > .ff-cta-title,
+.ff-cta > .ff-cta-sub, .ff-cta > .ff-cta-pill { position: relative; z-index: 2; }
+.ff-value-inner { z-index: 2; }
 
 /* ── Reveal (GSAP sets autoAlpha; these are the resting/reduced states) ─────── */
 .ff-reveal { will-change: transform, opacity; }

@@ -50,7 +50,7 @@ export function CalibrationBar({ height = 16, withLabels = false }) {
             className="relative"
           >
             {withLabels && (
-              <span className="absolute inset-x-0 -bottom-5 text-center text-[9px] font-mono tracking-widest text-ink-400">
+              <span className="absolute inset-x-0 -bottom-5 text-center text-[11px] font-mono tracking-widest text-ink-400">
                 {s.l}
               </span>
             )}

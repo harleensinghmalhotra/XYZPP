@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CountUp from '@/components/CountUp'
+import SectionCurve from '@/components/SectionCurve'
+import { WavyBackground, DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 import './PrintOnDemand.css'
 
 /* /print-on-demand — replaces the ShellPage. A "Build Your Book" configurator
@@ -234,6 +236,7 @@ export default function PrintOnDemand() {
     <main id="main" className="pod">
       {/* 1 · HERO */}
       <section className="pod-hero" data-theme="light">
+        <PaperGrain opacity={0.05} />
         <div className="pod-hero-inner">
           <p className="pod-eyebrow">Print on Demand</p>
           <h1 className="pod-h1">
@@ -460,6 +463,8 @@ export default function PrintOnDemand() {
 
       {/* 3 · HOW IT WORKS */}
       <section className="pod-how" data-theme="light" aria-labelledby="pod-how-title">
+        <SectionCurve position="top" fill="#f0ebe0" />
+        <PaperGrain opacity={0.05} />
         <div className="pod-how-inner">
           <div className="pod-how-head">
             <p className="pod-eyebrow">How it works</p>
@@ -480,6 +485,9 @@ export default function PrintOnDemand() {
 
       {/* 4 · REASSURANCE BAND */}
       <section className="pod-band" data-theme="dark" aria-labelledby="pod-band-title">
+        <SectionCurve position="top" fill="#0f2444" />
+        <WavyBackground className="pointer-events-none absolute inset-0 h-full w-full opacity-60" />
+        <SectionCurve position="bottom" fill="#0f2444" />
         <div className="pod-band-inner">
           <p className="pod-eyebrow" style={{ color: '#c89a3c' }}>The same presses</p>
           <p className="pod-band-quote" id="pod-band-title">
@@ -509,6 +517,7 @@ export default function PrintOnDemand() {
 
       {/* 5 · CTA */}
       <section className="pod-cta" data-theme="light" aria-labelledby="pod-cta-title">
+        <PaperGrain opacity={0.05} />
         <div className="pod-cta-inner">
           <p className="pod-eyebrow">Take it slowly</p>
           <h2 className="pod-cta-title" id="pod-cta-title">Not sure yet? Order a sample first.</h2>

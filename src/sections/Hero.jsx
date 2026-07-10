@@ -11,28 +11,54 @@ const BUBBLE = '/qfp/hero/qfp-bubble.webp'
 const GOLD = '#C89A3C' // System B on-navy accent gold (matches ledger-num, 5.3:1 on navy)
 
 // Bloom figures. w / cx / cy are in **vw** (offsets from the book centre) so the
-// whole spread scales with the book at any viewport. 6 QFP characters + props
-// replace the reference's 10-piece sticker spread. Same scatter-to-place scrub:
+// whole spread scales with the book at any viewport. Layout matches Ekta's
+// mockup (qfp-homepage-v17.html): the 4 kids render BEHIND the book (layer:'back')
+// so the pages crop them — the two centre kids peek head+shoulders+chest over the
+// page tops (page-top edge ≈ -20.3vw / -19.1vw from book centre), the two outer
+// kids stand at ground level and are cropped by the book's side edges (≈ ±42vw).
+// Props sit in FRONT of the book (layer:'front'). Same scatter-to-place scrub:
 // each starts scaled to 0 at its final (cx,cy) and grows in over the bloom window.
+// Bloom figures. w / cx / cy are in **vw** (offsets from the book centre). The
+// book keeps its ORIGINAL full-width size and rise — only these assets move to
+// fit around it. The 4 kids render BEHIND the book (layer:'back') so the pages
+// crop them: the two centre kids peek head+shoulders+chest over the page tops
+// (page-top edge ≈ -20.3vw / -19.1vw from book centre), the two outer kids stand
+// at ground level and are cropped by the book's side edges (≈ ±43vw). Props sit
+// in FRONT (layer:'front'). Same scatter-to-place scrub: each starts scaled to 0
+// at its final (cx,cy) and grows in over the bloom window.
 const CUTOUTS = [
-  { key: 'boy-red',      src: '/qfp/hero/qfp-kid-boy-red.webp',       w: 11.5, cx: -12.5, cy: -11.0, reveal: 'scale', z: 7 }, // peeking over LEFT page top edge
-  { key: 'girl-blonde',  src: '/qfp/hero/qfp-kid-girl-blonde.webp',   w: 13.0, cx: 12.5,  cy: -11.0, reveal: 'scale', z: 7 }, // peeking over RIGHT page top edge
-  { key: 'girl-mustard', src: '/qfp/hero/qfp-kid-girl-mustard.webp',  w: 13.5, cx: -37.0, cy: 2.5,   reveal: 'scale', z: 5 }, // far LEFT, ground level
-  { key: 'boy-green',    src: '/qfp/hero/qfp-kid-boy-green.webp',     w: 12.0, cx: 37.0,  cy: 2.5,   reveal: 'scale', z: 5 }, // far RIGHT, ground level
-  { key: 'prop-bookstack', src: '/qfp/hero/qfp-prop-bookstack.webp', w: 15.5, cx: -26.5, cy: 12.5,  reveal: 'scale', z: 3 }, // low accent near mustard's feet
-  { key: 'prop-plane',   src: '/qfp/hero/qfp-prop-plane.webp',        w: 11.0, cx: 25.0,  cy: -15.0, reveal: 'scale', z: 3 }, // upper accent
+  // BACK layer — behind the book, cropped by the pages / side edges
+  { key: 'boy-red',      src: '/qfp/hero/qfp-kid-boy-red.webp',       layer: 'back', w: 11.5, cx: -21.3, cy: -16.5, z: 2 }, // behind LEFT page, head+shoulders+chest over the top edge
+  { key: 'girl-blonde',  src: '/qfp/hero/qfp-kid-girl-blonde.webp',   layer: 'back', w: 15.5, cx: 20.3,  cy: -15.5, z: 2 }, // behind RIGHT page, upper body over the top edge
+  { key: 'girl-mustard', src: '/qfp/hero/qfp-kid-girl-mustard.webp',  layer: 'back', w: 15.0, cx: -42.0, cy: -6.0,  z: 1 }, // far LEFT ground, cropped by the book's left edge
+  { key: 'boy-green',    src: '/qfp/hero/qfp-kid-boy-green.webp',      layer: 'back', w: 10.5, cx: 41.0,  cy: -6.0,  z: 1 }, // far RIGHT ground, cropped by the book's right edge
+  // FRONT layer — the "bouquet": props sit ON the open pages, clustered around the
+  // spine, and bloom from the centre (drift:true → grow from ~0.15 scale near the
+  // spine and drift out to these final spots). All stay below y≈360px at landed so
+  // they never reach the kids' faces / bubbles (which live in the upper band).
+  // Order sets the pop sequence; bigger central pieces carry higher z (in front).
+  { key: 'prop-balloon', src: '/qfp/hero/prop-balloon.webp',          layer: 'front', drift: true, w: 10.0, cx: 0.0,   cy: -9.0,  z: 6 }, // big, rises from the spine
+  { key: 'prop-globe',   src: '/qfp/hero/prop-globe.webp',            layer: 'front', drift: true, w: 16.5, cx: -9.0,  cy: -3.0,  z: 5 }, // big, centre-left over the left page
+  { key: 'prop-owl',     src: '/qfp/hero/prop-owl.webp',              layer: 'front', drift: true, w: 14.0, cx: 9.0,   cy: -3.0,  z: 4 }, // big, centre-right over the right page
+  { key: 'prop-bulb',    src: '/qfp/hero/prop-bulb.webp',             layer: 'front', drift: true, w: 7.0,  cx: 14.0,  cy: -12.0, z: 3 }, // medium, upper right page
+  { key: 'prop-blocks',  src: '/qfp/hero/prop-blocks.webp',           layer: 'front', drift: true, w: 6.5,  cx: -17.0, cy: -4.0,  z: 3 }, // medium, left flank (spreads onto left page)
+  { key: 'prop-pencil',  src: '/qfp/hero/prop-pencil.webp',           layer: 'front', drift: true, w: 7.5,  cx: 18.0,  cy: 2.0,   z: 2 }, // medium, right-lower flank
+  { key: 'prop-plane',   src: '/qfp/hero/qfp-prop-plane.webp',        layer: 'front', drift: true, w: 6.0,  cx: -12.0, cy: -15.0, z: 2 }, // repositioned INSIDE the spread, upper-left page
+  { key: 'prop-bookstack', src: '/qfp/hero/qfp-prop-bookstack.webp', layer: 'front', w: 12.5, cx: -33.0, cy: 3.0,   z: 5 }, // grounded accent, book's lower-left (stays — scale in place)
 ]
 
-// 4 speech bubbles — one above each kid, tail pointing toward the kid. Text is
+// 4 speech bubbles — one floating CLEARLY above each kid's head (front layer),
+// tail pointing DOWN toward that kid, never touching a face or hands. Text is
 // REAL HTML inside a single transform wrapper so it scales WITH the bubble.
+// Key figures in gold (kept from our palette, not Ekta's orange); rest navy.
 const BUBBLES = [
-  { key: 'b-mustard', forKey: 'girl-mustard', w: 18.0, cx: -35.5, cy: -15.5,
+  { key: 'b-mustard', forKey: 'girl-mustard', w: 11.5, cx: -38.0, cy: -24.0,
     body: (<>Oh yes! Education has no borders.</>) },
-  { key: 'b-red', forKey: 'boy-red', w: 18.5, cx: -13.5, cy: -26.5,
+  { key: 'b-red', forKey: 'boy-red', w: 11.5, cx: -11.0, cy: -27.0,
     body: (<>Quarterfold Prints <b style={{ color: GOLD, fontWeight: 700 }}>25 Million Books</b> Every Year.</>) },
-  { key: 'b-blonde', forKey: 'girl-blonde', w: 18.5, cx: 13.5, cy: -26.5,
+  { key: 'b-blonde', forKey: 'girl-blonde', w: 11.5, cx: 11.0, cy: -27.0,
     body: (<>What? They also export to <b style={{ color: GOLD, fontWeight: 700 }}>25+ Countries</b> every year?</>) },
-  { key: 'b-green', forKey: 'boy-green', w: 19.0, cx: 35.5, cy: -15.5,
+  { key: 'b-green', forKey: 'boy-green', w: 11.8, cx: 39.0, cy: -24.0,
     body: (<>Wow! That means the books have been read by <b style={{ color: GOLD, fontWeight: 700 }}>billions</b> of people!</>) },
 ]
 
@@ -45,12 +71,25 @@ export default function Hero() {
   const copyGroup = useRef(null)
   const riseWrap = useRef(null)
   const overlay = useRef(null)
-  const bloomWrap = useRef(null)
   const elRefs = useRef([])
-  const floatRefs = useRef([])
   const bubbleRefs = useRef([])
 
   const cutouts = useMemo(() => CUTOUTS, [])
+
+  // One positioned cutout (kid or prop). The inner div is the GSAP scale/opacity
+  // target, kept separate from the position transform so scale never clobbers
+  // placement. Rendered into the back or front layer by its `layer` field.
+  const renderCutout = (c, i) => (
+    <div
+      key={c.key}
+      className="absolute"
+      style={{ left: `${c.cx}vw`, top: `${c.cy}vw`, width: `${c.w}vw`, transform: 'translate(-50%, -50%)', zIndex: c.z }}
+    >
+      <div data-cut={c.key} ref={(n) => (elRefs.current[i] = n)} className="will-change-transform" style={{ transformOrigin: '50% 50%' }}>
+        <img src={c.src} alt="" aria-hidden="true" className="block w-full max-w-none select-none drop-shadow-[0_12px_20px_rgba(10,20,40,0.35)]" draggable="false" />
+      </div>
+    </div>
+  )
 
   useEffect(() => {
     if (reduced) return
@@ -63,14 +102,10 @@ export default function Hero() {
       gsap.set(riseWrap.current, { y: 0 })
       gsap.set(overlay.current, { opacity: 1 }) // cover overlay hides the pages at rest
 
-      elRefs.current.forEach((node, i) => {
-        if (!node) return
-        const c = cutouts[i]
-        gsap.set(node, c.reveal === 'fade' ? { opacity: 0 } : { opacity: 0, scale: 0, transformOrigin: '50% 50%' })
-        const f = floatRefs.current[i]
-        if (f) {
-          gsap.to(f, { yPercent: -6 - (i % 4) * 2, duration: 2.4 + (i % 3) * 0.4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: i * 0.12 })
-        }
+      // Cutouts start hidden + scaled to 0 at their final (cx,cy). No float loop —
+      // a drifting figure would slide against its fixed page crop line.
+      elRefs.current.forEach((node) => {
+        if (node) gsap.set(node, { opacity: 0, scale: 0, transformOrigin: '50% 50%' })
       })
       // bubbles rest at 0.85 + hidden, pop to 1 slightly after their kid lands
       bubbleRefs.current.forEach((node) => {
@@ -125,8 +160,15 @@ export default function Hero() {
         const node = elRefs.current[i]
         if (!node) return
         const at = 0.02 + i * 0.014
-        if (c.reveal === 'fade') bloomTl.fromTo(node, { opacity: 0 }, { opacity: 1, ease: 'sine.inOut', duration: 0.82 }, at)
-        else bloomTl.fromTo(node, { opacity: 0, scale: 0.1 }, { opacity: 1, scale: 1, ease: 'sine.inOut', duration: 0.82 }, at)
+        if (c.drift) {
+          // bouquet: start small near the spine centre, grow + drift out to final.
+          const vw = window.innerWidth / 100
+          const dx = -c.cx * vw * 0.72
+          const dy = -c.cy * vw * 0.72
+          bloomTl.fromTo(node, { opacity: 0, scale: 0.15, x: dx, y: dy }, { opacity: 1, scale: 1, x: 0, y: 0, ease: 'sine.inOut', duration: 0.82 }, at)
+        } else {
+          bloomTl.fromTo(node, { opacity: 0, scale: 0.1 }, { opacity: 1, scale: 1, ease: 'sine.inOut', duration: 0.82 }, at)
+        }
       })
       // Speech bubbles pop in WITH their kid (same window, slight delay after the
       // kid lands), scaling from 0.85 + fade like a sticker.
@@ -147,9 +189,9 @@ export default function Hero() {
     return (
       <section id="hero" data-theme="dark" className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#0c2f4a] px-6 text-center">
         <div className="flex flex-col items-center leading-[0.86]">
-          <span className="ml-[-23px] font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[9vw]">Powering</span>
-          <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[9vw]">Global</span>
-          <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] lg:text-[9vw]" style={{ color: GOLD }}>Education</span>
+          <span className="ml-[-23px] font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8vw]">Powering</span>
+          <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8vw]">Global</span>
+          <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] lg:text-[8vw]" style={{ background: 'linear-gradient(180deg,#fbeec2 0%,#eaca6f 32%,#c89a3c 55%,#9b7420 76%,#e2b552 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent', filter: 'drop-shadow(0 2px 1px rgba(48,32,8,0.4)) drop-shadow(0 8px 22px rgba(200,154,60,0.33))' }}>Education</span>
         </div>
         <p className="mt-8 max-w-[900px] text-[20px] leading-[1.35] text-white/90">We help publishers around the world print, bind, package, and deliver exceptional books on time, every time.</p>
       </section>
@@ -167,65 +209,51 @@ export default function Hero() {
 
         {/* Book + bloom — the whole graph wrapper rises together. Book TOP sits
             at 64vh (peeking) at rest; the rise raises it into view. */}
-        <div ref={riseWrap} className="absolute inset-x-0 top-0 z-[15] mt-[64vh] flex flex-col items-center will-change-transform">
+        {/* pointer-events-none: this decorative book/bloom wrapper is tall and its
+            transparent lower area overlaps the TrustStrips below — without this it
+            would swallow hover from the strips (breaking their hover-to-pause). */}
+        <div ref={riseWrap} className="pointer-events-none absolute inset-x-0 top-0 z-[15] mt-[64vh] flex flex-col items-center will-change-transform">
           <div className="relative flex w-full justify-center">
-            {/* lettered base (always present). clip-path cuts the bottom 19% — the
-                image's transparent shadow-padding zone below the cover pixels — so
-                the CSS drop-shadow stops at the TrustStrips gold-border line instead
-                of bleeding onto the strips. The 81% cut sits below the cover on both
-                the original and QFP books (solid ends ~76%), so it never truncates
-                the visible book and the junction stays pixel-identical.
-                (clip-path applies after filter, so it clips the drop-shadow too.) */}
-            <img src={BOOK_BASE} alt="Open QFP book" className="block w-full select-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]" style={{ clipPath: 'inset(0 0 19% 0)' }} draggable="false" />
-            {/* cover overlay on top at the same footprint — fades out to reveal the pages */}
-            <img ref={overlay} src={BOOK_OVER} alt="" aria-hidden="true" className="pointer-events-none absolute left-0 top-0 w-full select-none object-contain" draggable="false" />
+            {/* LAYER 1 (z-0) — the 4 kids render BEHIND the book so the pages and
+                side edges crop them (the peek effect). Sits under the book base. */}
+            <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
+              <div className="relative">
+                {cutouts.map((c, i) => (c.layer === 'back' ? renderCutout(c, i) : null))}
+              </div>
+            </div>
 
-            {/* bloom cutouts + bubbles, each CENTRED at (cx, cy) vw from the book centre */}
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <div ref={bloomWrap} className="relative">
-                {cutouts.map((c, i) => {
-                  return (
-                    <div
-                      key={c.key}
-                      className="absolute"
-                      style={{ left: `${c.cx}vw`, top: `${c.cy}vw`, width: `${c.w}vw`, transform: 'translate(-50%, -50%)', zIndex: c.z }}
-                    >
-                      {/* inner div = GSAP scale/opacity target (kept separate from the
-                          position transform so scale never clobbers placement) */}
-                      <div data-cut={c.key} ref={(n) => (elRefs.current[i] = n)} className="will-change-transform" style={{ transformOrigin: '50% 50%' }}>
-                        <img
-                          ref={(n) => (floatRefs.current[i] = n)}
-                          src={c.src}
-                          alt=""
-                          aria-hidden="true"
-                          className="block w-full max-w-none select-none drop-shadow-[0_12px_20px_rgba(10,20,40,0.35)]"
-                          draggable="false"
-                        />
-                      </div>
-                    </div>
-                  )
-                })}
+            {/* lettered base (z-[1], ON TOP of the kids). clip-path cuts the bottom
+                19% transparent shadow-padding zone so the CSS drop-shadow stops at
+                the TrustStrips gold-border line (junction unchanged). */}
+            <img src={BOOK_BASE} alt="Open QFP book" className="relative z-[1] block w-full select-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]" style={{ clipPath: 'inset(0 0 19% 0)' }} draggable="false" />
+            {/* cover overlay (z-[2]) at the same footprint — fades out to reveal the pages */}
+            <img ref={overlay} src={BOOK_OVER} alt="" aria-hidden="true" className="pointer-events-none absolute left-0 top-0 z-[2] w-full select-none object-contain" draggable="false" />
 
-                {/* speech bubbles — real HTML text inside one transform wrapper */}
+            {/* LAYER 3 (z-[3]) — props + speech bubbles IN FRONT of the book */}
+            <div className="pointer-events-none absolute inset-0 z-[3] flex items-center justify-center">
+              <div className="relative">
+                {cutouts.map((c, i) => (c.layer === 'front' ? renderCutout(c, i) : null))}
+
+                {/* speech bubbles — real HTML text inside one transform wrapper so it
+                    scales WITH the bubble; floats clear above each kid, tail down. */}
                 {BUBBLES.map((b, i) => (
                   <div
                     key={b.key}
                     className="absolute"
-                    style={{ left: `${b.cx}vw`, top: `${b.cy}vw`, width: `${b.w}vw`, transform: 'translate(-50%, -50%)', zIndex: 9 }}
+                    style={{ left: `${b.cx}vw`, top: `${b.cy}vw`, width: `${b.w}vw`, transform: 'translate(-50%, -50%)', zIndex: 30 }}
                   >
                     <div ref={(n) => (bubbleRefs.current[i] = n)} className="relative will-change-transform" style={{ transformOrigin: '50% 100%' }}>
                       <img src={BUBBLE} alt="" aria-hidden="true" className="block w-full select-none" draggable="false" />
-                      {/* text sits in the bubble body (top ~74%, above the tail),
-                          centred, Inter navy with gold key figures, min 11px. */}
-                      <div className="absolute inset-x-0 top-0 flex items-center justify-center px-[9%] text-center" style={{ height: '72%' }}>
+                      {/* text in the bubble body (top ~70%, above the tail), centred */}
+                      <div className="absolute inset-x-0 top-0 flex items-center justify-center px-[10%] text-center" style={{ height: '70%' }}>
                         <p
                           style={{
                             margin: 0,
                             fontFamily: "'Inter', sans-serif",
                             fontWeight: 500,
                             color: '#0F2444',
-                            fontSize: 'clamp(11px, 0.95vw, 14.5px)',
-                            lineHeight: 1.25,
+                            fontSize: 'clamp(11px, 0.72vw, 12px)',
+                            lineHeight: 1.22,
                             letterSpacing: '-0.1px',
                           }}
                         >
@@ -242,57 +270,86 @@ export default function Hero() {
 
         {/* Centered content block (title / subcopy / CTA). pt-[16vh] gives the
             three headline lines room (was 29vh for the two-line reference). */}
-        <div ref={textWrap} className="absolute inset-x-0 top-0 z-30 flex flex-col items-center px-4 pt-[16vh] font-metrisch">
+        <div ref={textWrap} className="absolute inset-x-0 top-0 z-30 flex flex-col items-center px-4 pt-[12vh] font-metrisch">
           <div ref={titleGhost} className="flex flex-col items-center leading-[0.86] will-change-transform">
             {/* POWERING (cream) */}
-            <div className="ml-[-23px] text-[13vw] font-bold uppercase text-[#fdfaf4] lg:text-[9vw]" style={{ letterSpacing: '-0.2vw' }}>
+            <div className="ml-[-23px] text-[13vw] font-bold uppercase text-[#fdfaf4] lg:text-[8vw]" style={{ letterSpacing: '-0.2vw' }}>
               Powering
             </div>
             {/* GLOBAL (cream) */}
-            <div className="mt-[4px] text-[13vw] font-bold uppercase text-[#fdfaf4] lg:text-[9vw]" style={{ letterSpacing: '-0.2vw' }}>
+            <div className="mt-[4px] text-[13vw] font-bold uppercase text-[#fdfaf4] lg:text-[8vw]" style={{ letterSpacing: '-0.2vw' }}>
               Global
             </div>
             {/* EDUCATION (gold accent) with the inline rotating QFP seal */}
-            <div className="mt-[4px] flex items-center text-[13vw] font-bold uppercase lg:text-[9vw]" style={{ letterSpacing: '-0.2vw', color: GOLD }}>
+            <div className="mt-[4px] flex items-center text-[13vw] font-bold uppercase lg:text-[8vw]" style={{ letterSpacing: '-0.2vw', color: GOLD }}>
               <svg
                 viewBox="0 0 120 120"
                 role="img"
                 aria-label="Quarterfold Printabilities seal"
                 className="hidden shrink-0 select-none md:block"
-                style={{ width: 104, height: 104, marginTop: -14, marginRight: 10, marginLeft: -8, animation: 'seal-spin 60s linear infinite' }}
+                style={{ width: 90, height: 90, marginTop: -12, marginRight: 8, marginLeft: -6, animation: 'seal-spin 60s linear infinite', filter: 'drop-shadow(0 0 5px rgba(200,154,60,0.55))' }}
               >
                 <defs>
                   {/* circular baseline for the text (radius 46, starts at top) */}
                   <path id="qfp-seal-path" fill="none" d="M 60,60 m 0,-46 a 46,46 0 1,1 0,92 a 46,46 0 1,1 0,-92" />
+                  {/* metallic gold foil — cream highlight → gold → deep gold */}
+                  <linearGradient id="seal-foil" x1="0" y1="0" x2="0.35" y2="1">
+                    <stop offset="0" stopColor="#fbeec2" />
+                    <stop offset="0.5" stopColor="#d8a94a" />
+                    <stop offset="1" stopColor="#9b7420" />
+                  </linearGradient>
                 </defs>
-                {/* two gold rings frame the wordmark ring */}
-                <circle cx="60" cy="60" r="57" fill="none" stroke={GOLD} strokeWidth="2" />
-                <circle cx="60" cy="60" r="35" fill="none" stroke={GOLD} strokeWidth="1" opacity="0.55" />
-                <text fill={GOLD} fontFamily="'DM Mono', monospace" fontWeight="500" fontSize="9.4" letterSpacing="1.5">
+                {/* two foil rings frame the wordmark ring */}
+                <circle cx="60" cy="60" r="57" fill="none" stroke="url(#seal-foil)" strokeWidth="2" />
+                <circle cx="60" cy="60" r="35" fill="none" stroke="url(#seal-foil)" strokeWidth="1" opacity="0.55" />
+                <text fill="url(#seal-foil)" fontFamily="'DM Mono', monospace" fontWeight="500" fontSize="9.4" letterSpacing="1.5">
                   <textPath href="#qfp-seal-path" startOffset="0" textLength="289" lengthAdjust="spacing">
                     QFP STORIES · QFP STORIES · QFP STORIES ·
                   </textPath>
                 </text>
                 {/* centre registration dot */}
-                <circle cx="60" cy="60" r="3" fill={GOLD} />
+                <circle cx="60" cy="60" r="3" fill="url(#seal-foil)" />
               </svg>
-              Education
+              <span
+                style={{
+                  background: 'linear-gradient(180deg,#fbeec2 0%,#eaca6f 32%,#c89a3c 55%,#9b7420 76%,#e2b552 100%)',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  color: 'transparent',
+                  filter: 'drop-shadow(0 2px 1px rgba(48,32,8,0.4)) drop-shadow(0 8px 22px rgba(200,154,60,0.33))',
+                }}
+              >
+                Education
+              </span>
             </div>
           </div>
 
           <div ref={copyGroup} className="flex flex-col items-center will-change-[opacity]">
-            <p className="mt-[26px] max-w-[760px] text-center text-[20px] font-normal leading-[1.4] text-white/95">
+            <p className="mt-[18px] max-w-[720px] text-center text-[18px] font-normal leading-[1.4] text-white/95">
               We help publishers around the world print, bind, package, and deliver exceptional books on time, every time.
             </p>
 
-            <div className="mt-[36px] flex items-center gap-[30px]">
-              <a href="#services" className="group flex h-[62px] items-center justify-between gap-[35px] rounded-[40px] border border-white pl-[32px] text-[18px] font-medium text-white transition-opacity hover:opacity-45">
-                What we print
-                <span className="flex h-[62px] w-[62px] shrink-0 items-center justify-center rounded-full border border-white transition-transform group-hover:translate-x-1">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m11 5 7 7-7 7" /></svg>
+            <div className="mt-[24px] flex items-center gap-[30px]">
+              {/* Premium hover: a gold gradient sweeps in from the left, the label
+                  inverts to navy, the arrow pod flips to navy with a cream arrow,
+                  and the whole pill lifts with a soft gold glow. GPU transforms only. */}
+              <a
+                href="#services"
+                className="group relative inline-flex h-[60px] items-center gap-[24px] overflow-hidden rounded-[40px] border border-white/75 pl-[30px] pr-[7px] text-[17px] font-medium text-white transition-[color,border-color,transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-[3px] hover:border-[#e6bd6a] hover:text-[#0f2444] hover:shadow-[0_16px_36px_-10px_rgba(200,154,60,0.6)]"
+              >
+                {/* gold fill wipes in from the left */}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 origin-left scale-x-0 rounded-[40px] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
+                  style={{ background: 'linear-gradient(90deg,#e6bd6a,#c89a3c 55%,#9b7420)' }}
+                />
+                <span className="relative z-10">What we print</span>
+                <span className="relative z-10 flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full border border-white/75 transition-[background-color,border-color] duration-500 ease-out group-hover:border-[#0f2444] group-hover:bg-[#0f2444]">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-white transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
                 </span>
               </a>
-              <a href="#projects" className="text-[18px] font-medium text-white underline decoration-white/60 underline-offset-4 transition hover:decoration-white">
+              <a href="#projects" className="text-[17px] font-medium text-white underline decoration-white/50 underline-offset-[5px] transition-colors duration-300 hover:decoration-[#e6bd6a] hover:text-[#e6bd6a]">
                 Our global reach
               </a>
             </div>

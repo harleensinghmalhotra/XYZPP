@@ -715,11 +715,13 @@
 
 /* ── 3 · HOW IT WORKS ────────────────────────────────────────────────────────── */
 .pod-how {
+  position: relative;
+  overflow: hidden;
   background: var(--beige);
   padding: clamp(64px, 9vh, 104px) clamp(24px, 5vw, 72px);
   border-top: 1px solid var(--hair-soft);
 }
-.pod-how-inner { max-width: 1180px; margin: 0 auto; }
+.pod-how-inner { position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; }
 .pod-how-head { text-align: center; margin-bottom: clamp(36px, 5vh, 56px); }
 .pod-how-title {
   margin: 12px 0 0;
@@ -801,6 +803,7 @@
 }
 .pod-band-inner {
   position: relative;
+  z-index: 2;
   max-width: 1120px;
   margin: 0 auto;
   text-align: center;
@@ -852,11 +855,13 @@
 
 /* ── 5 · CTA (beige) ─────────────────────────────────────────────────────────── */
 .pod-cta {
+  position: relative;
+  overflow: hidden;
   background: var(--beige);
   padding: clamp(72px, 11vh, 120px) clamp(24px, 5vw, 72px);
   text-align: center;
 }
-.pod-cta-inner { max-width: 720px; margin: 0 auto; }
+.pod-cta-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
 .pod-cta-title {
   margin: 12px 0 0;
   font-family: 'Inter Tight', sans-serif;

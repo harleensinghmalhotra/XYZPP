@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import LanguageToggle from '@/components/LanguageToggle'
 
 const TIGHT = "'Inter Tight', sans-serif"
 
-// The three product shells share one "What We Print" menu.
+// The three product shells share one "What We Print" menu. Labels resolve through
+// the nav namespace so the dropdown follows the active language.
 const PRODUCTS = [
-  { label: 'Educational Books', to: '/educational-books' },
-  { label: 'Trade Books', to: '/trade-books' },
-  { label: 'Print on Demand', to: '/print-on-demand' },
+  { key: 'educationalBooks', to: '/educational-books' },
+  { key: 'tradeBooks', to: '/trade-books' },
+  { key: 'printOnDemand', to: '/print-on-demand' },
 ]
 
 // Primary route links that follow the What We Print dropdown.
 const LINKS = [
-  { label: 'Infrastructure', to: '/infrastructure' },
-  { label: 'Fulfilment', to: '/fulfilment' },
-  { label: 'Contact', to: '/contact' },
+  { key: 'infrastructure', to: '/infrastructure' },
+  { key: 'fulfilment', to: '/fulfilment' },
+  { key: 'contact', to: '/contact' },
 ]
 
 // The nav floats over sections of both tones. On the homepage it reads the theme
@@ -24,6 +27,7 @@ const LINKS = [
 // watches the current page's sections.
 export default function SiteNav() {
   const { pathname } = useLocation()
+  const { t } = useTranslation('nav')
   const isHome = pathname === '/'
   const [solid, setSolid] = useState(false)
   const [theme, setTheme] = useState(isHome ? 'dark' : 'light')
@@ -81,7 +85,7 @@ export default function SiteNav() {
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">
-            <Link to="/about" className={linkCls}>About</Link>
+            <Link to="/about" className={linkCls}>{t('about')}</Link>
 
             {/* What We Print — dropdown to the three product shells */}
             <div
@@ -98,7 +102,7 @@ export default function SiteNav() {
                 aria-expanded={menuOpen}
                 onClick={() => setMenuOpen((v) => !v)}
               >
-                What We Print
+                {t('whatWePrint')}
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true" className={`transition-transform duration-200 ${menuOpen ? 'rotate-180' : ''}`}>
                   <path d="M2.5 4.5 6 8l3.5-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -112,7 +116,7 @@ export default function SiteNav() {
                         to={p.to}
                         className="focus-ring block rounded-xl px-4 py-2.5 text-[15px] font-medium text-[#1c2019]/85 transition-colors hover:bg-[#0f2444]/[0.05] hover:text-[#836013]"
                       >
-                        {p.label}
+                        {t(p.key)}
                       </Link>
                     ))}
                   </div>
@@ -121,19 +125,31 @@ export default function SiteNav() {
             </div>
 
             {LINKS.map((l) => (
-              <Link key={l.to} to={l.to} className={linkCls}>{l.label}</Link>
+              <Link key={l.to} to={l.to} className={linkCls}>{t(l.key)}</Link>
             ))}
           </nav>
         </div>
 
-        {/* right group: primary CTA */}
-        <div className="flex items-center gap-5">
+        {/* right group: language toggle + primary CTA */}
+        <div className="flex items-center gap-4">
+          <LanguageToggle light={light} />
+          {/* Metallic gold pill: foil gradient + inset highlight + warm glow, with a
+              light sheen that sweeps across on hover (luxury, not loud). */}
           <Link
             to="/contact"
-            className="focus-ring inline-flex h-[42px] items-center justify-center rounded-full bg-[#c89a3c] px-6 text-[15px] font-semibold text-[#0f2444] transition-all duration-300 hover:bg-[#e6bd6a] hover:scale-[1.02] active:scale-[0.98]"
-            style={{ letterSpacing: '0.1px' }}
+            className="focus-ring group relative inline-flex h-[42px] items-center justify-center overflow-hidden rounded-full px-6 text-[15px] font-semibold text-[#0f2444] transition-[transform,box-shadow] duration-300 ease-out hover:scale-[1.03] hover:shadow-[inset_0_1px_0_rgba(255,247,224,0.85),inset_0_-2px_3px_rgba(120,85,20,0.45),0_8px_22px_-4px_rgba(200,154,60,0.7)] active:scale-[0.98]"
+            style={{
+              letterSpacing: '0.1px',
+              background: 'linear-gradient(180deg,#f0cd82 0%,#d8a94a 46%,#c89a3c 72%,#a97e28 100%)',
+              boxShadow: 'inset 0 1px 0 rgba(255,247,224,0.7), inset 0 -2px 3px rgba(120,85,20,0.4), 0 4px 14px -3px rgba(200,154,60,0.55)',
+            }}
           >
-            Request a Quote
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -translate-x-[220%] skew-x-[-20deg] transition-transform duration-700 ease-out group-hover:translate-x-[520%]"
+              style={{ background: 'linear-gradient(90deg,transparent,rgba(255,250,235,0.65),transparent)' }}
+            />
+            <span className="relative">{t('requestQuote')}</span>
           </Link>
         </div>
       </div>

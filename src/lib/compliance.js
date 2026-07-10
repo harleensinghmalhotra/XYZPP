@@ -1,0 +1,13 @@
+// ── Compliance kill switch: government / ministry / programme names ──────────
+// Written permission from the client to name specific ministries, government
+// bodies and funded programmes (Tanzania Institute of Education, UBEC, World
+// Bank / USAID programmes, Maharashtra State Bureau, etc.) is PENDING.
+//
+// This is the one-flip switch. Flip to `false` and every gated row/entry drops
+// cleanly across the site — TrustStrips marquee, Projects ledger, About history
+// timeline, Educational impact figures and the Fulfilment trust marquee — with
+// no layout holes. Mirrors the per-page SHOW_RESTRICTED_CLIENTS pattern, but
+// centralised so a single edit covers every page.
+//
+// Default TRUE (names shown). See recon/COMPLIANCE-OPEN-ITEMS.md.
+export const SHOW_MINISTRY_NAMES = true

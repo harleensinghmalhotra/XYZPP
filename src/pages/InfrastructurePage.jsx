@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import CountUp from '@/components/CountUp'
 import Seo from '@/components/Seo'
+import SectionCurve from '@/components/SectionCurve'
+import { WavyBackground, DotField, PaperGrain } from '@/components/atmosphere'
 import './InfrastructurePage.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -231,8 +233,9 @@ export default function InfrastructurePage() {
 
       {/* ── 1 · HERO (navy) ─────────────────────────────────────────────── */}
       <section data-theme="dark" className="inf-hero" aria-labelledby="inf-h1">
+        <WavyBackground className="inf-waves" />
         <div className="inf-hero-beam" aria-hidden="true" />
-        <div className="inf-wrap inf-hero-grid">
+        <div className="inf-wrap inf-hero-grid inf-z">
           <div className="inf-hero-copy">
             <p className="inf-hero-eyebrow">Infrastructure</p>
             <h1 id="inf-h1" className="inf-hero-title">
@@ -258,11 +261,13 @@ export default function InfrastructurePage() {
             <span className="inf-hero-stat-foot">Engineered across six facilities in Navi Mumbai</span>
           </div>
         </div>
+        <SectionCurve position="bottom" fill="#0f2444" />
       </section>
 
       {/* ── 2 · TRUST STRIP — certifications (cream) ─────────────────────── */}
       <section data-theme="light" className="inf-strip" aria-labelledby="inf-strip-h">
-        <div className="inf-wrap">
+        <PaperGrain />
+        <div className="inf-wrap inf-z">
           <h2 id="inf-strip-h" className="inf-strip-eyebrow">Certified, audited and renewed</h2>
           <ul className="inf-strip-row">
             {CERTS.map((c) => (
@@ -286,7 +291,9 @@ export default function InfrastructurePage() {
 
       {/* ── 3 · CAPABILITY ACCORDION (beige) ────────────────────────────── */}
       <section data-theme="light" className="inf-acc" aria-labelledby="inf-acc-h">
-        <div className="inf-wrap inf-acc-grid">
+        <PaperGrain />
+        <DotField tone="warm" />
+        <div className="inf-wrap inf-acc-grid inf-z">
           <div className="inf-acc-copy">
             <p className="inf-eyebrow">What runs the floor</p>
             <h2 id="inf-acc-h" className="inf-h2">Three capabilities, one line.</h2>
@@ -330,11 +337,13 @@ export default function InfrastructurePage() {
             </div>
           </div>
         </div>
+        <SectionCurve position="bottom" fill="#f0ebe0" />
       </section>
 
       {/* ── 4 · MACHINE CARDS — 2 large + 2 small (cream) ───────────────── */}
       <section data-theme="light" className="inf-mach-sec" aria-labelledby="inf-mach-h">
-        <div className="inf-wrap">
+        <PaperGrain />
+        <div className="inf-wrap inf-z">
           <div className="inf-sec-head">
             <p className="inf-eyebrow">On the press floor</p>
             <h2 id="inf-mach-h" className="inf-h2">The machines behind the volume.</h2>
@@ -355,8 +364,10 @@ export default function InfrastructurePage() {
 
       {/* ── 5 · MEASURABLE RESULTS + video (navy) ───────────────────────── */}
       <section data-theme="dark" className="inf-results" aria-labelledby="inf-res-h">
+        <SectionCurve position="top" fill="#0f2444" />
         <div className="inf-results-beam" aria-hidden="true" />
-        <div className="inf-wrap inf-results-grid">
+        <DotField tone="navy" />
+        <div className="inf-wrap inf-results-grid inf-z">
           <div className="inf-results-left">
             <div className="inf-results-head">
               <p className="inf-eyebrow inf-eyebrow--ondark">Real capacity</p>
@@ -388,6 +399,9 @@ export default function InfrastructurePage() {
               data-pending={!VIDEO_READY}
               aria-label={VIDEO_READY ? 'Play facilities walkthrough video' : 'Preview facilities walkthrough, video coming soon'}
             >
+              {/* Silent drop-in poster: a delivered walkthrough poster covers this with zero code change. */}
+              <span className="inf-video-img" aria-hidden="true" style={{ backgroundImage: 'url(/qfp/infra/walkthrough-poster.webp)' }} />
+              <span className="inf-video-scrim" aria-hidden="true" />
               <span className="inf-video-note" aria-hidden="true">VIDEO · INSIDE OUR FACILITIES</span>
               <span className="inf-play" aria-hidden="true">
                 <span className="inf-play-ring" />
@@ -396,11 +410,13 @@ export default function InfrastructurePage() {
             </button>
           </div>
         </div>
+        <SectionCurve position="bottom" fill="#0f2444" />
       </section>
 
       {/* ── 6 · RECOGNITION — typographic plaques (beige) ───────────────── */}
       <section data-theme="light" className="inf-recognition" aria-labelledby="inf-rec-h">
-        <div className="inf-wrap">
+        <PaperGrain />
+        <div className="inf-wrap inf-z">
           <div className="inf-sec-head">
             <p className="inf-eyebrow">Recognition</p>
             <h2 id="inf-rec-h" className="inf-h2">Awarded for the work, year on year.</h2>
@@ -426,7 +442,8 @@ export default function InfrastructurePage() {
 
       {/* ── 7 · GALLERY — facility photos only, no testimonials (cream) ─── */}
       <section data-theme="light" className="inf-gallery" aria-labelledby="inf-gal-h">
-        <div className="inf-wrap">
+        <PaperGrain />
+        <div className="inf-wrap inf-z">
           <div className="inf-sec-head">
             <p className="inf-eyebrow">Inside the facilities</p>
             <h2 id="inf-gal-h" className="inf-h2">A look across the floor.</h2>
@@ -444,7 +461,9 @@ export default function InfrastructurePage() {
 
       {/* ── 8 · CTA (beige) ─────────────────────────────────────────────── */}
       <section data-theme="light" className="inf-cta" aria-labelledby="inf-cta-h">
-        <div className="inf-wrap inf-cta-inner">
+        <PaperGrain />
+        <SectionCurve position="top" fill="#f0ebe0" />
+        <div className="inf-wrap inf-cta-inner inf-z">
           <h2 id="inf-cta-h" className="inf-cta-title">See it in person or on a call.</h2>
           <p className="inf-cta-sub">
             Tour the floor, meet the team, and get a quote scoped to your run.

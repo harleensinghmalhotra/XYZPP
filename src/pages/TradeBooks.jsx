@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import SectionCurve from '@/components/SectionCurve'
+import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 
 // ── /trade-books ─────────────────────────────────────────────────────────────
 // fctrylab.com product-page anatomy, reskinned into QFP System B and adapted for
@@ -260,8 +262,16 @@ export default function TradeBooks() {
   return (
     <main id="main" className="tb">
       {/* 1 ── PRODUCT EXPERIENCE ─────────────────────────────────────────── */}
-      <section data-theme="light" className="tb-exp" ref={galleryRef} aria-label="Trade Books product experience">
-        <div className="tb-exp-grid">
+      <section
+        data-theme="light"
+        className="tb-exp"
+        ref={galleryRef}
+        aria-label="Trade Books product experience"
+        style={{ position: 'relative', overflow: 'hidden' }}
+      >
+        <PaperGrain />
+        <EdgeGlow tone="warm" />
+        <div className="tb-exp-grid" style={{ position: 'relative', zIndex: 1 }}>
           {/* LEFT — sticky gallery */}
           <div className="tb-gallery">
             <figure className="tb-stage">
@@ -362,15 +372,25 @@ export default function TradeBooks() {
       <section data-theme="dark" className="tb-life" aria-label="Trade Books, kept">
         <img src="/qfp/trade/lifestyle.webp" alt="" aria-hidden="true" className="tb-life-img" />
         <div className="tb-life-scrim" aria-hidden="true" />
-        <p className="tb-life-line">
+        <DotField tone="navy" />
+        <SectionCurve position="top" fill="#FDFAF4" />
+        <SectionCurve position="bottom" fill="#FDFAF4" />
+        <p className="tb-life-line" style={{ position: 'relative', zIndex: 2 }}>
           <span className="tb-life-light">Some books inform. </span>
           <span className="tb-life-bold">These are kept.</span>
         </p>
       </section>
 
       {/* 4 ── RANGE BAR (fctry collection strip) ─────────────────────────── */}
-      <section id="tb-range" data-theme="light" className="tb-range" aria-label="Explore the range">
-        <div className="tb-range-inner">
+      <section
+        id="tb-range"
+        data-theme="light"
+        className="tb-range"
+        aria-label="Explore the range"
+        style={{ position: 'relative', overflow: 'hidden' }}
+      >
+        <PaperGrain />
+        <div className="tb-range-inner" style={{ position: 'relative', zIndex: 1 }}>
           <div className="tb-range-head">
             <p className="tb-range-eyebrow">Explore the Range</p>
             <p className="tb-range-sub">Jump between categories, or step across to a sibling service.</p>
@@ -414,8 +434,16 @@ export default function TradeBooks() {
       </section>
 
       {/* 5 ── CTA BAND ───────────────────────────────────────────────────── */}
-      <section data-theme="light" className="tb-close" aria-label="Start a trade-book project">
-        <div className="tb-close-inner">
+      <section
+        data-theme="light"
+        className="tb-close"
+        aria-label="Start a trade-book project"
+        style={{ position: 'relative', overflow: 'hidden' }}
+      >
+        <SectionCurve position="top" fill="#F0EBE0" />
+        <PaperGrain />
+        <EdgeGlow tone="warm" />
+        <div className="tb-close-inner" style={{ position: 'relative', zIndex: 1 }}>
           <div>
             <p className="tb-close-eyebrow">Made to order</p>
             <h2 className="tb-close-h">Let&apos;s craft your edition.</h2>

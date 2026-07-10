@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Seo from '@/components/Seo'
 import CountUp from '@/components/CountUp'
+import SectionCurve from '@/components/SectionCurve'
+import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 
 /* ─────────────────────────────────────────────────────────────────────────────
    /about — QFP "About Us"
@@ -90,15 +93,18 @@ const AWARDS = [
 
 // Milestones ordered by scale. Where live figures conflict, the LOWER is used
 // (DR Congo 3.5M not 5M; Top publishers 4M not 5M).
+// `ministry: true` entries name a government body / ministry / funded programme,
+// gated behind SHOW_MINISTRY_NAMES (permission pending). They filter out cleanly
+// when off, leaving the non-named milestones and no timeline gaps.
 const MILESTONES = [
   { vol: '400M+', title: 'Books delivered to date', desc: 'Printed in India, read across 25+ countries.' },
-  { vol: '10M+', title: 'Ministry of Education, Tanzania', desc: 'National textbook programme printed and shipped at scale.' },
-  { vol: '10M+', title: 'Ministry of Education & Sports, Ghana', desc: 'World Bank and USAID backed education printing.' },
-  { vol: '8M+', title: 'Universal Basic Education Commission, Nigeria', desc: 'Primary education titles for the UBEC programme.' },
-  { vol: '7M+', title: "Ministère de l'Éducation Nationale, Ivory Coast", desc: 'French-language curriculum books for national schools.' },
+  { vol: '10M+', title: 'Ministry of Education, Tanzania', desc: 'National textbook programme printed and shipped at scale.', ministry: true },
+  { vol: '10M+', title: 'Ministry of Education & Sports, Ghana', desc: 'World Bank and USAID backed education printing.', ministry: true },
+  { vol: '8M+', title: 'Universal Basic Education Commission, Nigeria', desc: 'Primary education titles for the UBEC programme.', ministry: true },
+  { vol: '7M+', title: "Ministère de l'Éducation Nationale, Ivory Coast", desc: 'French-language curriculum books for national schools.', ministry: true },
   { vol: '4M+', title: 'Top 10 Indian publishers', desc: 'Curriculum and trade titles for leading Indian houses.' },
-  { vol: '3.5M+', title: 'République Démocratique du Congo', desc: 'Curriculum printing for the national education ministry.' },
-  { vol: '2M+', title: 'Maharashtra State Education Board', desc: 'Bal Bharti state-board textbooks for Maharashtra, India.' },
+  { vol: '3.5M+', title: 'République Démocratique du Congo', desc: 'Curriculum printing for the national education ministry.', ministry: true },
+  { vol: '2M+', title: 'Maharashtra State Education Board', desc: 'Bal Bharti state-board textbooks for Maharashtra, India.', ministry: true },
 ]
 const RESTRICTED_MILESTONES = [
   { vol: '1.3M+/mo', title: 'HDFC Bank', desc: 'Loan-agreement booklets printed every month.' },
@@ -178,8 +184,9 @@ function RecognitionMarquee() {
     </div>
   )
   return (
-    <section data-theme="light" aria-label="Awards and recognition" className="overflow-hidden py-16 md:py-20" style={{ background: BEIGE }}>
-      <div className="mx-auto mb-8 max-w-[1400px] px-6 sm:px-10">
+    <section data-theme="light" aria-label="Awards and recognition" className="relative overflow-hidden py-16 md:py-20" style={{ background: BEIGE }}>
+      <SectionCurve position="top" fill={BEIGE} />
+      <div className="relative z-10 mx-auto mb-8 max-w-[1400px] px-6 sm:px-10">
         <Eyebrow>Recognised by</Eyebrow>
       </div>
       <ul className="sr-only">{AWARDS.map((a) => <li key={a}>{a}</li>)}</ul>
@@ -205,7 +212,8 @@ export default function About() {
     ],
   }
 
-  const milestones = SHOW_RESTRICTED_CLIENTS ? [...MILESTONES, ...RESTRICTED_MILESTONES] : MILESTONES
+  const baseMilestones = SHOW_MINISTRY_NAMES ? MILESTONES : MILESTONES.filter((m) => !m.ministry)
+  const milestones = SHOW_RESTRICTED_CLIENTS ? [...baseMilestones, ...RESTRICTED_MILESTONES] : baseMilestones
 
   return (
     <main id="main">
@@ -221,7 +229,8 @@ export default function About() {
         className="relative flex min-h-[82svh] flex-col justify-end overflow-hidden px-6 pb-20 pt-40 sm:px-10"
         style={{ background: `radial-gradient(1100px 720px at 68% 18%, rgba(200,154,60,0.14), transparent 60%), radial-gradient(900px 700px at 12% 110%, rgba(27,58,107,0.55), transparent 62%), ${NAVY}` }}
       >
-        <div className="mx-auto w-full max-w-[1400px]">
+        <DotField tone="navy" />
+        <div className="relative z-10 mx-auto w-full max-w-[1400px]">
           <Eyebrow color={GOLD_BRIGHT}>Quarterfold Printabilities</Eyebrow>
           <h1 className="mt-5 font-extrabold leading-[0.92] tracking-tight text-[clamp(64px,12vw,168px)]" style={{ fontFamily: TIGHT, color: CREAM }}>
             About Us
@@ -242,8 +251,10 @@ export default function About() {
       </section>
 
       {/* 2 ── FOUNDER GREETING (cream) ────────────────────────────────────── */}
-      <section data-theme="light" className="px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
-        <div className="mx-auto grid max-w-[1400px] items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+      <section data-theme="light" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
+        <SectionCurve position="top" fill={CREAM} />
+        <PaperGrain />
+        <div className="relative z-10 mx-auto grid max-w-[1400px] items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           {/* portrait */}
           <div className="order-2 lg:order-1">
             <div className="relative mx-auto max-w-[420px] overflow-hidden rounded-[28px] ring-1" style={{ ringColor: NAVY, boxShadow: '0 30px 70px rgba(15,36,68,0.22)' }}>
@@ -272,8 +283,10 @@ export default function About() {
       <RecognitionMarquee />
 
       {/* 4 ── STORY BLOCK (cream) ─────────────────────────────────────────── */}
-      <section data-theme="light" className="px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
-        <div className="mx-auto grid max-w-[1400px] items-start gap-14 lg:grid-cols-2 lg:gap-20">
+      <section data-theme="light" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
+        <SectionCurve position="top" fill={CREAM} />
+        <PaperGrain />
+        <div className="relative z-10 mx-auto grid max-w-[1400px] items-start gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
             <div className="overflow-hidden rounded-[28px] ring-1 ring-[#0f2444]/10" style={{ boxShadow: '0 30px 70px rgba(15,36,68,0.18)' }}>
               <img src="/qfp/about/story.webp" alt="Quarterfold printing facility in Taloja, Navi Mumbai" className="block aspect-[1280/860] w-full object-cover" width="1280" height="860" loading="lazy" />
@@ -311,8 +324,10 @@ export default function About() {
       </section>
 
       {/* 5 ── OUR HISTORY — vertical timeline (navy) ──────────────────────── */}
-      <section data-theme="dark" className="px-6 py-24 sm:px-10 md:py-32" style={{ background: NAVY }}>
-        <div className="mx-auto max-w-[1400px]">
+      <section data-theme="dark" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: NAVY }}>
+        <SectionCurve position="top" fill={NAVY} />
+        <DotField tone="navy" />
+        <div className="relative z-10 mx-auto max-w-[1400px]">
           <Eyebrow color={GOLD_BRIGHT}>Milestones</Eyebrow>
           <h2 className="mt-5 font-extrabold leading-none tracking-tight text-[clamp(48px,8vw,120px)]" style={{ fontFamily: TIGHT, color: 'rgba(253,250,244,0.9)' }}>
             Our History
@@ -338,8 +353,10 @@ export default function About() {
       <StatementMarquee />
 
       {/* 7 ── WHAT WE DO — cards linking to routes (cream) ────────────────── */}
-      <section data-theme="light" className="px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
-        <div className="mx-auto max-w-[1400px]">
+      <section data-theme="light" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
+        <SectionCurve position="top" fill={CREAM} />
+        <PaperGrain />
+        <div className="relative z-10 mx-auto max-w-[1400px]">
           <div className="max-w-3xl">
             <Eyebrow>What We Do</Eyebrow>
             <h2 className="mt-5 font-bold leading-[1.03] tracking-tight text-[clamp(34px,4.6vw,60px)]" style={{ fontFamily: TIGHT, color: NAVY }}>
@@ -370,8 +387,10 @@ export default function About() {
       </section>
 
       {/* 8 ── TWO-TAB SERVICES (beige) ────────────────────────────────────── */}
-      <section data-theme="light" className="px-6 py-24 sm:px-10 md:py-32" style={{ background: BEIGE }}>
-        <div className="mx-auto max-w-[1400px]">
+      <section data-theme="light" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: BEIGE }}>
+        <SectionCurve position="top" fill={BEIGE} />
+        <PaperGrain />
+        <div className="relative z-10 mx-auto max-w-[1400px]">
           <div className="max-w-3xl">
             <Eyebrow>What We Provide</Eyebrow>
             <h2 className="mt-5 font-bold leading-[1.03] tracking-tight text-[clamp(32px,4.4vw,56px)]" style={{ fontFamily: TIGHT, color: NAVY }}>
@@ -420,8 +439,10 @@ export default function About() {
       </section>
 
       {/* 9 ── OUR PEOPLE teaser (navy) ────────────────────────────────────── */}
-      <section data-theme="dark" className="px-6 py-24 sm:px-10 md:py-32" style={{ background: `radial-gradient(900px 600px at 20% 12%, rgba(200,154,60,0.1), transparent 60%), ${NAVY}` }}>
-        <div className="mx-auto max-w-[1400px]">
+      <section data-theme="dark" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: `radial-gradient(900px 600px at 20% 12%, rgba(200,154,60,0.1), transparent 60%), ${NAVY}` }}>
+        <SectionCurve position="top" fill={NAVY} />
+        <EdgeGlow tone="navy" />
+        <div className="relative z-10 mx-auto max-w-[1400px]">
           <div className="grid items-end gap-8 lg:grid-cols-[1.2fr_1fr]">
             <div>
               <Eyebrow color={GOLD_BRIGHT}>Our People</Eyebrow>
@@ -445,8 +466,10 @@ export default function About() {
       </section>
 
       {/* 10 ── HUB LINKS grid (cream) ─────────────────────────────────────── */}
-      <section data-theme="light" className="px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
-        <div className="mx-auto max-w-[1400px]">
+      <section data-theme="light" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
+        <SectionCurve position="top" fill={CREAM} />
+        <PaperGrain />
+        <div className="relative z-10 mx-auto max-w-[1400px]">
           <div className="max-w-3xl">
             <Eyebrow>Explore</Eyebrow>
             <h2 className="mt-5 font-bold leading-[1.03] tracking-tight text-[clamp(34px,4.6vw,60px)]" style={{ fontFamily: TIGHT, color: NAVY }}>
