@@ -17,7 +17,12 @@
       "finish": "Finish."
     },
     "sub": "Print, pack, warehouse, ship: your books handled under one roof until they reach theirs.",
-    "cue": "Scroll"
+    "cue": "Scroll",
+    "cta": "Request a Quote",
+    "statNum": "100,000",
+    "statUnit": "Sq Ft Warehousing",
+    "statFoot": "Kitting, in-house cartons and last-mile shipping, all under one roof.",
+    "statAria": "100,000 square feet of warehousing"
   },
   "trust": {
     "eyebrow": "They trust us",

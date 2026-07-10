@@ -11,7 +11,11 @@
     "eyebrow": "Quarterfold Printabilities",
     "title": "About Us",
     "lede": "One of India's largest print and publishing solutions companies, powering education across 25+ countries.",
-    "cta": "Request a Quote"
+    "cta": "Request a Quote",
+    "statNum": "25+",
+    "statUnit": "Countries Served",
+    "statFoot": "Publishers and national education programmes served across the globe.",
+    "statAria": "Serving over 25 countries"
   },
   "founder": {
     "greeting": "Hey there",

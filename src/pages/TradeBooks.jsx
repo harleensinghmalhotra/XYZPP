@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
-import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import { DotField, EdgeGlow, PaperGrain, WavyBackground } from '@/components/atmosphere'
 
 // ── /trade-books ─────────────────────────────────────────────────────────────
 // fctrylab.com product-page anatomy, reskinned into QFP System B and adapted for
@@ -171,6 +171,29 @@ export default function TradeBooks() {
   return (
     <main id="main" className="tb">
       <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={jsonLd} />
+
+      {/* 0 ── HERO (navy) — unified skeleton, added Phase 3.3 so Trade Books
+          opens on the same navy statement moment as every other page ──────── */}
+      <section data-theme="dark" className="u-hero" aria-labelledby="tb-h1">
+        <WavyBackground className="u-hero-waves" />
+        <div className="u-hero-beam" aria-hidden="true" />
+        <div className="u-hero-inner">
+          <div className="u-hero-copy">
+            <p className="u-eyebrow" data-reveal>{t('hero.badge')}</p>
+            <h1 id="tb-h1" className="u-h1" data-textreveal>{t('hero.title')}</h1>
+            <p className="u-hero-sub" data-reveal>{t('hero.heroSub')}</p>
+            <div className="u-hero-ctas" data-reveal>
+              <Link to="/contact" className="u-btn u-btn--gold">{t('cta.requestQuote')}</Link>
+            </div>
+          </div>
+          <div className="u-hero-stat" aria-label={t('hero.statAria')}>
+            <span className="u-stat-num" aria-hidden="true">{t('hero.statNum')}</span>
+            <span className="u-stat-unit">{t('hero.statUnit')}</span>
+            <span className="u-stat-foot">{t('hero.statFoot')}</span>
+          </div>
+        </div>
+      </section>
+
       {/* 1 ── PRODUCT EXPERIENCE ─────────────────────────────────────────── */}
       <section
         data-theme="light"
@@ -221,7 +244,7 @@ export default function TradeBooks() {
               {t('hero.eyebrow')}
               <span className="tb-badge">{t('hero.badge')}</span>
             </p>
-            <h1 className="tb-h1" data-textreveal>{t('hero.title')}</h1>
+            <h2 className="tb-h1" data-textreveal>{t('hero.title')}</h2>
             <p className="tb-lede" data-reveal>
               <span className="tb-lede-light">{t('hero.ledeLight')}</span>
               <span className="tb-lede-bold">{t('hero.ledeBold')}</span>

@@ -172,35 +172,35 @@ export default function EducationalBooks() {
   return (
     <main id="main" ref={root}>
       {/* ── 1. HERO — /infrastructure anatomy, navy ── */}
-      <section ref={heroRef} data-theme="dark" className="edu-hero" aria-labelledby="edu-h1">
-        <WavyBackground className="edu-hero-waves" />
-        <div className="edu-hero-beam" aria-hidden="true" />
+      <section ref={heroRef} data-theme="dark" className="u-hero" aria-labelledby="edu-h1">
+        <WavyBackground className="u-hero-waves" />
+        <div className="u-hero-beam" aria-hidden="true" />
 
         {FLOATS.map(renderFloat)}
 
-        <div className="edu-hero-inner edu-hero-grid relative z-10">
-          <div className="edu-hero-copy">
-            <p className="edu-hero-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
-            <h1 id="edu-h1" className="edu-h1" data-textreveal>
-              <Trans t={t} i18nKey="hero.title" components={{ 1: <span className="edu-h1-accent" /> }} />
+        <div className="u-hero-inner">
+          <div className="u-hero-copy">
+            <p className="u-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
+            <h1 id="edu-h1" className="u-h1" data-textreveal>
+              <Trans t={t} i18nKey="hero.title" components={{ 1: <span className="u-h1-accent" /> }} />
             </h1>
-            <p className="edu-hero-sub" data-reveal>
+            <p className="u-hero-sub" data-reveal>
               {t('hero.sub')}
             </p>
-            <div className="edu-hero-ctas" data-reveal>
-              <Link to="/contact" className="edu-btn edu-btn--gold">{t('hero.ctaPrimary')}</Link>
-              <a href="#impact" className="edu-btn edu-btn--ghost">
+            <div className="u-hero-ctas" data-reveal>
+              <Link to="/contact" className="u-btn u-btn--gold">{t('hero.ctaPrimary')}</Link>
+              <a href="#impact" className="u-btn u-btn--ghost">
                 {t('hero.ctaSecondary')}
                 <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
               </a>
             </div>
           </div>
 
-          {/* single foil moment on the page — the flagship stat */}
-          <div className="edu-hero-stat" aria-label={t('hero.statAria')}>
-            <span className="edu-hero-foil" aria-hidden="true">25M</span>
-            <span className="edu-hero-stat-unit">{t('hero.statUnit')}</span>
-            <span className="edu-hero-stat-foot">{t('hero.statFoot')}</span>
+          {/* single big number on the page — the flagship stat */}
+          <div className="u-hero-stat" aria-label={t('hero.statAria')}>
+            <span className="u-stat-num" aria-hidden="true">25M</span>
+            <span className="u-stat-unit">{t('hero.statUnit')}</span>
+            <span className="u-stat-foot">{t('hero.statFoot')}</span>
           </div>
         </div>
       </section>

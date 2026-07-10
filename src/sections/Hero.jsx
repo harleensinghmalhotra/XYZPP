@@ -326,22 +326,18 @@ export default function Hero() {
               {/* Premium hover: a gold gradient sweeps in from the left, the label
                   inverts to navy, the arrow pod flips to navy with a cream arrow,
                   and the whole pill lifts with a soft gold glow. GPU transforms only. */}
+              {/* Ekta DNA: square ghost button that fills solid on hover — no
+                  rounded pill, no gold glow (matches the unified .u-btn--ghost). */}
               <a
                 href="#services"
-                className="group relative inline-flex h-[60px] items-center gap-[24px] overflow-hidden rounded-[40px] border border-white/75 pl-[30px] pr-[7px] text-[17px] font-medium text-white transition-[color,border-color,transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-[3px] hover:border-[#e6bd6a] hover:text-[#0f2444] hover:shadow-[0_16px_36px_-10px_rgba(200,154,60,0.6)]"
+                className="group relative inline-flex h-[54px] items-center gap-[18px] overflow-hidden border-[1.5px] border-white/60 pl-[26px] pr-[7px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[#0f2444] hover:border-[#f5f0e8]"
               >
-                {/* gold fill wipes in from the left */}
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-0 origin-left scale-x-0 rounded-[40px] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
-                  style={{ background: 'linear-gradient(90deg,#e6bd6a,#c89a3c 55%,#9b7420)' }}
-                />
                 <span className="relative z-10">{t('hero.ctaPrint')}</span>
-                <span className="relative z-10 flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full border border-white/75 transition-[background-color,border-color] duration-500 ease-out group-hover:border-[#0f2444] group-hover:bg-[#0f2444]">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-white transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
+                <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-white/60 transition-[background-color,border-color] duration-300 ease-out group-hover:border-[#0f2444] group-hover:bg-[#0f2444]">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-white transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
                 </span>
               </a>
-              <a href="#projects" className="text-[17px] font-medium text-white underline decoration-white/50 underline-offset-[5px] transition-colors duration-300 hover:decoration-[#e6bd6a] hover:text-[#e6bd6a]">
+              <a href="#projects" className="text-[15px] font-medium tracking-[0.3px] text-white underline decoration-white/50 underline-offset-[5px] transition-colors duration-300 hover:decoration-[#e6bd6a] hover:text-[#e6bd6a]">
                 {t('hero.ctaReach')}
               </a>
             </div>
@@ -349,7 +345,7 @@ export default function Hero() {
         </div>
 
         {/* Scroll pill — stays through the pin, scrolls away with the stage */}
-        <div className="absolute bottom-[48px] left-1/2 z-40 flex -translate-x-1/2 items-center gap-5 rounded-[50px] px-[25px] py-[10px] font-metrisch" style={{ backgroundColor: 'rgba(12,47,74,0.39)' }}>
+        <div className="absolute bottom-[48px] left-1/2 z-40 flex -translate-x-1/2 items-center gap-5 rounded-none px-[25px] py-[10px] font-metrisch" style={{ backgroundColor: 'rgba(12,47,74,0.39)' }}>
           <span className="block h-1.5 w-1.5 rounded-full bg-white" />
           <span className="text-[11px] font-medium uppercase text-white" style={{ letterSpacing: '5px' }}>{t('hero.scroll')}</span>
         </div>

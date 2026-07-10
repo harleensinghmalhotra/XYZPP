@@ -229,14 +229,16 @@ void main() {
       uniforms.rayDir.value = dir
     }
 
-    const t0 = performance.now()
-    const loop = (t) => {
+    // MOTIONLESS (Phase 3.3): the client rejected background motion, so the rays
+    // render a single settled frame instead of an animated loop — matching the
+    // frozen WavyBackground. iTime is pinned to a fixed phase; once the band is
+    // on-screen we draw exactly once, then stop the rAF (no ongoing animation).
+    uniforms.iTime.value = 0.6
+    const loop = () => {
       if (disposed) return
-      // gated by IO: while off-screen we still schedule but skip the draw — cheap,
-      // and resumes instantly on re-entry without re-creating the context.
       if (intersectingRef.current && document.visibilityState === 'visible') {
-        uniforms.iTime.value = (t - t0) * 0.001
         renderer.render({ scene: mesh })
+        return // one static frame — do not reschedule
       }
       rafRef.current = requestAnimationFrame(loop)
     }

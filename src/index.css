@@ -833,7 +833,7 @@ body {
   display: grid;
   grid-template-rows: 140px 88px 96px; /* A photo / B name / C sentence = 324px */
   background: #fdfaf4;
-  border-radius: 34px;
+  border-radius: 0;
   /* barely-there rest shadow — expensive, not heavy */
   box-shadow: 0 2px 12px rgba(15, 36, 68, 0.07);
   transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1193,7 +1193,7 @@ body {
   height: 38px;
   margin-top: -19px;
   margin-left: -8px;
-  border-radius: 8px;
+  border-radius: 0;
   opacity: 0; /* resting / reduced-motion = gone (clean final line) */
   pointer-events: none;
   background: linear-gradient(90deg,
@@ -1251,7 +1251,7 @@ body {
   right: -8px;
   top: -12px;
   bottom: -6px;
-  border-radius: 8px;
+  border-radius: 0;
   opacity: 0;
   pointer-events: none;
   background: linear-gradient(180deg, rgba(155, 116, 32, 0.75), rgba(155, 116, 32, 0.16) 46%, transparent 82%);
@@ -1564,7 +1564,7 @@ body {
   position: relative;
   overflow: hidden;
   height: clamp(440px, 32vw, 500px);
-  border-radius: 22px;
+  border-radius: 0;
   border: 1px solid rgba(200, 154, 60, 0.14);
   isolation: isolate;
   /* Fable-level layered stack: tight contact + mid ambient + deep soft lift +
@@ -1875,7 +1875,7 @@ body {
   flex-direction: column;
   height: 100%;
   padding: 24px;
-  border-radius: 24px;
+  border-radius: 0;
   background: #fdfaf4; /* cream card lifted off the cream2 section */
   border: 1px solid rgba(28, 32, 25, 0.06);
   /* light-section shadow: a tight contact + a soft ambient (lighter than the
@@ -1929,19 +1929,19 @@ body {
 .infra-photo {
   position: relative;
   aspect-ratio: 16 / 10;
-  border-radius: 20px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22), 0 18px 46px -22px rgba(15, 36, 68, 0.5);
 }
 .infra-card-photo {
   aspect-ratio: 16 / 11;
-  border-radius: 18px;
+  border-radius: 0;
   /* deeper own shadow so the slab visibly floats above the white card */
   box-shadow:
     0 2px 6px rgba(15, 36, 68, 0.22),
     0 22px 44px -16px rgba(15, 36, 68, 0.5);
 }
-.infra-photo--portrait { aspect-ratio: 4 / 5; border-radius: 16px; }
+.infra-photo--portrait { aspect-ratio: 4 / 5; border-radius: 0; }
 .infra-photo-base {
   position: absolute;
   inset: 0;
@@ -1989,7 +1989,7 @@ body {
   aspect-ratio: 16 / 9;
   padding: 0;
   border: 0;
-  border-radius: 24px;
+  border-radius: 0;
   overflow: hidden;
   cursor: pointer;
   background: linear-gradient(155deg, #1b3a6b 0%, #12294c 52%, #0b1c38 100%);
@@ -2119,7 +2119,7 @@ body {
   position: relative;
   width: min(1120px, 100%);
   aspect-ratio: 16 / 9;
-  border-radius: 20px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 40px 120px -20px rgba(0, 0, 0, 0.7);
 }
@@ -2223,7 +2223,7 @@ body {
   border: 0;
   cursor: pointer;
   padding: 11px 22px;
-  border-radius: 999px;
+  border-radius: 0;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 15px;
@@ -2316,7 +2316,7 @@ body {
   padding: clamp(32px, 2.7vw, 46px) clamp(30px, 2.5vw, 42px);
   background: #fdfaf4;
   border: 1px solid rgba(15, 36, 68, 0.08);
-  border-radius: 24px;
+  border-radius: 0;
   /* premium layered shadow on cream — contact + ambient + deep soft */
   box-shadow:
     0 1px 2px rgba(15, 36, 68, 0.06),
@@ -2459,7 +2459,7 @@ body {
 .svA-frame {
   position: relative;
   height: clamp(500px, 66vh, 600px);
-  border-radius: 14px; /* barely-rounded editorial crop */
+  border-radius: 0; /* barely-rounded editorial crop */
   overflow: hidden;
   background: #0f2444;
   box-shadow:
@@ -2496,7 +2496,7 @@ body {
   align-items: center;
   gap: 9px;
   padding: 9px 15px 9px 13px;
-  border-radius: 999px;
+  border-radius: 0;
   background: rgba(253, 250, 244, 0.9);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(253, 250, 244, 0.5);
@@ -2697,7 +2697,7 @@ body {
   flex-direction: column;
   background: rgba(253, 250, 244, 0.035);
   border: 1px solid rgba(232, 194, 117, 0.16);
-  border-radius: 10px;
+  border-radius: 0;
   padding: 12px 12px 0;
   box-shadow:
     inset 0 1px 0 rgba(253, 250, 244, 0.05),
@@ -2718,7 +2718,7 @@ body {
 .aw-photo {
   position: relative;
   aspect-ratio: 16 / 11;
-  border-radius: 6px;
+  border-radius: 0;
   overflow: hidden;
   background: rgba(9, 20, 40, 0.6);
   transition: filter 0.55s ease;
@@ -2823,76 +2823,9 @@ body {
    · beige #F0EBE0 · ink #1C2019. Inter Tight / Inter / DM Mono.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── 1. HERO — /infrastructure anatomy: navy, wave atmosphere, mixed cream/gold
-   H1, dual CTA, single giant foil stat. Two stickers ride as living accents. ── */
-.edu-hero {
-  position: relative;
-  overflow: hidden;
-  background: #0f2444;
-  color: #fdfaf4;
-  padding: clamp(140px, 20vh, 200px) 24px clamp(88px, 13vh, 140px);
-}
-/* wave canvas + edge beams sit behind the content */
-.edu-hero-waves { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; pointer-events: none; opacity: 0.9; }
-.edu-hero-beam {
-  position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  background:
-    radial-gradient(120% 90% at 100% 0%, rgba(200, 154, 60, 0.14) 0%, transparent 55%),
-    radial-gradient(90% 80% at 0% 100%, rgba(27, 58, 107, 0.55) 0%, transparent 60%);
-}
-.edu-hero-inner { max-width: 1200px; margin: 0 auto; }
-.edu-hero-grid {
-  display: grid; grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(36px, 5vw, 72px); align-items: center;
-}
-.edu-hero-eyebrow {
-  margin: 0 0 18px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 0.25em; text-transform: uppercase; color: #c89a3c;
-}
-.edu-h1 {
-  margin: 0; max-width: 16ch;
-  font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(40px, 6vw, 74px); line-height: 1.02; letter-spacing: -0.02em; color: #fdfaf4;
-}
-.edu-h1-accent { color: #c89a3c; }
-.edu-hero-sub {
-  margin: clamp(20px, 3vh, 30px) 0 clamp(30px, 4vh, 40px); max-width: 52ch;
-  font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(16px, 1.3vw, 19px);
-  line-height: 1.7; color: rgba(253, 250, 244, 0.82);
-}
-.edu-hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; }
-
-/* hero buttons — mirror /infrastructure (.inf-btn) */
-.edu-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  height: 46px; padding: 0 24px; border-radius: 999px;
-  font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.1px;
-  text-decoration: none; cursor: pointer; border: 0;
-  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-.edu-btn--gold { background: #c89a3c; color: #0f2444; }
-.edu-btn--gold:hover { background: #e6bd6a; transform: translateY(-2px); }
-.edu-btn--ghost { color: #fdfaf4; border: 1px solid rgba(253, 250, 244, 0.35); background: transparent; }
-.edu-btn--ghost:hover { border-color: #c89a3c; color: #f0cd82; }
-.edu-btn:focus-visible { outline: 2px solid #c89a3c; outline-offset: 3px; }
-
-/* giant foil stat — the page's single foil moment */
-.edu-hero-stat { display: flex; flex-direction: column; align-items: flex-start; }
-.edu-hero-foil {
-  font-family: 'Inter Tight', sans-serif; font-weight: 800;
-  font-size: clamp(72px, 11vw, 150px); line-height: 0.9; letter-spacing: -0.04em;
-  /* RELAXED: flat solid gold-2 on navy, no foil / no bloom. */
-  color: var(--gold-2);
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
-}
-.edu-hero-stat-unit {
-  margin-top: 8px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 13px;
-  letter-spacing: 0.3em; text-transform: uppercase; color: #c89a3c;
-}
-.edu-hero-stat-foot {
-  margin-top: 16px; max-width: 34ch; font-family: 'Inter', sans-serif; font-size: 14px;
-  line-height: 1.55; color: rgba(253, 250, 244, 0.62);
-}
+/* ── 1. HERO — now the shared `.u-hero` skeleton (Phase 3.3). The forked
+   `.edu-hero*` shell was deleted; only the plane/bookstack float stickers below
+   (this page's ONE signature element) remain page-specific. ─────────────────── */
 
 /* Floating sticker layer (plane + bookstack) */
 .edu-float {
@@ -2932,7 +2865,7 @@ body {
   display: grid;
   grid-template-rows: 74px 30px auto;   /* icon / title-baseline / desc — uniform */
   padding: 34px 30px 36px;
-  border-radius: 26px;
+  border-radius: 0;
   background: #fdfaf4;
   box-shadow: 0 2px 16px rgba(15, 36, 68, 0.06);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -3023,7 +2956,7 @@ body {
 .edu-awards b { color: #c89a3c; font-weight: 700; }
 .edu-awards-seal {
   display: inline-grid; place-items: center; width: 46px; height: 46px;
-  border-radius: 999px; border: 1px solid rgba(200, 154, 60, 0.5); color: #c89a3c; flex: none;
+  border-radius: 0; border: 1px solid rgba(200, 154, 60, 0.5); color: #c89a3c; flex: none;
 }
 
 /* ── 5. CTA (beige) ───────────────────────────────────────────────────────── */
@@ -3048,7 +2981,7 @@ body {
 }
 .edu-cta-pill {
   display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 34px;
-  border-radius: 999px; background: #c89a3c; color: #0f2444;
+  border-radius: 0; background: #c89a3c; color: #0f2444;
   font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
   transition: transform 0.25s ease, background 0.25s ease;
 }
@@ -3093,33 +3026,8 @@ body {
   outline: 2px solid #9b7420; outline-offset: 3px; border-radius: 4px;
 }
 
-/* ── 1. HERO (navy) — anatomy + rhythm mirrored from /infrastructure's hero:
-   generous vertical scale, DM Mono gold eyebrow, two-tone (cream + gold) H1, a
-   wave/beam atmosphere living IN the composition, and a right-weighted foil
-   anchor (the phone number) echoing infra's flagship 250,000 stat. ── */
-.ctc-hero {
-  position: relative; overflow: hidden;
-  background: #0f2444; color: #fdfaf4;
-  padding: clamp(140px, 20vh, 200px) 24px clamp(80px, 12vh, 132px);
-}
-/* atmosphere: wave canvas sits behind the beam + content; content lifts above */
-/* waves kept calm (≈half of infra's 0.9) so the band never fights the headline
-   or the phone-number foil on the right */
-.ctc-hero-waves { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; pointer-events: none; opacity: 0.45; }
-/* edge-origin soft beams — gold warmth pulled to the top-LEFT (behind the solid
-   headline) so the right-side phone foil sits on calm navy, not a gold ribbon */
-.ctc-hero-beam {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background:
-    radial-gradient(110% 85% at 10% 0%, rgba(200, 154, 60, 0.12) 0%, transparent 52%),
-    radial-gradient(95% 85% at 100% 100%, rgba(27, 58, 107, 0.5) 0%, transparent 60%);
-}
-.ctc-hero-inner { max-width: 1180px; margin: 0 auto; }
-.ctc-hero-grid {
-  display: grid; grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(36px, 5vw, 72px); align-items: center;
-}
-.ctc-hero-copy { min-width: 0; }
+/* ── 1. HERO — now the shared `.u-hero` skeleton (Phase 3.3). The forked
+   `.ctc-hero*` shell was deleted; only the breadcrumb (Contact's one extra) stays. */
 .ctc-crumb {
   display: flex; align-items: center; gap: 10px; margin: 0 0 20px;
   font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
@@ -3128,48 +3036,6 @@ body {
 .ctc-crumb a { color: #c89a3c; text-underline-offset: 3px; }
 .ctc-crumb a:hover { text-decoration: underline; }
 .ctc-crumb [aria-current] { color: rgba(253, 250, 244, 0.82); }
-.ctc-hero-eyebrow {
-  margin: 0 0 18px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 3px; text-transform: uppercase; color: #c89a3c;
-}
-.ctc-h1 {
-  margin: 0; max-width: 16ch;
-  font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(40px, 6vw, 74px); line-height: 1.02; letter-spacing: -1.2px;
-  color: #fdfaf4;
-}
-.ctc-h1-accent { color: #c89a3c; }
-.ctc-hero-line {
-  margin: clamp(20px, 3vh, 30px) 0 0; max-width: 52ch;
-  font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(16px, 1.3vw, 19px);
-  line-height: 1.7; color: rgba(253, 250, 244, 0.82);
-}
-
-/* right-side foil anchor — the phone number LARGE, mirroring infra's stat block
-   (foil value → DM Mono unit label → supporting foot line) */
-.ctc-hero-stat { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
-.ctc-hero-foil {
-  font-family: 'Inter Tight', sans-serif; font-weight: 800;
-  font-size: clamp(34px, 4.4vw, 56px); line-height: 1.0; letter-spacing: -1.5px;
-  text-decoration: none; overflow-wrap: break-word; max-width: 100%;
-  /* RELAXED: flat solid cream on navy (calm, not a loud gold foil). */
-  color: var(--cream);
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-a.ctc-hero-foil:hover {
-  transform: translateY(-2px);
-  color: var(--gold-2);
-}
-a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px; border-radius: 6px; }
-.ctc-hero-stat-label {
-  margin-top: 10px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 13px;
-  letter-spacing: 4px; text-transform: uppercase; color: #c89a3c;
-}
-.ctc-hero-stat-foot {
-  margin-top: 16px; max-width: 26ch; font-family: 'Inter', sans-serif; font-size: 14px;
-  line-height: 1.55; color: rgba(253, 250, 244, 0.62);
-}
 
 /* ── 2. LOCATION STRIP (navy, compact) — replaces the oversized static map.
    Two tidy DM Mono address blocks with a small gold pin + Maps link. The real
@@ -3225,7 +3091,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 .ctc-tile {
   display: flex; flex-direction: column;
   min-height: 214px; padding: 26px 22px 26px;
-  border-radius: 22px; background: #ffffff;
+  border-radius: 0; background: #ffffff;
   border: 1px solid rgba(15, 36, 68, 0.08);
   box-shadow: 0 2px 16px rgba(15, 36, 68, 0.05);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -3286,7 +3152,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 }
 .ctc-addr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .ctc-addr-card {
-  padding: 32px 30px 30px; border-radius: 22px;
+  padding: 32px 30px 30px; border-radius: 0;
   background: linear-gradient(180deg, #163156, #12294c);
   border: 1px solid rgba(200, 154, 60, 0.16);
 }
@@ -3334,7 +3200,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
   font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; color: #4a4436;
 }
 .ctc-form {
-  padding: 36px 34px 34px; border-radius: 26px; background: #fdfaf4;
+  padding: 36px 34px 34px; border-radius: 0; background: #fdfaf4;
   border: 1px solid rgba(15, 36, 68, 0.08); box-shadow: 0 10px 40px rgba(15, 36, 68, 0.07);
 }
 .ctc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
@@ -3346,7 +3212,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 }
 .ctc-req { color: #9b7420; }
 .ctc-field input, .ctc-field select, .ctc-field textarea {
-  width: 100%; padding: 13px 15px; border-radius: 12px;
+  width: 100%; padding: 13px 15px; border-radius: 0;
   background: #fffdf9; border: 1px solid rgba(15, 36, 68, 0.18);
   font-family: 'Inter', sans-serif; font-size: 15px; color: #1c2019;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -3370,7 +3236,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 /* consent — checkbox unticked by default (React initial state), on-palette accent */
 .ctc-consent {
   display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start;
-  margin: 22px 0 6px; padding: 16px 18px; border-radius: 14px;
+  margin: 22px 0 6px; padding: 16px 18px; border-radius: 0;
   background: rgba(15, 36, 68, 0.03); border: 1px solid rgba(15, 36, 68, 0.1);
 }
 .ctc-consent.has-err { border-color: #5e4610; background: rgba(94, 70, 16, 0.05); }
@@ -3386,7 +3252,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 .ctc-submit {
   display: inline-flex; align-items: center; gap: 10px; margin-top: 22px;
   height: 56px; padding: 0 30px; border: none; cursor: pointer;
-  border-radius: 999px; background: #c89a3c; color: #0f2444;
+  border-radius: 0; background: #c89a3c; color: #0f2444;
   font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.01em;
   transition: background 0.25s ease, transform 0.25s ease;
 }
@@ -3398,12 +3264,12 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 .ctc-dpa a { color: #836013; text-decoration: underline; text-underline-offset: 2px; }
 /* success state */
 .ctc-success {
-  padding: 44px 40px; border-radius: 26px; background: #fdfaf4; text-align: center;
+  padding: 44px 40px; border-radius: 0; background: #fdfaf4; text-align: center;
   border: 1px solid rgba(155, 116, 32, 0.28); box-shadow: 0 10px 40px rgba(15, 36, 68, 0.07);
 }
 .ctc-success-mark {
   display: inline-grid; place-items: center; width: 62px; height: 62px; margin-bottom: 22px;
-  border-radius: 999px; background: rgba(107, 122, 42, 0.12); color: #4f5c17;
+  border-radius: 0; background: rgba(107, 122, 42, 0.12); color: #4f5c17;
 }
 .ctc-success-title {
   margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700;
@@ -3415,7 +3281,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 }
 .ctc-btn {
   display: inline-flex; align-items: center; height: 52px; padding: 0 28px;
-  border-radius: 999px; background: #0f2444; color: #fdfaf4;
+  border-radius: 0; background: #0f2444; color: #fdfaf4;
   font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px;
   transition: background 0.25s ease, transform 0.25s ease;
 }
@@ -3515,66 +3381,9 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
   font-weight: 500; font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
 }
 
-/* ── 1. HERO (navy, ambient video slot behind poster) ──────────────────────── */
-.ff-hero {
-  position: relative;
-  min-height: 100svh;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  overflow: hidden;
-  background: #0f2444;
-  isolation: isolate;
-}
-.ff-hero-media { position: absolute; inset: 0; z-index: -2; }
-.ff-hero-poster,
-.ff-hero-video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  background-size: cover; background-position: center;
-}
-.ff-hero-video { opacity: 0; transition: opacity 0.8s ease; }
-.ff-hero-video.is-ready { opacity: 1; }
-/* legibility scrim — strong at the bottom where the copy sits, plus a top band so
-   the fixed nav stays readable over the poster */
-.ff-hero-scrim {
-  position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(10,18,32,0.82) 0%, rgba(10,18,32,0.28) 22%, rgba(10,18,32,0) 40%),
-    linear-gradient(0deg, rgba(10,18,32,0.94) 0%, rgba(10,18,32,0.72) 26%, rgba(10,18,32,0.18) 56%, rgba(10,18,32,0) 74%),
-    radial-gradient(1100px 620px at 74% 26%, rgba(200,154,60,0.12), transparent 62%);
-}
-.ff-hero-inner {
-  position: relative; z-index: 1;
-  width: 100%; max-width: 1280px; margin: 0 auto;
-  padding: 0 56px clamp(64px, 10vh, 120px);
-}
-.ff-hero-eyebrow { color: #e6bd6a; margin-bottom: 22px; }
-.ff-hero-h1 {
-  margin: 0;
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 600; font-size: clamp(44px, 7vw, 104px);
-  line-height: 1.0; letter-spacing: -0.03em; color: #fdfaf4;
-  max-width: 15ch;
-}
-.ff-hw { display: inline-block; margin-right: 0.22em; }
-.ff-hw-light { font-weight: 300; color: rgba(253,250,244,0.86); }
-.ff-hero-sub {
-  margin: clamp(24px, 3.4vh, 34px) 0 0;
-  max-width: 56ch;
-  font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: clamp(16px, 1.35vw, 20px); line-height: 1.6;
-  color: rgba(253,250,244,0.78);
-}
-/* scroll cue */
-.ff-hero-cue {
-  position: absolute; left: 50%; bottom: 22px; z-index: 2;
-  transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px;
-  text-transform: uppercase; color: rgba(253,250,244,0.62);
-}
-.ff-hero-cue svg { width: 18px; height: 18px; stroke: #c89a3c; animation: ff-bob 2.2s ease-in-out infinite; }
-@keyframes ff-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+/* ── 1. HERO — now the shared `.u-hero` skeleton (Phase 3.3). The forked
+   `.ff-hero*` video hero was deleted; the client rejected background motion, so
+   Fulfilment uses the same static navy hero as every page. ─────────────────── */
 
 /* ── 2. TRUST MARQUEE ("They trust us", permission-safe) ───────────────────── */
 .ff-trust { background: #f0ebe0; padding: clamp(56px, 8vh, 92px) 0 clamp(60px, 8vh, 96px); }
@@ -3595,7 +3404,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 .ff-mq-item {
   display: flex; align-items: center; gap: 12px; flex: none;
   margin: 0 12px; padding: 16px 26px;
-  background: #fdfaf4; border: 1px solid rgba(15,36,68,0.09); border-radius: 14px;
+  background: #fdfaf4; border: 1px solid rgba(15,36,68,0.09); border-radius: 0;
   box-shadow: 0 1px 3px rgba(15,36,68,0.05);
 }
 .ff-mq-ico { display: flex; flex: none; }
@@ -3620,7 +3429,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
   margin-top: clamp(48px, 6vh, 76px);
 }
 .ff-card {
-  position: relative; overflow: hidden; border-radius: 22px;
+  position: relative; overflow: hidden; border-radius: 0;
   border: 1px solid rgba(15,36,68,0.1);
   background: #0f2444;
   box-shadow: 0 1px 2px rgba(15,36,68,0.3), 0 20px 48px -24px rgba(15,36,68,0.45);
@@ -3666,7 +3475,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
   font-family: 'Inter Tight', sans-serif; font-weight: 500;
   font-size: clamp(28px, 3.6vw, 50px); line-height: 1.06; letter-spacing: -0.025em; color: #fdfaf4;
 }
-.ff-value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(200,154,60,0.16); border: 1px solid rgba(200,154,60,0.16); border-radius: 20px; overflow: hidden; }
+.ff-value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(200,154,60,0.16); border: 1px solid rgba(200,154,60,0.16); border-radius: 0; overflow: hidden; }
 .ff-vi {
   background: #0f2444; padding: clamp(30px, 4vh, 44px) clamp(26px, 3vw, 38px);
   display: flex; flex-direction: column; gap: 14px; min-height: 220px;
@@ -3695,7 +3504,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 .ff-feat:first-child { border-top: none; }
 .ff-feat--rev .ff-feat-media { order: 2; }
 .ff-feat-media {
-  position: relative; aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden;
+  position: relative; aspect-ratio: 4 / 3; border-radius: 0; overflow: hidden;
   background: #0f2444 center / cover no-repeat;
   border: 1px solid rgba(15,36,68,0.1);
   box-shadow: 0 20px 44px -26px rgba(15,36,68,0.4);
@@ -3778,7 +3587,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 }
 .ff-cta-sub { margin: 24px auto 40px; max-width: 46ch; font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.6; color: #4a4436; }
 .ff-cta-pill {
-  display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 34px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 34px; border-radius: 0;
   background: #c89a3c; color: #0f2444; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
   transition: transform 0.25s ease, background 0.25s ease;
 }
@@ -3837,14 +3646,14 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 .tb-gallery { position: sticky; top: 92px; align-self: start; display: flex; flex-direction: column; gap: 14px; }
 .tb-stage {
   position: relative; margin: 0; height: clamp(380px, 50vh, 520px);
-  border-radius: 24px; overflow: hidden; background: #f0ebe0;
+  border-radius: 0; overflow: hidden; background: #f0ebe0;
   box-shadow: 0 2px 10px rgba(15, 36, 68, 0.06), 0 34px 64px -34px rgba(15, 36, 68, 0.32);
 }
 .tb-stage-img { width: 100%; height: 100%; object-fit: contain; display: block; animation: tb-fade 0.5s ease; }
 @keyframes tb-fade { from { opacity: 0; transform: scale(1.015); } to { opacity: 1; transform: none; } }
 .tb-stage-tag {
   position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px;
-  padding: 7px 14px; border-radius: 999px; background: rgba(253, 250, 244, 0.92); backdrop-filter: blur(4px);
+  padding: 7px 14px; border-radius: 0; background: rgba(253, 250, 244, 0.92); backdrop-filter: blur(4px);
   font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
   text-transform: uppercase; color: #0f2444; box-shadow: 0 2px 10px rgba(15, 36, 68, 0.14);
 }
@@ -3852,7 +3661,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 
 .tb-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .tb-thumb {
-  padding: 0; border: none; cursor: pointer; height: 84px; border-radius: 12px; overflow: hidden;
+  padding: 0; border: none; cursor: pointer; height: 84px; border-radius: 0; overflow: hidden;
   background: #f0ebe0; box-shadow: 0 1px 4px rgba(15, 36, 68, 0.08);
   outline: 2px solid transparent; outline-offset: 2px;
   transition: outline-color 0.2s ease, transform 0.2s ease;
@@ -3871,7 +3680,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 .tb-badge {
   font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
   text-transform: uppercase; color: #836013; border: 1px solid rgba(155, 116, 32, 0.42);
-  border-radius: 999px; padding: 3px 11px;
+  border-radius: 0; padding: 3px 11px;
 }
 .tb-h1 {
   margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700;
@@ -3897,14 +3706,14 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 /* THE SWATCHES — the category switcher */
 .tb-swatches { margin: 26px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .tb-swatch {
-  display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px;
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 0;
   border: 1px solid rgba(15, 36, 68, 0.12); background: #fffdf8; cursor: pointer; text-align: left;
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 @media (hover: hover) { .tb-swatch:hover { transform: translateY(-2px); border-color: rgba(155, 116, 32, 0.5); } }
 .tb-swatch.is-active { border-color: #9b7420; background: #fff; box-shadow: 0 0 0 1px #9b7420, 0 8px 20px -12px rgba(15, 36, 68, 0.3); }
 .tb-swatch-chip {
-  width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0;
+  width: 26px; height: 26px; border-radius: 0; flex-shrink: 0;
   background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.55), transparent 46%), var(--chip);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14), inset 0 -3px 6px rgba(0, 0, 0, 0.28);
 }
@@ -3914,7 +3723,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 .tb-feats { margin: 28px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .tb-feat {
   display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
-  padding: 18px 8px; border-radius: 16px; background: #f0ebe0;
+  padding: 18px 8px; border-radius: 0; background: #f0ebe0;
 }
 .tb-feat-ico { width: 40px; height: 40px; display: grid; place-items: center; color: #9b7420; }
 .tb-feat-ico svg { width: 34px; height: 34px; }
@@ -3927,13 +3736,13 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 /* CTA row — no cart / price */
 .tb-cta-row { margin: 30px 0 0; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 .tb-quote {
-  display: inline-flex; align-items: center; gap: 9px; height: 52px; padding: 0 26px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 9px; height: 52px; padding: 0 26px; border-radius: 0;
   background: #c89a3c; color: #0f2444; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px;
   text-decoration: none; transition: background 0.25s ease, transform 0.25s ease;
 }
 .tb-quote:hover { background: #e6bd6a; transform: translateY(-2px); }
 .tb-spec {
-  display: inline-flex; align-items: center; height: 52px; padding: 0 22px; border-radius: 999px;
+  display: inline-flex; align-items: center; height: 52px; padding: 0 22px; border-radius: 0;
   border: 1px solid rgba(15, 36, 68, 0.25); color: #0f2444; font-family: 'Inter Tight', sans-serif;
   font-weight: 500; font-size: 14px; text-decoration: none; transition: border-color 0.2s ease, background 0.2s ease;
 }
@@ -3969,7 +3778,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 .tb-range-sub { margin: 0; font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(28, 32, 25, 0.72); }
 .tb-range-cats { margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .tb-range-cat {
-  display: inline-flex; align-items: center; gap: 9px; padding: 10px 16px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 9px; padding: 10px 16px; border-radius: 0;
   border: 1px solid rgba(15, 36, 68, 0.14); background: #fffdf8; cursor: pointer;
   font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; color: #0f2444;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -3977,13 +3786,13 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 @media (hover: hover) { .tb-range-cat:hover { transform: translateY(-2px); border-color: rgba(155, 116, 32, 0.5); } }
 .tb-range-cat.is-active { border-color: #9b7420; box-shadow: 0 0 0 1px #9b7420; }
 .tb-range-chip {
-  width: 16px; height: 16px; border-radius: 5px;
+  width: 16px; height: 16px; border-radius: 0;
   background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.5), transparent 46%), var(--chip);
   box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.28);
 }
 .tb-range-sibs { margin: 24px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .tb-sib {
-  display: flex; flex-direction: column; gap: 6px; padding: 26px 28px; border-radius: 20px;
+  display: flex; flex-direction: column; gap: 6px; padding: 26px 28px; border-radius: 0;
   background: #0f2444; color: #fdfaf4; text-decoration: none; position: relative; overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -3999,7 +3808,7 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 .tb-close-eyebrow { margin: 0 0 10px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #836013; }
 .tb-close-h { margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(30px, 4.2vw, 54px); letter-spacing: -0.8px; color: #0f2444; }
 .tb-close-pill {
-  display: inline-flex; align-items: center; gap: 10px; height: 58px; padding: 0 32px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 10px; height: 58px; padding: 0 32px; border-radius: 0;
   background: #c89a3c; color: #0f2444; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 16px;
   text-decoration: none; transition: background 0.25s ease, transform 0.25s ease;
   box-shadow: 0 12px 30px -14px rgba(200, 154, 60, 0.65);
@@ -4197,7 +4006,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 }
 .qfp-globe-tip {
   display: flex; flex-direction: column; align-items: center; line-height: 1;
-  padding: 5px 10px; border-radius: 9px; white-space: nowrap;
+  padding: 5px 10px; border-radius: 0; white-space: nowrap;
   background: rgba(15, 36, 68, 0.92); border: 1px solid rgba(200, 154, 60, 0.4);
   box-shadow: 0 6px 18px rgba(10, 18, 34, 0.4);
 }

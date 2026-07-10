@@ -5,9 +5,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Seo from '@/components/Seo'
 import CountUp from '@/components/CountUp'
-import VideoBackdrop from '@/components/VideoBackdrop'
 import SectionCurve from '@/components/SectionCurve'
-import { DotField, PaperGrain } from '@/components/atmosphere'
+import { DotField, PaperGrain, WavyBackground } from '@/components/atmosphere'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 
@@ -19,15 +18,13 @@ gsap.registerPlugin(ScrollTrigger)
 // Native scroll (the homepage owns Lenis; inner routes are plain scroll). Every
 // section carries data-theme so the fixed SiteNav flips ink/paper under it.
 //
-// Two compliance gates, both OFF by default:
-//   VIDEO_READY            — hero ambient video slot. Poster shows until the
-//                            client delivers /qfp/fulfil/hero.mp4 (+ captions).
+// Compliance gate, OFF by default:
 //   SHOW_RESTRICTED_CLIENTS — the trust marquee is permission-safe (ministries /
 //                            programmes only). Named commercial clients (HDFC,
 //                            ZEE, Reliance) stay OUT of the DOM until sign-off.
+// (Phase 3.3: the ambient-video hero was retired — the client rejected background
+//  motion, so Fulfilment now uses the same static navy hero skeleton as every page.)
 // ─────────────────────────────────────────────────────────────────────────────
-const VIDEO_READY = true
-const VIDEO_SRC = '/qfp/fulfil/hero.mp4'
 const SHOW_RESTRICTED_CLIENTS = false
 
 const BASE = '/qfp/fulfil'
@@ -144,33 +141,30 @@ const STAGES = [{ n: '01' }, { n: '02' }, { n: '03' }]
 function Hero() {
   const { t } = useTranslation('fulfilment')
   return (
-    <section data-theme="dark" className="ff-hero" aria-labelledby="ff-h1">
-      <div className="ff-hero-media" aria-hidden="true">
-        <div className="ff-hero-poster" style={{ backgroundImage: `url(${BASE}/hero-poster.webp)` }} />
-        {VIDEO_READY && (
-          <VideoBackdrop className="ff-hero-video is-ready" src={VIDEO_SRC} poster={`${BASE}/hero-poster.webp`} />
-        )}
-      </div>
-      <div className="ff-hero-scrim" aria-hidden="true" />
-      <div className="ff-hero-inner">
-        <p className="ff-shared-eyebrow ff-hero-eyebrow ff-reveal">{t('hero.eyebrow')}</p>
-        <h1 id="ff-h1" className="ff-hero-h1 ff-reveal">
-          <span className="ff-hw">{t('hero.title.one')}</span>
-          <span className="ff-hw">{t('hero.title.system')}</span>
-          <br />
-          <span className="ff-hw ff-hw-light">{t('hero.title.start')}</span>
-          <span className="ff-hw ff-hw-light">{t('hero.title.to')}</span>
-          <span className="ff-hw">{t('hero.title.finish')}</span>
-        </h1>
-        <p className="ff-hero-sub ff-reveal">
-          {t('hero.sub')}
-        </p>
-      </div>
-      <div className="ff-hero-cue" aria-hidden="true">
-        <span>{t('hero.cue')}</span>
-        <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 5v14M6 13l6 6 6-6" />
-        </svg>
+    <section data-theme="dark" className="u-hero" aria-labelledby="ff-h1">
+      <WavyBackground className="u-hero-waves" />
+      <div className="u-hero-beam" aria-hidden="true" />
+      <div className="u-hero-inner">
+        <div className="u-hero-copy">
+          <p className="u-eyebrow ff-reveal">{t('hero.eyebrow')}</p>
+          <h1 id="ff-h1" className="u-h1 ff-reveal">
+            {t('hero.title.one')} {t('hero.title.system')}<br />
+            {t('hero.title.start')} {t('hero.title.to')} <span className="u-h1-accent">{t('hero.title.finish')}</span>
+          </h1>
+          <p className="u-hero-sub ff-reveal">
+            {t('hero.sub')}
+          </p>
+          <div className="u-hero-ctas ff-reveal">
+            <Link to="/contact" className="u-btn u-btn--gold">{t('hero.cta')}</Link>
+          </div>
+        </div>
+
+        {/* single big number — Ekta-style flat gold numeral */}
+        <div className="u-hero-stat" aria-label={t('hero.statAria')}>
+          <span className="u-stat-num" aria-hidden="true">{t('hero.statNum')}</span>
+          <span className="u-stat-unit">{t('hero.statUnit')}</span>
+          <span className="u-stat-foot">{t('hero.statFoot')}</span>
+        </div>
       </div>
     </section>
   )

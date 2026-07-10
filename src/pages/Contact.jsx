@@ -250,30 +250,30 @@ export default function Contact() {
   return (
     <main id="main" ref={root}>
       {/* ── 1. HERO (navy) — anatomy mirrored from /infrastructure ── */}
-      <section data-theme="dark" className="ctc-hero relative overflow-hidden" aria-labelledby="ctc-h1">
-        <WavyBackground className="ctc-hero-waves" />
-        <div className="ctc-hero-beam" aria-hidden="true" />
-        <div className="ctc-hero-inner ctc-hero-grid relative z-10">
-          <div className="ctc-hero-copy">
+      <section data-theme="dark" className="u-hero" aria-labelledby="ctc-h1">
+        <WavyBackground className="u-hero-waves" />
+        <div className="u-hero-beam" aria-hidden="true" />
+        <div className="u-hero-inner">
+          <div className="u-hero-copy">
             <nav className="ctc-crumb" aria-label={t('breadcrumb.label')}>
               <Link to="/">{t('breadcrumb.home')}</Link>
               <span aria-hidden="true">»</span>
               <span aria-current="page">{t('breadcrumb.contact')}</span>
             </nav>
-            <p className="ctc-hero-eyebrow">{t('hero.eyebrow')}</p>
-            <h1 id="ctc-h1" data-textreveal className="ctc-h1">
-              <Trans t={t} i18nKey="hero.title" components={{ strong: <span className="ctc-h1-accent" /> }} />
+            <p className="u-eyebrow">{t('hero.eyebrow')}</p>
+            <h1 id="ctc-h1" data-textreveal className="u-h1">
+              <Trans t={t} i18nKey="hero.title" components={{ strong: <span className="u-h1-accent" /> }} />
             </h1>
-            <p className="ctc-hero-line" data-reveal>
+            <p className="u-hero-sub" data-reveal>
               {t('hero.line')}
             </p>
           </div>
 
-          {/* right-side foil anchor — phone number LARGE, echoing infra's flagship stat */}
-          <div className="ctc-hero-stat" aria-label={t('hero.callAriaLabel')}>
-            <a className="ctc-hero-foil" href={`tel:${PHONE_TEL}`}>{PHONE_FOIL}</a>
-            <span className="ctc-hero-stat-label">{t('hero.callLabel')}</span>
-            <span className="ctc-hero-stat-foot">{t('hero.callFoot')}</span>
+          {/* right-side big number — phone number LARGE, echoing infra's flagship stat */}
+          <div className="u-hero-stat" aria-label={t('hero.callAriaLabel')}>
+            <a className="u-stat-num u-stat-num--text" href={`tel:${PHONE_TEL}`}>{PHONE_FOIL}</a>
+            <span className="u-stat-unit">{t('hero.callLabel')}</span>
+            <span className="u-stat-foot">{t('hero.callFoot')}</span>
           </div>
         </div>
       </section>

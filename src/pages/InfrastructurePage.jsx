@@ -251,32 +251,32 @@ export default function InfrastructurePage() {
       />
 
       {/* ── 1 · HERO (navy) ─────────────────────────────────────────────── */}
-      <section data-theme="dark" className="inf-hero" aria-labelledby="inf-h1">
-        <WavyBackground className="inf-waves" />
-        <div className="inf-hero-beam" aria-hidden="true" />
-        <div className="inf-wrap inf-hero-grid inf-z">
-          <div className="inf-hero-copy">
-            <p className="inf-hero-eyebrow">{t('hero.eyebrow')}</p>
-            <h1 id="inf-h1" className="inf-hero-title">
-              <Trans t={t} i18nKey="hero.title" components={{ strong: <span className="inf-hero-title-accent" /> }} />
+      <section data-theme="dark" className="u-hero" aria-labelledby="inf-h1">
+        <WavyBackground className="u-hero-waves" />
+        <div className="u-hero-beam" aria-hidden="true" />
+        <div className="u-hero-inner">
+          <div className="u-hero-copy">
+            <p className="u-eyebrow">{t('hero.eyebrow')}</p>
+            <h1 id="inf-h1" className="u-h1">
+              <Trans t={t} i18nKey="hero.title" components={{ strong: <span className="u-h1-accent" /> }} />
             </h1>
-            <p className="inf-hero-sub">
+            <p className="u-hero-sub">
               {t('hero.sub')}
             </p>
-            <div className="inf-hero-ctas">
-              <Link to="/contact" className="inf-btn inf-btn--gold">{t('hero.ctaQuote')}</Link>
-              <a href="/#process" className="inf-btn inf-btn--ghost">
+            <div className="u-hero-ctas">
+              <Link to="/contact" className="u-btn u-btn--gold">{t('hero.ctaQuote')}</Link>
+              <a href="/#process" className="u-btn u-btn--ghost">
                 {t('hero.ctaProcess')}
                 <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </a>
             </div>
           </div>
 
-          {/* single foil moment on the page — the flagship stat */}
-          <div className="inf-hero-stat" aria-label={t('hero.statAriaLabel')}>
-            <span className="inf-hero-foil" aria-hidden="true">250,000</span>
-            <span className="inf-hero-stat-unit">{t('hero.statUnit')}</span>
-            <span className="inf-hero-stat-foot">{t('hero.statFoot')}</span>
+          {/* single big number on the page — the flagship stat */}
+          <div className="u-hero-stat" aria-label={t('hero.statAriaLabel')}>
+            <span className="u-stat-num" aria-hidden="true">250,000</span>
+            <span className="u-stat-unit">{t('hero.statUnit')}</span>
+            <span className="u-stat-foot">{t('hero.statFoot')}</span>
           </div>
         </div>
         <SectionCurve position="bottom" fill="#fdfaf4" inward />

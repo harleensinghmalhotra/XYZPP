@@ -9,7 +9,11 @@
     "eyebrow": "Impression à la demande",
     "title": "Votre livre. <em>Exactement</em> comme vous l’imaginiez.",
     "sub": "De l’exemplaire unique au petit tirage, imprimé selon le même standard que nos millions d’exemplaires. Choisissez l’aspect et le toucher de votre livre, et nous transformerons vos fichiers en exemplaires finis que vous serez fier de tenir en main.",
-    "cta": "Commencer la composition"
+    "cta": "Commencer la composition",
+    "statNum": "1",
+    "statUnit": "Exemplaire minimum",
+    "statFoot": "De l’exemplaire unique au petit tirage — imprimé selon le même standard que nos millions.",
+    "statAria": "Un exemplaire minimum"
   },
   "build": {
     "eyebrow": "Le configurateur",

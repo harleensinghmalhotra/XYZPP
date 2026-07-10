@@ -17,7 +17,12 @@
       "finish": "fin."
     },
     "sub": "Imprimer, conditionner, entreposer, expédier : vos livres pris en charge sous un même toit jusqu'à ce qu'ils atteignent le leur.",
-    "cue": "Faites défiler"
+    "cue": "Faites défiler",
+    "cta": "Demander un devis",
+    "statNum": "100 000",
+    "statUnit": "Pi² d'entreposage",
+    "statFoot": "Assemblage, cartons fabriqués sur site et livraison du dernier kilomètre, sous un même toit.",
+    "statAria": "100 000 pieds carrés d'entreposage"
   },
   "trust": {
     "eyebrow": "Ils nous font confiance",

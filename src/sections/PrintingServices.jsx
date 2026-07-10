@@ -39,7 +39,7 @@ export default function PrintingServices() {
             <a
               key={c.key}
               href="#portfolio"
-              className="flex w-[300px] flex-col items-stretch rounded-[48px] bg-[#f3fafd] pb-[45px] transition-opacity hover:opacity-[0.72] md:w-[24vw] md:max-w-[360px]"
+              className="flex w-[300px] flex-col items-stretch rounded-none bg-[#f3fafd] pb-[45px] transition-opacity hover:opacity-[0.72] md:w-[24vw] md:max-w-[360px]"
             >
               <div className="relative mb-[18px] flex h-[250px] items-end justify-center overflow-visible">
                 <img

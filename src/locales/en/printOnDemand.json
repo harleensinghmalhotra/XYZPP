@@ -9,7 +9,11 @@
     "eyebrow": "Print on Demand",
     "title": "Your Book. <em>Exactly</em> as You Imagined.",
     "sub": "From a single copy to a short run, printed to the same standard as our millions. Choose how your book looks and feels, and we’ll turn your files into finished copies you’ll be proud to hold.",
-    "cta": "Start building"
+    "cta": "Start building",
+    "statNum": "1",
+    "statUnit": "Copy Minimum",
+    "statFoot": "From a single copy to a short run — printed to the same standard as our millions.",
+    "statAria": "Minimum one copy"
   },
   "build": {
     "eyebrow": "The Configurator",

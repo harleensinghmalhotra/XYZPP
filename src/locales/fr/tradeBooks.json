@@ -16,7 +16,12 @@
     "badge": "Qualité export",
     "title": "Livres grand public",
     "ledeLight": "Certains livres informent. ",
-    "ledeBold": "Ceux-ci sont faits pour être conservés."
+    "ledeBold": "Ceux-ci sont faits pour être conservés.",
+    "heroSub": "Beaux livres, cahiers, agendas en cuir, calendriers, autobiographies et romans — des livres grand public et cadeaux de qualité export, faits pour être conservés.",
+    "statNum": "6",
+    "statUnit": "Formats premium",
+    "statFoot": "Du beau livre à l'agenda en cuir, une finition de qualité patrimoniale.",
+    "statAria": "Six formats de livres grand public premium"
   },
   "gallery": {
     "imageAlt": "{{name}}, livre grand public Quarterfold, vue {{index}}",

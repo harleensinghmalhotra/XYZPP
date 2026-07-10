@@ -27,7 +27,7 @@
 /* buttons */
 .inf-btn {
   display: inline-flex; align-items: center; gap: 8px;
-  height: 46px; padding: 0 24px; border-radius: 999px;
+  height: 46px; padding: 0 24px; border-radius: 0;
   font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.1px;
   text-decoration: none; cursor: pointer; border: 0;
   transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
@@ -39,58 +39,11 @@
 .inf-btn--lg { height: 54px; padding: 0 34px; font-size: 16px; }
 .inf-btn:focus-visible { outline: 2px solid #c89a3c; outline-offset: 3px; }
 
-/* ── 1 · HERO (navy) ──────────────────────────────────────────────────────── */
-.inf-hero {
-  position: relative; overflow: hidden; background: #0f2444; color: #fdfaf4;
-  padding: clamp(140px, 20vh, 200px) 0 clamp(88px, 13vh, 140px);
-}
-/* atmosphere: wave canvas sits behind the beam + content; content lifts above */
-.inf-waves { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; pointer-events: none; opacity: 0.9; }
+/* ── 1 · HERO — now the shared `.u-hero` skeleton (Phase 3.3). The forked
+   `.inf-hero*` shell (incl. its gold-foil-gradient stat) was deleted; the shared
+   `.u-stat-num` renders a flat Ekta-style gold numeral instead. `.inf-z` stays —
+   it is reused by the strip/results sections below. ──────────────────────────── */
 .inf-z { position: relative; z-index: 10; }
-/* edge-origin soft beams — no straight interior lines */
-.inf-hero-beam {
-  position: absolute; inset: 0; pointer-events: none;
-  background:
-    radial-gradient(120% 90% at 100% 0%, rgba(200,154,60,0.14) 0%, transparent 55%),
-    radial-gradient(90% 80% at 0% 100%, rgba(27,58,107,0.55) 0%, transparent 60%);
-}
-.inf-hero-grid {
-  position: relative; display: grid; grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(36px, 5vw, 72px); align-items: center;
-}
-.inf-hero-eyebrow {
-  margin: 0 0 18px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 3px; text-transform: uppercase; color: #c89a3c;
-}
-.inf-hero-title {
-  margin: 0; max-width: 16ch;
-  font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(40px, 6vw, 74px); line-height: 1.02; letter-spacing: -1.2px; color: #fdfaf4;
-}
-.inf-hero-title-accent { color: #c89a3c; }
-.inf-hero-sub {
-  margin: clamp(20px, 3vh, 30px) 0 clamp(30px, 4vh, 40px); max-width: 52ch;
-  font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(16px, 1.3vw, 19px);
-  line-height: 1.7; color: rgba(253,250,244,0.82);
-}
-.inf-hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; }
-
-.inf-hero-stat { display: flex; flex-direction: column; align-items: flex-start; }
-.inf-hero-foil {
-  font-family: 'Inter Tight', sans-serif; font-weight: 800;
-  font-size: clamp(58px, 9vw, 126px); line-height: 0.9; letter-spacing: -3px;
-  background: linear-gradient(180deg, #fdfaf4 0%, #f0cd82 58%, #c89a3c 100%);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5)) drop-shadow(0 0 26px rgba(200,154,60,0.28)) drop-shadow(0 0 64px rgba(200,154,60,0.14));
-}
-.inf-hero-stat-unit {
-  margin-top: 8px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 13px;
-  letter-spacing: 4px; color: #c89a3c;
-}
-.inf-hero-stat-foot {
-  margin-top: 16px; max-width: 24ch; font-family: 'Inter', sans-serif; font-size: 14px;
-  line-height: 1.55; color: rgba(253,250,244,0.62);
-}
 
 /* ── 2 · TRUST STRIP — certifications (cream) ─────────────────────────────── */
 .inf-strip { position: relative; overflow: hidden; background: #fdfaf4; padding: clamp(48px, 7vh, 82px) 0; border-bottom: 1px solid rgba(28,32,25,0.08); }
@@ -134,11 +87,11 @@
 .inf-acc-panel p { margin: 0; max-width: 46ch; font-family: 'Inter', sans-serif; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.7; color: #40453b; }
 
 .inf-acc-visual { position: relative; }
-.inf-acc-photo { aspect-ratio: 4 / 5; border-radius: 22px; }
+.inf-acc-photo { aspect-ratio: 4 / 5; border-radius: 0; }
 .inf-acc-quote {
   position: absolute; left: clamp(14px, 2vw, 24px); bottom: clamp(14px, 2vw, 24px);
   display: flex; align-items: baseline; gap: 12px;
-  padding: 16px 20px; border-radius: 16px; background: #fdfaf4;
+  padding: 16px 20px; border-radius: 0; background: #fdfaf4;
   box-shadow: 0 2px 6px rgba(15,36,68,0.14), 0 20px 44px -18px rgba(15,36,68,0.5);
   max-width: 82%;
 }
@@ -150,7 +103,7 @@
 .inf-machines { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2vw, 28px); }
 .inf-machine {
   display: flex; flex-direction: column;
-  border-radius: 24px; background: #fdfaf4; border: 1px solid rgba(28,32,25,0.10);
+  border-radius: 0; background: #fdfaf4; border: 1px solid rgba(28,32,25,0.10);
   box-shadow: 0 1px 2px rgba(28,32,25,0.05), 0 12px 34px -18px rgba(15,36,68,0.28);
   transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
 }
@@ -202,7 +155,7 @@
 .inf-video { position: relative; }
 .inf-video-thumb {
   position: relative; display: block; width: 100%; aspect-ratio: 16 / 9;
-  padding: 0; border: 1px solid rgba(253,250,244,0.12); border-radius: 24px; overflow: hidden; cursor: pointer;
+  padding: 0; border: 1px solid rgba(253,250,244,0.12); border-radius: 0; overflow: hidden; cursor: pointer;
   background: linear-gradient(155deg, #1b3a6b 0%, #12294c 52%, #0b1c38 100%);
   box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 18px 44px -18px rgba(0,0,0,0.6);
   transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
@@ -250,7 +203,7 @@
 .inf-gallery { position: relative; overflow: hidden; background: #fdfaf4; padding: clamp(72px, 11vh, 130px) 0; }
 .inf-gallery-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 1.5vw, 20px); }
 .inf-gallery-item { margin: 0; }
-.inf-gallery-photo { aspect-ratio: 4 / 5; border-radius: 18px; }
+.inf-gallery-photo { aspect-ratio: 4 / 5; border-radius: 0; }
 .inf-gallery-item:hover .inf-photo-img { transform: scale(1.04); }
 .inf-gallery-cap { margin-top: 12px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #836013; }
 
@@ -261,7 +214,7 @@
 .inf-cta-sub { margin: 18px 0 clamp(28px, 4vh, 40px); max-width: 44ch; font-family: 'Inter', sans-serif; font-size: clamp(15px, 1.2vw, 18px); line-height: 1.65; color: #40453b; }
 
 /* silent drop-in photo surface — navy duotone under the real image */
-.inf-photo { position: relative; border-radius: 18px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.22), 0 18px 46px -22px rgba(15,36,68,0.5); }
+.inf-photo { position: relative; border-radius: 0; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.22), 0 18px 46px -22px rgba(15,36,68,0.5); }
 .inf-photo-base { position: absolute; inset: 0; background: linear-gradient(150deg, #1b3a6b 0%, #12294c 55%, #0f2444 100%); }
 .inf-photo-base::after { content: ''; position: absolute; inset: 0; opacity: 0.5; background-image: radial-gradient(rgba(200,154,60,0.16) 1px, transparent 1.4px); background-size: 16px 16px; }
 .inf-photo-note {
@@ -273,7 +226,7 @@
 
 /* video dialog — backdrop blur + navy scrim */
 .inf-dialog { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: clamp(20px, 5vw, 64px); background: rgba(9,20,40,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); animation: inf-dialog-in 0.28s ease both; }
-.inf-dialog-panel { position: relative; width: min(1120px, 100%); aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; box-shadow: 0 40px 120px -20px rgba(0,0,0,0.7); }
+.inf-dialog-panel { position: relative; width: min(1120px, 100%); aspect-ratio: 16 / 9; border-radius: 0; overflow: hidden; box-shadow: 0 40px 120px -20px rgba(0,0,0,0.7); }
 .inf-dialog-video { width: 100%; height: 100%; display: block; background: #0b1c38; }
 .inf-dialog-ph { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: linear-gradient(155deg, #1b3a6b 0%, #12294c 52%, #0b1c38 100%); }
 .inf-dialog-ph .inf-video-note { position: static; transform: none; }
@@ -283,7 +236,7 @@
 .inf-dialog-close:focus-visible { outline: 2px solid #c89a3c; outline-offset: 2px; }
 @keyframes inf-dialog-in { from { opacity: 0; } to { opacity: 1; } }
 
-.inf-acc-head:focus-visible { outline: 2px solid #c89a3c; outline-offset: 2px; border-radius: 6px; }
+.inf-acc-head:focus-visible { outline: 2px solid #c89a3c; outline-offset: 2px; border-radius: 0; }
 
 /* ── responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 960px) {

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Seo from '@/components/Seo'
 import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
-import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import { DotField, EdgeGlow, PaperGrain, WavyBackground } from '@/components/atmosphere'
 import GlobeFlyTo from '@/components/GlobeFlyTo'
 import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 
@@ -228,29 +228,23 @@ export default function About() {
         jsonLd={breadcrumb}
       />
 
-      {/* 1 ── HERO (navy) ─────────────────────────────────────────────────── */}
-      <section
-        data-theme="dark"
-        className="relative flex min-h-[82svh] flex-col justify-end overflow-hidden px-6 pb-20 pt-40 sm:px-10"
-        style={{ background: `radial-gradient(1100px 720px at 68% 18%, rgba(200,154,60,0.14), transparent 60%), radial-gradient(900px 700px at 12% 110%, rgba(27,58,107,0.55), transparent 62%), ${NAVY}` }}
-      >
-        <DotField tone="navy" />
-        <div className="relative z-10 mx-auto w-full max-w-[1400px]">
-          <div data-reveal><Eyebrow color={GOLD_BRIGHT}>{t('hero.eyebrow')}</Eyebrow></div>
-          <h1 data-textreveal className="mt-5 font-extrabold leading-[0.92] tracking-tight text-[clamp(64px,12vw,168px)]" style={{ fontFamily: TIGHT, color: CREAM }}>
-            {t('hero.title')}
-          </h1>
-          <p data-reveal className="mt-7 max-w-2xl text-[clamp(18px,2.2vw,24px)] leading-relaxed" style={{ fontFamily: INTER, color: 'rgba(253,250,244,0.82)' }}>
-            {t('hero.lede')}
-          </p>
-          <div className="mt-10" data-reveal>
-            <Link
-              to="/contact"
-              className={`inline-flex h-14 items-center justify-center rounded-full px-9 text-[15px] font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${focusGold}`}
-              style={{ background: GOLD_BRIGHT, color: NAVY, fontFamily: INTER, letterSpacing: '0.1px' }}
-            >
-              {t('hero.cta')}
-            </Link>
+      {/* 1 ── HERO (navy) — canonical unified hero (.u-*) ──────────────────── */}
+      <section data-theme="dark" className="u-hero" aria-labelledby="about-h1">
+        <WavyBackground className="u-hero-waves" />
+        <div className="u-hero-beam" aria-hidden="true" />
+        <div className="u-hero-inner">
+          <div className="u-hero-copy">
+            <p className="u-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
+            <h1 id="about-h1" className="u-h1" data-textreveal>{t('hero.title')}</h1>
+            <p className="u-hero-sub" data-reveal>{t('hero.lede')}</p>
+            <div className="u-hero-ctas" data-reveal>
+              <Link to="/contact" className="u-btn u-btn--gold">{t('hero.cta')}</Link>
+            </div>
+          </div>
+          <div className="u-hero-stat" aria-label={t('hero.statAria')}>
+            <span className="u-stat-num" aria-hidden="true">{t('hero.statNum')}</span>
+            <span className="u-stat-unit">{t('hero.statUnit')}</span>
+            <span className="u-stat-foot">{t('hero.statFoot')}</span>
           </div>
         </div>
       </section>
@@ -262,7 +256,7 @@ export default function About() {
         <div className="relative z-10 mx-auto grid max-w-[1400px] items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           {/* portrait */}
           <div className="order-2 lg:order-1" data-reveal>
-            <div className="relative mx-auto max-w-[420px] overflow-hidden rounded-[28px] ring-1" style={{ ringColor: NAVY, boxShadow: '0 30px 70px rgba(15,36,68,0.22)' }}>
+            <div className="relative mx-auto max-w-[420px] overflow-hidden rounded-none ring-1" style={{ ringColor: NAVY, boxShadow: '0 30px 70px rgba(15,36,68,0.22)' }}>
               <img src="/qfp/about/founder.webp" alt={t('founder.imageAlt')} className="block aspect-[760/920] w-full object-cover" width="760" height="920" loading="lazy" />
             </div>
           </div>
@@ -293,7 +287,7 @@ export default function About() {
         <PaperGrain />
         <div className="relative z-10 mx-auto grid max-w-[1400px] items-start gap-14 lg:grid-cols-2 lg:gap-20">
           <div data-reveal>
-            <div className="overflow-hidden rounded-[28px] ring-1 ring-[#0f2444]/10" style={{ boxShadow: '0 30px 70px rgba(15,36,68,0.18)' }}>
+            <div className="overflow-hidden rounded-none ring-1 ring-[#0f2444]/10" style={{ boxShadow: '0 30px 70px rgba(15,36,68,0.18)' }}>
               <img src="/qfp/about/story.webp" alt={t('story.imageAlt')} className="block aspect-[1280/860] w-full object-cover" width="1280" height="860" loading="lazy" />
             </div>
           </div>
@@ -405,10 +399,10 @@ export default function About() {
                 to={to}
                 data-reveal
                 data-card="whatwedo"
-                className={`group flex h-full min-h-[248px] flex-col rounded-[24px] border p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,36,68,0.16)] ${focusGold}`}
+                className={`group flex h-full min-h-[248px] flex-col rounded-none border p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(15,36,68,0.16)] ${focusGold}`}
                 style={{ background: BEIGE, borderColor: 'rgba(15,36,68,0.1)' }}
               >
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl transition-colors duration-300" style={{ background: CREAM, color: GOLD }}>
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-none transition-colors duration-300" style={{ background: CREAM, color: GOLD }}>
                   <Icon />
                 </span>
                 <h3 className="mt-auto pt-8 text-[22px] font-semibold leading-tight" style={{ fontFamily: TIGHT, color: NAVY }}>{t(`whatWeDo.${key}.title`)}</h3>
@@ -462,8 +456,8 @@ export default function About() {
           {/* cards */}
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {SERVICES[tab].map(({ icon: Icon, key }) => (
-              <div key={key} data-reveal data-card="service" className="flex h-full min-h-[236px] flex-col rounded-[24px] p-8" style={{ background: CREAM, border: '1px solid rgba(15,36,68,0.1)' }}>
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: BEIGE, color: GOLD }}>
+              <div key={key} data-reveal data-card="service" className="flex h-full min-h-[236px] flex-col rounded-none p-8" style={{ background: CREAM, border: '1px solid rgba(15,36,68,0.1)' }}>
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-none" style={{ background: BEIGE, color: GOLD }}>
                   <Icon />
                 </span>
                 <h3 className="mt-auto pt-8 text-[21px] font-semibold leading-tight" style={{ fontFamily: TIGHT, color: NAVY }}>{t(`services.${tab}.${key}.title`)}</h3>
@@ -495,7 +489,7 @@ export default function About() {
 
           <div className="mt-14 grid grid-cols-2 gap-5 md:grid-cols-4">
             {[1, 2, 3, 4].map((n) => (
-              <div key={n} data-reveal className="overflow-hidden rounded-[22px] ring-1" style={{ ringColor: 'rgba(200,154,60,0.25)' }}>
+              <div key={n} data-reveal className="overflow-hidden rounded-none ring-1" style={{ ringColor: 'rgba(200,154,60,0.25)' }}>
                 <img src={`/qfp/about/people-0${n}.webp`} alt={t('people.imageAlt', { n })} className="block aspect-square w-full object-cover" width="640" height="640" loading="lazy" />
               </div>
             ))}

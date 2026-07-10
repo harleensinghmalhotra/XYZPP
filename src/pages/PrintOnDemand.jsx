@@ -198,22 +198,28 @@ export default function PrintOnDemand() {
   return (
     <main id="main" className="pod">
       {/* 1 · HERO */}
-      <section className="pod-hero" data-theme="light">
-        <PaperGrain opacity={0.05} />
-        <div className="pod-hero-inner">
-          <p className="pod-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
-          <h1 className="pod-h1" data-textreveal>
-            <Trans t={t} i18nKey="hero.title" components={{ em: <em /> }} />
-          </h1>
-          <p className="pod-hero-sub" data-reveal>
-            {t('hero.sub')}
-          </p>
-          <a href="#build" className="pod-hero-cta" data-reveal>
-            {t('hero.cta')}
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M12 5v14" /><path d="m6 13 6 6 6-6" />
-            </svg>
-          </a>
+      <section className="u-hero" data-theme="dark" aria-labelledby="pod-h1">
+        <WavyBackground className="u-hero-waves" />
+        <div className="u-hero-beam" aria-hidden="true" />
+        <div className="u-hero-inner">
+          <div className="u-hero-copy">
+            <p className="u-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
+            <h1 id="pod-h1" className="u-h1" data-textreveal>
+              <Trans t={t} i18nKey="hero.title" components={{ em: <span className="u-h1-accent" /> }} />
+            </h1>
+            <p className="u-hero-sub" data-reveal>{t('hero.sub')}</p>
+            <div className="u-hero-ctas" data-reveal>
+              <a href="#build" className="u-btn u-btn--gold">
+                {t('hero.cta')}
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="m6 13 6 6 6-6" /></svg>
+              </a>
+            </div>
+          </div>
+          <div className="u-hero-stat" aria-label={t('hero.statAria')}>
+            <span className="u-stat-num" aria-hidden="true">{t('hero.statNum')}</span>
+            <span className="u-stat-unit">{t('hero.statUnit')}</span>
+            <span className="u-stat-foot">{t('hero.statFoot')}</span>
+          </div>
         </div>
       </section>
 

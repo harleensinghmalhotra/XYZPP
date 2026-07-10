@@ -11,7 +11,11 @@
     "eyebrow": "Quarterfold Printabilities",
     "title": "À propos",
     "lede": "L'une des plus grandes entreprises indiennes de solutions d'impression et d'édition, au service de l'éducation dans plus de 25 pays.",
-    "cta": "Demander un devis"
+    "cta": "Demander un devis",
+    "statNum": "25+",
+    "statUnit": "Pays desservis",
+    "statFoot": "Éditeurs et programmes éducatifs nationaux servis à travers le monde.",
+    "statAria": "Au service de plus de 25 pays"
   },
   "founder": {
     "greeting": "Bonjour",
