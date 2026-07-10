@@ -1,5 +1,5 @@
 import { useTranslation, Trans } from 'react-i18next'
-import { RegistrationMark } from '@/components/craft'
+import QfpSeal from '@/components/QfpSeal'
 
 // Fonts locked to our system (was inheriting the global Space Mono / font-display):
 const INTER = "'Inter', sans-serif"
@@ -47,8 +47,8 @@ export default function CTAFooter() {
     >
       {/* Top CTA Area — on the navy outer surface, so text is light */}
       <div className="relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center px-6 py-32 text-center" style={{ color: '#fdfaf4' }}>
-        <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1b3a6b] shadow-xl ring-1 ring-[#c89a3c]/30">
-          <RegistrationMark size={32} className="text-[#c89a3c]" />
+        <div className="mb-8">
+          <QfpSeal size={72} />
         </div>
 
         <h2 className="mb-6 max-w-4xl text-[clamp(40px,7vw,84px)] font-bold tracking-tight leading-[1.05]" style={{ fontFamily: TIGHT, color: '#fdfaf4' }}>
