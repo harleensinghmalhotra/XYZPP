@@ -1,0 +1,32 @@
+{
+  "eyebrow": "Proof, Not Promises",
+  "title": "Case Studies.",
+  "sub": "A few projects that show how we actually work, not just what we say.",
+  "photo": "Photo",
+  "readMore": "Read the full case study →",
+  "viewAll": "View All Case Studies",
+  "cases": {
+    "01": {
+      "heading": "TANZANIA DELIVERY",
+      "tags": { "country": "Tanzania", "books": "10M+ Books" },
+      "title": "A National Curriculum Deadline, Met Early",
+      "desc": "Tanzania Institute of Education needed volume fast. We delivered 4M books within 60 days against a hard national deadline.",
+      "descSafe": "A national curriculum programme needed volume fast. We delivered 4M books within 60 days against a hard national deadline."
+    },
+    "02": {
+      "heading": "NIGERIA DELIVERY",
+      "tags": { "country": "Nigeria", "books": "8M+ Books" },
+      "title": "Scaling for a Universal Education Mandate",
+      "desc": "Books for the Universal Basic Education Commission, produced and shipped at a scale most printers can't sustain.",
+      "descSafe": "Books for a national basic-education mandate, produced and shipped at a scale most printers can't sustain."
+    },
+    "03": {
+      "heading": "USAID GHANA DELIVERY",
+      "headingSafe": "GHANA DELIVERY",
+      "tags": { "country": "Ghana", "books": "2M+ Books" },
+      "title": "Delivering Against a Funded Programme Timeline",
+      "desc": "Books delivered under a USAID funded programme, coordinated end to end from print to last mile delivery.",
+      "descSafe": "Books delivered under a donor-funded education programme, coordinated end to end from print to last mile delivery."
+    }
+  }
+}

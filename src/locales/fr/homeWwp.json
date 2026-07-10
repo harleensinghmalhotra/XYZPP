@@ -1,0 +1,41 @@
+{
+  "eyebrow": "Ce que nous imprimons",
+  "titleLine1": "Fondé sur la précision.",
+  "titleLine2": "Porté par l'expérience.",
+  "lede": "Des livres éducatifs aux titres grand public en passant par les beaux livres et bien plus encore, nous apportons le même soin et la même constance à chaque projet que nous entreprenons.",
+  "more": "En savoir plus sur notre processus",
+  "cards": {
+    "educational": {
+      "name": "Impression de livres éducatifs",
+      "line": "Manuels scolaires, cahiers d'exercices et programmes ministériels imprimés pour plus de 25 pays."
+    },
+    "trade": {
+      "name": "Livres grand public",
+      "line": "Cahiers, registres, blocs-notes et papeterie personnalisée à votre marque."
+    },
+    "coffee": {
+      "name": "Beaux livres et couverture rigide",
+      "line": "Photographie haut de gamme, éditions patrimoniales et de collection aux finitions spéciales."
+    },
+    "general": {
+      "name": "Ouvrages généraux",
+      "line": "Mangas, romans graphiques, jeux et lecture de loisir."
+    },
+    "children": {
+      "name": "Livres pour enfants",
+      "line": "Albums illustrés, livres cartonnés, coloriages et formats à volets animés."
+    },
+    "kits": {
+      "name": "Kits d'activités pédagogiques",
+      "line": "Kits d'activités pratiques, cartes-jeux et ensembles d'apprentissage à faire soi-même."
+    },
+    "corporate": {
+      "name": "Entreprises, banques et multinationales",
+      "line": "Rapports annuels, coffrets d'accueil et documentation financière."
+    },
+    "pod": {
+      "name": "Impression à la demande",
+      "line": "De l'exemplaire unique au petit tirage, imprimé et expédié rapidement."
+    }
+  }
+}

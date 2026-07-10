@@ -1,0 +1,57 @@
+{
+  "seo": {
+    "title": "Quarterfold Printabilities | Impression et logistique de livres à l'international",
+    "description": "Nous aidons les éditeurs et les programmes éducatifs de plus de 25 pays à imprimer, relier, conditionner et livrer plus de 25 millions de livres par an, dans les délais, à chaque fois."
+  },
+  "hero": {
+    "line1": "Propulser",
+    "line2": "l'éducation",
+    "line3": "mondiale",
+    "sealLabel": "Sceau de Quarterfold Printabilities",
+    "bookAlt": "Livre QFP ouvert",
+    "subhead": "Nous aidons les éditeurs du monde entier à imprimer, relier, conditionner et livrer des ouvrages d'exception, dans les délais, à chaque fois.",
+    "ctaPrint": "Ce que nous imprimons",
+    "ctaReach": "Notre présence mondiale",
+    "scroll": "Défiler",
+    "bubbles": {
+      "mustard": "Oh oui ! L'éducation n'a pas de frontières.",
+      "red": "Quarterfold imprime <1>25 millions de livres</1> chaque année.",
+      "blonde": "Comment ? Ils exportent aussi vers <1>plus de 25 pays</1> chaque année ?",
+      "green": "Waouh ! Cela veut dire que ces livres ont été lus par des <1>milliards</1> de personnes !"
+    }
+  },
+  "promise": {
+    "eyebrow": "Notre engagement",
+    "segments": [
+      { "bold": false, "text": "Votre" },
+      { "bold": true, "text": "mission, c'est l'éducation." },
+      { "bold": false, "text": "La nôtre," },
+      { "bold": true, "text": "veiller à ce que rien ne l'entrave." }
+    ],
+    "support": "Impression. Assemblage. Contrôles qualité. Entreposage. Expédition. Un seul système, du début à la fin, sans rien laisser au hasard.",
+    "attribution": "Quarterfold Printabilities · Depuis 2014",
+    "aria": "Notre engagement"
+  },
+  "globeReach": {
+    "eyebrow": "Présence mondiale",
+    "titleLine1": "Imprimé en Inde.",
+    "titleThin": "Lu par le",
+    "titleBold2": "monde.",
+    "lede": "Chaque expédition quitte deux sites du littoral de Navi Mumbai — Vashi et Taloja — pour rejoindre des salles de classe dans plus de 25 pays, sur quatre continents.",
+    "link": "Découvrir notre présence mondiale"
+  },
+  "marquee": {
+    "aria": "Savoir-faire d'impression",
+    "terms": {
+      "offset": "Impression offset",
+      "case": "Reliure cartonnée",
+      "foil": "Marquage à chaud",
+      "perfect": "Dos carré collé",
+      "spotuv": "Vernis UV sélectif",
+      "saddle": "Piqûre à cheval",
+      "litho": "Lithographie",
+      "emboss": "Gaufrage",
+      "fourcolour": "Quadrichromie"
+    }
+  }
+}

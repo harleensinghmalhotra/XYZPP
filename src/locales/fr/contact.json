@@ -1,0 +1,162 @@
+{
+  "seo": {
+    "title": "Nous contacter | Quarterfold Printabilities",
+    "description": "Échangez avec Quarterfold au sujet de votre programme d'impression. Appelez-nous, écrivez-nous par e-mail ou WhatsApp, ou envoyez une demande : nous vous répondons sous un jour ouvré. Bureaux à Navi Mumbai."
+  },
+  "breadcrumb": {
+    "label": "Fil d'Ariane",
+    "home": "Accueil",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Nous contacter",
+    "line": "Que vous soyez un ministère, un éditeur ou un auteur avec un seul livre, nous serions ravis d'échanger avec vous."
+  },
+  "map": {
+    "regionLabel": "Où nous trouver",
+    "alt": "Carte indiquant les deux sites de Quarterfold à Navi Mumbai, en Inde : le siège de Vashi et l'usine principale de Taloja.",
+    "kicker": "Navi Mumbai, Inde",
+    "openInMaps": "Ouvrir dans Google Maps"
+  },
+  "welcome": {
+    "eyebrow": "Nous serions ravis d'échanger avec vous",
+    "head": "Un seul partenaire pour tout le parcours d'impression, du programme national de manuels scolaires au premier tirage d'un livre unique.",
+    "sub": "Dites-nous ce que vous imprimez et nous vous répondrons sous un jour ouvré. Choisissez ci-dessous le moyen le plus simple pour vous, ou envoyez le formulaire de demande et nous prenons le relais."
+  },
+  "tiles": {
+    "regionLabel": "Comment nous joindre",
+    "call": { "kicker": "Nous appeler", "line": "(+91) 829 199 9922", "sub": "Du lun. au sam., heures ouvrées" },
+    "info": { "kicker": "Général", "sub": "Pour toute question" },
+    "enq": { "kicker": "Demandes", "sub": "Devis et cahiers des charges" },
+    "wa": { "kicker": "WhatsApp", "line": "Écrivez-nous", "sub": "Questions rapides, réponses rapides" },
+    "quote": { "kicker": "Voie la plus rapide", "line": "Demander un devis", "sub": "Accéder au formulaire de demande" }
+  },
+  "addr": {
+    "eyebrow": "Nos implantations",
+    "title": "Deux sites à Navi Mumbai.",
+    "head": { "name": "Siège", "directions": "Itinéraire" },
+    "factory": { "name": "Usine principale", "directions": "Itinéraire" },
+    "hours": {
+      "name": "Heures d'ouverture",
+      "lines": "Du lundi au samedi<1/>9 h 30 – 18 h 30 (IST)",
+      "flag": "Horaires à confirmer"
+    }
+  },
+  "form": {
+    "regionLabel": "Envoyer une demande",
+    "eyebrow": "Envoyer une demande",
+    "title": "Parlez-nous de votre projet.",
+    "lede": "Quelques informations suffisent pour vous répondre avec le bon interlocuteur et une réponse concrète. Les champs marqués d'un astérisque sont obligatoires.",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Adresse e-mail",
+    "phone": "Téléphone",
+    "company": "Entreprise / Organisation",
+    "country": "Pays",
+    "countryPlaceholder": "Sélectionnez un pays",
+    "enquiryLabel": "Quel est l'objet de votre demande ?",
+    "enquiryPlaceholder": "Choisissez une option",
+    "message": "Message",
+    "messagePlaceholder": "Format, nombre de pages, papier, reliure, quantité, pays de livraison, toutes les informations dont vous disposez.",
+    "consent": "J'accepte que Quarterfold utilise ces informations pour répondre à ma demande, conformément à la <1>politique de confidentialité</1>.",
+    "submit": "Envoyer la demande",
+    "dpa": "Nous utilisons uniquement les informations que vous envoyez ici pour répondre à votre demande. Nous ne vendons jamais vos données. Consultez notre <1>politique de confidentialité</1> pour savoir comment nous traitons vos données."
+  },
+  "enquiryTypes": {
+    "quote": "Demander un devis",
+    "programme": "Programme éducatif ou appel d'offres",
+    "trade": "Livres grand public",
+    "pod": "Impression à la demande",
+    "other": "Autre"
+  },
+  "errors": {
+    "first": "Saisissez votre prénom.",
+    "last": "Saisissez votre nom.",
+    "emailRequired": "Saisissez votre adresse e-mail.",
+    "emailInvalid": "Saisissez une adresse e-mail valide.",
+    "country": "Sélectionnez votre pays.",
+    "enquiry": "Indiquez l'objet de votre demande.",
+    "message": "Décrivez brièvement votre besoin.",
+    "consent": "Veuillez accepter la politique de confidentialité afin que nous puissions vous répondre.",
+    "summaryOne": "Le formulaire comporte 1 erreur. Veuillez vérifier les champs signalés.",
+    "summaryMany": "Le formulaire comporte {{count}} erreurs. Veuillez vérifier les champs signalés."
+  },
+  "success": {
+    "title": "Merci, votre demande est prête à être envoyée.",
+    "sub": "Votre application de messagerie devrait s'être ouverte avec tout le contenu pré-rempli. Si ce n'est pas le cas, utilisez le bouton ci-dessous et nous vous répondrons sous un jour ouvré.",
+    "button": "Ouvrir votre application de messagerie"
+  },
+  "mailto": {
+    "name": "Nom",
+    "email": "Adresse e-mail",
+    "phone": "Téléphone",
+    "company": "Entreprise / Organisation",
+    "country": "Pays",
+    "enquiryType": "Type de demande",
+    "subject": "Demande"
+  },
+  "faq": {
+    "regionLabel": "Questions fréquentes",
+    "eyebrow": "Vos questions, nos réponses",
+    "title": "Questions fréquentes.",
+    "tablistLabel": "Publics des questions fréquentes",
+    "tabs": {
+      "publishers": "Pour les éditeurs",
+      "institutions": "Pour les institutions et programmes",
+      "self": "Pour les auteurs indépendants"
+    },
+    "items": {
+      "publishers-0": {
+        "q": "Imprimez-vous pour des éditeurs hors de l'Inde ?",
+        "a": "Oui. Nous servons plus de 250 éditeurs dans le monde et exportons plus de 800 conteneurs par an vers plus de 25 pays, en collaborant avec de nombreux grands éditeurs en Inde."
+      },
+      "publishers-1": {
+        "q": "Quelles certifications d'impression détenez-vous ?",
+        "a": "Nous sommes certifiés FSC sous la licence TUVDC COC 101258, ainsi que ISO et Sedex, afin que vos titres puissent porter des labels reconnus d'approvisionnement responsable et de chaîne d'approvisionnement auditée."
+      },
+      "publishers-2": {
+        "q": "Pouvez-vous gérer de grands tirages offset ?",
+        "a": "Oui. Nos cinq sites répartis sur 250 000 pieds carrés impriment plus de 25 millions de livres par an sur presses offset rotatives et à feuilles : nous montons ainsi aisément en charge sur les longs tirages."
+      },
+      "publishers-3": {
+        "q": "Gérez-vous l'exportation et l'expédition ?",
+        "a": "Nous prenons en charge l'exportation conteneurisée, les documents douaniers et la livraison, en acheminant plus de 800 conteneurs par an vers des ministères, des distributeurs et des éditeurs dans plus de 25 pays."
+      },
+      "institutions-0": {
+        "q": "Travaillez-vous avec des gouvernements et des ministères sur des appels d'offres ?",
+        "a": "Oui. Nous réalisons des programmes nationaux de manuels scolaires pour des ministères de l'Éducation, et sommes partenaire d'impression sur des programmes financés par la Banque mondiale et l'USAID."
+      },
+      "institutions-1": {
+        "q": "Pour quels pays avez-vous imprimé des programmes nationaux ?",
+        "a": "Nous avons imprimé des programmes de curriculum dans plus de 10 pays africains, dont la Tanzanie, le Ghana, le Nigéria, la Côte d'Ivoire et la RD Congo."
+      },
+      "institutions-2": {
+        "q": "Les livres de programme sont-ils produits de façon responsable ?",
+        "a": "Oui. Nous sommes certifiés FSC sous la licence TUVDC COC 101258 : les livres de programme peuvent donc être imprimés sur du papier issu de sources responsables pour les appels d'offres qui l'exigent."
+      },
+      "institutions-3": {
+        "q": "En combien de temps pouvez-vous monter en charge pour un déploiement national ?",
+        "a": "Avec cinq sites, 250 000 pieds carrés et une capacité de plus de 25 millions de livres par an, nous passons d'une édition unique de curriculum à un déploiement national complet."
+      },
+      "self-0": {
+        "q": "Imprimez-vous des exemplaires uniques ou de petits tirages ?",
+        "a": "Oui. Notre service d'impression à la demande est conçu pour les auteurs indépendants et l'autoédition, d'un seul livre aux petits tirages."
+      },
+      "self-1": {
+        "q": "Puis-je voir un échantillon avant un tirage complet ?",
+        "a": "Oui. Nous pouvons produire des échantillons afin que vous puissiez vérifier le format, le papier et la reliure avant de vous engager sur un tirage complet."
+      },
+      "self-2": {
+        "q": "Quels formats pouvez-vous produire ?",
+        "a": "Des livres brochés et cartonnés aux carnets premium, agendas et beaux livres, avec reliures rigides, souples et en cuir."
+      },
+      "self-3": {
+        "q": "Comment obtenir un devis pour un seul titre ?",
+        "a": "Envoyez votre cahier des charges — format, nombre de pages, papier, reliure et quantité — via le formulaire de demande ci-dessus, et nous vous répondrons sous un jour ouvré."
+      }
+    }
+  },
+  "closer": {
+    "line": "Vous préférez l'e-mail ?"
+  }
+}

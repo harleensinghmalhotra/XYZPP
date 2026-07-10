@@ -1,0 +1,117 @@
+{
+  "seo": {
+    "title": "Entreposage et logistique | Quarterfold Printabilities",
+    "description": "Assemblage, entreposage de 100 000 pi², cartons 5 couleurs fabriqués sur site et livraison du dernier kilomètre — vos livres pris en charge sous un même toit, de la presse au port.",
+    "breadcrumb": {
+      "home": "Accueil",
+      "fulfilment": "Entreposage et logistique"
+    }
+  },
+  "hero": {
+    "eyebrow": "Entreposage et logistique",
+    "title": {
+      "one": "Un",
+      "system": "système,",
+      "start": "du",
+      "to": "début à la",
+      "finish": "fin."
+    },
+    "sub": "Imprimer, conditionner, entreposer, expédier — vos livres pris en charge sous un même toit jusqu'à ce qu'ils atteignent le leur.",
+    "cue": "Faites défiler"
+  },
+  "trust": {
+    "eyebrow": "Ils nous font confiance",
+    "title": "Les ministères et programmes qui expédient avec nous."
+  },
+  "partners": {
+    "tie": { "label": "Tanzania Institute of Education", "sub": "Programme national" },
+    "ghana": { "label": "Ghana — USAID Programmes", "sub": "Fournitures éducatives" },
+    "ivory": { "label": "Côte d'Ivoire", "sub": "Appel d'offres ministériel" },
+    "balbharti": { "label": "Maharashtra Bal Bharti", "sub": "Bureau national des manuels scolaires" },
+    "worldbank": { "label": "World Bank Programmes", "sub": "Projets financés" },
+    "un": { "label": "UN AID Programmes", "sub": "Distribution mondiale" },
+    "ministry": { "label": "Government Ministry Tenders", "sub": "Secteur public" },
+    "hdfc": { "label": "HDFC Bank Ltd", "sub": "Entreprise" },
+    "zee": { "label": "ZEE Learn / Kidzee", "sub": "Éducation" }
+  },
+  "conviction": {
+    "eyebrow": "Notre conviction",
+    "quoteLight": "Nous croyons que",
+    "quoteBold": "la livraison fait partie de l'impression."
+  },
+  "cards": {
+    "01": {
+      "name": "Assemblage et montage",
+      "text": "Composants collationnés, montés et vérifiés en kits finis — prêts le jour où ils sont attendus."
+    },
+    "02": {
+      "name": "Entreposage et stockage",
+      "text": "Un entreposage de pointe abrite vos livres en toute sécurité pendant toute la durée du programme."
+    },
+    "03": {
+      "name": "Livraison du dernier kilomètre",
+      "text": "Une logistique optimisée achemine chaque envoi sur le dernier kilomètre, jusqu'à la porte qui compte."
+    }
+  },
+  "value": {
+    "eyebrow": "Pourquoi faire confiance à notre logistique",
+    "title": "Un même toit conçu pour l'échelle, la rapidité et le transport en toute sécurité."
+  },
+  "values": {
+    "warehouse": { "unit": "pi²", "label": "Entrepôt dédié, conçu pour le stockage de longue durée." },
+    "carton": { "word": "Sur site", "label": "Cartons ondulés et micro-cannelure, fabriqués sur site." },
+    "printer": { "unit": " couleurs", "label": "Impression de cartons pour présentoirs prêts pour la vente et expédition." },
+    "anchor": { "word": "JNPT", "label": "À quelques minutes du plus grand port à conteneurs de l'Inde." },
+    "containers": { "unit": "/ an", "label": "Conteneurs d'export expédiés, et en hausse." },
+    "clock": { "unit": "dans les délais", "label": "Livraison, chaque année sans exception." }
+  },
+  "features": {
+    "01": {
+      "eyebrow": "Stockage",
+      "title": "L'entrepôt",
+      "body": "Un entrepôt dédié de 100 000 pi² ancre tout ce qui suit en aval — un entreposage de pointe qui abrite les produits finis en toute sécurité sur de longues périodes, prêts à partir dès qu'un programme l'exige.",
+      "more": "Rayonné, codé à barres et organisé pour une récupération rapide, l'espace est conçu aussi bien pour le stockage de longue durée que pour un débit élevé, le collationnement automatisé alimentant directement l'assemblage."
+    },
+    "02": {
+      "eyebrow": "Montage",
+      "title": "Assemblage et montage",
+      "body": "L'assemblage et le montage de bout en bout transforment des composants isolés en kits finis et vérifiés — collationnés, montés et contrôlés qualité sous un même toit, pour que rien ne soit expédié incomplet.",
+      "more": "Les lignes automatisées de collationnement et de filmage traitent jusqu'à 10 000 kits par jour, chacun monté selon une spécification reproductible et inspecté avant de quitter l'atelier."
+    },
+    "03": {
+      "eyebrow": "Protection",
+      "title": "Conditionnement sur site",
+      "body": "Les cartons ondulés et micro-cannelure sont fabriqués sur site grâce à une impression avancée 5 couleurs — un conditionnement conçu sur mesure pour les présentoirs de vente et le transport en toute sécurité.",
+      "more": "Fabriquer nous-mêmes nos cartons et nos plaques nous permet de maîtriser l'ajustement, la résistance et la finition de bout en bout : conditionnement prêt pour la vente et cartons d'export sortent d'une même ligne maîtrisée."
+    },
+    "04": {
+      "eyebrow": "Livraison",
+      "title": "Expédition mondiale",
+      "body": "Une logistique optimisée gère la livraison du dernier kilomètre et l'expédition à l'export — des livres pris en charge depuis notre atelier jusqu'à leur destination dans plus de 25 pays et sur quatre continents.",
+      "more": "Situés à quelques minutes du JNPT, le plus grand port à conteneurs de l'Inde, nous expédions plus de 800 conteneurs d'export par an avec un taux de livraison dans les délais de 98 %, chaque année sans exception."
+    }
+  },
+  "feature": {
+    "showLess": "Afficher moins",
+    "learnMore": "En savoir plus",
+    "panelLabel": "{{title}} — en savoir plus"
+  },
+  "sections": {
+    "featuresLabel": "Le fonctionnement de la logistique, étape par étape"
+  },
+  "journey": {
+    "eyebrow": "De la presse au port",
+    "title": "Un parcours continu, surveillé à chaque étape."
+  },
+  "stages": {
+    "01": { "verb": "Conditionner", "word": "Précis", "line": "Cartons découpés, imprimés et conditionnés selon la spécification, sur site." },
+    "02": { "verb": "Entreposer", "word": "Sécurisé", "line": "Rayonné et codé à barres dans une installation de 100 000 pi²." },
+    "03": { "verb": "Expédier", "word": "Dans les délais", "line": "Conteneurs d'export expédiés à quelques minutes du port de JNPT." }
+  },
+  "cta": {
+    "eyebrow": "Un même toit, du début à la fin",
+    "title": "Faisons voyager vos livres.",
+    "sub": "Dites-nous ce que vous imprimez et où cela doit arriver. Nous nous occupons du reste — conditionné, entreposé et expédié.",
+    "pill": "Entamer la conversation"
+  }
+}

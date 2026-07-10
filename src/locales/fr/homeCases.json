@@ -1,0 +1,32 @@
+{
+  "eyebrow": "Des preuves, pas des promesses",
+  "title": "Études de cas.",
+  "sub": "Quelques projets qui montrent notre manière de travailler concrètement, pas seulement nos discours.",
+  "photo": "Photo",
+  "readMore": "Lire l'étude de cas complète →",
+  "viewAll": "Voir toutes les études de cas",
+  "cases": {
+    "01": {
+      "heading": "LIVRAISON – TANZANIE",
+      "tags": { "country": "Tanzanie", "books": "10 M+ livres" },
+      "title": "Une échéance nationale de programme scolaire tenue en avance",
+      "desc": "Le Tanzania Institute of Education avait besoin d'un fort volume rapidement. Nous avons livré 4 M de livres en 60 jours, face à une échéance nationale incompressible.",
+      "descSafe": "Un programme scolaire national avait besoin d'un fort volume rapidement. Nous avons livré 4 M de livres en 60 jours, face à une échéance nationale incompressible."
+    },
+    "02": {
+      "heading": "LIVRAISON – NIGÉRIA",
+      "tags": { "country": "Nigéria", "books": "8 M+ livres" },
+      "title": "Monter en échelle pour un mandat d'éducation universelle",
+      "desc": "Des livres pour l'Universal Basic Education Commission, produits et expédiés à une échelle que la plupart des imprimeurs ne peuvent soutenir.",
+      "descSafe": "Des livres pour un mandat national d'éducation de base, produits et expédiés à une échelle que la plupart des imprimeurs ne peuvent soutenir."
+    },
+    "03": {
+      "heading": "LIVRAISON – USAID GHANA",
+      "headingSafe": "LIVRAISON – GHANA",
+      "tags": { "country": "Ghana", "books": "2 M+ livres" },
+      "title": "Livrer dans les délais d'un programme financé",
+      "desc": "Des livres livrés dans le cadre d'un programme financé par l'USAID, coordonnés de bout en bout, de l'impression à la livraison du dernier kilomètre.",
+      "descSafe": "Des livres livrés dans le cadre d'un programme éducatif financé par un bailleur, coordonnés de bout en bout, de l'impression à la livraison du dernier kilomètre."
+    }
+  }
+}

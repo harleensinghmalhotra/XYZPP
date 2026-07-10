@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
@@ -12,17 +13,12 @@ gsap.registerPlugin(ScrollTrigger)
 // public/qfp/sustain/hero-cutout.png lands, the <img> loads and the section
 // toggles to the 3D cutout pop (motif + chips give way) — zero code change.
 
-const BULLETS = [
-  'Near zero waste press floors, offcuts recovered and reused across every facility',
-  'FSC certified paper sourcing built into how we buy, not an add on',
-  'ISO 14001:2015 certified environmental management system across our facilities',
-  'Responsible disposal of ink, chemicals and press waste, audited and documented',
-]
+const BULLETS = ['waste', 'fsc', 'iso', 'disposal']
 
 const CHIPS = [
-  { text: '0 waste-to-landfill target', cls: 'sustain-chip--a' },
-  { text: 'FSC certified', cls: 'sustain-chip--b' },
-  { text: 'ISO 14001:2015', cls: 'sustain-chip--c' },
+  { key: 'waste', cls: 'sustain-chip--a' },
+  { key: 'fsc', cls: 'sustain-chip--b' },
+  { key: 'iso', cls: 'sustain-chip--c' },
 ]
 
 function Leaf() {
@@ -62,6 +58,7 @@ function Motif() {
 }
 
 export default function Sustainability() {
+  const { t } = useTranslation('homeSustain')
   const root = useRef(null)
   const [reduced] = useState(prefersReduced)
   const [imgOk, setImgOk] = useState(false)
@@ -106,7 +103,7 @@ export default function Sustainability() {
               <>
                 <Motif />
                 {CHIPS.map((c) => (
-                  <span key={c.text} className={`sustain-chip ${c.cls}`}>{c.text}</span>
+                  <span key={c.key} className={`sustain-chip ${c.cls}`}>{t(`chips.${c.key}`)}</span>
                 ))}
               </>
             )}
@@ -114,7 +111,7 @@ export default function Sustainability() {
           <img
             className="sustain-cutout"
             src="/qfp/sustain/hero-cutout.png"
-            alt="Stack of recycled paper"
+            alt={t('cutoutAlt')}
             loading="lazy"
             decoding="async"
             style={{ opacity: imgOk ? 1 : 0 }}
@@ -125,17 +122,14 @@ export default function Sustainability() {
 
         {/* RIGHT — editorial text */}
         <div className="sustain-body">
-          <p className="sustain-eyebrow">Environmental Responsibility</p>
-          <h2 id="sustain-title" className="sustain-title">Responsible by Practice.</h2>
-          <p className="sustain-intro">
-            We are a printing company first, but the way we run our floors already reflects a lot of what
-            sustainability asks for.
-          </p>
+          <p className="sustain-eyebrow">{t('eyebrow')}</p>
+          <h2 id="sustain-title" className="sustain-title">{t('title')}</h2>
+          <p className="sustain-intro">{t('intro')}</p>
           <ul className="sustain-list">
             {BULLETS.map((b) => (
               <li className="sustain-item" key={b}>
                 <Leaf />
-                <span className="sustain-item-text">{b}</span>
+                <span className="sustain-item-text">{t(`bullets.${b}`)}</span>
               </li>
             ))}
           </ul>

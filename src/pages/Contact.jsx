@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useTranslation, Trans } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
@@ -38,21 +39,20 @@ const ICONS = {
 }
 
 // ── Quick-action tiles (GRB's action cards, reskinned) ──
+// `line` here holds only the hardcoded values (phone / emails); the human-readable
+// tiles (WhatsApp, quote) resolve their line via t(`tiles.<key>.line`). Kicker and
+// sub always come from the namespace.
 const TILES = [
-  { key: 'call', icon: 'phone', kicker: 'Call us', line: PHONE_DISPLAY, sub: 'Mon–Sat, business hours', href: `tel:${PHONE_TEL}` },
-  { key: 'info', icon: 'mail', kicker: 'General', line: EMAIL_INFO, sub: 'For anything and everything', href: `mailto:${EMAIL_INFO}` },
-  { key: 'enq', icon: 'send', kicker: 'Enquiries', line: EMAIL_ENQ, sub: 'Quotes and project briefs', href: `mailto:${EMAIL_ENQ}` },
-  { key: 'wa', icon: 'whatsapp', kicker: 'WhatsApp', line: 'Message us', sub: 'Quick questions, fast replies', href: WA_URL, tone: 'olive', external: true },
-  { key: 'quote', icon: 'quote', kicker: 'Fastest route', line: 'Request a Quote', sub: 'Jump to the enquiry form', href: '#enquiry', tone: 'gold' },
+  { key: 'call', icon: 'phone', line: PHONE_DISPLAY, href: `tel:${PHONE_TEL}` },
+  { key: 'info', icon: 'mail', line: EMAIL_INFO, href: `mailto:${EMAIL_INFO}` },
+  { key: 'enq', icon: 'send', line: EMAIL_ENQ, href: `mailto:${EMAIL_ENQ}` },
+  { key: 'wa', icon: 'whatsapp', href: WA_URL, tone: 'olive', external: true },
+  { key: 'quote', icon: 'quote', href: '#enquiry', tone: 'gold' },
 ]
 
-const ENQUIRY_TYPES = [
-  'Request a Quote',
-  'Educational Programme or Tender',
-  'Trade Books',
-  'Print on Demand',
-  'Other',
-]
+// Enquiry-type option keys — the machine value (stored in form.enquiry / mailto) is
+// the stable enum key; the label shown to the user is resolved via t().
+const ENQUIRY_TYPES = ['quote', 'programme', 'trade', 'pod', 'other']
 
 const COUNTRIES = [
   'India', 'Nigeria', 'Ghana', 'Tanzania', 'Kenya', 'Uganda', 'Ivory Coast',
@@ -60,74 +60,13 @@ const COUNTRIES = [
   'United Arab Emirates', 'Other',
 ]
 
-// ── FAQ — audience tabs. Answers strictly from live-site copy + homepage facts. ──
+// ── FAQ — audience tabs. Structure only: each tab has a stable key and a fixed
+// number of Q/A items. Labels, questions and answers resolve through the namespace
+// via t(`faq.tabs.<key>`) and t(`faq.items.<key>-<i>.q|a`).
 const FAQ_TABS = [
-  {
-    key: 'publishers',
-    label: 'For Publishers',
-    items: [
-      {
-        q: 'Do you print for publishers outside India?',
-        a: 'Yes. We serve 250+ publishers worldwide and export more than 800 containers a year to 25+ countries, working with many of the top publishers in India.',
-      },
-      {
-        q: 'What print certifications do you hold?',
-        a: 'We are FSC certified under licence TUVDC COC 101258, alongside ISO and Sedex, so your titles can carry recognised responsible-sourcing and audited-supply marks.',
-      },
-      {
-        q: 'Can you handle large offset runs?',
-        a: 'Yes. Our five facilities across 250,000 sq ft print more than 25 million books a year on web-offset and sheet-fed presses, so we scale comfortably to long runs.',
-      },
-      {
-        q: 'Do you manage export and shipping?',
-        a: 'We handle containerised export, customs documentation and delivery, moving 800+ containers a year to ministries, distributors and publishers across 25+ countries.',
-      },
-    ],
-  },
-  {
-    key: 'institutions',
-    label: 'For Institutions & Programmes',
-    items: [
-      {
-        q: 'Do you work with governments and ministries on tenders?',
-        a: 'Yes. We deliver national textbook programmes for ministries of education, and are a print partner on World Bank and USAID funded programmes.',
-      },
-      {
-        q: 'Which countries have you printed national programmes for?',
-        a: 'We have printed curriculum programmes across 10+ African countries, including Tanzania, Ghana, Nigeria, Ivory Coast and DR Congo.',
-      },
-      {
-        q: 'Are programme books produced responsibly?',
-        a: 'Yes. We are FSC certified under licence TUVDC COC 101258, so programme books can be printed on responsibly sourced paper for tenders that require it.',
-      },
-      {
-        q: 'How quickly can you scale for a national rollout?',
-        a: 'With five facilities, 250,000 sq ft and capacity for 25 million+ books a year, we scale from a single curriculum edition to a full national rollout.',
-      },
-    ],
-  },
-  {
-    key: 'self',
-    label: 'For Self-Publishers',
-    items: [
-      {
-        q: 'Do you print single copies or short runs?',
-        a: 'Yes. Our print-on-demand service is built for self-publishers and independent authors, from a single book to short runs.',
-      },
-      {
-        q: 'Can I see a sample before a full run?',
-        a: 'Yes. We can produce samples so you can check trim size, paper and binding before committing to a full print run.',
-      },
-      {
-        q: 'What formats can you produce?',
-        a: 'From paperbacks and hardbacks to premium notebooks, diaries and coffee-table books, with hard, soft and leather bindings.',
-      },
-      {
-        q: 'How do I get a quote for one title?',
-        a: 'Send your specification, trim size, page count, paper, binding and quantity, using the enquiry form above and we will come back within one business day.',
-      },
-    ],
-  },
+  { key: 'publishers', count: 4 },
+  { key: 'institutions', count: 4 },
+  { key: 'self', count: 4 },
 ]
 
 const initialForm = {
@@ -138,6 +77,7 @@ const initialForm = {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function Contact() {
+  const { t, i18n } = useTranslation('contact')
   const reduced = prefersReduced()
   const root = useRef(null)
   const location = useLocation()
@@ -156,7 +96,7 @@ export default function Contact() {
     if (!spec) return
     setForm((f) => ({
       ...f,
-      enquiry: 'Print on Demand',
+      enquiry: 'pod',
       message: `Book specification from Print on Demand:\n${spec}`,
     }))
   }, [location])
@@ -164,10 +104,10 @@ export default function Contact() {
   // ── SEO: title, meta description, BreadcrumbList + Organization JSON-LD ──
   useEffect(() => {
     const prevTitle = document.title
-    document.title = 'Contact Us | Quarterfold Printabilities'
+    document.title = t('seo.title')
     const meta = document.querySelector('meta[name="description"]')
     const prevDesc = meta?.getAttribute('content')
-    if (meta) meta.setAttribute('content', 'Talk to Quarterfold about your print programme. Call, email or WhatsApp us, or send an enquiry and hear back within one business day. Offices in Navi Mumbai.')
+    if (meta) meta.setAttribute('content', t('seo.description'))
 
     const ld = document.createElement('script')
     ld.type = 'application/ld+json'
@@ -176,8 +116,8 @@ export default function Contact() {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.quarterfoldltd.com/' },
-          { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://www.quarterfoldltd.com/contact' },
+          { '@type': 'ListItem', position: 1, name: t('breadcrumb.home'), item: 'https://www.quarterfoldltd.com/' },
+          { '@type': 'ListItem', position: 2, name: t('breadcrumb.contact'), item: 'https://www.quarterfoldltd.com/contact' },
         ],
       },
       {
@@ -215,7 +155,7 @@ export default function Contact() {
       if (meta && prevDesc != null) meta.setAttribute('content', prevDesc)
       ld.remove()
     }
-  }, [])
+  }, [t, i18n.language])
 
   // ── GSAP: tile-icon stroke-draw + light fade-up reveals (reduced-motion off) ──
   useLayoutEffect(() => {
@@ -252,29 +192,30 @@ export default function Contact() {
 
   const validate = () => {
     const e = {}
-    if (!form.first.trim()) e.first = 'Enter your first name.'
-    if (!form.last.trim()) e.last = 'Enter your last name.'
-    if (!form.email.trim()) e.email = 'Enter your email address.'
-    else if (!EMAIL_RE.test(form.email.trim())) e.email = 'Enter a valid email address.'
-    if (!form.country) e.country = 'Select your country.'
-    if (!form.enquiry) e.enquiry = 'Choose what your enquiry is about.'
-    if (!form.message.trim()) e.message = 'Tell us a little about what you need.'
-    if (!form.consent) e.consent = 'Please agree to the privacy policy so we can reply.'
+    if (!form.first.trim()) e.first = t('errors.first')
+    if (!form.last.trim()) e.last = t('errors.last')
+    if (!form.email.trim()) e.email = t('errors.emailRequired')
+    else if (!EMAIL_RE.test(form.email.trim())) e.email = t('errors.emailInvalid')
+    if (!form.country) e.country = t('errors.country')
+    if (!form.enquiry) e.enquiry = t('errors.enquiry')
+    if (!form.message.trim()) e.message = t('errors.message')
+    if (!form.consent) e.consent = t('errors.consent')
     return e
   }
 
   const buildMailto = () => {
+    const enquiryLabel = form.enquiry ? t(`enquiryTypes.${form.enquiry}`) : ''
     const lines = [
-      `Name: ${form.first} ${form.last}`.trim(),
-      `Email: ${form.email}`,
-      form.phone && `Phone: ${form.phone}`,
-      form.company && `Company / Organisation: ${form.company}`,
-      `Country: ${form.country}`,
-      `Enquiry type: ${form.enquiry}`,
+      `${t('mailto.name')}: ${form.first} ${form.last}`.trim(),
+      `${t('mailto.email')}: ${form.email}`,
+      form.phone && `${t('mailto.phone')}: ${form.phone}`,
+      form.company && `${t('mailto.company')}: ${form.company}`,
+      `${t('mailto.country')}: ${form.country}`,
+      `${t('mailto.enquiryType')}: ${enquiryLabel}`,
       '',
       form.message,
     ].filter((l) => l !== false && l != null)
-    const subject = `Enquiry: ${form.enquiry} — ${form.first} ${form.last}`.trim()
+    const subject = `${t('mailto.subject')}: ${enquiryLabel} — ${form.first} ${form.last}`.trim()
     return `mailto:${EMAIL_ENQ}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
   }
 
@@ -311,32 +252,31 @@ export default function Contact() {
       <section data-theme="dark" className="ctc-hero relative overflow-hidden" aria-labelledby="ctc-h1">
         <WavyBackground className="pointer-events-none absolute inset-0 h-full w-full" />
         <div className="ctc-hero-inner relative z-10">
-          <nav className="ctc-crumb" aria-label="Breadcrumb">
-            <Link to="/">Home</Link>
+          <nav className="ctc-crumb" aria-label={t('breadcrumb.label')}>
+            <Link to="/">{t('breadcrumb.home')}</Link>
             <span aria-hidden="true">»</span>
-            <span aria-current="page">Contact</span>
+            <span aria-current="page">{t('breadcrumb.contact')}</span>
           </nav>
-          <h1 id="ctc-h1" className="ctc-h1">Contact Us</h1>
-          <p className="ctc-hero-line">
-            Whether you&apos;re a ministry, a publisher, or an author with one book,
-            we&apos;d love to hear from you.
+          <h1 id="ctc-h1" data-textreveal className="ctc-h1">{t('hero.title')}</h1>
+          <p className="ctc-hero-line" data-reveal>
+            {t('hero.line')}
           </p>
         </div>
       </section>
 
       {/* ── 2. MAP (static, cookieless) ── */}
-      <section data-theme="dark" className="ctc-map" aria-label="Where we are">
+      <section data-theme="dark" className="ctc-map" aria-label={t('map.regionLabel')}>
         <img
           src="/qfp/contact/map.webp"
-          alt="Map showing Quarterfold's two locations in Navi Mumbai, India: the Vashi head office and the Taloja main factory."
+          alt={t('map.alt')}
           className="ctc-map-img"
           loading="lazy"
           draggable="false"
         />
         <div className="ctc-map-overlay">
-          <span className="ctc-map-kicker">Navi Mumbai, India</span>
+          <span className="ctc-map-kicker">{t('map.kicker')}</span>
           <a className="ctc-map-btn focus-ring" href={MAPS_HEAD} target="_blank" rel="noreferrer">
-            Open in Google Maps
+            {t('map.openInMaps')}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M7 17 17 7" /><path d="M8 7h9v9" />
             </svg>
@@ -349,43 +289,42 @@ export default function Contact() {
         <SectionCurve position="top" fill="#fdfaf4" />
         <PaperGrain />
         <div className="ctc-welcome-inner ctc-reveal relative z-10">
-          <p className="ctc-eyebrow">We&apos;d love to hear from you</p>
+          <p className="ctc-eyebrow">{t('welcome.eyebrow')}</p>
           <h2 className="ctc-welcome-head">
-            One partner for the whole print journey, from a national textbook
-            programme to a first run of one book.
+            {t('welcome.head')}
           </h2>
           <p className="ctc-welcome-sub">
-            Tell us what you&apos;re printing and we&apos;ll come back within one
-            business day. Pick whichever way is easiest below, or send the enquiry
-            form and we&apos;ll take it from there.
+            {t('welcome.sub')}
           </p>
         </div>
       </section>
 
       {/* ── 4. QUICK-ACTION TILES ── */}
-      <section data-theme="light" className="ctc-tiles-sec relative overflow-hidden" aria-label="Ways to reach us">
+      <section data-theme="light" className="ctc-tiles-sec relative overflow-hidden" aria-label={t('tiles.regionLabel')}>
         <PaperGrain />
         <div className="ctc-tiles relative z-10">
-          {TILES.map((t) => {
-            const props = t.external
-              ? { href: t.href, target: '_blank', rel: 'noreferrer' }
-              : { href: t.href }
+          {TILES.map((tile) => {
+            const props = tile.external
+              ? { href: tile.href, target: '_blank', rel: 'noreferrer' }
+              : { href: tile.href }
+            // Hardcoded (phone / email) line stays as-is; otherwise resolve via t().
+            const line = tile.line ?? t(`tiles.${tile.key}.line`)
             return (
               <a
-                key={t.key}
-                className={`ctc-tile focus-ring${t.tone ? ` ctc-tile-${t.tone}` : ''}`}
+                key={tile.key}
+                className={`ctc-tile focus-ring${tile.tone ? ` ctc-tile-${tile.tone}` : ''}`}
                 {...props}
               >
                 <span className="ctc-tile-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">{ICONS[t.icon]}</svg>
+                  <svg viewBox="0 0 24 24" fill="none">{ICONS[tile.icon]}</svg>
                 </span>
-                <span className="ctc-tile-kicker">{t.kicker}</span>
+                <span className="ctc-tile-kicker">{t(`tiles.${tile.key}.kicker`)}</span>
                 <span className="ctc-tile-line">
-                  {t.line.includes('@')
-                    ? (() => { const [u, d] = t.line.split('@'); return <>{u}@<wbr />{d}</> })()
-                    : t.line}
+                  {line.includes('@')
+                    ? (() => { const [u, d] = line.split('@'); return <>{u}@<wbr />{d}</> })()
+                    : line}
                 </span>
-                <span className="ctc-tile-sub">{t.sub}</span>
+                <span className="ctc-tile-sub">{t(`tiles.${tile.key}.sub`)}</span>
               </a>
             )
           })}
@@ -407,38 +346,37 @@ export default function Contact() {
         <EdgeGlow />
         <div className="ctc-addr-inner relative z-10">
           <div className="ctc-addr-head ctc-reveal">
-            <p className="ctc-eyebrow gold">Our locations</p>
-            <h2 id="ctc-addr-title" className="ctc-addr-title">Two sites in Navi Mumbai.</h2>
+            <p className="ctc-eyebrow gold">{t('addr.eyebrow')}</p>
+            <h2 id="ctc-addr-title" className="ctc-addr-title">{t('addr.title')}</h2>
           </div>
 
           <div className="ctc-addr-grid">
             <article className="ctc-addr-card ctc-reveal">
-              <h3 className="ctc-addr-name">Head Office</h3>
+              <h3 className="ctc-addr-name">{t('addr.head.name')}</h3>
               <p className="ctc-addr-lines">
                 1207, Cyber One IT Park,<br />
                 Sector 30 A, Vashi,<br />
                 Navi Mumbai 400703, India
               </p>
-              <a className="ctc-addr-link focus-ring" href={MAPS_HEAD} target="_blank" rel="noreferrer">Directions</a>
+              <a className="ctc-addr-link focus-ring" href={MAPS_HEAD} target="_blank" rel="noreferrer">{t('addr.head.directions')}</a>
             </article>
 
             <article className="ctc-addr-card ctc-reveal">
-              <h3 className="ctc-addr-name">Main Factory</h3>
+              <h3 className="ctc-addr-name">{t('addr.factory.name')}</h3>
               <p className="ctc-addr-lines">
                 Plot No. B-8, Taloja MIDC,<br />
                 Navi Mumbai 410208, India
               </p>
-              <a className="ctc-addr-link focus-ring" href={MAPS_FACTORY} target="_blank" rel="noreferrer">Directions</a>
+              <a className="ctc-addr-link focus-ring" href={MAPS_FACTORY} target="_blank" rel="noreferrer">{t('addr.factory.directions')}</a>
             </article>
 
             <article className="ctc-addr-card ctc-reveal">
-              <h3 className="ctc-addr-name">Business Hours</h3>
+              <h3 className="ctc-addr-name">{t('addr.hours.name')}</h3>
               <p className="ctc-addr-lines">
-                Monday to Saturday<br />
-                9:30am – 6:30pm IST
+                <Trans t={t} i18nKey="addr.hours.lines" components={{ 1: <br /> }} />
               </p>
               {/* TODO(Harry): confirm exact business hours — placeholder Mon–Sat above. */}
-              <p className="ctc-addr-flag">Hours to be confirmed</p>
+              <p className="ctc-addr-flag">{t('addr.hours.flag')}</p>
             </article>
           </div>
 
@@ -457,11 +395,10 @@ export default function Contact() {
         <PaperGrain />
         <div className="ctc-form-inner relative z-10">
           <div className="ctc-form-intro ctc-reveal">
-            <p className="ctc-eyebrow">Send an enquiry</p>
-            <h2 id="ctc-form-title" className="ctc-form-title">Tell us about your project.</h2>
+            <p className="ctc-eyebrow">{t('form.eyebrow')}</p>
+            <h2 id="ctc-form-title" className="ctc-form-title">{t('form.title')}</h2>
             <p className="ctc-form-lede">
-              A few details are all we need to come back with the right person and a
-              realistic answer. Fields marked with an asterisk are required.
+              {t('form.lede')}
             </p>
           </div>
 
@@ -470,14 +407,12 @@ export default function Contact() {
               <span className="ctc-success-mark" aria-hidden="true">
                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 4.5 4.5L19 7" /></svg>
               </span>
-              <h3 className="ctc-success-title">Thank you, your enquiry is ready to send.</h3>
+              <h3 className="ctc-success-title">{t('success.title')}</h3>
               <p className="ctc-success-sub">
-                Your email app should have opened with everything filled in. If it
-                didn&apos;t, use the button below and we&apos;ll reply within one
-                business day.
+                {t('success.sub')}
               </p>
               <a className="ctc-btn focus-ring" href={mailtoUrl || `mailto:${EMAIL_ENQ}`}>
-                Open your email app
+                {t('success.button')}
               </a>
             </div>
           ) : (
@@ -485,19 +420,21 @@ export default function Contact() {
               {/* aria-live summary so screen readers hear when a submit fails */}
               <div className="sr-only" role="alert" aria-live="assertive">
                 {Object.keys(errors).length
-                  ? `There ${Object.keys(errors).length === 1 ? 'is 1 problem' : `are ${Object.keys(errors).length} problems`} with the form. Please review the highlighted fields.`
+                  ? (Object.keys(errors).length === 1
+                      ? t('errors.summaryOne')
+                      : t('errors.summaryMany', { count: Object.keys(errors).length }))
                   : ''}
               </div>
 
               <div className="ctc-row">
                 <div className="ctc-field">
-                  <label htmlFor="f-first">First name <span className="ctc-req" aria-hidden="true">*</span></label>
+                  <label htmlFor="f-first">{t('form.firstName')} <span className="ctc-req" aria-hidden="true">*</span></label>
                   <input id="f-first" name="first" type="text" autoComplete="given-name"
                     value={form.first} onChange={(e) => setField('first', e.target.value)} {...aria('first')} />
                   {err('first')}
                 </div>
                 <div className="ctc-field">
-                  <label htmlFor="f-last">Last name <span className="ctc-req" aria-hidden="true">*</span></label>
+                  <label htmlFor="f-last">{t('form.lastName')} <span className="ctc-req" aria-hidden="true">*</span></label>
                   <input id="f-last" name="last" type="text" autoComplete="family-name"
                     value={form.last} onChange={(e) => setField('last', e.target.value)} {...aria('last')} />
                   {err('last')}
@@ -506,13 +443,13 @@ export default function Contact() {
 
               <div className="ctc-row">
                 <div className="ctc-field">
-                  <label htmlFor="f-email">Email <span className="ctc-req" aria-hidden="true">*</span></label>
+                  <label htmlFor="f-email">{t('form.email')} <span className="ctc-req" aria-hidden="true">*</span></label>
                   <input id="f-email" name="email" type="email" autoComplete="email"
                     value={form.email} onChange={(e) => setField('email', e.target.value)} {...aria('email')} />
                   {err('email')}
                 </div>
                 <div className="ctc-field">
-                  <label htmlFor="f-phone">Phone</label>
+                  <label htmlFor="f-phone">{t('form.phone')}</label>
                   <input id="f-phone" name="phone" type="tel" autoComplete="tel"
                     value={form.phone} onChange={(e) => setField('phone', e.target.value)} />
                 </div>
@@ -520,15 +457,15 @@ export default function Contact() {
 
               <div className="ctc-row">
                 <div className="ctc-field">
-                  <label htmlFor="f-company">Company / Organisation</label>
+                  <label htmlFor="f-company">{t('form.company')}</label>
                   <input id="f-company" name="company" type="text" autoComplete="organization"
                     value={form.company} onChange={(e) => setField('company', e.target.value)} />
                 </div>
                 <div className="ctc-field">
-                  <label htmlFor="f-country">Country <span className="ctc-req" aria-hidden="true">*</span></label>
+                  <label htmlFor="f-country">{t('form.country')} <span className="ctc-req" aria-hidden="true">*</span></label>
                   <select id="f-country" name="country" value={form.country}
                     onChange={(e) => setField('country', e.target.value)} {...aria('country')}>
-                    <option value="" disabled>Select a country</option>
+                    <option value="" disabled>{t('form.countryPlaceholder')}</option>
                     {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                   {err('country')}
@@ -536,20 +473,20 @@ export default function Contact() {
               </div>
 
               <div className="ctc-field">
-                <label htmlFor="f-enquiry">What&apos;s your enquiry about? <span className="ctc-req" aria-hidden="true">*</span></label>
+                <label htmlFor="f-enquiry">{t('form.enquiryLabel')} <span className="ctc-req" aria-hidden="true">*</span></label>
                 <select id="f-enquiry" name="enquiry" value={form.enquiry}
                   onChange={(e) => setField('enquiry', e.target.value)} {...aria('enquiry')}>
-                  <option value="" disabled>Choose one</option>
-                  {ENQUIRY_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+                  <option value="" disabled>{t('form.enquiryPlaceholder')}</option>
+                  {ENQUIRY_TYPES.map((k) => <option key={k} value={k}>{t(`enquiryTypes.${k}`)}</option>)}
                 </select>
                 {err('enquiry')}
               </div>
 
               <div className="ctc-field">
-                <label htmlFor="f-message">Message <span className="ctc-req" aria-hidden="true">*</span></label>
+                <label htmlFor="f-message">{t('form.message')} <span className="ctc-req" aria-hidden="true">*</span></label>
                 <textarea id="f-message" name="message" rows={6}
                   value={form.message} onChange={(e) => setField('message', e.target.value)}
-                  placeholder="Trim size, page count, paper, binding, quantity, delivery country, whatever you have."
+                  placeholder={t('form.messagePlaceholder')}
                   {...aria('message')} />
                 {err('message')}
               </div>
@@ -559,22 +496,18 @@ export default function Contact() {
                   checked={form.consent} onChange={(e) => setField('consent', e.target.checked)}
                   {...aria('consent')} />
                 <label htmlFor="f-consent">
-                  I agree that Quarterfold may use these details to respond to my
-                  enquiry, in line with the{' '}
-                  <Link to="/legal/privacy">Privacy Policy</Link>. <span className="ctc-req" aria-hidden="true">*</span>
+                  <Trans t={t} i18nKey="form.consent" components={{ 1: <Link to="/legal/privacy" /> }} /> <span className="ctc-req" aria-hidden="true">*</span>
                 </label>
               </div>
               {err('consent')}
 
               <button type="submit" className="ctc-submit focus-ring">
-                Send enquiry
+                {t('form.submit')}
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m11 5 7 7-7 7" /></svg>
               </button>
 
               <p className="ctc-dpa">
-                We only use what you send here to reply to your enquiry. We never
-                sell your details. See our <Link to="/legal/privacy">Privacy Policy</Link>{' '}
-                for how we handle your data.
+                <Trans t={t} i18nKey="form.dpa" components={{ 1: <Link to="/legal/privacy" /> }} />
               </p>
             </form>
           )}
@@ -587,38 +520,38 @@ export default function Contact() {
         <PaperGrain />
         <div className="ctc-faq-inner relative z-10">
           <div className="ctc-reveal">
-            <p className="ctc-eyebrow">Questions, answered</p>
-            <h2 id="ctc-faq-title" className="ctc-faq-title">Frequently asked questions.</h2>
+            <p className="ctc-eyebrow">{t('faq.eyebrow')}</p>
+            <h2 id="ctc-faq-title" className="ctc-faq-title">{t('faq.title')}</h2>
           </div>
 
-          <div className="ctc-tabs" role="tablist" aria-label="FAQ audiences">
-            {FAQ_TABS.map((t, i) => (
+          <div className="ctc-tabs" role="tablist" aria-label={t('faq.tablistLabel')}>
+            {FAQ_TABS.map((tabDef, i) => (
               <button
-                key={t.key}
+                key={tabDef.key}
                 role="tab"
-                id={`tab-${t.key}`}
+                id={`tab-${tabDef.key}`}
                 aria-selected={tab === i}
-                aria-controls={`panel-${t.key}`}
+                aria-controls={`panel-${tabDef.key}`}
                 tabIndex={tab === i ? 0 : -1}
                 className={`ctc-tab focus-ring${tab === i ? ' is-active' : ''}`}
-                onClick={() => { setTab(i); setOpenQ(`${t.key}-0`) }}
+                onClick={() => { setTab(i); setOpenQ(`${tabDef.key}-0`) }}
               >
-                {t.label}
+                {t(`faq.tabs.${tabDef.key}`)}
               </button>
             ))}
           </div>
 
-          {FAQ_TABS.map((t, i) => (
+          {FAQ_TABS.map((tabDef, i) => (
             <div
-              key={t.key}
+              key={tabDef.key}
               role="tabpanel"
-              id={`panel-${t.key}`}
-              aria-labelledby={`tab-${t.key}`}
+              id={`panel-${tabDef.key}`}
+              aria-labelledby={`tab-${tabDef.key}`}
               hidden={tab !== i}
               className="ctc-faq-list"
             >
-              {t.items.map((item, j) => {
-                const id = `${t.key}-${j}`
+              {Array.from({ length: tabDef.count }, (_, j) => {
+                const id = `${tabDef.key}-${j}`
                 const open = openQ === id
                 return (
                   <div className={`ctc-qa${open ? ' is-open' : ''}`} key={id}>
@@ -630,12 +563,12 @@ export default function Contact() {
                         aria-controls={`a-${id}`}
                         onClick={() => setOpenQ(open ? '' : id)}
                       >
-                        <span>{item.q}</span>
+                        <span>{t(`faq.items.${id}.q`)}</span>
                         <svg className="ctc-qa-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
                       </button>
                     </h3>
                     <div id={`a-${id}`} className="ctc-qa-a" role="region" aria-labelledby={`q-${id}`} hidden={!open}>
-                      <p>{item.a}</p>
+                      <p>{t(`faq.items.${id}.a`)}</p>
                     </div>
                   </div>
                 )
@@ -650,7 +583,7 @@ export default function Contact() {
         <SectionCurve position="top" fill="#f0ebe0" />
         <PaperGrain />
         <div className="ctc-closer-inner ctc-reveal relative z-10">
-          <p className="ctc-closer-line">Prefer email?</p>
+          <p className="ctc-closer-line">{t('closer.line')}</p>
           <a className="ctc-closer-mail focus-ring" href={`mailto:${EMAIL_ENQ}`}>{EMAIL_ENQ}</a>
         </div>
       </section>

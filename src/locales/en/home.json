@@ -1,0 +1,57 @@
+{
+  "seo": {
+    "title": "Quarterfold Printabilities | Global Book Printing & Fulfilment",
+    "description": "We help publishers and education programmes across 25+ countries print, bind, package and deliver 25M+ books a year — on time, every time."
+  },
+  "hero": {
+    "line1": "Powering",
+    "line2": "Global",
+    "line3": "Education",
+    "sealLabel": "Quarterfold Printabilities seal",
+    "bookAlt": "Open QFP book",
+    "subhead": "We help publishers around the world print, bind, package, and deliver exceptional books on time, every time.",
+    "ctaPrint": "What we print",
+    "ctaReach": "Our global reach",
+    "scroll": "Scroll",
+    "bubbles": {
+      "mustard": "Oh yes! Education has no borders.",
+      "red": "Quarterfold Prints <1>25 Million Books</1> Every Year.",
+      "blonde": "What? They also export to <1>25+ Countries</1> every year?",
+      "green": "Wow! That means the books have been read by <1>billions</1> of people!"
+    }
+  },
+  "promise": {
+    "eyebrow": "Our Promise",
+    "segments": [
+      { "bold": false, "text": "Your" },
+      { "bold": true, "text": "mission is education." },
+      { "bold": false, "text": "Ours is to" },
+      { "bold": true, "text": "ensure nothing gets in its way." }
+    ],
+    "support": "Printing. Kitting. Quality checks. Warehousing. Shipment. One system, start to finish, with nothing left to chance.",
+    "attribution": "Quarterfold Printabilities · Est. 2014",
+    "aria": "Our promise"
+  },
+  "globeReach": {
+    "eyebrow": "Global Reach",
+    "titleLine1": "Printed in India.",
+    "titleThin": "Read by the",
+    "titleBold2": "World.",
+    "lede": "Every shipment leaves two sites on the Navi Mumbai coast — Vashi and Taloja — and lands in classrooms across 25+ countries on four continents.",
+    "link": "Explore our global reach"
+  },
+  "marquee": {
+    "aria": "Print-craft capabilities",
+    "terms": {
+      "offset": "Offset Printing",
+      "case": "Case Binding",
+      "foil": "Foil Blocking",
+      "perfect": "Perfect Bound",
+      "spotuv": "Spot UV",
+      "saddle": "Saddle Stitch",
+      "litho": "Lithography",
+      "emboss": "Embossing",
+      "fourcolour": "4-Colour Process"
+    }
+  }
+}

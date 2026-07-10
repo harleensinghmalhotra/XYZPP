@@ -1,0 +1,132 @@
+{
+  "seo": {
+    "title": "Print Infrastructure | Quarterfold Printabilities",
+    "description": "Four print facilities and two warehouses across Navi Mumbai. 250,000 sq ft engineered so your books ship on time, every time.",
+    "breadcrumbHome": "Home",
+    "breadcrumbCurrent": "Infrastructure"
+  },
+  "hero": {
+    "eyebrow": "Infrastructure",
+    "title": "Built for Scale. <strong>Engineered for Trust.</strong>",
+    "sub": "Four print facilities and two warehouses across Navi Mumbai. 250,000 sq ft engineered for one thing: books that ship on time.",
+    "ctaQuote": "Request a Quote",
+    "ctaProcess": "See our process",
+    "statAriaLabel": "250,000 square feet engineered across six facilities",
+    "statUnit": "SQ FT",
+    "statFoot": "Engineered across six facilities in Navi Mumbai"
+  },
+  "strip": {
+    "eyebrow": "Certified, audited and renewed",
+    "certAlt": "{{name}} certification",
+    "licence": "Licence {{code}}",
+    "certs": {
+      "fsc": { "name": "FSC Chain of Custody", "sub": "Responsible paper sourcing" },
+      "iso9001": { "name": "ISO 9001:2015", "sub": "Quality management" },
+      "iso14001": { "name": "ISO 14001:2015", "sub": "Environmental management" },
+      "sedex": { "name": "Sedex Member", "sub": "Ethical trade audit" },
+      "starExport": { "name": "Star Export House", "sub": "Govt. of India" }
+    }
+  },
+  "acc": {
+    "eyebrow": "What runs the floor",
+    "title": "Three capabilities, one line.",
+    "quoteText": "on-time delivery, year after year.",
+    "capabilities": {
+      "print": {
+        "label": "Print Capacity",
+        "body": "A twenty-web machine tower alongside five sheet-fed presses and three Lineomatic lines, engineered for large-volume textbook runs.",
+        "photoNote": "PHOTO · PRESS HALL, PRINTING TOWERS"
+      },
+      "bind": {
+        "label": "Binding & Finishing",
+        "body": "Seventeen folders, ten binding and stitching lines and six automatic thread-sewing machines finish every book to spec.",
+        "photoNote": "PHOTO · BINDERY & FINISHING LINES"
+      },
+      "ware": {
+        "label": "Warehousing & Dispatch",
+        "body": "Two fulfilment centres run automated collating, kitting and shrink-wrapping, up to 10,000 kits processed every single day.",
+        "photoNote": "PHOTO · WAREHOUSE & DISPATCH"
+      }
+    }
+  },
+  "machines": {
+    "eyebrow": "On the press floor",
+    "title": "The machines behind the volume.",
+    "items": {
+      "tower": {
+        "name": "20-Web Offset Tower",
+        "spec": "A twenty-unit web-offset tower runs long textbook forms at full speed, register held tight across every signature."
+      },
+      "press": {
+        "name": "Sheet-Fed Fleet, 5 Presses",
+        "spec": "Five sheet-fed presses handle covers, short runs and colour-critical work where finish and fidelity matter most."
+      },
+      "book": {
+        "name": "3 Lineomatic Exercise-Book Lines",
+        "spec": "Three Lineomatic lines rule, fold and stitch exercise books end to end at volume."
+      },
+      "carton": {
+        "name": "In-house Corrugated & E-flute Cartons",
+        "spec": "Cartons are made in-house, so every shipment leaves in packaging built for its load."
+      }
+    }
+  },
+  "results": {
+    "eyebrow": "Real capacity",
+    "title": "Measured, not estimated.",
+    "sub": "Not a projection. The plant that prints and ships, counted across four print facilities and two warehouses.",
+    "stats": {
+      "sqft": { "label": "Sq ft engineered", "foot": "Across six facilities" },
+      "sites": { "label": "Print & fulfilment sites", "foot": "Four print, two warehouse" },
+      "books": { "label": "Books a year", "foot": "Shipped to 25+ countries" },
+      "people": { "label": "People on the floor", "foot": "Trained to one standard" }
+    },
+    "videoPlayLabel": "Play facilities walkthrough video",
+    "videoPendingLabel": "Preview facilities walkthrough, video coming soon",
+    "videoNote": "VIDEO · INSIDE OUR FACILITIES"
+  },
+  "recognition": {
+    "eyebrow": "Recognition",
+    "title": "Awarded for the work, year on year.",
+    "awards": {
+      "capexil": {
+        "name": "Highest Book Exporter",
+        "body": "CAPEXIL, Government of India, awarded across consecutive years.",
+        "kicker": "CAPEXIL · GOVT. OF INDIA"
+      },
+      "printweek": {
+        "name": "PrintWeek Honours",
+        "body": "Recognised by PrintWeek for production quality and scale.",
+        "kicker": "PRINTWEEK INDIA"
+      },
+      "dnb": {
+        "name": "Dun & Bradstreet",
+        "body": "Listed among India’s leading print and publishing businesses.",
+        "kicker": "D&B RECOGNITION"
+      }
+    }
+  },
+  "gallery": {
+    "eyebrow": "Inside the facilities",
+    "title": "A look across the floor.",
+    "photoNote": "PHOTO · {{caption}}",
+    "items": {
+      "pressHall": "PRESS HALL",
+      "bindery": "BINDERY",
+      "warehouse": "WAREHOUSE",
+      "dispatch": "DISPATCH"
+    }
+  },
+  "cta": {
+    "title": "See it in person or on a call.",
+    "sub": "Tour the floor, meet the team, and get a quote scoped to your run.",
+    "button": "Request a Quote"
+  },
+  "dialog": {
+    "ariaLabel": "Facilities walkthrough video",
+    "closeLabel": "Close video",
+    "captionsLabel": "English",
+    "videoNote": "VIDEO · INSIDE OUR FACILITIES",
+    "comingSoon": "Walkthrough footage coming soon"
+  }
+}

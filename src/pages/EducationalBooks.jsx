@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useTranslation, Trans } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -38,11 +39,12 @@ const STEP_ICONS = {
   classroom: [P('M4 20V9.5L12 5l8 4.5V20'), P('M2.6 20h18.8'), P('M9.5 20v-5h5v5'), C(12, 10.4, 1.4)],
 }
 
+// name/desc resolved via t(`process.steps.<icon>.…`); icon key doubles as the i18n key.
 const STEPS = [
-  { n: '01', icon: 'tender', name: 'Tender & Specification', desc: 'We win government and ministry tenders, then lock exact specs — trim, paper, binding and the curriculum edition.' },
-  { n: '02', icon: 'print', name: 'Curriculum-Aligned Print', desc: 'Offset runs calibrated for colour at national volume, matched precisely to each country’s syllabus.' },
-  { n: '03', icon: 'export', name: 'Export & Logistics', desc: 'Containerised export, customs documentation and 800+ containers a year moving to 25+ countries.' },
-  { n: '04', icon: 'classroom', name: 'Into the Classroom', desc: 'Delivered to ministries and schools — into the hands of children across Africa and beyond.' },
+  { n: '01', icon: 'tender' },
+  { n: '02', icon: 'print' },
+  { n: '03', icon: 'export' },
+  { n: '04', icon: 'classroom' },
 ]
 
 // Africa programme footprint (educational-books.md) + ministry milestone figures
@@ -50,17 +52,20 @@ const STEPS = [
 // `figureSafe` neutralises the named programme (UBEC / World Bank / USAID) when
 // SHOW_MINISTRY_NAMES is off — the country tile stays, only the programme name
 // drops, so the grid keeps its shape.
+// name resolved via t(`impact.countries.<id>`); figures via t(`impact.figures.<figure>`).
+// `figureSafe` names the compliance-neutralised figure key (used when SHOW_MINISTRY_NAMES
+// is off); the country tile stays either way so the grid keeps its shape.
 const COUNTRIES = [
-  { name: 'Tanzania', figure: '10M books', key: true },
-  { name: 'Ghana', figure: '10M · World Bank / USAID', figureSafe: '10M books', key: true },
-  { name: 'Nigeria', figure: '8M · UBEC', figureSafe: '8M books', key: true },
-  { name: 'Ivory Coast', figure: '7M books', key: true },
-  { name: 'DR Congo', figure: '5M books', key: true },
-  { name: 'Senegal', figure: 'National programme' },
-  { name: 'Cameroon', figure: 'National programme' },
-  { name: 'Benin', figure: 'National programme' },
-  { name: 'Uganda', figure: 'National programme' },
-  { name: 'Ethiopia', figure: 'National programme' },
+  { id: 'tanzania', figure: 'tanzania', key: true },
+  { id: 'ghana', figure: 'ghana', figureSafe: 'ghanaSafe', key: true },
+  { id: 'nigeria', figure: 'nigeria', figureSafe: 'nigeriaSafe', key: true },
+  { id: 'ivoryCoast', figure: 'ivoryCoast', key: true },
+  { id: 'drCongo', figure: 'drCongo', key: true },
+  { id: 'senegal', figure: 'nationalProgramme' },
+  { id: 'cameroon', figure: 'nationalProgramme' },
+  { id: 'benin', figure: 'nationalProgramme' },
+  { id: 'uganda', figure: 'nationalProgramme' },
+  { id: 'ethiopia', figure: 'nationalProgramme' },
 ]
 
 // floating sticker positions (vw/vh anchored, translate-centred). depth = parallax factor.
@@ -69,9 +74,9 @@ const FLOATS = [
   { type: 'img', src: '/qfp/hero/qfp-prop-bookstack.webp', w: 132, top: '78%', left: '15%', depth: 1.5, bob: 'edu-bob', dur: 8 },
   { type: 'icon', icon: 'book', top: '26%', left: '15%', depth: 3.2, bob: 'edu-bob', dur: 6.5 },
   { type: 'icon', icon: 'globe', top: '70%', left: '84%', depth: 2.8, bob: 'edu-bob-r', dur: 7.5 },
-  { type: 'label', text: 'Textbooks', top: '30%', left: '82%', depth: 4, bob: 'edu-bob', dur: 6 },
-  { type: 'label', text: 'Workbooks', top: '62%', left: '12%', depth: 3.6, bob: 'edu-bob-r', dur: 6.8 },
-  { type: 'label', text: 'Curriculum Print', top: '15%', left: '30%', depth: 4.6, bob: 'edu-bob', dur: 7.2 },
+  { type: 'label', textKey: 'textbooks', top: '30%', left: '82%', depth: 4, bob: 'edu-bob', dur: 6 },
+  { type: 'label', textKey: 'workbooks', top: '62%', left: '12%', depth: 3.6, bob: 'edu-bob-r', dur: 6.8 },
+  { type: 'label', textKey: 'curriculumPrint', top: '15%', left: '30%', depth: 4.6, bob: 'edu-bob', dur: 7.2 },
   { type: 'icon', icon: 'pencil', top: '55%', left: '90%', depth: 3, bob: 'edu-bob', dur: 6.2 },
   { type: 'icon', icon: 'cap', top: '20%', left: '62%', depth: 2.6, bob: 'edu-bob-r', dur: 7.8 },
 ]
@@ -87,6 +92,7 @@ function GoldSeal() {
 }
 
 export default function EducationalBooks() {
+  const { t } = useTranslation('educationalBooks')
   const reduced = prefersReduced()
   const root = useRef(null)
   const heroRef = useRef(null)
@@ -95,10 +101,10 @@ export default function EducationalBooks() {
   // ── SEO: title, meta description, BreadcrumbList JSON-LD ──
   useEffect(() => {
     const prevTitle = document.title
-    document.title = 'Educational Book Printing | Quarterfold Printabilities'
+    document.title = t('seo.title')
     const meta = document.querySelector('meta[name="description"]')
     const prevDesc = meta?.getAttribute('content')
-    if (meta) meta.setAttribute('content', 'We print 25 million educational books a year for ministries and World Bank & USAID programmes across 25+ countries — curriculum-aligned and export-ready.')
+    if (meta) meta.setAttribute('content', t('seo.description'))
 
     const ld = document.createElement('script')
     ld.type = 'application/ld+json'
@@ -106,8 +112,8 @@ export default function EducationalBooks() {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.quarterfoldltd.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Educational Books', item: 'https://www.quarterfoldltd.com/educational-books' },
+        { '@type': 'ListItem', position: 1, name: t('seo.breadcrumbHome'), item: 'https://www.quarterfoldltd.com/' },
+        { '@type': 'ListItem', position: 2, name: t('seo.breadcrumbCurrent'), item: 'https://www.quarterfoldltd.com/educational-books' },
       ],
     })
     document.head.appendChild(ld)
@@ -116,7 +122,7 @@ export default function EducationalBooks() {
       if (meta && prevDesc != null) meta.setAttribute('content', prevDesc)
       ld.remove()
     }
-  }, [])
+  }, [t])
 
   // ── Pointer parallax on the hero stickers (rAF-throttled, reduced-motion off) ──
   useEffect(() => {
@@ -183,7 +189,7 @@ export default function EducationalBooks() {
   const renderFloat = (f, i) => {
     let body
     if (f.type === 'img') body = <img src={f.src} alt="" aria-hidden="true" style={{ width: f.w }} draggable="false" />
-    else if (f.type === 'label') body = <span className="edu-chip">{f.text}</span>
+    else if (f.type === 'label') body = <span className="edu-chip">{t(`floats.${f.textKey}`)}</span>
     else body = (
       <span className="edu-icon-chip">
         <svg viewBox="0 0 24 24" fill="none" style={{ width: 30, height: 30 }}>{HERO_ICONS[f.icon]}</svg>
@@ -204,32 +210,36 @@ export default function EducationalBooks() {
       <section ref={heroRef} data-theme="light" className="edu-hero" aria-labelledby="edu-h1">
         <PaperGrain />
         <div className="edu-hero-labels" aria-hidden="true">
-          <span className="edu-corner" style={{ top: '116px', left: '32px' }}>Educational Books</span>
-          <span className="edu-corner" style={{ top: '116px', right: '32px' }}>25+ Countries · Since 2002</span>
+          <span className="edu-corner" style={{ top: '116px', left: '32px' }}>{t('hero.cornerLabel')}</span>
+          <span className="edu-corner" style={{ top: '116px', right: '32px' }}>{t('hero.cornerMeta')}</span>
         </div>
 
         {FLOATS.map(renderFloat)}
 
-        <h1 id="edu-h1" className="edu-h1">
-          We put 25 million{' '}
-          <Link to="/trade-books" className="edu-link">books</Link>{' '}
-          a year into the hands of children across 25+{' '}
-          <a href="/#projects" className="edu-link">countries</a>.
+        <h1 id="edu-h1" className="edu-h1" data-textreveal>
+          <Trans
+            t={t}
+            i18nKey="hero.title"
+            components={{
+              1: <Link to="/trade-books" className="edu-link" />,
+              3: <a href="/#projects" className="edu-link" />,
+            }}
+          />
         </h1>
-        <p className="edu-hero-sub">
-          One partner for national textbook programmes — from ministry tender to the classroom desk.
+        <p className="edu-hero-sub" data-reveal>
+          {t('hero.sub')}
         </p>
       </section>
 
       {/* ── 2. BOOK REVEAL (scroll-scrub) ── */}
-      <section data-theme="light" className="edu-book overflow-hidden" aria-label="Programme partner proof">
+      <section data-theme="light" className="edu-book overflow-hidden" aria-label={t('book.ariaLabel')}>
         <PaperGrain />
         <div className="edu-book-pin">
-          <span className="edu-book-kicker">Trusted with the work that matters</span>
+          <span className="edu-book-kicker">{t('book.kicker')}</span>
           <img
             ref={bookImg}
             src="/qfp/hero/qfp-book-pages.webp"
-            alt="An open educational book printed by Quarterfold"
+            alt={t('book.alt')}
             className="edu-book-img"
             draggable="false"
           />
@@ -237,20 +247,20 @@ export default function EducationalBooks() {
       </section>
 
       {/* ── 2b. NAVY PROOF LEDGER (gold stats pass contrast on navy) ── */}
-      <section data-theme="dark" className="edu-proof relative" aria-label="Programme statistics">
+      <section data-theme="dark" className="edu-proof relative" aria-label={t('proof.ariaLabel')}>
         <EdgeGlow tone="navy" />
         <div className="edu-proof-inner relative z-10">
-          <div className="edu-proof-cell">
+          <div className="edu-proof-cell" data-reveal>
             <div className="edu-proof-num">World Bank<span style={{ opacity: 0.5 }}> · </span>USAID</div>
-            <div className="edu-proof-label">Programme partner on government-funded print</div>
+            <div className="edu-proof-label">{t('proof.partnerLabel')}</div>
           </div>
-          <div className="edu-proof-cell">
+          <div className="edu-proof-cell" data-reveal>
             <div className="edu-proof-num"><CountUp value={250} suffix="+" /></div>
-            <div className="edu-proof-label">Publishers served worldwide</div>
+            <div className="edu-proof-label">{t('proof.publishersLabel')}</div>
           </div>
-          <div className="edu-proof-cell">
+          <div className="edu-proof-cell" data-reveal>
             <div className="edu-proof-num"><CountUp value={800} suffix="+" /></div>
-            <div className="edu-proof-label">Containers exported every year</div>
+            <div className="edu-proof-label">{t('proof.containersLabel')}</div>
           </div>
         </div>
       </section>
@@ -260,8 +270,8 @@ export default function EducationalBooks() {
         <SectionCurve position="top" fill="#f0ebe0" />
         <PaperGrain />
         <div className="edu-proc-inner relative z-10">
-          <p className="edu-proc-eyebrow">How a programme runs</p>
-          <h2 id="edu-proc-title" className="edu-proc-title">From ministry tender to the classroom desk.</h2>
+          <p className="edu-proc-eyebrow">{t('process.eyebrow')}</p>
+          <h2 id="edu-proc-title" className="edu-proc-title">{t('process.title')}</h2>
           <div className="edu-proc-grid">
             {STEPS.map((s) => (
               <article className="edu-proc-card" key={s.n}>
@@ -270,8 +280,8 @@ export default function EducationalBooks() {
                 </span>
                 <span className="edu-proc-step">{s.n}</span>
                 <div>
-                  <h3 className="edu-proc-name">{s.name}</h3>
-                  <p className="edu-proc-desc">{s.desc}</p>
+                  <h3 className="edu-proc-name">{t(`process.steps.${s.icon}.name`)}</h3>
+                  <p className="edu-proc-desc">{t(`process.steps.${s.icon}.desc`)}</p>
                 </div>
               </article>
             ))}
@@ -285,27 +295,27 @@ export default function EducationalBooks() {
         <SectionCurve position="top" fill="#0f2444" />
         <div className="edu-impact-inner relative z-10">
           <div className="edu-impact-head">
-            <div>
-              <p className="edu-impact-eyebrow">Africa programmes</p>
-              <h2 id="edu-impact-title" className="edu-impact-title">National syllabuses, printed and delivered.</h2>
+            <div data-reveal>
+              <p className="edu-impact-eyebrow">{t('impact.eyebrow')}</p>
+              <h2 id="edu-impact-title" className="edu-impact-title">{t('impact.title')}</h2>
             </div>
-            <p className="edu-impact-lede">
-              Textbooks printed in India and shipped to ministries of education across the continent — tens of millions of books, one syllabus at a time.
+            <p className="edu-impact-lede" data-reveal>
+              {t('impact.lede')}
             </p>
           </div>
 
           <div className="edu-countries">
             {COUNTRIES.map((c) => (
-              <div className="edu-country" key={c.name}>
-                <div className="edu-country-name">{c.name}</div>
-                <div className={`edu-country-figure${c.key ? '' : ' muted'}`}>{SHOW_MINISTRY_NAMES ? c.figure : (c.figureSafe || c.figure)}</div>
+              <div className="edu-country" key={c.id} data-reveal>
+                <div className="edu-country-name">{t(`impact.countries.${c.id}`)}</div>
+                <div className={`edu-country-figure${c.key ? '' : ' muted'}`}>{t(`impact.figures.${SHOW_MINISTRY_NAMES ? c.figure : (c.figureSafe || c.figure)}`)}</div>
               </div>
             ))}
           </div>
 
-          <p className="edu-awards">
+          <p className="edu-awards" data-reveal>
             <GoldSeal />
-            <span><b>Four consecutive CAPEXIL export awards</b> — Education Export Company of the Year, 2024.</span>
+            <span><Trans t={t} i18nKey="impact.awards" components={{ 1: <b /> }} /></span>
           </p>
         </div>
       </section>
@@ -314,12 +324,12 @@ export default function EducationalBooks() {
       <section data-theme="light" className="edu-cta relative overflow-hidden" aria-labelledby="edu-cta-title">
         <SectionCurve position="top" fill="#f0ebe0" />
         <PaperGrain />
-        <h2 id="edu-cta-title" className="edu-cta-title relative z-10">Print your programme with us.</h2>
-        <p className="edu-cta-sub relative z-10">
-          Ten million textbooks for a national rollout, or a first curriculum edition — tell us the specification and we’ll come back within one business day.
+        <h2 id="edu-cta-title" className="edu-cta-title relative z-10" data-textreveal>{t('cta.title')}</h2>
+        <p className="edu-cta-sub relative z-10" data-reveal>
+          {t('cta.sub')}
         </p>
-        <Link to="/contact" className="edu-cta-pill relative z-10">
-          Start your programme
+        <Link to="/contact" className="edu-cta-pill relative z-10" data-reveal>
+          {t('cta.btn')}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m11 5 7 7-7 7" /></svg>
         </Link>
       </section>

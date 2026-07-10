@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 
@@ -15,119 +17,47 @@ import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 // All copy is drawn from recon/qfp-live-pages/trade-books.md + the homepage
 // print-craft marquee terms; nothing is invented.
 
+// Structural data only — all human-readable copy (name, story, craft, materials,
+// options, feature labels) is resolved through the `tradeBooks` namespace via t().
+// `key` maps to categories.<key>.*; `icon` doubles as the features.<icon> label key.
 const CATS = [
   {
     key: 'coffee-table',
-    name: 'Coffee-Table Books',
     swatch: '#24344F',
-    story: 'Made to be left out, not shelved.',
     gallery: ['/qfp/trade/coffee-table-01.webp', '/qfp/trade/coffee-table-02.webp', '/qfp/trade/coffee-table-03.webp'],
-    features: [
-      { icon: 'case', label: 'Case Binding' },
-      { icon: 'foil', label: 'Foil Blocking' },
-      { icon: 'uv', label: 'Spot UV' },
-    ],
-    craft:
-      'Case-bound and hand-finished, with foil blocking and embossing on cloth and board covers — the expert binding that lets a large-format book lie flat and open true.',
-    materials:
-      'Premium coated and uncoated paper stocks, printed 4-colour process on offset presses, then dressed with metallic foils and spot UV.',
-    options:
-      'Portrait or landscape formats, custom trim sizes, matte or gloss lamination, and specialty finishes to order.',
+    features: ['case', 'foil', 'uv'],
   },
   {
     key: 'notebooks',
-    name: 'Premium Notebooks',
     swatch: '#0F2444',
-    story: 'A blank page worth keeping.',
     gallery: ['/qfp/trade/notebooks-01.webp', '/qfp/trade/notebooks-02.webp', '/qfp/trade/notebooks-03.webp'],
-    features: [
-      { icon: 'perfect', label: 'Perfect Bound' },
-      { icon: 'emboss', label: 'Embossing' },
-      { icon: 'formats', label: 'Custom Formats' },
-    ],
-    craft:
-      'Perfect bound or case bound, with debossed and embossed covers and foil-blocked detailing — counterbooks, pads and branded stationery built to be used daily.',
-    materials:
-      'Premium paper stocks with ruled, dotted or plain interiors; leatherette, cloth and board covers finished with foil.',
-    options:
-      'A6 to A4 and bespoke sizes, rounded corners, elastic closures and ribbon markers, printed or blind-blocked.',
+    features: ['perfect', 'emboss', 'formats'],
   },
   {
     key: 'diaries',
-    name: 'Leather Diaries',
     swatch: '#3A2C1A',
-    story: 'A year, bound in leather.',
     gallery: ['/qfp/trade/diaries-01.webp', '/qfp/trade/diaries-02.webp', '/qfp/trade/diaries-03.webp'],
-    features: [
-      { icon: 'case', label: 'Case Binding' },
-      { icon: 'foil', label: 'Foil Blocking' },
-      { icon: 'emboss', label: 'Embossing' },
-    ],
-    craft:
-      'Luxury leather-case, hard-bound and soft-bound builds, foil blocked and embossed by hand — the expert binding techniques that make a diary last a year and beyond.',
-    materials:
-      'Genuine and bonded leather cases over premium paper stocks, with gilt and matte foil edging.',
-    options:
-      'Dated or undated, week-to-view or day-per-page, with elastic bands, pen loops and personalised foil.',
+    features: ['case', 'foil', 'emboss'],
   },
   {
     key: 'calendars',
-    name: 'Calendars',
     swatch: '#1B3A6B',
-    story: 'Twelve months, printed to last.',
     gallery: ['/qfp/trade/calendars-01.webp', '/qfp/trade/calendars-02.webp', '/qfp/trade/calendars-03.webp'],
-    features: [
-      { icon: 'saddle', label: 'Saddle Stitch' },
-      { icon: 'fourc', label: '4-Colour Process' },
-      { icon: 'formats', label: 'Custom Formats' },
-    ],
-    craft:
-      'Saddle-stitched and wire-bound wall calendars, printed 4-colour process with foil and spot UV accents on the cover month.',
-    materials:
-      'Heavyweight coated stocks for the image months, board backing, and metal or wire-o binding.',
-    options:
-      'Wall, desk and landscape formats, custom grids, and bespoke trim sizes to order.',
+    features: ['saddle', 'fourc', 'formats'],
   },
   {
     key: 'autobiographies',
-    name: 'Autobiographies',
     swatch: '#16203A',
-    story: 'A life, set in type.',
     gallery: ['/qfp/trade/autobiographies-01.webp', '/qfp/trade/autobiographies-02.webp', '/qfp/trade/autobiographies-03.webp'],
-    features: [
-      { icon: 'case', label: 'Case Binding' },
-      { icon: 'offset', label: 'Offset Printing' },
-      { icon: 'foil', label: 'Foil Blocking' },
-    ],
-    craft:
-      "Case bound with printed or foil-blocked jackets, offset printed and hand-finished — heritage and collector's editions built to be kept.",
-    materials:
-      'Cream and white book-wove paper stocks, printed cloth or board covers, head and tail bands, and foiled spines.',
-    options:
-      'Royal, demy and custom trim sizes, dust jackets, ribbon markers and slipcases to order.',
+    features: ['case', 'offset', 'foil'],
   },
   {
     key: 'novels',
-    name: 'Novels',
     swatch: '#2A3B57',
-    story: 'Perfectly bound, cover to cover.',
     gallery: ['/qfp/trade/novels-01.webp', '/qfp/trade/novels-02.webp', '/qfp/trade/novels-03.webp'],
-    features: [
-      { icon: 'perfect', label: 'Perfect Bound' },
-      { icon: 'offset', label: 'Offset Printing' },
-      { icon: 'litho', label: 'Lithography' },
-    ],
-    craft:
-      'Perfect bound on offset and lithographic presses — trade paperbacks and hardbacks, printed clean and bound to open flat.',
-    materials:
-      'Book-wove and bulk paper stocks, matte or gloss laminated covers, with foil and spot UV options.',
-    options:
-      'A-format to royal, French flaps, custom trims, and short or long print runs.',
+    features: ['perfect', 'offset', 'litho'],
   },
 ]
-
-const DELIVERY =
-  'Export-ready from our Taloja and Vashi facilities — printed, packed, palletised and shipped to educational and trade partners in 25+ countries.'
 
 // ── stroke-draw feature icons (line-art, gold, ≥24px) ────────────────────────
 function FeatureIcon({ name }) {
@@ -202,52 +132,31 @@ function Accordion({ items }) {
   )
 }
 
-// per-route SEO — title < 60ch, meta < 155ch, BreadcrumbList JSON-LD.
-function useSeo() {
-  useEffect(() => {
-    const prevTitle = document.title
-    document.title = 'Trade Book Printing | Quarterfold Printabilities'
-    const meta = document.querySelector('meta[name="description"]')
-    const prevDesc = meta ? meta.getAttribute('content') : null
-    if (meta)
-      meta.setAttribute(
-        'content',
-        'Premium trade-book printing by Quarterfold: coffee-table books, notebooks, leather diaries, calendars, autobiographies and novels. Request a quote.',
-      )
-    const ld = document.createElement('script')
-    ld.type = 'application/ld+json'
-    ld.id = 'tb-breadcrumb'
-    ld.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.quarterfoldltd.com/' },
-        { '@type': 'ListItem', position: 2, name: 'What We Print', item: 'https://www.quarterfoldltd.com/trade-books' },
-        { '@type': 'ListItem', position: 3, name: 'Trade Books', item: 'https://www.quarterfoldltd.com/trade-books' },
-      ],
-    })
-    document.head.appendChild(ld)
-    return () => {
-      document.title = prevTitle
-      if (meta && prevDesc != null) meta.setAttribute('content', prevDesc)
-      document.getElementById('tb-breadcrumb')?.remove()
-    }
-  }, [])
-}
-
 export default function TradeBooks() {
+  const { t } = useTranslation('tradeBooks')
   const [active, setActive] = useState(0)
   const [shot, setShot] = useState(0) // which gallery slot is shown large
   const galleryRef = useRef(null)
-  useSeo()
 
   const cat = CATS[active]
+  const catName = t(`categories.${cat.key}.name`)
   const accItems = [
-    { id: 'craft', title: 'The Craft', body: cat.craft },
-    { id: 'materials', title: 'The Materials', body: cat.materials },
-    { id: 'options', title: 'The Options', body: cat.options },
-    { id: 'delivery', title: 'Delivery', body: DELIVERY },
+    { id: 'craft', title: t('accordion.craft'), body: t(`categories.${cat.key}.craft`) },
+    { id: 'materials', title: t('accordion.materials'), body: t(`categories.${cat.key}.materials`) },
+    { id: 'options', title: t('accordion.options'), body: t(`categories.${cat.key}.options`) },
+    { id: 'delivery', title: t('accordion.delivery'), body: t('delivery') },
   ]
+
+  // per-route SEO — title < 60ch, meta < 155ch, BreadcrumbList JSON-LD.
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://www.quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.whatWePrint'), item: 'https://www.quarterfoldltd.com/trade-books' },
+      { '@type': 'ListItem', position: 3, name: t('seo.breadcrumb.tradeBooks'), item: 'https://www.quarterfoldltd.com/trade-books' },
+    ],
+  }
 
   const pick = (i) => {
     setActive(i)
@@ -261,12 +170,13 @@ export default function TradeBooks() {
 
   return (
     <main id="main" className="tb">
+      <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={jsonLd} />
       {/* 1 ── PRODUCT EXPERIENCE ─────────────────────────────────────────── */}
       <section
         data-theme="light"
         className="tb-exp"
         ref={galleryRef}
-        aria-label="Trade Books product experience"
+        aria-label={t('experience.regionLabel')}
         style={{ position: 'relative', overflow: 'hidden' }}
       >
         <PaperGrain />
@@ -278,24 +188,24 @@ export default function TradeBooks() {
               <img
                 key={cat.gallery[shot]}
                 src={cat.gallery[shot]}
-                alt={`${cat.name} — Quarterfold trade book, view ${shot + 1}`}
+                alt={t('gallery.imageAlt', { name: catName, index: shot + 1 })}
                 className="tb-stage-img"
                 width="1200"
                 height="1500"
               />
               <figcaption className="tb-stage-tag">
                 <span className="tb-stage-dot" style={{ background: cat.swatch }} aria-hidden="true" />
-                {cat.name}
+                {catName}
               </figcaption>
             </figure>
-            <div className="tb-thumbs" role="tablist" aria-label={`${cat.name} views`}>
+            <div className="tb-thumbs" role="tablist" aria-label={t('gallery.viewsLabel', { name: catName })}>
               {cat.gallery.map((g, i) => (
                 <button
                   key={g}
                   type="button"
                   role="tab"
                   aria-selected={shot === i}
-                  aria-label={`View ${i + 1}`}
+                  aria-label={t('gallery.viewLabel', { index: i + 1 })}
                   className={`tb-thumb focus-ring ${shot === i ? 'is-active' : ''}`}
                   onClick={() => setShot(i)}
                 >
@@ -307,24 +217,24 @@ export default function TradeBooks() {
 
           {/* RIGHT — product panel */}
           <div className="tb-panel">
-            <p className="tb-eyebrow">
-              Trade Books
-              <span className="tb-badge">Export-Grade</span>
+            <p className="tb-eyebrow" data-reveal>
+              {t('hero.eyebrow')}
+              <span className="tb-badge">{t('hero.badge')}</span>
             </p>
-            <h1 className="tb-h1">Trade Books</h1>
-            <p className="tb-lede">
-              <span className="tb-lede-light">Some books inform. </span>
-              <span className="tb-lede-bold">These are bound to be kept.</span>
+            <h1 className="tb-h1" data-textreveal>{t('hero.title')}</h1>
+            <p className="tb-lede" data-reveal>
+              <span className="tb-lede-light">{t('hero.ledeLight')}</span>
+              <span className="tb-lede-bold">{t('hero.ledeBold')}</span>
             </p>
 
             {/* active category subheading (swaps) */}
             <div className="tb-active" aria-live="polite">
-              <span className="tb-active-name">{cat.name}</span>
-              <span className="tb-active-story">{cat.story}</span>
+              <span className="tb-active-name">{catName}</span>
+              <span className="tb-active-story">{t(`categories.${cat.key}.story`)}</span>
             </div>
 
             {/* THE SWATCHES — category switcher (fctry's colourway row) */}
-            <div className="tb-swatches" role="group" aria-label="Choose a trade-book category">
+            <div className="tb-swatches" role="group" aria-label={t('switcher.groupLabel')}>
               {CATS.map((c, i) => (
                 <button
                   key={c.key}
@@ -334,7 +244,7 @@ export default function TradeBooks() {
                   onClick={() => pick(i)}
                 >
                   <span className="tb-swatch-chip" style={{ '--chip': c.swatch }} aria-hidden="true" />
-                  <span className="tb-swatch-label">{c.name}</span>
+                  <span className="tb-swatch-label">{t(`categories.${c.key}.name`)}</span>
                 </button>
               ))}
             </div>
@@ -342,9 +252,9 @@ export default function TradeBooks() {
             {/* feature icon trio (swaps per category) */}
             <ul className="tb-feats">
               {cat.features.map((f) => (
-                <li key={f.label} className="tb-feat">
-                  <span className="tb-feat-ico"><FeatureIcon name={f.icon} /></span>
-                  <span className="tb-feat-label">{f.label}</span>
+                <li key={f} className="tb-feat">
+                  <span className="tb-feat-ico"><FeatureIcon name={f} /></span>
+                  <span className="tb-feat-label">{t(`features.${f}`)}</span>
                 </li>
               ))}
             </ul>
@@ -352,13 +262,13 @@ export default function TradeBooks() {
             {/* CTA — no cart/price; Request a Quote → /contact */}
             <div className="tb-cta-row">
               <Link to="/contact" className="tb-quote focus-ring">
-                Request a Quote
+                {t('cta.requestQuote')}
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
               <a href="#tb-range" className="tb-spec focus-ring">
-                Compare the Range
+                {t('cta.compareRange')}
               </a>
             </div>
 
@@ -369,15 +279,15 @@ export default function TradeBooks() {
       </section>
 
       {/* 3 ── LIFESTYLE BREAK ────────────────────────────────────────────── */}
-      <section data-theme="dark" className="tb-life" aria-label="Trade Books, kept">
+      <section data-theme="dark" className="tb-life" aria-label={t('life.regionLabel')}>
         <img src="/qfp/trade/lifestyle.webp" alt="" aria-hidden="true" className="tb-life-img" />
         <div className="tb-life-scrim" aria-hidden="true" />
         <DotField tone="navy" />
         <SectionCurve position="top" fill="#FDFAF4" />
         <SectionCurve position="bottom" fill="#FDFAF4" />
-        <p className="tb-life-line" style={{ position: 'relative', zIndex: 2 }}>
-          <span className="tb-life-light">Some books inform. </span>
-          <span className="tb-life-bold">These are kept.</span>
+        <p className="tb-life-line" style={{ position: 'relative', zIndex: 2 }} data-reveal>
+          <span className="tb-life-light">{t('life.light')}</span>
+          <span className="tb-life-bold">{t('life.bold')}</span>
         </p>
       </section>
 
@@ -386,14 +296,14 @@ export default function TradeBooks() {
         id="tb-range"
         data-theme="light"
         className="tb-range"
-        aria-label="Explore the range"
+        aria-label={t('range.regionLabel')}
         style={{ position: 'relative', overflow: 'hidden' }}
       >
         <PaperGrain />
         <div className="tb-range-inner" style={{ position: 'relative', zIndex: 1 }}>
-          <div className="tb-range-head">
-            <p className="tb-range-eyebrow">Explore the Range</p>
-            <p className="tb-range-sub">Jump between categories, or step across to a sibling service.</p>
+          <div className="tb-range-head" data-reveal>
+            <p className="tb-range-eyebrow">{t('range.eyebrow')}</p>
+            <p className="tb-range-sub">{t('range.sub')}</p>
           </div>
 
           {/* in-page category jumps */}
@@ -402,30 +312,31 @@ export default function TradeBooks() {
               <button
                 key={c.key}
                 type="button"
+                data-reveal
                 className={`tb-range-cat focus-ring ${active === i ? 'is-active' : ''}`}
                 onClick={() => jumpTo(i)}
               >
                 <span className="tb-range-chip" style={{ '--chip': c.swatch }} aria-hidden="true" />
-                {c.name}
+                {t(`categories.${c.key}.name`)}
               </button>
             ))}
           </div>
 
           {/* sibling pages */}
           <div className="tb-range-sibs">
-            <Link to="/educational-books" className="tb-sib focus-ring">
-              <span className="tb-sib-eyebrow">Sibling Service</span>
-              <span className="tb-sib-name">Educational Books</span>
+            <Link to="/educational-books" className="tb-sib focus-ring" data-reveal>
+              <span className="tb-sib-eyebrow">{t('range.siblingEyebrow')}</span>
+              <span className="tb-sib-name">{t('range.educational')}</span>
               <span className="tb-sib-go" aria-hidden="true">
-                Visit
+                {t('range.visit')}
                 <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </span>
             </Link>
-            <Link to="/print-on-demand" className="tb-sib focus-ring">
-              <span className="tb-sib-eyebrow">Sibling Service</span>
-              <span className="tb-sib-name">Print on Demand</span>
+            <Link to="/print-on-demand" className="tb-sib focus-ring" data-reveal>
+              <span className="tb-sib-eyebrow">{t('range.siblingEyebrow')}</span>
+              <span className="tb-sib-name">{t('range.pod')}</span>
               <span className="tb-sib-go" aria-hidden="true">
-                Visit
+                {t('range.visit')}
                 <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </span>
             </Link>
@@ -437,7 +348,7 @@ export default function TradeBooks() {
       <section
         data-theme="light"
         className="tb-close"
-        aria-label="Start a trade-book project"
+        aria-label={t('close.regionLabel')}
         style={{ position: 'relative', overflow: 'hidden' }}
       >
         <SectionCurve position="top" fill="#F0EBE0" />
@@ -445,11 +356,11 @@ export default function TradeBooks() {
         <EdgeGlow tone="warm" />
         <div className="tb-close-inner" style={{ position: 'relative', zIndex: 1 }}>
           <div>
-            <p className="tb-close-eyebrow">Made to order</p>
-            <h2 className="tb-close-h">Let&apos;s craft your edition.</h2>
+            <p className="tb-close-eyebrow" data-reveal>{t('close.eyebrow')}</p>
+            <h2 className="tb-close-h" data-textreveal>{t('close.title')}</h2>
           </div>
-          <Link to="/contact" className="tb-close-pill focus-ring">
-            Request a Quote
+          <Link to="/contact" className="tb-close-pill focus-ring" data-reveal>
+            {t('close.requestQuote')}
             <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8h9M8.5 4l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

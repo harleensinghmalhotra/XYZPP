@@ -1,0 +1,66 @@
+{
+  "sectionHeading": "Global reach, institutional partners and delivery record",
+  "countriesHeading": "Countries served",
+  "institutionsHeading": "Institutions and programmes served",
+  "countries": {
+    "india": "India",
+    "nigeria": "Nigeria",
+    "ghana": "Ghana",
+    "kenya": "Kenya",
+    "uganda": "Uganda",
+    "tanzania": "Tanzania",
+    "zambia": "Zambia",
+    "cotedivoire": "Côte d'Ivoire",
+    "cameroon": "Cameroon",
+    "congo": "Congo (DRC)",
+    "senegal": "Senegal",
+    "benin": "Benin",
+    "ethiopia": "Ethiopia",
+    "rwanda": "Rwanda",
+    "mozambique": "Mozambique",
+    "madagascar": "Madagascar",
+    "mauritius": "Mauritius",
+    "southafrica": "South Africa",
+    "gabon": "Gabon",
+    "mexico": "Mexico",
+    "usa": "USA",
+    "puertorico": "Puerto Rico",
+    "germany": "Germany",
+    "unitedkingdom": "United Kingdom",
+    "spain": "Spain",
+    "uae": "UAE"
+  },
+  "institutions": {
+    "0": "World Bank-Funded Projects",
+    "1": "USAID Programmes",
+    "2": "UN AID Programmes",
+    "3": "Government Ministry Tenders",
+    "4": "Tanzania Institute of Education",
+    "5": "Maharashtra State Bureau",
+    "6": "HDFC Bank Ltd",
+    "7": "ZEE Learn / Kidzee",
+    "8": "Reliance Industries",
+    "9": "World Bank-Funded Projects",
+    "10": "USAID Programmes",
+    "11": "Government Ministry Tenders"
+  },
+  "stats": {
+    "books": {
+      "label": "Books Delivered Since Inception",
+      "sr": "400M+ Books Delivered Since Inception"
+    },
+    "countries": {
+      "label": "Countries Across 4 Continents",
+      "sr": "25+ Countries Across 4 Continents"
+    },
+    "containers": {
+      "label": "Containers Shipped in 2024 to 25",
+      "sr": "1000+ Containers Shipped in 2024 to 25"
+    },
+    "ontime": {
+      "accent": "On-Time",
+      "label": "Delivery, Every Single Year",
+      "sr": "98% On-Time Delivery, Every Single Year"
+    }
+  }
+}

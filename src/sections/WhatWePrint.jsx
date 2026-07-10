@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
@@ -21,87 +22,56 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 // marginTop, in CSS) fits all 8 — the only per-card value is the alternating
 // tilt. Content model (Claude Fable): cutout + name + ONE sentence. Names/order
 // are law; sentences are the client's condensed one-liners.
+// Names/descriptions resolve via t(`cards.${key}.name|line`); keys/order/img/rot
+// are law — only the human-readable text is translated.
 const CARDS = [
-  {
-    img: '/qfp/products/product-01.webp', rot: -8,
-    name: 'Educational Book Printing',
-    line: 'Textbooks, workbooks and ministry curriculum print for 25+ countries.',
-  },
-  {
-    img: '/qfp/products/product-02.webp', rot: 7,
-    name: 'Trade Books',
-    line: 'Notebooks, counterbooks, pads and custom branded stationery.',
-  },
-  {
-    img: '/qfp/products/product-03.webp', rot: -9,
-    name: 'Coffee Table & Hardcase Books',
-    line: "Premium photography, heritage and collector's editions with specialty finishes.",
-  },
-  {
-    img: '/qfp/products/product-04.webp', rot: 8,
-    name: 'General Books',
-    line: 'Manga, graphic novels, puzzles and leisure reading.',
-  },
-  {
-    img: '/qfp/products/product-05.webp', rot: -7,
-    name: "Children's Books",
-    line: 'Picture books, board books, colouring and pop-up formats.',
-  },
-  {
-    img: '/qfp/products/product-06.webp', rot: 9,
-    name: 'Learning Activity Kits',
-    line: 'Hands-on activity kits, puzzle cards and DIY learning sets.',
-  },
-  {
-    img: '/qfp/products/product-07.webp', rot: -8,
-    name: 'Corporate, Banks & MNCs',
-    line: 'Annual reports, welcome kits and financial documentation.',
-  },
-  {
-    img: '/qfp/products/product-08.webp', rot: 7,
-    name: 'Print on Demand',
-    line: 'Single copy to short run, printed and shipped fast.',
-  },
+  { key: 'educational', img: '/qfp/products/product-01.webp', rot: -8 },
+  { key: 'trade', img: '/qfp/products/product-02.webp', rot: 7 },
+  { key: 'coffee', img: '/qfp/products/product-03.webp', rot: -9 },
+  { key: 'general', img: '/qfp/products/product-04.webp', rot: 8 },
+  { key: 'children', img: '/qfp/products/product-05.webp', rot: -7 },
+  { key: 'kits', img: '/qfp/products/product-06.webp', rot: 9 },
+  { key: 'corporate', img: '/qfp/products/product-07.webp', rot: -8 },
+  { key: 'pod', img: '/qfp/products/product-08.webp', rot: 7 },
 ]
 
-function Card({ c }) {
+function Card({ c, t }) {
+  const name = t(`cards.${c.key}.name`)
   return (
     <article className="wwp-card">
       <div className="wwp-pop">
         <img
           className="wwp-img"
           src={c.img}
-          alt={c.name}
+          alt={name}
           loading="lazy"
           draggable="false"
           style={{ '--rot': `${c.rot}deg` }}
         />
       </div>
-      <h3 className="wwp-name">{c.name}</h3>
-      <p className="wwp-line">{c.line}</p>
+      <h3 className="wwp-name">{name}</h3>
+      <p className="wwp-line">{t(`cards.${c.key}.line`)}</p>
     </article>
   )
 }
 
-function Header() {
+function Header({ t }) {
   return (
     <div className="wwp-head">
       <div className="wwp-head-left">
-        <p className="wwp-eyebrow">What We Print</p>
-        <h2 className="wwp-title">Built on Precision.<br />Backed by Experience.</h2>
+        <p className="wwp-eyebrow">{t('eyebrow')}</p>
+        <h2 className="wwp-title">{t('titleLine1')}<br />{t('titleLine2')}</h2>
       </div>
       <div className="wwp-head-right">
-        <p className="wwp-lede">
-          Across educational books, trade titles, coffee table editions and more, we
-          bring the same care and consistency to every project we take on.
-        </p>
-        <a href="#process" className="wwp-more">Learn more about our process</a>
+        <p className="wwp-lede">{t('lede')}</p>
+        <a href="#process" className="wwp-more">{t('more')}</a>
       </div>
     </div>
   )
 }
 
 export default function WhatWePrint() {
+  const { t } = useTranslation('homeWwp')
   const wrap = useRef(null)
   const track = useRef(null)
   const viewport = useRef(null)
@@ -161,10 +131,10 @@ export default function WhatWePrint() {
     >
       <div className="wwp-sticky">
         <div className="wwp-inner">
-          <Header />
+          <Header t={t} />
           <div className="wwp-viewport" ref={viewport}>
             <div className="wwp-track" ref={track}>
-              {CARDS.map((c) => <Card key={c.name} c={c} />)}
+              {CARDS.map((c) => <Card key={c.key} c={c} t={t} />)}
             </div>
           </div>
         </div>

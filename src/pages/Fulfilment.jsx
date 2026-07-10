@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Seo from '@/components/Seo'
@@ -93,72 +94,55 @@ const VIcon = {
 // behind SHOW_MINISTRY_NAMES (permission pending). If the switch is off AND no
 // restricted clients are shown, PARTNERS is empty and the whole marquee section
 // hides cleanly (see TrustMarquee) rather than leaving an empty strip.
+// key → resolves partners.<key>.label / .sub; icons/brand identity stay hardcoded.
 const SAFE_PARTNERS = [
-  { label: 'Tanzania Institute of Education', sub: 'National Curriculum', icon: 'bank' },
-  { label: 'Ghana — USAID Programmes', sub: 'Education Supply', icon: 'pin' },
-  { label: 'Ivory Coast', sub: 'Ministry Tender', icon: 'globe' },
-  { label: 'Maharashtra Bal Bharti', sub: 'State Textbook Bureau', icon: 'book' },
-  { label: 'World Bank Programmes', sub: 'Funded Projects', icon: 'layers' },
-  { label: 'UN AID Programmes', sub: 'Global Distribution', icon: 'globe' },
-  { label: 'Government Ministry Tenders', sub: 'Public Sector', icon: 'monitor' },
+  { key: 'tie', icon: 'bank' },
+  { key: 'ghana', icon: 'pin' },
+  { key: 'ivory', icon: 'globe' },
+  { key: 'balbharti', icon: 'book' },
+  { key: 'worldbank', icon: 'layers' },
+  { key: 'un', icon: 'globe' },
+  { key: 'ministry', icon: 'monitor' },
 ]
 // Named commercial clients — gated behind SHOW_RESTRICTED_CLIENTS (kept OUT of DOM).
 const RESTRICTED_PARTNERS = [
-  { label: 'HDFC Bank Ltd', sub: 'Corporate', icon: 'bank' },
-  { label: 'ZEE Learn / Kidzee', sub: 'Education', icon: 'globe' },
+  { key: 'hdfc', icon: 'bank' },
+  { key: 'zee', icon: 'globe' },
 ]
 const MINISTRY_PARTNERS = SHOW_MINISTRY_NAMES ? SAFE_PARTNERS : []
 const PARTNERS = SHOW_RESTRICTED_CLIENTS ? [...MINISTRY_PARTNERS, ...RESTRICTED_PARTNERS] : MINISTRY_PARTNERS
 
+// Translatable text (name/text) resolves via cards.<n>.*; image/index hardcoded.
 const CARDS = [
-  { n: '01', name: 'Kitting & Assembly', src: `${BASE}/card-01.webp`,
-    text: 'Components collated, built and checked into finished kits — ready the day they are needed.' },
-  { n: '02', name: 'Warehousing & Storage', src: `${BASE}/card-02.webp`,
-    text: 'State-of-the-art storage houses your books securely for as long as the programme runs.' },
-  { n: '03', name: 'Last-Mile Delivery', src: `${BASE}/card-03.webp`,
-    text: 'Streamlined logistics carry every consignment the final mile, to the door that matters.' },
+  { n: '01', src: `${BASE}/card-01.webp` },
+  { n: '02', src: `${BASE}/card-02.webp` },
+  { n: '03', src: `${BASE}/card-03.webp` },
 ]
 
+// Numbers/suffix stay numeric; unit + label resolve via values.<icon>.*; word too.
 const VALUES = [
-  { icon: 'warehouse', num: 100000, grouping: true, unit: 'sq ft', label: 'Dedicated warehouse facility, built for long-dwell storage.' },
-  { icon: 'carton', word: 'In-House', label: 'Corrugated & e-flute cartons, produced on site.' },
-  { icon: 'printer', num: 5, unit: '-colour', label: 'Carton printing for retail-ready displays & shipping.' },
-  { icon: 'anchor', word: 'JNPT', label: "Minutes from India's largest container port." },
-  { icon: 'containers', num: 800, suffix: '+', unit: '/ year', label: 'Export containers shipped, and climbing.' },
-  { icon: 'clock', num: 98, suffix: '%', unit: 'on-time', label: 'Delivery, every single year.' },
+  { icon: 'warehouse', num: 100000, grouping: true },
+  { icon: 'carton', hasWord: true },
+  { icon: 'printer', num: 5 },
+  { icon: 'anchor', hasWord: true },
+  { icon: 'containers', num: 800, suffix: '+' },
+  { icon: 'clock', num: 98, suffix: '%' },
 ]
 
+// eyebrow/title/body/more resolve via features.<n>.*; image/index hardcoded.
 const FEATURES = [
-  {
-    n: '01', eyebrow: 'Storage', title: 'The Warehouse', src: `${BASE}/feature-01.webp`,
-    body: 'A dedicated 100,000 sq. ft warehouse anchors everything downstream — state-of-the-art storage that houses finished product securely for extended periods, ready to move the moment a programme calls.',
-    more: 'Racked, barcoded and organised for fast retrieval, the floor is engineered for long-dwell storage and high-volume throughput alike, with automated collating feeding straight into kitting.',
-  },
-  {
-    n: '02', eyebrow: 'Build', title: 'Kitting & Assembly', src: `${BASE}/feature-02.webp`,
-    body: 'End-to-end kitting and assembly turns loose components into finished, checked kits — collated, built and quality-verified under one roof so nothing ships incomplete.',
-    more: 'Automated collating and shrink-wrapping lines process up to 10,000 kits a day, each assembled to a repeatable spec and inspected before it leaves the floor.',
-  },
-  {
-    n: '03', eyebrow: 'Protect', title: 'In-House Packaging', src: `${BASE}/feature-03.webp`,
-    body: 'Corrugated and e-flute cartons are produced in-house with advanced 5-colour printing — custom-designed packaging engineered for retail displays and safe transit.',
-    more: 'Making our own board and cartons means we control fit, strength and finish end-to-end, so retail-ready packaging and export cartons come off the same controlled line.',
-  },
-  {
-    n: '04', eyebrow: 'Deliver', title: 'Global Shipping', src: `${BASE}/feature-04.webp`,
-    body: 'Streamlined logistics manage last-mile delivery and export dispatch — books handled from our floor to their destination across 25+ countries and four continents.',
-    more: 'Sited minutes from JNPT, India’s largest container port, we ship 800+ export containers a year with a 98% on-time record, every single year.',
-  },
+  { n: '01', src: `${BASE}/feature-01.webp` },
+  { n: '02', src: `${BASE}/feature-02.webp` },
+  { n: '03', src: `${BASE}/feature-03.webp` },
+  { n: '04', src: `${BASE}/feature-04.webp` },
 ]
 
-const STAGES = [
-  { n: '01', verb: 'Pack', word: 'Precise', line: 'Cartons cut, printed and packed to spec, in-house.' },
-  { n: '02', verb: 'Store', word: 'Secure', line: 'Racked and barcoded in a 100,000 sq ft facility.' },
-  { n: '03', verb: 'Ship', word: 'On Time', line: 'Export containers dispatched minutes from JNPT port.' },
-]
+// verb/word/line resolve via stages.<n>.*; index hardcoded.
+const STAGES = [{ n: '01' }, { n: '02' }, { n: '03' }]
 
 // ── components ────────────────────────────────────────────────────────────────
 function Hero() {
+  const { t } = useTranslation('fulfilment')
   return (
     <section data-theme="dark" className="ff-hero" aria-labelledby="ff-h1">
       <div className="ff-hero-media" aria-hidden="true">
@@ -169,21 +153,21 @@ function Hero() {
       </div>
       <div className="ff-hero-scrim" aria-hidden="true" />
       <div className="ff-hero-inner">
-        <p className="ff-shared-eyebrow ff-hero-eyebrow ff-reveal">Warehousing &amp; Fulfilment</p>
+        <p className="ff-shared-eyebrow ff-hero-eyebrow ff-reveal">{t('hero.eyebrow')}</p>
         <h1 id="ff-h1" className="ff-hero-h1 ff-reveal">
-          <span className="ff-hw">One</span>
-          <span className="ff-hw">System,</span>
+          <span className="ff-hw">{t('hero.title.one')}</span>
+          <span className="ff-hw">{t('hero.title.system')}</span>
           <br />
-          <span className="ff-hw ff-hw-light">Start</span>
-          <span className="ff-hw ff-hw-light">to</span>
-          <span className="ff-hw">Finish.</span>
+          <span className="ff-hw ff-hw-light">{t('hero.title.start')}</span>
+          <span className="ff-hw ff-hw-light">{t('hero.title.to')}</span>
+          <span className="ff-hw">{t('hero.title.finish')}</span>
         </h1>
         <p className="ff-hero-sub ff-reveal">
-          Print, pack, warehouse, ship — your books handled under one roof until they reach theirs.
+          {t('hero.sub')}
         </p>
       </div>
       <div className="ff-hero-cue" aria-hidden="true">
-        <span>Scroll</span>
+        <span>{t('hero.cue')}</span>
         <svg viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 5v14M6 13l6 6 6-6" />
         </svg>
@@ -199,6 +183,7 @@ function MqIcon({ type }) {
 }
 
 function TrustMarquee({ reduced }) {
+  const { t } = useTranslation('fulfilment')
   const track = useRef(null)
   // Every partner here is a gated ministry/programme name; if all are hidden the
   // strip has nothing to show, so drop the whole section (no empty marquee).
@@ -232,8 +217,8 @@ function TrustMarquee({ reduced }) {
         <div className="ff-mq-item" key={`${clone ? 'c' : 'b'}-${i}`}>
           <span className="ff-mq-ico"><MqIcon type={p.icon} /></span>
           <span>
-            <span className="ff-mq-label">{p.label}</span>
-            <span className="ff-mq-sub">{p.sub}</span>
+            <span className="ff-mq-label">{t(`partners.${p.key}.label`)}</span>
+            <span className="ff-mq-sub">{t(`partners.${p.key}.sub`)}</span>
           </span>
         </div>
       ))}
@@ -245,9 +230,9 @@ function TrustMarquee({ reduced }) {
       <SectionCurve position="top" fill="#f0ebe0" />
       <PaperGrain />
       <div className="ff-trust-head">
-        <p className="ff-shared-eyebrow ff-trust-eyebrow ff-reveal">They trust us</p>
+        <p className="ff-shared-eyebrow ff-trust-eyebrow ff-reveal">{t('trust.eyebrow')}</p>
         <h2 id="ff-trust-title" className="ff-trust-title ff-reveal">
-          Ministries and programmes that ship with us.
+          {t('trust.title')}
         </h2>
       </div>
       <div className="ff-mq">
@@ -261,14 +246,15 @@ function TrustMarquee({ reduced }) {
 }
 
 function Conviction() {
-  const q1 = 'We believe'.split(' ')
-  const q2 = 'delivery is part of printing.'.split(' ')
+  const { t } = useTranslation('fulfilment')
+  const q1 = t('conviction.quoteLight').split(' ')
+  const q2 = t('conviction.quoteBold').split(' ')
   return (
     <section data-theme="light" className="ff-conv" aria-labelledby="ff-conv-title">
       <SectionCurve position="top" fill="#fdfaf4" />
       <PaperGrain />
       <div className="ff-conv-inner">
-        <p className="ff-shared-eyebrow ff-conv-eyebrow ff-reveal">Our conviction</p>
+        <p className="ff-shared-eyebrow ff-conv-eyebrow ff-reveal">{t('conviction.eyebrow')}</p>
         <h2 id="ff-conv-title" className="ff-conv-quote ff-reveal">
           {q1.map((w, i) => <span className="ff-cw ff-cw-light" key={`a${i}`}>{w}</span>)}
           {q2.map((w, i) => <span className="ff-cw ff-cw-bold" key={`b${i}`}>{w}</span>)}
@@ -280,8 +266,8 @@ function Conviction() {
               <div className="ff-card-scrim" aria-hidden="true" />
               <div className="ff-card-body">
                 <span className="ff-card-index">{c.n}</span>
-                <h3 className="ff-card-name">{c.name}</h3>
-                <p className="ff-card-text">{c.text}</p>
+                <h3 className="ff-card-name">{t(`cards.${c.n}.name`)}</h3>
+                <p className="ff-card-text">{t(`cards.${c.n}.text`)}</p>
               </div>
             </article>
           ))}
@@ -292,32 +278,36 @@ function Conviction() {
 }
 
 function ValueGrid() {
+  const { t } = useTranslation('fulfilment')
   return (
     <section data-theme="dark" className="ff-value" aria-labelledby="ff-value-title">
       <SectionCurve position="top" fill="#0f2444" />
       <DotField tone="navy" />
       <div className="ff-value-inner">
-        <p className="ff-shared-eyebrow ff-value-eyebrow ff-reveal">Why trust our fulfilment</p>
+        <p className="ff-shared-eyebrow ff-value-eyebrow ff-reveal">{t('value.eyebrow')}</p>
         <h2 id="ff-value-title" className="ff-value-title ff-reveal">
-          A single roof engineered for scale, speed and safe transit.
+          {t('value.title')}
         </h2>
         <div className="ff-value-grid">
-          {VALUES.map((v) => (
-            <div className="ff-vi ff-reveal" key={v.icon}>
-              <span className="ff-vi-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24">{VIcon[v.icon]}</svg>
-              </span>
-              <div className="ff-vi-num">
-                {v.word ? (
-                  <span>{v.word}</span>
-                ) : (
-                  <CountUp value={v.num} suffix={v.suffix || ''} grouping={!!v.grouping} duration={1400} />
-                )}
-                {v.unit && <span className="ff-vi-unit">{v.unit}</span>}
+          {VALUES.map((v) => {
+            const unit = t(`values.${v.icon}.unit`, { defaultValue: '' })
+            return (
+              <div className="ff-vi ff-reveal" key={v.icon}>
+                <span className="ff-vi-ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">{VIcon[v.icon]}</svg>
+                </span>
+                <div className="ff-vi-num">
+                  {v.hasWord ? (
+                    <span>{t(`values.${v.icon}.word`)}</span>
+                  ) : (
+                    <CountUp value={v.num} suffix={v.suffix || ''} grouping={!!v.grouping} duration={1400} />
+                  )}
+                  {unit && <span className="ff-vi-unit">{unit}</span>}
+                </div>
+                <p className="ff-vi-label">{t(`values.${v.icon}.label`)}</p>
               </div>
-              <p className="ff-vi-label">{v.label}</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
@@ -325,17 +315,19 @@ function ValueGrid() {
 }
 
 function FeatureRow({ f, i }) {
+  const { t } = useTranslation('fulfilment')
   const [open, setOpen] = useState(false)
   const rev = i % 2 === 1
+  const title = t(`features.${f.n}.title`)
   return (
     <div className={`ff-feat ff-reveal ${rev ? 'ff-feat--rev' : ''}`}>
       <div className="ff-feat-media" style={{ backgroundImage: `url(${f.src})` }}>
         <span className="ff-feat-index">{f.n}</span>
       </div>
       <div className="ff-feat-copy">
-        <p className="ff-shared-eyebrow ff-feat-eyebrow">{f.eyebrow}</p>
-        <h3 className="ff-feat-title">{f.title}</h3>
-        <p className="ff-feat-body">{f.body}</p>
+        <p className="ff-shared-eyebrow ff-feat-eyebrow">{t(`features.${f.n}.eyebrow`)}</p>
+        <h3 className="ff-feat-title">{title}</h3>
+        <p className="ff-feat-body">{t(`features.${f.n}.body`)}</p>
         <button
           type="button"
           className="ff-feat-more"
@@ -343,11 +335,11 @@ function FeatureRow({ f, i }) {
           aria-controls={`ff-panel-${f.n}`}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? 'Show less' : 'Learn more'}
+          {open ? t('feature.showLess') : t('feature.learnMore')}
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
         </button>
-        <div id={`ff-panel-${f.n}`} className={`ff-feat-panel ${open ? 'is-open' : ''}`} role="region" aria-label={`${f.title} — more`}>
-          <div><p>{f.more}</p></div>
+        <div id={`ff-panel-${f.n}`} className={`ff-feat-panel ${open ? 'is-open' : ''}`} role="region" aria-label={t('feature.panelLabel', { title })}>
+          <div><p>{t(`features.${f.n}.more`)}</p></div>
         </div>
       </div>
     </div>
@@ -355,8 +347,9 @@ function FeatureRow({ f, i }) {
 }
 
 function Features() {
+  const { t } = useTranslation('fulfilment')
   return (
-    <section data-theme="light" className="ff-features" aria-label="How fulfilment works, step by step">
+    <section data-theme="light" className="ff-features" aria-label={t('sections.featuresLabel')}>
       <SectionCurve position="top" fill="#fdfaf4" />
       <PaperGrain />
       <div className="ff-features-inner">
@@ -367,23 +360,24 @@ function Features() {
 }
 
 function Journey() {
+  const { t } = useTranslation('fulfilment')
   return (
     <section data-theme="dark" className="ff-journey" aria-labelledby="ff-journey-title">
       <SectionCurve position="top" fill="#0f2444" />
       <div className="ff-journey-media" style={{ backgroundImage: `url(${BASE}/journey.webp)` }} aria-hidden="true" />
       <div className="ff-journey-scrim" aria-hidden="true" />
       <div className="ff-journey-inner">
-        <p className="ff-shared-eyebrow ff-journey-eyebrow ff-reveal">From Press to Port</p>
+        <p className="ff-shared-eyebrow ff-journey-eyebrow ff-reveal">{t('journey.eyebrow')}</p>
         <h2 id="ff-journey-title" className="ff-journey-title ff-reveal">
-          One continuous journey, watched every step.
+          {t('journey.title')}
         </h2>
         <div className="ff-stages">
           {STAGES.map((s) => (
             <div className="ff-stage ff-reveal" key={s.n}>
               <span className="ff-stage-num">{s.n}</span>
-              <p className="ff-stage-verb">{s.verb}</p>
-              <p className="ff-stage-word">{s.word}</p>
-              <p className="ff-stage-line">{s.line}</p>
+              <p className="ff-stage-verb">{t(`stages.${s.n}.verb`)}</p>
+              <p className="ff-stage-word">{t(`stages.${s.n}.word`)}</p>
+              <p className="ff-stage-line">{t(`stages.${s.n}.line`)}</p>
             </div>
           ))}
         </div>
@@ -393,17 +387,18 @@ function Journey() {
 }
 
 function CTA() {
+  const { t } = useTranslation('fulfilment')
   return (
     <section data-theme="light" className="ff-cta" aria-labelledby="ff-cta-title">
       <SectionCurve position="top" fill="#f0ebe0" />
       <PaperGrain />
-      <p className="ff-shared-eyebrow ff-cta-eyebrow ff-reveal">One roof, start to finish</p>
-      <h2 id="ff-cta-title" className="ff-cta-title ff-reveal">Let&apos;s move your books.</h2>
+      <p className="ff-shared-eyebrow ff-cta-eyebrow ff-reveal">{t('cta.eyebrow')}</p>
+      <h2 id="ff-cta-title" className="ff-cta-title ff-reveal">{t('cta.title')}</h2>
       <p className="ff-cta-sub ff-reveal">
-        Tell us what you are printing and where it needs to land. We handle the rest — packed, stored and shipped.
+        {t('cta.sub')}
       </p>
       <Link to="/contact" className="ff-cta-pill ff-reveal">
-        Start a conversation
+        {t('cta.pill')}
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
       </Link>
     </section>
@@ -411,6 +406,7 @@ function CTA() {
 }
 
 export default function Fulfilment() {
+  const { t } = useTranslation('fulfilment')
   const root = useRef(null)
   const reduced = useReducedMotion()
 
@@ -442,16 +438,16 @@ export default function Fulfilment() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.quarterfoldltd.com/' },
-      { '@type': 'ListItem', position: 2, name: 'Warehousing & Fulfilment', item: 'https://www.quarterfoldltd.com/fulfilment' },
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://www.quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.fulfilment'), item: 'https://www.quarterfoldltd.com/fulfilment' },
     ],
   }
 
   return (
     <main id="main" ref={root}>
       <Seo
-        title="Warehousing & Fulfilment | Quarterfold Printabilities"
-        description="Kitting, 100,000 sq ft warehousing, in-house 5-colour cartons and last-mile shipping — your books handled under one roof, from press to port."
+        title={t('seo.title')}
+        description={t('seo.description')}
         jsonLd={breadcrumb}
       />
       <Hero />

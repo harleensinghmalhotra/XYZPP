@@ -1,0 +1,116 @@
+{
+  "seo": {
+    "title": "Trade Book Printing | Quarterfold Printabilities",
+    "description": "Premium trade-book printing by Quarterfold: coffee-table books, notebooks, leather diaries, calendars, autobiographies and novels. Request a quote.",
+    "breadcrumb": {
+      "home": "Home",
+      "whatWePrint": "What We Print",
+      "tradeBooks": "Trade Books"
+    }
+  },
+  "experience": {
+    "regionLabel": "Trade Books product experience"
+  },
+  "hero": {
+    "eyebrow": "Trade Books",
+    "badge": "Export-Grade",
+    "title": "Trade Books",
+    "ledeLight": "Some books inform. ",
+    "ledeBold": "These are bound to be kept."
+  },
+  "gallery": {
+    "imageAlt": "{{name}} — Quarterfold trade book, view {{index}}",
+    "viewsLabel": "{{name}} views",
+    "viewLabel": "View {{index}}"
+  },
+  "switcher": {
+    "groupLabel": "Choose a trade-book category"
+  },
+  "cta": {
+    "requestQuote": "Request a Quote",
+    "compareRange": "Compare the Range"
+  },
+  "accordion": {
+    "craft": "The Craft",
+    "materials": "The Materials",
+    "options": "The Options",
+    "delivery": "Delivery"
+  },
+  "delivery": "Export-ready from our Taloja and Vashi facilities — printed, packed, palletised and shipped to educational and trade partners in 25+ countries.",
+  "life": {
+    "regionLabel": "Trade Books, kept",
+    "light": "Some books inform. ",
+    "bold": "These are kept."
+  },
+  "range": {
+    "regionLabel": "Explore the range",
+    "eyebrow": "Explore the Range",
+    "sub": "Jump between categories, or step across to a sibling service.",
+    "siblingEyebrow": "Sibling Service",
+    "visit": "Visit",
+    "educational": "Educational Books",
+    "pod": "Print on Demand"
+  },
+  "close": {
+    "regionLabel": "Start a trade-book project",
+    "eyebrow": "Made to order",
+    "title": "Let's craft your edition.",
+    "requestQuote": "Request a Quote"
+  },
+  "features": {
+    "case": "Case Binding",
+    "foil": "Foil Blocking",
+    "uv": "Spot UV",
+    "perfect": "Perfect Bound",
+    "emboss": "Embossing",
+    "formats": "Custom Formats",
+    "saddle": "Saddle Stitch",
+    "fourc": "4-Colour Process",
+    "offset": "Offset Printing",
+    "litho": "Lithography"
+  },
+  "categories": {
+    "coffee-table": {
+      "name": "Coffee-Table Books",
+      "story": "Made to be left out, not shelved.",
+      "craft": "Case-bound and hand-finished, with foil blocking and embossing on cloth and board covers — the expert binding that lets a large-format book lie flat and open true.",
+      "materials": "Premium coated and uncoated paper stocks, printed 4-colour process on offset presses, then dressed with metallic foils and spot UV.",
+      "options": "Portrait or landscape formats, custom trim sizes, matte or gloss lamination, and specialty finishes to order."
+    },
+    "notebooks": {
+      "name": "Premium Notebooks",
+      "story": "A blank page worth keeping.",
+      "craft": "Perfect bound or case bound, with debossed and embossed covers and foil-blocked detailing — counterbooks, pads and branded stationery built to be used daily.",
+      "materials": "Premium paper stocks with ruled, dotted or plain interiors; leatherette, cloth and board covers finished with foil.",
+      "options": "A6 to A4 and bespoke sizes, rounded corners, elastic closures and ribbon markers, printed or blind-blocked."
+    },
+    "diaries": {
+      "name": "Leather Diaries",
+      "story": "A year, bound in leather.",
+      "craft": "Luxury leather-case, hard-bound and soft-bound builds, foil blocked and embossed by hand — the expert binding techniques that make a diary last a year and beyond.",
+      "materials": "Genuine and bonded leather cases over premium paper stocks, with gilt and matte foil edging.",
+      "options": "Dated or undated, week-to-view or day-per-page, with elastic bands, pen loops and personalised foil."
+    },
+    "calendars": {
+      "name": "Calendars",
+      "story": "Twelve months, printed to last.",
+      "craft": "Saddle-stitched and wire-bound wall calendars, printed 4-colour process with foil and spot UV accents on the cover month.",
+      "materials": "Heavyweight coated stocks for the image months, board backing, and metal or wire-o binding.",
+      "options": "Wall, desk and landscape formats, custom grids, and bespoke trim sizes to order."
+    },
+    "autobiographies": {
+      "name": "Autobiographies",
+      "story": "A life, set in type.",
+      "craft": "Case bound with printed or foil-blocked jackets, offset printed and hand-finished — heritage and collector's editions built to be kept.",
+      "materials": "Cream and white book-wove paper stocks, printed cloth or board covers, head and tail bands, and foiled spines.",
+      "options": "Royal, demy and custom trim sizes, dust jackets, ribbon markers and slipcases to order."
+    },
+    "novels": {
+      "name": "Novels",
+      "story": "Perfectly bound, cover to cover.",
+      "craft": "Perfect bound on offset and lithographic presses — trade paperbacks and hardbacks, printed clean and bound to open flat.",
+      "materials": "Book-wove and bulk paper stocks, matte or gloss laminated covers, with foil and spot UV options.",
+      "options": "A-format to royal, French flaps, custom trims, and short or long print runs."
+    }
+  }
+}

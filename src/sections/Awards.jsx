@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
@@ -12,22 +13,22 @@ gsap.registerPlugin(ScrollTrigger)
 // on the four cards (the export is static); reduced-motion → static.
 
 const CARDS = [
-  { key: 'pw24', img: 'award-01.webp', ph: 'PrintWeek 2024 ceremony photo', label: 'INDUSTRY AWARD', name: 'PrintWeek 2024', body: 'Book Education Company of the Year' },
-  { key: 'pw23', img: 'award-02.webp', ph: 'PrintWeek 2023 ceremony photo', label: 'INDUSTRY AWARD', name: 'PrintWeek 2023', body: 'Export Company of the Year' },
-  { key: 'forbes', forbes: true, label: 'PRESS FEATURE', name: 'Forbes India', body: 'D.Gems 2024' },
-  { key: 'capexil', img: 'award-04.webp', ph: 'CAPEXIL ceremony photo', label: 'EXPORT HONOR', name: 'CAPEXIL', body: 'Highest Exporter, 3 Consecutive Years' },
+  { key: 'pw24', img: 'award-01.webp', labelKey: 'industry' },
+  { key: 'pw23', img: 'award-02.webp', labelKey: 'industry' },
+  { key: 'forbes', forbes: true, labelKey: 'press' },
+  { key: 'capexil', img: 'award-04.webp', labelKey: 'export' },
 ]
 
 // The Forbes card's photo zone IS a designed press clipping (no photo needed).
-function ForbesClipping() {
+function ForbesClipping({ t }) {
   return (
     <div className="aw-clip">
       <div className="aw-clip-head">
-        <span className="aw-clip-masthead">Forbes India</span>
-        <span className="aw-clip-date">DEC 2024</span>
+        <span className="aw-clip-masthead">{t('forbes.masthead')}</span>
+        <span className="aw-clip-date">{t('forbes.date')}</span>
       </div>
       <div className="aw-clip-rule" />
-      <div className="aw-clip-headline">The D.Gems List, 2024</div>
+      <div className="aw-clip-headline">{t('forbes.headline')}</div>
       <div className="aw-clip-lines">
         <span style={{ width: '100%' }} />
         <span style={{ width: '93%' }} />
@@ -60,6 +61,7 @@ function AwardPhoto({ img, ph }) {
 }
 
 export default function Awards() {
+  const { t } = useTranslation('homeAwards')
   const root = useRef(null)
   const [reduced] = useState(prefersReduced)
 
@@ -88,8 +90,8 @@ export default function Awards() {
         <div className="aw-content">
           {/* header — eyebrow (dash removed) + heading */}
           <div className="aw-head">
-            <p className="aw-eyebrow">Recognition</p>
-            <h2 id="aw-title" className="aw-title">Awards &amp; Press.</h2>
+            <p className="aw-eyebrow">{t('eyebrow')}</p>
+            <h2 id="aw-title" className="aw-title">{t('title')}</h2>
           </div>
 
           {/* four plaque cards */}
@@ -97,14 +99,14 @@ export default function Awards() {
             {CARDS.map((c) => (
               <article className="plq" key={c.key}>
                 <div className="aw-photo">
-                  {c.forbes ? <ForbesClipping /> : <AwardPhoto img={c.img} ph={c.ph} />}
+                  {c.forbes ? <ForbesClipping t={t} /> : <AwardPhoto img={c.img} ph={t(`cards.${c.key}.ph`)} />}
                   <div className="plq-tint" aria-hidden="true" />
                   <div className="plq-sheen" aria-hidden="true" />
                 </div>
                 <div className="aw-body">
-                  <div className="aw-label">{c.label}</div>
-                  <h3 className="aw-name">{c.name}</h3>
-                  <p className="aw-desc">{c.body}</p>
+                  <div className="aw-label">{t(`labels.${c.labelKey}`)}</div>
+                  <h3 className="aw-name">{t(`cards.${c.key}.name`)}</h3>
+                  <p className="aw-desc">{t(`cards.${c.key}.body`)}</p>
                 </div>
               </article>
             ))}
@@ -112,7 +114,7 @@ export default function Awards() {
 
           {/* explore link, bottom-right */}
           <div className="aw-more">
-            <a href="#" className="aw-more-link">EXPLORE MORE AWARDS &amp; PRESS →</a>
+            <a href="#" className="aw-more-link">{t('more')}</a>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useMemo } from 'react'
+import { useTranslation, Trans } from 'react-i18next'
 import gsap from 'gsap'
 import { prefersReduced } from '@/lib/useReducedMotion'
 
@@ -49,20 +50,18 @@ const CUTOUTS = [
 
 // 4 speech bubbles — one floating CLEARLY above each kid's head (front layer),
 // tail pointing DOWN toward that kid, never touching a face or hands. Text is
-// REAL HTML inside a single transform wrapper so it scales WITH the bubble.
-// Key figures in gold (kept from our palette, not Ekta's orange); rest navy.
+// REAL HTML (translated via <Trans>) inside a single transform wrapper so it
+// scales WITH the bubble. `tk` = translation key in home.bubbles; the gold key
+// figure is wrapped in <1></1> in the locale string. Rest navy.
 const BUBBLES = [
-  { key: 'b-mustard', forKey: 'girl-mustard', w: 11.5, cx: -38.0, cy: -24.0,
-    body: (<>Oh yes! Education has no borders.</>) },
-  { key: 'b-red', forKey: 'boy-red', w: 11.5, cx: -11.0, cy: -27.0,
-    body: (<>Quarterfold Prints <b style={{ color: GOLD, fontWeight: 700 }}>25 Million Books</b> Every Year.</>) },
-  { key: 'b-blonde', forKey: 'girl-blonde', w: 11.5, cx: 11.0, cy: -27.0,
-    body: (<>What? They also export to <b style={{ color: GOLD, fontWeight: 700 }}>25+ Countries</b> every year?</>) },
-  { key: 'b-green', forKey: 'boy-green', w: 11.8, cx: 39.0, cy: -24.0,
-    body: (<>Wow! That means the books have been read by <b style={{ color: GOLD, fontWeight: 700 }}>billions</b> of people!</>) },
+  { key: 'b-mustard', tk: 'mustard', forKey: 'girl-mustard', w: 11.5, cx: -38.0, cy: -24.0 },
+  { key: 'b-red', tk: 'red', forKey: 'boy-red', w: 11.5, cx: -11.0, cy: -27.0 },
+  { key: 'b-blonde', tk: 'blonde', forKey: 'girl-blonde', w: 11.5, cx: 11.0, cy: -27.0 },
+  { key: 'b-green', tk: 'green', forKey: 'boy-green', w: 11.8, cx: 39.0, cy: -24.0 },
 ]
 
 export default function Hero() {
+  const { t } = useTranslation('home')
   const reduced = prefersReduced()
   const section = useRef(null)
   const pin = useRef(null)
@@ -188,16 +187,17 @@ export default function Hero() {
   if (reduced) {
     return (
       <section id="hero" data-theme="dark" className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#0c2f4a] px-6 text-center">
+        {/* HERO AURORA — static gradient under reduced motion (no drift). */}
         <div className="hero-aurora" aria-hidden="true">
           <div className="hero-aurora__ribbons" />
           <div className="hero-aurora__veil" />
         </div>
         <div className="relative z-[1] flex flex-col items-center leading-[0.86]">
-          <span className="ml-[-23px] font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8vw]">Powering</span>
-          <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8vw]">Global</span>
-          <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] lg:text-[8vw]" style={{ background: 'linear-gradient(180deg,#fbeec2 0%,#eaca6f 32%,#c89a3c 55%,#9b7420 76%,#e2b552 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent', filter: 'drop-shadow(0 2px 1px rgba(48,32,8,0.4)) drop-shadow(0 8px 22px rgba(200,154,60,0.33))' }}>Education</span>
+          <span className="ml-[-23px] font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8vw]">{t('hero.line1')}</span>
+          <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8vw]">{t('hero.line2')}</span>
+          <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] lg:text-[8vw]" style={{ background: 'linear-gradient(180deg,#fbeec2 0%,#eaca6f 32%,#c89a3c 55%,#9b7420 76%,#e2b552 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent', filter: 'drop-shadow(0 2px 1px rgba(48,32,8,0.4)) drop-shadow(0 8px 22px rgba(200,154,60,0.33))' }}>{t('hero.line3')}</span>
         </div>
-        <p className="relative z-[1] mt-8 max-w-[900px] text-[20px] leading-[1.35] text-white/90">We help publishers around the world print, bind, package, and deliver exceptional books on time, every time.</p>
+        <p className="relative z-[1] mt-8 max-w-[900px] text-[20px] leading-[1.35] text-white/90">{t('hero.subhead')}</p>
       </section>
     )
   }
@@ -208,6 +208,13 @@ export default function Hero() {
           horizontally, but lets the book's bowed bottom page-stack extend below
           the pin box instead of being cut flat at pin release. */}
       <div ref={pin} className="sticky top-0 h-[100svh] overflow-x-clip">
+        {/* HERO AURORA — signature background, at the very BACK of the pin stack
+            (z-0, behind the riseWrap book/bloom at z-15 and the headline at
+            z-30). CSS-only ambient drift, scroll-independent; radial-masked so
+            the headline zone stays calm and the wash fades before the hero's
+            bottom edge (never bleeds into the TrustStrips). The giant headline
+            ghost (scaling to 3× at 0.07 opacity) reads over it — that's the
+            premium moment where the letters catch the light. */}
         <div className="hero-aurora" aria-hidden="true">
           <div className="hero-aurora__ribbons" />
           <div className="hero-aurora__veil" />
@@ -234,7 +241,7 @@ export default function Hero() {
             {/* lettered base (z-[1], ON TOP of the kids). clip-path cuts the bottom
                 19% transparent shadow-padding zone so the CSS drop-shadow stops at
                 the TrustStrips gold-border line (junction unchanged). */}
-            <img src={BOOK_BASE} alt="Open QFP book" className="relative z-[1] block w-full select-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]" style={{ clipPath: 'inset(0 0 19% 0)' }} draggable="false" />
+            <img src={BOOK_BASE} alt={t('hero.bookAlt')} className="relative z-[1] block w-full select-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]" style={{ clipPath: 'inset(0 0 19% 0)' }} draggable="false" />
             {/* cover overlay (z-[2]) at the same footprint — fades out to reveal the pages */}
             <img ref={overlay} src={BOOK_OVER} alt="" aria-hidden="true" className="pointer-events-none absolute left-0 top-0 z-[2] w-full select-none object-contain" draggable="false" />
 
@@ -266,7 +273,11 @@ export default function Hero() {
                             letterSpacing: '-0.1px',
                           }}
                         >
-                          {b.body}
+                          <Trans
+                            t={t}
+                            i18nKey={`hero.bubbles.${b.tk}`}
+                            components={{ 1: <b style={{ color: GOLD, fontWeight: 700 }} /> }}
+                          />
                         </p>
                       </div>
                     </div>
@@ -283,18 +294,18 @@ export default function Hero() {
           <div ref={titleGhost} className="flex flex-col items-center leading-[0.86] will-change-transform">
             {/* POWERING (cream) */}
             <div className="ml-[-23px] text-[13vw] font-bold uppercase text-[#fdfaf4] lg:text-[8vw]" style={{ letterSpacing: '-0.2vw' }}>
-              Powering
+              {t('hero.line1')}
             </div>
             {/* GLOBAL (cream) */}
             <div className="mt-[4px] text-[13vw] font-bold uppercase text-[#fdfaf4] lg:text-[8vw]" style={{ letterSpacing: '-0.2vw' }}>
-              Global
+              {t('hero.line2')}
             </div>
             {/* EDUCATION (gold accent) with the inline rotating QFP seal */}
             <div className="mt-[4px] flex items-center text-[13vw] font-bold uppercase lg:text-[8vw]" style={{ letterSpacing: '-0.2vw', color: GOLD }}>
               <svg
                 viewBox="0 0 120 120"
                 role="img"
-                aria-label="Quarterfold Printabilities seal"
+                aria-label={t('hero.sealLabel')}
                 className="hidden shrink-0 select-none md:block"
                 style={{ width: 90, height: 90, marginTop: -12, marginRight: 8, marginLeft: -6, animation: 'seal-spin 60s linear infinite', filter: 'drop-shadow(0 0 5px rgba(200,154,60,0.55))' }}
               >
@@ -329,14 +340,14 @@ export default function Hero() {
                   filter: 'drop-shadow(0 2px 1px rgba(48,32,8,0.4)) drop-shadow(0 8px 22px rgba(200,154,60,0.33))',
                 }}
               >
-                Education
+                {t('hero.line3')}
               </span>
             </div>
           </div>
 
           <div ref={copyGroup} className="flex flex-col items-center will-change-[opacity]">
             <p className="mt-[18px] max-w-[720px] text-center text-[18px] font-normal leading-[1.4] text-white/95">
-              We help publishers around the world print, bind, package, and deliver exceptional books on time, every time.
+              {t('hero.subhead')}
             </p>
 
             <div className="mt-[24px] flex items-center gap-[30px]">
@@ -353,13 +364,13 @@ export default function Hero() {
                   className="absolute inset-0 origin-left scale-x-0 rounded-[40px] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100"
                   style={{ background: 'linear-gradient(90deg,#e6bd6a,#c89a3c 55%,#9b7420)' }}
                 />
-                <span className="relative z-10">What we print</span>
+                <span className="relative z-10">{t('hero.ctaPrint')}</span>
                 <span className="relative z-10 flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full border border-white/75 transition-[background-color,border-color] duration-500 ease-out group-hover:border-[#0f2444] group-hover:bg-[#0f2444]">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-white transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
                 </span>
               </a>
               <a href="#projects" className="text-[17px] font-medium text-white underline decoration-white/50 underline-offset-[5px] transition-colors duration-300 hover:decoration-[#e6bd6a] hover:text-[#e6bd6a]">
-                Our global reach
+                {t('hero.ctaReach')}
               </a>
             </div>
           </div>
@@ -368,7 +379,7 @@ export default function Hero() {
         {/* Scroll pill — stays through the pin, scrolls away with the stage */}
         <div className="absolute bottom-[48px] left-1/2 z-40 flex -translate-x-1/2 items-center gap-5 rounded-[50px] px-[25px] py-[10px] font-metrisch" style={{ backgroundColor: 'rgba(12,47,74,0.39)' }}>
           <span className="block h-1.5 w-1.5 rounded-full bg-white" />
-          <span className="text-[11px] font-medium uppercase text-white" style={{ letterSpacing: '5px' }}>Scroll</span>
+          <span className="text-[11px] font-medium uppercase text-white" style={{ letterSpacing: '5px' }}>{t('hero.scroll')}</span>
         </div>
       </div>
     </section>

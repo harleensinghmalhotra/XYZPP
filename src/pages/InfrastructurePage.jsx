@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation, Trans } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
@@ -30,80 +31,47 @@ const VIDEO_READY = false
 const VIDEO_SRC = '/qfp/infra/walkthrough.mp4'
 const VIDEO_VTT = '/qfp/infra/walkthrough.vtt'
 
+// Data carries stable keys + non-translatable values (logos, codes, icons, numbers).
+// User-facing labels/subs/specs/captions resolve via t(`<group>.<key>...`) at render.
 const CERTS = [
-  { name: 'FSC Chain of Custody', sub: 'Responsible paper sourcing', logo: 'fsc.webp', code: 'TUVDC-COC-101258' },
-  { name: 'ISO 9001:2015', sub: 'Quality management', logo: 'iso.webp' },
-  { name: 'ISO 14001:2015', sub: 'Environmental management', logo: 'iso.webp' },
-  { name: 'Sedex Member', sub: 'Ethical trade audit', logo: 'sedex.webp' },
-  { name: 'Star Export House', sub: 'Govt. of India', typographic: true },
+  { k: 'fsc', logo: 'fsc.webp', code: 'TUVDC-COC-101258' },
+  { k: 'iso9001', logo: 'iso.webp' },
+  { k: 'iso14001', logo: 'iso.webp' },
+  { k: 'sedex', logo: 'sedex.webp' },
+  { k: 'starExport', typographic: true },
 ]
 
 const CAPABILITIES = [
-  {
-    k: 'print',
-    label: 'Print Capacity',
-    body: 'A twenty-web machine tower alongside five sheet-fed presses and three Lineomatic lines, engineered for large-volume textbook runs.',
-    photoNote: 'PHOTO · PRESS HALL, PRINTING TOWERS',
-  },
-  {
-    k: 'bind',
-    label: 'Binding & Finishing',
-    body: 'Seventeen folders, ten binding and stitching lines and six automatic thread-sewing machines finish every book to spec.',
-    photoNote: 'PHOTO · BINDERY & FINISHING LINES',
-  },
-  {
-    k: 'ware',
-    label: 'Warehousing & Dispatch',
-    body: 'Two fulfilment centres run automated collating, kitting and shrink-wrapping, up to 10,000 kits processed every single day.',
-    photoNote: 'PHOTO · WAREHOUSE & DISPATCH',
-  },
+  { k: 'print' },
+  { k: 'bind' },
+  { k: 'ware' },
 ]
 
 const MACHINES = [
-  {
-    size: 'large',
-    name: '20-Web Offset Tower',
-    spec: 'A twenty-unit web-offset tower runs long textbook forms at full speed, register held tight across every signature.',
-    icon: 'tower',
-  },
-  {
-    size: 'large',
-    name: 'Sheet-Fed Fleet, 5 Presses',
-    spec: 'Five sheet-fed presses handle covers, short runs and colour-critical work where finish and fidelity matter most.',
-    icon: 'press',
-  },
-  {
-    size: 'small',
-    name: '3 Lineomatic Exercise-Book Lines',
-    spec: 'Three Lineomatic lines rule, fold and stitch exercise books end to end at volume.',
-    icon: 'book',
-  },
-  {
-    size: 'small',
-    name: 'In-house Corrugated & E-flute Cartons',
-    spec: 'Cartons are made in-house, so every shipment leaves in packaging built for its load.',
-    icon: 'carton',
-  },
+  { k: 'tower', size: 'large', icon: 'tower' },
+  { k: 'press', size: 'large', icon: 'press' },
+  { k: 'book', size: 'small', icon: 'book' },
+  { k: 'carton', size: 'small', icon: 'carton' },
 ]
 
 const STATS = [
-  { value: 250000, suffix: '', label: 'Sq ft engineered', foot: 'Across six facilities' },
-  { value: 6, suffix: '', label: 'Print & fulfilment sites', foot: 'Four print, two warehouse' },
-  { value: 25, suffix: 'M+', label: 'Books a year', foot: 'Shipped to 25+ countries' },
-  { value: 600, suffix: '+', label: 'People on the floor', foot: 'Trained to one standard' },
+  { k: 'sqft', value: 250000, suffix: '' },
+  { k: 'sites', value: 6, suffix: '' },
+  { k: 'books', value: 25, suffix: 'M+' },
+  { k: 'people', value: 600, suffix: '+' },
 ]
 
 const AWARDS = [
-  { name: 'Highest Book Exporter', body: 'CAPEXIL, Government of India, awarded across consecutive years.', kicker: 'CAPEXIL · GOVT. OF INDIA' },
-  { name: 'PrintWeek Honours', body: 'Recognised by PrintWeek for production quality and scale.', kicker: 'PRINTWEEK INDIA' },
-  { name: 'Dun & Bradstreet', body: 'Listed among India’s leading print and publishing businesses.', kicker: 'D&B RECOGNITION' },
+  { k: 'capexil' },
+  { k: 'printweek' },
+  { k: 'dnb' },
 ]
 
 const GALLERY = [
-  { n: '01', cap: 'PRESS HALL' },
-  { n: '02', cap: 'BINDERY' },
-  { n: '03', cap: 'WAREHOUSE' },
-  { n: '04', cap: 'DISPATCH' },
+  { n: '01', k: 'pressHall' },
+  { n: '02', k: 'bindery' },
+  { n: '03', k: 'warehouse' },
+  { n: '04', k: 'dispatch' },
 ]
 
 // Stroke-draw icons — pathLength="1" normalises every path so one dash rule draws
@@ -157,6 +125,7 @@ function InfraPhoto({ src, note, className = '' }) {
 }
 
 export default function InfrastructurePage() {
+  const { t } = useTranslation('infrastructurePage')
   const root = useRef(null)
   const [reduced] = useState(prefersReduced)
   const [active, setActive] = useState(0) // capability accordion
@@ -218,16 +187,16 @@ export default function InfrastructurePage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://quarterfoldltd.com/' },
-      { '@type': 'ListItem', position: 2, name: 'Infrastructure', item: canonical },
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumbHome'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumbCurrent'), item: canonical },
     ],
   }
 
   return (
     <main id="main" ref={root} className="inf">
       <Seo
-        title="Print Infrastructure | Quarterfold Printabilities"
-        description="Four print facilities and two warehouses across Navi Mumbai. 250,000 sq ft engineered so your books ship on time, every time."
+        title={t('seo.title')}
+        description={t('seo.description')}
         jsonLd={jsonLd}
       />
 
@@ -237,28 +206,27 @@ export default function InfrastructurePage() {
         <div className="inf-hero-beam" aria-hidden="true" />
         <div className="inf-wrap inf-hero-grid inf-z">
           <div className="inf-hero-copy">
-            <p className="inf-hero-eyebrow">Infrastructure</p>
+            <p className="inf-hero-eyebrow">{t('hero.eyebrow')}</p>
             <h1 id="inf-h1" className="inf-hero-title">
-              Built for Scale. <span className="inf-hero-title-accent">Engineered for Trust.</span>
+              <Trans t={t} i18nKey="hero.title" components={{ strong: <span className="inf-hero-title-accent" /> }} />
             </h1>
             <p className="inf-hero-sub">
-              Four print facilities and two warehouses across Navi Mumbai. 250,000 sq ft engineered
-              for one thing: books that ship on time.
+              {t('hero.sub')}
             </p>
             <div className="inf-hero-ctas">
-              <Link to="/contact" className="inf-btn inf-btn--gold">Request a Quote</Link>
+              <Link to="/contact" className="inf-btn inf-btn--gold">{t('hero.ctaQuote')}</Link>
               <a href="/#process" className="inf-btn inf-btn--ghost">
-                See our process
+                {t('hero.ctaProcess')}
                 <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </a>
             </div>
           </div>
 
           {/* single foil moment on the page — the flagship stat */}
-          <div className="inf-hero-stat" aria-label="250,000 square feet engineered across six facilities">
+          <div className="inf-hero-stat" aria-label={t('hero.statAriaLabel')}>
             <span className="inf-hero-foil" aria-hidden="true">250,000</span>
-            <span className="inf-hero-stat-unit">SQ FT</span>
-            <span className="inf-hero-stat-foot">Engineered across six facilities in Navi Mumbai</span>
+            <span className="inf-hero-stat-unit">{t('hero.statUnit')}</span>
+            <span className="inf-hero-stat-foot">{t('hero.statFoot')}</span>
           </div>
         </div>
         <SectionCurve position="bottom" fill="#0f2444" />
@@ -268,23 +236,26 @@ export default function InfrastructurePage() {
       <section data-theme="light" className="inf-strip" aria-labelledby="inf-strip-h">
         <PaperGrain />
         <div className="inf-wrap inf-z">
-          <h2 id="inf-strip-h" className="inf-strip-eyebrow">Certified, audited and renewed</h2>
+          <h2 id="inf-strip-h" className="inf-strip-eyebrow">{t('strip.eyebrow')}</h2>
           <ul className="inf-strip-row">
-            {CERTS.map((c) => (
-              <li key={c.name} className="inf-strip-item">
+            {CERTS.map((c) => {
+              const name = t(`strip.certs.${c.k}.name`)
+              return (
+              <li key={c.k} className="inf-strip-item">
                 <div className="inf-strip-mark">
                   {c.typographic ? (
                     <span className="inf-strip-star" aria-hidden="true">★</span>
                   ) : (
-                    <img src={`/qfp/certs/${c.logo}`} alt={`${c.name} certification`} loading="lazy" decoding="async" />
+                    <img src={`/qfp/certs/${c.logo}`} alt={t('strip.certAlt', { name })} loading="lazy" decoding="async" />
                   )}
                 </div>
-                <p className="inf-strip-name">{c.name}</p>
-                <p className="inf-strip-sub">{c.sub}</p>
+                <p className="inf-strip-name">{name}</p>
+                <p className="inf-strip-sub">{t(`strip.certs.${c.k}.sub`)}</p>
                 {/* COMPLIANCE: the FSC licence code must render with the mark — never omit. */}
-                {c.code && <p className="inf-strip-code">Licence {c.code}</p>}
+                {c.code && <p className="inf-strip-code">{t('strip.licence', { code: c.code })}</p>}
               </li>
-            ))}
+              )
+            })}
           </ul>
         </div>
       </section>
@@ -295,11 +266,12 @@ export default function InfrastructurePage() {
         <DotField tone="warm" />
         <div className="inf-wrap inf-acc-grid inf-z">
           <div className="inf-acc-copy">
-            <p className="inf-eyebrow">What runs the floor</p>
-            <h2 id="inf-acc-h" className="inf-h2">Three capabilities, one line.</h2>
+            <p className="inf-eyebrow">{t('acc.eyebrow')}</p>
+            <h2 id="inf-acc-h" className="inf-h2">{t('acc.title')}</h2>
             <div className="inf-acc-rows">
               {CAPABILITIES.map((cap, i) => {
                 const open = active === i
+                const label = t(`acc.capabilities.${cap.k}.label`)
                 return (
                   <div key={cap.k} className={`inf-acc-row${open ? ' is-open' : ''}`}>
                     <button
@@ -310,13 +282,13 @@ export default function InfrastructurePage() {
                       onClick={() => setActive(i)}
                     >
                       <span className="inf-acc-num">{String(i + 1).padStart(2, '0')}</span>
-                      <span className="inf-acc-label">{cap.label}</span>
+                      <span className="inf-acc-label">{label}</span>
                       <span className="inf-acc-chev" aria-hidden="true">
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
                       </span>
                     </button>
-                    <div id={`inf-acc-panel-${cap.k}`} className="inf-acc-panel" role="region" aria-label={cap.label} hidden={!open}>
-                      <p>{cap.body}</p>
+                    <div id={`inf-acc-panel-${cap.k}`} className="inf-acc-panel" role="region" aria-label={label} hidden={!open}>
+                      <p>{t(`acc.capabilities.${cap.k}.body`)}</p>
                     </div>
                   </div>
                 )
@@ -327,13 +299,13 @@ export default function InfrastructurePage() {
           <div className="inf-acc-visual">
             <InfraPhoto
               src={`/qfp/infra/facility-0${active + 1}.webp`}
-              note={CAPABILITIES[active].photoNote}
+              note={t(`acc.capabilities.${CAPABILITIES[active].k}.photoNote`)}
               className="inf-acc-photo"
             />
             {/* embedded stat quote card — echoes dispel's overlaid quote */}
             <div className="inf-acc-quote">
               <span className="inf-acc-quote-num"><CountUp value={98} suffix="%" /></span>
-              <span className="inf-acc-quote-text">on-time delivery, year after year.</span>
+              <span className="inf-acc-quote-text">{t('acc.quoteText')}</span>
             </div>
           </div>
         </div>
@@ -345,17 +317,17 @@ export default function InfrastructurePage() {
         <PaperGrain />
         <div className="inf-wrap inf-z">
           <div className="inf-sec-head">
-            <p className="inf-eyebrow">On the press floor</p>
-            <h2 id="inf-mach-h" className="inf-h2">The machines behind the volume.</h2>
+            <p className="inf-eyebrow">{t('machines.eyebrow')}</p>
+            <h2 id="inf-mach-h" className="inf-h2">{t('machines.title')}</h2>
           </div>
           <div className="inf-machines">
             {MACHINES.map((m) => (
-              <article key={m.name} className={`inf-machine inf-machine--${m.size}`}>
+              <article key={m.k} className={`inf-machine inf-machine--${m.size}`}>
                 <span className="inf-mi">
                   <MachineIcon name={m.icon} />
                 </span>
-                <h3 className="inf-machine-name">{m.name}</h3>
-                <p className="inf-machine-spec">{m.spec}</p>
+                <h3 className="inf-machine-name">{t(`machines.items.${m.k}.name`)}</h3>
+                <p className="inf-machine-spec">{t(`machines.items.${m.k}.spec`)}</p>
               </article>
             ))}
           </div>
@@ -370,21 +342,20 @@ export default function InfrastructurePage() {
         <div className="inf-wrap inf-results-grid inf-z">
           <div className="inf-results-left">
             <div className="inf-results-head">
-              <p className="inf-eyebrow inf-eyebrow--ondark">Real capacity</p>
-              <h2 id="inf-res-h" className="inf-h2 inf-h2--ondark">Measured, not estimated.</h2>
+              <p className="inf-eyebrow inf-eyebrow--ondark">{t('results.eyebrow')}</p>
+              <h2 id="inf-res-h" className="inf-h2 inf-h2--ondark">{t('results.title')}</h2>
               <p className="inf-results-sub">
-                Not a projection. The plant that prints and ships, counted across four print
-                facilities and two warehouses.
+                {t('results.sub')}
               </p>
             </div>
             <div className="inf-stats">
               {STATS.map((s) => (
-                <div key={s.label} className="inf-stat">
+                <div key={s.k} className="inf-stat">
                   <span className="inf-stat-num">
                     <CountUp value={s.value} suffix={s.suffix} grouping />
                   </span>
-                  <span className="inf-stat-label">{s.label}</span>
-                  <span className="inf-stat-foot">{s.foot}</span>
+                  <span className="inf-stat-label">{t(`results.stats.${s.k}.label`)}</span>
+                  <span className="inf-stat-foot">{t(`results.stats.${s.k}.foot`)}</span>
                 </div>
               ))}
             </div>
@@ -397,12 +368,12 @@ export default function InfrastructurePage() {
               className="inf-video-thumb"
               onClick={() => setVideoOpen(true)}
               data-pending={!VIDEO_READY}
-              aria-label={VIDEO_READY ? 'Play facilities walkthrough video' : 'Preview facilities walkthrough, video coming soon'}
+              aria-label={VIDEO_READY ? t('results.videoPlayLabel') : t('results.videoPendingLabel')}
             >
               {/* Silent drop-in poster: a delivered walkthrough poster covers this with zero code change. */}
               <span className="inf-video-img" aria-hidden="true" style={{ backgroundImage: 'url(/qfp/infra/walkthrough-poster.webp)' }} />
               <span className="inf-video-scrim" aria-hidden="true" />
-              <span className="inf-video-note" aria-hidden="true">VIDEO · INSIDE OUR FACILITIES</span>
+              <span className="inf-video-note" aria-hidden="true">{t('results.videoNote')}</span>
               <span className="inf-play" aria-hidden="true">
                 <span className="inf-play-ring" />
                 <svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" /></svg>
@@ -418,12 +389,12 @@ export default function InfrastructurePage() {
         <PaperGrain />
         <div className="inf-wrap inf-z">
           <div className="inf-sec-head">
-            <p className="inf-eyebrow">Recognition</p>
-            <h2 id="inf-rec-h" className="inf-h2">Awarded for the work, year on year.</h2>
+            <p className="inf-eyebrow">{t('recognition.eyebrow')}</p>
+            <h2 id="inf-rec-h" className="inf-h2">{t('recognition.title')}</h2>
           </div>
           <div className="inf-awards">
             {AWARDS.map((a) => (
-              <article key={a.name} className="inf-award">
+              <article key={a.k} className="inf-award">
                 <span className="inf-award-seal" aria-hidden="true">
                   <svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 20c-2 8 3 15 12 17M36 20c2 8-3 15-12 17" pathLength="1" />
@@ -431,9 +402,9 @@ export default function InfrastructurePage() {
                     <path d="M24 21v6" pathLength="1" />
                   </svg>
                 </span>
-                <p className="inf-award-kicker">{a.kicker}</p>
-                <h3 className="inf-award-name">{a.name}</h3>
-                <p className="inf-award-body">{a.body}</p>
+                <p className="inf-award-kicker">{t(`recognition.awards.${a.k}.kicker`)}</p>
+                <h3 className="inf-award-name">{t(`recognition.awards.${a.k}.name`)}</h3>
+                <p className="inf-award-body">{t(`recognition.awards.${a.k}.body`)}</p>
               </article>
             ))}
           </div>
@@ -445,16 +416,19 @@ export default function InfrastructurePage() {
         <PaperGrain />
         <div className="inf-wrap inf-z">
           <div className="inf-sec-head">
-            <p className="inf-eyebrow">Inside the facilities</p>
-            <h2 id="inf-gal-h" className="inf-h2">A look across the floor.</h2>
+            <p className="inf-eyebrow">{t('gallery.eyebrow')}</p>
+            <h2 id="inf-gal-h" className="inf-h2">{t('gallery.title')}</h2>
           </div>
           <div className="inf-gallery-strip">
-            {GALLERY.map((g) => (
+            {GALLERY.map((g) => {
+              const cap = t(`gallery.items.${g.k}`)
+              return (
               <figure key={g.n} className="inf-gallery-item">
-                <InfraPhoto src={`/qfp/infra/gallery-0${g.n.slice(-1)}.webp`} note={`PHOTO · ${g.cap}`} className="inf-gallery-photo" />
-                <figcaption className="inf-gallery-cap">{g.cap}</figcaption>
+                <InfraPhoto src={`/qfp/infra/gallery-0${g.n.slice(-1)}.webp`} note={t('gallery.photoNote', { caption: cap })} className="inf-gallery-photo" />
+                <figcaption className="inf-gallery-cap">{cap}</figcaption>
               </figure>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -464,11 +438,11 @@ export default function InfrastructurePage() {
         <PaperGrain />
         <SectionCurve position="top" fill="#f0ebe0" />
         <div className="inf-wrap inf-cta-inner inf-z">
-          <h2 id="inf-cta-h" className="inf-cta-title">See it in person or on a call.</h2>
+          <h2 id="inf-cta-h" className="inf-cta-title">{t('cta.title')}</h2>
           <p className="inf-cta-sub">
-            Tour the floor, meet the team, and get a quote scoped to your run.
+            {t('cta.sub')}
           </p>
-          <Link to="/contact" className="inf-btn inf-btn--gold inf-btn--lg">Request a Quote</Link>
+          <Link to="/contact" className="inf-btn inf-btn--gold inf-btn--lg">{t('cta.button')}</Link>
         </div>
       </section>
 
@@ -478,22 +452,22 @@ export default function InfrastructurePage() {
           className="inf-dialog"
           role="dialog"
           aria-modal="true"
-          aria-label="Facilities walkthrough video"
+          aria-label={t('dialog.ariaLabel')}
           onMouseDown={(e) => { if (e.target === e.currentTarget) setVideoOpen(false) }}
         >
           <div className="inf-dialog-panel">
-            <button ref={closeRef} type="button" className="inf-dialog-close" onClick={() => setVideoOpen(false)} aria-label="Close video">
+            <button ref={closeRef} type="button" className="inf-dialog-close" onClick={() => setVideoOpen(false)} aria-label={t('dialog.closeLabel')}>
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
             </button>
             {VIDEO_READY ? (
               // COMPLIANCE: ship with <track kind="captions"> + linked transcript before go-live.
               <video className="inf-dialog-video" src={VIDEO_SRC} controls autoPlay playsInline crossOrigin="anonymous">
-                <track kind="captions" src={VIDEO_VTT} srcLang="en" label="English" default />
+                <track kind="captions" src={VIDEO_VTT} srcLang="en" label={t('dialog.captionsLabel')} default />
               </video>
             ) : (
               <div className="inf-dialog-ph" aria-hidden="true">
-                <span className="inf-video-note">VIDEO · INSIDE OUR FACILITIES</span>
-                <span className="inf-dialog-soon">Walkthrough footage coming soon</span>
+                <span className="inf-video-note">{t('dialog.videoNote')}</span>
+                <span className="inf-dialog-soon">{t('dialog.comingSoon')}</span>
               </div>
             )}
           </div>

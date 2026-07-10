@@ -1,0 +1,44 @@
+{
+  "eyebrow": "Infrastructure",
+  "titleA": "Conçu pour l'échelle.",
+  "titleB": "Pensé pour la confiance.",
+  "facilities": {
+    "01": {
+      "title": "3 sites de production",
+      "body": "Des unités de production de pointe réparties dans tout Navi Mumbai, totalisant 200 000 pi², conçues pour l'efficacité, la sécurité et la montée en charge.",
+      "caption": "Taloja MIDC, Navi Mumbai",
+      "ph": "PHOTO · SITES DE PRODUCTION, NAVI MUMBAI"
+    },
+    "02": {
+      "title": "20 tours d'impression, 5 feuille à feuille",
+      "body": "Des presses à grande vitesse épaulées par 17 plieuses, 10 lignes de reliure et de piqûre, 6 machines à coudre automatiques et 2 presses numériques, pour une précision à toute échelle.",
+      "caption": "30 000 t expédiées chaque année",
+      "ph": "PHOTO · ATELIER DE PRESSE, TOURS D'IMPRESSION"
+    },
+    "03": {
+      "title": "2 centres d'entreposage et de logistique",
+      "body": "Assemblage, mise en kit et filmage automatisés, jusqu'à 10 000 kits traités chaque jour.",
+      "caption": "Navi Mumbai · Prêt à l'export",
+      "ph": "PHOTO · ENTREPOSAGE ET LOGISTIQUE"
+    }
+  },
+  "video": {
+    "note": "VIDÉO · AU CŒUR DE NOS SITES",
+    "playAria": "Lire la vidéo de visite des sites",
+    "previewAria": "Aperçu de la visite des sites — vidéo bientôt disponible",
+    "dialogAria": "Vidéo de visite des sites",
+    "closeAria": "Fermer la vidéo",
+    "comingSoon": "Visite en vidéo bientôt disponible"
+  },
+  "people": {
+    "count": "600+",
+    "title": "personnes derrière chaque expédition.",
+    "body": "Opérateurs de presse, inspecteurs qualité, équipes d'assemblage et spécialistes de la logistique, travaillant en équipes successives, formés selon la même norme sur chaque site.",
+    "captions": {
+      "01": "Équipe d'atelier",
+      "02": "Contrôle qualité",
+      "03": "Assemblage et emballage",
+      "04": "Équipe de direction"
+    }
+  }
+}

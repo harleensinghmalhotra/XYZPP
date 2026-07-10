@@ -1,0 +1,42 @@
+{
+  "filterAria": "Filter certifications",
+  "pills": {
+    "certifications": "Certifications",
+    "environment": "Environment",
+    "social": "Social responsibility"
+  },
+  "seal": "TRUST · RESPONSIBILITY · TRUST · RESPONSIBILITY · ",
+  "title": "Certified for Quality.",
+  "sub": "Quality products, environmental consciousness and ethical trade — audited, certified, and renewed.",
+  "licence": "Licence",
+  "carouselAria": "Certifications carousel (scroll or use arrow keys)",
+  "prevAria": "Previous certifications",
+  "nextAria": "Next certifications",
+  "cards": {
+    "fsc": {
+      "eyebrow": "Forest Stewardship Council",
+      "title": "FSC Chain of Custody",
+      "body": "FSC Chain of Custody certification tracks certified material through every step of the supply chain. It confirms that the paper we print on is sourced from responsibly managed forests meeting strict environmental and social standards. Each job can be traced from forest to finished book."
+    },
+    "iso9001": {
+      "eyebrow": "Quality Management",
+      "title": "ISO 9001:2015",
+      "body": "ISO 9001:2015 is the international standard for quality management systems. It certifies that our processes are documented, monitored and continually improved to meet customer and regulatory requirements. Independent audits renew the certification and hold every facility to the same benchmark."
+    },
+    "iso14001": {
+      "eyebrow": "Environmental Management",
+      "title": "ISO 14001:2015",
+      "body": "ISO 14001:2015 sets the framework for a certified environmental management system. It requires us to identify, control and continually reduce the environmental impact of our operations — from waste and energy to emissions. Compliance is verified through regular external assessment."
+    },
+    "sedex": {
+      "eyebrow": "Ethical Trade Audit",
+      "title": "Sedex Member",
+      "body": "Sedex membership underpins our commitment to ethical and responsible sourcing. Through the SMETA audit our labour standards, health and safety, environment and business ethics are independently assessed. Findings are shared transparently with customers on the Sedex platform."
+    },
+    "star": {
+      "eyebrow": "Govt. of India",
+      "title": "Star Export House",
+      "body": "Star Export House is a status awarded by the Government of India’s Directorate General of Foreign Trade to recognised, high-performing exporters. It reflects a sustained record of export excellence and reliability, and it streamlines customs and trade procedures for the shipments we deliver worldwide."
+    }
+  }
+}

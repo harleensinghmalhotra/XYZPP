@@ -1,0 +1,132 @@
+{
+  "seo": {
+    "title": "Infrastructure d’impression | Quarterfold Printabilities",
+    "description": "Quatre sites de production et deux entrepôts à Navi Mumbai. 250 000 sq ft pensés pour que vos livres soient expédiés à temps, à chaque fois.",
+    "breadcrumbHome": "Accueil",
+    "breadcrumbCurrent": "Infrastructure"
+  },
+  "hero": {
+    "eyebrow": "Infrastructure",
+    "title": "Conçu pour l’échelle. <strong>Pensé pour la confiance.</strong>",
+    "sub": "Quatre sites de production et deux entrepôts à Navi Mumbai. 250 000 sq ft pensés pour une seule chose : des livres expédiés à temps.",
+    "ctaQuote": "Demander un devis",
+    "ctaProcess": "Découvrir notre processus",
+    "statAriaLabel": "250 000 pieds carrés aménagés sur six sites",
+    "statUnit": "SQ FT",
+    "statFoot": "Aménagés sur six sites à Navi Mumbai"
+  },
+  "strip": {
+    "eyebrow": "Certifié, audité et renouvelé",
+    "certAlt": "Certification {{name}}",
+    "licence": "Licence {{code}}",
+    "certs": {
+      "fsc": { "name": "FSC Chain of Custody", "sub": "Approvisionnement responsable en papier" },
+      "iso9001": { "name": "ISO 9001:2015", "sub": "Management de la qualité" },
+      "iso14001": { "name": "ISO 14001:2015", "sub": "Management environnemental" },
+      "sedex": { "name": "Sedex Member", "sub": "Audit de commerce éthique" },
+      "starExport": { "name": "Star Export House", "sub": "Govt. of India" }
+    }
+  },
+  "acc": {
+    "eyebrow": "Ce qui fait tourner l’atelier",
+    "title": "Trois savoir-faire, une seule chaîne.",
+    "quoteText": "de livraisons à temps, année après année.",
+    "capabilities": {
+      "print": {
+        "label": "Capacité d’impression",
+        "body": "Une tour d’impression à vingt groupes rotatifs, cinq presses feuille à feuille et trois lignes Lineomatic, conçues pour les tirages de manuels en grand volume.",
+        "photoNote": "PHOTO · HALL DES PRESSES, TOURS D’IMPRESSION"
+      },
+      "bind": {
+        "label": "Reliure et finition",
+        "body": "Dix-sept plieuses, dix lignes de reliure et de piqûre, et six machines automatiques de couture au fil finissent chaque livre selon le cahier des charges.",
+        "photoNote": "PHOTO · LIGNES DE RELIURE ET DE FINITION"
+      },
+      "ware": {
+        "label": "Entreposage et expédition",
+        "body": "Deux centres de logistique assurent l’assemblage, le collationnement et le filmage automatisés, jusqu’à 10 000 kits traités chaque jour.",
+        "photoNote": "PHOTO · ENTREPÔT ET EXPÉDITION"
+      }
+    }
+  },
+  "machines": {
+    "eyebrow": "Sur l’atelier des presses",
+    "title": "Les machines derrière le volume.",
+    "items": {
+      "tower": {
+        "name": "Tour offset à 20 groupes rotatifs",
+        "spec": "Une tour offset rotative à vingt groupes imprime les grands cahiers de manuels à pleine vitesse, avec un repérage maintenu au plus juste sur chaque signature."
+      },
+      "press": {
+        "name": "Parc feuille à feuille, 5 presses",
+        "spec": "Cinq presses feuille à feuille gèrent les couvertures, les petits tirages et les travaux exigeants en couleur, là où la finition et la fidélité comptent le plus."
+      },
+      "book": {
+        "name": "3 lignes de cahiers Lineomatic",
+        "spec": "Trois lignes Lineomatic règlent, plient et piquent les cahiers d’un bout à l’autre, à grand volume."
+      },
+      "carton": {
+        "name": "Cartons ondulés et micro-cannelure en interne",
+        "spec": "Les cartons sont fabriqués en interne, si bien que chaque expédition part dans un emballage conçu pour sa charge."
+      }
+    }
+  },
+  "results": {
+    "eyebrow": "Capacité réelle",
+    "title": "Mesurée, pas estimée.",
+    "sub": "Pas une projection. L’usine qui imprime et expédie, mesurée sur quatre sites de production et deux entrepôts.",
+    "stats": {
+      "sqft": { "label": "Sq ft aménagés", "foot": "Sur six sites" },
+      "sites": { "label": "Sites de production et de logistique", "foot": "Quatre de production, deux entrepôts" },
+      "books": { "label": "Livres par an", "foot": "Expédiés dans plus de 25 pays" },
+      "people": { "label": "Personnes à l’atelier", "foot": "Formées à un standard unique" }
+    },
+    "videoPlayLabel": "Lire la vidéo de visite des sites",
+    "videoPendingLabel": "Aperçu de la visite des sites, vidéo bientôt disponible",
+    "videoNote": "VIDÉO · À L’INTÉRIEUR DE NOS SITES"
+  },
+  "recognition": {
+    "eyebrow": "Reconnaissance",
+    "title": "Récompensés pour notre travail, année après année.",
+    "awards": {
+      "capexil": {
+        "name": "Premier exportateur de livres",
+        "body": "CAPEXIL, gouvernement de l’Inde, distinction obtenue plusieurs années consécutives.",
+        "kicker": "CAPEXIL · GOVT. OF INDIA"
+      },
+      "printweek": {
+        "name": "Distinctions PrintWeek",
+        "body": "Reconnus par PrintWeek pour la qualité et l’envergure de notre production.",
+        "kicker": "PRINTWEEK INDIA"
+      },
+      "dnb": {
+        "name": "Dun & Bradstreet",
+        "body": "Référencés parmi les principales entreprises d’impression et d’édition de l’Inde.",
+        "kicker": "D&B RECOGNITION"
+      }
+    }
+  },
+  "gallery": {
+    "eyebrow": "À l’intérieur des sites",
+    "title": "Un regard sur l’atelier.",
+    "photoNote": "PHOTO · {{caption}}",
+    "items": {
+      "pressHall": "HALL DES PRESSES",
+      "bindery": "RELIURE",
+      "warehouse": "ENTREPÔT",
+      "dispatch": "EXPÉDITION"
+    }
+  },
+  "cta": {
+    "title": "Sur place ou lors d’un appel.",
+    "sub": "Visitez l’atelier, rencontrez l’équipe et recevez un devis calibré sur votre tirage.",
+    "button": "Demander un devis"
+  },
+  "dialog": {
+    "ariaLabel": "Vidéo de visite des sites",
+    "closeLabel": "Fermer la vidéo",
+    "captionsLabel": "English",
+    "videoNote": "VIDÉO · À L’INTÉRIEUR DE NOS SITES",
+    "comingSoon": "Séquences de visite bientôt disponibles"
+  }
+}

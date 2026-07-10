@@ -1,0 +1,30 @@
+{
+  "title": "One Continuous Process.",
+  "sub": "One partner. One workflow. We take care of everything so you can focus on your mission.",
+  "stages": {
+    "print": {
+      "name": "Print",
+      "desc": "Offset and sheet-fed production, calibrated for colour at volume."
+    },
+    "quality": {
+      "name": "Quality",
+      "desc": "Double quality checks, so it reaches you as expected."
+    },
+    "fulfillment": {
+      "name": "Fulfillment",
+      "desc": "Kitting, collating and packing, tailored to your project."
+    },
+    "warehouse": {
+      "name": "Warehouse",
+      "desc": "Climate-appropriate storage, released on your timeline."
+    },
+    "ship": {
+      "name": "Ship",
+      "desc": "Documentation, customs and delivery to 25+ countries."
+    },
+    "covered": {
+      "name": "You're Covered",
+      "desc": "We handle everything, you focus on your mission."
+    }
+  }
+}

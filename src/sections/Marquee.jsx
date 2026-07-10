@@ -1,20 +1,14 @@
-const TERMS = [
-  'Offset Printing',
-  'Case Binding',
-  'Foil Blocking',
-  'Perfect Bound',
-  'Spot UV',
-  'Saddle Stitch',
-  'Lithography',
-  'Embossing',
-  '4-Colour Process',
-]
+import { useTranslation } from 'react-i18next'
+
+// Print-craft capability labels, resolved from the home namespace so the marquee
+// switches language with the rest of the site. Order is fixed by this key list.
+const TERM_KEYS = ['offset', 'case', 'foil', 'perfect', 'spotuv', 'saddle', 'litho', 'emboss', 'fourcolour']
 const STAR = 'text-[#C89A3C]' // gold separators — full brand cohesion
 
-function Row() {
+function Row({ terms }) {
   return (
     <div className="flex shrink-0 items-center">
-      {TERMS.map((t, i) => (
+      {terms.map((t, i) => (
         <span key={t} className="flex items-center">
           <span
             className={
@@ -35,10 +29,12 @@ function Row() {
 }
 
 export default function Marquee() {
+  const { t } = useTranslation('home')
+  const terms = TERM_KEYS.map((k) => t(`marquee.terms.${k}`))
   return (
     <section
       id="marquee"
-      aria-label="Print-craft capabilities"
+      aria-label={t('marquee.aria')}
       data-theme="dark"
       // z-0 so the hero (z-1) overhangs onto this section as it lands; extra top
       // padding leaves the landing zone clear for the overhanging book spine.
@@ -54,18 +50,18 @@ export default function Marquee() {
         <path d="M0,120 L0,44 C 360,-4 1080,-4 1440,44 L1440,120 Z" fill="currentColor" />
         <path d="M0,44 C 360,-4 1080,-4 1440,44" fill="none" stroke="var(--paper)" strokeOpacity="0.12" strokeWidth="1.5" />
       </svg>
-      <h2 className="sr-only">Print-craft capabilities</h2>
+      <h2 className="sr-only">{t('marquee.aria')}</h2>
       <ul className="sr-only">
-        {TERMS.map((t) => (
-          <li key={t}>{t}</li>
+        {terms.map((term) => (
+          <li key={term}>{term}</li>
         ))}
       </ul>
       <div
         aria-hidden="true"
         className="flex w-max motion-safe:animate-[marquee_38s_linear_infinite] motion-reduce:animate-none"
       >
-        <Row />
-        <Row />
+        <Row terms={terms} />
+        <Row terms={terms} />
       </div>
     </section>
   )

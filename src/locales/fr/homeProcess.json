@@ -1,0 +1,30 @@
+{
+  "title": "Un seul processus continu.",
+  "sub": "Un seul partenaire. Un seul flux de travail. Nous prenons tout en charge pour que vous puissiez vous consacrer à votre mission.",
+  "stages": {
+    "print": {
+      "name": "Impression",
+      "desc": "Production offset et feuille à feuille, calibrée pour une couleur fidèle en grand volume."
+    },
+    "quality": {
+      "name": "Contrôle qualité",
+      "desc": "Doubles contrôles qualité, pour que le résultat soit conforme à vos attentes."
+    },
+    "fulfillment": {
+      "name": "Logistique",
+      "desc": "Assemblage, collationnement et conditionnement, adaptés à votre projet."
+    },
+    "warehouse": {
+      "name": "Entreposage",
+      "desc": "Stockage à température maîtrisée, libéré selon votre calendrier."
+    },
+    "ship": {
+      "name": "Expédition",
+      "desc": "Documentation, douanes et livraison dans plus de 25 pays."
+    },
+    "covered": {
+      "name": "Tout est couvert",
+      "desc": "Nous nous occupons de tout, vous vous concentrez sur votre mission."
+    }
+  }
+}

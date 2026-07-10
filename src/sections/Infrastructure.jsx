@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
@@ -22,36 +23,12 @@ gsap.registerPlugin(ScrollTrigger)
 const VIDEO_READY = false
 const VIDEO_SRC = '/qfp/infra/facility-walkthrough.mp4'
 
-const FACILITIES = [
-  {
-    n: '01',
-    title: '3 Print Facilities',
-    body: 'State-of-the-art production units across Navi Mumbai, totalling 2,00,000 sq. ft., built for efficiency, safety and scale.',
-    caption: 'Taloja MIDC, Navi Mumbai',
-    ph: 'PHOTO · PRINT FACILITIES, NAVI MUMBAI',
-  },
-  {
-    n: '02',
-    title: '20 Printing Towers, 5 Sheet Fed',
-    body: 'High speed presses supported by 17 folders, 10 binding and stitching lines, 6 automatic thread sewing machines and 2 digital presses, for precision at any scale.',
-    caption: '30,000 MT Shipped Annually',
-    ph: 'PHOTO · PRESS HALL, PRINTING TOWERS',
-  },
-  {
-    n: '03',
-    title: '2 Warehouse & Fulfilment Centres',
-    body: 'Automated collating, kitting and shrink-wrapping, up to 10,000 kits processed every single day.',
-    caption: 'Navi Mumbai · Export-Ready',
-    ph: 'PHOTO · WAREHOUSE & FULFILMENT',
-  },
-]
+// Text (title/body/caption/photo-note) resolved from the homeInfraSection
+// namespace by `n` (facilities.<n>.*); numeric ids + image paths stay hardcoded.
+const FACILITIES = [{ n: '01' }, { n: '02' }, { n: '03' }]
 
-const PEOPLE = [
-  { n: '01', cap: 'Press Floor Team' },
-  { n: '02', cap: 'Quality Check' },
-  { n: '03', cap: 'Kitting & Packing' },
-  { n: '04', cap: 'Leadership Team' },
-]
+// People captions resolved from people.captions.<n>.
+const PEOPLE = [{ n: '01' }, { n: '02' }, { n: '03' }, { n: '04' }]
 
 // Silent drop-in photo surface: navy placeholder (with a DM Mono note) sits UNDER
 // the real image layer, so a delivered .webp covers it with zero code change.
@@ -70,6 +47,7 @@ function InfraPhoto({ src, note, className = '' }) {
 }
 
 export default function Infrastructure() {
+  const { t } = useTranslation('homeInfraSection')
   const root = useRef(null)
   const [reduced] = useState(prefersReduced)
   const [videoOpen, setVideoOpen] = useState(false)
@@ -126,9 +104,9 @@ export default function Infrastructure() {
       <div className="infra-inner">
         {/* ── HEADER ── */}
         <header className="infra-head">
-          <p className="infra-eyebrow">Infrastructure</p>
+          <p className="infra-eyebrow">{t('eyebrow')}</p>
           <h2 id="infra-title" className="infra-title">
-            Built for Scale. <span className="infra-title-light">Engineered for Trust.</span>
+            {t('titleA')} <span className="infra-title-light">{t('titleB')}</span>
           </h2>
         </header>
 
@@ -136,10 +114,10 @@ export default function Infrastructure() {
         <div className="infra-cards">
           {FACILITIES.map((f) => (
             <article key={f.n} className="infra-card">
-              <InfraPhoto src={`/qfp/infra/facility-${f.n}.webp`} note={f.ph} className="infra-card-photo" />
-              <h3 className="infra-card-title">{f.title}</h3>
-              <p className="infra-card-text">{f.body}</p>
-              <p className="infra-card-cap">{f.caption}</p>
+              <InfraPhoto src={`/qfp/infra/facility-${f.n}.webp`} note={t(`facilities.${f.n}.ph`)} className="infra-card-photo" />
+              <h3 className="infra-card-title">{t(`facilities.${f.n}.title`)}</h3>
+              <p className="infra-card-text">{t(`facilities.${f.n}.body`)}</p>
+              <p className="infra-card-cap">{t(`facilities.${f.n}.caption`)}</p>
             </article>
           ))}
         </div>
@@ -151,9 +129,9 @@ export default function Infrastructure() {
             className="infra-video-thumb"
             onClick={onPlay}
             data-pending={!VIDEO_READY}
-            aria-label={VIDEO_READY ? 'Play facilities walkthrough video' : 'Preview facilities walkthrough — video coming soon'}
+            aria-label={VIDEO_READY ? t('video.playAria') : t('video.previewAria')}
           >
-            <span className="infra-video-note" aria-hidden="true">VIDEO · INSIDE OUR FACILITIES</span>
+            <span className="infra-video-note" aria-hidden="true">{t('video.note')}</span>
             <span className="infra-play" aria-hidden="true">
               <span className="infra-play-ring" />
               <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true">
@@ -166,17 +144,14 @@ export default function Infrastructure() {
         {/* ── OUR PEOPLE ── */}
         <div className="infra-people">
           <h3 className="infra-people-title">
-            <span className="infra-foil">600+</span> Hands Behind Every Shipment.
+            <span className="infra-foil">{t('people.count')}</span> {t('people.title')}
           </h3>
-          <p className="infra-people-body">
-            Press operators, quality inspectors, kitting teams and logistics specialists, working across
-            shifts, trained to the same standard at every facility.
-          </p>
+          <p className="infra-people-body">{t('people.body')}</p>
           <div className="infra-people-grid">
             {PEOPLE.map((p) => (
               <figure key={p.n} className="infra-person">
-                <InfraPhoto src={`/qfp/infra/people-${p.n}.webp`} note={p.cap.toUpperCase()} className="infra-photo--portrait" />
-                <figcaption className="infra-person-cap">{p.cap}</figcaption>
+                <InfraPhoto src={`/qfp/infra/people-${p.n}.webp`} note={t(`people.captions.${p.n}`).toUpperCase()} className="infra-photo--portrait" />
+                <figcaption className="infra-person-cap">{t(`people.captions.${p.n}`)}</figcaption>
               </figure>
             ))}
           </div>
@@ -189,11 +164,11 @@ export default function Infrastructure() {
           className="infra-dialog"
           role="dialog"
           aria-modal="true"
-          aria-label="Facilities walkthrough video"
+          aria-label={t('video.dialogAria')}
           onMouseDown={(e) => { if (e.target === e.currentTarget) setVideoOpen(false) }}
         >
           <div className="infra-dialog-panel">
-            <button ref={closeRef} type="button" className="infra-dialog-close" onClick={() => setVideoOpen(false)} aria-label="Close video">
+            <button ref={closeRef} type="button" className="infra-dialog-close" onClick={() => setVideoOpen(false)} aria-label={t('video.closeAria')}>
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                 <path d="M6 6l12 12M18 6L6 18" />
               </svg>
@@ -203,8 +178,8 @@ export default function Infrastructure() {
               <video className="infra-dialog-video" src={VIDEO_SRC} controls autoPlay playsInline />
             ) : (
               <div className="infra-dialog-ph" aria-hidden="true">
-                <span className="infra-video-note">VIDEO · INSIDE OUR FACILITIES</span>
-                <span className="infra-dialog-soon">Walkthrough footage coming soon</span>
+                <span className="infra-video-note">{t('video.note')}</span>
+                <span className="infra-dialog-soon">{t('video.comingSoon')}</span>
               </div>
             )}
           </div>

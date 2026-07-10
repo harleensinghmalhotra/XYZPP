@@ -1,0 +1,117 @@
+{
+  "seo": {
+    "title": "Warehousing & Fulfilment | Quarterfold Printabilities",
+    "description": "Kitting, 100,000 sq ft warehousing, in-house 5-colour cartons and last-mile shipping — your books handled under one roof, from press to port.",
+    "breadcrumb": {
+      "home": "Home",
+      "fulfilment": "Warehousing & Fulfilment"
+    }
+  },
+  "hero": {
+    "eyebrow": "Warehousing & Fulfilment",
+    "title": {
+      "one": "One",
+      "system": "System,",
+      "start": "Start",
+      "to": "to",
+      "finish": "Finish."
+    },
+    "sub": "Print, pack, warehouse, ship — your books handled under one roof until they reach theirs.",
+    "cue": "Scroll"
+  },
+  "trust": {
+    "eyebrow": "They trust us",
+    "title": "Ministries and programmes that ship with us."
+  },
+  "partners": {
+    "tie": { "label": "Tanzania Institute of Education", "sub": "National Curriculum" },
+    "ghana": { "label": "Ghana — USAID Programmes", "sub": "Education Supply" },
+    "ivory": { "label": "Ivory Coast", "sub": "Ministry Tender" },
+    "balbharti": { "label": "Maharashtra Bal Bharti", "sub": "State Textbook Bureau" },
+    "worldbank": { "label": "World Bank Programmes", "sub": "Funded Projects" },
+    "un": { "label": "UN AID Programmes", "sub": "Global Distribution" },
+    "ministry": { "label": "Government Ministry Tenders", "sub": "Public Sector" },
+    "hdfc": { "label": "HDFC Bank Ltd", "sub": "Corporate" },
+    "zee": { "label": "ZEE Learn / Kidzee", "sub": "Education" }
+  },
+  "conviction": {
+    "eyebrow": "Our conviction",
+    "quoteLight": "We believe",
+    "quoteBold": "delivery is part of printing."
+  },
+  "cards": {
+    "01": {
+      "name": "Kitting & Assembly",
+      "text": "Components collated, built and checked into finished kits — ready the day they are needed."
+    },
+    "02": {
+      "name": "Warehousing & Storage",
+      "text": "State-of-the-art storage houses your books securely for as long as the programme runs."
+    },
+    "03": {
+      "name": "Last-Mile Delivery",
+      "text": "Streamlined logistics carry every consignment the final mile, to the door that matters."
+    }
+  },
+  "value": {
+    "eyebrow": "Why trust our fulfilment",
+    "title": "A single roof engineered for scale, speed and safe transit."
+  },
+  "values": {
+    "warehouse": { "unit": "sq ft", "label": "Dedicated warehouse facility, built for long-dwell storage." },
+    "carton": { "word": "In-House", "label": "Corrugated & e-flute cartons, produced on site." },
+    "printer": { "unit": "-colour", "label": "Carton printing for retail-ready displays & shipping." },
+    "anchor": { "word": "JNPT", "label": "Minutes from India's largest container port." },
+    "containers": { "unit": "/ year", "label": "Export containers shipped, and climbing." },
+    "clock": { "unit": "on-time", "label": "Delivery, every single year." }
+  },
+  "features": {
+    "01": {
+      "eyebrow": "Storage",
+      "title": "The Warehouse",
+      "body": "A dedicated 100,000 sq. ft warehouse anchors everything downstream — state-of-the-art storage that houses finished product securely for extended periods, ready to move the moment a programme calls.",
+      "more": "Racked, barcoded and organised for fast retrieval, the floor is engineered for long-dwell storage and high-volume throughput alike, with automated collating feeding straight into kitting."
+    },
+    "02": {
+      "eyebrow": "Build",
+      "title": "Kitting & Assembly",
+      "body": "End-to-end kitting and assembly turns loose components into finished, checked kits — collated, built and quality-verified under one roof so nothing ships incomplete.",
+      "more": "Automated collating and shrink-wrapping lines process up to 10,000 kits a day, each assembled to a repeatable spec and inspected before it leaves the floor."
+    },
+    "03": {
+      "eyebrow": "Protect",
+      "title": "In-House Packaging",
+      "body": "Corrugated and e-flute cartons are produced in-house with advanced 5-colour printing — custom-designed packaging engineered for retail displays and safe transit.",
+      "more": "Making our own board and cartons means we control fit, strength and finish end-to-end, so retail-ready packaging and export cartons come off the same controlled line."
+    },
+    "04": {
+      "eyebrow": "Deliver",
+      "title": "Global Shipping",
+      "body": "Streamlined logistics manage last-mile delivery and export dispatch — books handled from our floor to their destination across 25+ countries and four continents.",
+      "more": "Sited minutes from JNPT, India’s largest container port, we ship 800+ export containers a year with a 98% on-time record, every single year."
+    }
+  },
+  "feature": {
+    "showLess": "Show less",
+    "learnMore": "Learn more",
+    "panelLabel": "{{title}} — more"
+  },
+  "sections": {
+    "featuresLabel": "How fulfilment works, step by step"
+  },
+  "journey": {
+    "eyebrow": "From Press to Port",
+    "title": "One continuous journey, watched every step."
+  },
+  "stages": {
+    "01": { "verb": "Pack", "word": "Precise", "line": "Cartons cut, printed and packed to spec, in-house." },
+    "02": { "verb": "Store", "word": "Secure", "line": "Racked and barcoded in a 100,000 sq ft facility." },
+    "03": { "verb": "Ship", "word": "On Time", "line": "Export containers dispatched minutes from JNPT port." }
+  },
+  "cta": {
+    "eyebrow": "One roof, start to finish",
+    "title": "Let's move your books.",
+    "sub": "Tell us what you are printing and where it needs to land. We handle the rest — packed, stored and shipped.",
+    "pill": "Start a conversation"
+  }
+}

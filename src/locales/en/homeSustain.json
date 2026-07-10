@@ -1,0 +1,17 @@
+{
+  "eyebrow": "Environmental Responsibility",
+  "title": "Responsible by Practice.",
+  "intro": "We are a printing company first, but the way we run our floors already reflects a lot of what sustainability asks for.",
+  "bullets": {
+    "waste": "Near zero waste press floors, offcuts recovered and reused across every facility",
+    "fsc": "FSC certified paper sourcing built into how we buy, not an add on",
+    "iso": "ISO 14001:2015 certified environmental management system across our facilities",
+    "disposal": "Responsible disposal of ink, chemicals and press waste, audited and documented"
+  },
+  "chips": {
+    "waste": "0 waste-to-landfill target",
+    "fsc": "FSC certified",
+    "iso": "ISO 14001:2015"
+  },
+  "cutoutAlt": "Stack of recycled paper"
+}

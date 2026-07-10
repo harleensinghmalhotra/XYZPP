@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
@@ -28,18 +29,21 @@ const ICONS = {
   shield: [P('M12 3l7 2.9V11c0 4.6-3 7.6-7 9.2-4-1.6-7-4.6-7-9.2V5.9Z'), P('M8.7 11.6 11 13.9l4.4-4.7')],
 }
 
+// Names/descriptions resolve via t(`stages.${key}.name|desc`); icon/order/key
+// are law — only the human-readable text is translated.
 const STAGES = [
-  { icon: 'printer', name: 'Print', desc: 'Offset and sheet-fed production, calibrated for colour at volume.' },
-  { icon: 'seal', name: 'Quality', desc: 'Double quality checks, so it reaches you as expected.' },
-  { icon: 'box', name: 'Fulfillment', desc: 'Kitting, collating and packing, tailored to your project.' },
-  { icon: 'warehouse', name: 'Warehouse', desc: 'Climate-appropriate storage, released on your timeline.' },
-  { icon: 'truck', name: 'Ship', desc: 'Documentation, customs and delivery to 25+ countries.' },
-  { icon: 'shield', name: "You're Covered", desc: 'We handle everything, you focus on your mission.' },
+  { key: 'print', icon: 'printer' },
+  { key: 'quality', icon: 'seal' },
+  { key: 'fulfillment', icon: 'box' },
+  { key: 'warehouse', icon: 'warehouse' },
+  { key: 'ship', icon: 'truck' },
+  { key: 'covered', icon: 'shield' },
 ]
 
 const OVERSHOOT = 46 // px the head runs past the last node into empty rail
 
 export default function Process() {
+  const { t } = useTranslation('homeProcess')
   const root = useRef(null)
   const sheet = useRef(null)
   const feed = useRef(null)
@@ -155,10 +159,8 @@ export default function Process() {
     <section id="process" ref={root} data-theme="light" className="press" aria-labelledby="press-title">
       <div className="press-inner">
         <header className="press-head-copy">
-          <h2 id="press-title" className="press-title">One Continuous Process.</h2>
-          <p className="press-sub">
-            One partner. One workflow. We take care of everything so you can focus on your mission.
-          </p>
+          <h2 id="press-title" className="press-title">{t('title')}</h2>
+          <p className="press-sub">{t('sub')}</p>
         </header>
 
         <div className="press-bed">
@@ -174,7 +176,7 @@ export default function Process() {
 
             <ol className="press-stages">
               {STAGES.map((s) => (
-                <li className="press-stage" key={s.name}>
+                <li className="press-stage" key={s.key}>
                   <span className="press-flash" aria-hidden="true" />
                   <span className="press-node" aria-hidden="true"><span className="press-core" /></span>
                   <div className="press-copy">
@@ -183,8 +185,8 @@ export default function Process() {
                     </span>
                     <span className="press-mark" aria-hidden="true" />
                     <div className="press-label">
-                      <h3 className="press-name">{s.name}</h3>
-                      <p className="press-desc">{s.desc}</p>
+                      <h3 className="press-name">{t(`stages.${s.key}.name`)}</h3>
+                      <p className="press-desc">{t(`stages.${s.key}.desc`)}</p>
                     </div>
                   </div>
                 </li>

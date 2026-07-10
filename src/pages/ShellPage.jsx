@@ -6,9 +6,10 @@ import { useTranslation } from 'react-i18next'
 // the top of the page. Nothing else lives here yet by design.
 export default function ShellPage({ title, eyebrow = 'Quarterfold Printabilities' }) {
   const { t } = useTranslation('common')
-  // Chrome eyebrow only: translate known values (e.g. "Legal"); brand name and
-  // codes like "404" have no key and fall back to the literal silently.
+  // Chrome only: translate known eyebrow + title values; brand name and codes
+  // like "404" have no key and fall back to the literal string silently.
   const eyebrowText = t(`eyebrow.${eyebrow}`, eyebrow)
+  const titleText = t(`shellTitle.${title}`, title)
   return (
     <main
       id="main"
@@ -26,7 +27,7 @@ export default function ShellPage({ title, eyebrow = 'Quarterfold Printabilities
         className="max-w-4xl text-[clamp(40px,7vw,84px)] font-bold leading-[1.05] tracking-tight"
         style={{ fontFamily: "'Inter Tight', sans-serif", color: '#0F2444' }}
       >
-        {title}
+        {titleText}
       </h1>
     </main>
   )

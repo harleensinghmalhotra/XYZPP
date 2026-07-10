@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
@@ -15,20 +16,23 @@ import WavyBackground from '@/components/WavyBackground'
 //
 // Read-the-bold-alone test: bold words = "mission is education. ensure nothing gets in its way."
 
-const SEGMENTS = [
-  { bold: false, text: 'Your' },
-  { bold: true, text: 'mission is education.' },
-  { bold: false, text: 'Ours is to' },
-  { bold: true, text: 'ensure nothing gets in its way.' },
-]
-const WORDS = SEGMENTS.flatMap((seg, si) =>
-  seg.text.split(' ').map((w, wi) => ({ w, bold: seg.bold, key: `${si}-${wi}` })),
-)
+// Split translated segments into per-word tokens for the kinetic L→R reveal.
+// Emphasis (bold vs light) is carried per segment; word order comes from the
+// active language so the "read-the-bold-alone" line survives translation.
+function segmentsToWords(segments) {
+  return segments.flatMap((seg, si) =>
+    seg.text.split(' ').map((w, wi) => ({ w, bold: seg.bold, key: `${si}-${wi}` })),
+  )
+}
 
 export default function PromiseSection() {
+  const { t } = useTranslation('home')
   const root = useRef(null)
   const bg = useRef(null)
   const [reduced] = useState(prefersReduced)
+
+  const segments = t('promise.segments', { returnObjects: true })
+  const WORDS = segmentsToWords(Array.isArray(segments) ? segments : [])
 
   useLayoutEffect(() => {
     if (reduced) return
@@ -64,21 +68,18 @@ export default function PromiseSection() {
   }, [reduced])
 
   return (
-    <section id="promise" ref={root} data-theme="dark" className="promise" aria-label="Our promise">
+    <section id="promise" ref={root} data-theme="dark" className="promise" aria-label={t('promise.aria')}>
       <WavyBackground className="promise-waves" />
       <div className="promise-bg" ref={bg} aria-hidden="true" />
       <div className="promise-inner">
-        <p className="promise-eyebrow">Our Promise</p>
+        <p className="promise-eyebrow">{t('promise.eyebrow')}</p>
         <blockquote className="promise-quote">
           {WORDS.map(({ w, bold, key }) => (
             <span key={key} className={`pq-w ${bold ? 'pq-bold' : 'pq-light'}`}>{w}</span>
           ))}
         </blockquote>
-        <p className="promise-support">
-          Printing. Kitting. Quality checks. Warehousing. Shipment. One system, start
-          to finish, with nothing left to chance.
-        </p>
-        <p className="promise-attr">Quarterfold Printabilities&nbsp;·&nbsp;Est. 2014</p>
+        <p className="promise-support">{t('promise.support')}</p>
+        <p className="promise-attr">{t('promise.attribution')}</p>
       </div>
     </section>
   )

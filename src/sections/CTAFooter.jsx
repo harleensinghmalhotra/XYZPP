@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { useTranslation, Trans } from 'react-i18next'
 import { RegistrationMark } from '@/components/craft'
 
 // Fonts locked to our system (was inheriting the global Space Mono / font-display):
@@ -52,11 +52,11 @@ export default function CTAFooter() {
         </div>
 
         <h2 className="mb-6 max-w-4xl text-[clamp(40px,7vw,84px)] font-bold tracking-tight leading-[1.05]" style={{ fontFamily: TIGHT, color: '#fdfaf4' }}>
-          Let&apos;s Print Something<br />That Matters.
+          <Trans t={t} i18nKey="cta.heading" components={{ 1: <br /> }} />
         </h2>
 
         <p className="mb-10 max-w-2xl text-lg font-normal leading-relaxed sm:text-xl" style={{ fontFamily: INTER, color: 'rgba(253,250,244,0.82)' }}>
-          Whether you need ten million textbooks for a national programme or a first print run for a new title, tell us what you are printing and we will come back within one business day.
+          {t('cta.body')}
         </p>
 
         <div className="flex flex-col sm:flex-row items-center gap-4" style={{ fontFamily: INTER }}>
@@ -65,14 +65,14 @@ export default function CTAFooter() {
             className="focus-ring inline-flex h-14 items-center justify-center rounded-xl bg-[#c89a3c] px-10 text-[15px] font-semibold text-[#0f2444] transition-all duration-300 hover:bg-[#e6bd6a] hover:scale-[1.02] active:scale-[0.98]"
             style={{ letterSpacing: '0.2px' }}
           >
-            Request a Quote
+            {t('cta.requestQuote')}
           </a>
           <a
             href="#"
             className="focus-ring inline-flex h-14 items-center justify-center rounded-xl bg-transparent border border-[#fdfaf4]/40 px-10 text-[15px] font-semibold text-[#fdfaf4] transition-all duration-300 hover:bg-[#fdfaf4]/10 hover:scale-[1.02] active:scale-[0.98]"
             style={{ letterSpacing: '0.2px' }}
           >
-            Download Company Profile
+            {t('cta.downloadProfile')}
           </a>
         </div>
       </div>

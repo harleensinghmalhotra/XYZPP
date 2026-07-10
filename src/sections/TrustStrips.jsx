@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import CountUp from '@/components/CountUp'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
@@ -9,38 +10,42 @@ import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 // law — not reworded, trimmed or reordered. Only the presentation is elevated.
 
 // Strip 1 — 26 countries, exact source order. Drifts LEFT (~30s).
+// Display text is resolved via t(`countries.${key}`); keys are stable, order is law.
 const COUNTRIES = [
-  'India', 'Nigeria', 'Ghana', 'Kenya', 'Uganda', 'Tanzania', 'Zambia',
-  "Côte d'Ivoire", 'Cameroon', 'Congo (DRC)', 'Senegal', 'Benin', 'Ethiopia',
-  'Rwanda', 'Mozambique', 'Madagascar', 'Mauritius', 'South Africa', 'Gabon',
-  'Mexico', 'USA', 'Puerto Rico', 'Germany', 'United Kingdom', 'Spain', 'UAE',
+  'india', 'nigeria', 'ghana', 'kenya', 'uganda', 'tanzania', 'zambia',
+  'cotedivoire', 'cameroon', 'congo', 'senegal', 'benin', 'ethiopia',
+  'rwanda', 'mozambique', 'madagascar', 'mauritius', 'southafrica', 'gabon',
+  'mexico', 'usa', 'puertorico', 'germany', 'unitedkingdom', 'spain', 'uae',
 ]
 
 // Strip 2 — institutions, exact source order + exact per-item icon. Drifts RIGHT (~38s).
 // `ministry: true` marks government / ministry / programme names gated behind
 // SHOW_MINISTRY_NAMES (permission pending); they filter out cleanly when off.
+// Labels are resolved via t(`institutions.${idx}`); some labels repeat, so each
+// item carries its source index as a stable key (duplicates translate per-slot).
 const INSTITUTIONS_ALL = [
-  { label: 'World Bank-Funded Projects', icon: 'layers', ministry: true },
-  { label: 'USAID Programmes', icon: 'pin', ministry: true },
-  { label: 'UN AID Programmes', icon: 'globe', ministry: true },
-  { label: 'Government Ministry Tenders', icon: 'monitor', ministry: true },
-  { label: 'Tanzania Institute of Education', icon: 'bank', ministry: true },
-  { label: 'Maharashtra State Bureau', icon: 'monitor', ministry: true },
-  { label: 'HDFC Bank Ltd', icon: 'pin' },
-  { label: 'ZEE Learn / Kidzee', icon: 'globe' },
-  { label: 'Reliance Industries', icon: 'bank' },
-  { label: 'World Bank-Funded Projects', icon: 'pin', ministry: true },
-  { label: 'USAID Programmes', icon: 'globe', ministry: true },
-  { label: 'Government Ministry Tenders', icon: 'monitor', ministry: true },
-]
+  { icon: 'layers', ministry: true },
+  { icon: 'pin', ministry: true },
+  { icon: 'globe', ministry: true },
+  { icon: 'monitor', ministry: true },
+  { icon: 'bank', ministry: true },
+  { icon: 'monitor', ministry: true },
+  { icon: 'pin' },
+  { icon: 'globe' },
+  { icon: 'bank' },
+  { icon: 'pin', ministry: true },
+  { icon: 'globe', ministry: true },
+  { icon: 'monitor', ministry: true },
+].map((it, idx) => ({ ...it, idx }))
 const INSTITUTIONS = INSTITUTIONS_ALL.filter((it) => SHOW_MINISTRY_NAMES || !it.ministry)
 
-// Strip 3 — four stats, exact source text + icons. Count-up on first view.
+// Strip 3 — four stats, icons + numeric values are law; text is resolved via
+// t(`stats.${key}.label|accent|sr`). Count-up on first view.
 const STATS = [
-  { icon: 'books', value: 400, suffix: 'M+', label: 'Books Delivered Since Inception', sr: '400M+ Books Delivered Since Inception' },
-  { icon: 'globe40', value: 25, suffix: '+', label: 'Countries Across 4 Continents', sr: '25+ Countries Across 4 Continents' },
-  { icon: 'truck', value: 1000, suffix: '+', label: 'Containers Shipped in 2024 to 25', sr: '1000+ Containers Shipped in 2024 to 25' },
-  { icon: 'people', value: 98, suffix: '%', accent: 'On-Time', label: 'Delivery, Every Single Year', sr: '98% On-Time Delivery, Every Single Year' },
+  { key: 'books', icon: 'books', value: 400, suffix: 'M+' },
+  { key: 'countries', icon: 'globe40', value: 25, suffix: '+' },
+  { key: 'containers', icon: 'truck', value: 1000, suffix: '+' },
+  { key: 'ontime', icon: 'people', value: 98, suffix: '%', accent: true },
 ]
 
 // Institution icons — ported from source, gold stroke, uniform 1.6 (set in CSS).
@@ -81,27 +86,28 @@ function StatIcon({ type }) {
 
 // One sequence of a marquee track. Duplicated once (aria-hidden) for a seamless
 // -50% loop; the base copy stays in the a11y tree, the clone is hidden.
-function CountrySeq({ clone }) {
+function CountrySeq({ clone, t }) {
   return (
     <div className="ts-seq" aria-hidden={clone || undefined}>
       {COUNTRIES.map((c, i) => (
-        <span key={i} className="ts-country">{c}</span>
+        <span key={i} className="ts-country">{t(`countries.${c}`)}</span>
       ))}
     </div>
   )
 }
 
-function InstSeq({ clone }) {
+function InstSeq({ clone, t }) {
   return (
     <div className="ts-seq" aria-hidden={clone || undefined}>
       {INSTITUTIONS.map((it, i) => (
-        <span key={i} className="ts-inst"><span className="ts-inst-ico"><InstIcon type={it.icon} /></span>{it.label}</span>
+        <span key={i} className="ts-inst"><span className="ts-inst-ico"><InstIcon type={it.icon} /></span>{t(`institutions.${it.idx}`)}</span>
       ))}
     </div>
   )
 }
 
 export default function TrustStrips() {
+  const { t } = useTranslation('homeTrust')
   const reduced = useReducedMotion()
   const track1 = useRef(null)
   const track2 = useRef(null)
@@ -168,27 +174,27 @@ export default function TrustStrips() {
   return (
     <section id="trust" aria-labelledby="trust-heading" className="ts-band">
       <h2 id="trust-heading" className="sr-only">
-        Global reach, institutional partners and delivery record
+        {t('sectionHeading')}
       </h2>
 
       {/* Marquees */}
       <div className="ts-wrap">
         <div className="ts-row ts-row--countries">
-          <h3 className="sr-only">Countries served</h3>
+          <h3 className="sr-only">{t('countriesHeading')}</h3>
           <div className="ts-scroll" style={scrollStyle}>
             <div className="ts-track" ref={track1}>
-              <CountrySeq />
-              {!reduced && <CountrySeq clone />}
+              <CountrySeq t={t} />
+              {!reduced && <CountrySeq clone t={t} />}
             </div>
           </div>
         </div>
 
         <div className="ts-row ts-row--inst">
-          <h3 className="sr-only">Institutions and programmes served</h3>
+          <h3 className="sr-only">{t('institutionsHeading')}</h3>
           <div className="ts-scroll" style={scrollStyle}>
             <div className="ts-track" ref={track2}>
-              <InstSeq />
-              {!reduced && <InstSeq clone />}
+              <InstSeq t={t} />
+              {!reduced && <InstSeq clone t={t} />}
             </div>
           </div>
         </div>
@@ -198,15 +204,15 @@ export default function TrustStrips() {
       <div className="ts-stats">
         <ul className="ts-stats-grid">
           {STATS.map((s) => (
-            <li key={s.sr} className="ts-stat">
-              <span className="sr-only">{s.sr}</span>
+            <li key={s.key} className="ts-stat">
+              <span className="sr-only">{t(`stats.${s.key}.sr`)}</span>
               <div className="ts-stat-ico" aria-hidden="true"><StatIcon type={s.icon} /></div>
               <div aria-hidden="true">
                 <div className="ts-stat-num">
                   <CountUp value={s.value} suffix={s.suffix} grouping={false} duration={1200} />
-                  {s.accent && <span className="ts-stat-accent">{s.accent}</span>}
+                  {s.accent && <span className="ts-stat-accent">{t(`stats.${s.key}.accent`)}</span>}
                 </div>
-                <div className="ts-stat-lbl">{s.label}</div>
+                <div className="ts-stat-lbl">{t(`stats.${s.key}.label`)}</div>
               </div>
             </li>
           ))}

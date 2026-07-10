@@ -1,0 +1,162 @@
+{
+  "seo": {
+    "title": "Contact Us | Quarterfold Printabilities",
+    "description": "Talk to Quarterfold about your print programme. Call, email or WhatsApp us, or send an enquiry and hear back within one business day. Offices in Navi Mumbai."
+  },
+  "breadcrumb": {
+    "label": "Breadcrumb",
+    "home": "Home",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Contact Us",
+    "line": "Whether you're a ministry, a publisher, or an author with one book, we'd love to hear from you."
+  },
+  "map": {
+    "regionLabel": "Where we are",
+    "alt": "Map showing Quarterfold's two locations in Navi Mumbai, India: the Vashi head office and the Taloja main factory.",
+    "kicker": "Navi Mumbai, India",
+    "openInMaps": "Open in Google Maps"
+  },
+  "welcome": {
+    "eyebrow": "We'd love to hear from you",
+    "head": "One partner for the whole print journey, from a national textbook programme to a first run of one book.",
+    "sub": "Tell us what you're printing and we'll come back within one business day. Pick whichever way is easiest below, or send the enquiry form and we'll take it from there."
+  },
+  "tiles": {
+    "regionLabel": "Ways to reach us",
+    "call": { "kicker": "Call us", "line": "(+91) 829 199 9922", "sub": "Mon–Sat, business hours" },
+    "info": { "kicker": "General", "sub": "For anything and everything" },
+    "enq": { "kicker": "Enquiries", "sub": "Quotes and project briefs" },
+    "wa": { "kicker": "WhatsApp", "line": "Message us", "sub": "Quick questions, fast replies" },
+    "quote": { "kicker": "Fastest route", "line": "Request a Quote", "sub": "Jump to the enquiry form" }
+  },
+  "addr": {
+    "eyebrow": "Our locations",
+    "title": "Two sites in Navi Mumbai.",
+    "head": { "name": "Head Office", "directions": "Directions" },
+    "factory": { "name": "Main Factory", "directions": "Directions" },
+    "hours": {
+      "name": "Business Hours",
+      "lines": "Monday to Saturday<1/>9:30am – 6:30pm IST",
+      "flag": "Hours to be confirmed"
+    }
+  },
+  "form": {
+    "regionLabel": "Send an enquiry",
+    "eyebrow": "Send an enquiry",
+    "title": "Tell us about your project.",
+    "lede": "A few details are all we need to come back with the right person and a realistic answer. Fields marked with an asterisk are required.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company / Organisation",
+    "country": "Country",
+    "countryPlaceholder": "Select a country",
+    "enquiryLabel": "What's your enquiry about?",
+    "enquiryPlaceholder": "Choose one",
+    "message": "Message",
+    "messagePlaceholder": "Trim size, page count, paper, binding, quantity, delivery country, whatever you have.",
+    "consent": "I agree that Quarterfold may use these details to respond to my enquiry, in line with the <1>Privacy Policy</1>.",
+    "submit": "Send enquiry",
+    "dpa": "We only use what you send here to reply to your enquiry. We never sell your details. See our <1>Privacy Policy</1> for how we handle your data."
+  },
+  "enquiryTypes": {
+    "quote": "Request a Quote",
+    "programme": "Educational Programme or Tender",
+    "trade": "Trade Books",
+    "pod": "Print on Demand",
+    "other": "Other"
+  },
+  "errors": {
+    "first": "Enter your first name.",
+    "last": "Enter your last name.",
+    "emailRequired": "Enter your email address.",
+    "emailInvalid": "Enter a valid email address.",
+    "country": "Select your country.",
+    "enquiry": "Choose what your enquiry is about.",
+    "message": "Tell us a little about what you need.",
+    "consent": "Please agree to the privacy policy so we can reply.",
+    "summaryOne": "There is 1 problem with the form. Please review the highlighted fields.",
+    "summaryMany": "There are {{count}} problems with the form. Please review the highlighted fields."
+  },
+  "success": {
+    "title": "Thank you, your enquiry is ready to send.",
+    "sub": "Your email app should have opened with everything filled in. If it didn't, use the button below and we'll reply within one business day.",
+    "button": "Open your email app"
+  },
+  "mailto": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "company": "Company / Organisation",
+    "country": "Country",
+    "enquiryType": "Enquiry type",
+    "subject": "Enquiry"
+  },
+  "faq": {
+    "regionLabel": "FAQ",
+    "eyebrow": "Questions, answered",
+    "title": "Frequently asked questions.",
+    "tablistLabel": "FAQ audiences",
+    "tabs": {
+      "publishers": "For Publishers",
+      "institutions": "For Institutions & Programmes",
+      "self": "For Self-Publishers"
+    },
+    "items": {
+      "publishers-0": {
+        "q": "Do you print for publishers outside India?",
+        "a": "Yes. We serve 250+ publishers worldwide and export more than 800 containers a year to 25+ countries, working with many of the top publishers in India."
+      },
+      "publishers-1": {
+        "q": "What print certifications do you hold?",
+        "a": "We are FSC certified under licence TUVDC COC 101258, alongside ISO and Sedex, so your titles can carry recognised responsible-sourcing and audited-supply marks."
+      },
+      "publishers-2": {
+        "q": "Can you handle large offset runs?",
+        "a": "Yes. Our five facilities across 250,000 sq ft print more than 25 million books a year on web-offset and sheet-fed presses, so we scale comfortably to long runs."
+      },
+      "publishers-3": {
+        "q": "Do you manage export and shipping?",
+        "a": "We handle containerised export, customs documentation and delivery, moving 800+ containers a year to ministries, distributors and publishers across 25+ countries."
+      },
+      "institutions-0": {
+        "q": "Do you work with governments and ministries on tenders?",
+        "a": "Yes. We deliver national textbook programmes for ministries of education, and are a print partner on World Bank and USAID funded programmes."
+      },
+      "institutions-1": {
+        "q": "Which countries have you printed national programmes for?",
+        "a": "We have printed curriculum programmes across 10+ African countries, including Tanzania, Ghana, Nigeria, Ivory Coast and DR Congo."
+      },
+      "institutions-2": {
+        "q": "Are programme books produced responsibly?",
+        "a": "Yes. We are FSC certified under licence TUVDC COC 101258, so programme books can be printed on responsibly sourced paper for tenders that require it."
+      },
+      "institutions-3": {
+        "q": "How quickly can you scale for a national rollout?",
+        "a": "With five facilities, 250,000 sq ft and capacity for 25 million+ books a year, we scale from a single curriculum edition to a full national rollout."
+      },
+      "self-0": {
+        "q": "Do you print single copies or short runs?",
+        "a": "Yes. Our print-on-demand service is built for self-publishers and independent authors, from a single book to short runs."
+      },
+      "self-1": {
+        "q": "Can I see a sample before a full run?",
+        "a": "Yes. We can produce samples so you can check trim size, paper and binding before committing to a full print run."
+      },
+      "self-2": {
+        "q": "What formats can you produce?",
+        "a": "From paperbacks and hardbacks to premium notebooks, diaries and coffee-table books, with hard, soft and leather bindings."
+      },
+      "self-3": {
+        "q": "How do I get a quote for one title?",
+        "a": "Send your specification, trim size, page count, paper, binding and quantity, using the enquiry form above and we will come back within one business day."
+      }
+    }
+  },
+  "closer": {
+    "line": "Prefer email?"
+  }
+}

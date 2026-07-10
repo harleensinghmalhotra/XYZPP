@@ -1,0 +1,109 @@
+{
+  "seo": {
+    "title": "Impression à la demande | Quarterfold Printabilities",
+    "description": "Composez votre livre en ligne — choisissez le format, la taille, le papier, la reliure et la finition. De l’exemplaire unique au petit tirage, imprimé selon notre standard à l’échelle du million.",
+    "breadcrumbHome": "Accueil",
+    "breadcrumbCurrent": "Impression à la demande"
+  },
+  "hero": {
+    "eyebrow": "Impression à la demande",
+    "title": "Votre livre. <em>Exactement</em> comme vous l’imaginiez.",
+    "sub": "De l’exemplaire unique au petit tirage — imprimé selon le même standard que nos millions d’exemplaires. Choisissez l’aspect et le toucher de votre livre, et nous transformerons vos fichiers en exemplaires finis que vous serez fier de tenir en main.",
+    "cta": "Commencer la composition"
+  },
+  "build": {
+    "eyebrow": "Le configurateur",
+    "title": "Composez votre livre",
+    "lede": "Faites chaque choix ci-dessous. L’aperçu et votre fiche technique se mettent à jour au fil de vos sélections — aucun prix, aucun engagement, simplement le livre que vous avez en tête.",
+    "previewTag": "Aperçu en direct",
+    "previewCaptionSep": " · "
+  },
+  "steps": {
+    "format": { "num": "①", "title": "Format", "help": "La façon dont le livre est relié et se tient en main." },
+    "size": { "num": "②", "title": "Taille", "help": "Formats standard — sans complication de mise en place." },
+    "paper": { "num": "③", "title": "Papier", "help": "Le toucher des pages dans la main." },
+    "binding": { "num": "④", "title": "Reliure", "help": "Ce qui maintient les pages ensemble." },
+    "finish": { "num": "⑤", "title": "Finition", "help": "La surface de votre couverture." },
+    "quantity": { "num": "⑥", "title": "Quantité", "help": "Un exemplaire ou un petit tirage." }
+  },
+  "options": {
+    "format": {
+      "paperback": { "label": "Couverture souple", "desc": "Couverture souple et flexible — le classique vers lequel les lecteurs se tournent.", "sub": "Couverture souple" },
+      "hardcover": { "label": "Couverture rigide", "desc": "Cartons rigides et dos carré — un objet à conserver, fait pour durer.", "sub": "Reliure cartonnée" },
+      "landscape": { "label": "Format paysage", "desc": "Format large qui laisse respirer la photographie et l’illustration.", "sub": "Format large" }
+    },
+    "size": {
+      "5x8": { "label": "5 × 8 po", "sub": "Roman de poche" },
+      "6x9": { "label": "6 × 9 po", "sub": "Standard édition" },
+      "8x10": { "label": "8 × 10 po", "sub": "Illustré" },
+      "a4": { "label": "A4", "sub": "210 × 297 mm" }
+    },
+    "paper": {
+      "cream": { "label": "Crème 80 g/m²", "desc": "Chaleureux, reposant pour les yeux — le foyer naturel d’un roman.", "sub": "Non couché, chaleureux" },
+      "white": { "label": "Blanc 100 g/m²", "desc": "Lumineux et net, pour que les textes fins et les traits restent précis.", "sub": "Non couché, lumineux" },
+      "art": { "label": "Couché 150 g/m²", "desc": "Papier couché lisse qui sublime les images en pleine couleur.", "sub": "Couché, lisse" }
+    },
+    "binding": {
+      "perfect": { "label": "Reliure dos carré collé", "desc": "Dos carré collé — propre, économique, prêt à imprimer.", "sub": "Dos collé" },
+      "sewn": { "label": "Cousu par cahiers", "desc": "Cahiers cousus qui s’ouvrent à plat et résistent aux relectures.", "sub": "Cousu, ouverture à plat" },
+      "wiro": { "label": "Reliure Wiro", "desc": "Spirale à double boucle qui repose parfaitement à plat — idéale pour les cahiers d’exercices.", "sub": "Spirale double boucle" }
+    },
+    "finish": {
+      "matte": { "label": "Pelliculage mat", "desc": "Doux, tactile, sans reflet — sobre et moderne.", "sub": "Pelliculage soft-touch" },
+      "gloss": { "label": "Pelliculage brillant", "desc": "Brillance intense qui fait ressortir les couleurs de couverture en rayon.", "sub": "Pelliculage brillant" },
+      "layflat": { "label": "Pelliculage ouverture à plat", "desc": "Film satiné durable qui résiste aux éraflures et aux traces de doigts.", "sub": "Film satiné" }
+    },
+    "quantity": {
+      "1": { "label": "1 exemplaire", "sub": "Livre unique" },
+      "10": { "label": "10 exemplaires", "sub": "Épreuves d’auteur" },
+      "50": { "label": "50 exemplaires", "sub": "Lot de lancement" },
+      "250": { "label": "250 exemplaires", "sub": "Petit tirage" },
+      "500": { "label": "500 exemplaires et plus", "sub": "Tirage complet" }
+    }
+  },
+  "included": {
+    "head": "Inclus avec chaque commande",
+    "proof": { "name": "Épreuve numérique gratuite", "desc": "Consultez une épreuve fidèle en couleur et validez-la avant que nous imprimions la moindre page." },
+    "check": { "name": "Contrôle qualité manuel", "desc": "Chaque exemplaire est vérifié — couleur, coupe et reliure — par une personne réelle." },
+    "packing": { "name": "Emballage sécurisé", "desc": "Les livres sont emballés pour arriver impeccables — aucun coin abîmé, aucune éraflure." },
+    "delivery": { "name": "Livraison à domicile", "desc": "Expédition suivie jusqu’à votre porte, qu’il s’agisse d’un livre ou de cinq cents." }
+  },
+  "summary": {
+    "eyebrow": "Votre configuration",
+    "title": "Ce livre",
+    "ariaLabel": "Spécification de votre livre",
+    "keys": {
+      "format": "Format",
+      "size": "Taille",
+      "paper": "Papier",
+      "binding": "Reliure",
+      "finish": "Finition",
+      "quantity": "Quantité"
+    },
+    "request": "Demander ce livre",
+    "note": "Aucun prix, aucun engagement — nous vous enverrons un devis sur mesure et une épreuve gratuite. Vous préférez en discuter ? <link>Parlez-nous.</link>"
+  },
+  "qtyBadgeSr": "Quantité",
+  "how": {
+    "eyebrow": "Comment ça marche",
+    "title": "Trois étapes vers vos exemplaires finis",
+    "upload": { "step": "Étape 01", "name": "Envoi des fichiers", "desc": "Envoyez vos fichiers prêts à imprimer — ou votre manuscrit et votre couverture. Nous les vérifions pour vous." },
+    "approve": { "step": "Étape 02", "name": "Validation de l’épreuve", "desc": "Nous vous envoyons une épreuve fidèle en couleur. Rien n’est imprimé tant que vous n’êtes pas satisfait." },
+    "ship": { "step": "Étape 03", "name": "Impression et expédition", "desc": "Votre livre passe sur les mêmes presses que nos millions d’exemplaires, puis part vers votre porte." }
+  },
+  "band": {
+    "eyebrow": "Les mêmes presses",
+    "quote": "Un seul livre bénéficie des mêmes presses <em>qu’un million.</em>",
+    "sub": "Il n’y a pas de raccourci pour les « petites commandes » ici. Que vous imprimiez une seule épreuve ou un tirage complet, votre livre passe par les mêmes presses à couleur maîtrisée et entre les mêmes mains qui produisent nos millions de livres par an.",
+    "stat1Label": "Exemplaire — notre plus petit tirage",
+    "stat2Label": "Livres par an sur les mêmes presses",
+    "stat3Num": "Jours",
+    "stat3Label": "Pas des semaines — délai d’échantillon"
+  },
+  "cta": {
+    "eyebrow": "Prenez votre temps",
+    "title": "Encore hésitant ? Commandez d’abord un échantillon.",
+    "sub": "Touchez le papier, vérifiez la couleur, ressentez la reliure — puis décidez. Dites-nous ce que vous réalisez et nous vous aiderons à obtenir un exemplaire d’échantillon entre les mains.",
+    "btn": "Commander un échantillon"
+  }
+}

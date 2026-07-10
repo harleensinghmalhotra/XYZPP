@@ -1,0 +1,36 @@
+{
+  "eyebrow": "Reconnaissance",
+  "title": "Prix et presse.",
+  "labels": {
+    "industry": "PRIX DU SECTEUR",
+    "press": "ARTICLE DE PRESSE",
+    "export": "DISTINCTION À L'EXPORT"
+  },
+  "cards": {
+    "pw24": {
+      "name": "PrintWeek 2024",
+      "body": "Entreprise de l'année en édition éducative",
+      "ph": "Photo de la cérémonie PrintWeek 2024"
+    },
+    "pw23": {
+      "name": "PrintWeek 2023",
+      "body": "Entreprise exportatrice de l'année",
+      "ph": "Photo de la cérémonie PrintWeek 2023"
+    },
+    "forbes": {
+      "name": "Forbes India",
+      "body": "D.Gems 2024"
+    },
+    "capexil": {
+      "name": "CAPEXIL",
+      "body": "Premier exportateur, 3 années consécutives",
+      "ph": "Photo de la cérémonie CAPEXIL"
+    }
+  },
+  "forbes": {
+    "masthead": "Forbes India",
+    "date": "DÉC. 2024",
+    "headline": "La liste D.Gems, 2024"
+  },
+  "more": "VOIR PLUS DE PRIX ET PRESSE →"
+}

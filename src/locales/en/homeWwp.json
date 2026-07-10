@@ -1,0 +1,41 @@
+{
+  "eyebrow": "What We Print",
+  "titleLine1": "Built on Precision.",
+  "titleLine2": "Backed by Experience.",
+  "lede": "Across educational books, trade titles, coffee table editions and more, we bring the same care and consistency to every project we take on.",
+  "more": "Learn more about our process",
+  "cards": {
+    "educational": {
+      "name": "Educational Book Printing",
+      "line": "Textbooks, workbooks and ministry curriculum print for 25+ countries."
+    },
+    "trade": {
+      "name": "Trade Books",
+      "line": "Notebooks, counterbooks, pads and custom branded stationery."
+    },
+    "coffee": {
+      "name": "Coffee Table & Hardcase Books",
+      "line": "Premium photography, heritage and collector's editions with specialty finishes."
+    },
+    "general": {
+      "name": "General Books",
+      "line": "Manga, graphic novels, puzzles and leisure reading."
+    },
+    "children": {
+      "name": "Children's Books",
+      "line": "Picture books, board books, colouring and pop-up formats."
+    },
+    "kits": {
+      "name": "Learning Activity Kits",
+      "line": "Hands-on activity kits, puzzle cards and DIY learning sets."
+    },
+    "corporate": {
+      "name": "Corporate, Banks & MNCs",
+      "line": "Annual reports, welcome kits and financial documentation."
+    },
+    "pod": {
+      "name": "Print on Demand",
+      "line": "Single copy to short run, printed and shipped fast."
+    }
+  }
+}

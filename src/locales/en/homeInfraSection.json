@@ -1,0 +1,44 @@
+{
+  "eyebrow": "Infrastructure",
+  "titleA": "Built for Scale.",
+  "titleB": "Engineered for Trust.",
+  "facilities": {
+    "01": {
+      "title": "3 Print Facilities",
+      "body": "State-of-the-art production units across Navi Mumbai, totalling 2,00,000 sq. ft., built for efficiency, safety and scale.",
+      "caption": "Taloja MIDC, Navi Mumbai",
+      "ph": "PHOTO · PRINT FACILITIES, NAVI MUMBAI"
+    },
+    "02": {
+      "title": "20 Printing Towers, 5 Sheet Fed",
+      "body": "High speed presses supported by 17 folders, 10 binding and stitching lines, 6 automatic thread sewing machines and 2 digital presses, for precision at any scale.",
+      "caption": "30,000 MT Shipped Annually",
+      "ph": "PHOTO · PRESS HALL, PRINTING TOWERS"
+    },
+    "03": {
+      "title": "2 Warehouse & Fulfilment Centres",
+      "body": "Automated collating, kitting and shrink-wrapping, up to 10,000 kits processed every single day.",
+      "caption": "Navi Mumbai · Export-Ready",
+      "ph": "PHOTO · WAREHOUSE & FULFILMENT"
+    }
+  },
+  "video": {
+    "note": "VIDEO · INSIDE OUR FACILITIES",
+    "playAria": "Play facilities walkthrough video",
+    "previewAria": "Preview facilities walkthrough — video coming soon",
+    "dialogAria": "Facilities walkthrough video",
+    "closeAria": "Close video",
+    "comingSoon": "Walkthrough footage coming soon"
+  },
+  "people": {
+    "count": "600+",
+    "title": "Hands Behind Every Shipment.",
+    "body": "Press operators, quality inspectors, kitting teams and logistics specialists, working across shifts, trained to the same standard at every facility.",
+    "captions": {
+      "01": "Press Floor Team",
+      "02": "Quality Check",
+      "03": "Kitting & Packing",
+      "04": "Leadership Team"
+    }
+  }
+}

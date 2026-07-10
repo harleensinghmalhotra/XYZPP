@@ -1,0 +1,17 @@
+{
+  "eyebrow": "Responsabilité environnementale",
+  "title": "Responsables par nos pratiques.",
+  "intro": "Nous sommes avant tout un imprimeur, mais la façon dont nous gérons nos ateliers reflète déjà une grande partie des exigences du développement durable.",
+  "bullets": {
+    "waste": "Ateliers d'impression à production quasi zéro déchet, chutes récupérées et réutilisées dans chacun de nos sites",
+    "fsc": "Approvisionnement en papier certifié FSC intégré à notre politique d'achat, et non un simple supplément",
+    "iso": "Système de management environnemental certifié ISO 14001:2015 dans l'ensemble de nos sites",
+    "disposal": "Élimination responsable des encres, produits chimiques et déchets d'impression, auditée et documentée"
+  },
+  "chips": {
+    "waste": "Objectif zéro déchet en décharge",
+    "fsc": "Certifié FSC",
+    "iso": "ISO 14001:2015"
+  },
+  "cutoutAlt": "Pile de papier recyclé"
+}

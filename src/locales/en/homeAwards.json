@@ -1,0 +1,36 @@
+{
+  "eyebrow": "Recognition",
+  "title": "Awards & Press.",
+  "labels": {
+    "industry": "INDUSTRY AWARD",
+    "press": "PRESS FEATURE",
+    "export": "EXPORT HONOR"
+  },
+  "cards": {
+    "pw24": {
+      "name": "PrintWeek 2024",
+      "body": "Book Education Company of the Year",
+      "ph": "PrintWeek 2024 ceremony photo"
+    },
+    "pw23": {
+      "name": "PrintWeek 2023",
+      "body": "Export Company of the Year",
+      "ph": "PrintWeek 2023 ceremony photo"
+    },
+    "forbes": {
+      "name": "Forbes India",
+      "body": "D.Gems 2024"
+    },
+    "capexil": {
+      "name": "CAPEXIL",
+      "body": "Highest Exporter, 3 Consecutive Years",
+      "ph": "CAPEXIL ceremony photo"
+    }
+  },
+  "forbes": {
+    "masthead": "Forbes India",
+    "date": "DEC 2024",
+    "headline": "The D.Gems List, 2024"
+  },
+  "more": "EXPLORE MORE AWARDS & PRESS →"
+}

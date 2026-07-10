@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
@@ -11,55 +12,44 @@ gsap.registerPlugin(ScrollTrigger)
 // rotating seal, and a flat hairline-card carousel (scroll / drag + arrow buttons).
 
 // Filter pills → which cards they reveal (default: all shown, first pill active).
+// Label text resolved from the homeCerts namespace by key (pills.<key>).
 const PILLS = [
-  { key: 'certifications', label: 'Certifications', tint: 'gold' },
-  { key: 'environment', label: 'Environment', tint: 'olive' },
-  { key: 'social', label: 'Social responsibility', tint: 'navy' },
+  { key: 'certifications', tint: 'gold' },
+  { key: 'environment', tint: 'olive' },
+  { key: 'social', tint: 'navy' },
 ]
 
+// eyebrow / title / body resolved from homeCerts (cards.<key>.*). Proper names,
+// cert titles, codes and logo filenames stay hardcoded; the FSC licence code and
+// the typographic Star Export House mark are non-translatable by compliance/brand.
 const CERTS = [
   {
     key: 'fsc',
     cats: ['environment'],
-    eyebrow: 'Forest Stewardship Council',
-    title: 'FSC Chain of Custody',
     logo: 'fsc.webp',
     // COMPLIANCE LAW: the FSC licence code must render with the FSC mark on every
     // surface it appears — the card cannot ship without it.
     code: 'TUVDC-COC-101258',
-    body: 'FSC Chain of Custody certification tracks certified material through every step of the supply chain. It confirms that the paper we print on is sourced from responsibly managed forests meeting strict environmental and social standards. Each job can be traced from forest to finished book.',
   },
   {
     key: 'iso9001',
     cats: ['certifications'],
-    eyebrow: 'Quality Management',
-    title: 'ISO 9001:2015',
     logo: 'iso.webp',
-    body: 'ISO 9001:2015 is the international standard for quality management systems. It certifies that our processes are documented, monitored and continually improved to meet customer and regulatory requirements. Independent audits renew the certification and hold every facility to the same benchmark.',
   },
   {
     key: 'iso14001',
     cats: ['environment'],
-    eyebrow: 'Environmental Management',
-    title: 'ISO 14001:2015',
     logo: 'iso.webp',
-    body: 'ISO 14001:2015 sets the framework for a certified environmental management system. It requires us to identify, control and continually reduce the environmental impact of our operations — from waste and energy to emissions. Compliance is verified through regular external assessment.',
   },
   {
     key: 'sedex',
     cats: ['social'],
-    eyebrow: 'Ethical Trade Audit',
-    title: 'Sedex Member',
     logo: 'sedex.webp',
-    body: 'Sedex membership underpins our commitment to ethical and responsible sourcing. Through the SMETA audit our labour standards, health and safety, environment and business ethics are independently assessed. Findings are shared transparently with customers on the Sedex platform.',
   },
   {
     key: 'star',
     cats: ['certifications'],
-    eyebrow: 'Govt. of India',
-    title: 'Star Export House',
     typographic: true,
-    body: 'Star Export House is a status awarded by the Government of India’s Directorate General of Foreign Trade to recognised, high-performing exporters. It reflects a sustained record of export excellence and reliability, and it streamlines customs and trade procedures for the shipments we deliver worldwide.',
   },
 ]
 
@@ -73,6 +63,7 @@ function CheckMark() {
 }
 
 export default function Certifications() {
+  const { t } = useTranslation('homeCerts')
   const root = useRef(null)
   const viewport = useRef(null)
   const [reduced] = useState(prefersReduced)
@@ -157,7 +148,7 @@ export default function Certifications() {
       <div className="certs-inner">
         <div className="certs-top">
           {/* filter pills */}
-          <div className="certs-pills" role="group" aria-label="Filter certifications">
+          <div className="certs-pills" role="group" aria-label={t('filterAria')}>
             {PILLS.map((p, i) => {
               const isActive = active === p.key || (active === null && i === 0)
               return (
@@ -169,7 +160,7 @@ export default function Certifications() {
                   aria-pressed={isActive}
                   onClick={() => setActive((prev) => (prev === p.key ? null : p.key))}
                 >
-                  {p.label}
+                  {t(`pills.${p.key}`)}
                 </button>
               )
             })}
@@ -183,7 +174,7 @@ export default function Certifications() {
               </defs>
               <text>
                 <textPath href="#certSealPath" startOffset="0">
-                  TRUST · RESPONSIBILITY · TRUST · RESPONSIBILITY ·&nbsp;
+                  {t('seal')}
                 </textPath>
               </text>
             </svg>
@@ -198,21 +189,19 @@ export default function Certifications() {
 
         {/* headline */}
         <div className="certs-head">
-          <h2 id="certs-title" className="certs-title">Certified for Quality.</h2>
-          <p className="certs-sub">
-            Quality products, environmental consciousness and ethical trade — audited, certified, and renewed.
-          </p>
+          <h2 id="certs-title" className="certs-title">{t('title')}</h2>
+          <p className="certs-sub">{t('sub')}</p>
         </div>
 
         {/* card carousel */}
         <div className="certs-carousel">
-          <div className="certs-viewport" ref={viewport} tabIndex={0} role="group" aria-label="Certifications carousel (scroll or use arrow keys)">
+          <div className="certs-viewport" ref={viewport} tabIndex={0} role="group" aria-label={t('carouselAria')}>
             <div className="certs-track">
               {visible.map((c) => (
                 <article className="cert-card" key={c.key}>
                   <div className="cert-card-eyebrow">
                     <CheckMark />
-                    <span>{c.eyebrow}</span>
+                    <span>{t(`cards.${c.key}.eyebrow`)}</span>
                   </div>
 
                   <div className="cert-card-mark">
@@ -222,13 +211,13 @@ export default function Certifications() {
                         <span className="cert-star-word">STAR EXPORT<br />HOUSE</span>
                       </div>
                     ) : (
-                      <img src={`/qfp/certs/${c.logo}`} alt={`${c.title} logo`} loading="lazy" decoding="async" />
+                      <img src={`/qfp/certs/${c.logo}`} alt={`${t(`cards.${c.key}.title`)} logo`} loading="lazy" decoding="async" />
                     )}
-                    <div className="cert-card-title">{c.title}</div>
-                    {c.code && <div className="cert-card-code">Licence {c.code}</div>}
+                    <div className="cert-card-title">{t(`cards.${c.key}.title`)}</div>
+                    {c.code && <div className="cert-card-code">{t('licence')} {c.code}</div>}
                   </div>
 
-                  <p className="cert-card-body">{c.body}</p>
+                  <p className="cert-card-body">{t(`cards.${c.key}.body`)}</p>
                 </article>
               ))}
             </div>
@@ -236,10 +225,10 @@ export default function Certifications() {
 
           {/* prev / next arrows — grey inactive, navy active */}
           <div className="certs-arrows">
-            <button type="button" className="certs-arrow" onClick={() => nudge(-1)} disabled={!arrows.prev} aria-label="Previous certifications">
+            <button type="button" className="certs-arrow" onClick={() => nudge(-1)} disabled={!arrows.prev} aria-label={t('prevAria')}>
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
             </button>
-            <button type="button" className="certs-arrow" onClick={() => nudge(1)} disabled={!arrows.next} aria-label="Next certifications">
+            <button type="button" className="certs-arrow" onClick={() => nudge(1)} disabled={!arrows.next} aria-label={t('nextAria')}>
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
             </button>
           </div>

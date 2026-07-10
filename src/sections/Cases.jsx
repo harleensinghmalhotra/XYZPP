@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 import './Cases.css'
 
@@ -13,52 +14,37 @@ import './Cases.css'
 // drop the named entity for neutral phrasing when SHOW_MINISTRY_NAMES is off
 // (permission pending). Country names are geographic and always stay, so every
 // card keeps its shape — only the gated name changes.
+// Structural data only — user-facing text resolves via the `homeCases` namespace.
+// `hasHeadingSafe`/`hasDescSafe` mark which cards gate a named entity behind
+// SHOW_MINISTRY_NAMES; `tagKeys` keeps the tag order stable per card.
 const CASES = [
-  {
-    id: '01',
-    heading: 'TANZANIA DELIVERY',
-    tags: ['Tanzania', '10M+ Books'],
-    title: 'A National Curriculum Deadline, Met Early',
-    desc: 'Tanzania Institute of Education needed volume fast. We delivered 4M books within 60 days against a hard national deadline.',
-    descSafe: 'A national curriculum programme needed volume fast. We delivered 4M books within 60 days against a hard national deadline.',
-    img: 'case-01.webp',
-  },
-  {
-    id: '02',
-    heading: 'NIGERIA DELIVERY',
-    tags: ['Nigeria', '8M+ Books'],
-    title: 'Scaling for a Universal Education Mandate',
-    desc: "Books for the Universal Basic Education Commission, produced and shipped at a scale most printers can't sustain.",
-    descSafe: "Books for a national basic-education mandate, produced and shipped at a scale most printers can't sustain.",
-    img: 'case-02.webp',
-  },
-  {
-    id: '03',
-    heading: 'USAID GHANA DELIVERY',
-    headingSafe: 'GHANA DELIVERY',
-    tags: ['Ghana', '2M+ Books'],
-    title: 'Delivering Against a Funded Programme Timeline',
-    desc: 'Books delivered under a USAID funded programme, coordinated end to end from print to last mile delivery.',
-    descSafe: 'Books delivered under a donor-funded education programme, coordinated end to end from print to last mile delivery.',
-    img: 'case-03.webp',
-  },
+  { id: '01', img: 'case-01.webp', tagKeys: ['country', 'books'], hasDescSafe: true },
+  { id: '02', img: 'case-02.webp', tagKeys: ['country', 'books'], hasDescSafe: true },
+  { id: '03', img: 'case-03.webp', tagKeys: ['country', 'books'], hasHeadingSafe: true, hasDescSafe: true },
 ]
 
 export default function Cases() {
+  const { t } = useTranslation('homeCases')
   const [active, setActive] = useState('01')
   const cases = CASES.map((c) => ({
     ...c,
-    heading: SHOW_MINISTRY_NAMES ? c.heading : (c.headingSafe || c.heading),
-    desc: SHOW_MINISTRY_NAMES ? c.desc : (c.descSafe || c.desc),
+    heading: (!SHOW_MINISTRY_NAMES && c.hasHeadingSafe)
+      ? t(`cases.${c.id}.headingSafe`)
+      : t(`cases.${c.id}.heading`),
+    title: t(`cases.${c.id}.title`),
+    tags: c.tagKeys.map((k) => t(`cases.${c.id}.tags.${k}`)),
+    desc: (!SHOW_MINISTRY_NAMES && c.hasDescSafe)
+      ? t(`cases.${c.id}.descSafe`)
+      : t(`cases.${c.id}.desc`),
   }))
 
   return (
     <section id="cases" className="section-cases" data-theme="dark">
       <div className="cases-header" data-theme="light">
         <div className="cases-header-inner">
-          <div className="cases-eyebrow">Proof, Not Promises</div>
-          <h3>Case Studies.</h3>
-          <p>A few projects that show how we actually work, not just what we say.</p>
+          <div className="cases-eyebrow">{t('eyebrow')}</div>
+          <h3>{t('title')}</h3>
+          <p>{t('sub')}</p>
         </div>
       </div>
 
@@ -72,7 +58,7 @@ export default function Cases() {
             <div className="case-content">
               <div className="case-content-canvas">
                 <div className="inner">
-                  <div className="case-heading">Photo · {c.heading}</div>
+                  <div className="case-heading">{t('photo')} · {c.heading}</div>
                   <h4 className="case-title">{c.title}</h4>
                   <div className="tags">
                     {c.tags.map((t) => (
@@ -82,7 +68,7 @@ export default function Cases() {
                   <div className="case-result">
                     <p>{c.desc}</p>
                   </div>
-                  <a href="#" className="case-link desktop">Read the full case study &rarr;</a>
+                  <a href="#" className="case-link desktop">{t('readMore')}</a>
                 </div>
               </div>
             </div>
@@ -96,14 +82,14 @@ export default function Cases() {
 
               <div className="vertical-heading">{c.heading}</div>
               <div className="num">{c.id}</div>
-              <a href="#" className="case-link mobile">Read the full case study &rarr;</a>
+              <a href="#" className="case-link mobile">{t('readMore')}</a>
             </div>
           </div>
         ))}
       </div>
 
       <div className="cases-footer">
-        <button className="view-all-cases">View All Case Studies</button>
+        <button className="view-all-cases">{t('viewAll')}</button>
       </div>
     </section>
   )

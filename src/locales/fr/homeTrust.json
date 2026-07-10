@@ -1,0 +1,66 @@
+{
+  "sectionHeading": "Portée mondiale, partenaires institutionnels et historique de livraison",
+  "countriesHeading": "Pays desservis",
+  "institutionsHeading": "Institutions et programmes desservis",
+  "countries": {
+    "india": "Inde",
+    "nigeria": "Nigéria",
+    "ghana": "Ghana",
+    "kenya": "Kenya",
+    "uganda": "Ouganda",
+    "tanzania": "Tanzanie",
+    "zambia": "Zambie",
+    "cotedivoire": "Côte d'Ivoire",
+    "cameroon": "Cameroun",
+    "congo": "Congo (RDC)",
+    "senegal": "Sénégal",
+    "benin": "Bénin",
+    "ethiopia": "Éthiopie",
+    "rwanda": "Rwanda",
+    "mozambique": "Mozambique",
+    "madagascar": "Madagascar",
+    "mauritius": "Maurice",
+    "southafrica": "Afrique du Sud",
+    "gabon": "Gabon",
+    "mexico": "Mexique",
+    "usa": "États-Unis",
+    "puertorico": "Porto Rico",
+    "germany": "Allemagne",
+    "unitedkingdom": "Royaume-Uni",
+    "spain": "Espagne",
+    "uae": "Émirats arabes unis"
+  },
+  "institutions": {
+    "0": "Projets financés par la Banque mondiale",
+    "1": "Programmes USAID",
+    "2": "Programmes d'aide de l'ONU",
+    "3": "Appels d'offres publics",
+    "4": "Tanzania Institute of Education",
+    "5": "Maharashtra State Bureau",
+    "6": "HDFC Bank Ltd",
+    "7": "ZEE Learn / Kidzee",
+    "8": "Reliance Industries",
+    "9": "Projets financés par la Banque mondiale",
+    "10": "Programmes USAID",
+    "11": "Appels d'offres publics"
+  },
+  "stats": {
+    "books": {
+      "label": "Livres livrés depuis nos débuts",
+      "sr": "400 M+ de livres livrés depuis nos débuts"
+    },
+    "countries": {
+      "label": "Pays sur 4 continents",
+      "sr": "25+ pays sur 4 continents"
+    },
+    "containers": {
+      "label": "Conteneurs expédiés en 2024-25",
+      "sr": "1000+ conteneurs expédiés en 2024-25"
+    },
+    "ontime": {
+      "accent": "à temps",
+      "label": "de livraisons, chaque année",
+      "sr": "98 % de livraisons à temps, chaque année"
+    }
+  }
+}

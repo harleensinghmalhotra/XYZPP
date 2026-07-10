@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useTranslation, Trans } from 'react-i18next'
 import createGlobe from 'cobe'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -46,60 +47,37 @@ const PULSES = [
   { left: '62%', top: '46%', d: 1.6 }, // Gulf
 ]
 
+// Region cards — text resolved from the homeProjects namespace by key/slug; the
+// body carries an embedded <strong> country list rendered via <Trans>.
 const REGIONS = [
-  {
-    slug: 'africa',
-    tag: 'Africa',
-    name: 'Africa',
-    body: (
-      <>Our largest export market. We partner with Ministries of Education across{' '}
-        <strong>Nigeria, Kenya, Uganda, Ghana, Cameroon, Rwanda, Tanzania, Zambia, Côte d'Ivoire, DR Congo and more</strong>{' '}
-        to deliver World Bank, USAID and UN funded education projects.</>
-    ),
-  },
-  {
-    slug: 'asia',
-    tag: 'Asia',
-    name: 'Asia',
-    body: (
-      <>End-to-end solutions, print, kit, pack and deliver direct to schools, eliminating operational
-        challenges for publishers and institutions across <strong>India, UAE</strong>, and expanding further.</>
-    ),
-  },
-  {
-    slug: 'europe',
-    tag: 'Americas & Europe',
-    name: 'USA, Europe & Latin America',
-    body: (
-      <>Activity books, trade books, colouring books and stationery supplied to leading publishers and
-        major retail chains across <strong>USA, UK, Mexico, Spain and Germany</strong>.</>
-    ),
-  },
+  { slug: 'africa' },
+  { slug: 'asia' },
+  { slug: 'europe' },
 ]
 
 // The editorial ledger — one hero stat (loud) + seven quiet rows (understated).
 // The hero story names a government body; when SHOW_MINISTRY_NAMES is off it
 // falls back to a neutral national-programme phrasing (same layout, no hole).
+// hero numbers stay numeric; the story text (with its embedded <strong>) is
+// resolved from the namespace — the ministry gate picks the key, both variants
+// are translated (ledger.heroStory / ledger.heroStoryFallback).
 const HERO = {
   value: '10',
   suffix: 'M+',
-  story: SHOW_MINISTRY_NAMES ? (
-    <>Books for the <strong>Tanzania Institute of Education</strong> — 4M of them delivered within 60 days.</>
-  ) : (
-    <>Books for a <strong>national education programme</strong> — 4M of them delivered within 60 days.</>
-  ),
+  storyKey: SHOW_MINISTRY_NAMES ? 'ledger.heroStory' : 'ledger.heroStoryFallback',
 }
 // `ministry: true` rows carry government / ministry / programme names gated behind
 // SHOW_MINISTRY_NAMES; `restricted: true` rows carry commercial client names gated
 // behind SHOW_RESTRICTED_CLIENTS. Either gate filters its rows out cleanly.
+// `key` → stable i18n key (name/desc); `unitKey` → unit label key. Numbers numeric.
 const LEDGER = [
-  { name: 'Nigeria', num: '8', unit: 'Books', desc: 'Universal Basic Education Commission', ministry: true },
-  { name: "Côte d'Ivoire", num: '4', unit: 'Books', desc: 'Ministry of National Education & Literacy', ministry: true },
-  { name: 'DR Congo', num: '3.5', unit: 'Books', desc: 'République Démocratique du Congo', ministry: true },
-  { name: 'USAID Ghana', num: '2', unit: 'Books', desc: 'USAID funded programme', ministry: true },
-  { name: 'Maharashtra', num: '1.5', unit: 'Books', desc: 'State Bureau of Textbook Production', ministry: true },
-  { name: 'HDFC Bank', num: '1.3', unit: 'Books', desc: "India's leading private bank", restricted: true },
-  { name: 'ZEE Learn', num: '0.5', unit: 'Learning Kits', desc: 'Learning kits for Kidzee', restricted: true },
+  { key: 'nigeria', num: '8', unitKey: 'books', ministry: true },
+  { key: 'cotedivoire', num: '4', unitKey: 'books', ministry: true },
+  { key: 'drcongo', num: '3.5', unitKey: 'books', ministry: true },
+  { key: 'usaidghana', num: '2', unitKey: 'books', ministry: true },
+  { key: 'maharashtra', num: '1.5', unitKey: 'books', ministry: true },
+  { key: 'hdfc', num: '1.3', unitKey: 'books', restricted: true },
+  { key: 'zee', num: '0.5', unitKey: 'kits', restricted: true },
 ]
 
 // two stacked 0–9 sets → the reel does one full loop then locks on the target,
@@ -107,11 +85,9 @@ const LEDGER = [
 // survives font-size changes from the clamp()/vw number sizing.
 const REEL_CELLS = Array.from({ length: 20 }, (_, i) => i % 10)
 
-const TITLE_A = 'Printed in India.'
-const TITLE_B = 'Read by the World.'
 const words = (s) => s.split(' ')
 
-function RegionCard({ name, body, slug }) {
+function RegionCard({ slug, t }) {
   return (
     <article className="proj-region">
       <div className="proj-region-media">
@@ -126,8 +102,10 @@ function RegionCard({ name, body, slug }) {
       <div className="proj-region-overlay" aria-hidden="true" />
       <div className="proj-region-scrim" aria-hidden="true" />
       <div className="proj-region-content">
-        <h3 className="proj-region-name">{name}</h3>
-        <p className="proj-region-text">{body}</p>
+        <h3 className="proj-region-name">{t(`regions.${slug}.name`)}</h3>
+        <p className="proj-region-text">
+          <Trans t={t} i18nKey={`regions.${slug}.body`} components={{ strong: <strong /> }} />
+        </p>
       </div>
     </article>
   )
@@ -214,6 +192,7 @@ function Odometer({ value, suffix = 'M+', reduced }) {
 }
 
 export default function Projects() {
+  const { t } = useTranslation('homeProjects')
   const root = useRef(null)
   const ledger = useRef(null)
   const [reduced] = useState(prefersReduced)
@@ -284,48 +263,46 @@ export default function Projects() {
       <div className="proj-inner">
         <div className="proj-top">
           <div className="proj-head">
-            <p className="proj-eyebrow proj-eyebrow-script">Global Reach</p>
+            <p className="proj-eyebrow proj-eyebrow-script">{t('eyebrow')}</p>
             <h2 id="proj-title" className="proj-title">
               <span className="proj-line">
-                {words(TITLE_A).map((w, i) => <span key={`a${i}`} className="pw pw-light">{w}</span>)}
+                {words(t('titleA')).map((w, i) => <span key={`a${i}`} className="pw pw-light">{w}</span>)}
               </span>
               <span className="proj-line proj-line-gold">
-                {words(TITLE_B).map((w, i) => <span key={`b${i}`} className="pw pw-bold">{w}</span>)}
+                {words(t('titleB')).map((w, i) => <span key={`b${i}`} className="pw pw-bold">{w}</span>)}
               </span>
             </h2>
-            <p className="proj-sub">
-              Governments, publishers and development organisations across 25+ countries trust us to get the
-              job done, on spec, on schedule, every time. That's not a coincidence, it's the standard we hold
-              ourselves to.
-            </p>
+            <p className="proj-sub">{t('sub')}</p>
           </div>
           <Globe reduced={reduced} />
         </div>
 
         <div className="proj-regions">
-          {REGIONS.map((r) => <RegionCard key={r.name} {...r} />)}
+          {REGIONS.map((r) => <RegionCard key={r.slug} slug={r.slug} t={t} />)}
         </div>
 
         <div className="proj-ledger" ref={ledger}>
           <span className="proj-ledger-flash" aria-hidden="true" />
 
           <div className="ledger-hero">
-            <p className="ledger-hero-label">Milestone Projects</p>
+            <p className="ledger-hero-label">{t('ledger.heroLabel')}</p>
             <div className="ledger-hero-num">
               <Odometer value={HERO.value} suffix={HERO.suffix} reduced={reduced} />
             </div>
-            <p className="ledger-hero-story">{HERO.story}</p>
+            <p className="ledger-hero-story">
+              <Trans t={t} i18nKey={HERO.storyKey} components={{ strong: <strong /> }} />
+            </p>
           </div>
 
           <div className="proj-ledger-rows">
             {rows.map((r) => (
-              <div className="ledger-row" key={r.name}>
-                <span className="ledger-name">{r.name}</span>
+              <div className="ledger-row" key={r.key}>
+                <span className="ledger-name">{t(`ledger.rows.${r.key}.name`)}</span>
                 <span className="ledger-num">
                   <Odometer value={r.num} suffix="M+" reduced={reduced} />
-                  <span className="ledger-unit">{r.unit}</span>
+                  <span className="ledger-unit">{t(`ledger.units.${r.unitKey}`)}</span>
                 </span>
-                <span className="ledger-desc">{r.desc}</span>
+                <span className="ledger-desc">{t(`ledger.rows.${r.key}.desc`)}</span>
               </div>
             ))}
           </div>
