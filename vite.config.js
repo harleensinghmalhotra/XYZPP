@@ -11,7 +11,13 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@assets': fileURLToPath(new URL('./assets', import.meta.url)),
     },
+    // react-i18next resolves React through its own path; dedupe so the app and the
+    // library share a single React instance (otherwise "Invalid hook call").
+    dedupe: ['react', 'react-dom'],
   },
   server: { host: true, port: 5173 },
+  // Pre-bundle the i18n libs so Vite externalizes React from them (avoids the
+  // duplicate-React "Invalid hook call" under pnpm's linked node_modules).
+  optimizeDeps: { include: ['react-i18next', 'i18next'] },
   assetsInclude: ['**/*.mp4'],
 })
