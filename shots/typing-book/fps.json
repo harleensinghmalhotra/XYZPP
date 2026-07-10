@@ -4,8 +4,8 @@
     "height": 743
   },
   "dpr": 1.25,
-  "frames": 394,
-  "medianFps": 151.5,
-  "worstFrameMs": 16.5,
+  "frames": 459,
+  "medianFps": 149.3,
+  "worstFrameMs": 10.1,
   "medianAbove55": true
 }

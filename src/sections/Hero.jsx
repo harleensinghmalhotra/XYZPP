@@ -23,41 +23,24 @@ const BOOK_LETTERED = '/qfp/hero/qfp-book-pages.webp' // retired pre-lettered ar
 const BUBBLE = '/qfp/hero/qfp-bubble.webp'
 const GOLD = '#C89A3C' // System B on-navy accent gold (matches ledger-num, 5.3:1 on navy)
 
-// Bloom figures. w / cx / cy are in **vw** (offsets from the book centre) so the
-// whole spread scales with the book at any viewport. Layout matches Ekta's
-// mockup (qfp-homepage-v17.html): the 4 kids render BEHIND the book (layer:'back')
-// so the pages crop them — the two centre kids peek head+shoulders+chest over the
-// page tops (page-top edge ≈ -20.3vw / -19.1vw from book centre), the two outer
-// kids stand at ground level and are cropped by the book's side edges (≈ ±42vw).
-// Props sit in FRONT of the book (layer:'front'). Same scatter-to-place scrub:
-// each starts scaled to 0 at its final (cx,cy) and grows in over the bloom window.
-// Bloom figures. w / cx / cy are in **vw** (offsets from the book centre). The
-// book keeps its ORIGINAL full-width size and rise — only these assets move to
-// fit around it. The 4 kids render BEHIND the book (layer:'back') so the pages
-// crop them: the two centre kids peek head+shoulders+chest over the page tops
-// (page-top edge ≈ -20.3vw / -19.1vw from book centre), the two outer kids stand
-// at ground level and are cropped by the book's side edges (≈ ±43vw). Props sit
-// in FRONT (layer:'front'). Same scatter-to-place scrub: each starts scaled to 0
-// at its final (cx,cy) and grows in over the bloom window.
+// Kids. w / cx / cy are in **vw** (offsets from the book centre) so the whole
+// spread scales with the book at any viewport. All 4 kids render BEHIND the book
+// (layer:'back') so the pages crop them — the two centre kids peek
+// head+shoulders+chest over the page tops (page-top edge ≈ -20.3vw / -19.1vw from
+// book centre), the two outer kids stand at ground level and are cropped by the
+// book's side edges (≈ ±42vw). Each starts scaled to 0 at its final (cx,cy) and
+// grows in over the bloom window.
+//
+// PHASE 3.4 R2 — ALL bloom props over the book (globe / owl / balloon / bulb /
+// blocks / pencil / plane / bookstack) are REMOVED: the book spread + its typed
+// copy IS the hero moment, nothing sits on top of the pages. Their assets stay in
+// the repo; only these render entries + choreography are retired.
 const CUTOUTS = [
   // BACK layer — behind the book, cropped by the pages / side edges
   { key: 'boy-red',      src: '/qfp/hero/qfp-kid-boy-red.webp',       layer: 'back', w: 11.5, cx: -21.3, cy: -16.5, z: 2 }, // behind LEFT page, head+shoulders+chest over the top edge
   { key: 'girl-blonde',  src: '/qfp/hero/qfp-kid-girl-blonde.webp',   layer: 'back', w: 15.5, cx: 20.3,  cy: -15.5, z: 2 }, // behind RIGHT page, upper body over the top edge
   { key: 'girl-mustard', src: '/qfp/hero/qfp-kid-girl-mustard.webp',  layer: 'back', w: 15.0, cx: -42.0, cy: -6.0,  z: 1 }, // far LEFT ground, cropped by the book's left edge
   { key: 'boy-green',    src: '/qfp/hero/qfp-kid-boy-green.webp',      layer: 'back', w: 10.5, cx: 41.0,  cy: -6.0,  z: 1 }, // far RIGHT ground, cropped by the book's right edge
-  // FRONT layer — the "bouquet": props sit ON the open pages, clustered around the
-  // spine, and bloom from the centre (drift:true → grow from ~0.15 scale near the
-  // spine and drift out to these final spots). All stay below y≈360px at landed so
-  // they never reach the kids' faces / bubbles (which live in the upper band).
-  // Order sets the pop sequence; bigger central pieces carry higher z (in front).
-  { key: 'prop-balloon', src: '/qfp/hero/prop-balloon.webp',          layer: 'front', drift: true, w: 10.0, cx: 0.0,   cy: -9.0,  z: 6 }, // big, rises from the spine
-  { key: 'prop-globe',   src: '/qfp/hero/prop-globe.webp',            layer: 'front', drift: true, w: 16.5, cx: -9.0,  cy: -3.0,  z: 5 }, // big, centre-left over the left page
-  { key: 'prop-owl',     src: '/qfp/hero/prop-owl.webp',              layer: 'front', drift: true, w: 14.0, cx: 9.0,   cy: -3.0,  z: 4 }, // big, centre-right over the right page
-  { key: 'prop-bulb',    src: '/qfp/hero/prop-bulb.webp',             layer: 'front', drift: true, w: 7.0,  cx: 14.0,  cy: -12.0, z: 3 }, // medium, upper right page
-  { key: 'prop-blocks',  src: '/qfp/hero/prop-blocks.webp',           layer: 'front', drift: true, w: 6.5,  cx: -17.0, cy: -4.0,  z: 3 }, // medium, left flank (spreads onto left page)
-  { key: 'prop-pencil',  src: '/qfp/hero/prop-pencil.webp',           layer: 'front', drift: true, w: 7.5,  cx: 18.0,  cy: 2.0,   z: 2 }, // medium, right-lower flank
-  { key: 'prop-plane',   src: '/qfp/hero/qfp-prop-plane.webp',        layer: 'front', drift: true, w: 6.0,  cx: -12.0, cy: -15.0, z: 2 }, // repositioned INSIDE the spread, upper-left page
-  { key: 'prop-bookstack', src: '/qfp/hero/qfp-prop-bookstack.webp', layer: 'front', w: 12.5, cx: -33.0, cy: 3.0,   z: 5 }, // grounded accent, book's lower-left (stays — scale in place)
 ]
 
 // 4 speech bubbles — one floating CLEARLY above each kid's head (front layer),
@@ -173,23 +156,15 @@ export default function Hero() {
           onUpdate: (self) => typing.current && typing.current.setProgress(self.progress),
         },
       })
-      // The page collage is typed on live by <TypingBookOverlay> (driven above) —
-      // no cover crossfade any more; the blank base stays put and the words type.
-      // Characters grow gradually and TOGETHER over the whole window (tiny stagger,
-      // gentle sine ease, no pop) — small at mid, full only near pin release.
+      // The page copy is typed on live by <TypingBookOverlay> (driven above) — no
+      // cover crossfade; the blank base stays put and Ekta's copy types. The 4
+      // kids grow in gradually over the same window (tiny stagger, gentle sine
+      // ease, no pop) — small at mid, full only near pin release.
       cutouts.forEach((c, i) => {
         const node = elRefs.current[i]
         if (!node) return
         const at = 0.02 + i * 0.014
-        if (c.drift) {
-          // bouquet: start small near the spine centre, grow + drift out to final.
-          const vw = window.innerWidth / 100
-          const dx = -c.cx * vw * 0.72
-          const dy = -c.cy * vw * 0.72
-          bloomTl.fromTo(node, { opacity: 0, scale: 0.15, x: dx, y: dy }, { opacity: 1, scale: 1, x: 0, y: 0, ease: 'sine.inOut', duration: 0.82 }, at)
-        } else {
-          bloomTl.fromTo(node, { opacity: 0, scale: 0.1 }, { opacity: 1, scale: 1, ease: 'sine.inOut', duration: 0.82 }, at)
-        }
+        bloomTl.fromTo(node, { opacity: 0, scale: 0.1 }, { opacity: 1, scale: 1, ease: 'sine.inOut', duration: 0.82 }, at)
       })
       // Speech bubbles pop in WITH their kid (same window, slight delay after the
       // kid lands), scaling from 0.85 + fade like a sticker.
@@ -243,12 +218,12 @@ export default function Hero() {
           the pin box instead of being cut flat at pin release. */}
       <div ref={pin} className="sticky top-0 h-[100svh] overflow-x-clip">
         {/* HERO AURORA — signature background, at the very BACK of the pin stack
-            (z-0, behind the riseWrap book/bloom at z-15 and the headline at
-            z-30). CSS-only ambient drift, scroll-independent; radial-masked so
+            (z-0, behind the headline at z-[5] and the riseWrap book/kids at
+            z-15). CSS-only ambient drift, scroll-independent; radial-masked so
             the headline zone stays calm and the wash fades before the hero's
             bottom edge (never bleeds into the TrustStrips). The giant headline
-            ghost (scaling to 3× at 0.07 opacity) reads over it — that's the
-            premium moment where the letters catch the light. */}
+            ghost (scaling to 3× at 0.07 opacity) reads over the aurora but now
+            passes BEHIND the rising book. */}
         <div className="hero-aurora" aria-hidden="true">
           <div className="hero-aurora__ribbons" />
           <div className="hero-aurora__veil" />
@@ -335,8 +310,11 @@ export default function Hero() {
 
         {/* Centered content block (title / subcopy / CTA). pt-[23vh] gives a clear
             gap between the nav and the headline (Alternativ's air) now that the
-            headline is TWO lines instead of three. */}
-        <div ref={textWrap} className="absolute inset-x-0 top-0 z-30 flex flex-col items-center px-4 pt-[23vh] font-metrisch">
+            headline is TWO lines instead of three.
+            Z-ORDER (Phase 3.4 R2): z-[5] sits BELOW the riseWrap book/kids stack
+            (z-15), so as the book rises it passes IN FRONT of the headline —
+            exactly like Alternativ. The headline never renders over the pages. */}
+        <div ref={textWrap} className="absolute inset-x-0 top-0 z-[5] flex flex-col items-center px-4 pt-[23vh] font-metrisch">
           <div ref={titleGhost} className="flex flex-col items-center leading-[0.84] will-change-transform">
             {/* Line 1 — POWERING GLOBAL (cream). The two original words are joined
                 into one line so the headline reads as Alternativ's two-line

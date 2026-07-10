@@ -20,9 +20,11 @@
       "green": "Waouh ! Cela veut dire que ces livres ont été lus par des <1>milliards</1> de personnes !"
     },
     "bookSound": "Son",
-    "bookWords": {
-      "left": ["Vision", "Création", "Imaginer", "Idée", "Bâtir", "Impact", "Inspirer", "Réussir", "Réseau", "Équipe", "Collaboration"],
-      "right": ["Moments", "Explorer", "Apprendre", "Grandir", "Curiosité", "Voyage", "Réflexion", "Parcours", "Lien", "Émerveiller", "Progrès"]
+    "book": {
+      "left": ["Propulser", "l'éducation", "mondiale par", "l'impression", "d'excellence"],
+      "rightHead": ["L'impression est", "plus forte que jamais."],
+      "rightMid": ["Nous aimons les livres.", "Nous aimons imprimer."],
+      "rightPara": ["Et nous sommes là pour", "aider les éditeurs du", "monde entier à imprimer,", "relier, conditionner et", "livrer des livres", "d'exception, dans les", "délais, à chaque fois."]
     }
   },
   "promise": {

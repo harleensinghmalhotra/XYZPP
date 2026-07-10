@@ -95,6 +95,28 @@ const consoleErrors = []
     console.log('✓ closeup.png')
   }
 
+  // Z-ORDER — capture frames through the book RISE (main pin), where the book
+  // passes over the headline. At no frame may a headline glyph render over the
+  // book/pages. Also measure: does any headline pixel sit in front of the book?
+  // stops where the risen book overlaps the giant title ghost (3× scale) — the
+  // clearest proof the headline paints BEHIND the book / pages
+  const zStops = [960, 1040, 1094, 1160]
+  for (let i = 0; i < zStops.length; i++) {
+    await scrollTo(page, zStops[i])
+    await page.waitForTimeout(320)
+    await page.screenshot({ path: resolve(out, `zorder-${i}.png`) })
+  }
+  // Programmatic z-order check: the book image must paint ABOVE the headline.
+  // Sample the DOM stacking — headline wrapper z vs riseWrap z (computed).
+  const zInfo = await page.evaluate(() => {
+    const headline = document.querySelector('#hero [class*="pt-\\[23vh\\]"]') || document.querySelectorAll('#hero .absolute')[0]
+    const rise = document.querySelector('#hero .z-\\[15\\]')
+    const zi = (el) => el ? Number(getComputedStyle(el).zIndex) || 0 : null
+    return { headlineZ: zi(headline), riseZ: zi(rise), bookAboveHeadline: (zi(rise) ?? -1) > (zi(headline) ?? 999) }
+  })
+  await writeFile(resolve(out, 'zorder.json'), JSON.stringify(zInfo, null, 2))
+  console.log('✓ zorder-0..3.png  bookAboveHeadline=', zInfo.bookAboveHeadline, zInfo)
+
   // SCRUB PURITY — reach p=0.5 two ways, settle fully (scrub 0.3 catch-up), then
   // pixel-diff the BOOK CROP (where the text lives) to prove same progress = same
   // glyphs regardless of scroll speed.
@@ -195,4 +217,23 @@ await writeFile(resolve(out, 'console.json'), JSON.stringify({ errors: consoleEr
 console.log(consoleErrors.length ? `! console errors: ${consoleErrors.length}` : '✓ zero console errors')
 
 await browser.close()
+
+// ── Side-by-side: our full-typing frame vs Ekta's vibe-coded mockup ──
+try {
+  const ref = resolve(root, 'recon', 'ekta-assets', 'powering-global-education-through-print-.webp')
+  const H = 620
+  const ours = await sharp(resolve(out, 'type-05.png')).resize({ height: H }).toBuffer()
+  const theirs = await sharp(ref).resize({ height: H }).toBuffer()
+  const om = await sharp(ours).metadata()
+  const tm = await sharp(theirs).metadata()
+  const gap = 24
+  await sharp({ create: { width: om.width + tm.width + gap, height: H, channels: 3, background: '#0c2f4a' } })
+    .composite([{ input: ours, left: 0, top: 0 }, { input: theirs, left: om.width + gap, top: 0 }])
+    .png()
+    .toFile(resolve(out, 'compare-ekta.png'))
+  console.log('✓ compare-ekta.png (ours | Ekta mockup)')
+} catch (e) {
+  console.log('! compare-ekta skipped:', e.message)
+}
+
 console.log('\nAll typing-book artefacts →', out)
