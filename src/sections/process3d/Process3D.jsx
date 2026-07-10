@@ -55,7 +55,7 @@ export default function Process3D() {
         frameloop={visible ? 'always' : 'never'}
         dpr={[1, 1.5]}
         gl={{ antialias: true, powerPreference: 'high-performance' }}
-        camera={{ position: [0, 5.4, 13], fov: 34 }}
+        camera={{ position: [-8, 3.25, 8.4], fov: 38 }}
       >
         <Suspense fallback={null}>
           {reduced ? (
@@ -63,7 +63,7 @@ export default function Process3D() {
               <Scene frozen />
             </ScrollControls>
           ) : (
-            <ScrollControls pages={4} damping={0.18}>
+            <ScrollControls pages={5} damping={0.2}>
               <Scene />
             </ScrollControls>
           )}

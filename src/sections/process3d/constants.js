@@ -37,3 +37,30 @@ export const stationX = (i) => BELT.x0 + ((BELT.x1 - BELT.x0) * i) / (N - 1)
 
 export const BEAM_TOP = 3.15 // y of the station cross-beam
 export const LABEL_Y = 3.95 // y of the floating label plate
+
+// ── Round-2 choreography maths ────────────────────────────────────────────
+// Everything downstream is driven by ONE continuous value: `activeF` = scroll
+// progress mapped to [0 .. N-1] (station index space). The book TRANSFORMS as it
+// travels the segment approaching each station, completing just before arrival —
+// so the transform reads as the station "doing the work" to the passing book.
+
+// Hermite smoothstep — the workhorse ease for every scrubbed transform.
+export const smooth = (a, b, x) => {
+  const t = Math.min(1, Math.max(0, (x - a) / (b - a)))
+  return t * t * (3 - 2 * t)
+}
+// Symmetric bell centred at `c`, ~zero beyond ±w. For arrival pulses / sweeps.
+export const bell = (x, c, w) => {
+  const d = Math.min(1, Math.abs(x - c) / w)
+  return (1 - d) * (1 - d) * (3 - 2 * (1 - d)) // smoothstep of (1-d)
+}
+export const lerp = (a, b, t) => a + (b - a) * t
+
+// Transform k (1..N-1) runs over the last ~55% of the segment before station k,
+// finishing ~5% shy of arrival. smooth() saturates, so it stays 1 afterwards.
+export const transform = (k, activeF) => smooth(k - 1 + 0.42, k - 0.05, activeF)
+
+// Camera rest pose — a medium-close 3/4 tracking rig. `side` offsets the camera
+// off the belt axis so the near station pillar never bisects the book; the book
+// rides left-of-centre while gate + rising label frame it. Dolly eases around this.
+export const CAM = { y: 3.25, z: 8.4, side: 3.0, lookY: 1.75, drift: 0.3, ease: 0.075 }
