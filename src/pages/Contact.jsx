@@ -19,6 +19,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ── Canonical contact data (recon/qfp-live-pages/footer-contact.md) ──
 const PHONE_DISPLAY = '(+91) 829 199 9922'
+const PHONE_FOIL = '+91 829 199 9922'      // hero foil anchor (unparenthesised)
 const PHONE_TEL = '+918291999922'          // tel: / wa.me digits
 const EMAIL_INFO = 'info@quarterfoldltd.com'
 const EMAIL_ENQ = 'enquiry@quarterfoldltd.com'
@@ -248,19 +249,32 @@ export default function Contact() {
 
   return (
     <main id="main" ref={root}>
-      {/* ── 1. HERO (navy, compact) ── */}
+      {/* ── 1. HERO (navy) — anatomy mirrored from /infrastructure ── */}
       <section data-theme="dark" className="ctc-hero relative overflow-hidden" aria-labelledby="ctc-h1">
-        <WavyBackground className="pointer-events-none absolute inset-0 h-full w-full" />
-        <div className="ctc-hero-inner relative z-10">
-          <nav className="ctc-crumb" aria-label={t('breadcrumb.label')}>
-            <Link to="/">{t('breadcrumb.home')}</Link>
-            <span aria-hidden="true">»</span>
-            <span aria-current="page">{t('breadcrumb.contact')}</span>
-          </nav>
-          <h1 id="ctc-h1" data-textreveal className="ctc-h1">{t('hero.title')}</h1>
-          <p className="ctc-hero-line" data-reveal>
-            {t('hero.line')}
-          </p>
+        <WavyBackground className="ctc-hero-waves" />
+        <div className="ctc-hero-beam" aria-hidden="true" />
+        <div className="ctc-hero-inner ctc-hero-grid relative z-10">
+          <div className="ctc-hero-copy">
+            <nav className="ctc-crumb" aria-label={t('breadcrumb.label')}>
+              <Link to="/">{t('breadcrumb.home')}</Link>
+              <span aria-hidden="true">»</span>
+              <span aria-current="page">{t('breadcrumb.contact')}</span>
+            </nav>
+            <p className="ctc-hero-eyebrow">{t('hero.eyebrow')}</p>
+            <h1 id="ctc-h1" data-textreveal className="ctc-h1">
+              <Trans t={t} i18nKey="hero.title" components={{ strong: <span className="ctc-h1-accent" /> }} />
+            </h1>
+            <p className="ctc-hero-line" data-reveal>
+              {t('hero.line')}
+            </p>
+          </div>
+
+          {/* right-side foil anchor — phone number LARGE, echoing infra's flagship stat */}
+          <div className="ctc-hero-stat" aria-label={t('hero.callAriaLabel')}>
+            <a className="ctc-hero-foil" href={`tel:${PHONE_TEL}`}>{PHONE_FOIL}</a>
+            <span className="ctc-hero-stat-label">{t('hero.callLabel')}</span>
+            <span className="ctc-hero-stat-foot">{t('hero.callFoot')}</span>
+          </div>
         </div>
       </section>
 

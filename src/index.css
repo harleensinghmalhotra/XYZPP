@@ -2641,166 +2641,87 @@ body {
    · beige #F0EBE0 · ink #1C2019. Inter Tight / Inter / DM Mono.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── 1. HERO — floating stickers orbit a giant statement H1 ───────────────── */
+/* ── 1. HERO — /infrastructure anatomy: navy, wave atmosphere, mixed cream/gold
+   H1, dual CTA, single giant foil stat. Two stickers ride as living accents. ── */
 .edu-hero {
   position: relative;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
-  padding: 128px 24px 96px;
-  background:
-    radial-gradient(1200px 780px at 78% 16%, rgba(200, 154, 60, 0.08), transparent 60%),
-    radial-gradient(1000px 720px at 14% 92%, rgba(15, 36, 68, 0.05), transparent 62%),
-    #fdfaf4;
+  background: #0f2444;
+  color: #fdfaf4;
+  padding: clamp(140px, 20vh, 200px) 24px clamp(88px, 13vh, 140px);
 }
-.edu-hero-labels { position: absolute; inset: 0; pointer-events: none; }
-.edu-corner {
-  position: absolute;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #836013;
+/* wave canvas + edge beams sit behind the content */
+.edu-hero-waves { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; pointer-events: none; opacity: 0.9; }
+.edu-hero-beam {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(200, 154, 60, 0.14) 0%, transparent 55%),
+    radial-gradient(90% 80% at 0% 100%, rgba(27, 58, 107, 0.55) 0%, transparent 60%);
+}
+.edu-hero-inner { max-width: 1200px; margin: 0 auto; }
+.edu-hero-grid {
+  display: grid; grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(36px, 5vw, 72px); align-items: center;
+}
+.edu-hero-eyebrow {
+  margin: 0 0 18px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
+  letter-spacing: 0.25em; text-transform: uppercase; color: #c89a3c;
 }
 .edu-h1 {
-  position: relative;
-  z-index: 5;
-  max-width: 15ch;
-  margin: 0 auto;
-  text-align: center;
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;
-  font-size: clamp(38px, 6.4vw, 96px);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
-  color: #0f2444;
+  margin: 0; max-width: 16ch;
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(40px, 6vw, 74px); line-height: 1.02; letter-spacing: -0.02em; color: #fdfaf4;
 }
-.edu-h1 .edu-link {
-  color: #836013;
-  text-decoration: underline;
-  text-decoration-thickness: max(2px, 0.06em);
-  text-underline-offset: 0.1em;
-  text-decoration-color: rgba(155, 116, 32, 0.42);
-  transition: text-decoration-color 0.28s ease, color 0.28s ease;
-  white-space: nowrap;
-}
-.edu-h1 .edu-link:hover { text-decoration-color: #9b7420; color: #6f5210; }
+.edu-h1-accent { color: #c89a3c; }
 .edu-hero-sub {
-  position: relative;
-  z-index: 5;
-  margin: 34px auto 0;
-  max-width: 46ch;
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 17px;
-  line-height: 1.55;
-  color: #4a4436;
+  margin: clamp(20px, 3vh, 30px) 0 clamp(30px, 4vh, 40px); max-width: 52ch;
+  font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.7; color: rgba(253, 250, 244, 0.82);
+}
+.edu-hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; }
+
+/* hero buttons — mirror /infrastructure (.inf-btn) */
+.edu-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 46px; padding: 0 24px; border-radius: 999px;
+  font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.1px;
+  text-decoration: none; cursor: pointer; border: 0;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.edu-btn--gold { background: #c89a3c; color: #0f2444; }
+.edu-btn--gold:hover { background: #e6bd6a; transform: translateY(-2px); }
+.edu-btn--ghost { color: #fdfaf4; border: 1px solid rgba(253, 250, 244, 0.35); background: transparent; }
+.edu-btn--ghost:hover { border-color: #c89a3c; color: #f0cd82; }
+.edu-btn:focus-visible { outline: 2px solid #c89a3c; outline-offset: 3px; }
+
+/* giant foil stat — the page's single foil moment */
+.edu-hero-stat { display: flex; flex-direction: column; align-items: flex-start; }
+.edu-hero-foil {
+  font-family: 'Inter Tight', sans-serif; font-weight: 800;
+  font-size: clamp(72px, 11vw, 150px); line-height: 0.9; letter-spacing: -0.04em;
+  background: linear-gradient(180deg, #fdfaf4 0%, #f0cd82 58%, #c89a3c 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 26px rgba(200, 154, 60, 0.28)) drop-shadow(0 0 64px rgba(200, 154, 60, 0.14));
+}
+.edu-hero-stat-unit {
+  margin-top: 8px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 13px;
+  letter-spacing: 0.3em; text-transform: uppercase; color: #c89a3c;
+}
+.edu-hero-stat-foot {
+  margin-top: 16px; max-width: 34ch; font-family: 'Inter', sans-serif; font-size: 14px;
+  line-height: 1.55; color: rgba(253, 250, 244, 0.62);
 }
 
-/* Floating sticker layer */
+/* Floating sticker layer (plane + bookstack) */
 .edu-float {
   position: absolute;
   z-index: 2;
   will-change: transform;   /* JS parallax rides here */
 }
 .edu-float-inner { will-change: transform; }   /* CSS bob rides here (nested = no conflict) */
-.edu-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
-  border-radius: 999px;
-  background: #fdfaf4;
-  box-shadow: 0 8px 22px rgba(15, 36, 68, 0.1), inset 0 0 0 1px rgba(15, 36, 68, 0.06);
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: -0.01em;
-  color: #0f2444;
-  white-space: nowrap;
-}
-.edu-icon-chip {
-  display: grid;
-  place-items: center;
-  width: 66px;
-  height: 66px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 35% 30%, #fbf4e4, #f0e6cf);
-  box-shadow: 0 10px 26px rgba(155, 116, 32, 0.16);
-}
-.edu-icon-chip svg .edu-draw {
-  fill: none; stroke: #9b7420; stroke-width: 1.6;
-  stroke-linecap: round; stroke-linejoin: round;
-}
-.edu-float img { display: block; user-select: none; }
+.edu-float img { display: block; user-select: none; filter: drop-shadow(0 18px 34px rgba(6, 16, 34, 0.42)); }
 @keyframes edu-bob { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-13px) } }
 @keyframes edu-bob-r { 0%, 100% { transform: translateY(0) rotate(0deg) } 50% { transform: translateY(-18px) rotate(3.5deg) } }
-
-/* ── 2. BOOK REVEAL — scroll-scrubbed open book (pin ≤150vh) ───────────────── */
-.edu-book { position: relative; height: 150vh; background: #fdfaf4; }
-.edu-book-pin {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.edu-book-kicker {
-  position: absolute;
-  top: 12vh;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #836013;
-}
-.edu-book-img {
-  width: min(760px, 82vw);
-  will-change: transform;
-  filter: drop-shadow(0 40px 60px rgba(15, 36, 68, 0.28));
-}
-
-/* Navy proof ledger — gold stats pass contrast on navy (#C89A3C ≈ 5.3:1) */
-.edu-proof { background: #0f2444; padding: 0 24px 84px; margin-top: -6px; }
-.edu-proof-inner {
-  max-width: 1180px;
-  margin: 0 auto;
-  transform: translateY(-46px);
-  border-radius: 28px;
-  background: linear-gradient(180deg, #163156, #0f2444);
-  box-shadow: 0 30px 70px rgba(6, 16, 34, 0.4);
-  border: 1px solid rgba(200, 154, 60, 0.16);
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 46px 40px;
-}
-.edu-proof-cell { text-align: center; padding: 6px 26px; position: relative; }
-.edu-proof-cell + .edu-proof-cell::before {
-  content: ''; position: absolute; left: 0; top: 18%; height: 64%; width: 1px;
-  background: linear-gradient(180deg, transparent, rgba(200, 154, 60, 0.3), transparent);
-}
-.edu-proof-num {
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;
-  font-size: clamp(34px, 4.2vw, 56px);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: #c89a3c;
-}
-.edu-proof-label {
-  margin-top: 12px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  line-height: 1.4;
-  color: rgba(253, 250, 244, 0.82);
-}
 
 /* ── 3. PROCESS — 4 steps, stroke-draw icons, uniform baseline-locked cards ── */
 .edu-proc { background: #f0ebe0; padding: 120px 24px 128px; }
@@ -2952,14 +2873,16 @@ body {
 .edu-cta-pill:hover { background: #e6bd6a; transform: translateY(-2px); }
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .edu-hero-grid { grid-template-columns: 1fr; gap: clamp(28px, 5vh, 44px); }
+  .edu-hero-foil { font-size: clamp(64px, 16vw, 108px); }
+}
 @media (max-width: 1080px) {
   .edu-proc-grid { grid-template-columns: repeat(2, 1fr); }
   .edu-countries { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 720px) {
   .edu-float { display: none; }         /* stickers off on phones — headline owns the frame */
-  .edu-proof-inner { grid-template-columns: 1fr; gap: 30px; }
-  .edu-proof-cell + .edu-proof-cell::before { display: none; }
   .edu-proc-grid { grid-template-columns: 1fr; }
   .edu-countries { grid-template-columns: repeat(2, 1fr); }
 }
@@ -2988,32 +2911,80 @@ body {
   outline: 2px solid #9b7420; outline-offset: 3px; border-radius: 4px;
 }
 
-/* ── 1. HERO (navy, compact) ── */
+/* ── 1. HERO (navy) — anatomy + rhythm mirrored from /infrastructure's hero:
+   generous vertical scale, DM Mono gold eyebrow, two-tone (cream + gold) H1, a
+   wave/beam atmosphere living IN the composition, and a right-weighted foil
+   anchor (the phone number) echoing infra's flagship 250,000 stat. ── */
 .ctc-hero {
+  position: relative; overflow: hidden;
+  background: #0f2444; color: #fdfaf4;
+  padding: clamp(140px, 20vh, 200px) 24px clamp(80px, 12vh, 132px);
+}
+/* atmosphere: wave canvas sits behind the beam + content; content lifts above */
+.ctc-hero-waves { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; pointer-events: none; opacity: 0.9; }
+/* edge-origin soft beams — gold top-right, navy bottom-left, no interior lines */
+.ctc-hero-beam {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(1100px 620px at 78% -10%, rgba(200, 154, 60, 0.12), transparent 60%),
-    #0f2444;
-  padding: 168px 24px 72px;
+    radial-gradient(120% 90% at 100% 0%, rgba(200, 154, 60, 0.14) 0%, transparent 55%),
+    radial-gradient(90% 80% at 0% 100%, rgba(27, 58, 107, 0.55) 0%, transparent 60%);
 }
 .ctc-hero-inner { max-width: 1180px; margin: 0 auto; }
+.ctc-hero-grid {
+  display: grid; grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(36px, 5vw, 72px); align-items: center;
+}
+.ctc-hero-copy { min-width: 0; }
 .ctc-crumb {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 10px; margin: 0 0 20px;
   font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
-  color: rgba(253, 250, 244, 0.6);
+  color: rgba(253, 250, 244, 0.55);
 }
 .ctc-crumb a { color: #c89a3c; text-underline-offset: 3px; }
 .ctc-crumb a:hover { text-decoration: underline; }
 .ctc-crumb [aria-current] { color: rgba(253, 250, 244, 0.82); }
+.ctc-hero-eyebrow {
+  margin: 0 0 18px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
+  letter-spacing: 3px; text-transform: uppercase; color: #c89a3c;
+}
 .ctc-h1 {
-  margin: 22px 0 0;
+  margin: 0; max-width: 16ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(44px, 7vw, 92px); line-height: 1.0; letter-spacing: -0.03em;
+  font-size: clamp(40px, 6vw, 74px); line-height: 1.02; letter-spacing: -1.2px;
   color: #fdfaf4;
 }
+.ctc-h1-accent { color: #c89a3c; }
 .ctc-hero-line {
-  margin: 24px 0 0; max-width: 40ch;
-  font-family: 'Inter', sans-serif; font-size: clamp(17px, 1.8vw, 20px);
-  line-height: 1.55; color: rgba(253, 250, 244, 0.8);
+  margin: clamp(20px, 3vh, 30px) 0 0; max-width: 52ch;
+  font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.7; color: rgba(253, 250, 244, 0.82);
+}
+
+/* right-side foil anchor — the phone number LARGE, mirroring infra's stat block
+   (foil value → DM Mono unit label → supporting foot line) */
+.ctc-hero-stat { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.ctc-hero-foil {
+  font-family: 'Inter Tight', sans-serif; font-weight: 800;
+  font-size: clamp(34px, 4.4vw, 56px); line-height: 1.0; letter-spacing: -1.5px;
+  text-decoration: none; overflow-wrap: break-word; max-width: 100%;
+  background: linear-gradient(180deg, #fdfaf4 0%, #f0cd82 58%, #c89a3c 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 26px rgba(200, 154, 60, 0.28)) drop-shadow(0 0 64px rgba(200, 154, 60, 0.14));
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
+}
+a.ctc-hero-foil:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 30px rgba(200, 154, 60, 0.42)) drop-shadow(0 0 76px rgba(200, 154, 60, 0.2));
+}
+a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px; border-radius: 6px; }
+.ctc-hero-stat-label {
+  margin-top: 10px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 13px;
+  letter-spacing: 4px; text-transform: uppercase; color: #c89a3c;
+}
+.ctc-hero-stat-foot {
+  margin-top: 16px; max-width: 26ch; font-family: 'Inter', sans-serif; font-size: 14px;
+  line-height: 1.55; color: rgba(253, 250, 244, 0.62);
 }
 
 /* ── 2. MAP (static, cookieless) ── */
@@ -3324,8 +3295,11 @@ body {
   .ctc-form-intro { position: static; }
   .ctc-addr-grid { grid-template-columns: 1fr; }
 }
+@media (max-width: 960px) {
+  .ctc-hero-grid { grid-template-columns: 1fr; gap: clamp(32px, 6vh, 48px); }
+}
 @media (max-width: 720px) {
-  .ctc-hero { padding-top: 132px; }
+  .ctc-hero { padding-top: 120px; }
   .ctc-tiles { grid-template-columns: 1fr; }
   .ctc-row { grid-template-columns: 1fr; gap: 0; }
   .ctc-row .ctc-field { margin-bottom: 18px; }
@@ -4124,7 +4098,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
    shadow + a 1px inner border so they sit on the page instead of hovering flat.
    Applied over existing media classes (CSS-only, no markup change). Card-framed
    images that already carry a ring/shadow are left as-is. ───────────────────── */
-.edu-book-img, .ff-feat-media, .tb-life-img, .inf-video-img {
+.ff-feat-media, .tb-life-img, .inf-video-img {
   box-shadow: var(--elev-2);
 }
 .ff-feat-media, .tb-life-img { outline: 1px solid rgba(253, 250, 244, 0.10); outline-offset: -1px; }

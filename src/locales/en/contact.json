@@ -9,8 +9,12 @@
     "contact": "Contact"
   },
   "hero": {
-    "title": "Contact Us",
-    "line": "Whether you're a ministry, a publisher, or an author with one book, we'd love to hear from you."
+    "eyebrow": "Contact",
+    "title": "Let's Talk. <strong>We Reply in One Business Day.</strong>",
+    "line": "Whether you're a ministry, a publisher, or an author with one book, we'd love to hear from you.",
+    "callLabel": "Call us direct",
+    "callFoot": "Mon–Sat, business hours — or send the enquiry form below.",
+    "callAriaLabel": "Call us direct on +91 829 199 9922"
   },
   "map": {
     "regionLabel": "Where we are",
