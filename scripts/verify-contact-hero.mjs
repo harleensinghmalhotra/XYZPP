@@ -43,6 +43,12 @@ async function shotHero(label, path, lang) {
   const hero = page.locator(path.includes('infrastructure') ? '.inf-hero' : '.ctc-hero')
   await hero.screenshot({ path: resolve(outDir, `${label}-hero.png`) })
 
+  // compact location strip (contact only) — the map replacement
+  if (!path.includes('infrastructure')) {
+    const loc = page.locator('.ctc-loc')
+    if (await loc.count()) await loc.screenshot({ path: resolve(outDir, `${label}-locstrip.png`) })
+  }
+
   // measure the two hero anchors so scale can be compared numerically
   const metrics = await page.evaluate((isInfra) => {
     const q = (s) => document.querySelector(s)

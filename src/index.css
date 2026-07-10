@@ -2921,13 +2921,16 @@ body {
   padding: clamp(140px, 20vh, 200px) 24px clamp(80px, 12vh, 132px);
 }
 /* atmosphere: wave canvas sits behind the beam + content; content lifts above */
-.ctc-hero-waves { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; pointer-events: none; opacity: 0.9; }
-/* edge-origin soft beams — gold top-right, navy bottom-left, no interior lines */
+/* waves kept calm (≈half of infra's 0.9) so the band never fights the headline
+   or the phone-number foil on the right */
+.ctc-hero-waves { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; pointer-events: none; opacity: 0.45; }
+/* edge-origin soft beams — gold warmth pulled to the top-LEFT (behind the solid
+   headline) so the right-side phone foil sits on calm navy, not a gold ribbon */
 .ctc-hero-beam {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(120% 90% at 100% 0%, rgba(200, 154, 60, 0.14) 0%, transparent 55%),
-    radial-gradient(90% 80% at 0% 100%, rgba(27, 58, 107, 0.55) 0%, transparent 60%);
+    radial-gradient(110% 85% at 10% 0%, rgba(200, 154, 60, 0.12) 0%, transparent 52%),
+    radial-gradient(95% 85% at 100% 100%, rgba(27, 58, 107, 0.5) 0%, transparent 60%);
 }
 .ctc-hero-inner { max-width: 1180px; margin: 0 auto; }
 .ctc-hero-grid {
@@ -2967,10 +2970,12 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(34px, 4.4vw, 56px); line-height: 1.0; letter-spacing: -1.5px;
   text-decoration: none; overflow-wrap: break-word; max-width: 100%;
-  background: linear-gradient(180deg, #fdfaf4 0%, #f0cd82 58%, #c89a3c 100%);
+  /* cream/white-dominant foil (like infra's pale 250,000) — pure cream owns the
+     top half, only a warm gold sheen at the base, so it pops off the navy */
+  background: linear-gradient(180deg, #ffffff 0%, #fdfaf4 46%, #f3ddb0 78%, #e4bf72 100%);
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 26px rgba(200, 154, 60, 0.28)) drop-shadow(0 0 64px rgba(200, 154, 60, 0.14));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 22px rgba(200, 154, 60, 0.22)) drop-shadow(0 0 60px rgba(200, 154, 60, 0.12));
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
 }
 a.ctc-hero-foil:hover {
@@ -2987,30 +2992,36 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
   line-height: 1.55; color: rgba(253, 250, 244, 0.62);
 }
 
-/* ── 2. MAP (static, cookieless) ── */
-.ctc-map { position: relative; background: #0f2444; }
-.ctc-map-img {
-  display: block; width: 100%; height: clamp(280px, 38vw, 440px);
-  object-fit: cover; object-position: center;
+/* ── 2. LOCATION STRIP (navy, compact) — replaces the oversized static map.
+   Two tidy DM Mono address blocks with a small gold pin + Maps link. The real
+   interactive globe lives on / and /about; contact needs no third map moment. ── */
+.ctc-loc { position: relative; background: #0f2444; color: #fdfaf4; padding: clamp(30px, 5vh, 48px) 24px clamp(38px, 6vh, 58px); border-top: 1px solid rgba(253, 250, 244, 0.1); }
+.ctc-loc-inner { max-width: 1180px; margin: 0 auto; }
+.ctc-loc-eyebrow {
+  margin: 0 0 clamp(18px, 3vh, 26px);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
+  letter-spacing: 3px; text-transform: uppercase; color: #c89a3c;
 }
-.ctc-map-overlay {
-  position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 18px; flex-wrap: wrap; justify-content: center;
-  padding: 12px 14px 12px 22px; border-radius: 999px;
-  background: rgba(15, 36, 68, 0.72); backdrop-filter: blur(6px);
-  border: 1px solid rgba(200, 154, 60, 0.3);
+.ctc-loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 48px); }
+.ctc-loc-item { display: flex; gap: 14px; align-items: flex-start; }
+.ctc-loc-item + .ctc-loc-item { padding-left: clamp(0px, 3vw, 48px); border-left: 1px solid rgba(253, 250, 244, 0.12); }
+.ctc-loc-pin { flex: none; margin-top: 2px; color: #c89a3c; display: inline-flex; }
+.ctc-loc-name {
+  margin: 0 0 6px; font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: clamp(16px, 1.3vw, 18px); letter-spacing: -0.01em; color: #fdfaf4;
 }
-.ctc-map-kicker {
-  font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.14em;
-  text-transform: uppercase; color: rgba(253, 250, 244, 0.85);
+.ctc-loc-addr {
+  margin: 0 0 10px; max-width: 34ch;
+  font-family: 'DM Mono', monospace; font-size: 12.5px; line-height: 1.6;
+  letter-spacing: 0.02em; color: rgba(253, 250, 244, 0.72);
 }
-.ctc-map-btn {
-  display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 20px;
-  border-radius: 999px; background: #c89a3c; color: #0f2444;
-  font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 14px;
-  transition: background 0.25s ease, transform 0.25s ease;
+.ctc-loc-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: #c89a3c; text-decoration: none;
+  transition: color 0.25s ease;
 }
-.ctc-map-btn:hover { background: #e6bd6a; transform: translateY(-1px); }
+.ctc-loc-link:hover { color: #e6bd6a; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ── 3. WELCOME STATEMENT ── */
 .ctc-welcome { background: #fdfaf4; padding: 96px 24px 40px; }
@@ -3300,6 +3311,8 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
 }
 @media (max-width: 720px) {
   .ctc-hero { padding-top: 120px; }
+  .ctc-loc-grid { grid-template-columns: 1fr; gap: 26px; }
+  .ctc-loc-item + .ctc-loc-item { padding-left: 0; border-left: 0; padding-top: 24px; border-top: 1px solid rgba(253, 250, 244, 0.12); }
   .ctc-tiles { grid-template-columns: 1fr; }
   .ctc-row { grid-template-columns: 1fr; gap: 0; }
   .ctc-row .ctc-field { margin-bottom: 18px; }
