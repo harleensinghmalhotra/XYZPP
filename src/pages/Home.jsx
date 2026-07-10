@@ -7,7 +7,7 @@ import GlobeReach from '@/sections/GlobeReach'
 import WhatWePrint from '@/sections/WhatWePrint'
 import Marquee from '@/sections/Marquee'
 import Promise from '@/sections/Promise'
-import Process from '@/sections/Process'
+import Process3D from '@/sections/process3d/Process3D'
 import Projects from '@/sections/Projects'
 import Infrastructure from '@/sections/Infrastructure'
 import Certifications from '@/sections/Certifications'
@@ -32,7 +32,7 @@ export default function Home() {
         <GlobeReach />
         <WhatWePrint />
         <Promise />
-        <Process />
+        <Process3D />
         <Projects />
         <Infrastructure />
         <Certifications />

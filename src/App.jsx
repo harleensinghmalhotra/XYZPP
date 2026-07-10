@@ -9,7 +9,6 @@ import TradeBooks from '@/pages/TradeBooks'
 import InfrastructurePage from '@/pages/InfrastructurePage'
 import Fulfilment from '@/pages/Fulfilment'
 import Contact from '@/pages/Contact'
-import Process3D from '@/sections/process3d/Process3D'
 
 // App is now the routing host, not the scroll stack. Every route renders inside
 // <SiteLayout> (nav + footer chrome). The homepage ("/") owns the scroll engine;
@@ -17,10 +16,6 @@ import Process3D from '@/sections/process3d/Process3D'
 export default function App() {
   return (
     <Routes>
-      {/* Phase 3.2 scaffold — isolated 3D conveyor, full-viewport, no site chrome.
-          Temporary dev-only route; the homepage Process section is untouched. */}
-      <Route path="/dev/conveyor" element={<Process3D />} />
-
       <Route element={<SiteLayout />}>
         <Route index element={<Home />} />
 

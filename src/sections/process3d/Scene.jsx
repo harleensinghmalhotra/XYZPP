@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
-import { useScroll, ContactShadows, Sparkles, MeshReflectorMaterial } from '@react-three/drei'
+import { ContactShadows, Sparkles, MeshReflectorMaterial } from '@react-three/drei'
 import { useTranslation } from 'react-i18next'
 import Belt from './Belt'
 import Station from './Station'
@@ -25,13 +25,13 @@ function makeBackdrop() {
   return t
 }
 
-// The whole rig. Always mounted inside <ScrollControls>, so useScroll is safe.
-// `frozen` (reduced-motion) pins progress at the final station — a static
-// composed "You're Covered" beauty shot — and stops all motion.
-export default function Scene({ frozen = false }) {
+// The whole rig. `progress` is a mutable ref (0..1) driven by the homepage's
+// GSAP ScrollTrigger scrub — one page scroll system (Lenis), no nested scroller
+// to fight it. `frozen` (reduced-motion) pins progress at the final station —
+// a static composed "You're Covered" beauty shot — and stops all motion.
+export default function Scene({ frozen = false, progress }) {
   const { t } = useTranslation('homeProcess')
   const { camera } = useThree()
-  const scroll = useScroll()
   const bookApi = useRef()
   const stationApis = useRef([])
   const backdrop = useMemo(makeBackdrop, [])
@@ -42,7 +42,7 @@ export default function Scene({ frozen = false }) {
 
   useFrame((state) => {
     const time = frozen ? 0 : state.clock.elapsedTime
-    const p = frozen ? 1 : scroll.offset
+    const p = frozen ? 1 : THREE.MathUtils.clamp(progress?.current ?? 0, 0, 1)
     const activeF = p * (N - 1)
     const bx = lerp(xs[0], xs[N - 1], p)
 

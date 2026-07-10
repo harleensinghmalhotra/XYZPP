@@ -1,71 +1,84 @@
-/* Scoped styles for the /dev/conveyor scaffold. Self-contained — touches nothing
-   global (no index.css / token edits). */
+/* Scoped styles for the homepage Process (3D conveyor) section. Reuses the
+   unified tokens/classes (.u-eyebrow, .u-h2, .u-section) for the header; the
+   canvas rig is self-contained and touches nothing global. */
+
+.conv-section {
+  position: relative;
+  background: var(--cream, #fdfaf4);
+}
+
+/* header — centred eyebrow + heading + sub, unified language */
+.conv-head {
+  text-align: center;
+  padding-bottom: clamp(8px, 2vh, 20px);
+}
+.conv-head .u-eyebrow,
+.conv-head .u-h2 { text-align: center; }
+.conv-head .u-h2 { margin-inline: auto; max-width: 20ch; }
+.conv-sub {
+  margin: clamp(14px, 2vh, 20px) auto 0;
+  max-width: 56ch;
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: var(--body, 17px); line-height: 1.7;
+  color: rgba(28, 32, 25, 0.66);
+}
+
+/* tall scroll track — its height sets the scrub distance; the pin sticks inside */
+.conv-scroll {
+  position: relative;
+  width: 100%;
+}
+.conv-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+.conv-pin canvas { display: block; touch-action: pan-y; }
+
+/* reduced-motion static beauty shot — a single non-scrolling viewport */
 .conv-root {
   position: relative;
   width: 100%;
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background: #fdfaf4;
+  background: var(--cream, #fdfaf4);
 }
-.conv-root canvas {
-  display: block;
-  touch-action: pan-y;
-}
+.conv-still canvas { display: block; }
 
-/* scroll affordance */
-.conv-hint {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  font-family: 'DM Mono', ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: rgba(15, 36, 68, 0.62);
-  pointer-events: none;
-  user-select: none;
-}
+/* subtle scroll affordance inside the pin */
 .conv-hint-arrow {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
   width: 1px;
-  height: 22px;
+  height: 26px;
+  transform: translateX(-50%);
   background: linear-gradient(rgba(155, 116, 32, 0.85), rgba(155, 116, 32, 0));
   animation: conv-bob 2.4s ease-in-out infinite;
+  pointer-events: none;
 }
 @keyframes conv-bob {
-  0%, 100% { transform: translateY(0); opacity: 0.4; }
-  50% { transform: translateY(7px); opacity: 1; }
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+  50% { transform: translateX(-50%) translateY(7px); opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .conv-hint-arrow { animation: none; }
 }
 
 /* mobile poster fallback */
-.conv-poster {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.conv-poster img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.conv-poster { display: flex; align-items: center; justify-content: center; }
+.conv-poster img { width: 100%; height: 100%; object-fit: cover; }
 .conv-poster-cap {
   position: absolute;
   bottom: 22px;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Inter Tight', Inter, system-ui, sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  letter-spacing: 0.3px;
-  color: #0f2444;
+  font-weight: 500; font-size: 15px; letter-spacing: 0.3px;
+  color: var(--navy, #0f2444);
   background: rgba(253, 250, 244, 0.86);
   padding: 6px 16px;
   margin: 0;
