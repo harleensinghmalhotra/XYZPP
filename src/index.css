@@ -43,7 +43,157 @@
   --yellow: var(--gold-2);
   --video-tone: #12294c;     /* dark sections melt into navy, not warm brown */
 
+  /* ── STRUCTURE TOKENS — Phase 3.3 unification. Ekta's DNA is flat, square and
+     airy: square corners everywhere (radius only on circles), a single ~100px
+     section rhythm, a 1280px measure with a 56px gutter, and a 6-step type scale
+     whose section titles run at weight 500 (medium). One source of truth so the
+     eight inner pages + homepage can no longer drift. See recon/CONSISTENCY-AUDIT.md
+     §F and recon/EKTA-DESIGN-DNA.md §§2,5. ──────────────────────────────────── */
+  --r-card: 0px;             /* square — Ekta uses 0 on cards/buttons/badges */
+  --r-media: 0px;
+  --r-chip: 2px;             /* her only non-zero box radius (mono chips, dropdown) */
+  --r-pill: 0px;             /* legacy "pills" square off */
+  --r-round: 50%;            /* circles: icons, social, play buttons only */
+
+  --section-y: clamp(72px, 10vh, 104px);      /* Ekta ~100px section padding */
+  --hero-pad-top: clamp(120px, 18vh, 176px);  /* one hero top rhythm */
+  --hero-pad-bot: clamp(64px, 9vh, 104px);
+  --page-gutter: clamp(20px, 5vw, 56px);      /* Ekta 56px page gutter */
+  --measure: 1280px;                          /* Ekta max content width */
+
+  --h1: clamp(48px, 6.5vw, 92px);   /* hero display — Inter Tight 700 */
+  --h2: clamp(38px, 5vw, 68px);     /* section title — Inter Tight 500 (Ekta medium) */
+  --h3: clamp(23px, 3vw, 32px);     /* sub-heading — Inter Tight 500 */
+  --body: clamp(15px, 1.2vw, 18px);
+  --eyebrow-size: 12px;
+  --label-size: 11px;               /* compliance floor — never below 11px */
+  --track-eyebrow: 3px;             /* Ekta eyebrow letter-spacing */
+
   color-scheme: light;       /* Ekta's site is a cream/light canvas */
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UNIFIED COMPONENT LAYER — `.u-*` (Phase 3.3)
+   One hero skeleton, one card, one button family, one eyebrow/type treatment,
+   all in Ekta's palette + fonts. Pages adopt these classes and delete their
+   forked per-page equivalents so drift is structurally impossible.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── ONE HERO SKELETON — navy ground, split 1.15fr/0.85fr grid, DM-Mono gold
+   eyebrow, Inter-Tight-700 cream H1 with a gold accent word, sub-lead + CTA row
+   on the left, ONE large gold number on the right. Static WavyBackground is the
+   single sanctioned hero atmosphere (the client rejected motion; the canvas now
+   paints one settled frame). ─────────────────────────────────────────────── */
+.u-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--cream-3);
+  padding: var(--hero-pad-top) var(--page-gutter) var(--hero-pad-bot);
+  border-top: 3px solid rgba(155, 116, 32, 0.55);  /* Ekta's gold top-hairline signature */
+}
+.u-hero-waves {                 /* the WavyBackground canvas — one opacity everywhere */
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%; display: block; pointer-events: none;
+  opacity: 0.5;
+}
+.u-hero-beam {                  /* static corner glow — no animation */
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(200, 154, 60, 0.13) 0%, transparent 55%),
+    radial-gradient(90% 80% at 0% 100%, rgba(27, 58, 107, 0.5) 0%, transparent 60%);
+}
+.u-hero-inner {
+  position: relative; z-index: 2;
+  max-width: var(--measure); margin: 0 auto;
+  display: grid; grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(36px, 5vw, 72px); align-items: center;
+}
+.u-hero-copy { min-width: 0; }
+.u-eyebrow {
+  margin: 0 0 18px;
+  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
+  font-size: var(--eyebrow-size); letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase; color: var(--gold-2);
+}
+.u-h1 {
+  margin: 0; max-width: 17ch;
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: var(--h1); line-height: 1.02; letter-spacing: -0.02em;
+  color: var(--cream-3);
+}
+.u-h1 .u-accent, .u-h1-accent { color: var(--gold-2); }
+.u-hero-sub {
+  margin: clamp(20px, 3vh, 28px) 0 clamp(28px, 4vh, 38px); max-width: 52ch;
+  font-family: 'Inter', sans-serif; font-weight: 400; font-size: var(--body);
+  line-height: 1.7; color: rgba(245, 240, 232, 0.8);
+}
+.u-hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+/* right column — the single large gold number (flat solid gold, Ekta-style, no foil) */
+.u-hero-stat { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.u-stat-num {
+  font-family: 'Inter Tight', sans-serif; font-weight: 500;   /* Ekta numerals: medium */
+  font-size: clamp(64px, 9.5vw, 132px); line-height: 0.92; letter-spacing: -0.03em;
+  color: var(--gold-2);
+}
+.u-stat-num:is(a) { text-decoration: none; transition: color 0.2s ease; }
+.u-stat-num:is(a):hover { color: var(--cream-3); }
+/* textual big-numbers (a phone number, a word) need a smaller cap than pure digits */
+.u-stat-num--text { font-size: clamp(30px, 4.4vw, 56px); line-height: 1; letter-spacing: -0.02em; }
+.u-stat-unit {
+  margin-top: 10px; font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
+  font-size: var(--eyebrow-size); letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-2);
+}
+.u-stat-foot {
+  margin-top: 16px; max-width: 32ch; font-family: 'Inter', sans-serif; font-size: 14px;
+  line-height: 1.6; color: rgba(245, 240, 232, 0.62);
+}
+
+/* ── ONE BUTTON FAMILY — square, Ekta anatomy. On light: solid-navy (→gold hover)
+   or outline-navy (→fill). On navy: solid-gold (→cream) or ghost-cream (→fill). ── */
+.u-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 13px 26px; border-radius: 0; border: 1.5px solid transparent;
+  font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; letter-spacing: 0.3px;
+  text-decoration: none; cursor: pointer; white-space: nowrap;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.u-btn svg { width: 16px; height: 16px; }
+.u-btn--solid  { background: var(--navy); color: var(--cream); }
+.u-btn--solid:hover  { background: var(--gold); color: var(--navy); }
+.u-btn--outline { background: transparent; border-color: var(--navy); color: var(--navy); }
+.u-btn--outline:hover { background: var(--navy); color: var(--cream); }
+.u-btn--gold   { background: var(--gold-2); color: var(--navy); }
+.u-btn--gold:hover   { background: var(--cream-3); color: var(--navy); }
+.u-btn--ghost  { background: transparent; border-color: rgba(245, 240, 232, 0.5); color: var(--cream-3); }
+.u-btn--ghost:hover  { background: var(--cream-3); color: var(--navy); border-color: var(--cream-3); }
+.u-btn:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
+
+/* ── ONE CARD — square, cream-2, 1px navy-10% hairline, soft navy-tinted lift ── */
+.u-card {
+  background: var(--cream-2); border: 1px solid rgba(15, 36, 68, 0.1);
+  border-radius: var(--r-card); box-shadow: var(--elev-1);
+  padding: clamp(24px, 3vw, 32px);
+  transition: transform 0.3s var(--e-out), box-shadow 0.3s var(--e-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .u-card:hover { transform: translateY(-6px); box-shadow: var(--elev-2); }
+}
+.u-card--navy { background: var(--navy); border-color: rgba(245, 240, 232, 0.12); color: var(--cream-3); }
+
+/* ── ONE SECTION rhythm ─────────────────────────────────────────────────────── */
+.u-section { padding: var(--section-y) var(--page-gutter); }
+.u-section-inner { max-width: var(--measure); margin: 0 auto; }
+.u-h2 {
+  margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 500;
+  font-size: var(--h2); line-height: 1.08; letter-spacing: -0.02em; color: var(--navy);
+}
+.u-h2--light { color: var(--cream-3); }
+
+/* mobile: heroes collapse to a single column, the big number tucks under the copy */
+@media (max-width: 860px) {
+  .u-hero-inner { grid-template-columns: 1fr; gap: clamp(28px, 6vw, 44px); }
 }
 
 * {
@@ -1356,7 +1506,7 @@ body {
   color: rgba(245, 240, 232, 0.8);
 }
 
-/* the cobe globe */
+/* the photoreal Earth (react-globe.gl → Globe3D) */
 .proj-globe {
   position: relative;
   width: 100%;
@@ -1364,22 +1514,41 @@ body {
   margin: 0 auto;
   aspect-ratio: 1 / 1;
 }
-.proj-globe::before { /* warm backdrop bloom so the sphere sits on something */
+.proj-globe::before { /* warm backdrop bloom so the sphere separates from the navy band */
   content: '';
   position: absolute;
-  inset: -12%;
+  inset: -14%;
   z-index: -1;
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(70, 108, 168, 0.34) 0%, rgba(15, 36, 68, 0) 62%),
-    radial-gradient(circle, rgba(200, 154, 60, 0.12) 30%, rgba(200, 154, 60, 0) 60%);
+    radial-gradient(circle, rgba(70, 108, 168, 0.38) 0%, rgba(15, 36, 68, 0) 64%),
+    radial-gradient(circle, rgba(200, 154, 60, 0.20) 34%, rgba(200, 154, 60, 0) 58%);
 }
-.proj-globe-canvas {
+/* react-globe.gl injects its own <canvas>; keep it square + transparent-backed so
+   the section navy + the bloom above read as space. Fade in to avoid a hard pop. */
+.proj-globe canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50%;
+}
+.proj-globe[data-phase='ready'] { animation: proj-globe-in 0.8s ease both; }
+@keyframes proj-globe-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+/* no-WebGL / error fallback → the section's own dotted worldmap */
+.proj-globe-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.proj-globe-fallback img {
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  contain: layout paint size;
+  object-fit: contain;
+  opacity: 0.7;
 }
 
 /* region cards — cursor-following gold spotlight (MagicCard) */
@@ -1652,7 +1821,7 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .proj-pulse::after { animation: none; opacity: 0.4; }
-  .proj-globe-canvas { opacity: 1; }
+  .proj-globe[data-phase='ready'] { animation: none; }
 }
 
 /* ── Infrastructure — "Built for Scale. Engineered for Trust." ────────────────
@@ -3874,8 +4043,10 @@ a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px;
   --elev-2: 0 2px 4px rgba(15, 36, 68, 0.08), 0 16px 34px -12px rgba(15, 36, 68, 0.24);
   --elev-3: 0 4px 8px rgba(15, 36, 68, 0.10), 0 34px 64px -20px rgba(15, 36, 68, 0.34);
 
-  /* Warm gold bloom for the pill hover — glow + a foil top-highlight */
-  --glow-gold: 0 10px 30px -6px rgba(200, 154, 60, 0.55), inset 0 1px 0 rgba(255, 247, 224, 0.6);
+  /* Phase 3.3: the bright gold bloom is retired (off-Ekta — her buttons swap
+     colour on hover, they never glow). This now resolves to a calm soft navy
+     lift so every legacy `box-shadow: var(--glow-gold)` hover reads Ekta-quiet. */
+  --glow-gold: var(--elev-2);
 }
 
 /* ── Scroll reveals ──────────────────────────────────────────────────────────

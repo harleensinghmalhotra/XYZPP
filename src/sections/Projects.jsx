@@ -1,16 +1,17 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation, Trans } from 'react-i18next'
-import createGlobe from 'cobe'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
+import Globe3D from '@/components/Globe3D'
 
 gsap.registerPlugin(ScrollTrigger)
 
 // ── Global Projects — the dark cinematic proof band ──────────────────────────
-// Navy showpiece: a dotted world map behind, a slow auto-rotating cobe globe
-// with gold markers on QFP's markets, a word-rise header (Promise pattern), three
+// Navy showpiece: a dotted world map behind, a slow auto-rotating photoreal Earth
+// (react-globe.gl, see Globe3D) with gold arcs/markers from Navi Mumbai to QFP's
+// export markets, a word-rise header (Promise pattern), three
 // cursor-spotlight region cards, and an 8-tile milestone wall whose numbers tick
 // up once on view. Reduced-motion → everything static/final. GPU-only.
 
@@ -18,25 +19,6 @@ gsap.registerPlugin(ScrollTrigger)
 // the same client-permission flag as the trust strips). A `?hideRestricted` URL
 // param also forces them off for preview/QA without a code change.
 const SHOW_RESTRICTED_CLIENTS = true
-
-// QFP market markers for the globe — [lat, lng]. Gold, sized by prominence.
-const MARKERS = [
-  { location: [20.59, 78.96], size: 0.09 }, // India (HQ)
-  { location: [-6.37, 34.89], size: 0.07 }, // Tanzania
-  { location: [9.08, 8.68], size: 0.07 }, // Nigeria
-  { location: [7.54, -5.55], size: 0.06 }, // Côte d'Ivoire
-  { location: [-4.04, 21.76], size: 0.06 }, // DR Congo
-  { location: [7.95, -1.02], size: 0.05 }, // Ghana
-  { location: [-0.02, 37.91], size: 0.05 }, // Kenya
-  { location: [1.37, 32.29], size: 0.04 }, // Uganda
-  { location: [-13.13, 27.85], size: 0.04 }, // Zambia
-  { location: [23.42, 53.85], size: 0.05 }, // UAE
-  { location: [37.09, -95.71], size: 0.05 }, // USA
-  { location: [51.17, 10.45], size: 0.04 }, // Germany
-  { location: [40.46, -3.75], size: 0.04 }, // Spain
-  { location: [55.38, -3.44], size: 0.04 }, // UK
-  { location: [23.63, -102.55], size: 0.04 }, // Mexico
-]
 
 // ambient gold pulses over the map's market regions (decorative, tuned @1536)
 const PULSES = [
@@ -108,60 +90,6 @@ function RegionCard({ slug, t }) {
         </p>
       </div>
     </article>
-  )
-}
-
-function Globe({ reduced }) {
-  const canvas = useRef(null)
-  useEffect(() => {
-    const el = canvas.current
-    if (!el) return
-    let phi = 5.35 // start with Africa/Europe/India (dense landmass) facing front
-    let width = 0
-    let raf
-    const onResize = () => { if (el) width = el.offsetWidth }
-    window.addEventListener('resize', onResize)
-    onResize()
-    const rot = reduced ? 0 : 0.0026 // slow, dignified drift
-    // cobe v2: no internal loop / onRender — we drive it via globe.update().
-    const R = 1.6 // globe backing scale (also the devicePixelRatio) — lighter than 2× for smoother scrub
-    const globe = createGlobe(el, {
-      devicePixelRatio: R,
-      width: width * R,
-      height: width * R,
-      phi: 5.35,
-      theta: 0.26,
-      dark: 1,
-      diffuse: 1.5,
-      mapSamples: 17000,
-      mapBrightness: 12, // brighter, warmer continents so the sphere reads premium
-      mapBaseBrightness: 0.13, // floor glow so the ocean-facing side is never a dead void
-      baseColor: [0.19, 0.29, 0.48], // lifted navy so the sphere separates from the field
-      markerColor: [0.92, 0.73, 0.38], // gold #C89A3C
-      glowColor: [0.5, 0.44, 0.36], // warm gold-tinted atmosphere bloom
-      markers: MARKERS,
-    })
-    const render = () => {
-      globe.update({ phi, width: width * R, height: width * R })
-      phi += rot
-      raf = requestAnimationFrame(render)
-    }
-    globe.update({ phi, width: width * R, height: width * R }) // paint once immediately
-    // only spin while on-screen — no GPU burn when scrolled away
-    let running = false
-    const start = () => { if (!running && !reduced) { running = true; raf = requestAnimationFrame(render) } }
-    const stop = () => { running = false; cancelAnimationFrame(raf) }
-    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop()), { threshold: 0 })
-    io.observe(el)
-    // fade the canvas in once it has painted (avoids a hard pop)
-    requestAnimationFrame(() => { if (el) el.style.opacity = '1' })
-    return () => { stop(); io.disconnect(); globe.destroy(); window.removeEventListener('resize', onResize) }
-  }, [reduced])
-
-  return (
-    <div className="proj-globe" aria-hidden="true">
-      <canvas ref={canvas} className="proj-globe-canvas" />
-    </div>
   )
 }
 
@@ -274,7 +202,7 @@ export default function Projects() {
             </h2>
             <p className="proj-sub">{t('sub')}</p>
           </div>
-          <Globe reduced={reduced} />
+          <Globe3D reduced={reduced} />
         </div>
 
         <div className="proj-regions">

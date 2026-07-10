@@ -1,0 +1,26 @@
+Earth textures for the Global Projects 3D globe (src/components/Globe3D.jsx)
+==========================================================================
+
+Files
+-----
+earth-blue-marble.jpg   equirectangular day texture (globeImageUrl)
+earth-topology.png      grayscale elevation/topology (bumpImageUrl)
+
+Provenance
+----------
+Both files are the standard example assets shipped inside the `three-globe`
+npm package (three-globe/example/img/), which react-globe.gl is built on.
+Copied verbatim from node_modules on 2026-07-10.
+
+License
+-------
+earth-blue-marble.jpg is derived from NASA's "Blue Marble: Next Generation"
+imagery, which is in the PUBLIC DOMAIN (NASA Earth Observatory / Visible Earth
+media are free to use; no permission or attribution required — attribution to
+NASA is appreciated). https://visibleearth.nasa.gov/
+earth-topology.png is a public-domain elevation heightmap distributed with
+three-globe (MIT-licensed project) for the same demo set.
+
+License-safe for commercial use. No API key, no external CDN at runtime — the
+textures are self-hosted here so the globe works offline and adds no third-party
+network dependency.
