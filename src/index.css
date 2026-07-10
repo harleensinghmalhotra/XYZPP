@@ -197,6 +197,139 @@ body {
   }
 }
 
+/* ── HERO AURORA — the hero's signature background, EXCLUSIVE to the hero -----
+   Ported from Aceternity UI "Aurora Background" (layered animated gradients +
+   60s linear drift + blur/saturation), fully reskinned to the QFP palette. The
+   navy section behind supplies the base; this layer only ADDS soft light via
+   `mix-blend: screen`, so ribbons wash the flat navy without ever becoming a
+   "gold sky". Pure CSS gradients + one keyframe — no WebGL/canvas, near-zero
+   cost, drifts continuously (ambient weather), independent of scroll. It sits
+   at the very BACK of the pin stack and scrolls away with the hero's exit; a
+   radial mask keeps the headline zone calm and fades the wash before the
+   hero's bottom edge so it never bleeds into the TrustStrips below. */
+/* Container clips everything to the pin viewport (overflow:hidden), so the wash
+   physically cannot reach the TrustStrips below. No background, no mask-image,
+   no blend mode here — all three would force per-frame full-screen passes on the
+   integrated GPU. The base navy is the section itself; the ribbons lighten it
+   via the compositor's native source-over (see below), and the static `__veil`
+   does the headline-calm + edge fade for free. */
+.hero-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-aurora__ribbons {
+  position: absolute;
+  inset: 0;
+}
+/* Two ribbon sheets. The KEY perf decision: the ribbons are LIGHT tints over
+   TRANSPARENT gaps (not solid colours behind a `screen` blend). Plain
+   source-over alpha compositing then lightens the navy only inside each band —
+   the compositor's native fast path, no intermediate blend render-target, which
+   is what was costing ~10ms/frame on this iGPU. Each sheet is blurred ONCE into
+   its own layer (filter + will-change:transform); the drift is a pure
+   `translateX` along the sheet's rotated axis → GPU-composited, zero per-frame
+   re-raster. The two sheets differ in rotation, band period, and duration, so
+   they shear past one another → flowing northern-lights motion, not one sliding
+   sheet. Because the band edges sit in the transparent zones, the sheet's own
+   rectangular bounds never show, and translate == one period → seamless loop.
+   Gold is a single thin low-alpha sliver per period — a minimal accent, never a
+   gold sky. */
+.hero-aurora__ribbons::before,
+.hero-aurora__ribbons::after {
+  content: '';
+  position: absolute;
+  left: -40%;
+  top: -50%;
+  width: 180%;
+  height: 190%;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.hero-aurora__ribbons::before {
+  /* period 480px — navy2 glow body with one gold → cream sliver, all over
+     transparent gaps so only the bands tint the navy */
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(22, 56, 106, 0) 0px,
+    rgba(22, 56, 106, 0) 70px,
+    rgba(43, 85, 144, 0.5) 150px,
+    rgba(63, 110, 170, 0.42) 198px,
+    rgba(200, 154, 60, 0.26) 236px,
+    rgba(239, 224, 189, 0.2) 260px,
+    rgba(43, 85, 144, 0.3) 306px,
+    rgba(22, 56, 106, 0) 380px,
+    rgba(22, 56, 106, 0) 480px
+  );
+  /* blur kept modest (not ~55px): on integrated GPUs a MOVING blurred layer is
+     re-sampled per frame, so per-frame cost scales with the radius. The
+     transparent-gap gradient is already soft, so a small blur is all that's
+     needed to erase banding — this is the single biggest fps lever here. */
+  filter: blur(32px) saturate(1.05);
+  opacity: 0.9;
+  transform: rotate(-9deg) translateX(0);
+  animation: hero-aurora-drift-a 60s linear infinite;
+}
+.hero-aurora__ribbons::after {
+  /* period 420px — dimmer, mostly navy2 with a faint warm hint, for the shear */
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(27, 58, 107, 0) 0px,
+    rgba(27, 58, 107, 0) 92px,
+    rgba(44, 85, 144, 0.34) 172px,
+    rgba(216, 189, 126, 0.16) 232px,
+    rgba(44, 85, 144, 0.24) 292px,
+    rgba(27, 58, 107, 0) 360px,
+    rgba(27, 58, 107, 0) 420px
+  );
+  filter: blur(28px) saturate(1.04);
+  opacity: 0.8;
+  transform: rotate(6deg) translateX(0);
+  animation: hero-aurora-drift-b 82s linear infinite;
+}
+/* Static veil (no animation, no blur → free): a navy core over the headline
+   block keeps POWERING GLOBAL EDUCATION on its original dark field (contrast
+   preserved), while a bottom-to-transparent fade dissolves the wash before the
+   book-landing fold so there's no hard ribbon edge at the junction. */
+.hero-aurora__veil {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(
+      ellipse 78% 60% at 50% 34%,
+      rgba(12, 47, 74, 0.92) 0%,
+      rgba(12, 47, 74, 0.62) 34%,
+      rgba(12, 47, 74, 0) 66%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(12, 47, 74, 0) 52%,
+      rgba(12, 47, 74, 0.75) 82%,
+      #0c2f4a 100%
+    );
+}
+/* translate == one band period → seamless loop; rotation held constant */
+@keyframes hero-aurora-drift-a {
+  to {
+    transform: rotate(-9deg) translateX(-480px);
+  }
+}
+@keyframes hero-aurora-drift-b {
+  to {
+    transform: rotate(6deg) translateX(-420px);
+  }
+}
+/* reduced motion → static gradient, no drift (also covered by the global
+   animation-freeze rule above; this is the explicit, self-documenting stop) */
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora__ribbons::before,
+  .hero-aurora__ribbons::after {
+    animation: none;
+  }
+}
+
 /* ── Trust strips (below hero) ──────────────────────────────────────────────
    Palette law: navy #0F2444, gold #9B7420, ink #1C2019, cream #FDFAF4,
    strip greys #EFEDE8 / #E5E2DA. Dividers are navy at low alpha. */

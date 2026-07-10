@@ -188,12 +188,16 @@ export default function Hero() {
   if (reduced) {
     return (
       <section id="hero" data-theme="dark" className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#0c2f4a] px-6 text-center">
-        <div className="flex flex-col items-center leading-[0.86]">
+        <div className="hero-aurora" aria-hidden="true">
+          <div className="hero-aurora__ribbons" />
+          <div className="hero-aurora__veil" />
+        </div>
+        <div className="relative z-[1] flex flex-col items-center leading-[0.86]">
           <span className="ml-[-23px] font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8vw]">Powering</span>
           <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8vw]">Global</span>
           <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] lg:text-[8vw]" style={{ background: 'linear-gradient(180deg,#fbeec2 0%,#eaca6f 32%,#c89a3c 55%,#9b7420 76%,#e2b552 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent', filter: 'drop-shadow(0 2px 1px rgba(48,32,8,0.4)) drop-shadow(0 8px 22px rgba(200,154,60,0.33))' }}>Education</span>
         </div>
-        <p className="mt-8 max-w-[900px] text-[20px] leading-[1.35] text-white/90">We help publishers around the world print, bind, package, and deliver exceptional books on time, every time.</p>
+        <p className="relative z-[1] mt-8 max-w-[900px] text-[20px] leading-[1.35] text-white/90">We help publishers around the world print, bind, package, and deliver exceptional books on time, every time.</p>
       </section>
     )
   }
@@ -204,6 +208,11 @@ export default function Hero() {
           horizontally, but lets the book's bowed bottom page-stack extend below
           the pin box instead of being cut flat at pin release. */}
       <div ref={pin} className="sticky top-0 h-[100svh] overflow-x-clip">
+        <div className="hero-aurora" aria-hidden="true">
+          <div className="hero-aurora__ribbons" />
+          <div className="hero-aurora__veil" />
+        </div>
+
         {/* Corner watermark tiles removed — the Alternativ graph-symbol repeat fought
             the clean navy field; the QFP kids/props carry the visual interest. */}
 
