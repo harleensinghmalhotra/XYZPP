@@ -279,7 +279,7 @@ export default function InfrastructurePage() {
             <span className="inf-hero-stat-foot">{t('hero.statFoot')}</span>
           </div>
         </div>
-        <SectionCurve position="bottom" fill="#fdfaf4" />
+        <SectionCurve position="bottom" fill="#fdfaf4" inward />
       </section>
 
       {/* ── 2 · TRUST STRIP — certifications (cream) ─────────────────────── */}
@@ -386,7 +386,7 @@ export default function InfrastructurePage() {
 
       {/* ── 5 · MEASURABLE RESULTS + video (navy) ───────────────────────── */}
       <section data-theme="dark" className="inf-results" aria-labelledby="inf-res-h">
-        <SectionCurve position="top" fill="#fdfaf4" />
+        <SectionCurve position="top" fill="#fdfaf4" inward />
         <div className="inf-results-beam" aria-hidden="true" />
         <DotField tone="navy" />
         {/* LIGHT RAYS — factory light raking the results band. Sole WebGL here; the
@@ -473,7 +473,7 @@ export default function InfrastructurePage() {
             </div>
           </div>
         </div>
-        <SectionCurve position="bottom" fill="#fdfaf4" />
+        <SectionCurve position="bottom" fill="#fdfaf4" inward />
       </section>
 
       {/* ── 7 · GALLERY — facility photos only, no testimonials (cream) ─── */}

@@ -371,7 +371,7 @@ export default function Contact() {
 
       {/* ── 5. ADDRESSES & HOURS (navy) ── */}
       <section data-theme="dark" className="ctc-addr relative overflow-hidden" aria-labelledby="ctc-addr-title">
-        <SectionCurve position="top" fill="#fdfaf4" />
+        <SectionCurve position="top" fill="#fdfaf4" inward />
         {/* Real QFP facility exterior (navy duotone) — grounds "our locations" in the actual building */}
         <img
           src="/qfp/contact/facility-navy.webp"

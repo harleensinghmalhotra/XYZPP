@@ -235,7 +235,7 @@ export default function EducationalBooks() {
             generic wavy canvas): gold light from above over the reach/impact roll.
             Sole WebGL here; top-center, low-sat, slight noise, no pulse. */}
         <LightRays className="edu-impact-rays" rayLength={1.6} lightSpread={0.85} />
-        <SectionCurve position="top" fill="#f0ebe0" />
+        <SectionCurve position="top" fill="#f0ebe0" inward />
         <div className="edu-impact-inner relative z-10">
           <div className="edu-impact-head">
             <div data-reveal>

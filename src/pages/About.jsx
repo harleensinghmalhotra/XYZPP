@@ -478,7 +478,7 @@ export default function About() {
       <section data-theme="dark" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: `radial-gradient(900px 600px at 20% 12%, rgba(200,154,60,0.1), transparent 60%), ${NAVY}` }}>
         {/* people section transitions in from the beige services band above — the
             curve matches that beige, not navy, so no orphan blue lip forms. */}
-        <SectionCurve position="top" fill={BEIGE} />
+        <SectionCurve position="top" fill={BEIGE} inward />
         <EdgeGlow tone="navy" />
         <div className="relative z-10 mx-auto max-w-[1400px]">
           <div className="grid items-end gap-8 lg:grid-cols-[1.2fr_1fr]">
