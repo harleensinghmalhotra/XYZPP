@@ -1,11 +1,13 @@
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import { EKTA, transform, smooth, bell, lerp } from './constants'
+import { EKTA, transform, smooth, lerp, celebrate } from './constants'
 
 // ── The hero object, sized to the low reference belt. ONE continuous object that
 // evolves down the line (no visibility swaps): fanned sheets → navy hardcover
 // (gold frame + emblem, ref V4) → kraft twine-wrapped bundle → open box → sealed
-// box → the box stamped with a gold WAX SEAL (ref V3). Scene owns the useFrame.
+// box → the finished box LIFTS to the waiting customer (R4 finale, Character.jsx).
+
+const BOX_LIFT = 1.5 // how high the sealed box rises — clears the customer's head, held overhead
 
 // Emblem for the book cover / wax seal — a small open-book glyph in one colour.
 function emblemTexture(fg, bg) {
@@ -23,43 +25,6 @@ function emblemTexture(fg, bg) {
   const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
 }
 
-// Scalloped gold wax-seal face (ref V3): warm gold disc, scalloped rim shading,
-// embossed open-book emblem. The scalloped SILHOUETTE comes from geometry.
-function sealTexture() {
-  const S = 256
-  const c = document.createElement('canvas')
-  c.width = c.height = S
-  const g = c.getContext('2d')
-  const cx = S / 2
-  const grd = g.createRadialGradient(cx - 26, cx - 30, 10, cx, cx, 128)
-  grd.addColorStop(0, '#E4C070'); grd.addColorStop(0.6, '#C79A3E'); grd.addColorStop(1, '#9A722B')
-  g.fillStyle = grd; g.beginPath(); g.arc(cx, cx, 126, 0, Math.PI * 2); g.fill()
-  // inner ring
-  g.strokeStyle = 'rgba(90,64,20,0.55)'; g.lineWidth = 6; g.beginPath(); g.arc(cx, cx, 96, 0, Math.PI * 2); g.stroke()
-  // embossed open book
-  g.strokeStyle = 'rgba(74,52,16,0.8)'; g.lineWidth = 9; g.lineJoin = 'round'; g.lineCap = 'round'
-  g.beginPath()
-  g.moveTo(128, 92); g.quadraticCurveTo(96, 78, 74, 92); g.lineTo(74, 160); g.quadraticCurveTo(96, 148, 128, 160)
-  g.moveTo(128, 92); g.quadraticCurveTo(160, 78, 182, 92); g.lineTo(182, 160); g.quadraticCurveTo(160, 148, 128, 160)
-  g.lineTo(128, 92); g.stroke()
-  const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
-}
-
-// Scalloped disc geometry — a flower/cog rim so the seal reads as pressed wax.
-function scallopGeometry(r, bumps, amp, depth) {
-  const shape = new THREE.Shape()
-  const seg = bumps * 8
-  for (let i = 0; i <= seg; i++) {
-    const th = (i / seg) * Math.PI * 2
-    const rr = r + amp * Math.cos(bumps * th)
-    const x = Math.cos(th) * rr, y = Math.sin(th) * rr
-    if (i === 0) shape.moveTo(x, y); else shape.lineTo(x, y)
-  }
-  const g = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelSize: 0.02, bevelThickness: 0.02, bevelSegments: 3, curveSegments: 4 })
-  g.translate(0, 0, -depth / 2)
-  return g
-}
-
 const Book = forwardRef(function Book(_props, ref) {
   const root = useRef()
   const inner = useRef()
@@ -71,19 +36,14 @@ const Book = forwardRef(function Book(_props, ref) {
   const twineV = useRef()
   const boxG = useRef()
   const flapRefs = useRef([])
-  const waxG = useRef()
-  const waxMat = useRef()
-  const waxGlint = useRef()
 
   const coverEmblem = useMemo(() => emblemTexture('#C79A3E'), [])
-  const sealTex = useMemo(sealTexture, [])
-  const waxGeo = useMemo(() => scallopGeometry(0.2, 12, 0.022, 0.07), [])
 
-  // fanned (loose) vs stacked (tight) pose per sheet
+  // fanned (loose) vs stacked (tight) pose per sheet — a generous fresh-print pile
   const SHEETS = useMemo(
-    () => Array.from({ length: 7 }, (_, i) => ({
-      loose: { x: (i - 3) * 0.05, y: 0.02 + i * 0.02, z: (i - 3) * 0.03, rot: (i - 3) * 0.06 },
-      tight: { x: 0, y: 0.02 + i * 0.014, z: 0, rot: 0 },
+    () => Array.from({ length: 10 }, (_, i) => ({
+      loose: { x: Math.sin(i * 1.5) * 0.12, y: 0.02 + i * 0.028, z: (i - 4.5) * 0.045, rot: (i - 4.5) * 0.05 },
+      tight: { x: 0, y: 0.02 + i * 0.02, z: 0, rot: 0 },
     })), [],
   )
 
@@ -129,10 +89,15 @@ const Book = forwardRef(function Book(_props, ref) {
         if (twineV.current) twineV.current.scale.z = w2
       }
 
-      if (inner.current) inner.current.position.y = lerp(0, -0.3, box)
+      // 04→05 box seals; then the finished box LIFTS into the customer's hands,
+      // riding the SAME celebrate() curve as the Character so they stay locked.
+      const cel = celebrate(crown, time)
+      const liftY = lerp(0, BOX_LIFT, cel.raise) + cel.bodyY
+      if (inner.current) inner.current.position.y = lerp(0, -0.3, box) + liftY
       if (boxG.current) {
         boxG.current.visible = box > 0.02
         boxG.current.scale.y = lerp(0.05, 1, smooth(0, 0.72, box))
+        boxG.current.position.y = liftY
       }
       flapRefs.current.forEach((f, i) => {
         if (!f) return
@@ -141,27 +106,13 @@ const Book = forwardRef(function Book(_props, ref) {
         if (FLAPS[i].axis === 'x') f.rotation.x = a
         else f.rotation.z = a
       })
-
-      // You're Covered — the gold wax seal is pressed onto the box front face
-      if (waxG.current) {
-        waxG.current.visible = crown > 0.02
-        const press = smooth(0.05, 0.5, crown)
-        const impact = bell(crown, 0.5, 0.14)
-        const s = press * (1 + impact * 0.12)
-        waxG.current.scale.set(s, s, lerp(0.4, 1, press) - impact * 0.3)
-        if (waxMat.current) waxMat.current.emissiveIntensity = 0.15 + impact * 0.5 + Math.sin(time * 2.5) * 0.05 * smooth(0.5, 1, crown)
-        if (waxGlint.current) {
-          const gl = smooth(0.5, 1, crown)
-          waxGlint.current.material.opacity = (0.2 + 0.18 * Math.sin(time * 1.6)) * gl
-        }
-      }
     },
   }))
 
   const decal = { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }
 
   return (
-    <group ref={root} scale={1.0}>
+    <group ref={root} scale={1.2}>
       <group ref={inner}>
         {/* fanned printed sheets → gathered block */}
         <group ref={sheetsG}>
@@ -245,24 +196,6 @@ const Book = forwardRef(function Book(_props, ref) {
             </mesh>
           </group>
         ))}
-      </group>
-
-      {/* wax seal — scalloped gold disc pressed onto the box front (+Z) face */}
-      <group ref={waxG} position={[0, 0.3, 0.375]} visible={false}>
-        {/* scalloped gold body (silhouette + rim) */}
-        <mesh geometry={waxGeo} castShadow>
-          <meshStandardMaterial ref={waxMat} color={EKTA.gold2} emissive={EKTA.gold2} emissiveIntensity={0.15} metalness={0.6} roughness={0.32} toneMapped={false} />
-        </mesh>
-        {/* embossed emblem face, proud of the disc, facing camera */}
-        <mesh position={[0, 0, 0.041]}>
-          <circleGeometry args={[0.18, 40]} />
-          <meshStandardMaterial map={sealTex} metalness={0.5} roughness={0.36} toneMapped={false} {...decal} />
-        </mesh>
-        {/* warm glint sweeping the seal */}
-        <mesh ref={waxGlint} position={[0.06, 0.06, 0.05]}>
-          <circleGeometry args={[0.08, 20]} />
-          <meshBasicMaterial color={'#FFF3D6'} transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
-        </mesh>
       </group>
     </group>
   )

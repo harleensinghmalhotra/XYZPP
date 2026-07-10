@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import Belt from './Belt'
 import Station from './Station'
 import Book from './Book'
+import Character from './Character'
 import { STATIONS, N, stationX, EKTA, CAM, smooth, bell, lerp } from './constants'
 
 // Warm cream gradient backdrop (ref: soft cream studio wall), drawn once.
@@ -28,6 +29,7 @@ export default function Scene({ frozen = false, progress }) {
   const { t } = useTranslation('homeProcess')
   const { camera } = useThree()
   const bookApi = useRef()
+  const characterApi = useRef()
   const stationApis = useRef([])
   const backdrop = useMemo(makeBackdrop, [])
 
@@ -49,6 +51,7 @@ export default function Scene({ frozen = false, progress }) {
       book.root.rotation.y = frozen ? -0.3 : -0.28 + Math.sin(time * 0.5) * 0.05
       book.apply(activeF, time)
     }
+    if (characterApi.current) characterApi.current.apply(activeF, time)
 
     // ── stations: subtle gold-trim glow on the passing arch; Quality scanner ──
     stationApis.current.forEach((a, i) => {
@@ -64,7 +67,7 @@ export default function Scene({ frozen = false, progress }) {
       }
     })
 
-    // ── MAIN-style camera: elevated 3/4 that looks partway down the line ──
+    // ── MAIN-style camera: telephoto near side-on; straight horizontal belt ──
     const k = frozen ? 1 : CAM.ease
     const tx = bx + CAM.side + Math.sin(time * 0.16) * CAM.drift
     const ty = CAM.y + Math.sin(time * 0.22) * 0.08
@@ -111,6 +114,11 @@ export default function Scene({ frozen = false, progress }) {
       ))}
 
       <Book ref={bookApi} />
+
+      {/* the happy customer waits at the final station and receives the box */}
+      <group position={[stationX(N - 1), 0, -0.2]} scale={1.2}>
+        <Character ref={characterApi} />
+      </group>
 
       {/* faint warm dust motes in the light */}
       <Sparkles count={50} scale={[26, 3.5, 3]} position={[0, 1.6, 0]} size={1.4} speed={frozen ? 0 : 0.22} opacity={0.4} color={'#E6D6AE'} />

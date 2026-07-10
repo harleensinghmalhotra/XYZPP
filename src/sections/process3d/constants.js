@@ -63,12 +63,25 @@ export const lerp = (a, b, t) => a + (b - a) * t
 // finishing ~5% shy of arrival. smooth() saturates, so it stays 1 afterwards.
 export const transform = (k, activeF) => smooth(k - 1 + 0.42, k - 0.05, activeF)
 
+// The joyful finale, shared by the Book (box lift) and the Character (jump) so
+// they stay locked together. `crown` = transform(5) drives the receive→raise arc;
+// `time` drives the looped idle bounce once settled. Returns the pieces both read.
+export const celebrate = (crown, time) => {
+  const reach = smooth(0.04, 0.34, crown)   // arms come up to receive the box
+  const raise = smooth(0.32, 0.8, crown)     // box lifts overhead
+  const settled = smooth(0.72, 1, crown)
+  const jump = Math.sin(smooth(0.38, 0.96, crown) * Math.PI) * 0.5 // leave ground, arc, land
+  const bounce = Math.sin(time * 2.7) * 0.045 * settled            // looped gentle bounce at rest
+  return { reach, raise, settled, jump, bounce, bodyY: jump + bounce }
+}
+
 // Camera rest pose — a pulled-back 3/4 "watching the line" rig (R3): far enough
 // that the travelling book + 2-3 stations stay in frame at all times, elevated so
 // the viewer observes the production line rather than standing inside it. `side`
 // offsets the camera off the belt axis so a near pillar never bisects the book.
 // The book is scaled up (Book.jsx) so it still reads as the hero at this distance.
-// Camera — MAIN.png framing: elevated 3/4 that looks partway DOWN the line so the
-// arch faces read and 2-3 gates recede past the hero object. `side` is the along-
-// view X lead; the low objects want a low look target. Gentle dolly tracks the book.
-export const CAM = { y: 3.1, z: 8.6, side: 4.4, lookY: 0.75, drift: 0.3, ease: 0.07, fov: 40 }
+// Camera — MAIN.png framing (R4): TELEPHOTO + near side-on so the belt runs nearly
+// STRAIGHT across the frame with minimal perspective skew, arches read large and the
+// scene fills the frame (no empty voids). `side` keeps a mild down-line lead so the
+// arch faces still show; the low FOV compresses the recession. Gentle dolly tracks.
+export const CAM = { y: 2.3, z: 11, side: 4.3, lookY: 1.05, drift: 0.2, ease: 0.07, fov: 25 }
