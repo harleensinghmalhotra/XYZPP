@@ -59,7 +59,7 @@ export default function SiteNav() {
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <div
-        className="mx-auto flex max-w-page items-center justify-between px-6 py-5"
+        className="mx-auto flex max-w-page items-center justify-between px-6 py-8"
         style={{ fontFamily: TIGHT }}
       >
         {/* left group: logo + primary links */}

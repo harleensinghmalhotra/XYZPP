@@ -1,7 +1,13 @@
-import { useEffect, useRef, useMemo } from 'react'
+import { useEffect, useRef, useMemo, lazy, Suspense } from 'react'
 import { useTranslation, Trans } from 'react-i18next'
 import gsap from 'gsap'
 import { prefersReduced } from '@/lib/useReducedMotion'
+import QfpSeal from '@/components/QfpSeal'
+// three.js is heavy (~600 kB) and the ether is a decorative, above-the-fold-but-
+// non-critical background layer — lazy-load it so three splits into its own chunk
+// and never blocks the headline paint / LCP. The aurora covers the brief async
+// gap, and the reduced-motion branch never reaches this import at all.
+const LiquidEther = lazy(() => import('@/components/LiquidEther'))
 
 // ── QFP hero skin (mechanics unchanged — Alternativ assets swapped for QFP) ──
 // The rotating circular seal is rendered inline (textPath on a circle) so it can
@@ -63,6 +69,9 @@ const BUBBLES = [
 export default function Hero() {
   const { t } = useTranslation('home')
   const reduced = prefersReduced()
+  // Dev/measurement A/B switch: `?ether=off` renders the hero WITHOUT the WebGL
+  // fluid layer so pin fps can be compared before/after (verification harness).
+  const etherOff = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('ether') === 'off'
   const section = useRef(null)
   const pin = useRef(null)
   const textWrap = useRef(null)
@@ -96,7 +105,7 @@ export default function Hero() {
       // ── Initial states ──
       // x:-45 matches the reference's left-of-centre title (its text is left-aligned
       // inside a wider box). Base x composes with the scale in one matrix.
-      gsap.set(titleGhost.current, { x: -45, transformOrigin: '50% 50%', scale: 1, opacity: 1 })
+      gsap.set(titleGhost.current, { x: 0, transformOrigin: '50% 50%', scale: 1, opacity: 1 })
       gsap.set(copyGroup.current, { opacity: 1 })
       gsap.set(riseWrap.current, { y: 0 })
       gsap.set(overlay.current, { opacity: 1 }) // cover overlay hides the pages at rest
@@ -192,10 +201,15 @@ export default function Hero() {
           <div className="hero-aurora__ribbons" />
           <div className="hero-aurora__veil" />
         </div>
-        <div className="relative z-[1] flex flex-col items-center leading-[0.86]">
-          <span className="ml-[-23px] font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8vw]">{t('hero.line1')}</span>
-          <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8vw]">{t('hero.line2')}</span>
-          <span className="font-metrisch text-[13vw] font-bold uppercase tracking-[-0.02em] lg:text-[8vw]" style={{ background: 'linear-gradient(180deg,#fbeec2 0%,#eaca6f 32%,#c89a3c 55%,#9b7420 76%,#e2b552 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent', filter: 'drop-shadow(0 2px 1px rgba(48,32,8,0.4)) drop-shadow(0 8px 22px rgba(200,154,60,0.33))' }}>{t('hero.line3')}</span>
+        {/* Two-line anatomy mirrors the animated hero (line1 cream, line2 gold).
+            The seal's spin is frozen by the global reduced-motion rule, so it
+            reads as a static gold medallion left of the gold word. */}
+        <div className="relative z-[1] flex flex-col items-center leading-[0.84]">
+          <span className="font-metrisch text-[12vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8.4vw]">{t('hero.line1')} {t('hero.line2')}</span>
+          <span className="mt-[2px] flex items-center justify-center font-metrisch text-[12vw] font-bold uppercase tracking-[-0.02em] lg:text-[8.4vw]">
+            <QfpSeal size={104} title={t('hero.sealLabel')} className="hidden shrink-0 md:block" style={{ marginRight: 14, marginLeft: -14, marginTop: -6 }} />
+            <span style={{ background: 'linear-gradient(180deg,#fbeec2 0%,#eaca6f 32%,#c89a3c 55%,#9b7420 76%,#e2b552 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent', filter: 'drop-shadow(0 2px 1px rgba(48,32,8,0.4)) drop-shadow(0 8px 22px rgba(200,154,60,0.33))' }}>{t('hero.line3')}</span>
+          </span>
         </div>
         <p className="relative z-[1] mt-8 max-w-[900px] text-[20px] leading-[1.35] text-white/90">{t('hero.subhead')}</p>
       </section>
@@ -219,6 +233,48 @@ export default function Hero() {
           <div className="hero-aurora__ribbons" />
           <div className="hero-aurora__veil" />
         </div>
+
+        {/* LIQUID ETHER — pointer-reactive fluid layer (React Bits, three.js).
+            Sits ABOVE the aurora (the ambient CSS weather) and BELOW the book
+            (z-15) + headline (z-30) — both are the background stack, behind the
+            watermark letters. Recoloured STRICTLY to the system trio; renders to
+            a transparent canvas so idle/near-zero flow lets the aurora show
+            through, and swirl lights the navy→gold→deep-navy ramp along the
+            current. autoDemo flows it idle; the cursor takes over to swirl. A
+            built-in IntersectionObserver pauses the RAF when the hero leaves the
+            viewport. Killed entirely under reduced motion (this whole branch is
+            the motion path; the reduced branch above keeps the static aurora).
+            Judgment call after screenshotting both: with the ether recoloured to
+            the system trio + kept subtle, the two layers read as ONE calm weather
+            system, so the aurora stays at full opacity (the radial veil already
+            keeps the headline zone calm). Perf: at the default settings the pin
+            fell to ~30fps on the iGPU. Following the brief's "reduce resolution
+            first" order, the two cheap governors are the real levers here — the
+            sim FBOs are CSS-px sized so the sim resolution alone hit a ~50fps
+            floor; disabling MSAA (pointless on a blurred fluid) and capping the
+            canvas pixelRatio to 1 shrink the full-res blit/composite that set that
+            floor, and resolution=0.2 then clears 55fps with margin (measured
+            before/after via ?ether=off → fps.json). */}
+        {!reduced && !etherOff && (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-[1]"
+            style={{ position: 'absolute', inset: 0 }}
+          >
+            <Suspense fallback={null}>
+              <LiquidEther
+                colors={['#1B3A6B', '#9B7420', '#0F2444']}
+                resolution={0.2}
+                autoDemo
+                autoSpeed={0.5}
+                autoIntensity={2.2}
+                mouseForce={20}
+                cursorSize={100}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+              />
+            </Suspense>
+          </div>
+        )}
 
         {/* Corner watermark tiles removed — the Alternativ graph-symbol repeat fought
             the clean navy field; the QFP kids/props carry the visual interest. */}
@@ -288,26 +344,27 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Centered content block (title / subcopy / CTA). pt-[16vh] gives the
-            three headline lines room (was 29vh for the two-line reference). */}
-        <div ref={textWrap} className="absolute inset-x-0 top-0 z-30 flex flex-col items-center px-4 pt-[12vh] font-metrisch">
-          <div ref={titleGhost} className="flex flex-col items-center leading-[0.86] will-change-transform">
-            {/* POWERING (cream) */}
-            <div className="ml-[-23px] text-[13vw] font-bold uppercase text-[#fdfaf4] lg:text-[8vw]" style={{ letterSpacing: '-0.2vw' }}>
-              {t('hero.line1')}
+        {/* Centered content block (title / subcopy / CTA). pt-[23vh] gives a clear
+            gap between the nav and the headline (Alternativ's air) now that the
+            headline is TWO lines instead of three. */}
+        <div ref={textWrap} className="absolute inset-x-0 top-0 z-30 flex flex-col items-center px-4 pt-[23vh] font-metrisch">
+          <div ref={titleGhost} className="flex flex-col items-center leading-[0.84] will-change-transform">
+            {/* Line 1 — POWERING GLOBAL (cream). The two original words are joined
+                into one line so the headline reads as Alternativ's two-line
+                "PRINTING / STORIES" anatomy. */}
+            <div className="text-[12vw] font-bold uppercase text-[#fdfaf4] lg:text-[8.4vw]" style={{ letterSpacing: '-0.2vw' }}>
+              {t('hero.line1')} {t('hero.line2')}
             </div>
-            {/* GLOBAL (cream) */}
-            <div className="mt-[4px] text-[13vw] font-bold uppercase text-[#fdfaf4] lg:text-[8vw]" style={{ letterSpacing: '-0.2vw' }}>
-              {t('hero.line2')}
-            </div>
-            {/* EDUCATION (gold accent) with the inline rotating QFP seal */}
-            <div className="mt-[4px] flex items-center text-[13vw] font-bold uppercase lg:text-[8vw]" style={{ letterSpacing: '-0.2vw', color: GOLD }}>
+            {/* Line 2 — EDUCATION (gold foil) with the spinning QFP STORIES seal
+                tucked immediately LEFT of the word (Alternativ's seal-before-STORIES
+                relationship). */}
+            <div className="mt-[2px] flex items-center justify-center text-[12vw] font-bold uppercase lg:text-[8.4vw]" style={{ letterSpacing: '-0.2vw', color: GOLD }}>
               <svg
                 viewBox="0 0 120 120"
                 role="img"
                 aria-label={t('hero.sealLabel')}
                 className="hidden shrink-0 select-none md:block"
-                style={{ width: 90, height: 90, marginTop: -12, marginRight: 8, marginLeft: -6, animation: 'seal-spin 60s linear infinite', filter: 'drop-shadow(0 0 5px rgba(200,154,60,0.55))' }}
+                style={{ width: 104, height: 104, marginTop: -6, marginRight: 14, marginLeft: -14, animation: 'seal-spin 60s linear infinite', filter: 'drop-shadow(0 0 5px rgba(200,154,60,0.55))' }}
               >
                 <defs>
                   {/* circular baseline for the text (radius 46, starts at top) */}

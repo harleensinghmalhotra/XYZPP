@@ -1,0 +1,19 @@
+{
+  "field": "#0c2f4a",
+  "creamLine": {
+    "hex": "#fdfaf4",
+    "ratio": 13.25,
+    "passAA_large": true,
+    "passAA_normal": true
+  },
+  "goldLine": {
+    "hex": "#c89a3c",
+    "ratio": 5.35,
+    "passAA_large": true,
+    "passAA_normal": true
+  },
+  "computed": {
+    "creamColor": "#16130f",
+    "goldLineColor": null
+  }
+}

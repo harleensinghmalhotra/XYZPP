@@ -1,14 +1,14 @@
 // The spinning "QFP STORIES" gold-foil seal from the hero, extracted for reuse.
 // Slow 60s rotation (seal-spin keyframe lives in index.css), gold foil on navy.
 // IDs are namespaced so it can coexist with the hero's inline seal on the homepage.
-export default function QfpSeal({ size = 72, className = '', title = 'Quarterfold Printabilities seal' }) {
+export default function QfpSeal({ size = 72, className = '', title = 'Quarterfold Printabilities seal', style = {} }) {
   return (
     <svg
       viewBox="0 0 120 120"
       role="img"
       aria-label={title}
       className={`select-none ${className}`}
-      style={{ width: size, height: size, animation: 'seal-spin 60s linear infinite', filter: 'drop-shadow(0 0 5px rgba(200,154,60,0.55))' }}
+      style={{ width: size, height: size, animation: 'seal-spin 60s linear infinite', filter: 'drop-shadow(0 0 5px rgba(200,154,60,0.55))', ...style }}
     >
       <defs>
         <path id="qfp-seal-shared-path" fill="none" d="M 60,60 m 0,-46 a 46,46 0 1,1 0,92 a 46,46 0 1,1 0,-92" />
