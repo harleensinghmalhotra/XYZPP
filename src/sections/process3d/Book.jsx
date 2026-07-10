@@ -1,14 +1,26 @@
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import { EKTA, transform, smooth, lerp } from './constants'
+import { EKTA, transform, smooth, bell, lerp } from './constants'
 
 // ── The hero. ONE continuous object that evolves down the whole belt ──────────
 // No visibility swaps: every part is built once and its transform/opacity is a
 // smooth function of `activeF` (0..N-1 station space). The book physically
-// gathers → binds → gets wrapped → drops into a box → seals → is crowned.
+// gathers → binds → gets wrapped → drops into a box → seals → is stamped.
 // Scene owns the single useFrame and drives us through the imperative `apply()`.
 
-// Soft radial glow sprite — our poor-man's bloom (no postprocessing dep).
+// Lid stack heights (local, book-space). Each layer sits a CLEAR epsilon proud of
+// the one below so coplanar surfaces never z-fight; decals also get polygonOffset.
+const BOX_TOP = 0.64
+const LINER_Y = 0.585
+const SHORT_FLAP_Y = 0.66
+const LONG_FLAP_Y = 0.705
+const TAPE_Y = 0.735
+const LABEL_Y = 0.752
+const SEAL_FLOAT_Y = 1.12 // badge floats above the sealed box, facing camera
+const SEAL_TILT_X = -0.32 // face up toward the elevated camera
+const SEAL_TILT_Y = 0.56 // turn toward the +x camera (counters the book's -0.3 yaw)
+
+// Soft radial glow sprite — poor-man's bloom (no postprocessing dep).
 function glowTexture() {
   const c = document.createElement('canvas')
   c.width = c.height = 128
@@ -36,7 +48,6 @@ function labelTexture() {
   g.fillText('QUARTERFOLD', 18, 48)
   g.strokeStyle = 'rgba(28,32,25,0.35)'; g.lineWidth = 2
   for (let i = 0; i < 4; i++) { g.beginPath(); g.moveTo(18, 70 + i * 16); g.lineTo(150, 70 + i * 16); g.stroke() }
-  // faux barcode
   for (let x = 18, i = 0; x < 238; x += 3 + (i % 3), i++) {
     g.fillStyle = i % 2 ? EKTA.ink : 'rgba(0,0,0,0)'
     g.fillRect(x, 132, 2 + (i % 2), 30)
@@ -44,26 +55,66 @@ function labelTexture() {
   const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
 }
 
+// The stamped seal: a gold certification medallion — navy double ring, arced
+// "QUARTERFOLD" wordmark, and a bold ✓ dead-centre. Reads instantly at distance.
+function sealTexture() {
+  const S = 512
+  const c = document.createElement('canvas')
+  c.width = c.height = S
+  const g = c.getContext('2d')
+  const cx = S / 2, cy = S / 2
+  // gold disc with a soft highlight
+  const grd = g.createRadialGradient(cx - 60, cy - 70, 30, cx, cy, 250)
+  grd.addColorStop(0, '#E7C877')
+  grd.addColorStop(0.55, EKTA.gold2)
+  grd.addColorStop(1, '#B0862F')
+  g.fillStyle = grd
+  g.beginPath(); g.arc(cx, cy, 244, 0, Math.PI * 2); g.fill()
+  // navy rings
+  g.strokeStyle = EKTA.navy
+  g.lineWidth = 16; g.beginPath(); g.arc(cx, cy, 228, 0, Math.PI * 2); g.stroke()
+  g.lineWidth = 5; g.beginPath(); g.arc(cx, cy, 190, 0, Math.PI * 2); g.stroke()
+  // arced wordmark
+  const arc = (text, r, a0, a1, size) => {
+    g.fillStyle = EKTA.navy
+    g.font = `700 ${size}px Inter, system-ui, sans-serif`
+    g.textAlign = 'center'; g.textBaseline = 'middle'
+    const n = text.length
+    for (let i = 0; i < n; i++) {
+      const a = a0 + (a1 - a0) * (n === 1 ? 0.5 : i / (n - 1))
+      g.save(); g.translate(cx + Math.cos(a) * r, cy + Math.sin(a) * r); g.rotate(a + Math.PI / 2); g.fillText(text[i], 0, 0); g.restore()
+    }
+  }
+  arc('QUARTERFOLD', 208, Math.PI * 1.30, Math.PI * 1.70, 34) // top arc
+  arc('★  PRINTABILITIES  ★', 208, Math.PI * 0.72, Math.PI * 0.28, 24) // bottom arc (reversed)
+  // bold check
+  g.strokeStyle = EKTA.navy; g.lineWidth = 42; g.lineCap = 'round'; g.lineJoin = 'round'
+  g.beginPath(); g.moveTo(cx - 92, cy + 6); g.lineTo(cx - 26, cy + 74); g.lineTo(cx + 96, cy - 78); g.stroke()
+  const t = new THREE.CanvasTexture(c); t.anisotropy = 4; t.needsUpdate = true; return t
+}
+
 const Book = forwardRef(function Book(_props, ref) {
   const root = useRef()
-  const inner = useRef()          // cover+pages+wrapper — this is what sinks into the box
+  const inner = useRef()          // cover+pages+wrapper — sinks into the box
   const sheetsG = useRef()
   const sheetRefs = useRef([])
   const coverG = useRef()
-  const scanG = useRef()
-  const scanMat = useRef()
+  const coverMat = useRef()
   const wrapperG = useRef()
   const strapH = useRef()
   const strapV = useRef()
   const boxG = useRef()
   const flapRefs = useRef([])
-  const sealG = useRef()
-  const crownG = useRef()
-  const crownMat = useRef()
-  const crownHalo = useRef()
+  const tapeG = useRef()
+  const sealG = useRef()          // stamped gold medallion
+  const sealFaceMat = useRef()
+  const impactG = useRef()
+  const impactMat = useRef()
+  const sealHalo = useRef()
 
   const glowTex = useMemo(glowTexture, [])
   const labelTex = useMemo(labelTexture, [])
+  const sealTex = useMemo(sealTexture, [])
 
   // Loose (printed, askew) vs gathered (tight page-block) pose for each sheet.
   const SHEETS = useMemo(
@@ -80,13 +131,14 @@ const Book = forwardRef(function Book(_props, ref) {
     [],
   )
 
-  // Four box flaps: [hinge axis 'x'|'z', hinge sign, open angle].
+  // Four box flaps. Short flaps close low, long flaps close a clear layer above —
+  // staggered heights so no two lids are ever coplanar.
   const FLAPS = useMemo(
     () => [
-      { axis: 'x', sign: -1, open: -1.55 },
-      { axis: 'x', sign: 1, open: 1.55 },
-      { axis: 'z', sign: -1, open: 1.55 },
-      { axis: 'z', sign: 1, open: -1.55 },
+      { axis: 'x', open: -1.55, group: [0, LONG_FLAP_Y, -0.55], off: [0, 0, 0.275], geo: [1.5, 0.02, 0.55], color: EKTA.kraft },
+      { axis: 'x', open: 1.55, group: [0, LONG_FLAP_Y, 0.55], off: [0, 0, -0.275], geo: [1.5, 0.02, 0.55], color: EKTA.kraft },
+      { axis: 'z', open: 1.55, group: [-0.75, SHORT_FLAP_Y, 0], off: [0.375, 0, 0], geo: [0.75, 0.02, 1.1], color: EKTA.kraftDark },
+      { axis: 'z', open: -1.55, group: [0.75, SHORT_FLAP_Y, 0], off: [-0.375, 0, 0], geo: [0.75, 0.02, 1.1], color: EKTA.kraftDark },
     ],
     [],
   )
@@ -111,21 +163,18 @@ const Book = forwardRef(function Book(_props, ref) {
       })
       if (sheetsG.current) sheetsG.current.visible = wrap < 0.985
 
-      // navy cover clamps around the gathering pages
       if (coverG.current) {
         const cs = smooth(0.15, 1, bind)
         coverG.current.visible = bind > 0.002 && wrap < 0.985
         coverG.current.scale.set(lerp(0.55, 1, cs), lerp(0.02, 1, cs), lerp(0.5, 1, cs))
       }
 
-      // Quality Check — a bright light-curtain sweeps front-to-back over the book
-      if (scanG.current && scanMat.current) {
-        const st = (activeF - 0.84) / 0.36
-        if (st > 0 && st < 1 && bind > 0.5) {
-          scanG.current.visible = true
-          scanG.current.position.z = lerp(-0.62, 0.62, st)
-          scanMat.current.opacity = Math.sin(st * Math.PI) * 0.85
-        } else scanG.current.visible = false
+      // Quality Check — an additive beam washed out over the bright cream scene
+      // (read as a glitch), so the moment is carried by the Quality arch's emissive
+      // pulse (Scene) + a cool "being inspected" glow sweeping the navy cover, which
+      // reads cleanly over the dark book. A soft bell peaks as it passes Quality.
+      if (coverMat.current) {
+        coverMat.current.emissiveIntensity = bell(activeF, 1.0, 0.42) * 0.7
       }
 
       // 02→03  a wrap folds around the book (Z-fold), then cross straps tighten
@@ -144,7 +193,6 @@ const Book = forwardRef(function Book(_props, ref) {
         boxG.current.visible = box > 0.002
         boxG.current.scale.y = lerp(0.04, 1, smooth(0, 0.72, box))
       }
-      // flaps splay open while boxing, then fold flat while sealing
       flapRefs.current.forEach((f, i) => {
         if (!f) return
         f.visible = box > 0.15
@@ -154,27 +202,40 @@ const Book = forwardRef(function Book(_props, ref) {
       })
 
       // 04→05  Secure Dispatch — tape seam + shipping label seal the lid
-      if (sealG.current) {
+      if (tapeG.current) {
         const s1 = smooth(0.3, 1, seal)
-        sealG.current.visible = seal > 0.02
-        sealG.current.scale.set(lerp(0.2, 1, s1), 1, lerp(0.2, 1, s1))
+        tapeG.current.visible = seal > 0.02
+        tapeG.current.scale.set(lerp(0.2, 1, s1), 1, lerp(0.2, 1, s1))
       }
 
-      // You're Covered — gold seal crown floats up, pulses, slowly turns
-      if (crownG.current) {
-        const c1 = smooth(0, 1, crown)
-        crownG.current.visible = crown > 0.02
-        crownG.current.scale.setScalar(lerp(0.25, 1, c1))
-        crownG.current.position.y = 1.44 + Math.sin(time * 1.4) * 0.04 * c1
-        crownG.current.rotation.y = Math.sin(time * 0.8) * 0.22 // gentle sway, stays readable
-        if (crownMat.current) crownMat.current.emissiveIntensity = (1.5 + Math.sin(time * 3) * 0.45) * c1
-        if (crownHalo.current) crownHalo.current.material.opacity = (0.6 + 0.2 * Math.sin(time * 3)) * c1
+      // You're Covered — the gold QFP seal stamps down onto the package and
+      // settles facing the camera (legible ✓ at distance), then gently floats.
+      if (sealG.current) {
+        sealG.current.visible = crown > 0.02
+        const drop = smooth(0.06, 0.5, crown)           // stamp descent
+        const impact = bell(crown, 0.5, 0.12)            // squash + flash on contact
+        const settled = smooth(0.5, 1, crown)
+        const bob = Math.sin(time * 1.4) * 0.03 * settled
+        sealG.current.position.y = lerp(SEAL_FLOAT_Y + 1.15, SEAL_FLOAT_Y, drop) + bob
+        sealG.current.scale.set(1 + impact * 0.14, 1 - impact * 0.34, 1 + impact * 0.14)
+        sealG.current.rotation.set(SEAL_TILT_X, SEAL_TILT_Y + Math.sin(time * 0.7) * 0.1 * settled, 0)
+        if (sealFaceMat.current) sealFaceMat.current.emissiveIntensity = (0.22 + Math.sin(time * 3) * 0.08) * settled + impact * 0.9
       }
+      if (impactG.current && impactMat.current) {
+        const e = smooth(0.44, 0.95, crown)
+        impactG.current.visible = crown > 0.42 && crown < 0.99
+        impactG.current.scale.setScalar(lerp(0.5, 2.2, e))
+        impactMat.current.opacity = bell(crown, 0.55, 0.2) * 0.8
+      }
+      if (sealHalo.current) sealHalo.current.material.opacity = (0.32 + 0.12 * Math.sin(time * 3)) * smooth(0.5, 1, crown)
     },
   }))
 
+  // shared polygonOffset props for coplanar-risk decals
+  const decal = { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }
+
   return (
-    <group ref={root} scale={1.4}>
+    <group ref={root} scale={2.0}>
       <group ref={inner}>
         {/* 01 · printed sheets → page block */}
         <group ref={sheetsG}>
@@ -186,110 +247,98 @@ const Book = forwardRef(function Book(_props, ref) {
           ))}
         </group>
 
-        {/* navy cover shell (grows during bind), gold spine hairline */}
+        {/* navy cover shell (grows during bind); gold spine sits proud of the face */}
         <group ref={coverG} position={[0, 0.17, 0]}>
           <mesh castShadow>
             <boxGeometry args={[1.2, 0.3, 0.88]} />
-            <meshStandardMaterial color={EKTA.navy} roughness={0.42} metalness={0.2} />
+            <meshStandardMaterial ref={coverMat} color={EKTA.navy} roughness={0.42} metalness={0.2} emissive={'#2A4A7A'} emissiveIntensity={0} toneMapped={false} />
           </mesh>
-          <mesh position={[-0.585, 0, 0]}>
-            <boxGeometry args={[0.05, 0.31, 0.89]} />
-            <meshStandardMaterial color={EKTA.gold} roughness={0.35} metalness={0.6} toneMapped={false} />
+          <mesh position={[-0.6, 0, 0]}>
+            <boxGeometry args={[0.06, 0.34, 0.94]} />
+            <meshStandardMaterial color={EKTA.gold} roughness={0.35} metalness={0.6} toneMapped={false} {...decal} />
           </mesh>
         </group>
 
-        {/* Quality scan — a vertical additive light-curtain that sweeps in Z */}
-        <mesh ref={scanG} position={[0, 0.42, 0]} visible={false}>
-          <planeGeometry args={[1.55, 0.95]} />
-          <meshBasicMaterial ref={scanMat} color={'#CFE8FF'} transparent opacity={0} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
-        </mesh>
-
-        {/* kraft wrapper + olive cross-straps */}
+        {/* kraft wrapper + olive cross-straps (staggered heights, no crossing z-fight) */}
         <group ref={wrapperG} position={[0, 0.18, 0]}>
           <mesh castShadow>
             <boxGeometry args={[1.24, 0.36, 0.92]} />
             <meshStandardMaterial color={EKTA.cream2} roughness={0.92} />
           </mesh>
-          <mesh ref={strapH} position={[0, 0.19, 0]}>
+          <mesh ref={strapH} position={[0, 0.2, 0]}>
             <boxGeometry args={[1.26, 0.05, 0.16]} />
-            <meshStandardMaterial color={EKTA.olive} roughness={0.55} />
+            <meshStandardMaterial color={EKTA.olive} roughness={0.55} {...decal} />
           </mesh>
-          <mesh ref={strapV} position={[0, 0.19, 0]}>
+          <mesh ref={strapV} position={[0, 0.23, 0]}>
             <boxGeometry args={[0.16, 0.05, 0.94]} />
-            <meshStandardMaterial color={EKTA.olive} roughness={0.55} />
+            <meshStandardMaterial color={EKTA.olive} roughness={0.55} {...decal} />
           </mesh>
         </group>
       </group>
 
-      {/* cardboard box — body scales up; four flaps hinge open→closed */}
+      {/* cardboard box — body scales up; four flaps hinge open→closed (staggered) */}
       <group ref={boxG} position={[0, 0, 0]} visible={false}>
         <mesh position={[0, 0.32, 0]} castShadow receiveShadow>
           <boxGeometry args={[1.5, 0.64, 1.1]} />
           <meshStandardMaterial color={EKTA.kraft} roughness={0.95} />
         </mesh>
-        <mesh position={[0, 0.63, 0]}>
-          <boxGeometry args={[1.28, 0.02, 0.88]} />
+        {/* inner liner, clearly recessed below the rim (visible while open) */}
+        <mesh position={[0, LINER_Y, 0]}>
+          <boxGeometry args={[1.3, 0.02, 0.9]} />
           <meshStandardMaterial color={EKTA.kraftDark} roughness={1} />
         </mesh>
-        {/* flaps hinged at the top rim */}
-        <group position={[0, 0.64, -0.55]}>
-          <mesh ref={(m) => (flapRefs.current[0] = m)} position={[0, 0, 0.275]} castShadow>
-            <boxGeometry args={[1.5, 0.02, 0.55]} />
-            <meshStandardMaterial color={EKTA.kraft} roughness={0.95} />
-          </mesh>
-        </group>
-        <group position={[0, 0.64, 0.55]}>
-          <mesh ref={(m) => (flapRefs.current[1] = m)} position={[0, 0, -0.275]} castShadow>
-            <boxGeometry args={[1.5, 0.02, 0.55]} />
-            <meshStandardMaterial color={EKTA.kraft} roughness={0.95} />
-          </mesh>
-        </group>
-        <group position={[-0.75, 0.64, 0]}>
-          <mesh ref={(m) => (flapRefs.current[2] = m)} position={[0.375, 0, 0]} castShadow>
-            <boxGeometry args={[0.75, 0.02, 1.1]} />
-            <meshStandardMaterial color={EKTA.kraftDark} roughness={0.98} />
-          </mesh>
-        </group>
-        <group position={[0.75, 0.64, 0]}>
-          <mesh ref={(m) => (flapRefs.current[3] = m)} position={[-0.375, 0, 0]} castShadow>
-            <boxGeometry args={[0.75, 0.02, 1.1]} />
-            <meshStandardMaterial color={EKTA.kraftDark} roughness={0.98} />
-          </mesh>
-        </group>
+        {FLAPS.map((fl, i) => (
+          <group key={i} position={fl.group}>
+            <mesh ref={(m) => (flapRefs.current[i] = m)} position={fl.off} castShadow>
+              <boxGeometry args={fl.geo} />
+              <meshStandardMaterial color={fl.color} roughness={0.96} />
+            </mesh>
+          </group>
+        ))}
       </group>
 
-      {/* seal — packing-tape seam + shipping label */}
-      <group ref={sealG} position={[0, 0.655, 0]} visible={false}>
+      {/* tape seam + shipping label — each a clear layer proud of the lid */}
+      <group ref={tapeG} position={[0, TAPE_Y, 0]} visible={false}>
         <mesh>
           <boxGeometry args={[1.5, 0.02, 0.2]} />
-          <meshStandardMaterial color={EKTA.kraftDark} roughness={0.6} />
+          <meshStandardMaterial color={EKTA.kraftDark} roughness={0.6} {...decal} />
         </mesh>
-        <mesh position={[0, 0.012, 0.3]} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh position={[0, LABEL_Y - TAPE_Y, 0.34]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[0.5, 0.34]} />
-          <meshBasicMaterial map={labelTex} toneMapped={false} />
+          <meshBasicMaterial map={labelTex} toneMapped={false} {...decal} />
         </mesh>
       </group>
 
-      {/* crown — the "we've got it" gold seal that floats above the sealed box */}
-      <group ref={crownG} position={[0, 1.44, 0]} visible={false}>
-        <mesh ref={crownHalo} position={[0, 0, -0.03]}>
-          <planeGeometry args={[2.4, 2.4]} />
+      {/* You're Covered — the gold QFP seal medallion, facing the camera so the ✓
+          reads at distance; built in the XY plane, oriented by apply() each frame */}
+      <group ref={sealG} position={[0, SEAL_FLOAT_Y, 0.1]} visible={false}>
+        {/* soft glow behind */}
+        <mesh ref={sealHalo} position={[0, 0, -0.08]}>
+          <planeGeometry args={[1.9, 1.9]} />
           <meshBasicMaterial map={glowTex} transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
         </mesh>
-        {/* seal ring — faces the camera like a wax medallion, tilted to catch light */}
-        <mesh rotation={[0.32, 0, 0]}>
-          <torusGeometry args={[0.4, 0.065, 20, 48]} />
-          <meshStandardMaterial ref={crownMat} color={EKTA.gold2} emissive={EKTA.gold2} emissiveIntensity={1.5} metalness={0.7} roughness={0.25} toneMapped={false} />
+        {/* gold coin body (axis → Z so the faces point at the camera) */}
+        <mesh rotation={[Math.PI / 2, 0, 0]} castShadow>
+          <cylinderGeometry args={[0.5, 0.5, 0.1, 44]} />
+          <meshStandardMaterial color={EKTA.gold2} metalness={0.7} roughness={0.28} toneMapped={false} />
         </mesh>
-        {/* checkmark inside the ring */}
-        <mesh position={[-0.1, -0.03, 0]} rotation={[0, 0, -0.42]}>
-          <boxGeometry args={[0.075, 0.2, 0.06]} />
-          <meshStandardMaterial color={EKTA.gold2} emissive={EKTA.gold2} emissiveIntensity={1.8} toneMapped={false} />
+        {/* coin-edge rim (torus lies in XY → faces camera) */}
+        <mesh>
+          <torusGeometry args={[0.5, 0.035, 16, 48]} />
+          <meshStandardMaterial color={'#9B7A2E'} metalness={0.8} roughness={0.3} toneMapped={false} />
         </mesh>
-        <mesh position={[0.13, 0.06, 0]} rotation={[0, 0, 1.9]}>
-          <boxGeometry args={[0.075, 0.36, 0.06]} />
-          <meshStandardMaterial color={EKTA.gold2} emissive={EKTA.gold2} emissiveIntensity={1.8} toneMapped={false} />
+        {/* printed seal face, proud of the coin, facing camera */}
+        <mesh position={[0, 0, 0.056]}>
+          <circleGeometry args={[0.475, 48]} />
+          <meshStandardMaterial ref={sealFaceMat} map={sealTex} emissive={EKTA.gold2} emissiveIntensity={0.22} metalness={0.25} roughness={0.42} toneMapped={false} {...decal} />
         </mesh>
+        {/* stamp impact ring — expands + fades on contact, in the badge plane */}
+        <group ref={impactG} position={[0, 0, 0.02]} visible={false}>
+          <mesh>
+            <torusGeometry args={[0.5, 0.02, 12, 56]} />
+            <meshBasicMaterial ref={impactMat} color={EKTA.gold2} transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
+          </mesh>
+        </group>
       </group>
     </group>
   )

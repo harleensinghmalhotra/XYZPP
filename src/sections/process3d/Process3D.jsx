@@ -5,7 +5,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import Scene from './Scene'
-import { EKTA } from './constants'
+import { EKTA, CAM } from './constants'
 import poster from './poster.jpg'
 import './process3d.css'
 
@@ -113,7 +113,7 @@ export default function Process3D() {
             frameloop="demand"
             dpr={[1, 1.5]}
             gl={{ antialias: true, powerPreference: 'high-performance' }}
-            camera={{ position: [8, 3.25, 8.4], fov: 38 }}
+            camera={{ position: [14, CAM.y, CAM.z], fov: CAM.fov }}
           >
             <Suspense fallback={null}>
               <Kick />
@@ -135,7 +135,7 @@ export default function Process3D() {
             frameloop={visible ? 'always' : 'never'}
             dpr={[1, 1.5]}
             gl={{ antialias: true, powerPreference: 'high-performance' }}
-            camera={{ position: [-8, 3.25, 8.4], fov: 38 }}
+            camera={{ position: [-8, CAM.y, CAM.z], fov: CAM.fov }}
           >
             <Suspense fallback={null}>
               <Scene progress={progress} />

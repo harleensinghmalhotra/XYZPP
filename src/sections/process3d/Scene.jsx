@@ -68,19 +68,21 @@ export default function Scene({ frozen = false, progress }) {
       if (a.labelMat) a.labelMat.opacity = smooth(0.12, 1, rise)
     })
 
-    // ── product-film camera: tracks the book with drift + arrival push-in ──
+    // rim light always travels with the hero (independent of the camera rig)
+    if (rim.current) rim.current.position.set(bx + 1.5, 3, 4.5)
+
+    // ── product-film camera: tracks the book with drift + gentle arrival push-in ──
     const k = frozen ? 1 : CAM.ease
     const tx = bx + CAM.side + Math.sin(time * 0.16) * CAM.drift
     const ty = CAM.y + Math.sin(time * 0.22) * 0.1
     const d = Math.abs(activeF - Math.round(activeF)) // 0 at a station
     const push = frozen ? 0 : (1 - THREE.MathUtils.clamp(d / 0.5, 0, 1)) ** 2
-    const tz = CAM.z - push * 0.8
+    const tz = CAM.z - push * 0.7
     camera.position.x += (tx - camera.position.x) * k
     camera.position.y += (ty - camera.position.y) * k
     camera.position.z += (tz - camera.position.z) * k
     lookX.current += (bx - lookX.current) * (frozen ? 1 : 0.12)
     camera.lookAt(lookX.current, CAM.lookY + Math.sin(time * 0.2) * 0.04, 0)
-    if (rim.current) rim.current.position.set(bx + 1.5, 3, 4.5) // rim travels with the book
   })
 
   return (

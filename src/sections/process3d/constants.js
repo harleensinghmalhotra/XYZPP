@@ -60,7 +60,9 @@ export const lerp = (a, b, t) => a + (b - a) * t
 // finishing ~5% shy of arrival. smooth() saturates, so it stays 1 afterwards.
 export const transform = (k, activeF) => smooth(k - 1 + 0.42, k - 0.05, activeF)
 
-// Camera rest pose — a medium-close 3/4 tracking rig. `side` offsets the camera
-// off the belt axis so the near station pillar never bisects the book; the book
-// rides left-of-centre while gate + rising label frame it. Dolly eases around this.
-export const CAM = { y: 3.25, z: 8.4, side: 3.0, lookY: 1.75, drift: 0.3, ease: 0.075 }
+// Camera rest pose — a pulled-back 3/4 "watching the line" rig (R3): far enough
+// that the travelling book + 2-3 stations stay in frame at all times, elevated so
+// the viewer observes the production line rather than standing inside it. `side`
+// offsets the camera off the belt axis so a near pillar never bisects the book.
+// The book is scaled up (Book.jsx) so it still reads as the hero at this distance.
+export const CAM = { y: 3.85, z: 10.2, side: 3.4, lookY: 1.4, drift: 0.32, ease: 0.07, fov: 42 }
