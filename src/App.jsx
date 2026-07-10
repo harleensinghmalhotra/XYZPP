@@ -6,6 +6,8 @@ import About from '@/pages/About'
 import EducationalBooks from '@/pages/EducationalBooks'
 import PrintOnDemand from '@/pages/PrintOnDemand'
 import TradeBooks from '@/pages/TradeBooks'
+import InfrastructurePage from '@/pages/InfrastructurePage'
+import Contact from '@/pages/Contact'
 
 // App is now the routing host, not the scroll stack. Every route renders inside
 // <SiteLayout> (nav + footer chrome). The homepage ("/") owns the scroll engine;
@@ -18,11 +20,11 @@ export default function App() {
 
         <Route path="/about" element={<About />} />
         <Route path="/educational-books" element={<EducationalBooks />} />
-        <Route path="/trade-books" element={<ShellPage title="Trade Books" />} />
+        <Route path="/trade-books" element={<TradeBooks />} />
         <Route path="/print-on-demand" element={<PrintOnDemand />} />
-        <Route path="/infrastructure" element={<ShellPage title="Infrastructure" />} />
+        <Route path="/infrastructure" element={<InfrastructurePage />} />
         <Route path="/fulfilment" element={<ShellPage title="Fulfilment" />} />
-        <Route path="/contact" element={<ShellPage title="Contact" />} />
+        <Route path="/contact" element={<Contact />} />
 
         <Route path="/legal/privacy" element={<ShellPage title="Privacy Policy" eyebrow="Legal" />} />
         <Route path="/legal/cookies" element={<ShellPage title="Cookie Policy" eyebrow="Legal" />} />
