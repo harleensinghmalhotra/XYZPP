@@ -102,7 +102,10 @@
       "dnb": {
         "name": "Dun & Bradstreet",
         "body": "Listed among India’s leading print and publishing businesses.",
-        "kicker": "D&B RECOGNITION"
+        "kicker": "D&B RECOGNITION",
+        "clipMasthead": "Dun & Bradstreet",
+        "clipDate": "GLOBAL REGISTER",
+        "clipHeadline": "India’s Leading Print & Publishing"
       }
     }
   },

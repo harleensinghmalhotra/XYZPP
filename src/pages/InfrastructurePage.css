@@ -231,19 +231,20 @@
 .inf-video-thumb:hover .inf-play-ring { animation: inf-pulse 1.6s ease-out infinite; }
 @keyframes inf-pulse { 0% { transform: scale(0.9); opacity: 0.7; } 100% { transform: scale(1.35); opacity: 0; } }
 
-/* ── 6 · RECOGNITION — typographic plaques (beige) ────────────────────────── */
-.inf-recognition { position: relative; overflow: hidden; background: #f0ebe0; padding: clamp(72px, 11vh, 130px) 0; }
-.inf-awards { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2vw, 28px); }
-.inf-award {
-  display: flex; flex-direction: column;
-  padding: clamp(28px, 3vw, 38px); border-radius: 20px; background: #fdfaf4;
-  border: 1px solid rgba(28,32,25,0.08);
-  box-shadow: 0 1px 2px rgba(28,32,25,0.05), 0 14px 36px -20px rgba(15,36,68,0.3);
+/* ── 6 · RECOGNITION — homepage Awards plaque language, adapted 3-up (navy) ──
+   Structure + craft come straight from the global .aw/.plq rules (index.css): the
+   Broadway spotlights, gold-bordered navy plaques, ceremony photos, press-clipping
+   and gold-foil names. These overrides only (a) hold the navy so page-CSS cascade
+   order can't beat it back to beige, (b) fit the page's 1200 rhythm, and (c) drop
+   the 4-up grid to a 3-up row. Everything visual is inherited, not re-authored. */
+.inf-recognition.aw { padding: 0; background: #0f2444; }
+.inf-recognition .aw-inner { max-width: 1240px; }
+.inf-recognition .aw-content { padding: clamp(72px, 11vh, 130px) clamp(20px, 4vw, 56px) clamp(84px, 12vh, 146px); }
+.inf-recognition .aw-title { font-size: clamp(32px, 5vw, 58px); }
+.inf-recognition .aw-grid { grid-template-columns: repeat(3, 1fr); margin-top: clamp(40px, 6vh, 72px); }
+@media (max-width: 900px) {
+  .inf-recognition .aw-grid { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; }
 }
-.inf-award-seal { display: inline-flex; color: #9b7420; margin-bottom: 18px; }
-.inf-award-kicker { margin: 0 0 10px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #836013; }
-.inf-award-name { margin: 0 0 12px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(21px, 1.9vw, 27px); line-height: 1.1; letter-spacing: -0.3px; color: #0f2444; }
-.inf-award-body { margin: 0; font-family: 'Inter', sans-serif; font-size: 14.5px; line-height: 1.65; color: #40453b; }
 
 /* ── 7 · GALLERY — facility photos only (cream) ───────────────────────────── */
 .inf-gallery { position: relative; overflow: hidden; background: #fdfaf4; padding: clamp(72px, 11vh, 130px) 0; }
@@ -291,7 +292,6 @@
   .inf-acc-visual { max-width: 460px; }
   .inf-results-grid { grid-template-columns: 1fr; }
   .inf-machines { grid-template-columns: 1fr 1fr; }
-  .inf-awards { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
   .inf-strip-row { grid-template-columns: repeat(2, 1fr); gap: 8px 0; }

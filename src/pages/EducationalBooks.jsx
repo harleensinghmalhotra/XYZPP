@@ -3,9 +3,8 @@ import { useTranslation, Trans } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
-import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import { PaperGrain, WavyBackground } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
@@ -13,9 +12,11 @@ import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 gsap.registerPlugin(ScrollTrigger)
 
 // ── /educational-books ───────────────────────────────────────────────────────
-// QFP's flagship credibility page. Structure & energy modelled on marimba.design
-// (floating stickers orbiting a giant statement H1 · scroll-scrubbed reveal ·
-// clean 4-step process · warm CTA), reskinned fully into brand System B.
+// QFP's flagship credibility page. Re-themed toward /infrastructure's confident
+// dark language: a navy statement hero (wave atmosphere · gold DM-Mono eyebrow ·
+// mixed cream/gold H1 · dual CTA · single giant foil stat) opens the page, then a
+// light 4-step process, a navy impact roll, and a warm CTA. Two hero stickers
+// (plane + bookstack) survive from the old marimba hero as living accents.
 // Motion is GSAP + a light pointer-parallax; everything freezes under reduced
 // motion. This route is native-scroll (Lenis lives only on "/").
 
@@ -23,14 +24,6 @@ gsap.registerPlugin(ScrollTrigger)
 let _k = 0
 const P = (d) => <path key={`p${_k++}`} className="edu-draw" d={d} />
 const C = (cx, cy, r) => <circle key={`c${_k++}`} className="edu-draw" cx={cx} cy={cy} r={r} />
-
-// hero orbit icons (kept tiny + simple so they read at chip scale)
-const HERO_ICONS = {
-  book: [P('M4 5.5C4 4.7 4.7 4 5.5 4H11v15H5.5C4.7 19 4 18.3 4 17.5Z'), P('M20 5.5C20 4.7 19.3 4 18.5 4H13v15h5.5c.8 0 1.5-.7 1.5-1.5Z'), P('M12 5.2V19')],
-  pencil: [P('M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19l-4 1Z'), P('M14.5 6.5l3 3')],
-  globe: [C(12, 12, 8.4), P('M3.6 12h16.8'), P('M12 3.6c2.4 2.3 3.7 5.3 3.7 8.4S14.4 18.1 12 20.4C9.6 18.1 8.3 15.1 8.3 12S9.6 5.9 12 3.6Z')],
-  cap: [P('M2.5 8.5L12 4l9.5 4.5L12 13Z'), P('M6.5 10.7V15c0 1.4 2.5 2.6 5.5 2.6s5.5-1.2 5.5-2.6v-4.3'), P('M21.5 8.5V14')],
-}
 
 // process step icons (24×24)
 const STEP_ICONS = {
@@ -69,17 +62,12 @@ const COUNTRIES = [
   { id: 'ethiopia', figure: 'nationalProgramme' },
 ]
 
-// floating sticker positions (vw/vh anchored, translate-centred). depth = parallax factor.
+// The two surviving hero stickers (plane + bookstack) — living accents over the
+// navy hero, hugging opposite corners so they clear the copy + foil-stat columns.
+// vw/vh anchored, translate-centred. depth = pointer-parallax factor.
 const FLOATS = [
-  { type: 'img', src: '/qfp/hero/qfp-prop-plane.webp', w: 92, top: '17%', left: '80%', depth: 2.4, bob: 'edu-bob-r', dur: 7 },
-  { type: 'img', src: '/qfp/hero/qfp-prop-bookstack.webp', w: 132, top: '78%', left: '15%', depth: 1.5, bob: 'edu-bob', dur: 8 },
-  { type: 'icon', icon: 'book', top: '26%', left: '15%', depth: 3.2, bob: 'edu-bob', dur: 6.5 },
-  { type: 'icon', icon: 'globe', top: '70%', left: '84%', depth: 2.8, bob: 'edu-bob-r', dur: 7.5 },
-  { type: 'label', textKey: 'textbooks', top: '30%', left: '82%', depth: 4, bob: 'edu-bob', dur: 6 },
-  { type: 'label', textKey: 'workbooks', top: '62%', left: '12%', depth: 3.6, bob: 'edu-bob-r', dur: 6.8 },
-  { type: 'label', textKey: 'curriculumPrint', top: '15%', left: '30%', depth: 4.6, bob: 'edu-bob', dur: 7.2 },
-  { type: 'icon', icon: 'pencil', top: '55%', left: '90%', depth: 3, bob: 'edu-bob', dur: 6.2 },
-  { type: 'icon', icon: 'cap', top: '20%', left: '62%', depth: 2.6, bob: 'edu-bob-r', dur: 7.8 },
+  { src: '/qfp/hero/qfp-prop-plane.webp', w: 96, top: '19%', left: '90%', depth: 2.4, bob: 'edu-bob-r', dur: 7 },
+  { src: '/qfp/hero/qfp-prop-bookstack.webp', w: 128, top: '85%', left: '8%', depth: 1.6, bob: 'edu-bob', dur: 8 },
 ]
 
 function GoldSeal() {
@@ -97,7 +85,6 @@ export default function EducationalBooks() {
   const reduced = prefersReduced()
   const root = useRef(null)
   const heroRef = useRef(null)
-  const bookImg = useRef(null)
 
   // ── SEO: title, meta description, BreadcrumbList JSON-LD ──
   useEffect(() => {
@@ -149,7 +136,7 @@ export default function EducationalBooks() {
     return () => { hero.removeEventListener('pointermove', onMove); if (raf) cancelAnimationFrame(raf) }
   }, [reduced])
 
-  // ── GSAP: book scrub reveal + process stroke-draw ──
+  // ── GSAP: process stroke-draw ──
   useLayoutEffect(() => {
     const el = root.current
     if (!el) return
@@ -170,98 +157,50 @@ export default function EducationalBooks() {
           scrollTrigger: { trigger: card, start: 'top 82%', once: true },
         })
       })
-
-      if (reduced) return
-      // book: gentle scale reveal across the 150vh pin (transform-only → 60fps)
-      if (bookImg.current) {
-        gsap.fromTo(
-          bookImg.current,
-          { scale: 0.82, yPercent: 4, autoAlpha: 0.72 },
-          {
-            scale: 1.06, yPercent: 0, autoAlpha: 1, ease: 'none',
-            scrollTrigger: { trigger: '.edu-book', start: 'top top', end: 'bottom bottom', scrub: 0.4 },
-          },
-        )
-      }
     }, root)
     return () => ctx.revert()
   }, [reduced])
 
-  const renderFloat = (f, i) => {
-    let body
-    if (f.type === 'img') body = <img src={f.src} alt="" aria-hidden="true" style={{ width: f.w }} draggable="false" />
-    else if (f.type === 'label') body = <span className="edu-chip">{t(`floats.${f.textKey}`)}</span>
-    else body = (
-      <span className="edu-icon-chip">
-        <svg viewBox="0 0 24 24" fill="none" style={{ width: 30, height: 30 }}>{HERO_ICONS[f.icon]}</svg>
-      </span>
-    )
-    return (
-      <div key={i} className="edu-float" data-depth={f.depth} style={{ top: f.top, left: f.left, transform: 'translate(-50%,-50%)' }}>
-        <div className="edu-float-inner" style={reduced ? undefined : { animation: `${f.bob} ${f.dur}s ease-in-out infinite` }}>
-          {body}
-        </div>
+  const renderFloat = (f, i) => (
+    <div key={i} className="edu-float" data-depth={f.depth} style={{ top: f.top, left: f.left, transform: 'translate(-50%,-50%)' }}>
+      <div className="edu-float-inner" style={reduced ? undefined : { animation: `${f.bob} ${f.dur}s ease-in-out infinite` }}>
+        <img src={f.src} alt="" aria-hidden="true" style={{ width: f.w }} draggable="false" />
       </div>
-    )
-  }
+    </div>
+  )
 
   return (
     <main id="main" ref={root}>
-      {/* ── 1. HERO ── */}
-      <section ref={heroRef} data-theme="light" className="edu-hero" aria-labelledby="edu-h1">
-        <PaperGrain />
-        <div className="edu-hero-labels" aria-hidden="true">
-          <span className="edu-corner" style={{ top: '116px', left: '32px' }}>{t('hero.cornerLabel')}</span>
-          <span className="edu-corner" style={{ top: '116px', right: '32px' }}>{t('hero.cornerMeta')}</span>
-        </div>
+      {/* ── 1. HERO — /infrastructure anatomy, navy ── */}
+      <section ref={heroRef} data-theme="dark" className="edu-hero" aria-labelledby="edu-h1">
+        <WavyBackground className="edu-hero-waves" />
+        <div className="edu-hero-beam" aria-hidden="true" />
 
         {FLOATS.map(renderFloat)}
 
-        <h1 id="edu-h1" className="edu-h1" data-textreveal>
-          <Trans
-            t={t}
-            i18nKey="hero.title"
-            components={{
-              1: <Link to="/trade-books" className="edu-link" />,
-              3: <a href="/#projects" className="edu-link" />,
-            }}
-          />
-        </h1>
-        <p className="edu-hero-sub" data-reveal>
-          {t('hero.sub')}
-        </p>
-      </section>
-
-      {/* ── 2. BOOK REVEAL (scroll-scrub) ── */}
-      <section data-theme="light" className="edu-book overflow-hidden" aria-label={t('book.ariaLabel')}>
-        <PaperGrain />
-        <div className="edu-book-pin">
-          <span className="edu-book-kicker">{t('book.kicker')}</span>
-          <img
-            ref={bookImg}
-            src="/qfp/hero/qfp-book-pages.webp"
-            alt={t('book.alt')}
-            className="edu-book-img"
-            draggable="false"
-          />
-        </div>
-      </section>
-
-      {/* ── 2b. NAVY PROOF LEDGER (gold stats pass contrast on navy) ── */}
-      <section data-theme="dark" className="edu-proof relative" aria-label={t('proof.ariaLabel')}>
-        <EdgeGlow tone="navy" />
-        <div className="edu-proof-inner relative z-10">
-          <div className="edu-proof-cell" data-reveal>
-            <div className="edu-proof-num">World Bank<span style={{ opacity: 0.5 }}> · </span>USAID</div>
-            <div className="edu-proof-label">{t('proof.partnerLabel')}</div>
+        <div className="edu-hero-inner edu-hero-grid relative z-10">
+          <div className="edu-hero-copy">
+            <p className="edu-hero-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
+            <h1 id="edu-h1" className="edu-h1" data-textreveal>
+              <Trans t={t} i18nKey="hero.title" components={{ 1: <span className="edu-h1-accent" /> }} />
+            </h1>
+            <p className="edu-hero-sub" data-reveal>
+              {t('hero.sub')}
+            </p>
+            <div className="edu-hero-ctas" data-reveal>
+              <Link to="/contact" className="edu-btn edu-btn--gold">{t('hero.ctaPrimary')}</Link>
+              <a href="#impact" className="edu-btn edu-btn--ghost">
+                {t('hero.ctaSecondary')}
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
+              </a>
+            </div>
           </div>
-          <div className="edu-proof-cell" data-reveal>
-            <div className="edu-proof-num"><CountUp value={250} suffix="+" /></div>
-            <div className="edu-proof-label">{t('proof.publishersLabel')}</div>
-          </div>
-          <div className="edu-proof-cell" data-reveal>
-            <div className="edu-proof-num"><CountUp value={800} suffix="+" /></div>
-            <div className="edu-proof-label">{t('proof.containersLabel')}</div>
+
+          {/* single foil moment on the page — the flagship stat */}
+          <div className="edu-hero-stat" aria-label={t('hero.statAria')}>
+            <span className="edu-hero-foil" aria-hidden="true">25M</span>
+            <span className="edu-hero-stat-unit">{t('hero.statUnit')}</span>
+            <span className="edu-hero-stat-foot">{t('hero.statFoot')}</span>
           </div>
         </div>
       </section>
@@ -291,12 +230,12 @@ export default function EducationalBooks() {
       </section>
 
       {/* ── 4. IMPACT BAND (navy) ── */}
-      <section data-theme="dark" className="edu-impact relative overflow-hidden" aria-labelledby="edu-impact-title">
+      <section id="impact" data-theme="dark" className="edu-impact relative overflow-hidden" aria-labelledby="edu-impact-title">
         {/* LIGHT RAYS — the impact band's single signature effect (supersedes the
             generic wavy canvas): gold light from above over the reach/impact roll.
             Sole WebGL here; top-center, low-sat, slight noise, no pulse. */}
         <LightRays className="edu-impact-rays" rayLength={1.6} lightSpread={0.85} />
-        <SectionCurve position="top" fill="#0f2444" />
+        <SectionCurve position="top" fill="#f0ebe0" />
         <div className="edu-impact-inner relative z-10">
           <div className="edu-impact-head">
             <div data-reveal>

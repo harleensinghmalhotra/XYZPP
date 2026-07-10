@@ -102,7 +102,10 @@
       "dnb": {
         "name": "Dun & Bradstreet",
         "body": "Référencés parmi les principales entreprises d’impression et d’édition de l’Inde.",
-        "kicker": "D&B RECOGNITION"
+        "kicker": "D&B RECOGNITION",
+        "clipMasthead": "Dun & Bradstreet",
+        "clipDate": "REGISTRE MONDIAL",
+        "clipHeadline": "Leader indien de l’impression et de l’édition"
       }
     }
   },

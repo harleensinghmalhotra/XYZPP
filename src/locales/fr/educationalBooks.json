@@ -6,26 +6,14 @@
     "breadcrumbCurrent": "Livres éducatifs"
   },
   "hero": {
-    "cornerLabel": "Livres éducatifs",
-    "cornerMeta": "Plus de 25 pays · Depuis 2002",
-    "title": "Nous mettons 25 millions de <1>livres</1> par an entre les mains des enfants dans plus de 25 <3>pays</3>.",
-    "sub": "Un seul partenaire pour les programmes nationaux de manuels scolaires, de l'appel d'offres ministériel au pupitre de la classe."
-  },
-  "floats": {
-    "textbooks": "Manuels scolaires",
-    "workbooks": "Cahiers d'exercices",
-    "curriculumPrint": "Impression pédagogique"
-  },
-  "book": {
-    "ariaLabel": "Preuve de partenariat sur les programmes",
-    "kicker": "Une confiance accordée pour le travail qui compte",
-    "alt": "Un livre éducatif ouvert imprimé par Quarterfold"
-  },
-  "proof": {
-    "ariaLabel": "Statistiques des programmes",
-    "partnerLabel": "Partenaire des programmes d'impression financés par les gouvernements",
-    "publishersLabel": "Éditeurs servis dans le monde entier",
-    "containersLabel": "Conteneurs exportés chaque année"
+    "eyebrow": "Livres éducatifs",
+    "title": "25 millions de livres par an. <1>Entre les mains des enfants.</1>",
+    "sub": "Un seul partenaire pour les programmes nationaux de manuels scolaires, de l'appel d'offres ministériel au pupitre de la classe.",
+    "ctaPrimary": "Imprimez votre programme",
+    "ctaSecondary": "Notre impact",
+    "statAria": "25 millions de livres éducatifs imprimés chaque année",
+    "statUnit": "Livres par an",
+    "statFoot": "Partenaire des programmes World Bank et USAID · plus de 250 éditeurs servis · plus de 800 conteneurs exportés par an."
   },
   "process": {
     "eyebrow": "Comment se déroule un programme",

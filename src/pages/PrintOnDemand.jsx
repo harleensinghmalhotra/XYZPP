@@ -446,9 +446,9 @@ export default function PrintOnDemand() {
 
       {/* 4 · REASSURANCE BAND */}
       <section className="pod-band" data-theme="dark" aria-labelledby="pod-band-title">
-        <SectionCurve position="top" fill="#0f2444" />
+        <SectionCurve position="top" fill="#f0ebe0" />
         <WavyBackground className="pointer-events-none absolute inset-0 h-full w-full opacity-60" />
-        <SectionCurve position="bottom" fill="#0f2444" />
+        <SectionCurve position="bottom" fill="#f0ebe0" />
         <div className="pod-band-inner">
           <p className="pod-eyebrow" style={{ color: '#c89a3c' }} data-reveal>{t('band.eyebrow')}</p>
           <p className="pod-band-quote" id="pod-band-title" data-reveal>

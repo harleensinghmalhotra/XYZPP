@@ -281,7 +281,7 @@ function ValueGrid() {
   const { t } = useTranslation('fulfilment')
   return (
     <section data-theme="dark" className="ff-value" aria-labelledby="ff-value-title">
-      <SectionCurve position="top" fill="#0f2444" />
+      <SectionCurve position="top" fill="#fdfaf4" />
       <DotField tone="navy" />
       <div className="ff-value-inner">
         <p className="ff-shared-eyebrow ff-value-eyebrow ff-reveal">{t('value.eyebrow')}</p>
@@ -363,7 +363,7 @@ function Journey() {
   const { t } = useTranslation('fulfilment')
   return (
     <section data-theme="dark" className="ff-journey" aria-labelledby="ff-journey-title">
-      <SectionCurve position="top" fill="#0f2444" />
+      <SectionCurve position="top" fill="#fdfaf4" />
       <div className="ff-journey-media" style={{ backgroundImage: `url(${BASE}/journey.webp)` }} aria-hidden="true" />
       <div className="ff-journey-scrim" aria-hidden="true" />
       <div className="ff-journey-inner">

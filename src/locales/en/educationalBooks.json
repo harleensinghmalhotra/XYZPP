@@ -6,26 +6,14 @@
     "breadcrumbCurrent": "Educational Books"
   },
   "hero": {
-    "cornerLabel": "Educational Books",
-    "cornerMeta": "25+ Countries · Since 2002",
-    "title": "We put 25 million <1>books</1> a year into the hands of children across 25+ <3>countries</3>.",
-    "sub": "One partner for national textbook programmes, from ministry tender to the classroom desk."
-  },
-  "floats": {
-    "textbooks": "Textbooks",
-    "workbooks": "Workbooks",
-    "curriculumPrint": "Curriculum Print"
-  },
-  "book": {
-    "ariaLabel": "Programme partner proof",
-    "kicker": "Trusted with the work that matters",
-    "alt": "An open educational book printed by Quarterfold"
-  },
-  "proof": {
-    "ariaLabel": "Programme statistics",
-    "partnerLabel": "Programme partner on government-funded print",
-    "publishersLabel": "Publishers served worldwide",
-    "containersLabel": "Containers exported every year"
+    "eyebrow": "Educational Books",
+    "title": "25 Million Books a Year. <1>Into Children's Hands.</1>",
+    "sub": "One partner for national textbook programmes, from ministry tender to the classroom desk.",
+    "ctaPrimary": "Print your programme",
+    "ctaSecondary": "Our impact",
+    "statAria": "25 million educational books printed every year",
+    "statUnit": "Books Every Year",
+    "statFoot": "World Bank & USAID programme partner · 250+ publishers served · 800+ containers exported a year."
   },
   "process": {
     "eyebrow": "How a programme runs",

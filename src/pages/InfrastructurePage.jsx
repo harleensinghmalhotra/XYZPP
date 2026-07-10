@@ -62,10 +62,14 @@ const STATS = [
   { k: 'people', value: 600, suffix: '+' },
 ]
 
+// Recognition plaques reuse the HOMEPAGE Awards visual language (.aw/.plq, gold-foil
+// names, press-clipping). Two items carry the real ceremony photos already shipped for
+// the homepage (CAPEXIL → award-04, PrintWeek → award-01); D&B — a listing, not a
+// ceremony — takes the designed press-clipping treatment (the homepage's Forbes card).
 const AWARDS = [
-  { k: 'capexil' },
-  { k: 'printweek' },
-  { k: 'dnb' },
+  { k: 'capexil', img: 'award-04.webp' },
+  { k: 'printweek', img: 'award-01.webp' },
+  { k: 'dnb', clipping: true },
 ]
 
 const GALLERY = [
@@ -125,6 +129,50 @@ function InfraPhoto({ src, note, className = '' }) {
   )
 }
 
+// ── Recognition plaque internals — ported from the homepage Awards section so the
+// treatment is pixel-identical (same .aw-photo frame, same gold placeholder, same
+// press-clipping). Photo: real ceremony webp reveals on load and hides the elegant
+// gold-framed placeholder; a 404 keeps the placeholder (zero code change if a file moves).
+function PlaquePhoto({ img, ph }) {
+  const [ok, setOk] = useState(false)
+  return (
+    <>
+      <img
+        className="aw-photo-img"
+        src={`/qfp/awards/${img}`}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        style={{ opacity: ok ? 1 : 0 }}
+        onLoad={() => setOk(true)}
+        onError={() => setOk(false)}
+      />
+      {!ok && <div className="aw-photo-ph" aria-hidden="true"><span>{ph}</span></div>}
+    </>
+  )
+}
+
+// D&B is a business-register listing, not a ceremony — so its photo zone IS a designed
+// press clipping (the homepage's Forbes-card device), no image needed.
+function PlaqueClipping({ t }) {
+  return (
+    <div className="aw-clip">
+      <div className="aw-clip-head">
+        <span className="aw-clip-masthead">{t('recognition.awards.dnb.clipMasthead')}</span>
+        <span className="aw-clip-date">{t('recognition.awards.dnb.clipDate')}</span>
+      </div>
+      <div className="aw-clip-rule" />
+      <div className="aw-clip-headline">{t('recognition.awards.dnb.clipHeadline')}</div>
+      <div className="aw-clip-lines">
+        <span style={{ width: '100%' }} />
+        <span style={{ width: '93%' }} />
+        <span style={{ width: '98%' }} />
+        <span style={{ width: '58%' }} />
+      </div>
+    </div>
+  )
+}
+
 export default function InfrastructurePage() {
   const { t } = useTranslation('infrastructurePage')
   const root = useRef(null)
@@ -170,7 +218,8 @@ export default function InfrastructurePage() {
       reveal('.inf-machine', { trigger: '.inf-machines', stagger: 0.12, start: 'top 78%' })
       reveal('.inf-results-head, .inf-stat', { trigger: '.inf-results', stagger: 0.08 })
       reveal('.inf-video', { trigger: '.inf-results', start: 'top 72%' })
-      reveal('.inf-award', { trigger: '.inf-recognition', stagger: 0.1 })
+      reveal('.inf-recognition .aw-head', { trigger: '.inf-recognition', start: 'top 80%' })
+      reveal('.inf-recognition .plq', { trigger: '.inf-recognition', stagger: 0.12, start: 'top 74%' })
       reveal('.inf-gallery-item', { trigger: '.inf-gallery', stagger: 0.08 })
       reveal('.inf-cta-inner', { trigger: '.inf-cta', start: 'top 84%' })
 
@@ -230,7 +279,7 @@ export default function InfrastructurePage() {
             <span className="inf-hero-stat-foot">{t('hero.statFoot')}</span>
           </div>
         </div>
-        <SectionCurve position="bottom" fill="#0f2444" />
+        <SectionCurve position="bottom" fill="#fdfaf4" />
       </section>
 
       {/* ── 2 · TRUST STRIP — certifications (cream) ─────────────────────── */}
@@ -337,7 +386,7 @@ export default function InfrastructurePage() {
 
       {/* ── 5 · MEASURABLE RESULTS + video (navy) ───────────────────────── */}
       <section data-theme="dark" className="inf-results" aria-labelledby="inf-res-h">
-        <SectionCurve position="top" fill="#0f2444" />
+        <SectionCurve position="top" fill="#fdfaf4" />
         <div className="inf-results-beam" aria-hidden="true" />
         <DotField tone="navy" />
         {/* LIGHT RAYS — factory light raking the results band. Sole WebGL here; the
@@ -385,34 +434,46 @@ export default function InfrastructurePage() {
             </button>
           </div>
         </div>
-        <SectionCurve position="bottom" fill="#0f2444" />
+        {/* No bottom curve here — Results flows seamlessly into the navy Recognition
+            plaques below; the navy→cream sweep happens at the foot of Recognition. */}
       </section>
 
-      {/* ── 6 · RECOGNITION — typographic plaques (beige) ───────────────── */}
-      <section data-theme="light" className="inf-recognition" aria-labelledby="inf-rec-h">
-        <PaperGrain />
-        <div className="inf-wrap inf-z">
-          <div className="inf-sec-head">
-            <p className="inf-eyebrow">{t('recognition.eyebrow')}</p>
-            <h2 id="inf-rec-h" className="inf-h2">{t('recognition.title')}</h2>
-          </div>
-          <div className="inf-awards">
-            {AWARDS.map((a) => (
-              <article key={a.k} className="inf-award">
-                <span className="inf-award-seal" aria-hidden="true">
-                  <svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 20c-2 8 3 15 12 17M36 20c2 8-3 15-12 17" pathLength="1" />
-                    <circle cx="24" cy="15" r="6" pathLength="1" />
-                    <path d="M24 21v6" pathLength="1" />
-                  </svg>
-                </span>
-                <p className="inf-award-kicker">{t(`recognition.awards.${a.k}.kicker`)}</p>
-                <h3 className="inf-award-name">{t(`recognition.awards.${a.k}.name`)}</h3>
-                <p className="inf-award-body">{t(`recognition.awards.${a.k}.body`)}</p>
-              </article>
-            ))}
+      {/* ── 6 · RECOGNITION — homepage Awards plaque language, 3-up (navy) ─
+          Reuses the homepage Awards section verbatim: Broadway spotlights, navy
+          gold-bordered plaques, ceremony photos + a press-clipping, gold-foil names.
+          Flows on from the navy Results band as one "honour hall" chapter, then the
+          signature curve sweeps navy → cream into the gallery below. */}
+      <section data-theme="dark" className="aw inf-recognition" aria-labelledby="inf-rec-h">
+        <div className="aw-glow" aria-hidden="true" />
+        <div className="aw-carpet" aria-hidden="true" />
+        <div className="aw-vignette" aria-hidden="true" />
+        <div className="aw-inner">
+          <div className="aw-content">
+            <div className="aw-head">
+              <p className="aw-eyebrow">{t('recognition.eyebrow')}</p>
+              <h2 id="inf-rec-h" className="aw-title">{t('recognition.title')}</h2>
+            </div>
+            <div className="aw-grid">
+              {AWARDS.map((a) => (
+                <article className="plq" key={a.k}>
+                  <div className="aw-photo">
+                    {a.clipping
+                      ? <PlaqueClipping t={t} />
+                      : <PlaquePhoto img={a.img} ph={t(`recognition.awards.${a.k}.kicker`)} />}
+                    <div className="plq-tint" aria-hidden="true" />
+                    <div className="plq-sheen" aria-hidden="true" />
+                  </div>
+                  <div className="aw-body">
+                    <div className="aw-label">{t(`recognition.awards.${a.k}.kicker`)}</div>
+                    <h3 className="aw-name">{t(`recognition.awards.${a.k}.name`)}</h3>
+                    <p className="aw-desc">{t(`recognition.awards.${a.k}.body`)}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
+        <SectionCurve position="bottom" fill="#fdfaf4" />
       </section>
 
       {/* ── 7 · GALLERY — facility photos only, no testimonials (cream) ─── */}
