@@ -15,7 +15,7 @@ const browser = await chromium.launch()
 
 async function shot(sel, url, file, { lang, reduced } = {}) {
   const ctx = await browser.newContext({
-    viewport: { width: 1440, height: 900 },
+    viewport: { width: 1536, height: 743 },
     deviceScaleFactor: 2,
     reducedMotion: reduced ? 'reduce' : 'no-preference',
   })

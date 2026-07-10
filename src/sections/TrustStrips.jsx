@@ -40,10 +40,11 @@ const INSTITUTIONS_ALL = [
 const INSTITUTIONS = INSTITUTIONS_ALL.filter((it) => SHOW_MINISTRY_NAMES || !it.ministry)
 
 // Strip 3 — four stats, numeric values are law; text is resolved via
-// t(`stats.${key}.label|accent|sr`). Count-up on first view. Numbers-led in
-// Ekta's gold-numeral treatment — her dated flat-outline stat icons and the
-// straight gray column dividers were retired per Harry's quality bar; a short
-// gold hairline (her signature top-border detail) now accents each metric.
+// t(`stats.${key}.label|accent|sr`). Count-up on first view. Ekta's gold-numeral
+// treatment; her dated flat-outline SVG icons and the straight gray column
+// dividers were retired per Harry's bar. Each metric is now anchored by a
+// brand-tinted 3D clay icon — 3dicons.co (CC0), navy→gold duotone, keyed to the
+// stat's own key: /qfp/icons3d/{key}-tinted.png (books/countries/containers/ontime).
 const STATS = [
   { key: 'books', value: 400, suffix: 'M+' },
   { key: 'countries', value: 25, suffix: '+' },
@@ -217,7 +218,17 @@ export default function TrustStrips() {
             <li key={s.key} className="ts-stat">
               <span className="sr-only">{t(`stats.${s.key}.sr`)}</span>
               <div aria-hidden="true">
-                <span className="ts-stat-rule" />
+                <span className="ts-stat-fig">
+                  <img
+                    className="ts-stat-ico3d"
+                    src={`/qfp/icons3d/${s.key}-tinted.png`}
+                    alt=""
+                    width="74"
+                    height="74"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
                 <div className="ts-stat-num">
                   <CountUp value={s.value} suffix={s.suffix} grouping={false} duration={1200} />
                   {s.accent && <span className="ts-stat-accent">{t(`stats.${s.key}.accent`)}</span>}

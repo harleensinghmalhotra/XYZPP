@@ -624,10 +624,11 @@ body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-/* Stats bar — numbers-led, Ekta's gold-numeral treatment. Her flat-outline
-   icons and the straight gray column dividers were retired per Harry's bar; a
-   short gold hairline (her signature top-border detail) accents each metric,
-   and the four blocks fade up in a subtle stagger on first view. */
+/* Stats bar — numbers-led, Ekta's gold-numeral treatment. The straight gray
+   column dividers were retired per Harry's bar. Each metric is anchored by a
+   brand-tinted 3D clay icon (3dicons.co, CC0 — navy→gold duotone, see
+   public/qfp/icons3d/) that floats on a soft grounded shadow, settles once on
+   reveal and lifts gently on hover. Blocks fade up in a subtle stagger. */
 .ts-stats {
   background: #fdfaf4;
   padding: 46px 56px;
@@ -662,12 +663,48 @@ body {
 .ts-stats-grid.is-in .ts-stat:nth-child(4) {
   transition-delay: 0.24s;
 }
-.ts-stat-rule {
-  display: block;
-  width: 30px;
-  height: 3px;
+/* 3D icon — wrapper carries the hover lift; the <img> carries the settle
+   keyframe + grounded drop shadow, so the two transforms never collide. */
+.ts-stat-fig {
+  display: inline-block;
   margin-bottom: 16px;
-  background: #9b7420;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ts-stat-ico3d {
+  display: block;
+  width: clamp(60px, 6vw, 74px);
+  height: auto;
+  opacity: 0; /* hidden until the settle keyframe runs (or reduced-motion) */
+  /* Soft grounded navy shadow so the icon floats above the cream. */
+  filter: drop-shadow(0 10px 14px rgba(12, 28, 56, 0.3));
+}
+.ts-stat:hover .ts-stat-fig {
+  transform: translateY(-5px);
+}
+@keyframes ts-settle {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.82);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.ts-stats-grid.is-in .ts-stat-ico3d {
+  animation: ts-settle 0.7s cubic-bezier(0.34, 1.4, 0.5, 1) both;
+}
+.ts-stats-grid.is-in .ts-stat:nth-child(2) .ts-stat-ico3d {
+  animation-delay: 0.08s;
+}
+.ts-stats-grid.is-in .ts-stat:nth-child(3) .ts-stat-ico3d {
+  animation-delay: 0.16s;
+}
+.ts-stats-grid.is-in .ts-stat:nth-child(4) .ts-stat-ico3d {
+  animation-delay: 0.24s;
 }
 .ts-stat-num {
   display: flex;
@@ -718,6 +755,13 @@ body {
   .ts-stat {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+  .ts-stat-ico3d {
+    opacity: 1;
+    animation: none;
+  }
+  .ts-stat-fig {
     transition: none;
   }
 }
