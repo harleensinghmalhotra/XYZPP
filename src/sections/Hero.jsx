@@ -302,7 +302,7 @@ export default function Hero() {
                 {/* two foil rings frame the wordmark ring */}
                 <circle cx="60" cy="60" r="57" fill="none" stroke="url(#seal-foil)" strokeWidth="2" />
                 <circle cx="60" cy="60" r="35" fill="none" stroke="url(#seal-foil)" strokeWidth="1" opacity="0.55" />
-                <text fill="url(#seal-foil)" fontFamily="'DM Mono', monospace" fontWeight="500" fontSize="9.4" letterSpacing="1.5">
+                <text fill="url(#seal-foil)" fontFamily="'DM Mono', monospace" fontWeight="500" fontSize="11" letterSpacing="1.5">
                   <textPath href="#qfp-seal-path" startOffset="0" textLength="289" lengthAdjust="spacing">
                     QFP STORIES · QFP STORIES · QFP STORIES ·
                   </textPath>

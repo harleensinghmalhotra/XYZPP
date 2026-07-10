@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 import './Cases.css'
 
 // Case photos: Pexels (free commercial use, no attribution required). Provenance:
@@ -8,6 +9,10 @@ import './Cases.css'
 // Downloaded, cropped 16:10, compressed → public/qfp/cases/case-0N.webp, then given
 // our navy duotone + bottom scrim so they sit in the brand.
 
+// `desc`/`heading` name a specific ministry or funded programme; `*Safe` variants
+// drop the named entity for neutral phrasing when SHOW_MINISTRY_NAMES is off
+// (permission pending). Country names are geographic and always stay, so every
+// card keeps its shape — only the gated name changes.
 const CASES = [
   {
     id: '01',
@@ -15,6 +20,7 @@ const CASES = [
     tags: ['Tanzania', '10M+ Books'],
     title: 'A National Curriculum Deadline, Met Early',
     desc: 'Tanzania Institute of Education needed volume fast. We delivered 4M books within 60 days against a hard national deadline.',
+    descSafe: 'A national curriculum programme needed volume fast. We delivered 4M books within 60 days against a hard national deadline.',
     img: 'case-01.webp',
   },
   {
@@ -23,20 +29,28 @@ const CASES = [
     tags: ['Nigeria', '8M+ Books'],
     title: 'Scaling for a Universal Education Mandate',
     desc: "Books for the Universal Basic Education Commission, produced and shipped at a scale most printers can't sustain.",
+    descSafe: "Books for a national basic-education mandate, produced and shipped at a scale most printers can't sustain.",
     img: 'case-02.webp',
   },
   {
     id: '03',
     heading: 'USAID GHANA DELIVERY',
+    headingSafe: 'GHANA DELIVERY',
     tags: ['Ghana', '2M+ Books'],
     title: 'Delivering Against a Funded Programme Timeline',
     desc: 'Books delivered under a USAID funded programme, coordinated end to end from print to last mile delivery.',
+    descSafe: 'Books delivered under a donor-funded education programme, coordinated end to end from print to last mile delivery.',
     img: 'case-03.webp',
   },
 ]
 
 export default function Cases() {
   const [active, setActive] = useState('01')
+  const cases = CASES.map((c) => ({
+    ...c,
+    heading: SHOW_MINISTRY_NAMES ? c.heading : (c.headingSafe || c.heading),
+    desc: SHOW_MINISTRY_NAMES ? c.desc : (c.descSafe || c.desc),
+  }))
 
   return (
     <section id="cases" className="section-cases" data-theme="dark">
@@ -49,7 +63,7 @@ export default function Cases() {
       </div>
 
       <div className="cases-list">
-        {CASES.map((c) => (
+        {cases.map((c) => (
           <div
             key={c.id}
             className={`case-item ${active === c.id ? 'active' : ''}`}

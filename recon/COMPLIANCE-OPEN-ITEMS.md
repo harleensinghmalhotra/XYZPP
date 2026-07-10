@@ -19,8 +19,8 @@ default already shipped; this list tracks what still needs a human decision.
 - **Owner:** **Ekta's copy, her call.** No code change made — awaiting decision.
 
 ## 2. Ministry / government / programme names — written permission pending
-- **Where:** TrustStrips marquee, Projects ledger + hero, About history timeline,
-  Educational impact figures, Fulfilment trust marquee.
+- **Where:** TrustStrips marquee, Projects ledger + hero, homepage Case Studies,
+  About history timeline, Educational impact figures, Fulfilment trust marquee.
 - **Issue:** naming specific ministries, government bodies and funded programmes
   (Tanzania Institute of Education, UBEC, World Bank / USAID programmes,
   Maharashtra State Bureau, etc.) needs **confirmed written permission** from the
@@ -52,4 +52,5 @@ default already shipped; this list tracks what still needs a human decision.
 - Site-wide statutory entity line (legal name + CIN + registered office) now
   renders in the footer on every page.
 - All sub-11px text raised to the 11px compliance floor (`.aw-clip-date`,
-  CalibrationBar labels).
+  CalibrationBar labels, and the Hero rotating seal — the last was not in the
+  original recon; caught by the automated sub-11px sweep).
