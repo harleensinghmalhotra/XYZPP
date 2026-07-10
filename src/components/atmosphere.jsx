@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { prefersReduced } from '@/lib/useReducedMotion'
 export { default as WavyBackground } from '@/components/WavyBackground'
 
 /* Ambient, content-always-wins backgrounds for inner-page sections. Every canvas
@@ -13,9 +12,9 @@ const TONES = {
   warm: ['rgba(155,116,32,0.30)', 'rgba(15,36,68,0.12)'],    // gold + faint navy dots on cream/beige
 }
 
-// DotField — a slow-drifting grid of dots that gently pulse. The "calm" living
-// variant for navy sections that are not the hero, and a faint texture for
-// cream/beige sections (tone="warm").
+// DotField — a calm, STATIC grid of dots (a faint print-dot texture). The client
+// rejected background motion, so this renders one settled frame (no drift, no
+// pulse loop) on navy sections and as a faint texture on cream/beige (tone="warm").
 export function DotField({ tone = 'navy', gap = 34, className = '' }) {
   const ref = useRef(null)
   useEffect(() => {
@@ -24,23 +23,25 @@ export function DotField({ tone = 'navy', gap = 34, className = '' }) {
     const ctx = canvas.getContext('2d')
     const DPR = Math.min(window.devicePixelRatio || 1, 1.25)
     const [c1, c2] = TONES[tone] || TONES.navy
-    let w = 0, h = 0, t = 0, raf = 0, running = false
+    let w = 0, h = 0
     const resize = () => {
       const r = canvas.getBoundingClientRect()
       w = Math.max(1, r.width); h = Math.max(1, r.height)
       canvas.width = Math.round(w * DPR); canvas.height = Math.round(h * DPR)
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0)
     }
+    // Static dot grid — fixed positions, a fixed per-dot alpha (deterministic
+    // phase) so the field is a settled texture, never animated.
     const paint = () => {
       ctx.clearRect(0, 0, w, h)
       const cols = Math.ceil(w / gap) + 1, rowsN = Math.ceil(h / gap) + 1
       for (let iy = 0; iy < rowsN; iy++) {
         for (let ix = 0; ix < cols; ix++) {
-          const px = ix * gap + Math.sin(t * 0.6 + iy * 0.5) * 3
-          const py = iy * gap + Math.cos(t * 0.5 + ix * 0.5) * 3
-          const pulse = 0.5 + 0.5 * Math.sin(t + (ix + iy) * 0.35)
+          const px = ix * gap
+          const py = iy * gap
+          const pulse = 0.5 + 0.5 * Math.sin((ix + iy) * 0.35)
           ctx.fillStyle = (ix + iy) % 7 === 0 ? c1 : c2
-          ctx.globalAlpha = 0.25 + pulse * 0.75
+          ctx.globalAlpha = 0.25 + pulse * 0.5
           ctx.beginPath()
           ctx.arc(px, py, (ix + iy) % 7 === 0 ? 1.6 : 1.1, 0, Math.PI * 2)
           ctx.fill()
@@ -48,17 +49,11 @@ export function DotField({ tone = 'navy', gap = 34, className = '' }) {
       }
       ctx.globalAlpha = 1
     }
-    const render = () => { t += 0.01; paint(); if (running) raf = requestAnimationFrame(render) }
     resize()
-    if (prefersReduced()) { paint(); return () => {} }
-    const start = () => { if (!running) { running = true; raf = requestAnimationFrame(render) } }
-    const stop = () => { running = false; cancelAnimationFrame(raf) }
-    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop()), { threshold: 0 })
-    io.observe(canvas)
-    const onResize = () => resize()
+    paint() // one static frame — no rAF, no IntersectionObserver
+    const onResize = () => { resize(); paint() }
     window.addEventListener('resize', onResize)
-    paint()
-    return () => { stop(); io.disconnect(); window.removeEventListener('resize', onResize) }
+    return () => { window.removeEventListener('resize', onResize) }
   }, [tone, gap])
   return <canvas ref={ref} className={`pointer-events-none absolute inset-0 h-full w-full ${className}`} aria-hidden="true" />
 }

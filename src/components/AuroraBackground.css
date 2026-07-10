@@ -47,7 +47,7 @@
   filter: blur(38px) saturate(1.04);
   opacity: 0.72;
   transform: rotate(-9deg) translateX(0);
-  animation: sig-aurora-drift-a 66s linear infinite;
+  /* MOTIONLESS — client verdict is no background motion site-wide. */
 }
 .sig-aurora__ribbons::after {
   /* period 420px — dimmer, mostly navy2 with a faint warm hint, for the shear */
@@ -64,7 +64,7 @@
   filter: blur(34px) saturate(1.03);
   opacity: 0.62;
   transform: rotate(6deg) translateX(0);
-  animation: sig-aurora-drift-b 90s linear infinite;
+  /* MOTIONLESS — see ::before. */
 }
 /* Static veil (no animation, no blur → free): a navy core over the headline keeps
    the CTA copy on its dark field, with a soft fade at top and bottom so the wash

@@ -1,5 +1,4 @@
 import { useTranslation, Trans } from 'react-i18next'
-import QfpSeal from '@/components/QfpSeal'
 import AuroraBackground from '@/components/AuroraBackground'
 
 // Fonts locked to our system (was inheriting the global Space Mono / font-display):
@@ -52,8 +51,9 @@ export default function CTAFooter() {
 
       {/* Top CTA Area — on the navy outer surface, so text is light */}
       <div className="relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center px-6 py-32 text-center" style={{ color: '#fdfaf4' }}>
+        {/* Static QF logo mark (replaces the rotating seal — no motion). */}
         <div className="mb-8">
-          <QfpSeal size={72} />
+          <img src="/qfp/brand/qfp-mark.png" alt="" aria-hidden="true" width="64" height="64" className="h-16 w-16 object-contain" />
         </div>
 
         <h2 className="mb-6 max-w-4xl text-[clamp(40px,7vw,84px)] font-bold tracking-tight leading-[1.05]" style={{ fontFamily: TIGHT, color: '#fdfaf4' }}>
@@ -90,7 +90,13 @@ export default function CTAFooter() {
 
             {/* Logo / Brand Column */}
             <div className="lg:col-span-4 flex flex-col items-start">
-              <img src="/qfp/brand/qfp-logo.png" alt="Quarterfold Printabilities" className="mb-8 h-auto w-[164px]" />
+              <div className="mb-8 flex items-center gap-3">
+                <img src="/qfp/brand/qfp-mark.png" alt="Quarterfold Printabilities" width="52" height="52" className="object-contain" style={{ height: 52, width: 52 }} />
+                <span className="flex flex-col leading-[1.06] text-[#0f2444]" style={{ fontFamily: TIGHT }}>
+                  <span className="text-[17px] font-bold tracking-[0.2px]">Quarterfold</span>
+                  <span className="text-[17px] font-bold tracking-[0.2px]">Printabilities</span>
+                </span>
+              </div>
               <p className="max-w-sm text-sm leading-relaxed mb-6" style={{ fontFamily: MONO, color: '#5c5346' }}>
                 {t('tagline')}
               </p>
@@ -137,7 +143,7 @@ export default function CTAFooter() {
           {/* Rule + social + legal */}
           <div className="mt-20 flex flex-col">
             <div className="mb-8 flex items-end justify-between">
-              <div className="h-2.5 w-48 rounded-full" style={{ background: 'linear-gradient(90deg, #9b7420, #c89a3c 55%, #e6bd6a)' }} />
+              <div className="h-[3px] w-48" style={{ background: '#9b7420' }} />
               <div className="flex items-center gap-3">
                 {['LinkedIn', 'Instagram', 'Facebook'].map((net) => (
                   <a key={net} href="#" className="group flex h-10 w-10 items-center justify-center rounded-full bg-[#0f2444]/6 transition-all hover:bg-[#c89a3c]/20 hover:scale-110 active:scale-95" aria-label={net}>

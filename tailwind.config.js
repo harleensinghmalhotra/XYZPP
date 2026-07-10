@@ -4,35 +4,38 @@ export default {
   theme: {
     extend: {
       colors: {
-        // CMYK process colors — the brand IS the print process
-        cyan: '#00AEEF',
-        magenta: '#EC008C',
-        yellow: '#FFC800',
-        // Warm ink (key) + warm paper ramp — never pure #000/#fff
+        // ── EKTA PALETTE (design law) ──
+        navy: { DEFAULT: '#0F2444', 2: '#1B3A6B', deep: '#0A1B33' },
+        gold: { DEFAULT: '#9B7420', 2: '#C89A3C', text: '#836013' },
+        olive: { DEFAULT: '#6B7A2A', light: '#8FA05A', deep: '#5A6623' },
+        cream: { DEFAULT: '#FDFAF4', 2: '#F0EBE0', 3: '#F5F0E8' },
         ink: {
-          DEFAULT: '#16130F',
-          900: '#16130F',
-          800: '#211D17',
-          700: '#2E2820',
+          DEFAULT: '#1C2019',
+          // warm-grey text ramp retained for footer meta (≈ her #444/#555 greys)
           600: '#463E32',
           500: '#5C5346',
           400: '#7A7061',
         },
+        // ── Legacy class aliases — old System-A utility names now resolve to
+        //    Ekta's palette so existing className hexes reskin without edits. ──
+        cyan: '#1B3A6B',
+        magenta: '#9B7420',
+        yellow: '#C89A3C',
         paper: {
-          DEFAULT: '#F3EDE1',
-          raised: '#EDE6D7',
-          sunk: '#E7DFCD',
-          deep: '#DED4BE',
+          DEFAULT: '#FDFAF4',
+          raised: '#F0EBE0',
+          sunk: '#F0EBE0',
+          deep: '#E5E2DA',
         },
-        // Sampled hero-video average tone — melt sections into the video
         tone: 'var(--video-tone)',
       },
       fontFamily: {
-        display: ['"Bricolage Grotesque"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        serif: ['"Libre Bodoni"', 'ui-serif', 'Georgia', 'serif'],
-        mono: ['"Space Mono"', 'ui-monospace', 'monospace'],
-        // Reference hero typeface
-        metrisch: ['"Metrisch"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Ekta's stack everywhere — display + legacy 'metrisch' alias → Inter Tight.
+        display: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        tight: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['"DM Mono"', 'ui-monospace', 'monospace'],
+        metrisch: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         'display-xl': ['clamp(2.9rem, 11.5vw, 11rem)', { lineHeight: '0.86', letterSpacing: '-0.02em' }],

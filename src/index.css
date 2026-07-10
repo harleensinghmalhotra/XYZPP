@@ -2,50 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Metrisch — the reference site's typeface (self-hosted from public CDN otf) */
-@font-face {
-  font-family: 'Metrisch';
-  src: url('/fonts/Metrisch-Book.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Metrisch';
-  src: url('/fonts/Metrisch-Medium.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Metrisch';
-  src: url('/fonts/Metrisch-Bold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+/* Fonts are Ekta's exact stack — Inter Tight / Inter / DM Mono — loaded from
+   Google Fonts in index.html. Metrisch / Space Mono / Bricolage / Libre Bodoni
+   are retired (the client rejected the old typography). */
 
 :root {
-  /* CMYK process */
-  --cyan: #00aeef;
-  --magenta: #ec008c;
-  --yellow: #ffc800;
+  /* ── EKTA PALETTE — the design law (qfp-homepage-v17.html :root). ──────────
+     Every colour below is lifted 1:1 from her vibe-coded homepage. Navy →
+     gold → cream → olive, in that priority. Gold is the single prestige accent;
+     olive is the quiet eco note. See recon/EKTA-DESIGN-DNA.md. */
+  --navy: #0f2444;
+  --navy-2: #1b3a6b;
+  --navy-deep: #0a1b33;      /* her deeper footer navy */
+  --gold: #9b7420;           /* THE accent — hairlines, top-borders, links */
+  --gold-2: #c89a3c;         /* brighter gold — on-navy eyebrows / numbers */
+  --gold-text: #836013;      /* AA-safe gold text on cream */
+  --olive: #6b7a2a;
+  --olive-light: #8fa05a;
+  --olive-deep: #5a6623;
+  --cream: #fdfaf4;
+  --cream-2: #f0ebe0;        /* alternating section bg */
+  --cream-3: #f5f0e8;        /* her 4th cream — text/overlays on navy */
+  --grey-strip: #efede8;     /* her marquee-strip warm greys */
+  --grey-strip-2: #e5e2da;
+  --ink: #1c2019;            /* her body ink (was warm #16130f) */
+  --ink-2: #444444;          /* her secondary-text grey */
 
-  /* Warm ink + paper (no pure black/white) */
-  --ink: #16130f;
-  --ink-600: #463e32;
+  /* ── Back-compat aliases: the old System-A token names now RESOLVE to Ekta's
+     palette, so every existing var(--paper)/var(--ink)/CMYK reference reskins
+     automatically. The loud CMYK print-brand colours fold onto navy/gold. ── */
+  --paper: var(--cream);
+  --paper-raised: var(--cream-2);
+  --paper-sunk: var(--cream-2);
+  --paper-deep: var(--grey-strip-2);
+  --ink-600: #463e32;        /* warm-grey text ramp kept for footer meta */
   --ink-500: #5c5346;
   --ink-400: #7a7061;
-  --paper: #f3ede1;
-  --paper-raised: #ede6d7;
-  --paper-sunk: #e7dfcd;
-  --paper-deep: #ded4be;
+  --cyan: var(--navy-2);     /* CMYK retired → navy/gold */
+  --magenta: var(--gold);
+  --yellow: var(--gold-2);
+  --video-tone: #12294c;     /* dark sections melt into navy, not warm brown */
 
-  /* Average tone sampled from a settled open-book hero frame — dark sections
-     melt into the footage. Re-sample if the hero master is replaced. */
-  --video-tone: #2d2926;
-
-  color-scheme: dark;
+  color-scheme: light;       /* Ekta's site is a cream/light canvas */
 }
 
 * {
@@ -70,28 +68,29 @@ html.lenis body {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--cream);
   color: var(--ink);
-  font-family: 'Space Mono', ui-monospace, monospace;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--magenta);
-  color: var(--paper);
+  background: var(--gold);
+  color: var(--cream);
 }
 
 /* ---- Print-craft primitives ---------------------------------------- */
 
-/* Metrisch utility — explicit so it applies even if the Tailwind config
-   isn't hot-reloaded by the running dev server. */
+/* Display utility — was Metrisch; now Ekta's Inter Tight display face so any
+   residual .font-metrisch usage renders in her typography without per-node edits. */
 .font-metrisch {
-  font-family: 'Metrisch', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
 }
 
-/* mono utility label */
+/* mono utility label — DM Mono (Ekta's technical-label face). 0.72rem ≈ 11.5px,
+   above the 11px compliance floor. */
 .label {
-  font-family: 'Space Mono', monospace;
+  font-family: 'DM Mono', ui-monospace, monospace;
   font-size: 0.72rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
@@ -188,6 +187,37 @@ body {
   }
 }
 
+/* ── EKTA HEADER nav links — Inter Tight, navy, hover→gold with a center-growing
+   gold underline (her signature nav detail). Used by SiteNav. ── */
+.qnav-link {
+  position: relative;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  color: var(--navy);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.qnav-link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  bottom: -6px;
+  height: 1.5px;
+  background: var(--gold);
+  transition: left 0.25s ease, right 0.25s ease;
+}
+.qnav-link:hover,
+.qnav-link:focus-visible { color: var(--gold); }
+.qnav-link:hover::after,
+.qnav-link:focus-visible::after { left: 0; right: 0; }
+
 @keyframes marquee {
   from {
     transform: translate3d(0, 0, 0);
@@ -270,7 +300,8 @@ body {
   filter: blur(32px) saturate(1.05);
   opacity: 0.9;
   transform: rotate(-9deg) translateX(0);
-  animation: hero-aurora-drift-a 60s linear infinite;
+  /* MOTIONLESS — client verdict is a static hero. Drift removed; the ribbons
+     read as a settled, painted aurora (its resting appearance). */
 }
 .hero-aurora__ribbons::after {
   /* period 420px — dimmer, mostly navy2 with a faint warm hint, for the shear */
@@ -287,7 +318,7 @@ body {
   filter: blur(28px) saturate(1.04);
   opacity: 0.8;
   transform: rotate(6deg) translateX(0);
-  animation: hero-aurora-drift-b 82s linear infinite;
+  /* MOTIONLESS — see ::before. Static resting frame, no drift. */
 }
 /* Static veil (no animation, no blur → free): a navy core over the headline
    block keeps POWERING GLOBAL EDUCATION on its original dark field (contrast
@@ -1285,16 +1316,16 @@ body {
   text-transform: uppercase;
   color: #c89a3c;
 }
-/* "Global Reach" header eyebrow — elegant cursive accent (Great Vibes, accent-only).
-   Script face, normal case, no rule line (design law: no eyebrow dashes). */
+/* "Global Reach" header eyebrow — RESKINNED to Ekta's DM Mono eyebrow (Great Vibes
+   is retired; her closed font set is Inter Tight / Inter / DM Mono only). */
 .proj-eyebrow-script {
   margin: 0 0 14px;
-  font-family: 'Great Vibes', cursive;
-  font-weight: 400;
-  font-size: 24px;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-weight: 500;
+  font-size: 12px;
   line-height: 1;
-  letter-spacing: 0.5px;
-  text-transform: none;
+  letter-spacing: 3px;
+  text-transform: uppercase;
   color: #c89a3c;
 }
 .proj-eyebrow-script::after { display: none; }
@@ -1592,28 +1623,18 @@ body {
    digits transparent, which axe can't contrast-check — so foil is hero-only). */
 .ledger-hero-num .odo-cell, .ledger-hero-num .odo-suffix, .ledger-hero-num .odo-dot,
 .ledger-hero-num .odo--static {
-  /* hero stays bright — cream → gold foil so the loud stat keeps its glow */
-  background: linear-gradient(180deg, #fdfaf4 0%, #f0cd82 58%, #c89a3c 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  /* RELAXED per client feedback: Ekta's big stats are FLAT solid gold, never
+     foil-clipped and never glowing. Solid gold-2 (#C89A3C, 5.3:1 on navy). */
+  color: var(--gold-2);
 }
-/* rows keep SOLID gold (#C89A3C, 5.3:1 on navy — axe-measurable) and get their
-   pop from the bloom shadow below, not a gradient. Foil is reserved for the hero
-   so the odometer digits stay a single, contrast-checkable colour on every row. */
+/* rows are the same solid gold — one contrast-checkable colour on every row. */
 
-/* depth + warm bloom on the number only (scoped to .odo so the unit word stays flat) */
+/* subtle depth only (no gold bloom — foil/glow retired to match her flat accent) */
 .ledger-hero-num .odo {
-  filter:
-    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5))
-    drop-shadow(0 0 26px rgba(200, 154, 60, 0.28))
-    drop-shadow(0 0 64px rgba(200, 154, 60, 0.14));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
 }
 .ledger-num .odo {
-  filter:
-    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5))
-    drop-shadow(0 0 16px rgba(200, 154, 60, 0.3))
-    drop-shadow(0 0 40px rgba(200, 154, 60, 0.13));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
 @media (max-width: 720px) {
@@ -1882,13 +1903,8 @@ body {
   font-size: 1.5em;
   line-height: 0.9;
   letter-spacing: -1.5px;
-  /* metallic foil on light: gold gradient (both stops ≥3:1 on cream2, large text)
-     + a soft dark depth — a bloom would vanish on cream, so anchor only. */
-  background: linear-gradient(180deg, #9b7420 0%, #836013 56%, #5e4610 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 1px 1px rgba(28, 32, 25, 0.3));
+  /* RELAXED: flat solid gold-text on cream (AA), no foil gradient. */
+  color: var(--gold-text);
 }
 .infra-people-body {
   margin: 0 0 clamp(34px, 5vh, 52px);
@@ -2603,11 +2619,8 @@ body {
   font-size: 26px;
   line-height: 1.12;
   letter-spacing: -0.01em;
-  background: linear-gradient(175deg, #f1d397 0%, #e8c275 30%, #be8f36 68%, #9b7420 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  /* RELAXED: flat solid gold-2 on navy (was a 4-stop foil gradient). */
+  color: var(--gold-2);
 }
 .aw-desc { margin: 0; font-family: 'Inter', sans-serif; font-weight: 300; font-size: 15px; line-height: 1.55; color: rgba(253, 250, 244, 0.78); }
 
@@ -2699,9 +2712,9 @@ body {
 .edu-hero-foil {
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(72px, 11vw, 150px); line-height: 0.9; letter-spacing: -0.04em;
-  background: linear-gradient(180deg, #fdfaf4 0%, #f0cd82 58%, #c89a3c 100%);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 26px rgba(200, 154, 60, 0.28)) drop-shadow(0 0 64px rgba(200, 154, 60, 0.14));
+  /* RELAXED: flat solid gold-2 on navy, no foil / no bloom. */
+  color: var(--gold-2);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
 }
 .edu-hero-stat-unit {
   margin-top: 8px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 13px;
@@ -2970,17 +2983,14 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(34px, 4.4vw, 56px); line-height: 1.0; letter-spacing: -1.5px;
   text-decoration: none; overflow-wrap: break-word; max-width: 100%;
-  /* cream/white-dominant foil (like infra's pale 250,000) — pure cream owns the
-     top half, only a warm gold sheen at the base, so it pops off the navy */
-  background: linear-gradient(180deg, #ffffff 0%, #fdfaf4 46%, #f3ddb0 78%, #e4bf72 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent; color: transparent;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 22px rgba(200, 154, 60, 0.22)) drop-shadow(0 0 60px rgba(200, 154, 60, 0.12));
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
+  /* RELAXED: flat solid cream on navy (calm, not a loud gold foil). */
+  color: var(--cream);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 a.ctc-hero-foil:hover {
   transform: translateY(-2px);
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 30px rgba(200, 154, 60, 0.42)) drop-shadow(0 0 76px rgba(200, 154, 60, 0.2));
+  color: var(--gold-2);
 }
 a.ctc-hero-foil:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px; border-radius: 6px; }
 .ctc-hero-stat-label {

@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { prefersReduced } from '@/lib/useReducedMotion'
 
 // ── WavyBackground — flowing simplex-noise canvas waves (Aceternity-style) ────
 // Recreated in plain React + canvas (no "use client", no dependency). Brand-only
@@ -73,8 +72,11 @@ export default function WavyBackground({ className = '' }) {
     const ctx = canvas.getContext('2d')
     const noise = makeNoise3D()
     const DPR = Math.min(window.devicePixelRatio || 1, 1.25) // cap canvas DPR
-    const reduced = prefersReduced()
-    let w = 0, h = 0, nt = 0, raf = 0, running = false
+    // MOTIONLESS: the client rejected background motion, so the waves render as a
+    // single settled static frame everywhere (was: slow drifting loop). nt is a
+    // fixed phase so the wave shape is stable and deterministic.
+    let w = 0, h = 0
+    const nt = 0.35
 
     const resize = () => {
       const r = canvas.getBoundingClientRect()
@@ -103,23 +105,11 @@ export default function WavyBackground({ className = '' }) {
       ctx.filter = 'none'
       ctx.globalAlpha = 1
     }
-    const render = () => {
-      nt += 0.0016 // slow, dignified drift
-      paint()
-      if (running) raf = requestAnimationFrame(render)
-    }
-
     resize()
-    if (reduced) { paint(); return () => {} } // static frame, no loop
-
-    const start = () => { if (!running) { running = true; raf = requestAnimationFrame(render) } }
-    const stop = () => { running = false; cancelAnimationFrame(raf) }
-    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop()), { threshold: 0 })
-    io.observe(canvas)
-    const onResize = () => resize()
+    paint() // one static frame — no animation loop, no IntersectionObserver
+    const onResize = () => { resize(); paint() }
     window.addEventListener('resize', onResize)
-    paint() // first frame immediately (no flash before IO fires)
-    return () => { stop(); io.disconnect(); window.removeEventListener('resize', onResize) }
+    return () => { window.removeEventListener('resize', onResize) }
   }, [])
 
   return <canvas ref={ref} className={className} aria-hidden="true" />

@@ -170,6 +170,9 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
           zoom: reduced ? TARGET.zoom : SPACE_VIEW.zoom,
           attributionControl: { compact: true },
           interactive: true,
+          // Cooperative gestures: wheel-zoom needs ctrl/cmd and touch needs two
+          // fingers, so the map never hijacks normal page scroll once zoom is on.
+          cooperativeGestures: true,
           fadeDuration: 0,
           maxZoom: 12,
         })
@@ -302,10 +305,16 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
       // Staggered pop; rAF so the transition start is painted before .is-in.
       requestAnimationFrame(() => setTimeout(() => el.classList.add('is-in'), 180 + i * 220))
     })
-    // Drag on (scrollZoom stays off so the map never hijacks page scroll).
+    // Hand full interaction back to the user once landed: drag/pan, rotate,
+    // keyboard, pinch-zoom (touchZoomRotate), AND wheel zoom (scrollZoom). Because
+    // the map was constructed with cooperativeGestures, wheel-zoom requires
+    // ctrl/cmd and touch requires two fingers, so page scroll is never hijacked.
     map.dragPan.enable()
     map.dragRotate.enable()
     map.touchZoomRotate.enable()
+    map.touchPitch.enable()
+    map.scrollZoom.enable()
+    map.doubleClickZoom.enable()
     map.keyboard.enable()
     setPhase('landed')
   }

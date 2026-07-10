@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <SmoothScrollProvider>
       <Seo title={t('seo.title')} description={t('seo.description')} />
-      <main id="main" className="relative" style={{ '--video-tone': '#2d2926' }}>
+      <main id="main" className="relative" style={{ '--video-tone': '#12294c' }}>
         <span id="top" />
         <Hero />
         <TrustStrips />
