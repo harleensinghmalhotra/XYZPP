@@ -5,9 +5,12 @@ import { useLocation } from 'react-router-dom'
 // (Lenis) is destroyed before this fires when leaving "/", and mounts fresh at 0
 // when entering "/", so a plain window scroll reset is correct for every route.
 export default function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   useLayoutEffect(() => {
+    // A hash means the target wants to land on an in-page anchor (e.g. the hub
+    // links to /#certifications), so leave scroll positioning to the browser.
+    if (hash) return
     window.scrollTo(0, 0)
-  }, [pathname])
+  }, [pathname, hash])
   return null
 }
