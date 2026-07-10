@@ -1,0 +1,7 @@
+{
+  "progress": 0.5,
+  "meanAbsDiffPerPixel": 0.003,
+  "pctPixelsDiffer": 0,
+  "pure": true,
+  "note": "book-crop pixel diff of same progress reached fast vs slow; ~0 proves scrub-purity"
+}

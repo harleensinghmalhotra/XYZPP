@@ -1,7 +1,9 @@
-import { useEffect, useRef, useMemo } from 'react'
+import { useEffect, useRef, useMemo, useState } from 'react'
 import { useTranslation, Trans } from 'react-i18next'
 import gsap from 'gsap'
 import { prefersReduced } from '@/lib/useReducedMotion'
+import TypingBookOverlay from './TypingBookOverlay'
+import { typingSound } from '@/lib/typingSound'
 
 // ── QFP hero skin — RESKINNED to Ekta's design language. ──
 // The client rejected motion in the hero background and the rotating seal, so the
@@ -9,8 +11,15 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 // settled resting appearance — the aurora is exactly what showed through the idle
 // near-transparent ether canvas), and the "QFP STORIES" spinning seal is gone.
 // The gold-foil headline is relaxed to Ekta's flat solid gold accent.
-const BOOK_BASE = '/qfp/hero/qfp-book-pages.webp' // LETTERED base — always present
-const BOOK_OVER = '/qfp/hero/qfp-book-cover.webp' // COVER overlay — sits on top, fades out to expose the pages
+//
+// PHASE 3.4 — TYPING BOOK: the reveal no longer crossfades a blank cover into a
+// pre-lettered bitmap. The BLANK spread is the permanent base, and the page
+// collage is LIVE text typed on by <TypingBookOverlay>, scrubbed to scroll. The
+// old lettered asset (BOOK_LETTERED) is intentionally kept in the repo untouched
+// — the blank-base + live-text split is exactly what makes a future asset swap
+// from Ekta trivial (see TypingBookOverlay.jsx).
+const BOOK_BASE = '/qfp/hero/qfp-book-cover.webp' // BLANK spread — permanent base
+const BOOK_LETTERED = '/qfp/hero/qfp-book-pages.webp' // retired pre-lettered art (kept for Ekta's future regen; not rendered)
 const BUBBLE = '/qfp/hero/qfp-bubble.webp'
 const GOLD = '#C89A3C' // System B on-navy accent gold (matches ledger-num, 5.3:1 on navy)
 
@@ -72,9 +81,10 @@ export default function Hero() {
   const titleGhost = useRef(null)
   const copyGroup = useRef(null)
   const riseWrap = useRef(null)
-  const overlay = useRef(null)
+  const typing = useRef(null) // TypingBookOverlay imperative handle
   const elRefs = useRef([])
   const bubbleRefs = useRef([])
+  const [soundOn, setSoundOn] = useState(false)
 
   const cutouts = useMemo(() => CUTOUTS, [])
 
@@ -102,7 +112,6 @@ export default function Hero() {
       gsap.set(titleGhost.current, { x: 0, transformOrigin: '50% 50%', scale: 1, opacity: 1 })
       gsap.set(copyGroup.current, { opacity: 1 })
       gsap.set(riseWrap.current, { y: 0 })
-      gsap.set(overlay.current, { opacity: 1 }) // cover overlay hides the pages at rest
 
       // Cutouts start hidden + scaled to 0 at their final (cx,cy). No float loop —
       // a drifting figure would slide against its fixed page crop line.
@@ -151,11 +160,21 @@ export default function Hero() {
       const pinEnd = () => window.innerHeight * 1.5
       const bloomTl = gsap.timeline({
         defaults: { ease: 'none' },
-        scrollTrigger: { trigger: section.current, start: () => pinEnd() - 262, end: () => pinEnd() + 140, scrub: 0.3, invalidateOnRefresh: true },
+        scrollTrigger: {
+          trigger: section.current,
+          start: () => pinEnd() - 262,
+          end: () => pinEnd() + 140,
+          scrub: 0.3,
+          invalidateOnRefresh: true,
+          // TYPING DRIVER — self.progress is the RAW scroll progress across the
+          // reveal window (scrub only lags the bloom tween, not this value), so
+          // the typed substring is a pure function of scroll position: fast/slow
+          // scroll lands identical glyphs, reverse scroll untypes. No timers.
+          onUpdate: (self) => typing.current && typing.current.setProgress(self.progress),
+        },
       })
-      // Cover overlay fades across the bloom window — pristine until onset, then
-      // the pages reveal gradually with the characters (matches reference).
-      bloomTl.fromTo(overlay.current, { opacity: 1 }, { opacity: 0, ease: 'power1.in', duration: 0.82 }, 0.02)
+      // The page collage is typed on live by <TypingBookOverlay> (driven above) —
+      // no cover crossfade any more; the blank base stays put and the words type.
       // Characters grow gradually and TOGETHER over the whole window (tiny stagger,
       // gentle sine ease, no pop) — small at mid, full only near pin release.
       cutouts.forEach((c, i) => {
@@ -186,10 +205,13 @@ export default function Hero() {
     return () => ctx.revert()
   }, [reduced, cutouts])
 
-  // ── Reduced-motion: static rest composition (headline only, no motion) ──
+  // ── Reduced-motion: static composition, no scrub/scroll motion, NO sound. ──
+  // The typing book degrades to its finished state — the collage is rendered
+  // fully-typed and still (TypingBookOverlay reduced) on a static, fully-visible
+  // blank book below the headline. No caret, no scrub, no audio.
   if (reduced) {
     return (
-      <section id="hero" data-theme="dark" className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden bg-[#0c2f4a] px-6 text-center">
+      <section id="hero" data-theme="dark" className="relative flex min-h-[100svh] flex-col items-center overflow-hidden bg-[#0c2f4a] px-6 pt-[13vh] text-center">
         {/* HERO AURORA — static gradient under reduced motion (no drift). */}
         <div className="hero-aurora" aria-hidden="true">
           <div className="hero-aurora__ribbons" />
@@ -197,12 +219,19 @@ export default function Hero() {
         </div>
         {/* Two-line anatomy (line1 cream, line2 solid gold). Seal removed. */}
         <div className="relative z-[1] flex flex-col items-center leading-[0.84]">
-          <span className="font-metrisch text-[12vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[8.4vw]">{t('hero.line1')} {t('hero.line2')}</span>
-          <span className="mt-[2px] flex items-center justify-center font-metrisch text-[12vw] font-bold uppercase tracking-[-0.02em] lg:text-[8.4vw]" style={{ color: GOLD }}>
+          <span className="font-metrisch text-[9vw] font-bold uppercase tracking-[-0.02em] text-[#fdfaf4] lg:text-[6vw]">{t('hero.line1')} {t('hero.line2')}</span>
+          <span className="mt-[2px] flex items-center justify-center font-metrisch text-[9vw] font-bold uppercase tracking-[-0.02em] lg:text-[6vw]" style={{ color: GOLD }}>
             {t('hero.line3')}
           </span>
         </div>
-        <p className="relative z-[1] mt-8 max-w-[900px] text-[20px] leading-[1.35] text-white/90">{t('hero.subhead')}</p>
+        <p className="relative z-[1] mt-6 max-w-[820px] text-[18px] leading-[1.35] text-white/90">{t('hero.subhead')}</p>
+        {/* Static, fully-typed book — the reveal's finished state. */}
+        <div className="relative z-[1] mt-8 w-full max-w-[820px]">
+          <div className="relative flex w-full justify-center">
+            <img src={BOOK_BASE} alt={t('hero.bookAlt')} className="relative block w-full select-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]" style={{ clipPath: 'inset(0 0 12% 0)' }} draggable="false" />
+            <TypingBookOverlay ref={typing} reduced />
+          </div>
+        </div>
       </section>
     )
   }
@@ -249,12 +278,17 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* lettered base (z-[1], ON TOP of the kids). clip-path cuts the bottom
+            {/* BLANK book base (z-[1], ON TOP of the kids). clip-path cuts the bottom
                 19% transparent shadow-padding zone so the CSS drop-shadow stops at
                 the TrustStrips gold-border line (junction unchanged). */}
             <img src={BOOK_BASE} alt={t('hero.bookAlt')} className="relative z-[1] block w-full select-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]" style={{ clipPath: 'inset(0 0 19% 0)' }} draggable="false" />
-            {/* cover overlay (z-[2]) at the same footprint — fades out to reveal the pages */}
-            <img ref={overlay} src={BOOK_OVER} alt="" aria-hidden="true" className="pointer-events-none absolute left-0 top-0 z-[2] w-full select-none object-contain" draggable="false" />
+            {/* TYPING OVERLAY (z-[2]) — live page collage typed on the blank base,
+                under the front props (globe/owl sit physically on the open pages).
+                inset-0 fills the base-image box so the overlay's page quads map to
+                the real book geometry at any viewport. */}
+            <div className="absolute inset-0 z-[2]">
+              <TypingBookOverlay ref={typing} />
+            </div>
 
             {/* LAYER 3 (z-[3]) — props + speech bubbles IN FRONT of the book */}
             <div className="pointer-events-none absolute inset-0 z-[3] flex items-center justify-center">
@@ -349,6 +383,24 @@ export default function Hero() {
           <span className="block h-1.5 w-1.5 rounded-full bg-white" />
           <span className="text-[11px] font-medium uppercase text-white" style={{ letterSpacing: '5px' }}>{t('hero.scroll')}</span>
         </div>
+
+        {/* Sound toggle — mechanical key-clicks for the typing book, OFF by
+            default. The tap IS the user gesture that unlocks WebAudio, so playback
+            only ever starts after this. DM Mono label per Ekta's micro-label style. */}
+        <button
+          type="button"
+          onClick={() => setSoundOn(typingSound.toggle())}
+          aria-pressed={soundOn}
+          className="group absolute bottom-[48px] right-[40px] z-40 flex items-center gap-2 border border-white/25 px-[13px] py-[8px] font-mono text-white/85 transition-colors duration-300 hover:border-white/55 hover:text-white"
+          style={{ backgroundColor: 'rgba(12,47,74,0.39)' }}
+        >
+          {soundOn ? (
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" /><path d="M15.5 8.5a5 5 0 0 1 0 7" /><path d="M18.5 5.5a9 9 0 0 1 0 13" /></svg>
+          ) : (
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" /><path d="m22 9-6 6" /><path d="m16 9 6 6" /></svg>
+          )}
+          <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '2.5px' }}>{t('hero.bookSound')}</span>
+        </button>
       </div>
     </section>
   )

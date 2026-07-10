@@ -18,6 +18,11 @@
       "red": "Quarterfold imprime <1>25 millions de livres</1> chaque année.",
       "blonde": "Comment ? Ils exportent aussi vers <1>plus de 25 pays</1> chaque année ?",
       "green": "Waouh ! Cela veut dire que ces livres ont été lus par des <1>milliards</1> de personnes !"
+    },
+    "bookSound": "Son",
+    "bookWords": {
+      "left": ["Vision", "Création", "Imaginer", "Idée", "Bâtir", "Impact", "Inspirer", "Réussir", "Réseau", "Équipe", "Collaboration"],
+      "right": ["Moments", "Explorer", "Apprendre", "Grandir", "Curiosité", "Voyage", "Réflexion", "Parcours", "Lien", "Émerveiller", "Progrès"]
     }
   },
   "promise": {
