@@ -2263,71 +2263,73 @@ body {
   gap: clamp(80px, 8vw, 120px); /* substantial centre gutter */
 }
 
-/* LEFT — living olive display panel (motif + chips), or the cutout pop when it lands */
+/* LEFT — full-bleed editorial showpiece. */
 .sustain-media { position: relative; }
-.sustain-panel {
+.sustain-media > figure { margin: 0; }
+
+/* ── FULL-BLEED EDITORIAL ──────────────────────────────────────────────────
+   A tall forest-canopy photograph in a navy→olive duotone (inline SVG filter),
+   barely-rounded, one DM-Mono FSC stat chip, slow Ken Burns scrubbed to scroll. */
+.svA-defs { position: absolute; width: 0; height: 0; }
+.svA-frame {
   position: relative;
-  height: clamp(480px, 62vh, 560px);
-  border-radius: 30px;
-  display: grid;
-  place-items: center;
-  overflow: visible; /* chips + motif breathe past the edge */
-  transform: rotate(-1.5deg); /* slight tilt — belongs to the 3D family */
-  /* olive-tinted → cream2 surface */
-  background: linear-gradient(158deg, #eef1e1 0%, #e6e9d3 56%, #dde1c6 100%);
-  /* layered premium shadow + a whisper of olive ambience */
+  height: clamp(500px, 66vh, 600px);
+  border-radius: 14px; /* barely-rounded editorial crop */
+  overflow: hidden;
+  background: #0f2444;
   box-shadow:
-    0 1px 2px rgba(15, 36, 68, 0.06),
-    0 20px 46px -18px rgba(15, 36, 68, 0.22),
-    0 52px 96px -34px rgba(107, 122, 42, 0.34);
+    0 2px 4px rgba(15, 36, 68, 0.08),
+    0 26px 54px -20px rgba(15, 36, 68, 0.34),
+    0 60px 110px -46px rgba(107, 122, 42, 0.4);
 }
-
-/* stroke-drawn paper + leaf motif */
-.sustain-motif {
-  width: 68%;
-  height: auto;
-  transform: rotate(1.5deg); /* counter the panel tilt so the motif reads upright */
-  overflow: visible;
-}
-.sustain-motif .pdraw {
-  fill: none;
-  stroke: #6b7a2a;
-  stroke-width: 1.75;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* floating micro-stat chips */
-.sustain-chip {
+.svA-img {
   position: absolute;
+  inset: -2%; /* bleed so the Ken Burns scale never reveals an edge */
+  width: 104%;
+  height: 104%;
+  object-fit: cover;
+  filter: url(#sustain-duotone) contrast(1.03);
+  transform-origin: 52% 42%;
+  will-change: transform;
+}
+/* olive→navy graded wash: unifies the duotone and seats the chip in shadow.
+   Curved radial + soft vertical grade only — no straight interior seams. */
+.svA-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 50% 8%, rgba(107, 122, 42, 0.22) 0%, transparent 52%),
+    linear-gradient(0deg, rgba(15, 36, 68, 0.82) 0%, rgba(15, 36, 68, 0.12) 34%, transparent 58%);
+  pointer-events: none;
+}
+.svA-chip {
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
   z-index: 2;
-  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 15px 9px 13px;
   border-radius: 999px;
-  background: #fdfaf4;
-  border: 1px solid rgba(107, 122, 42, 0.2);
-  box-shadow: 0 8px 20px -8px rgba(15, 36, 68, 0.25);
+  background: rgba(253, 250, 244, 0.9);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(253, 250, 244, 0.5);
+  box-shadow: 0 10px 26px -10px rgba(15, 36, 68, 0.55);
   font-family: 'DM Mono', monospace;
   font-weight: 500;
   font-size: 12.5px;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
   white-space: nowrap;
-  color: #4f5c17; /* olive, ≥4.5:1 on the cream chip */
+  color: #3c470f; /* deep olive, ≥7:1 on the cream chip */
 }
-.sustain-chip--a { top: 7%; left: -6%; }
-.sustain-chip--b { top: 44%; right: -9%; }
-.sustain-chip--c { bottom: 9%; left: 2%; }
-
-/* the cutout pop — shown only once the real image loads (motif + chips hidden) */
-.sustain-cutout {
-  position: absolute;
-  left: 50%;
-  bottom: 4%;
-  width: 64%;
-  transform: translateX(-50%) rotate(-5deg);
-  transform-origin: center bottom;
-  filter: drop-shadow(0 16px 18px rgba(15, 36, 68, 0.3));
-  transition: opacity 0.4s ease;
-  pointer-events: none;
+.svA-chip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6b7a2a;
+  box-shadow: 0 0 0 3px rgba(107, 122, 42, 0.22);
+  flex: none;
 }
 
 /* RIGHT — editorial text (scaled up one notch) */
@@ -2381,10 +2383,10 @@ body {
   .sustain { min-height: 0; padding: 72px 24px; }
   .sustain-inner { grid-template-columns: 1fr; gap: 48px; }
   .sustain-media { max-width: 460px; margin: 0 auto; }
-  .sustain-panel { height: clamp(420px, 60vw, 500px); }
+  .svA-frame { height: clamp(420px, 74vw, 520px); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sustain-cutout { transition: none; }
+  .svA-img { transform: none !important; }
 }
 
 /* ── Awards & Press — faithful port of the approved Claude Design export ───────
