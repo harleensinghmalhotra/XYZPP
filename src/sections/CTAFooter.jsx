@@ -1,5 +1,6 @@
 import { useTranslation, Trans } from 'react-i18next'
 import QfpSeal from '@/components/QfpSeal'
+import AuroraBackground from '@/components/AuroraBackground'
 
 // Fonts locked to our system (was inheriting the global Space Mono / font-display):
 const INTER = "'Inter', sans-serif"
@@ -45,6 +46,10 @@ export default function CTAFooter() {
         minHeight: '100svh',
       }}
     >
+      {/* SIGNATURE AURORA — the site-wide CTA's one flagship dark moment. Reused
+          from the hero, dialled subtler; sits at the very back, under the content. */}
+      <AuroraBackground />
+
       {/* Top CTA Area — on the navy outer surface, so text is light */}
       <div className="relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center px-6 py-32 text-center" style={{ color: '#fdfaf4' }}>
         <div className="mb-8">

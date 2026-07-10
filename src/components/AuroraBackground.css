@@ -1,0 +1,106 @@
+/* ── SIGNATURE AURORA — reused from .hero-aurora, dialled subtler ──────────────
+   Same recipe as the hero (see src/index.css .hero-aurora*): two blurred ribbon
+   sheets of LIGHT tints over TRANSPARENT gaps, each drifting a single band-period
+   along its rotated axis so they shear past one another into northern-lights
+   motion. Plain source-over compositing lightens the navy inside the bands only —
+   the compositor fast path, no blend render-target. This copy is deliberately
+   quieter than the hero: ~40% lower ribbon opacity, a slightly larger blur, and a
+   centred veil that keeps the CTA headline on calm navy. It clips to its host
+   (overflow:hidden) so the wash can never bleed past the band. */
+.sig-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.sig-aurora__ribbons {
+  position: absolute;
+  inset: 0;
+}
+.sig-aurora__ribbons::before,
+.sig-aurora__ribbons::after {
+  content: '';
+  position: absolute;
+  left: -40%;
+  top: -50%;
+  width: 180%;
+  height: 190%;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.sig-aurora__ribbons::before {
+  /* period 480px — navy2 glow body with one gold → cream sliver over transparent
+     gaps. Alphas trimmed vs the hero so the CTA copy always leads. */
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(22, 56, 106, 0) 0px,
+    rgba(22, 56, 106, 0) 70px,
+    rgba(43, 85, 144, 0.32) 150px,
+    rgba(63, 110, 170, 0.26) 198px,
+    rgba(200, 154, 60, 0.16) 236px,
+    rgba(239, 224, 189, 0.12) 260px,
+    rgba(43, 85, 144, 0.2) 306px,
+    rgba(22, 56, 106, 0) 380px,
+    rgba(22, 56, 106, 0) 480px
+  );
+  filter: blur(38px) saturate(1.04);
+  opacity: 0.72;
+  transform: rotate(-9deg) translateX(0);
+  animation: sig-aurora-drift-a 66s linear infinite;
+}
+.sig-aurora__ribbons::after {
+  /* period 420px — dimmer, mostly navy2 with a faint warm hint, for the shear */
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(27, 58, 107, 0) 0px,
+    rgba(27, 58, 107, 0) 92px,
+    rgba(44, 85, 144, 0.22) 172px,
+    rgba(216, 189, 126, 0.1) 232px,
+    rgba(44, 85, 144, 0.16) 292px,
+    rgba(27, 58, 107, 0) 360px,
+    rgba(27, 58, 107, 0) 420px
+  );
+  filter: blur(34px) saturate(1.03);
+  opacity: 0.62;
+  transform: rotate(6deg) translateX(0);
+  animation: sig-aurora-drift-b 90s linear infinite;
+}
+/* Static veil (no animation, no blur → free): a navy core over the headline keeps
+   the CTA copy on its dark field, with a soft fade at top and bottom so the wash
+   never hard-edges against the band's own boundaries. */
+.sig-aurora__veil {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(
+      ellipse 82% 62% at 50% 40%,
+      rgba(15, 36, 68, 0.86) 0%,
+      rgba(15, 36, 68, 0.5) 38%,
+      rgba(15, 36, 68, 0) 70%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(15, 36, 68, 0.55) 0%,
+      rgba(15, 36, 68, 0) 22%,
+      rgba(15, 36, 68, 0) 80%,
+      rgba(15, 36, 68, 0.6) 100%
+    );
+}
+@keyframes sig-aurora-drift-a {
+  to {
+    transform: rotate(-9deg) translateX(-480px);
+  }
+}
+@keyframes sig-aurora-drift-b {
+  to {
+    transform: rotate(6deg) translateX(-420px);
+  }
+}
+/* reduced motion → static gradient, no drift */
+@media (prefers-reduced-motion: reduce) {
+  .sig-aurora__ribbons::before,
+  .sig-aurora__ribbons::after {
+    animation: none;
+  }
+}

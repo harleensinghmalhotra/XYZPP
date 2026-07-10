@@ -8,6 +8,7 @@ import CountUp from '@/components/CountUp'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import { WavyBackground, DotField, PaperGrain } from '@/components/atmosphere'
+import LightRays from '@/components/LightRays'
 import './InfrastructurePage.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -339,6 +340,9 @@ export default function InfrastructurePage() {
         <SectionCurve position="top" fill="#0f2444" />
         <div className="inf-results-beam" aria-hidden="true" />
         <DotField tone="navy" />
+        {/* LIGHT RAYS — factory light raking the results band. Sole WebGL here; the
+            beam/dots are 2D. Gold, top-center, low-sat, slight noise, no pulse. */}
+        <LightRays className="inf-results-rays" rayLength={1.5} lightSpread={0.9} />
         <div className="inf-wrap inf-results-grid inf-z">
           <div className="inf-results-left">
             <div className="inf-results-head">

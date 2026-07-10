@@ -5,7 +5,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
-import { WavyBackground, DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import LightRays from '@/components/LightRays'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 
@@ -291,7 +292,10 @@ export default function EducationalBooks() {
 
       {/* ── 4. IMPACT BAND (navy) ── */}
       <section data-theme="dark" className="edu-impact relative overflow-hidden" aria-labelledby="edu-impact-title">
-        <WavyBackground className="pointer-events-none absolute inset-0 h-full w-full" />
+        {/* LIGHT RAYS — the impact band's single signature effect (supersedes the
+            generic wavy canvas): gold light from above over the reach/impact roll.
+            Sole WebGL here; top-center, low-sat, slight noise, no pulse. */}
+        <LightRays className="edu-impact-rays" rayLength={1.6} lightSpread={0.85} />
         <SectionCurve position="top" fill="#0f2444" />
         <div className="edu-impact-inner relative z-10">
           <div className="edu-impact-head">

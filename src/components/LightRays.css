@@ -1,0 +1,28 @@
+/* LightRays host — fills its positioned parent (a navy section), never intercepts
+   pointer or reading. Sits at the very back of the section's stack. */
+.light-rays {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.light-rays canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* reduced-motion fallback: no WebGL, a single static gold shaft from the top edge
+   (edge-origin law preserved), soft enough to never fight text. Matches the moving
+   effect's read "light from above" without a moving pixel. */
+.light-rays--static {
+  background:
+    radial-gradient(
+      120% 90% at 50% -10%,
+      rgba(200, 154, 60, 0.16) 0%,
+      rgba(200, 154, 60, 0.06) 34%,
+      transparent 62%
+    );
+}
