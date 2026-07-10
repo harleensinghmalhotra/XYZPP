@@ -1,0 +1,75 @@
+[
+  {
+    "window": "w0",
+    "p": 0.15,
+    "kids": [],
+    "typed": 0,
+    "total": 225
+  },
+  {
+    "window": "w1",
+    "p": 0.26,
+    "kids": [
+      "boy-red"
+    ],
+    "typed": 0,
+    "total": 225
+  },
+  {
+    "window": "w2",
+    "p": 0.36,
+    "kids": [
+      "boy-red",
+      "girl-blonde"
+    ],
+    "typed": 0,
+    "total": 225
+  },
+  {
+    "window": "w3",
+    "p": 0.46,
+    "kids": [
+      "boy-red",
+      "girl-blonde",
+      "boy-green"
+    ],
+    "typed": 0,
+    "total": 225
+  },
+  {
+    "window": "w4",
+    "p": 0.56,
+    "kids": [
+      "boy-red",
+      "girl-blonde",
+      "girl-mustard",
+      "boy-green"
+    ],
+    "typed": 0,
+    "total": 225
+  },
+  {
+    "window": "w5",
+    "p": 0.86,
+    "kids": [
+      "boy-red",
+      "girl-blonde",
+      "girl-mustard",
+      "boy-green"
+    ],
+    "typed": 225,
+    "total": 225
+  },
+  {
+    "window": "w6",
+    "p": 0.97,
+    "kids": [
+      "boy-red",
+      "girl-blonde",
+      "girl-mustard",
+      "boy-green"
+    ],
+    "typed": 225,
+    "total": 225
+  }
+]
