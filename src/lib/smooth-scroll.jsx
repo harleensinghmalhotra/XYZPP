@@ -38,6 +38,10 @@ export function SmoothScrollProvider({ children }) {
     return () => {
       gsap.ticker.remove(tick)
       l.destroy()
+      // Leaving the homepage route unmounts this provider. Each section already
+      // reverts its own gsap.context on unmount, but killAll() is a hard backstop
+      // so no pinned ScrollTrigger can survive onto a native-scroll inner page.
+      ScrollTrigger.killAll()
       setLenis(null)
       if (typeof window !== 'undefined') delete window.__lenis
     }
