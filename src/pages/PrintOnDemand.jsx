@@ -23,6 +23,9 @@ const PAPERS = [{ id: 'cream' }, { id: 'white' }, { id: 'art' }]
 const BINDINGS = [{ id: 'perfect' }, { id: 'sewn' }, { id: 'wiro' }]
 const FINISHES = [{ id: 'matte' }, { id: 'gloss' }, { id: 'layflat' }]
 const QUANTITIES = [{ id: '1' }, { id: '10' }, { id: '50' }, { id: '250' }, { id: '500' }]
+/* number-hero shown on the quantity chips (the full "1 copy" label still drives the
+   summary row, the qty badge and the /contact params — this is chip display only). */
+const QTY_HERO = { 1: '1', 10: '10', 50: '50', 250: '250', 500: '500+' }
 
 /* ── preview geometry ────────────────────────────────────────────────────────── */
 const SIZE_RATIO = { '5x8': 0.625, '6x9': 0.667, '8x10': 0.8, a4: 0.707 }
@@ -115,7 +118,6 @@ function OptionGroup({ groupId, labelId, options, value, onChange, className, ch
             tabIndex={checked ? 0 : idx === -1 && i === 0 ? 0 : -1}
             className="pod-chip"
             onClick={() => onChange(o.id)}
-            data-tight={className?.includes('tight') || undefined}
           >
             {children(o, checked)}
             <span className="pod-chip-tick" aria-hidden="true">
@@ -315,10 +317,10 @@ export default function PrintOnDemand() {
               </Step>
 
               <Step num={t('steps.size.num')} title={t('steps.size.title')} help={t('steps.size.help')} id="step-size">
-                <OptionGroup groupId="size" labelId="step-size" options={SIZES} value={cfg.size} onChange={set('size')} className="pod-opts chips tight">
+                <OptionGroup groupId="size" labelId="step-size" options={SIZES} value={cfg.size} onChange={set('size')} className="pod-opts chips size">
                   {(o) => (
                     <>
-                      <span className="pod-chip-name">{t(`options.size.${o.id}.label`)}</span>
+                      <span className="pod-chip-hero">{t(`options.size.${o.id}.label`)}</span>
                       <span className="pod-chip-sub">{t(`options.size.${o.id}.sub`)}</span>
                     </>
                   )}
@@ -362,10 +364,10 @@ export default function PrintOnDemand() {
               </Step>
 
               <Step num={t('steps.quantity.num')} title={t('steps.quantity.title')} help={t('steps.quantity.help')} id="step-quantity">
-                <OptionGroup groupId="quantity" labelId="step-quantity" options={QUANTITIES} value={cfg.quantity} onChange={set('quantity')} className="pod-opts chips tight">
+                <OptionGroup groupId="quantity" labelId="step-quantity" options={QUANTITIES} value={cfg.quantity} onChange={set('quantity')} className="pod-opts chips qty">
                   {(o) => (
                     <>
-                      <span className="pod-chip-name">{t(`options.quantity.${o.id}.label`)}</span>
+                      <span className="pod-chip-hero">{QTY_HERO[o.id]}</span>
                       <span className="pod-chip-sub">{t(`options.quantity.${o.id}.sub`)}</span>
                     </>
                   )}
@@ -493,13 +495,15 @@ export default function PrintOnDemand() {
   )
 }
 
+/* Step header — DM Mono eyebrow kicker (no circled-number badges) → title → helper.
+   `num` is a localised "Step 01" / "Étape 01" string, uppercased in CSS. */
 function Step({ num, title, help, id, children }) {
   return (
     <section className="pod-step" id={`${id}-sec`} aria-labelledby={id}>
       <div className="pod-step-head">
-        <span className="pod-step-num" aria-hidden="true">{num}</span>
+        <span className="pod-step-kicker" aria-hidden="true">{num}</span>
         <h3 className="pod-step-title" id={id}>{title}</h3>
-        <span className="pod-step-help">{help}</span>
+        <p className="pod-step-help">{help}</p>
       </div>
       {children}
     </section>

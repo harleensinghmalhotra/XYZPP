@@ -19,18 +19,18 @@
     "previewCaptionSep": " · "
   },
   "steps": {
-    "format": { "num": "①", "title": "Format", "help": "How the book is bound and held." },
-    "size": { "num": "②", "title": "Size", "help": "Standard trims, no setup fuss." },
-    "paper": { "num": "③", "title": "Paper", "help": "How the pages feel in the hand." },
-    "binding": { "num": "④", "title": "Binding", "help": "What holds the pages together." },
-    "finish": { "num": "⑤", "title": "Finish", "help": "The surface of your cover." },
-    "quantity": { "num": "⑥", "title": "Quantity", "help": "One copy or a short run." }
+    "format": { "num": "Step 01", "title": "Format", "help": "How the book is bound and held." },
+    "size": { "num": "Step 02", "title": "Size", "help": "Standard trims, no setup fuss." },
+    "paper": { "num": "Step 03", "title": "Paper", "help": "How the pages feel in the hand." },
+    "binding": { "num": "Step 04", "title": "Binding", "help": "What holds the pages together." },
+    "finish": { "num": "Step 05", "title": "Finish", "help": "The surface of your cover." },
+    "quantity": { "num": "Step 06", "title": "Quantity", "help": "One copy or a short run." }
   },
   "options": {
     "format": {
-      "paperback": { "label": "Paperback", "desc": "Soft, flexible cover: the classic trade look readers reach for.", "sub": "Soft cover" },
-      "hardcover": { "label": "Hardcover", "desc": "Rigid boards and a squared spine: a keepsake made to last.", "sub": "Case bound" },
-      "landscape": { "label": "Landscape", "desc": "Wide format that lets photography and illustration breathe.", "sub": "Wide format" }
+      "paperback": { "label": "Paperback", "desc": "The classic soft cover.", "sub": "Soft cover" },
+      "hardcover": { "label": "Hardcover", "desc": "Rigid, built to last.", "sub": "Case bound" },
+      "landscape": { "label": "Landscape", "desc": "Wide, room for images.", "sub": "Wide format" }
     },
     "size": {
       "5x8": { "label": "5 × 8 in", "sub": "Pocket novel" },
@@ -39,19 +39,19 @@
       "a4": { "label": "A4", "sub": "210 × 297 mm" }
     },
     "paper": {
-      "cream": { "label": "Cream 80gsm", "desc": "Warm, easy on the eyes: the natural home for a novel.", "sub": "Uncoated, warm" },
-      "white": { "label": "White 100gsm", "desc": "Bright and crisp, so fine text and line art stay sharp.", "sub": "Uncoated, bright" },
-      "art": { "label": "Art 150gsm", "desc": "Smooth coated stock that makes full-colour images sing.", "sub": "Coated, smooth" }
+      "cream": { "label": "Cream 80gsm", "desc": "Warm, easy on the eyes.", "sub": "Uncoated, warm" },
+      "white": { "label": "White 100gsm", "desc": "Bright, crisp for text.", "sub": "Uncoated, bright" },
+      "art": { "label": "Art 150gsm", "desc": "Coated so colour sings.", "sub": "Coated, smooth" }
     },
     "binding": {
-      "perfect": { "label": "Perfect Bound", "desc": "Glued square spine: clean, economical, print-ready.", "sub": "Glued spine" },
-      "sewn": { "label": "Section-Sewn", "desc": "Stitched signatures that open flat and endure re-reads.", "sub": "Stitched, lay-flat" },
-      "wiro": { "label": "Wiro", "desc": "Twin-loop coil that lies perfectly flat, great for workbooks.", "sub": "Twin-loop coil" }
+      "perfect": { "label": "Perfect Bound", "desc": "Glued square spine.", "sub": "Glued spine" },
+      "sewn": { "label": "Section-Sewn", "desc": "Sewn to open flat.", "sub": "Stitched, lay-flat" },
+      "wiro": { "label": "Wiro", "desc": "Twin-loop, lies flat.", "sub": "Twin-loop coil" }
     },
     "finish": {
-      "matte": { "label": "Matte Lamination", "desc": "Soft, tactile, glare-free, understated and modern.", "sub": "Soft-touch film" },
-      "gloss": { "label": "Gloss Lamination", "desc": "High shine that makes cover colours pop off the shelf.", "sub": "High-shine film" },
-      "layflat": { "label": "Lay-Flat Lamination", "desc": "Durable satin film that resists scuffs and fingerprints.", "sub": "Satin film" }
+      "matte": { "label": "Matte Lamination", "desc": "Soft and glare-free.", "sub": "Soft-touch film" },
+      "gloss": { "label": "Gloss Lamination", "desc": "High shine, colours pop.", "sub": "High-shine film" },
+      "layflat": { "label": "Lay-Flat Lamination", "desc": "Durable satin finish.", "sub": "Satin film" }
     },
     "quantity": {
       "1": { "label": "1 copy", "sub": "Single book" },

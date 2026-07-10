@@ -19,18 +19,18 @@
     "previewCaptionSep": " · "
   },
   "steps": {
-    "format": { "num": "①", "title": "Format", "help": "La façon dont le livre est relié et se tient en main." },
-    "size": { "num": "②", "title": "Taille", "help": "Formats standard, sans complication de mise en place." },
-    "paper": { "num": "③", "title": "Papier", "help": "Le toucher des pages dans la main." },
-    "binding": { "num": "④", "title": "Reliure", "help": "Ce qui maintient les pages ensemble." },
-    "finish": { "num": "⑤", "title": "Finition", "help": "La surface de votre couverture." },
-    "quantity": { "num": "⑥", "title": "Quantité", "help": "Un exemplaire ou un petit tirage." }
+    "format": { "num": "Étape 01", "title": "Format", "help": "La façon dont le livre est relié et se tient en main." },
+    "size": { "num": "Étape 02", "title": "Taille", "help": "Formats standard, sans complication de mise en place." },
+    "paper": { "num": "Étape 03", "title": "Papier", "help": "Le toucher des pages dans la main." },
+    "binding": { "num": "Étape 04", "title": "Reliure", "help": "Ce qui maintient les pages ensemble." },
+    "finish": { "num": "Étape 05", "title": "Finition", "help": "La surface de votre couverture." },
+    "quantity": { "num": "Étape 06", "title": "Quantité", "help": "Un exemplaire ou un petit tirage." }
   },
   "options": {
     "format": {
-      "paperback": { "label": "Couverture souple", "desc": "Couverture souple et flexible : le classique vers lequel les lecteurs se tournent.", "sub": "Couverture souple" },
-      "hardcover": { "label": "Couverture rigide", "desc": "Cartons rigides et dos carré : un objet à conserver, fait pour durer.", "sub": "Reliure cartonnée" },
-      "landscape": { "label": "Format paysage", "desc": "Format large qui laisse respirer la photographie et l’illustration.", "sub": "Format large" }
+      "paperback": { "label": "Couverture souple", "desc": "Le classique souple.", "sub": "Couverture souple" },
+      "hardcover": { "label": "Couverture rigide", "desc": "Rigide, fait pour durer.", "sub": "Reliure cartonnée" },
+      "landscape": { "label": "Format paysage", "desc": "Large, pour l’image.", "sub": "Format large" }
     },
     "size": {
       "5x8": { "label": "5 × 8 po", "sub": "Roman de poche" },
@@ -39,19 +39,19 @@
       "a4": { "label": "A4", "sub": "210 × 297 mm" }
     },
     "paper": {
-      "cream": { "label": "Crème 80 g/m²", "desc": "Chaleureux, reposant pour les yeux : le foyer naturel d’un roman.", "sub": "Non couché, chaleureux" },
-      "white": { "label": "Blanc 100 g/m²", "desc": "Lumineux et net, pour que les textes fins et les traits restent précis.", "sub": "Non couché, lumineux" },
-      "art": { "label": "Couché 150 g/m²", "desc": "Papier couché lisse qui sublime les images en pleine couleur.", "sub": "Couché, lisse" }
+      "cream": { "label": "Crème 80 g/m²", "desc": "Chaleureux et doux.", "sub": "Non couché, chaleureux" },
+      "white": { "label": "Blanc 100 g/m²", "desc": "Lumineux et net.", "sub": "Non couché, lumineux" },
+      "art": { "label": "Couché 150 g/m²", "desc": "Couché, couleurs vives.", "sub": "Couché, lisse" }
     },
     "binding": {
-      "perfect": { "label": "Reliure dos carré collé", "desc": "Dos carré collé : propre, économique, prêt à imprimer.", "sub": "Dos collé" },
-      "sewn": { "label": "Cousu par cahiers", "desc": "Cahiers cousus qui s’ouvrent à plat et résistent aux relectures.", "sub": "Cousu, ouverture à plat" },
-      "wiro": { "label": "Reliure Wiro", "desc": "Spirale à double boucle qui repose parfaitement à plat, idéale pour les cahiers d’exercices.", "sub": "Spirale double boucle" }
+      "perfect": { "label": "Reliure dos carré collé", "desc": "Dos carré collé, net.", "sub": "Dos collé" },
+      "sewn": { "label": "Cousu par cahiers", "desc": "Cousu, ouvre à plat.", "sub": "Cousu, ouverture à plat" },
+      "wiro": { "label": "Reliure Wiro", "desc": "Spirale, bien à plat.", "sub": "Spirale double boucle" }
     },
     "finish": {
-      "matte": { "label": "Pelliculage mat", "desc": "Doux, tactile, sans reflet, sobre et moderne.", "sub": "Pelliculage soft-touch" },
-      "gloss": { "label": "Pelliculage brillant", "desc": "Brillance intense qui fait ressortir les couleurs de couverture en rayon.", "sub": "Pelliculage brillant" },
-      "layflat": { "label": "Pelliculage ouverture à plat", "desc": "Film satiné durable qui résiste aux éraflures et aux traces de doigts.", "sub": "Film satiné" }
+      "matte": { "label": "Pelliculage mat", "desc": "Doux et sans reflet.", "sub": "Pelliculage soft-touch" },
+      "gloss": { "label": "Pelliculage brillant", "desc": "Brillant et éclatant.", "sub": "Pelliculage brillant" },
+      "layflat": { "label": "Pelliculage ouverture à plat", "desc": "Satin, anti-traces.", "sub": "Film satiné" }
     },
     "quantity": {
       "1": { "label": "1 exemplaire", "sub": "Livre unique" },
