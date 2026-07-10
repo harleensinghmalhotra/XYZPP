@@ -7,6 +7,7 @@ import EducationalBooks from '@/pages/EducationalBooks'
 import PrintOnDemand from '@/pages/PrintOnDemand'
 import TradeBooks from '@/pages/TradeBooks'
 import InfrastructurePage from '@/pages/InfrastructurePage'
+import Fulfilment from '@/pages/Fulfilment'
 import Contact from '@/pages/Contact'
 
 // App is now the routing host, not the scroll stack. Every route renders inside
@@ -23,7 +24,7 @@ export default function App() {
         <Route path="/trade-books" element={<TradeBooks />} />
         <Route path="/print-on-demand" element={<PrintOnDemand />} />
         <Route path="/infrastructure" element={<InfrastructurePage />} />
-        <Route path="/fulfilment" element={<ShellPage title="Fulfilment" />} />
+        <Route path="/fulfilment" element={<Fulfilment />} />
         <Route path="/contact" element={<Contact />} />
 
         <Route path="/legal/privacy" element={<ShellPage title="Privacy Policy" eyebrow="Legal" />} />
