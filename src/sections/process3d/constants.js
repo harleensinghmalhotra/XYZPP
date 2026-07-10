@@ -14,29 +14,32 @@ export const EKTA = {
   kraftDark: '#A98A54',
 }
 
-// Stage keys are LAW — reused verbatim from the existing Process section so the
-// same homeProcess.json locale copy drives both. Names/desc resolve via
-// t(`stages.${key}.name|desc`). `state` is the book's visual transformation as it
-// arrives at that station; `variant` picks the station's distinctive structure.
+// Stage keys are LAW — reused verbatim so the same homeProcess.json locale copy
+// drives the plaque labels via t(`stages.${key}.name`). All six gates are the
+// identical reference arch (ref MAIN); the book's transform per stage is derived
+// from `activeF` in Book.jsx, and Quality alone carries the scanner (ref V2).
 export const STATIONS = [
-  { key: 'print', state: 'pages', variant: 'gate', accent: 'gold' },
-  { key: 'quality', state: 'bound', variant: 'arch', accent: 'gold' },
-  { key: 'fulfillment', state: 'wrapped', variant: 'machine', accent: 'olive' },
-  { key: 'warehouse', state: 'boxed', variant: 'gate', accent: 'gold' },
-  { key: 'ship', state: 'sealed', variant: 'arch', accent: 'gold' },
-  { key: 'covered', state: 'covered', variant: 'machine', accent: 'olive' },
+  { key: 'print' },
+  { key: 'quality' },
+  { key: 'fulfillment' },
+  { key: 'warehouse' },
+  { key: 'ship' },
+  { key: 'covered' },
 ]
 
 export const N = STATIONS.length
 
-// Straight belt running left→right along X. Book rides the top surface at y≈0.
-export const BELT = { length: 27, width: 3.2, y: 0, x0: -11, x1: 11 }
+// Low-profile navy belt running left→right along X (ref MAIN/V1). Objects ride the
+// top surface at y≈0; the bed sits just below with a visible side rail.
+export const BELT = { length: 30, width: 1.55, y: 0, deck: 0.34, x0: -11, x1: 11 }
 
 // Evenly-spaced station X positions across the working span of the belt.
 export const stationX = (i) => BELT.x0 + ((BELT.x1 - BELT.x0) * i) / (N - 1)
 
-export const BEAM_TOP = 3.15 // y of the station cross-beam
-export const LABEL_Y = 3.95 // y of the floating label plate
+// Slim rounded "∩" arch gate (ref V1): straight legs at ±half, a semicircle cap
+// radius `half`, thin navy band `legW` deep `depth`, with a gold inner-edge trim.
+export const ARCH = { half: 0.92, legH: 1.5, legW: 0.17, depth: 0.19, trim: 0.04, plateY: 2.72 }
+export const LABEL_Y = ARCH.plateY // plaque sits on a stub above the apex
 
 // ── Round-2 choreography maths ────────────────────────────────────────────
 // Everything downstream is driven by ONE continuous value: `activeF` = scroll
@@ -65,4 +68,7 @@ export const transform = (k, activeF) => smooth(k - 1 + 0.42, k - 0.05, activeF)
 // the viewer observes the production line rather than standing inside it. `side`
 // offsets the camera off the belt axis so a near pillar never bisects the book.
 // The book is scaled up (Book.jsx) so it still reads as the hero at this distance.
-export const CAM = { y: 3.85, z: 10.2, side: 3.4, lookY: 1.4, drift: 0.32, ease: 0.07, fov: 42 }
+// Camera — MAIN.png framing: elevated 3/4 that looks partway DOWN the line so the
+// arch faces read and 2-3 gates recede past the hero object. `side` is the along-
+// view X lead; the low objects want a low look target. Gentle dolly tracks the book.
+export const CAM = { y: 3.1, z: 8.6, side: 4.4, lookY: 0.75, drift: 0.3, ease: 0.07, fov: 40 }

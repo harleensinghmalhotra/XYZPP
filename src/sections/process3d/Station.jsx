@@ -1,138 +1,137 @@
 import { useEffect, useMemo } from 'react'
 import * as THREE from 'three'
-import { BELT, EKTA, BEAM_TOP, LABEL_Y } from './constants'
+import { ARCH, BELT, EKTA } from './constants'
 
-// A floating label plate: cream card, navy title, gold hairline + step number —
-// drawn to a canvas so it needs no external font (troika) and stays crisp & 3D.
+// ── Reference arch gate (ref V1/MAIN) ────────────────────────────────────────
+// A slim rounded "∩" hoop: straight legs + a semicircle cap, matte navy, with a
+// thin continuous GOLD trim following the profile on the camera-facing faces, a
+// small white label plaque on a stub above the apex, and small foot plates. All
+// six gates are identical; Quality also carries the scanner head (ref V2).
+
+// Closed 2D band outline of the arch (x = across, y = up), for ExtrudeGeometry.
+function archShape(half, band) {
+  const ro = half + band / 2
+  const ri = half - band / 2
+  const h = ARCH.legH
+  const s = new THREE.Shape()
+  s.moveTo(-ro, 0)
+  s.lineTo(-ro, h)
+  s.absarc(0, h, ro, Math.PI, 0, true) // outer arc over the top
+  s.lineTo(ro, 0)
+  s.lineTo(ri, 0)
+  s.lineTo(ri, h)
+  s.absarc(0, h, ri, 0, Math.PI, false) // inner arc back
+  s.lineTo(-ri, 0)
+  s.closePath()
+  return s
+}
+
+// Small white label plaque — clean sign face (ref: tiny white plate, faint text).
 function makeLabelTexture(num, title) {
-  const W = 512
-  const H = 224
+  const W = 320, H = 132
   const c = document.createElement('canvas')
-  c.width = W
-  c.height = H
+  c.width = W; c.height = H
   const g = c.getContext('2d')
-  // plate
-  g.fillStyle = EKTA.cream
-  g.fillRect(0, 0, W, H)
-  g.strokeStyle = 'rgba(15,36,68,0.12)'
-  g.lineWidth = 3
-  g.strokeRect(2, 2, W - 4, H - 4)
-  // gold top hairline — her signature accent
-  g.fillStyle = EKTA.gold
-  g.fillRect(0, 0, W, 8)
-  // step number (mono, wide-tracked)
-  g.fillStyle = EKTA.gold
-  g.font = '600 34px "DM Mono", ui-monospace, monospace'
+  g.fillStyle = '#FBF8F2'; g.fillRect(0, 0, W, H)
+  g.fillStyle = EKTA.gold; g.fillRect(0, 0, W, 5)
+  g.fillStyle = 'rgba(28,32,25,0.45)'
+  g.font = '600 18px "DM Mono", ui-monospace, monospace'
   g.textBaseline = 'middle'
-  g.fillText(`0${num}`, 34, 66)
-  // eyebrow
-  g.fillStyle = 'rgba(28,32,25,0.5)'
-  g.font = '600 22px Inter, system-ui, sans-serif'
-  g.fillText('S T A T I O N', 104, 64)
-  // title
+  g.fillText(`0${num}`, 20, 40)
   g.fillStyle = EKTA.navy
-  g.font = '500 62px "Inter Tight", Inter, system-ui, sans-serif'
-  g.fillText(title, 32, 150)
-  const t = new THREE.CanvasTexture(c)
-  t.anisotropy = 4
-  t.needsUpdate = true
-  return t
+  g.font = '600 40px "Inter Tight", Inter, system-ui, sans-serif'
+  g.fillText(title, 20, 86)
+  const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
 }
 
-// Small radial glow, reused for the accent-bar bloom halo (no postprocessing).
-function makeGlowTexture() {
-  const c = document.createElement('canvas')
-  c.width = c.height = 64
-  const g = c.getContext('2d')
-  const grd = g.createRadialGradient(32, 32, 0, 32, 32, 32)
-  grd.addColorStop(0, 'rgba(255,255,255,0.9)')
-  grd.addColorStop(1, 'rgba(255,255,255,0)')
-  g.fillStyle = grd
-  g.fillRect(0, 0, 64, 64)
-  return new THREE.CanvasTexture(c)
-}
-
-export default function Station({ index, title, variant, accent, register }) {
+export default function Station({ index, title, scan, register }) {
+  const navyGeo = useMemo(() => {
+    const g = new THREE.ExtrudeGeometry(archShape(ARCH.half, ARCH.legW), {
+      depth: ARCH.depth, bevelEnabled: true, bevelSize: 0.016, bevelThickness: 0.016, bevelSegments: 2, curveSegments: 30,
+    })
+    g.translate(0, 0, -ARCH.depth / 2)
+    return g
+  }, [])
+  const trimGeo = useMemo(() => {
+    const g = new THREE.ExtrudeGeometry(archShape(ARCH.half - 0.005, ARCH.trim), {
+      depth: 0.03, bevelEnabled: false, curveSegments: 30,
+    })
+    return g
+  }, [])
   const labelTex = useMemo(() => makeLabelTexture(index + 1, title), [index, title])
-  const glowTex = useMemo(makeGlowTexture, [])
-  const accentColor = accent === 'olive' ? EKTA.olive : EKTA.gold
-  const halfW = BELT.width / 2 + 0.35
-  const pillarH = BEAM_TOP
 
-  // One mutable api object per station — Scene fills nothing; it only reads these
-  // THREE refs each frame to drive arrival (glow, label rise, emissive pulse).
-  const api = useMemo(() => ({ glow: null, halo: null, labelG: null, labelMat: null, accentColor }), [accentColor])
+  const api = useMemo(() => ({ trimF: null, trimB: null, cone: null, coneMat: null, laser: null, laserMat: null }), [])
   useEffect(() => { register(api) }, [register, api])
+
+  const ro = ARCH.half + ARCH.legW / 2 // leg centre-out (world ±Z after rotate)
+  const apexY = ARCH.legH + ARCH.half
 
   return (
     <group>
-      {/* pillars straddling the belt — brushed navy metal */}
-      {[-1, 1].map((s) => (
-        <mesh key={s} position={[0, pillarH / 2, s * halfW]} castShadow receiveShadow>
-          <boxGeometry args={[0.32, pillarH, 0.32]} />
-          <meshStandardMaterial color={EKTA.navy} roughness={0.38} metalness={0.55} />
-        </mesh>
-      ))}
-      {/* thin brushed-steel collars for material richness */}
-      {[-1, 1].map((s) => (
-        <mesh key={`c${s}`} position={[0, 0.18, s * halfW]}>
-          <boxGeometry args={[0.4, 0.12, 0.4]} />
-          <meshStandardMaterial color={EKTA.navy2} roughness={0.3} metalness={0.7} />
+      {/* navy arch — rotated so it straddles the belt in Z and faces ±X */}
+      <mesh geometry={navyGeo} rotation={[0, Math.PI / 2, 0]} castShadow receiveShadow>
+        <meshStandardMaterial color={EKTA.navy} roughness={0.58} metalness={0.16} />
+      </mesh>
+      {/* gold trim, proud on each face */}
+      <mesh geometry={trimGeo} rotation={[0, Math.PI / 2, 0]} position={[ARCH.depth / 2 - 0.005, 0, 0]}>
+        <meshStandardMaterial ref={(m) => (api.trimF = m)} color={EKTA.gold2} emissive={EKTA.gold2} emissiveIntensity={0} roughness={0.34} metalness={0.7} toneMapped={false} />
+      </mesh>
+      <mesh geometry={trimGeo} rotation={[0, -Math.PI / 2, 0]} position={[-ARCH.depth / 2 + 0.005, 0, 0]}>
+        <meshStandardMaterial ref={(m) => (api.trimB = m)} color={EKTA.gold2} emissive={EKTA.gold2} emissiveIntensity={0} roughness={0.34} metalness={0.7} toneMapped={false} />
+      </mesh>
+
+      {/* foot plates at each leg base */}
+      {[-ro, ro].map((z) => (
+        <mesh key={z} position={[0, 0.02, z]} castShadow>
+          <boxGeometry args={[0.34, 0.05, 0.34]} />
+          <meshStandardMaterial color={EKTA.navy2} roughness={0.5} metalness={0.3} />
         </mesh>
       ))}
 
-      {/* cross-beam — flat gate, or an arch */}
-      {variant === 'arch' ? (
-        <mesh position={[0, BEAM_TOP, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[halfW, 0.16, 16, 24, Math.PI]} />
-          <meshStandardMaterial color={EKTA.navy2} roughness={0.4} metalness={0.5} />
+      {/* stub + white plaque above the apex, facing the camera (±X) */}
+      <mesh position={[0, apexY + 0.14, 0]}>
+        <boxGeometry args={[0.05, 0.28, 0.05]} />
+        <meshStandardMaterial color={EKTA.navy} roughness={0.5} metalness={0.3} />
+      </mesh>
+      <mesh position={[0, apexY + 0.42, 0]} castShadow>
+        <boxGeometry args={[0.09, 0.34, 0.72]} />
+        <meshStandardMaterial color={'#F3EEE4'} roughness={0.7} />
+      </mesh>
+      {[0.048, -0.048].map((x, i) => (
+        <mesh key={i} position={[x, apexY + 0.42, 0]} rotation={[0, i === 0 ? Math.PI / 2 : -Math.PI / 2, 0]}>
+          <planeGeometry args={[0.68, 0.3]} />
+          <meshBasicMaterial map={labelTex} toneMapped={false} />
         </mesh>
-      ) : (
-        <mesh position={[0, BEAM_TOP, 0]} castShadow>
-          <boxGeometry args={[0.34, 0.34, halfW * 2 + 0.34]} />
-          <meshStandardMaterial color={EKTA.navy2} roughness={0.4} metalness={0.5} />
-        </mesh>
-      )}
+      ))}
 
-      {/* machine block on the far side (variant = machine) — matte with a screen */}
-      {variant === 'machine' && (
-        <group position={[0, 0.55, -halfW - 0.55]}>
-          <mesh castShadow receiveShadow>
-            <boxGeometry args={[1.5, 1.1, 0.7]} />
-            <meshStandardMaterial color={EKTA.navy} roughness={0.55} metalness={0.35} />
+      {/* Quality scanner (ref V2): navy head at the apex + downward light cone +
+          a side laser emitter. Cone/laser opacity driven by Scene on arrival. */}
+      {scan && (
+        <group>
+          <mesh position={[0, apexY - 0.18, 0]}>
+            <cylinderGeometry args={[0.12, 0.14, 0.22, 20]} />
+            <meshStandardMaterial color={EKTA.navy} roughness={0.5} metalness={0.35} />
           </mesh>
-          <mesh position={[0, 0.15, 0.36]}>
-            <planeGeometry args={[0.9, 0.5]} />
-            <meshStandardMaterial color={EKTA.navy2} emissive={accentColor} emissiveIntensity={0.35} roughness={0.3} toneMapped={false} />
+          <mesh position={[0, apexY - 0.32, 0]}>
+            <cylinderGeometry args={[0.08, 0.1, 0.08, 20]} />
+            <meshStandardMaterial color={EKTA.navy2} emissive={'#BFE0FF'} emissiveIntensity={0.6} roughness={0.3} toneMapped={false} />
+          </mesh>
+          {/* soft translucent cone of blue-white light onto the belt */}
+          <mesh ref={(m) => (api.cone = m)} position={[0, (apexY - 0.36 + 0.2) / 2 + 0.1, 0]}>
+            <coneGeometry args={[0.44, apexY - 0.36 - 0.2, 32, 1, true]} />
+            <meshBasicMaterial ref={(m) => (api.coneMat = m)} color={'#A9CDF2'} transparent opacity={0} side={THREE.DoubleSide} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
+          </mesh>
+          {/* thin bright laser line across the object from a side emitter */}
+          <mesh ref={(m) => (api.laser = m)} position={[0, 0.34, 0]} rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[0.012, 0.012, ARCH.half * 1.7, 8]} />
+            <meshBasicMaterial ref={(m) => (api.laserMat = m)} color={'#EAF4FF'} transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
+          </mesh>
+          <mesh position={[0, 0.34, ARCH.half - 0.02]}>
+            <sphereGeometry args={[0.04, 12, 12]} />
+            <meshStandardMaterial color={EKTA.gold2} emissive={EKTA.gold2} emissiveIntensity={1.2} toneMapped={false} />
           </mesh>
         </group>
       )}
-
-      {/* emissive accent bar — this is what "lights up" as the book arrives */}
-      <mesh position={[0, BEAM_TOP + 0.28, 0]}>
-        <boxGeometry args={[0.12, 0.12, halfW * 2]} />
-        <meshStandardMaterial
-          ref={(m) => (api.glow = m)}
-          color={accentColor}
-          emissive={accentColor}
-          emissiveIntensity={0}
-          toneMapped={false}
-          roughness={0.4}
-        />
-      </mesh>
-      {/* additive halo behind the bar — reads as bloom when lit */}
-      <mesh ref={(m) => (api.halo = m)} position={[0, BEAM_TOP + 0.28, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[1.2, halfW * 2 + 1]} />
-        <meshBasicMaterial map={glowTex} color={accentColor} transparent opacity={0} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
-      </mesh>
-
-      {/* floating label plate — rises + fades in on arrival (Scene drives it) */}
-      <group ref={(g) => (api.labelG = g)} position={[0, LABEL_Y - 0.32, 0.2]}>
-        <mesh>
-          <planeGeometry args={[2.3, 1.0]} />
-          <meshBasicMaterial ref={(m) => (api.labelMat = m)} map={labelTex} transparent opacity={0} toneMapped={false} />
-        </mesh>
-      </group>
     </group>
   )
 }
