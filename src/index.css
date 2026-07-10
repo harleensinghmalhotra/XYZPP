@@ -3727,3 +3727,293 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .tb-stage-img { animation: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PHASE 2.7 — THE ALIVE PASS  ·  shared elevation + interaction layer
+   One elevation language, one timing system, applied over the existing bespoke
+   page classes. Every hover is gated behind (hover:hover); every entrance obeys
+   the global prefers-reduced-motion kill-switch above. No layout properties are
+   ever animated — transform/opacity/box-shadow only.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Strong easing (Emil): built-in curves are too weak for intentional motion */
+  --e-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --e-io:  cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* 3-tier elevation — multi-layer, tinted navy (never pure black). A contact
+     shadow (tight, darker) + an ambient shadow (wide, soft) per tier. */
+  --elev-1: 0 1px 2px rgba(15, 36, 68, 0.06), 0 5px 14px -8px rgba(15, 36, 68, 0.16);
+  --elev-2: 0 2px 4px rgba(15, 36, 68, 0.08), 0 16px 34px -12px rgba(15, 36, 68, 0.24);
+  --elev-3: 0 4px 8px rgba(15, 36, 68, 0.10), 0 34px 64px -20px rgba(15, 36, 68, 0.34);
+
+  /* Warm gold bloom for the pill hover — glow + a foil top-highlight */
+  --glow-gold: 0 10px 30px -6px rgba(200, 154, 60, 0.55), inset 0 1px 0 rgba(255, 247, 224, 0.6);
+}
+
+/* ── Scroll reveals ──────────────────────────────────────────────────────────
+   Opt-in via [data-reveal] (see src/lib/alive.js). The hidden resting state is
+   gated behind html.alive-ready so content is fully visible if JS never runs.
+   Reduced motion: alive.js reveals everything instantly and never adds motion. */
+html.alive-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 620ms var(--e-out), transform 620ms var(--e-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
+}
+html.alive-ready [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.alive-ready [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* Word-stagger for hero / CTA-band headings — [data-textreveal] gets split into
+   .aw-word spans by alive.js. Rise-and-fade, once, short cascade. */
+.aw-word { display: inline-block; will-change: transform, opacity; }
+html.alive-ready [data-textreveal] .aw-word {
+  opacity: 0;
+  transform: translateY(0.44em);
+  transition: opacity 560ms var(--e-out), transform 560ms var(--e-out);
+  transition-delay: var(--word-delay, 0ms);
+}
+html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html.alive-ready [data-textreveal] .aw-word { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ── Gold-pill life — glow bloom on hover, press feedback, keeps each pill's
+   own translateY lift. Magnetic pull is added by alive.js (transform is layered
+   via a CSS var so it composes with :active scale). ────────────────────────── */
+.edu-cta-pill, .ff-cta-pill, .tb-close-pill, .tb-quote,
+.ctc-submit, .ctc-map-btn, .pod-request, .inf-btn--gold {
+  transition: transform 200ms var(--e-out), background-color 200ms ease, box-shadow 220ms var(--e-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .edu-cta-pill:hover, .ff-cta-pill:hover, .tb-close-pill:hover, .tb-quote:hover,
+  .ctc-submit:hover, .ctc-map-btn:hover, .pod-request:hover, .inf-btn--gold:hover {
+    box-shadow: var(--glow-gold);
+  }
+}
+.edu-cta-pill:active, .ff-cta-pill:active, .tb-close-pill:active, .tb-quote:active,
+.ctc-submit:active, .ctc-map-btn:active, .pod-request:active, .inf-btn--gold:active {
+  transform: scale(0.97);
+  transition-duration: 110ms;
+}
+/* Navy pills — press feedback + raised elevation on hover (no gold glow) */
+.pod-hero-cta, .pod-cta-btn, .ctc-btn, .inf-btn--ghost {
+  transition: transform 200ms var(--e-out), background-color 200ms ease, box-shadow 220ms var(--e-out);
+}
+.pod-hero-cta:active, .pod-cta-btn:active, .ctc-btn:active, .inf-btn--ghost:active {
+  transform: scale(0.97);
+  transition-duration: 110ms;
+}
+
+/* ── Card life fills — cards the atmosphere pass left flat now lift to tier-2 ── */
+@media (hover: hover) and (pointer: fine) {
+  .pod-how-card { transition: transform 240ms var(--e-out), box-shadow 240ms var(--e-out); }
+  .pod-how-card:hover { transform: translateY(-5px); box-shadow: var(--elev-2); }
+  .ctc-addr-card { transition: transform 240ms var(--e-out), box-shadow 240ms var(--e-out); }
+  .ctc-addr-card:hover { transform: translateY(-4px); box-shadow: var(--elev-2); }
+}
+
+/* ── Ghost / text-link underline draw — origin-left wipe on hover ──────────── */
+.u-underline {
+  position: relative;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1.5px;
+  transition: background-size 260ms var(--e-out), color 200ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .u-underline:hover { background-size: 100% 1.5px; }
+}
+
+/* ── Image treatment — 1px inner cream border + grounded ambient shadow so no
+   content image floats flat. Additive: place on the <img> or its frame. ────── */
+.img-grounded {
+  box-shadow: var(--elev-2), inset 0 0 0 1px rgba(253, 250, 244, 0.10);
+}
+
+/* ── Focus: gold ring, always visible on keyboard nav (no motion on focus) ─── */
+.focus-ring:focus-visible {
+  outline: 2px solid #c89a3c;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+:where(a, button, [tabindex], input, textarea, select):focus-visible {
+  outline: 2px solid #c89a3c;
+  outline-offset: 2px;
+}
+
+/* Magnetic pull smoothing — `translate` eases so pills trail the pointer (a soft
+   pull, not a stiff lock). Composes with each pill's own transform/box-shadow. */
+.edu-cta-pill, .ff-cta-pill, .tb-close-pill, .tb-quote,
+.ctc-submit, .ctc-map-btn, .pod-request, .inf-btn--gold,
+.pod-hero-cta, .pod-cta-btn, .ctc-btn, [data-magnetic] {
+  transition-property: transform, background-color, box-shadow, translate, border-color, color;
+  transition-duration: 200ms, 200ms, 220ms, 150ms, 200ms, 200ms;
+  transition-timing-function: var(--e-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .edu-cta-pill, .ff-cta-pill, .tb-close-pill, .tb-quote,
+  .ctc-submit, .ctc-map-btn, .pod-request, .inf-btn--gold,
+  .pod-hero-cta, .pod-cta-btn, .ctc-btn, [data-magnetic] { translate: none !important; }
+}
+
+/* ── Phase 2.8 — Globe FlyTo (MapLibre) ─────────────────────────────────────
+   Reusable branded globe (GlobeFlyTo.jsx) + the homepage "Printed in India,
+   Read by the World" reach section (gr-). Palette law: navy #0F2444, cream
+   #F0EBE0/#FDFAF4, gold #C89A3C/#9B7420. DM Mono eyebrow, Inter Tight heading. */
+
+/* --- the globe itself (fills its parent; parent owns the height) --- */
+.qfp-globe { position: relative; width: 100%; height: 100%; }
+.qfp-globe-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.qfp-globe[data-phase="landed"] .qfp-globe-canvas { cursor: grab; }
+.qfp-globe[data-phase="landed"] .qfp-globe-canvas:active { cursor: grabbing; }
+/* MapLibre chrome, toned to brand: keep attribution (license) but make it quiet */
+.qfp-globe .maplibregl-ctrl-attrib {
+  background: rgba(15, 36, 68, 0.55); border-radius: 8px 0 0 0;
+}
+.qfp-globe .maplibregl-ctrl-attrib a,
+.qfp-globe .maplibregl-ctrl-attrib { color: rgba(240, 235, 224, 0.7); font-family: 'DM Mono', monospace; }
+.qfp-globe .maplibregl-ctrl-attrib-button { filter: invert(1) opacity(0.6); }
+.qfp-globe canvas { outline: none; }
+
+/* --- gold markers (Vashi / Taloja) that pop after landing --- */
+.qfp-globe-marker {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  transform: translateY(6px) scale(0.6); opacity: 0; transform-origin: bottom center;
+  transition: transform 460ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease;
+  pointer-events: none; will-change: transform, opacity;
+}
+.qfp-globe-marker.is-in { transform: translateY(0) scale(1); opacity: 1; }
+.qfp-globe-pin {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f0cd82, #c89a3c 60%, #9b7420);
+  box-shadow: 0 0 0 4px rgba(200, 154, 60, 0.28), 0 3px 8px rgba(10, 18, 34, 0.55);
+}
+.qfp-globe-tip {
+  display: flex; flex-direction: column; align-items: center; line-height: 1;
+  padding: 5px 10px; border-radius: 9px; white-space: nowrap;
+  background: rgba(15, 36, 68, 0.92); border: 1px solid rgba(200, 154, 60, 0.4);
+  box-shadow: 0 6px 18px rgba(10, 18, 34, 0.4);
+}
+.qfp-globe-tip b {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 13px;
+  letter-spacing: -0.2px; color: #fdfaf4;
+}
+.qfp-globe-tip i {
+  margin-top: 3px; font-style: normal; font-family: 'DM Mono', monospace;
+  font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #c89a3c;
+}
+
+/* --- static fallback (mobile / tile failure) --- */
+.qfp-globe-fallback { position: absolute; inset: 0; overflow: hidden; }
+.qfp-globe-fallback img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 38%; opacity: 0.9; }
+.qfp-globe-fbpin {
+  position: absolute; width: 14px; height: 14px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f0cd82, #c89a3c 60%, #9b7420);
+  box-shadow: 0 0 0 5px rgba(200, 154, 60, 0.22), 0 2px 8px rgba(10, 18, 34, 0.5);
+  transform: translate(-50%, -50%);
+}
+/* Navi Mumbai sits on India's west coast — pins placed over that dot cluster */
+.qfp-globe-fbpin--vashi { left: 63.5%; top: 40.5%; }
+.qfp-globe-fbpin--taloja { left: 64.6%; top: 41.6%; }
+.qfp-globe-fbcap {
+  position: absolute; left: 0; right: 0; bottom: 18px; margin: 0; text-align: center;
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(240, 235, 224, 0.86);
+}
+
+/* --- homepage reach section (gr-) --- */
+.gr-section {
+  position: relative; overflow: hidden; background: #0f2444;
+  min-height: 92vh; display: flex; align-items: stretch;
+}
+.gr-grid {
+  position: relative; z-index: 2; width: 100%;
+  display: grid; grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr); align-items: center;
+}
+.gr-copy { padding: clamp(64px, 9vh, 128px) clamp(24px, 5vw, 96px); max-width: 640px; }
+.gr-eyebrow {
+  display: flex; align-items: center; gap: 12px; margin: 0 0 22px;
+  font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em;
+  text-transform: uppercase; color: #c89a3c;
+}
+.gr-eyebrow::before { content: ''; width: 34px; height: 1px; background: rgba(200, 154, 60, 0.6); }
+.gr-title {
+  margin: 0; font-family: 'Inter Tight', sans-serif; line-height: 0.98; letter-spacing: -1.5px;
+  font-size: clamp(40px, 5.4vw, 82px); color: #fdfaf4;
+}
+.gr-title .gr-thin { font-weight: 400; color: rgba(253, 250, 244, 0.62); }
+.gr-title .gr-bold { font-weight: 800; }
+.gr-lede {
+  margin: 26px 0 0; max-width: 30ch; font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: rgba(253, 250, 244, 0.74);
+}
+.gr-link {
+  display: inline-flex; align-items: center; gap: 9px; margin-top: 34px;
+  font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #fdfaf4; text-decoration: none;
+  border-bottom: 1px solid rgba(200, 154, 60, 0.5); padding-bottom: 4px;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.gr-link span { transition: transform 0.25s ease; }
+@media (hover: hover) {
+  .gr-link:hover { color: #c89a3c; border-color: #c89a3c; }
+  .gr-link:hover span { transform: translateX(5px); }
+}
+.gr-link:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px; border-radius: 2px; }
+.gr-globe { position: relative; align-self: stretch; min-height: 92vh; }
+/* soft navy vignette so the globe reads as embedded, edges melt into the bg */
+.gr-globe::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background:
+    radial-gradient(120% 90% at 62% 50%, transparent 52%, rgba(15, 36, 68, 0.55) 100%),
+    linear-gradient(90deg, #0f2444 0%, rgba(15, 36, 68, 0.35) 16%, transparent 34%);
+}
+
+@media (max-width: 1024px) {
+  .gr-grid { grid-template-columns: 1fr; }
+  .gr-copy { max-width: none; }
+  .gr-globe, .gr-section { min-height: 0; }
+  .gr-globe { height: 62vh; }
+  .gr-globe::after { background: linear-gradient(180deg, #0f2444 0%, transparent 22%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qfp-globe-marker { transition: none; transform: none; opacity: 1; }
+  .gr-link span { transition: none; }
+}
+
+/* ── Image grounding — content images that read as "floating" get a soft grounded
+   shadow + a 1px inner border so they sit on the page instead of hovering flat.
+   Applied over existing media classes (CSS-only, no markup change). Card-framed
+   images that already carry a ring/shadow are left as-is. ───────────────────── */
+.edu-book-img, .ff-feat-media, .tb-life-img, .inf-video-img {
+  box-shadow: var(--elev-2);
+}
+.ff-feat-media, .tb-life-img { outline: 1px solid rgba(253, 250, 244, 0.10); outline-offset: -1px; }
+
+/* ── Nav link micro — origin-left underline draw on hover (uses currentColor so it
+   works on both light and dark route themes). Keyboard focus uses the gold ring
+   above, not this underline, so focus stays unambiguous. ────────────────────── */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 260ms var(--e-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover::after { transform: scaleX(1); }
+}

@@ -25,49 +25,41 @@ const LINKS = [
 // flips ink/paper so it never disappears. On inner pages it defaults light (cream
 // System-B ground). The observer is re-armed on every route change so it always
 // watches the current page's sections.
+// The nav now scrolls away with the page (position: absolute, not fixed), so it
+// only ever sits over each route's FIRST section. That makes the theme a pure
+// per-route default keyed to that first section's tone — no scroll-flip observer
+// and no scroll-triggered solid bar needed. Update this map if a page's first
+// section changes tone.
+const THEME_BY_ROUTE = {
+  '/': 'dark',
+  '/about': 'dark',
+  '/educational-books': 'light',
+  '/trade-books': 'light',
+  '/print-on-demand': 'light',
+  '/infrastructure': 'dark',
+  '/fulfilment': 'dark',
+  '/contact': 'dark',
+}
+
 export default function SiteNav() {
   const { pathname } = useLocation()
   const { t } = useTranslation('nav')
-  const isHome = pathname === '/'
-  const [solid, setSolid] = useState(false)
-  const [theme, setTheme] = useState(isHome ? 'dark' : 'light')
+  const theme = THEME_BY_ROUTE[pathname] || 'light' // legal / shell routes are cream
   const [menuOpen, setMenuOpen] = useState(false)
 
-  useEffect(() => {
-    setMenuOpen(false)
-    setTheme(isHome ? 'dark' : 'light')
-
-    const onScroll = () => setSolid(window.scrollY > 40)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setTheme(e.target.dataset.theme || 'dark')
-        })
-      },
-      { rootMargin: '-64px 0px -92% 0px', threshold: 0 },
-    )
-    document.querySelectorAll('[data-theme]').forEach((el) => io.observe(el))
-
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      io.disconnect()
-    }
-  }, [pathname, isHome])
+  // Close the What-We-Print dropdown whenever the route changes.
+  useEffect(() => { setMenuOpen(false) }, [pathname])
 
   const light = theme === 'light'
   const fg = light ? 'text-ink' : 'text-white'
   const link = light ? 'text-ink-500 hover:text-ink' : 'text-white/90 hover:text-white'
-  const bar = solid ? (light ? 'bg-paper/70 py-3 backdrop-blur-[3px]' : 'bg-[#0f2444]/70 py-3 backdrop-blur-[3px]') : 'py-5'
 
-  const linkCls = `focus-ring text-[16px] font-medium transition-colors duration-300 ${link}`
+  const linkCls = `focus-ring nav-link text-[16px] font-medium transition-colors duration-300 ${link}`
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="absolute inset-x-0 top-0 z-50">
       <div
-        className={`mx-auto flex max-w-page items-center justify-between px-6 transition-[padding,background-color] duration-300 ease-out ${bar}`}
+        className="mx-auto flex max-w-page items-center justify-between px-6 py-5"
         style={{ fontFamily: TIGHT }}
       >
         {/* left group: logo + primary links */}
