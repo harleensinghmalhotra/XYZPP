@@ -1,0 +1,924 @@
+/* ── /print-on-demand — "Build Your Book" configurator ───────────────────────
+   Brand System B ONLY: navy #0F2444, gold #9B7420 / #C89A3C / #836013,
+   cream #FDFAF4, beige #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter / DM Mono.
+   Warmest page on the site — it talks to one author. Anti-slop: uniform card
+   heights, no thin light rules (hairlines are navy at low alpha), grounded
+   shadows. The homepage Hero's green/blue palette does NOT apply here. */
+
+.pod {
+  --navy: #0f2444;
+  --gold: #9b7420;
+  --gold-2: #c89a3c;
+  --gold-3: #836013;
+  --cream: #fdfaf4;
+  --beige: #f0ebe0;
+  --ink: #1c2019;
+  --hair: rgba(15, 36, 68, 0.1);
+  --hair-soft: rgba(15, 36, 68, 0.06);
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+}
+
+/* ── 1 · HERO ──────────────────────────────────────────────────────────────── */
+.pod-hero {
+  position: relative;
+  background: var(--cream);
+  padding: clamp(150px, 20vh, 220px) clamp(24px, 5vw, 72px) clamp(70px, 9vh, 110px);
+  overflow: hidden;
+}
+/* quiet warm bloom + fine dot field — never a straight light line */
+.pod-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 55% at 78% 8%, rgba(200, 154, 60, 0.1), transparent 60%),
+    radial-gradient(rgba(15, 36, 68, 0.05) 1px, transparent 1.6px);
+  background-size: auto, 30px 30px;
+  opacity: 0.7;
+}
+.pod-hero-inner {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.pod-eyebrow {
+  margin: 0 0 22px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-3);
+}
+.pod-h1 {
+  margin: 0;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(40px, 6.4vw, 82px);
+  line-height: 1.03;
+  letter-spacing: -1.4px;
+  color: var(--navy);
+  max-width: 16ch;
+}
+.pod-h1 em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold-3);
+}
+.pod-hero-sub {
+  margin: clamp(24px, 3vh, 34px) 0 0;
+  max-width: 62ch;
+  font-size: clamp(16px, 1.4vw, 19px);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(28, 32, 25, 0.72);
+}
+.pod-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(30px, 4vh, 42px);
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: var(--navy);
+  color: var(--cream);
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.1px;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+}
+.pod-hero-cta svg { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.pod-hero-cta:hover { background: #16325f; transform: translateY(-2px); }
+.pod-hero-cta:hover svg { transform: translateY(3px); }
+
+/* ── 2 · BUILD YOUR BOOK (configurator) ──────────────────────────────────────── */
+.pod-build {
+  position: relative;
+  background: var(--cream);
+  padding: clamp(50px, 7vh, 88px) clamp(20px, 4vw, 56px) clamp(70px, 9vh, 110px);
+  scroll-margin-top: 72px;
+}
+.pod-build-inner {
+  max-width: 1480px;
+  margin: 0 auto;
+}
+.pod-build-head {
+  max-width: 720px;
+  margin: 0 auto clamp(34px, 5vh, 56px);
+  text-align: center;
+}
+.pod-build-title {
+  margin: 12px 0 0;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.8px;
+  color: var(--navy);
+}
+.pod-build-lede {
+  margin: 16px 0 0;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.6;
+  color: rgba(28, 32, 25, 0.68);
+}
+
+/* the 3-track configurator: sticky preview · scrolling steps · sticky summary */
+.pod-config {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.92fr) minmax(0, 1.15fr) minmax(320px, 0.78fr);
+  gap: clamp(24px, 3vw, 52px);
+  align-items: start;
+}
+
+/* — LEFT · live book preview (sticky) — */
+.pod-preview {
+  position: sticky;
+  top: 84px;
+  border-radius: 26px;
+  background:
+    radial-gradient(120% 90% at 50% 12%, #fffdf8 0%, var(--beige) 62%, #e7ddca 100%);
+  border: 1px solid var(--hair);
+  box-shadow: 0 2px 14px rgba(15, 36, 68, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  padding: clamp(28px, 4vh, 46px) 24px;
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.pod-preview-tag {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-3);
+}
+
+/* the CSS book — true 3D cuboid, faces built with the centred-face recipe */
+.pod-stage {
+  position: relative;
+  perspective: 1900px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0 42px;
+}
+/* grounded contact shadow beneath the book */
+.pod-stage::after {
+  content: '';
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  width: 62%;
+  height: 26px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(15, 36, 68, 0.28), rgba(15, 36, 68, 0));
+  filter: blur(3px);
+  z-index: 0;
+}
+.pod-book {
+  --bw: 210px;
+  --bh: 320px;
+  --thick: 34px;
+  --edge: #f3ead4;
+  --edge-line: rgba(15, 36, 68, 0.16);
+  position: relative;
+  width: var(--bw);
+  height: var(--bh);
+  transform-style: preserve-3d;
+  /* positive rotateY reveals the SPINE (left face) so the binding choice —
+     perfect / sewn headband / wiro coil — visibly responds; the top edge still
+     shows the paper stock. */
+  transform: rotateX(6deg) rotateY(30deg);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  animation: pod-float 9s ease-in-out infinite;
+  z-index: 1;
+}
+@keyframes pod-float {
+  0%, 100% { transform: rotateX(6deg) rotateY(30deg) translateY(0); }
+  50% { transform: rotateX(5deg) rotateY(26deg) translateY(-8px); }
+}
+.pod-face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+/* front cover — the placeholder art, treated by finish */
+.pod-front {
+  width: var(--bw);
+  height: var(--bh);
+  margin-left: calc(var(--bw) / -2);
+  margin-top: calc(var(--bh) / -2);
+  transform: translateZ(calc(var(--thick) / 2));
+  border-radius: 3px 8px 8px 3px;
+  background-image: url('/qfp/pod/preview-base.webp');
+  background-size: cover;
+  background-position: center;
+  box-shadow:
+    inset 0 0 0 1px rgba(131, 96, 19, 0.25),
+    inset 22px 0 34px -22px rgba(15, 36, 68, 0.5); /* gutter shade near spine */
+  overflow: hidden;
+}
+/* finish sheen — gloss shows a hard specular sweep, lay-flat a soft one */
+.pod-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    118deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.55) 46%,
+    rgba(255, 255, 255, 0.12) 52%,
+    transparent 66%
+  );
+  transition: opacity 0.4s ease;
+}
+.pod-book[data-finish='gloss'] .pod-sheen { opacity: 1; }
+.pod-book[data-finish='layflat'] .pod-sheen { opacity: 0.45; }
+/* matte = a faint tooth wash instead of shine */
+.pod-matte {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: multiply;
+  background: radial-gradient(120% 120% at 30% 20%, transparent 55%, rgba(15, 36, 68, 0.1) 100%);
+  transition: opacity 0.4s ease;
+}
+.pod-book[data-finish='matte'] .pod-matte { opacity: 1; }
+
+/* back cover */
+.pod-back {
+  width: var(--bw);
+  height: var(--bh);
+  margin-left: calc(var(--bw) / -2);
+  margin-top: calc(var(--bh) / -2);
+  transform: rotateY(180deg) translateZ(calc(var(--thick) / 2));
+  border-radius: 8px 3px 3px 8px;
+  background: linear-gradient(135deg, #ece3d1, #ddd0b6);
+}
+/* fore-edge (right) — the page block, coloured by paper choice */
+.pod-fore {
+  width: var(--thick);
+  height: var(--bh);
+  margin-left: calc(var(--thick) / -2);
+  margin-top: calc(var(--bh) / -2);
+  transform: rotateY(90deg) translateZ(calc(var(--bw) / 2));
+  background:
+    repeating-linear-gradient(180deg, var(--edge) 0 1.5px, var(--edge-line) 1.5px 2px);
+  border-radius: 0 2px 2px 0;
+}
+/* top edge — same paper stock */
+.pod-top {
+  width: var(--bw);
+  height: var(--thick);
+  margin-left: calc(var(--bw) / -2);
+  margin-top: calc(var(--thick) / -2);
+  transform: rotateX(90deg) translateZ(calc(var(--bh) / 2));
+  background:
+    repeating-linear-gradient(90deg, var(--edge) 0 1.5px, var(--edge-line) 1.5px 2px);
+}
+/* spine (left) — the binding treatment lives here */
+.pod-spine {
+  width: var(--thick);
+  height: var(--bh);
+  margin-left: calc(var(--thick) / -2);
+  margin-top: calc(var(--bh) / -2);
+  transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2));
+  border-radius: 2px 0 0 2px;
+  background: linear-gradient(90deg, #6f5416, #9b7420 45%, #b98a2e 78%, #7a5b18);
+  box-shadow: inset 0 0 0 1px rgba(60, 43, 8, 0.5);
+}
+/* perfect binding = clean flat spine (default, above) */
+/* section-sewn = rounded spine + a coloured headband cap top & bottom */
+.pod-book[data-binding='sewn'] .pod-spine {
+  border-radius: 8px 0 0 8px;
+  background: linear-gradient(90deg, #5f4813, #93701f 30%, #c2933a 55%, #8c691c 80%, #5f4813);
+}
+.pod-headband {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, var(--gold-2) 0 2px, var(--navy) 2px 4px);
+  opacity: 0;
+  border-radius: 2px;
+}
+.pod-headband.top { top: 2px; }
+.pod-headband.bottom { bottom: 2px; }
+.pod-book[data-binding='sewn'] .pod-headband { opacity: 1; }
+/* wiro = a drawn twin-loop coil overlaying the spine */
+.pod-coil {
+  position: absolute;
+  inset: 0;
+  display: none;
+  color: #8a8069;
+}
+.pod-book[data-binding='wiro'] .pod-coil { display: block; }
+.pod-book[data-binding='wiro'] .pod-spine {
+  background: #efe9dc;
+  box-shadow: inset 0 0 0 1px rgba(15, 36, 68, 0.12);
+}
+.pod-coil svg { width: 100%; height: 100%; }
+
+/* hardcover = thicker boards that overhang the page block */
+.pod-book[data-format='hardcover'] .pod-front,
+.pod-book[data-format='hardcover'] .pod-back {
+  box-shadow:
+    inset 0 0 0 1px rgba(131, 96, 19, 0.3),
+    inset 22px 0 34px -22px rgba(15, 36, 68, 0.5),
+    0 0 0 3px rgba(15, 36, 68, 0.06); /* board rim */
+  border-radius: 2px 6px 6px 2px;
+}
+
+/* stacked copies behind, for quantity > 1 */
+.pod-stack-ghost {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px 8px 8px 3px;
+  background: linear-gradient(135deg, #efe6d4, #ddd0b6);
+  box-shadow: 0 1px 2px rgba(15, 36, 68, 0.14);
+}
+.pod-qty-badge {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--navy);
+  color: var(--cream);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 18px rgba(15, 36, 68, 0.22);
+}
+.pod-preview-caption {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  letter-spacing: 0.2px;
+  color: rgba(28, 32, 25, 0.55);
+  text-align: center;
+}
+
+/* — CENTRE · the six step groups (scroll) — */
+.pod-steps {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(30px, 4vh, 48px);
+}
+.pod-step {
+  scroll-margin-top: 88px;
+}
+.pod-step-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin: 0 0 18px;
+}
+.pod-step-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--gold-3);
+}
+.pod-step-title {
+  margin: 0;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(19px, 1.8vw, 24px);
+  letter-spacing: -0.3px;
+  color: var(--navy);
+}
+.pod-step-help {
+  margin: 0 0 0 auto;
+  font-size: 12.5px;
+  color: rgba(28, 32, 25, 0.72);
+  text-align: right;
+  max-width: 40%;
+}
+
+/* option grid — chips of uniform height */
+.pod-opts {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pod-opts.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.pod-opts.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.pod-opts.chips { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+
+.pod-chip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  min-height: 100%;
+  text-align: left;
+  cursor: pointer;
+  padding: 16px 16px 15px;
+  border-radius: 16px;
+  border: 1px solid var(--hair);
+  background: #fffdf9;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease, background 0.22s ease;
+}
+.pod-chip:hover {
+  border-color: rgba(155, 116, 32, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(15, 36, 68, 0.09);
+}
+.pod-chip[aria-checked='true'] {
+  border-color: var(--gold);
+  background: #fffcf5;
+  box-shadow: 0 0 0 2px rgba(155, 116, 32, 0.65), 0 8px 22px rgba(15, 36, 68, 0.1);
+}
+.pod-chip:focus-visible {
+  outline: 2.5px solid var(--navy);
+  outline-offset: 2px;
+}
+/* selected tick */
+.pod-chip-tick {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--hair);
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.pod-chip[aria-checked='true'] .pod-chip-tick {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.pod-chip-tick svg {
+  width: 11px;
+  height: 11px;
+  stroke: var(--cream);
+  stroke-width: 2.6;
+  fill: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.pod-chip[aria-checked='true'] .pod-chip-tick svg { opacity: 1; }
+/* chip icon (stroke-draw) */
+.pod-chip-ico {
+  width: 30px;
+  height: 30px;
+  color: var(--navy);
+}
+.pod-chip[aria-checked='true'] .pod-chip-ico { color: var(--gold-3); }
+.pod-chip-ico svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* colour/paper swatch dot */
+.pod-chip-sw {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 36, 68, 0.12);
+  box-shadow: inset 0 -6px 10px -6px rgba(15, 36, 68, 0.3);
+}
+.pod-chip-name {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.2px;
+  color: var(--navy);
+  padding-right: 22px;
+}
+.pod-chip-desc {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: rgba(28, 32, 25, 0.62);
+}
+/* compact size / quantity chips */
+.pod-chip[data-tight] {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 0;
+  padding: 14px 16px;
+}
+.pod-chip[data-tight] .pod-chip-name { padding-right: 24px; }
+.pod-chip[data-tight] .pod-chip-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  color: rgba(28, 32, 25, 0.72);
+}
+
+/* included-with-every-order block */
+.pod-included {
+  margin-top: clamp(30px, 4vh, 46px);
+  padding: clamp(22px, 3vh, 30px);
+  border-radius: 20px;
+  background: var(--beige);
+  border: 1px solid var(--hair-soft);
+}
+.pod-included-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-3);
+}
+.pod-included-head::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--hair);
+}
+.pod-included-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pod-incl {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  min-height: 100%;
+}
+.pod-incl-ico {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #fffdf8;
+  border: 1px solid var(--hair);
+  display: grid;
+  place-items: center;
+  color: var(--gold-3);
+}
+.pod-incl-ico svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pod-incl-name {
+  margin: 2px 0 3px;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--navy);
+}
+.pod-incl-desc {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: rgba(28, 32, 25, 0.74);
+}
+
+/* — RIGHT · sticky live summary — */
+.pod-summary {
+  position: sticky;
+  top: 84px;
+  border-radius: 22px;
+  background: var(--navy);
+  color: var(--cream);
+  padding: clamp(22px, 3vh, 30px);
+  box-shadow: 0 18px 44px rgba(15, 36, 68, 0.2);
+  overflow: hidden;
+}
+.pod-summary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(90% 60% at 90% 0%, rgba(200, 154, 60, 0.16), transparent 60%);
+}
+.pod-summary-eyebrow {
+  position: relative;
+  margin: 0 0 4px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-2);
+}
+.pod-summary-title {
+  position: relative;
+  margin: 0 0 18px;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 21px;
+  letter-spacing: -0.3px;
+  color: var(--cream);
+}
+.pod-summary-list {
+  position: relative;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+.pod-summary-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(253, 250, 244, 0.12);
+}
+.pod-summary-row:first-child { padding-top: 0; }
+.pod-summary-key {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(253, 250, 244, 0.6);
+}
+.pod-summary-val {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--cream);
+  text-align: right;
+}
+.pod-summary-val .sub {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-weight: 400;
+  font-size: 11px;
+  color: rgba(253, 250, 244, 0.55);
+  margin-top: 2px;
+}
+.pod-request {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 15px 20px;
+  border-radius: 999px;
+  background: var(--gold-2);
+  color: var(--navy);
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 15.5px;
+  letter-spacing: 0.1px;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+}
+.pod-request:hover { background: #e6bd6a; transform: translateY(-2px); }
+.pod-request svg { width: 17px; height: 17px; }
+.pod-summary-note {
+  position: relative;
+  margin: 14px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(253, 250, 244, 0.62);
+  text-align: center;
+}
+.pod-summary-note a { color: var(--gold-2); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ── 3 · HOW IT WORKS ────────────────────────────────────────────────────────── */
+.pod-how {
+  background: var(--beige);
+  padding: clamp(64px, 9vh, 104px) clamp(24px, 5vw, 72px);
+  border-top: 1px solid var(--hair-soft);
+}
+.pod-how-inner { max-width: 1180px; margin: 0 auto; }
+.pod-how-head { text-align: center; margin-bottom: clamp(36px, 5vh, 56px); }
+.pod-how-title {
+  margin: 12px 0 0;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(28px, 3.4vw, 44px);
+  letter-spacing: -0.6px;
+  color: var(--navy);
+}
+.pod-how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 2.4vw, 30px);
+}
+.pod-how-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: clamp(26px, 3vh, 34px);
+  border-radius: 22px;
+  background: var(--cream);
+  border: 1px solid var(--hair-soft);
+  box-shadow: 0 2px 14px rgba(15, 36, 68, 0.05);
+}
+.pod-how-step {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--gold-3);
+}
+.pod-how-ico {
+  width: 52px;
+  height: 52px;
+  margin: 18px 0 22px;
+  color: var(--gold-3);
+}
+.pod-how-ico svg {
+  width: 52px;
+  height: 52px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pod-how-name {
+  margin: 0 0 8px;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  color: var(--navy);
+}
+.pod-how-desc {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(28, 32, 25, 0.66);
+}
+
+/* ── 4 · REASSURANCE BAND (navy) ─────────────────────────────────────────────── */
+.pod-band {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--cream);
+  padding: clamp(72px, 11vh, 128px) clamp(24px, 5vw, 72px);
+}
+.pod-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(50% 60% at 82% 20%, rgba(200, 154, 60, 0.16), transparent 60%),
+    radial-gradient(rgba(253, 250, 244, 0.05) 1px, transparent 1.5px);
+  background-size: auto, 32px 32px;
+}
+.pod-band-inner {
+  position: relative;
+  max-width: 1120px;
+  margin: 0 auto;
+  text-align: center;
+}
+.pod-band-quote {
+  margin: 18px auto 0;
+  max-width: 20ch;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(30px, 4.6vw, 60px);
+  line-height: 1.06;
+  letter-spacing: -1px;
+  color: var(--cream);
+}
+.pod-band-quote em { font-style: italic; font-weight: 500; color: var(--gold-2); }
+.pod-band-sub {
+  margin: 22px auto 0;
+  max-width: 56ch;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.7;
+  color: rgba(253, 250, 244, 0.72);
+}
+.pod-band-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(30px, 6vw, 80px);
+  margin: clamp(44px, 6vh, 68px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pod-stat { text-align: center; }
+.pod-stat-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800;
+  font-size: clamp(48px, 6vw, 84px);
+  line-height: 1;
+  letter-spacing: -2px;
+  color: var(--gold-2);
+}
+.pod-stat-lbl {
+  margin: 12px 0 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(253, 250, 244, 0.66);
+}
+
+/* ── 5 · CTA (beige) ─────────────────────────────────────────────────────────── */
+.pod-cta {
+  background: var(--beige);
+  padding: clamp(72px, 11vh, 120px) clamp(24px, 5vw, 72px);
+  text-align: center;
+}
+.pod-cta-inner { max-width: 720px; margin: 0 auto; }
+.pod-cta-title {
+  margin: 12px 0 0;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(30px, 4vw, 52px);
+  letter-spacing: -0.8px;
+  line-height: 1.06;
+  color: var(--navy);
+}
+.pod-cta-sub {
+  margin: 18px auto 0;
+  max-width: 48ch;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.65;
+  color: rgba(28, 32, 25, 0.7);
+}
+.pod-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(28px, 4vh, 40px);
+  padding: 16px 30px;
+  border-radius: 999px;
+  background: var(--navy);
+  color: var(--cream);
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
+}
+.pod-cta-btn:hover { background: #16325f; transform: translateY(-2px); }
+.pod-cta-btn svg { width: 18px; height: 18px; }
+
+/* ── responsive ──────────────────────────────────────────────────────────────── */
+@media (max-width: 1180px) {
+  .pod-config {
+    grid-template-columns: minmax(300px, 1fr) minmax(0, 1.2fr);
+  }
+  /* summary drops under the steps and stops being sticky on tablet */
+  .pod-summary {
+    position: static;
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 860px) {
+  .pod-config {
+    grid-template-columns: 1fr;
+  }
+  .pod-preview {
+    position: static;
+    min-height: 420px;
+  }
+  .pod-step-help { display: none; }
+  .pod-how-grid { grid-template-columns: 1fr; }
+  .pod-included-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .pod-opts.cols-3 { grid-template-columns: 1fr; }
+}
+
+/* reduced motion — the book stops floating; selections already swap instantly */
+@media (prefers-reduced-motion: reduce) {
+  .pod-book { animation: none; }
+}
