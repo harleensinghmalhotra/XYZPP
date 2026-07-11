@@ -1845,26 +1845,83 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(20px, 1.9vw, 28px);
 }
+/* card = transparent positioning + glow host; .infra-card-inner carries the cream
+   face, border, padding and elevation. Splitting them lets the glow pseudo-elements
+   sit BEHIND the opaque inner even while the host is transformed on hover — a
+   transform on the card itself would otherwise trap the negative-z glow inside it. */
 .infra-card {
+  position: relative;
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.infra-card-inner {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
   padding: 24px;
   border-radius: 0;
   background: #fdfaf4; /* cream card lifted off the cream2 section */
   border: 1px solid rgba(28, 32, 25, 0.06);
-  /* light-section shadow: a tight contact + a soft ambient (lighter than the
-     region cards — restrained for a light surface). */
+  /* light-section shadow: a tight contact + a restrained ambient — kept soft so the
+     warm gold glow behind reads as the dominant elevation cue on cream. */
   box-shadow:
     0 1px 2px rgba(28, 32, 25, 0.06),
-    0 10px 30px -14px rgba(15, 36, 68, 0.22);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+    0 10px 28px -16px rgba(15, 36, 68, 0.18);
+  transition: box-shadow 0.5s ease;
 }
-.infra-card:hover {
-  transform: translateY(-4px);
+.infra-card:hover { transform: translateY(-5px); }
+.infra-card:hover .infra-card-inner {
   box-shadow:
     0 2px 4px rgba(28, 32, 25, 0.08),
-    0 22px 50px -18px rgba(15, 36, 68, 0.32);
+    0 20px 44px -20px rgba(15, 36, 68, 0.26);
+}
+
+/* ── GLOW BORDER — Uiverse mechanic, rebranded to a warm gold aura and tuned for the
+   CREAM ground (this section is #f0ebe0, not black). Two layers escape BEHIND the
+   opaque .infra-card-inner:
+     ::before — a crisp gold→navy gradient rim peeking ~3px around the square card
+                (the Uiverse signature edge; olive endpoint via [data-glow="olive"]).
+     ::after  — a soft blurred gold backlight; deep brand gold so it reads as a warm
+                aura on cream, never neon. The gold is identical in both variants —
+                only the ring's far colour (navy vs olive) changes, which is the A/B.
+   Lower opacity + tighter blur than the dark-ground destinations glow so it can't
+   wash out. A scale-only breathe keeps it alive (compositor-cheap → holds 60fps); no
+   rotate (gimmicky at this card size), no paint-animated gradient. */
+.infra-card::before,
+.infra-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.infra-card::before {
+  left: -4px;
+  margin: auto;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  z-index: -2;
+  opacity: 0.52;
+  background: linear-gradient(-45deg, #9b7420 0%, #1b3a6b 100%);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.infra-card::after {
+  z-index: -1;
+  opacity: 0.3;
+  background: linear-gradient(-45deg, #9b7420 0%, #6a4d10 100%);
+  filter: blur(18px);
+  transform: translate3d(0, 0, 0) scale(0.98);
+  transition: opacity 0.55s ease, filter 0.55s ease;
+  animation: infraGlowBreathe 7s ease-in-out infinite;
+}
+@keyframes infraGlowBreathe {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.97); }
+  50%      { transform: translate3d(0, 0, 0) scale(1); }
+}
+.infra-card:hover::before { opacity: 0.8; transform: scale(1.006); }
+.infra-card:hover::after  { opacity: 0.48; filter: blur(23px); }
+.infra-cards[data-glow="olive"] .infra-card::before {
+  background: linear-gradient(-45deg, #9b7420 0%, #6b7a2a 100%);
 }
 .infra-card:hover .infra-photo-img { transform: scale(1.03); }
 /* photo breaks OUT of the card: lifted above the top edge + wider than the inner
@@ -2147,6 +2204,9 @@ body {
   .infra-video-thumb:hover { transform: none; }
   .infra-dialog { animation: none; }
   .infra-person:hover .infra-photo-img { transform: none; }
+  /* glow stays but goes static — no breathe, no scale/shift; a simple lift remains */
+  .infra-card::after { animation: none; }
+  .infra-card:hover::before { transform: none; }
 }
 
 /* ── Certifications — Alternativ port, reskinned to our palette ───────────────

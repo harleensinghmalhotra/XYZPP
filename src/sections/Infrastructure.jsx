@@ -111,13 +111,15 @@ export default function Infrastructure() {
         </header>
 
         {/* ── THREE FACILITY CARDS — uniform vertical cards, one row ── */}
-        <div className="infra-cards">
+        <div className="infra-cards" data-glow="navy">
           {FACILITIES.map((f) => (
             <article key={f.n} className="infra-card">
-              <InfraPhoto src={`/qfp/infra/facility-${f.n}.webp`} note={t(`facilities.${f.n}.ph`)} className="infra-card-photo" />
-              <h3 className="infra-card-title">{t(`facilities.${f.n}.title`)}</h3>
-              <p className="infra-card-text">{t(`facilities.${f.n}.body`)}</p>
-              <p className="infra-card-cap">{t(`facilities.${f.n}.caption`)}</p>
+              <div className="infra-card-inner">
+                <InfraPhoto src={`/qfp/infra/facility-${f.n}.webp`} note={t(`facilities.${f.n}.ph`)} className="infra-card-photo" />
+                <h3 className="infra-card-title">{t(`facilities.${f.n}.title`)}</h3>
+                <p className="infra-card-text">{t(`facilities.${f.n}.body`)}</p>
+                <p className="infra-card-cap">{t(`facilities.${f.n}.caption`)}</p>
+              </div>
             </article>
           ))}
         </div>
