@@ -106,10 +106,14 @@ const Girl = forwardRef(function Girl({ floorY = -0.42 }, ref) {
 
   return (
     <group ref={outer}>
-      {/* her own three-point rig so the photo colours read out of the dusk */}
-      <pointLight position={[1.5, 2.4, 2.0]} intensity={13} distance={8.5} decay={2} color={'#FFDCA2'} />
-      <pointLight position={[-1.8, 1.9, 1.6]} intensity={5} distance={8} decay={2} color={'#A9C2EA'} />
-      <pointLight position={[-0.6, 3.0, -1.4]} intensity={7} distance={7} decay={2} color={'#FFE6BE'} />
+      {/* her own three-point rig — gentle, so she reads as a person in the evening,
+          not a lamp. Key is a subtle warm WHITE (not amber) so it lifts her honey
+          kurta without tinting it orange or blowing the lit side to white; fill is a
+          low, desaturated cool so the shadow side keeps soft form; rim just separates
+          her hair from the dusk. Tuned by eye against Harry's source PNGs. */}
+      <pointLight position={[1.5, 2.4, 2.0]} intensity={5} distance={8.5} decay={2} color={'#FFF0DC'} />
+      <pointLight position={[-1.8, 1.9, 1.6]} intensity={2} distance={8} decay={2} color={'#B8C6DC'} />
+      <pointLight position={[-0.6, 3.0, -1.4]} intensity={3} distance={7} decay={2} color={'#FFEACC'} />
 
       {/* soft elliptical contact shadow on the belt under her */}
       <mesh ref={shadow} position={[0, 0.012, 0]} rotation={[-Math.PI / 2, 0, 0]}>
