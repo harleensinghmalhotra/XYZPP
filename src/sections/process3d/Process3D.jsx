@@ -12,7 +12,8 @@ import './process3d.css'
 gsap.registerPlugin(ScrollTrigger)
 
 const MOBILE_MAX = 900 // <901px → static poster fallback
-const PAGES = 5 // ×100vh of scroll travel the conveyor scrubs across
+const PAGES = 6 // ×100vh of scroll travel the conveyor scrubs across (R7: +1 for the
+// re-timed ending — reach, box morph, jump, settle, then a dead HOLD before unpin)
 
 // One-shot render kick for the reduced-motion (frameloop="demand") canvas — draws
 // the static beauty shot once on mount and again on resize, no continuous loop.

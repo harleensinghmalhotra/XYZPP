@@ -2,7 +2,7 @@
   "eyebrow": "Notre méthode",
   "title": "Un seul processus continu.",
   "sub": "Un seul partenaire. Un seul flux de travail. Nous prenons tout en charge pour que vous puissiez vous consacrer à votre mission.",
-  "legs": ["Papier", "Du papier au livre", "Du livre au colis", "Emballé et scellé", "Livré"],
+  "legs": ["Papier", "Du papier au livre", "Du livre au colis", "Emballé et scellé", "Expédié", "Livré"],
   "stages": {
     "print": {
       "name": "Impression",

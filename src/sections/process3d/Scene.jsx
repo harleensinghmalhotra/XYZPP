@@ -7,7 +7,7 @@ import Belt from './Belt'
 import Station from './Station'
 import Book from './Book'
 import Girl from './Girl'
-import { STATIONS, N, stationX, EKTA, CAM, LABEL_Y, ENDING, mapActiveF, mapBookX, legIndex, smooth, bell } from './constants'
+import { STATIONS, N, stationX, EKTA, CAM, LABEL_Y, ENDING, mapActiveF, mapBookX, legIndex, handoffOf, smooth, bell, lerp } from './constants'
 
 const FLOOR_Y = -0.42
 
@@ -67,8 +67,10 @@ export default function Scene({ frozen = false, progress }) {
   const lookX = useRef(xs[0])
   const heroLight = useRef() // warm lamp that travels with the hero through the dusk
 
-  // stage-word textures per leg (EN/FR via locale), + crossfade state
-  const legTex = useMemo(() => [0, 1, 2, 3, 4].map((i) => makeStageWord(t(`legs.${i}`))), [t])
+  // stage-word textures per leg (EN/FR via locale), + crossfade state. Legs 0..4
+  // ride with the box (Paper…Shipped); leg 5 "Delivered" is raised beside the girl
+  // only at the catch (never a travelling gate label).
+  const legTex = useMemo(() => [0, 1, 2, 3, 4, 5].map((i) => makeStageWord(t(`legs.${i}`))), [t])
   const stageMat = useRef()
   const stageGroup = useRef()
   const shownLeg = useRef(-1)
@@ -79,17 +81,21 @@ export default function Scene({ frozen = false, progress }) {
     const activeF = mapActiveF(p)
     const bx = mapBookX(p)
 
-    // ── hero rides the belt; box pauses beside the girl, then she grabs + jumps ──
-    const handoff = smooth(ENDING.swapA, ENDING.swapB, p) // 0 = waiting, →1 = grab + jump
+    // ── hero rides the belt; box stops beside the girl, she reaches + it morphs ──
+    const handoff = handoffOf(p) // 0 = riding/waiting, →1 = reached, jumped, settled
+    // world box fades out only AFTER she has fully leaned in over it (lean completes
+    // ~0.28), so the pick sprite's held box is coincident with the world box as it
+    // fades → they read as one box, zero pop.
+    const boxFade = 1 - smooth(0.30, 0.46, handoff)
     const book = bookApi.current
     if (book?.root) {
       book.root.position.x = bx
       book.root.position.y = frozen ? 0 : Math.sin(time * 1.6) * 0.012
       book.root.rotation.y = frozen ? -0.28 : -0.26 + Math.sin(time * 0.5) * 0.04
-      book.root.visible = handoff < 0.5 // vanishes into her hands
-      book.apply(activeF, time)
+      book.root.visible = boxFade > 0.002
+      book.apply(activeF, time, boxFade)
     }
-    if (girlApi.current) girlApi.current.apply(handoff, time)
+    if (girlApi.current) girlApi.current.apply(handoff, time, camera.position.x)
     if (heroLight.current) heroLight.current.position.set(bx, 1.6, 1.3) // travels with the hero
 
     // ── stations: gold-trim arrival glow + Quality scanner ──
@@ -106,20 +112,36 @@ export default function Scene({ frozen = false, progress }) {
       }
     })
 
-    // ── floating stage word: per-leg caption, fades out at each gate crossing ──
+    // ── floating stage word ──────────────────────────────────────────────────
+    // While the box rides (handoff 0): the leg caption (Paper…Shipped) floats with
+    // it, fading out at each gate crossing. At the catch: it swaps to "Delivered",
+    // parks UP and LEFT of the girl (clear of her and the box at every frame), and
+    // glows through the end HOLD.
     if (stageGroup.current && stageMat.current) {
-      const leg = legIndex(activeF)
+      let leg, op, wx, wy
+      if (handoff <= 0.001) {
+        leg = legIndex(activeF) // 0..4 — never "Delivered" while travelling
+        const gd = Math.abs(activeF - Math.round(activeF))
+        op = smooth(0.09, 0.34, gd)
+        wx = bx; wy = 1.34 + Math.sin(time * 0.8) * 0.02
+      } else {
+        leg = 5 // "Delivered"
+        // fade in during the settle (after the apex) so it never crosses the
+        // airborne box; parked up-and-left, clear of her and the box at every frame.
+        op = smooth(0.58, 0.82, handoff)
+        wx = ENDING.girlX - 1.95; wy = 2.72 + Math.sin(time * 0.8) * 0.02
+      }
       if (leg !== shownLeg.current) { shownLeg.current = leg; stageMat.current.map = legTex[leg]; stageMat.current.needsUpdate = true }
-      const gd = Math.abs(activeF - Math.round(activeF))
-      let op = smooth(0.09, 0.34, gd)
-      if (activeF >= 4.02) op = smooth(4.05, 4.4, activeF) // final "Delivered" stays through the ride
       stageMat.current.opacity = op
-      stageGroup.current.position.set(bx, 1.34 + Math.sin(time * 0.8) * 0.02, 0.15)
+      stageGroup.current.position.set(wx, wy, 0.2)
     }
 
     // ── telephoto near side-on dolly; straight belt, everything in frame ──
+    // At the catch the focus eases from the box toward the girl so the delivery is
+    // framed, then holds there through the end beat.
+    const focusX = lerp(bx, ENDING.girlX - 0.35, smooth(0.1, 0.72, handoff))
     const k = frozen ? 1 : CAM.ease
-    const tx = bx + CAM.side + Math.sin(time * 0.16) * CAM.drift
+    const tx = focusX + CAM.side + Math.sin(time * 0.16) * CAM.drift
     const ty = CAM.y + Math.sin(time * 0.22) * 0.06
     const d = Math.abs(activeF - Math.round(activeF))
     const push = frozen ? 0 : (1 - THREE.MathUtils.clamp(d / 0.5, 0, 1)) ** 2
@@ -127,7 +149,7 @@ export default function Scene({ frozen = false, progress }) {
     camera.position.x += (tx - camera.position.x) * k
     camera.position.y += (ty - camera.position.y) * k
     camera.position.z += (tz - camera.position.z) * k
-    lookX.current += (bx - lookX.current) * (frozen ? 1 : 0.12)
+    lookX.current += (focusX - lookX.current) * (frozen ? 1 : 0.12)
     camera.lookAt(lookX.current, CAM.lookY + Math.sin(time * 0.2) * 0.02, 0)
   })
 

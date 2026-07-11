@@ -42,11 +42,21 @@ export const ARCH = { half: 0.86, legH: 0.98, legW: 0.16, depth: 0.18, trim: 0.0
 export const APEX_Y = ARCH.legH + ARCH.half
 export const LABEL_Y = APEX_Y + 0.52 // billboard label floats above the apex
 
-// ── Ending (R6): the green tick stamps at the last gate (activeF reaches N-1 at
-// P5, keeping every stage-transform gate-aligned), then the box rides on and
-// PAUSES beside the girl at boxRestX (arriveP); the tail is the pause before she
-// grabs it and jumps (Scene hides the belt box at the swap → only ever one box).
-export const ENDING = { P5: 0.84, arriveP: 0.95, girlX: 13.6, boxRestX: 13.02, swapA: 0.96, swapB: 0.995 }
+// ── Ending (R7): every book transform completes as activeF reaches N-1 at P5
+// (gate-aligned). The sealed, ticked box then rides on and STOPS at boxRestX — a
+// clear ~1-unit gap BEFORE the girl (no contact). The celebration (reach → box
+// morph → jump → settle) runs [swapA..swapB]; after swapB a dead HOLD to p=1 lets
+// the finished scene breathe before the pin releases. boxRestX is placed so the
+// world box lands exactly where the pick-sprite's held box sits → the morph is
+// pop-free (Scene fades the world box out as the pick sprite fades in).
+export const ENDING = {
+  P5: 0.77,        // activeF hits N-1; all transforms done, box at the last gate
+  arriveP: 0.83,   // box finishes its run and rests at boxRestX
+  girlX: 13.95,
+  boxRestX: 12.37, // clear gap before the girl; she leans in, box morphs to her hands
+  swapA: 0.83,     // celebration begins (she reaches as the box stops)
+  swapB: 0.95,     // celebration settled; [swapB..1] is the end HOLD
+}
 export const mapActiveF = (p) => Math.min(p / ENDING.P5, 1) * (N - 1)
 export const mapBookX = (p) => {
   const x5 = stationX(N - 1)
@@ -54,7 +64,14 @@ export const mapBookX = (p) => {
   if (p <= ENDING.arriveP) return x5 + ((ENDING.boxRestX - x5) * (p - ENDING.P5)) / (ENDING.arriveP - ENDING.P5)
   return ENDING.boxRestX
 }
-// journey captions (floating stage word), by leg = clamp(floor(activeF), 0, 4)
+// linear 0..1 celebration ramp across [swapA..swapB]; sub-phases (reach/morph/
+// jump/settle) are smoothed off this inside Girl. Stays 1 through the end HOLD.
+export const handoffOf = (p) => Math.min(Math.max((p - ENDING.swapA) / (ENDING.swapB - ENDING.swapA), 0), 1)
+// Journey captions (the floating stage word) that RIDE with the box, by leg =
+// clamp(floor(activeF), 0, 4): Paper · Paper to Book · Book to Package · Packed &
+// Sealed · Shipped. The 6th leg — "Delivered" — is NOT a travelling caption; it is
+// raised beside the girl only at the catch moment (see Scene), so it reads as the
+// box actually arriving in her hands rather than a gate label.
 export const legIndex = (activeF) => Math.min(Math.max(Math.floor(activeF), 0), 4)
 
 // ── Round-2 choreography maths ────────────────────────────────────────────

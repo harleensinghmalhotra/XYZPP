@@ -72,22 +72,29 @@ const Book = forwardRef(function Book(_props, ref) {
     })), [],
   )
 
+  // Four hinged lids at clearly-separated heights so no two lie coplanar when
+  // sealed (the under-pair lower, the over-pair higher, each with its own y).
   const FLAPS = useMemo(() => [
-    { axis: 'x', open: -1.5, group: [0, 0.6, -0.36], off: [0, 0, 0.18], geo: [0.98, 0.02, 0.36], color: EKTA.kraft },
-    { axis: 'x', open: 1.5, group: [0, 0.615, 0.36], off: [0, 0, -0.18], geo: [0.98, 0.02, 0.36], color: EKTA.kraft },
     { axis: 'z', open: 1.5, group: [-0.49, 0.585, 0], off: [0.245, 0, 0], geo: [0.49, 0.02, 0.72], color: EKTA.kraftDark },
-    { axis: 'z', open: -1.5, group: [0.49, 0.585, 0], off: [-0.245, 0, 0], geo: [0.49, 0.02, 0.72], color: EKTA.kraftDark },
+    { axis: 'z', open: -1.5, group: [0.49, 0.594, 0], off: [-0.245, 0, 0], geo: [0.49, 0.02, 0.72], color: EKTA.kraftDark },
+    { axis: 'x', open: -1.5, group: [0, 0.607, -0.36], off: [0, 0, 0.18], geo: [0.98, 0.02, 0.36], color: EKTA.kraft },
+    { axis: 'x', open: 1.5, group: [0, 0.62, 0.36], off: [0, 0, -0.18], geo: [0.98, 0.02, 0.36], color: EKTA.kraft },
   ], [])
 
   useImperativeHandle(ref, () => ({
     get root() { return root.current },
-    apply(activeF, time) {
+    apply(activeF, time, boxFade = 1) {
       const bind = transform(1, activeF)
       const wrap = transform(2, activeF)
       const box = transform(3, activeF)
       const seal = transform(4, activeF)
       const crown = transform(5, activeF)
 
+      // ── sheets → cover: a DISSOLVE, not an overlap. The sheets gather (bind),
+      // then fade out (transparent, depthWrite off) as the solid cover grows in
+      // beneath them. Only the cover ever writes depth here → no interpenetration,
+      // no z-fight (the old cause: both solid + coplanar for the whole morph).
+      const sheetOp = 1 - smooth(0.5, 0.72, bind)
       sheetRefs.current.forEach((m, i) => {
         if (!m) return
         const s = SHEETS[i]
@@ -95,13 +102,17 @@ const Book = forwardRef(function Book(_props, ref) {
         m.position.y = lerp(s.loose.y, s.tight.y, bind)
         m.position.z = lerp(s.loose.z, s.tight.z, bind)
         m.rotation.y = lerp(s.loose.rot, s.tight.rot, bind)
+        const fading = sheetOp < 0.999
+        m.material.transparent = fading
+        m.material.depthWrite = !fading
+        m.material.opacity = sheetOp
       })
-      if (sheetsG.current) sheetsG.current.visible = bind < 0.98
+      if (sheetsG.current) sheetsG.current.visible = sheetOp > 0.002
 
       if (coverG.current) {
-        const cs = smooth(0.1, 1, bind)
-        coverG.current.visible = bind > 0.02 && wrap < 0.985
-        coverG.current.scale.set(lerp(0.7, 1, cs), lerp(0.05, 1, cs), lerp(0.7, 1, cs))
+        const cs = smooth(0.5, 1, bind) // grows in only once the sheets start dissolving
+        coverG.current.visible = bind > 0.48 && wrap < 0.985
+        coverG.current.scale.set(lerp(0.82, 1, cs), lerp(0.05, 1, cs), lerp(0.82, 1, cs))
       }
 
       if (wrapperG.current) {
@@ -134,10 +145,21 @@ const Book = forwardRef(function Book(_props, ref) {
         const s = press + over
         tickG.current.scale.set(s, s, 1)
       }
+
+      // ── Fix 4 morph: the whole sealed box fades out as the pick sprite's held
+      // box fades in. Opaque parts turn transparent + stop writing depth only while
+      // fading; the tick (already alpha-mapped) just dims. Restores cleanly on reverse.
+      if (boxG.current) {
+        const fading = boxFade < 0.999
+        boxG.current.traverse((o) => {
+          const m = o.material
+          if (!m) return
+          if (m.map) { m.opacity = boxFade } // tick — keep its own alpha blending
+          else { m.transparent = fading; m.depthWrite = !fading; m.opacity = boxFade }
+        })
+      }
     },
   }))
-
-  const decal = { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }
 
   return (
     <group ref={root} scale={1.35}>
@@ -163,43 +185,46 @@ const Book = forwardRef(function Book(_props, ref) {
               which protrudes a clear 0.05 → nothing coplanar to z-fight */}
           <mesh position={[0.06, 0, 0]}>
             <boxGeometry args={[0.9, 0.1, 0.58]} />
-            <meshStandardMaterial color={'#EFE7D6'} roughness={0.85} map={pageLines} {...decal} />
+            <meshStandardMaterial color={'#EFE7D6'} roughness={0.85} map={pageLines} />
           </mesh>
+          {/* gold frame + emblem: real height offsets above the cover top (y 0.075),
+              no polygonOffset — each floats a clear ~0.008 proud, never coplanar */}
           {[[0, 0.24], [0, -0.24]].map(([x, z], i) => (
-            <mesh key={`fh${i}`} position={[x, 0.078, z]}>
+            <mesh key={`fh${i}`} position={[x, 0.083, z]}>
               <boxGeometry args={[0.62, 0.006, 0.02]} />
-              <meshStandardMaterial color={EKTA.gold2} metalness={0.7} roughness={0.32} toneMapped={false} {...decal} />
+              <meshStandardMaterial color={EKTA.gold2} metalness={0.7} roughness={0.32} toneMapped={false} />
             </mesh>
           ))}
           {[[0.31, 0], [-0.31, 0]].map(([x, z], i) => (
-            <mesh key={`fv${i}`} position={[x, 0.078, z]}>
+            <mesh key={`fv${i}`} position={[x, 0.083, z]}>
               <boxGeometry args={[0.02, 0.006, 0.5]} />
-              <meshStandardMaterial color={EKTA.gold2} metalness={0.7} roughness={0.32} toneMapped={false} {...decal} />
+              <meshStandardMaterial color={EKTA.gold2} metalness={0.7} roughness={0.32} toneMapped={false} />
             </mesh>
           ))}
-          <mesh position={[0, 0.079, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <mesh position={[0, 0.087, 0]} rotation={[-Math.PI / 2, 0, 0]}>
             <planeGeometry args={[0.22, 0.22]} />
-            <meshBasicMaterial map={coverEmblem} transparent toneMapped={false} {...decal} />
+            <meshBasicMaterial map={coverEmblem} transparent depthWrite={false} toneMapped={false} />
           </mesh>
           <mesh position={[0.42, -0.02, -0.16]}>
             <boxGeometry args={[0.04, 0.006, 0.16]} />
-            <meshStandardMaterial color={EKTA.gold} metalness={0.5} roughness={0.4} toneMapped={false} {...decal} />
+            <meshStandardMaterial color={EKTA.gold} metalness={0.5} roughness={0.4} toneMapped={false} />
           </mesh>
         </group>
 
-        {/* kraft wrap + thin twine cross */}
+        {/* kraft wrap + thin twine cross (twine sits a clear step above the wrap top
+            y 0.13, and the two strands cross at different heights → no coplanar faces) */}
         <group ref={wrapperG} position={[0, 0.11, 0]}>
           <mesh castShadow>
             <boxGeometry args={[0.96, 0.26, 0.7]} />
             <meshStandardMaterial color={EKTA.kraft} roughness={0.94} />
           </mesh>
-          <mesh ref={twineH} position={[0, 0.135, 0]}>
+          <mesh ref={twineH} position={[0, 0.145, 0]}>
             <boxGeometry args={[0.98, 0.02, 0.035]} />
-            <meshStandardMaterial color={'#B9A778'} roughness={0.8} {...decal} />
+            <meshStandardMaterial color={'#B9A778'} roughness={0.8} />
           </mesh>
-          <mesh ref={twineV} position={[0, 0.145, 0]}>
+          <mesh ref={twineV} position={[0, 0.153, 0]}>
             <boxGeometry args={[0.035, 0.02, 0.72]} />
-            <meshStandardMaterial color={'#B9A778'} roughness={0.8} {...decal} />
+            <meshStandardMaterial color={'#B9A778'} roughness={0.8} />
           </mesh>
         </group>
       </group>
@@ -210,9 +235,9 @@ const Book = forwardRef(function Book(_props, ref) {
           <boxGeometry args={[0.98, 0.6, 0.72]} />
           <meshStandardMaterial color={EKTA.kraft} roughness={0.95} />
         </mesh>
-        <mesh position={[0, 0.3, 0.361]}>
+        <mesh position={[0, 0.3, 0.366]}>
           <boxGeometry args={[0.015, 0.6, 0.006]} />
-          <meshStandardMaterial color={EKTA.kraftDark} roughness={1} {...decal} />
+          <meshStandardMaterial color={EKTA.kraftDark} roughness={1} />
         </mesh>
         {FLAPS.map((fl, i) => (
           <group key={i} position={fl.group}>
@@ -222,11 +247,12 @@ const Book = forwardRef(function Book(_props, ref) {
             </mesh>
           </group>
         ))}
-        {/* green delivered tick, stamped onto the front (+Z) face */}
-        <group ref={tickG} position={[0, 0.34, 0.368]} visible={false}>
+        {/* green delivered tick — a clear 0.006 proud of the box front (z 0.36) so
+            it never z-fights the face; alpha-mapped, so it keeps its own blending */}
+        <group ref={tickG} position={[0, 0.34, 0.372]} visible={false}>
           <mesh>
             <circleGeometry args={[0.19, 40]} />
-            <meshBasicMaterial map={tickTex} transparent toneMapped={false} {...decal} />
+            <meshBasicMaterial map={tickTex} transparent depthWrite={false} toneMapped={false} />
           </mesh>
         </group>
       </group>

@@ -38,8 +38,9 @@ export default function Belt({ running = true }) {
 
   return (
     <group>
-      {/* running surface — navy with a clear sheen that catches the warm pools */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, topY + 0.001, 0]} receiveShadow>
+      {/* running surface — navy with a clear sheen that catches the warm pools; a
+          clear step above the bed top (no 0.001 near-coplanar gap → no z-fight) */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, topY + 0.006, 0]} receiveShadow>
         <planeGeometry args={[BELT.length, BELT.width]} />
         <meshStandardMaterial map={surf} color={'#31517f'} roughness={0.5} metalness={0.35} />
       </mesh>
