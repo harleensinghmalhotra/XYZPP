@@ -318,7 +318,7 @@ export default function Cases() {
       </div>
 
       <div className="cases-footer">
-        <button className="view-all-cases">{t('viewAll')}</button>
+        <button className="view-all-cases btn-nebula">{t('viewAll')}</button>
       </div>
     </section>
   )

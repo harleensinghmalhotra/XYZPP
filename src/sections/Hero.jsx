@@ -376,7 +376,11 @@ export default function Hero() {
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-white transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
                 </span>
               </a>
-              <a href="#projects" className="text-[15px] font-medium tracking-[0.3px] text-white underline decoration-white/50 underline-offset-[5px] transition-colors duration-300 hover:decoration-[#e6bd6a] hover:text-[#e6bd6a]">
+              {/* Promoted from a text link to a matching square ghost chip so both
+                  hero CTAs carry the same nebula foil (sweep round 2). Typography
+                  (15px / 500 / 0.3px) and colour unchanged; class swap only — the
+                  reveal timeline animates the copyGroup parent, not this anchor. */}
+              <a href="#projects" className="btn-nebula group relative inline-flex h-[54px] items-center border-[1.5px] border-white/60 px-[26px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[#0f2444] hover:border-[#f5f0e8]">
                 {t('hero.ctaReach')}
               </a>
             </div>
