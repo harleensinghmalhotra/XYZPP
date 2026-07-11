@@ -3,7 +3,7 @@ import { useTranslation, Trans } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
-import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
+import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
 import Globe3D from '@/components/Globe3D'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -19,14 +19,19 @@ gsap.registerPlugin(ScrollTrigger)
 //     shipment cards; hovering one pulses that country's arc/marker on the globe.
 // Reduced-motion → static globe, no reveals, no globe reactions. GPU-only.
 
-// One-line compliance switch: flip to false to drop HDFC + ZEE rows (they carry
-// the same client-permission flag as the trust strips). A `?hideRestricted` URL
-// param also forces them off for preview/QA without a code change.
-const SHOW_RESTRICTED_CLIENTS = true
+// HDFC + ZEE rows carry the same client-permission flag as the trust strips, so
+// the gate is the CENTRAL one from src/lib/compliance.js (not a local const —
+// that leaked `true` in the last revamp and shipped restricted names). A
+// `?hideRestricted` URL param also forces them off for preview/QA.
 
 // Destination posters — text resolved from the homeProjects namespace by slug.
-// `slug` also names the Globe3D focus region (africa | asia | europe).
-const REGIONS = [{ slug: 'africa' }, { slug: 'asia' }, { slug: 'europe' }]
+// `slug` also names the Globe3D focus region (africa | asia | europe). `img` is
+// the clean school-kids photo (public/qfp/destinations/, no duotone filter).
+const REGIONS = [
+  { slug: 'africa', img: '/qfp/destinations/africa-1.jpg' },
+  { slug: 'asia', img: '/qfp/destinations/asia-2.jpg' },
+  { slug: 'europe', img: '/qfp/destinations/europe-2.jpg' },
+]
 
 // The featured milestone (loud) + seven shipment records (quiet). The featured
 // story names a government body; when SHOW_MINISTRY_NAMES is off it falls back to
@@ -82,16 +87,20 @@ const STARS = (() => {
   }))
 })()
 
-// ── Destination poster — full-bleed navy-warm duotone, big name + one stat.
-// Hovering (or focusing) it swings the globe to face the region and brightens its
-// arcs. href="#" for now — per-region pages are built later, per client.
-function DestPanel({ slug, t, onFocus, onReset }) {
+// ── Destination poster — clean school-kids photo (no duotone filter) framed by a
+// brand gold→navy glow-border. A bottom-up navy scrim is the ONLY tint, and it
+// only sits behind the label/stat zone so faces stay natural. Hovering (or
+// focusing) it swings the globe to face the region and brightens the glow.
+// href="#" for now — per-region pages are built later, per client.
+function DestPanel({ slug, img, t, onFocus, onReset }) {
   const name = t(`regions.${slug}.name`)
   const stat = t(`regions.${slug}.stat`)
   const statLabel = t(`regions.${slug}.statLabel`)
   return (
     // TODO(region-pages): point href to the per-region destination page once the
     // client scopes+approves them; keep the globe-focus + stat as the poster.
+    // The glow lives on ::before/::after of .proj-dest (outside .proj-dest-frame,
+    // which owns overflow:hidden so only the photo zoom is clipped, not the glow).
     <a
       className="proj-dest"
       href="#"
@@ -103,22 +112,28 @@ function DestPanel({ slug, t, onFocus, onReset }) {
       onFocus={onFocus}
       onBlur={onReset}
     >
-      <div className="proj-dest-media" aria-hidden="true">
-        <div className="proj-dest-base" />
-        <div className="proj-dest-photo" style={{ backgroundImage: `url(/qfp/regions/region-${slug}.webp)` }} />
-        <div className="proj-dest-navy" />
-        <div className="proj-dest-gold" />
-      </div>
-      <div className="proj-dest-scrim" aria-hidden="true" />
-      <div className="proj-dest-content">
-        <span className="proj-dest-kicker">{t(`regions.${slug}.tag`)}</span>
-        <h3 className="proj-dest-name">{name}</h3>
-        <div className="proj-dest-stat">
-          <span className="proj-dest-stat-num">{stat}</span>
-          <span className="proj-dest-stat-label">{statLabel}</span>
+      <div className="proj-dest-frame">
+        <div className="proj-dest-media" aria-hidden="true">
+          <div className="proj-dest-base" />
+          <img
+            className="proj-dest-photo"
+            src={img}
+            alt={t(`regions.${slug}.alt`)}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
+        <div className="proj-dest-scrim" aria-hidden="true" />
+        <div className="proj-dest-content">
+          <span className="proj-dest-kicker">{t(`regions.${slug}.descriptor`)}</span>
+          <h3 className="proj-dest-name">{name}</h3>
+          <div className="proj-dest-stat">
+            <span className="proj-dest-stat-num">{stat}</span>
+            <span className="proj-dest-stat-label">{statLabel}</span>
+          </div>
+        </div>
+        <span className="proj-dest-go" aria-hidden="true">→</span>
       </div>
-      <span className="proj-dest-go" aria-hidden="true">→</span>
     </a>
   )
 }
@@ -178,8 +193,12 @@ export default function Projects() {
   const globe = useRef(null)
   const [reduced] = useState(prefersReduced)
 
-  const hideParam = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('hideRestricted')
+  const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
+  const hideParam = !!params && params.has('hideRestricted')
   const showRestricted = SHOW_RESTRICTED_CLIENTS && !hideParam
+  // A/B glow tuning — `?glow=olive` swaps the navy leg for olive so both can be
+  // screenshotted side-by-side. Default (and the shipped pick) is navy.
+  const glowVariant = params?.get('glow') === 'olive' ? 'olive' : 'navy'
   const rows = LEDGER.filter(
     (r) => (SHOW_MINISTRY_NAMES || !r.ministry) && (showRestricted || !r.restricted),
   )
@@ -268,13 +287,14 @@ export default function Projects() {
         </div>
 
         {/* DESTINATION PANELS */}
-        <div className="proj-dests">
+        <div className="proj-dests" data-glow={glowVariant}>
           <p className="proj-dests-eyebrow">{t('destinationsEyebrow')}</p>
           <div className="proj-dests-grid">
             {REGIONS.map((r) => (
               <DestPanel
                 key={r.slug}
                 slug={r.slug}
+                img={r.img}
                 t={t}
                 onFocus={() => focusRegion(r.slug)}
                 onReset={releaseGlobe}

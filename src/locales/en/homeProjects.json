@@ -8,6 +8,8 @@
     "africa": {
       "tag": "Africa",
       "name": "Africa",
+      "descriptor": "Est. Export Market",
+      "alt": "Two African children reading an illustrated storybook together",
       "stat": "10+",
       "statLabel": "Countries served",
       "body": "Our largest export market. We partner with Ministries of Education across <strong>Nigeria, Kenya, Uganda, Ghana, Cameroon, Rwanda, Tanzania, Zambia, Côte d'Ivoire, DR Congo and more</strong> to deliver World Bank, USAID and UN funded education projects."
@@ -15,6 +17,8 @@
     "asia": {
       "tag": "Asia",
       "name": "Asia",
+      "descriptor": "End-to-End Delivery",
+      "alt": "Asian schoolgirl in uniform reading a book in a classroom",
       "stat": "2+",
       "statLabel": "Countries served",
       "body": "End-to-end solutions, print, kit, pack and deliver direct to schools, eliminating operational challenges for publishers and institutions across <strong>India, UAE</strong>, and expanding further."
@@ -22,6 +26,8 @@
     "europe": {
       "tag": "Americas & Europe",
       "name": "USA, Europe & Latin America",
+      "descriptor": "Expansion Markets",
+      "alt": "Smiling schoolboy holding a book in a library",
       "stat": "5",
       "statLabel": "Countries served",
       "body": "Activity books, trade books, colouring books and stationery supplied to leading publishers and major retail chains across <strong>USA, UK, Mexico, Spain and Germany</strong>."

@@ -1289,81 +1289,123 @@ body {
 .proj-dest {
   position: relative;
   display: block;
-  overflow: hidden;
   height: clamp(420px, 40vw, 560px);
   isolation: isolate;
   text-decoration: none;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.proj-dest:hover, .proj-dest:focus-visible { transform: translateY(-8px); }
+.proj-dest:focus-visible { outline: 2px solid #c89a3c; outline-offset: 6px; }
+
+/* ── GLOW BORDER — Uiverse mechanic, rebranded to gold→navy (olive alt via
+   [data-glow="olive"]). Two layers behind .proj-dest-frame, both OUTSIDE the
+   frame's overflow so nothing clips them:
+     ::before — a crisp gradient edge peeking ~4px around the square frame.
+     ::after  — a soft blurred backlight that reads as warm gold on the velvet.
+   Palette is strictly brand: gold #9b7420, navy #1b3a6b, olive #6b7a2a. A slow
+   scale-only breathe keeps it alive without animating blur (compositor-cheap so
+   the live globe holds 60fps). It whispers at rest, brightens on hover. */
+.proj-dest::before,
+.proj-dest::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(-45deg, #9b7420 0%, #1b3a6b 100%);
+}
+.proj-dest::before { /* crisp gradient edge */
+  left: -4px;
+  margin: auto;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  border-radius: 2px;
+  z-index: -2;
+  opacity: 0.5;
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.proj-dest::after { /* soft blurred backlight */
+  z-index: -1;
+  filter: blur(22px);
+  opacity: 0.4;
+  transform: translate3d(0, 0, 0) scale(0.95);
+  transition: opacity 0.6s ease, filter 0.6s ease;
+  animation: destGlowBreathe 7s ease-in-out infinite;
+}
+@keyframes destGlowBreathe {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.95); }
+  50%      { transform: translate3d(0, 0, 0) scale(0.99); }
+}
+.proj-dest:hover::before, .proj-dest:focus-visible::before { opacity: 0.82; transform: scale(1.012); }
+.proj-dest:hover::after,  .proj-dest:focus-visible::after  { opacity: 0.66; filter: blur(30px); }
+.proj-dests[data-glow="olive"] .proj-dest::before,
+.proj-dests[data-glow="olive"] .proj-dest::after {
+  background: linear-gradient(-45deg, #9b7420 0%, #6b7a2a 100%);
+}
+
+/* the frame owns the square clip + elevation; only the photo zoom is clipped */
+.proj-dest-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 2px;
   border: 1px solid rgba(200, 154, 60, 0.16);
   /* 2.7-elevation layered stack: tight contact + ambient + deep soft lift */
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.5),
     0 18px 44px rgba(0, 0, 0, 0.4),
     0 44px 90px -22px rgba(0, 0, 0, 0.6);
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease, border-color 0.5s ease;
+  transition: border-color 0.5s ease, box-shadow 0.55s ease;
 }
-.proj-dest:hover, .proj-dest:focus-visible {
-  transform: translateY(-8px);
-  border-color: rgba(200, 154, 60, 0.4);
+.proj-dest:hover .proj-dest-frame, .proj-dest:focus-visible .proj-dest-frame {
+  border-color: rgba(200, 154, 60, 0.42);
   box-shadow:
     0 3px 6px rgba(0, 0, 0, 0.5),
     0 30px 64px rgba(0, 0, 0, 0.46),
-    0 70px 130px -24px rgba(0, 0, 0, 0.66),
-    0 0 90px -20px rgba(200, 154, 60, 0.3);
+    0 70px 130px -24px rgba(0, 0, 0, 0.66);
 }
-.proj-dest:focus-visible { outline: 2px solid #c89a3c; outline-offset: 3px; }
-/* media — grayscale photo + navy-warm duotone (navy multiply, gold screen) */
+/* media — CLEAN photo, no duotone/grayscale (the "stupid filter" is gone). */
 .proj-dest-media {
   position: absolute;
   inset: 0;
   z-index: 0;
-  isolation: isolate;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .proj-dest:hover .proj-dest-media, .proj-dest:focus-visible .proj-dest-media { transform: scale(1.06); }
-.proj-dest-base {
+.proj-dest-base { /* flat navy fallback shown only until the photo decodes */
   position: absolute;
   inset: 0;
-  background: linear-gradient(158deg, #1b3a6b 0%, #12294c 55%, #0f2444 100%);
+  background: #12294c;
 }
 .proj-dest-photo {
   position: absolute;
   inset: 0;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  filter: grayscale(1) contrast(1.05) brightness(0.95);
-  transition: filter 0.55s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
-.proj-dest:hover .proj-dest-photo, .proj-dest:focus-visible .proj-dest-photo {
-  filter: grayscale(0.3) contrast(1.04) brightness(1.05); /* warms + comes alive */
-}
-.proj-dest-navy { /* shadows → navy */
-  position: absolute;
-  inset: 0;
-  background: #0c1c38;
-  mix-blend-mode: multiply;
-  opacity: 0.8;
-  transition: opacity 0.55s ease;
-}
-.proj-dest:hover .proj-dest-navy, .proj-dest:focus-visible .proj-dest-navy { opacity: 0.72; }
-.proj-dest-gold { /* highlights → warm gold */
-  position: absolute;
-  inset: 0;
-  background: #caa14a;
-  mix-blend-mode: screen;
-  opacity: 0.3;
-  transition: opacity 0.55s ease;
-}
-.proj-dest:hover .proj-dest-gold, .proj-dest:focus-visible .proj-dest-gold { opacity: 0.44; }
-/* fixed scrim → text legibility both states (does not lighten on hover) */
+/* scrim → text legibility ONLY. Bottom-up deep navy, fully transparent by 55%
+   so faces stay natural; guarantees WCAG AA behind the label/stat zone. */
 .proj-dest-scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(to top,
-    rgba(6, 12, 24, 0.94) 0%, rgba(6, 12, 24, 0.8) 22%,
-    rgba(6, 12, 24, 0.18) 50%, rgba(6, 12, 24, 0) 66%, rgba(6, 12, 24, 0) 100%);
+    rgba(9, 20, 40, 0.93) 0%,
+    rgba(9, 20, 40, 0.74) 20%,
+    rgba(9, 20, 40, 0.3) 40%,
+    rgba(9, 20, 40, 0) 55%);
+}
+/* reduced-motion → glow holds a static mid state, no breathe, no transitions */
+@media (prefers-reduced-motion: reduce) {
+  .proj-dest,
+  .proj-dest-frame,
+  .proj-dest-media,
+  .proj-dest::before,
+  .proj-dest::after { transition: none; }
+  .proj-dest::after { animation: none; transform: translate3d(0, 0, 0) scale(0.97); }
 }
 .proj-dest-content {
   position: absolute;
