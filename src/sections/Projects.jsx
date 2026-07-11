@@ -136,24 +136,24 @@ function DestPanel({ slug, img, t, onFocus, onReset }) {
 }
 
 // Circular customs / postmark stamp — pure SVG, gold outline, the unit word
-// (reused locale string) curved along the top arc, a small mark at the base. Sits
-// rotated in a book's corner. Decorative (aria-hidden); `id` keeps the arc path
-// unique when the same unit word repeats across books.
+// (reused locale string) curved around a FULL-circle rim so even the long
+// "Learning Kits" / "Kits d'apprentissage" labels fit at the true 11px floor
+// without clipping. The path starts at 6 o'clock and runs so its midpoint (where
+// the centred label anchors) lands at the top, reading left-to-right. viewBox ===
+// rendered px (54) → 11px in SVG units renders at a true 11px. Decorative
+// (aria-hidden); `id` keeps the path unique when a unit word repeats across books.
 function CustomsStamp({ label, id }) {
-  const arc = `stamp-arc-${id}`
+  const rim = `stamp-rim-${id}`
   return (
-    // viewBox matches the rendered pixel size (52) so the curved unit label truly
-    // renders at the 11px floor, not scaled down.
-    <svg className="proj-book-stamp-svg" viewBox="0 0 52 52" width="52" height="52" aria-hidden="true">
+    <svg className="proj-book-stamp-svg" viewBox="0 0 54 54" width="54" height="54" aria-hidden="true">
       <defs>
-        <path id={arc} d="M 7 27 A 19 19 0 0 1 45 27" fill="none" />
+        <path id={rim} d="M 27 47.5 A 20.5 20.5 0 0 0 27 6.5 A 20.5 20.5 0 0 0 27 47.5" fill="none" />
       </defs>
-      <circle cx="26" cy="26" r="22.5" fill="none" stroke="currentColor" strokeWidth="1.1" opacity="0.9" />
-      <circle cx="26" cy="26" r="18.5" fill="none" stroke="currentColor" strokeWidth="0.8" strokeDasharray="1.2 2.6" opacity="0.55" />
+      <circle cx="27" cy="27" r="13.5" fill="none" stroke="currentColor" strokeWidth="0.8" strokeDasharray="1.2 2.6" opacity="0.55" />
       <text className="proj-book-stamp-arc-text">
-        <textPath href={`#${arc}`} startOffset="50%" textAnchor="middle">{label}</textPath>
+        <textPath href={`#${rim}`} startOffset="50%" textAnchor="middle">{label}</textPath>
       </text>
-      <text x="26" y="40" textAnchor="middle" className="proj-book-stamp-mark">✶</text>
+      <text x="27" y="31" textAnchor="middle" className="proj-book-stamp-mark">✶</text>
     </svg>
   )
 }

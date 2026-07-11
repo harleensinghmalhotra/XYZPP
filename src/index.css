@@ -1518,7 +1518,7 @@ body {
   display: flex;
   align-items: flex-end;   /* every book's foot lands on the shelf line */
   justify-content: center;
-  gap: clamp(12px, 1.3vw, 20px);
+  gap: clamp(10px, 0.85vw, 14px);
   min-width: min-content;
   padding-bottom: 26px;    /* the shelf sits in this gutter, under the books */
 }
@@ -1547,16 +1547,18 @@ body {
   filter: blur(3px);
 }
 
-/* one book — perspective lives here so the pull/tilt read in 3D */
+/* one book — perspective lives here so the pull/tilt read in 3D. Widths tuned so
+   all 8 books (1 milestone + 7 regular) fit inside the content max-width at
+   1536×743 with breathing room and NO horizontal scroll. */
 .proj-book {
   position: relative;
   flex: 0 0 auto;
-  width: clamp(150px, 12vw, 168px);
+  width: clamp(132px, 9.4vw, 146px);
   padding-bottom: 18px; /* clears the shelf line so the book stands ON it */
-  perspective: 1300px;
+  perspective: 1200px;
   z-index: 1;
 }
-.proj-book.is-milestone { width: clamp(174px, 13.5vw, 192px); }
+.proj-book.is-milestone { width: clamp(150px, 10.7vw, 164px); }
 
 .proj-book-inner {
   position: relative;
@@ -1572,23 +1574,23 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 18px;
+  width: 16px;
   height: 100%;
   transform-origin: left center;
   transform: rotateY(90deg);
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.32) 0 3px, rgba(0, 0, 0, 0) 3px),
-    repeating-linear-gradient(90deg, #f0ebe0 0 3px, #d9d0bd 3px 4px);
+    linear-gradient(90deg, rgba(0, 0, 0, 0.32) 0 2.5px, rgba(0, 0, 0, 0) 2.5px),
+    repeating-linear-gradient(90deg, #f0ebe0 0 2.5px, #d9d0bd 2.5px 3.5px);
   box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
 }
-.proj-book.is-milestone .proj-book-spine { width: 22px; }
+.proj-book.is-milestone .proj-book-spine { width: 19px; }
 
 /* the front cover — the plane we read. Square corners; a soft edge shadow gives
    the board a little body. NO straight interior light lines (Ekta's law). */
 .proj-book-cover {
   position: relative;
-  height: 240px;
-  padding: 16px 15px 15px;
+  height: 214px;
+  padding: 14px 13px 14px;
   display: flex;
   flex-direction: column;
   border-radius: 1px 3px 3px 1px;
@@ -1597,7 +1599,7 @@ body {
     inset -6px 0 14px -8px rgba(0, 0, 0, 0.35),
     inset 0 -8px 16px -10px rgba(0, 0, 0, 0.3);
 }
-.proj-book.is-milestone .proj-book-cover { height: 294px; }
+.proj-book.is-milestone .proj-book-cover { height: 262px; }
 .proj-book--navy .proj-book-cover {
   background: linear-gradient(152deg, #173257 0%, #0f2444 56%, #0b1c38 100%);
 }
@@ -1608,18 +1610,18 @@ body {
 /* country — cargo-label caps, top of the cover, clearing the corner stamp */
 .proj-book-country {
   margin: 0;
-  max-width: calc(100% - 52px);
+  max-width: calc(100% - 50px); /* clear the corner stamp; long names wrap to 2 lines */
   font-family: 'DM Mono', monospace;
   font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 1px;
-  line-height: 1.3;
+  font-size: 11px; /* 11px compliance floor — never scales below */
+  letter-spacing: 0.5px;
+  line-height: 1.28;
   text-transform: uppercase;
 }
 .proj-book--navy .proj-book-country { color: #f5f0e8; }
 .proj-book--cream .proj-book-country { color: #0f2444; }
 /* clear the foil banner that sits across the milestone's top corner */
-.proj-book.is-milestone .proj-book-country { max-width: 100%; margin-top: 30px; }
+.proj-book.is-milestone .proj-book-country { max-width: 100%; margin-top: 26px; }
 
 /* the big gold figure — count-up + a foil gradient fill. The shimmer band sweeps
    ONCE when .is-lit is added on reveal (never loops). Darkest gold stop meets AA
@@ -1629,7 +1631,7 @@ body {
   display: inline-block;
   font-family: 'Inter Tight', sans-serif;
   font-weight: 700;
-  font-size: clamp(34px, 3vw, 44px);
+  font-size: clamp(26px, 2.35vw, 36px);
   line-height: 0.94;
   letter-spacing: -1.5px;
   font-variant-numeric: tabular-nums;
@@ -1642,7 +1644,7 @@ body {
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
-.proj-book.is-milestone .proj-book-countn { font-size: clamp(46px, 4.4vw, 62px); }
+.proj-book.is-milestone .proj-book-countn { font-size: clamp(34px, 3.1vw, 48px); }
 .proj-book--navy { --foil-a: #9b7420; --foil-b: #c89a3c; --foil-hi: #f2d488; }
 .proj-book--cream { --foil-a: #836013; --foil-b: #9b7420; --foil-hi: #c89a3c; }
 .proj-book-countn.is-lit { animation: proj-foil 1.15s ease-out 0.12s 1 both; }
@@ -1653,21 +1655,22 @@ body {
 
 /* one thin gold rule beneath the figure */
 .proj-book-rule {
-  width: 34px;
+  width: 30px;
   height: 2px;
-  margin: 10px 0 9px;
+  margin: 8px 0 8px;
   border-radius: 1px;
   background: linear-gradient(90deg, #9b7420, #c89a3c);
 }
 .proj-book--cream .proj-book-rule { background: linear-gradient(90deg, #836013, #9b7420); }
 
-/* the one human line, small type */
+/* the one human line, small type — 11px floor; line-height tightened (not the
+   font) to keep it from crowding on the narrower cover. */
 .proj-book-line {
   margin: 0;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 11px;
-  line-height: 1.42;
+  line-height: 1.34;
 }
 .proj-book--navy .proj-book-line { color: rgba(245, 240, 232, 0.86); }
 .proj-book--cream .proj-book-line { color: rgba(15, 36, 68, 0.82); }
@@ -1675,15 +1678,17 @@ body {
 .proj-book--navy .proj-book-line strong { color: #fdfaf4; }
 .proj-book--cream .proj-book-line strong { color: #0f2444; }
 
-/* corner customs stamp — pure SVG, gold outline, unit word on the top arc. Sized
-   so its curved micro-text renders at the 11px floor; decorative (aria-hidden). */
+/* corner customs stamp — pure SVG, gold outline, unit word following a FULL-circle
+   rim so even the long "Learning Kits" / "Kits d'apprentissage" labels fit without
+   clipping. viewBox === rendered px (54) so the curved micro-text renders at the
+   true 11px floor; decorative (aria-hidden). */
 .proj-book-stamp {
   position: absolute;
-  top: 10px;
-  right: 8px;
-  width: 52px;
-  height: 52px;
-  transform: rotate(-12deg);
+  top: 9px;
+  right: 7px;
+  width: 54px;
+  height: 54px;
+  transform: rotate(-11deg);
   pointer-events: none;
   opacity: 0.92;
 }
@@ -1693,8 +1698,8 @@ body {
 .proj-book-stamp-arc-text {
   font-family: 'DM Mono', monospace;
   font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.3px;
+  font-size: 11px; /* true 11px — viewBox === rendered size */
+  letter-spacing: 0;
   text-transform: uppercase;
   fill: currentColor;
 }
@@ -1787,12 +1792,16 @@ body {
   .proj-dests-grid { grid-template-columns: 1fr; }
   .proj-dest { height: clamp(320px, 52vw, 460px); }
 }
+/* the 8 books fit one centred row down to ~1264px; below that the content box is
+   too narrow, so left-align and let the shelf scroll cleanly (hidden scrollbar,
+   both ends reachable) rather than centre-clip. No-scroll is guaranteed at 1536. */
+@media (max-width: 1260px) {
+  .proj-books-rail { justify-content: flex-start; }
+}
 @media (max-width: 900px) {
   .proj { padding: 72px 24px 72px; }
   .proj-top { grid-template-columns: 1fr; }
   .proj-globe { max-width: 380px; order: -1; }
-  /* the shelf can't fit as one centred row — align left and let it scroll */
-  .proj-books-rail { justify-content: flex-start; }
 }
 @media (prefers-reduced-motion: reduce) {
   .proj-star.is-tw { animation: none; }
