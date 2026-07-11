@@ -25,25 +25,38 @@ function archShape(half, band) {
   return s
 }
 
-// White label plate — navy text, gold rule. Drawn flat; shown on a billboard.
+// Harry's cream + gold-frame plate (FRAME.jpeg → label-plate.webp), loaded once
+// and shared; station text is drawn on the cream face, shown on a billboard.
+const PLATE_ASPECT = 862 / 649
+const plateImg = typeof Image !== 'undefined' ? new Image() : null
+if (plateImg) plateImg.src = '/qfp/conveyor/label-plate.webp'
+
 function makeLabelTexture(num, title) {
-  const W = 384, H = 150
+  const W = 512, H = Math.round(W / PLATE_ASPECT)
   const c = document.createElement('canvas')
   c.width = W; c.height = H
   const g = c.getContext('2d')
-  g.fillStyle = '#FBF8F2'
-  const r = 14
-  g.beginPath()
-  g.moveTo(r, 0); g.arcTo(W, 0, W, H, r); g.arcTo(W, H, 0, H, r); g.arcTo(0, H, 0, 0, r); g.arcTo(0, 0, W, 0, r); g.fill()
-  g.fillStyle = EKTA.gold; g.fillRect(0, 0, W, 6)
-  g.fillStyle = 'rgba(28,32,25,0.5)'
-  g.font = '600 20px "DM Mono", ui-monospace, monospace'
-  g.textBaseline = 'middle'
-  g.fillText(`0${num}`, 26, 44)
-  g.fillStyle = EKTA.navy
-  g.font = '600 52px "Inter Tight", Inter, system-ui, sans-serif'
-  g.fillText(title, 26, 100)
-  const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
+  const t = new THREE.CanvasTexture(c); t.anisotropy = 4
+  const draw = () => {
+    g.clearRect(0, 0, W, H)
+    if (plateImg && plateImg.complete && plateImg.naturalWidth) g.drawImage(plateImg, 0, 0, W, H)
+    g.textAlign = 'center'; g.textBaseline = 'middle'
+    // small number eyebrow
+    g.fillStyle = 'rgba(15,36,68,0.45)'
+    g.font = '600 20px "DM Mono", ui-monospace, monospace'
+    g.fillText(`0${num}`, W / 2, H * 0.36)
+    // station name, navy, sized to fit the cream face
+    g.fillStyle = EKTA.navy
+    let fs = 62
+    g.font = `600 ${fs}px "Inter Tight", Inter, system-ui, sans-serif`
+    const maxW = W * 0.7
+    while (g.measureText(title).width > maxW && fs > 26) { fs -= 2; g.font = `600 ${fs}px "Inter Tight", Inter, system-ui, sans-serif` }
+    g.fillText(title, W / 2, H * 0.56)
+    t.needsUpdate = true
+  }
+  draw()
+  if (plateImg && !plateImg.complete) plateImg.addEventListener('load', draw, { once: true })
+  return t
 }
 
 export default function Station({ index, title, scan, register }) {
@@ -95,8 +108,8 @@ export default function Station({ index, title, scan, register }) {
         <meshStandardMaterial color={EKTA.navy2} roughness={0.5} metalness={0.3} />
       </mesh>
       <Billboard position={[0, LABEL_Y, 0]}>
-        <mesh castShadow>
-          <planeGeometry args={[0.82, 0.32]} />
+        <mesh>
+          <planeGeometry args={[0.94, 0.94 / (862 / 649)]} />
           <meshBasicMaterial map={labelTex} transparent toneMapped={false} />
         </mesh>
       </Billboard>

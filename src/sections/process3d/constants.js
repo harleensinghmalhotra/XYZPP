@@ -42,17 +42,17 @@ export const ARCH = { half: 0.86, legH: 0.98, legW: 0.16, depth: 0.18, trim: 0.0
 export const APEX_Y = ARCH.legH + ARCH.half
 export const LABEL_Y = APEX_Y + 0.52 // billboard label floats above the apex
 
-// ── R5 ending: after the green tick stamps at the last gate the box rides a short
-// distance further to the girl at the belt's end. activeF (transform space) still
-// reaches N-1 exactly when the book reaches the last gate (P5), keeping every
-// stage-transform aligned to its gate; the tail p∈[P5,1] is the ride to the girl.
-export const ENDING = { P5: 0.86, girlX: 13.4 }
+// ── Ending (R6): the green tick stamps at the last gate (activeF reaches N-1 at
+// P5, keeping every stage-transform gate-aligned), then the box rides on and
+// PAUSES beside the girl at boxRestX (arriveP); the tail is the pause before she
+// grabs it and jumps (Scene hides the belt box at the swap → only ever one box).
+export const ENDING = { P5: 0.84, arriveP: 0.95, girlX: 13.6, boxRestX: 13.02, swapA: 0.96, swapB: 0.995 }
 export const mapActiveF = (p) => Math.min(p / ENDING.P5, 1) * (N - 1)
 export const mapBookX = (p) => {
   const x5 = stationX(N - 1)
-  return p <= ENDING.P5
-    ? BELT.x0 + ((x5 - BELT.x0) * p) / ENDING.P5
-    : x5 + ((ENDING.girlX - x5) * (p - ENDING.P5)) / (1 - ENDING.P5)
+  if (p <= ENDING.P5) return BELT.x0 + ((x5 - BELT.x0) * p) / ENDING.P5
+  if (p <= ENDING.arriveP) return x5 + ((ENDING.boxRestX - x5) * (p - ENDING.P5)) / (ENDING.arriveP - ENDING.P5)
+  return ENDING.boxRestX
 }
 // journey captions (floating stage word), by leg = clamp(floor(activeF), 0, 4)
 export const legIndex = (activeF) => Math.min(Math.max(Math.floor(activeF), 0), 4)
@@ -79,7 +79,7 @@ export const lerp = (a, b, t) => a + (b - a) * t
 // finishing ~5% shy of arrival. smooth() saturates, so it stays 1 afterwards.
 export const transform = (k, activeF) => smooth(k - 1 + 0.42, k - 0.05, activeF)
 
-// Camera — TELEPHOTO near side-on (R4) so the belt runs nearly STRAIGHT across the
-// frame, retuned for R5 so every gate + its floating label stays fully in frame
-// (lower look target + slightly higher eye leave headroom under the nav). Dolly tracks.
-export const CAM = { y: 2.15, z: 11.2, side: 4.2, lookY: 0.72, drift: 0.18, ease: 0.07, fov: 25 }
+// Camera — TELEPHOTO near side-on so the belt runs nearly STRAIGHT across the frame.
+// R6: the whole line sits in the LOWER THIRD with generous air above the arches — a
+// higher look target drops the belt down and opens sky/label breathing room. Dolly tracks.
+export const CAM = { y: 2.55, z: 11.6, side: 4.2, lookY: 1.5, drift: 0.18, ease: 0.07, fov: 25 }
