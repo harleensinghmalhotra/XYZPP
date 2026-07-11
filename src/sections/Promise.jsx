@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import PromiseLiquidEther from './promise/PromiseLiquidEther'
+import PromiseConfetti from './promise/PromiseConfetti'
 
 // ── Our Promise — typography + void, with ink breathing beneath ───────────────
 // Harry's composition (option 4): kill the machinery, centre the type, let the
@@ -17,7 +18,11 @@ import PromiseLiquidEther from './promise/PromiseLiquidEther'
 // every text element keeps its full contrast at the fluid's brightest frame.
 // Reduced motion: the sim is not mounted at all — static navy ground + the glow.
 //
-// Layer order (z): ether 0 · dot grid 1 · scrim 2 · glow 3 · text 4.
+// This round adds the two-layer celebration confetti ABOVE the ether and BELOW
+// the scrim — so the scrim's opaque core keeps the type's ground pure and the
+// pieces only ever read in the same peripheral ring the ink breathes in.
+//
+// Layer order (z): ether 0 · dot grid 1 · confetti 2 · scrim 3 · glow 4 · text 5.
 
 export default function PromiseSection() {
   const { t, i18n } = useTranslation('home')
@@ -40,6 +45,7 @@ export default function PromiseSection() {
           colors={['#1B3A6B', '#9B7420', '#0F2444']}
         />
       )}
+      <PromiseConfetti reduced={reduced} />
       <div className="promise-scrim" aria-hidden="true" />
       <div className="promise-bg" aria-hidden="true" />
       <div className="promise-glow" aria-hidden="true" />
