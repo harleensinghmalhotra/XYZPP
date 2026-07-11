@@ -511,6 +511,56 @@ body {
   }
 }
 
+/* ── Hero speech-bubble foil numerals ───────────────────────────────────────
+   The stat highlights inside the four kids' bubbles ("25 Million Books",
+   "25+ Countries", "billions") read as gold FOIL, not flat text: a tight gold
+   gradient clipped to the glyphs, weight 700, slightly larger than the sentence
+   — the same foil language as the shelf books. Base gold is the palette #9B7420,
+   but the gradient mass is anchored a touch darker (#8A6519 / #7A5713) so the
+   numerals clear AA on the cream bubble ground at bubble text size (not large
+   text). On the bubble's reveal a single slow highlight sweep passes across
+   (`.is-lit`, added once by the scroll driver when that bubble's window is
+   crossed) — it never loops. Reduced motion → static gold, no sweep. */
+.bub-foil {
+  font-weight: 700;
+  font-size: 1.06em;
+  letter-spacing: -0.01em;
+  background-image: linear-gradient(
+    100deg,
+    #6b4d11 0%,
+    #7a5713 42%,
+    #caa14b 50%,
+    #7a5713 58%,
+    #6b4d11 100%
+  );
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #8a6519; /* fallback where background-clip:text is unsupported */
+}
+.bub-foil.is-lit {
+  animation: bub-foil-sweep 1100ms ease-out 1 both;
+}
+@keyframes bub-foil-sweep {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -40% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* keep the dark rest position (readable gold mass); never sweep */
+  .bub-foil {
+    background-position: 120% 0;
+  }
+  .bub-foil.is-lit {
+    animation: none;
+  }
+}
+
 /* ── Trust strips (below hero) ──────────────────────────────────────────────
    Palette law: navy #0F2444, gold #9B7420, ink #1C2019, cream #FDFAF4,
    strip greys #EFEDE8 / #E5E2DA. Dividers are navy at low alpha. */

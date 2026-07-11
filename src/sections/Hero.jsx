@@ -124,20 +124,25 @@ export default function Hero() {
             >
               <div ref={(n) => (bubbleRefs.current[i] = n)} className="relative will-change-transform" style={{ transformOrigin: '50% 100%', opacity: reduced ? 1 : 0 }}>
                 <img src={BUBBLE} alt="" aria-hidden="true" className="block w-full select-none" draggable="false" />
-                {/* text in the bubble body (top ~70%, above the tail), centred */}
-                <div className="absolute inset-x-0 top-0 flex items-center justify-center px-[10%] text-center" style={{ height: '70%' }}>
+                {/* text in the bubble body (top ~70%, above the tail), centred.
+                    Inter Tight (the site's display language), weight 500 sentence
+                    / 700 foil-gold numerals, deep-navy ink for AA on the cream
+                    bubble ground. Wraps naturally — the bubble never resizes; the
+                    copy scales to fit it (≥11px floor via the clamp). */}
+                <div className="absolute inset-x-0 top-0 flex items-center justify-center px-[9%] text-center" style={{ height: '70%' }}>
                   <p
                     style={{
                       margin: 0,
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "'Inter Tight', 'Inter', sans-serif",
                       fontWeight: 500,
                       color: '#0F2444',
-                      fontSize: 'clamp(11px, 0.72vw, 12px)',
-                      lineHeight: 1.22,
-                      letterSpacing: '-0.1px',
+                      fontSize: 'clamp(11px, 0.72vw, 12.5px)',
+                      lineHeight: 1.2,
+                      letterSpacing: '-0.006em',
+                      textWrap: 'balance',
                     }}
                   >
-                    <Trans t={t} i18nKey={`hero.bubbles.${b.tk}`} components={{ 1: <b style={{ color: GOLD, fontWeight: 700 }} /> }} />
+                    <Trans t={t} i18nKey={`hero.bubbles.${b.tk}`} components={{ 1: <b className="bub-foil" /> }} />
                   </p>
                 </div>
               </div>
@@ -182,6 +187,13 @@ export default function Hero() {
       const TYPE_START = 0.56
       const TYPE_END = 0.86
 
+      // Foil shimmer bookkeeping — each bubble's gold numerals get ONE slow sweep
+      // the moment that bubble has fully stickered in (reveal = its kid window +
+      // bubble lead + bubble duration). Fired off the same raw scroll value that
+      // drives typing, so NO sequence timing changes; `litBubbles` guarantees the
+      // sweep is added exactly once (the CSS animation is non-looping).
+      const litBubbles = new Set()
+
       // ── Initial states — everything at its pre-sequence rest. ──
       gsap.set(titleGhost.current, { x: 0, transformOrigin: '50% 50%', scale: 1, opacity: 1 })
       gsap.set(copyGroup.current, { opacity: 1 })
@@ -215,6 +227,15 @@ export default function Hero() {
             const sp = dist > 0 ? window.scrollY / dist : 0
             const tp = gsap.utils.clamp(0, 1, (sp - TYPE_START) / (TYPE_END - TYPE_START))
             typing.current.setProgress(tp)
+            // one-shot foil sweep per bubble once its reveal window is crossed
+            BUBBLES.forEach((b, i) => {
+              if (litBubbles.has(i)) return
+              const reveal = (SEQ.find((s) => s.key === b.forKey)?.at ?? 1) + BUB_LEAD + BUB_DUR
+              if (sp >= reveal) {
+                litBubbles.add(i)
+                bubbleRefs.current[i]?.querySelectorAll('.bub-foil').forEach((el) => el.classList.add('is-lit'))
+              }
+            })
           },
         },
       })

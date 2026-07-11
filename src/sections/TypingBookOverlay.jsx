@@ -60,9 +60,14 @@ function matrix3dFor(w, h, quad, box) {
 }
 
 const STYLE = `
+/* justify-content:flex-start — copy begins at the TOP of each page's safe area
+   (just below the page curve / top margin, set by the plane's padding-top) and
+   flows downward like real typeset print, ending roughly mid-page. The typing
+   reveal follows DOM/reading order (top→bottom), so it now types from this new
+   top origin with no change to the scrub engine. */
 .tb-plane{position:absolute;top:0;left:0;transform-origin:0 0;color:${INK};
   font-family:'Inter Tight','Inter',sans-serif;display:flex;flex-direction:column;
-  justify-content:center;box-sizing:border-box}
+  justify-content:flex-start;box-sizing:border-box}
 .tb-line{white-space:nowrap}
 .tb-lhead{font-size:118px;font-weight:800;line-height:1.0;letter-spacing:-0.03em}
 .tb-rhead{font-size:88px;font-weight:800;line-height:1.02;letter-spacing:-0.03em}
