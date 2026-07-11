@@ -36,10 +36,26 @@ export const BELT = { length: 30, width: 1.55, y: 0, deck: 0.34, x0: -11, x1: 11
 // Evenly-spaced station X positions across the working span of the belt.
 export const stationX = (i) => BELT.x0 + ((BELT.x1 - BELT.x0) * i) / (N - 1)
 
-// Slim rounded "∩" arch gate (ref V1): straight legs at ±half, a semicircle cap
-// radius `half`, thin navy band `legW` deep `depth`, with a gold inner-edge trim.
-export const ARCH = { half: 0.92, legH: 1.5, legW: 0.17, depth: 0.19, trim: 0.04, plateY: 2.72 }
-export const LABEL_Y = ARCH.plateY // plaque sits on a stub above the apex
+// Slim rounded "∩" arch gate (ref V1) — SHORTENED (R5) so the full arch + its
+// floating label sit inside the viewport at all times (never crop under the nav).
+export const ARCH = { half: 0.86, legH: 0.98, legW: 0.16, depth: 0.18, trim: 0.038 }
+export const APEX_Y = ARCH.legH + ARCH.half
+export const LABEL_Y = APEX_Y + 0.52 // billboard label floats above the apex
+
+// ── R5 ending: after the green tick stamps at the last gate the box rides a short
+// distance further to the girl at the belt's end. activeF (transform space) still
+// reaches N-1 exactly when the book reaches the last gate (P5), keeping every
+// stage-transform aligned to its gate; the tail p∈[P5,1] is the ride to the girl.
+export const ENDING = { P5: 0.86, girlX: 13.4 }
+export const mapActiveF = (p) => Math.min(p / ENDING.P5, 1) * (N - 1)
+export const mapBookX = (p) => {
+  const x5 = stationX(N - 1)
+  return p <= ENDING.P5
+    ? BELT.x0 + ((x5 - BELT.x0) * p) / ENDING.P5
+    : x5 + ((ENDING.girlX - x5) * (p - ENDING.P5)) / (1 - ENDING.P5)
+}
+// journey captions (floating stage word), by leg = clamp(floor(activeF), 0, 4)
+export const legIndex = (activeF) => Math.min(Math.max(Math.floor(activeF), 0), 4)
 
 // ── Round-2 choreography maths ────────────────────────────────────────────
 // Everything downstream is driven by ONE continuous value: `activeF` = scroll
@@ -63,25 +79,7 @@ export const lerp = (a, b, t) => a + (b - a) * t
 // finishing ~5% shy of arrival. smooth() saturates, so it stays 1 afterwards.
 export const transform = (k, activeF) => smooth(k - 1 + 0.42, k - 0.05, activeF)
 
-// The joyful finale, shared by the Book (box lift) and the Character (jump) so
-// they stay locked together. `crown` = transform(5) drives the receive→raise arc;
-// `time` drives the looped idle bounce once settled. Returns the pieces both read.
-export const celebrate = (crown, time) => {
-  const reach = smooth(0.04, 0.34, crown)   // arms come up to receive the box
-  const raise = smooth(0.32, 0.8, crown)     // box lifts overhead
-  const settled = smooth(0.72, 1, crown)
-  const jump = Math.sin(smooth(0.38, 0.96, crown) * Math.PI) * 0.5 // leave ground, arc, land
-  const bounce = Math.sin(time * 2.7) * 0.045 * settled            // looped gentle bounce at rest
-  return { reach, raise, settled, jump, bounce, bodyY: jump + bounce }
-}
-
-// Camera rest pose — a pulled-back 3/4 "watching the line" rig (R3): far enough
-// that the travelling book + 2-3 stations stay in frame at all times, elevated so
-// the viewer observes the production line rather than standing inside it. `side`
-// offsets the camera off the belt axis so a near pillar never bisects the book.
-// The book is scaled up (Book.jsx) so it still reads as the hero at this distance.
-// Camera — MAIN.png framing (R4): TELEPHOTO + near side-on so the belt runs nearly
-// STRAIGHT across the frame with minimal perspective skew, arches read large and the
-// scene fills the frame (no empty voids). `side` keeps a mild down-line lead so the
-// arch faces still show; the low FOV compresses the recession. Gentle dolly tracks.
-export const CAM = { y: 2.3, z: 11, side: 4.3, lookY: 1.05, drift: 0.2, ease: 0.07, fov: 25 }
+// Camera — TELEPHOTO near side-on (R4) so the belt runs nearly STRAIGHT across the
+// frame, retuned for R5 so every gate + its floating label stays fully in frame
+// (lower look target + slightly higher eye leave headroom under the nav). Dolly tracks.
+export const CAM = { y: 2.15, z: 11.2, side: 4.2, lookY: 0.72, drift: 0.18, ease: 0.07, fov: 25 }

@@ -52,10 +52,10 @@ export default function Belt({ running = true }) {
 
   return (
     <group>
-      {/* running surface */}
+      {/* running surface — a touch lighter + glossier so it catches the warm pools */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, topY + 0.001, 0]} receiveShadow>
         <planeGeometry args={[BELT.length, BELT.width]} />
-        <meshStandardMaterial map={surf} color={'#1a2f52'} roughness={0.72} metalness={0.12} />
+        <meshStandardMaterial map={surf} color={'#25406e'} roughness={0.58} metalness={0.2} />
       </mesh>
 
       {/* bed body — low box under the surface */}
@@ -64,11 +64,11 @@ export default function Belt({ running = true }) {
         <meshStandardMaterial color={EKTA.navy} roughness={0.6} metalness={0.18} />
       </mesh>
 
-      {/* lighter side rails along the top edges */}
+      {/* brushed side rails — catch a gold rim from the pools */}
       {[-1, 1].map((s) => (
         <mesh key={s} position={[0, topY - 0.05, s * (halfW + 0.006)]}>
           <boxGeometry args={[BELT.length, 0.09, 0.03]} />
-          <meshStandardMaterial color={EKTA.navy2} roughness={0.45} metalness={0.35} />
+          <meshStandardMaterial color={'#33507f'} roughness={0.4} metalness={0.5} />
         </mesh>
       ))}
 

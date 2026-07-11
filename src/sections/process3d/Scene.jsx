@@ -1,146 +1,218 @@
 import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
-import { ContactShadows, Sparkles, MeshReflectorMaterial } from '@react-three/drei'
+import { Sparkles, MeshReflectorMaterial, Billboard } from '@react-three/drei'
 import { useTranslation } from 'react-i18next'
 import Belt from './Belt'
 import Station from './Station'
 import Book from './Book'
-import Character from './Character'
-import { STATIONS, N, stationX, EKTA, CAM, smooth, bell, lerp } from './constants'
+import Girl from './Girl'
+import { STATIONS, N, stationX, EKTA, CAM, LABEL_Y, ENDING, mapActiveF, mapBookX, legIndex, smooth, bell } from './constants'
 
-// Warm cream gradient backdrop (ref: soft cream studio wall), drawn once.
+const FLOOR_Y = -0.42
+
+// Deep-navy dusk wall — darker at the top, a faint warm lift near the belt line.
 function makeBackdrop() {
   const c = document.createElement('canvas')
   c.width = 16; c.height = 256
   const g = c.getContext('2d')
   const grd = g.createLinearGradient(0, 0, 0, 256)
-  grd.addColorStop(0, '#EFE7D6')
-  grd.addColorStop(0.5, '#F4EDDF')
-  grd.addColorStop(1, '#EAE1CF')
-  g.fillStyle = grd
-  g.fillRect(0, 0, 16, 256)
+  grd.addColorStop(0, '#080B16')
+  grd.addColorStop(0.55, '#0E1730')
+  grd.addColorStop(0.78, '#16234a')
+  grd.addColorStop(1, '#0C1428')
+  g.fillStyle = grd; g.fillRect(0, 0, 16, 256)
   return new THREE.CanvasTexture(c)
 }
 
-// The whole rig. `progress` is a mutable ref (0..1) driven by the homepage's GSAP
-// ScrollTrigger scrub — one page scroll system. `frozen` pins the final station.
+// Warm gold radial glow — the machine-lamp light pool (floor + shaft).
+function makePool() {
+  const c = document.createElement('canvas')
+  c.width = c.height = 128
+  const g = c.getContext('2d')
+  const grd = g.createRadialGradient(64, 64, 2, 64, 64, 64)
+  grd.addColorStop(0, 'rgba(255,214,140,0.9)')
+  grd.addColorStop(0.4, 'rgba(226,168,74,0.42)')
+  grd.addColorStop(1, 'rgba(200,150,60,0)')
+  g.fillStyle = grd; g.fillRect(0, 0, 128, 128)
+  return new THREE.CanvasTexture(c)
+}
+
+// Floating stage word — warm-gold italic serif, per leg of the journey.
+function makeStageWord(text) {
+  const W = 512, H = 128
+  const c = document.createElement('canvas')
+  c.width = W; c.height = H
+  const g = c.getContext('2d')
+  g.clearRect(0, 0, W, H)
+  g.textAlign = 'center'; g.textBaseline = 'middle'
+  g.font = 'italic 600 60px Georgia, "Times New Roman", serif'
+  g.shadowColor = 'rgba(226,170,80,0.55)'; g.shadowBlur = 18
+  g.fillStyle = '#E8C070'
+  g.fillText(text, W / 2, H / 2 + 4)
+  const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
+}
+
 export default function Scene({ frozen = false, progress }) {
   const { t } = useTranslation('homeProcess')
   const { camera } = useThree()
   const bookApi = useRef()
-  const characterApi = useRef()
+  const girlApi = useRef()
   const stationApis = useRef([])
   const backdrop = useMemo(makeBackdrop, [])
+  const pool = useMemo(makePool, [])
 
   const xs = useMemo(() => STATIONS.map((_, i) => stationX(i)), [])
   const lookX = useRef(xs[0])
-  const rim = useRef()
+  const heroLight = useRef() // warm lamp that travels with the hero through the dusk
+
+  // stage-word textures per leg (EN/FR via locale), + crossfade state
+  const legTex = useMemo(() => [0, 1, 2, 3, 4].map((i) => makeStageWord(t(`legs.${i}`))), [t])
+  const stageMat = useRef()
+  const stageGroup = useRef()
+  const shownLeg = useRef(-1)
 
   useFrame((state) => {
     const time = frozen ? 0 : state.clock.elapsedTime
     const p = frozen ? 1 : THREE.MathUtils.clamp(progress?.current ?? 0, 0, 1)
-    const activeF = p * (N - 1)
-    const bx = lerp(xs[0], xs[N - 1], p)
+    const activeF = mapActiveF(p)
+    const bx = mapBookX(p)
 
-    // ── the hero rides the belt, transforming as it goes ──
+    // ── hero rides the belt, transforming; box rides on to the girl at the end ──
+    const handoff = smooth(ENDING.girlX - 1.5, ENDING.girlX - 0.35, bx) // 0..1 as box nears her
     const book = bookApi.current
     if (book?.root) {
       book.root.position.x = bx
-      book.root.position.y = frozen ? 0 : Math.sin(time * 1.6) * 0.015
-      book.root.rotation.y = frozen ? -0.3 : -0.28 + Math.sin(time * 0.5) * 0.05
+      book.root.position.y = frozen ? 0 : Math.sin(time * 1.6) * 0.012
+      book.root.rotation.y = frozen ? -0.28 : -0.26 + Math.sin(time * 0.5) * 0.04
+      book.root.visible = handoff < 0.5 // vanishes into her hands
       book.apply(activeF, time)
     }
-    if (characterApi.current) characterApi.current.apply(activeF, time)
+    if (girlApi.current) girlApi.current.apply(handoff, time)
+    if (heroLight.current) heroLight.current.position.set(bx, 1.6, 1.3) // travels with the hero
 
-    // ── stations: subtle gold-trim glow on the passing arch; Quality scanner ──
+    // ── stations: gold-trim arrival glow + Quality scanner ──
     stationApis.current.forEach((a, i) => {
       if (!a) return
       const arr = bell(activeF, i, 0.6)
-      const em = arr * 0.5
+      const em = 0.15 + arr * 0.6
       if (a.trimF) a.trimF.emissiveIntensity = em
       if (a.trimB) a.trimB.emissiveIntensity = em
       if (a.coneMat) {
         const s = bell(activeF, i, 0.5)
-        a.coneMat.opacity = s * (0.1 + (frozen ? 0 : Math.sin(time * 5) * 0.02))
+        a.coneMat.opacity = s * (0.12 + (frozen ? 0 : Math.sin(time * 5) * 0.02))
         if (a.laserMat) a.laserMat.opacity = s * 0.7
       }
     })
 
-    // ── MAIN-style camera: telephoto near side-on; straight horizontal belt ──
+    // ── floating stage word: per-leg caption, fades out at each gate crossing ──
+    if (stageGroup.current && stageMat.current) {
+      const leg = legIndex(activeF)
+      if (leg !== shownLeg.current) { shownLeg.current = leg; stageMat.current.map = legTex[leg]; stageMat.current.needsUpdate = true }
+      const gd = Math.abs(activeF - Math.round(activeF))
+      let op = smooth(0.09, 0.34, gd)
+      if (activeF >= 4.02) op = smooth(4.05, 4.4, activeF) // final "Delivered" stays through the ride
+      stageMat.current.opacity = op
+      stageGroup.current.position.set(bx, 1.34 + Math.sin(time * 0.8) * 0.02, 0.15)
+    }
+
+    // ── telephoto near side-on dolly; straight belt, everything in frame ──
     const k = frozen ? 1 : CAM.ease
     const tx = bx + CAM.side + Math.sin(time * 0.16) * CAM.drift
-    const ty = CAM.y + Math.sin(time * 0.22) * 0.08
+    const ty = CAM.y + Math.sin(time * 0.22) * 0.06
     const d = Math.abs(activeF - Math.round(activeF))
     const push = frozen ? 0 : (1 - THREE.MathUtils.clamp(d / 0.5, 0, 1)) ** 2
-    const tz = CAM.z - push * 0.6
+    const tz = CAM.z - push * 0.5
     camera.position.x += (tx - camera.position.x) * k
     camera.position.y += (ty - camera.position.y) * k
     camera.position.z += (tz - camera.position.z) * k
     lookX.current += (bx - lookX.current) * (frozen ? 1 : 0.12)
-    camera.lookAt(lookX.current, CAM.lookY + Math.sin(time * 0.2) * 0.03, 0)
-    if (rim.current) rim.current.position.set(bx + 1.5, 2.4, 4.2)
+    camera.lookAt(lookX.current, CAM.lookY + Math.sin(time * 0.2) * 0.02, 0)
   })
 
   return (
     <>
-      <color attach="background" args={['#F1E9D8']} />
-      <fog attach="fog" args={['#EDE4D2', 16, 46]} />
+      <color attach="background" args={['#080B16']} />
+      <fog attach="fog" args={['#0A1024', 14, 44]} />
 
-      {/* warm cream backdrop, far behind the line */}
-      <mesh position={[0, 6, -20]} scale={[90, 30, 1]}>
+      {/* deep-navy dusk wall */}
+      <mesh position={[0, 5.5, -16]} scale={[100, 26, 1]}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial map={backdrop} toneMapped={false} depthWrite={false} fog={false} />
       </mesh>
 
-      {/* warm soft studio light — matte feel, gold reserved for trim + seal */}
-      <ambientLight intensity={0.6} color={'#FBF3E2'} />
-      <directionalLight position={[-5, 8, 6]} intensity={1.25} color={'#FBEED6'} castShadow shadow-mapSize={[1024, 1024]} />
-      <directionalLight position={[7, 5, -3]} intensity={0.3} color={'#AEBBDA'} />
-      <hemisphereLight args={['#F6EFDF', '#D8CFBB', 0.4]} />
-      <pointLight ref={rim} position={[xs[0] + 1.5, 2.4, 4.2]} intensity={9} distance={9} decay={2} color={'#F6E2B4'} />
+      {/* dark, moody base light + a cool fill; warmth comes from the gate pools */}
+      <ambientLight intensity={0.3} color={'#33405f'} />
+      <directionalLight position={[-6, 9, 5]} intensity={0.4} color={'#93A8D8'} castShadow shadow-mapSize={[1024, 1024]} />
+      <hemisphereLight args={['#2A3856', '#06090f', 0.4]} />
+      {/* warm lamp travelling with the hero so it never falls into darkness */}
+      <pointLight ref={heroLight} position={[xs[0], 1.6, 1.3]} intensity={6} distance={5} decay={2} color={'#F7CE86'} />
 
       <Belt running={!frozen} />
 
-      {STATIONS.map((s, i) => (
-        <group key={s.key} position={[stationX(i), 0, 0]}>
-          <Station
-            index={i}
-            title={t(`stages.${s.key}.name`)}
-            scan={s.key === 'quality'}
-            register={(api) => (stationApis.current[i] = api)}
-          />
-        </group>
-      ))}
+      {/* stations + their warm light pools (machine lamps at dusk) */}
+      {STATIONS.map((s, i) => {
+        const x = stationX(i)
+        return (
+          <group key={s.key}>
+            <group position={[x, 0, 0]}>
+              <Station index={i} title={t(`stages.${s.key}.name`)} scan={s.key === 'quality'} register={(api) => (stationApis.current[i] = api)} />
+            </group>
+            {/* warm lamp above the gate */}
+            <pointLight position={[x, LABEL_Y - 0.2, 0.4]} intensity={7} distance={5.5} decay={2} color={'#F6C878'} />
+            {/* glow pool on the floor */}
+            <mesh position={[x, FLOOR_Y + 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+              <planeGeometry args={[3, 2.2]} />
+              <meshBasicMaterial map={pool} transparent opacity={0.5} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
+            </mesh>
+            {/* soft glow disc behind the apex (the lamp bloom) */}
+            <mesh position={[x, LABEL_Y - 0.35, -0.3]}>
+              <planeGeometry args={[2.4, 2.4]} />
+              <meshBasicMaterial map={pool} transparent opacity={0.28} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
+            </mesh>
+            {/* dust motes drifting in the pool */}
+            <Sparkles count={14} scale={[1.4, 1.8, 1.2]} position={[x, 0.9, 0]} size={1.5} speed={frozen ? 0 : 0.18} opacity={0.5} color={'#F0D49A'} />
+          </group>
+        )
+      })}
 
       <Book ref={bookApi} />
 
-      {/* the happy customer waits at the final station and receives the box */}
-      <group position={[stationX(N - 1), 0, -0.2]} scale={1.2}>
-        <Character ref={characterApi} />
+      {/* floating stage word above the hero */}
+      <Billboard ref={stageGroup} position={[xs[0], 1.34, 0.15]}>
+        <mesh>
+          <planeGeometry args={[2.0, 0.5]} />
+          <meshBasicMaterial ref={stageMat} map={legTex[0]} transparent opacity={0} depthWrite={false} toneMapped={false} />
+        </mesh>
+      </Billboard>
+
+      {/* the girl waits at the belt's end and collects the delivered box */}
+      <group position={[ENDING.girlX, 0, 0]}>
+        <Girl ref={girlApi} floorY={FLOOR_Y} />
+        <pointLight position={[0, 1.7, 1.4]} intensity={7} distance={6} decay={2} color={'#F7CE86'} />
+        <mesh position={[0, FLOOR_Y + 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[3, 2.4]} />
+          <meshBasicMaterial map={pool} transparent opacity={0.5} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
+        </mesh>
       </group>
 
-      {/* faint warm dust motes in the light */}
-      <Sparkles count={50} scale={[26, 3.5, 3]} position={[0, 1.6, 0]} size={1.4} speed={frozen ? 0 : 0.22} opacity={0.4} color={'#E6D6AE'} />
-
-      {/* polished concrete floor with a soft reflection + grounded contact */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.42, 0]}>
-        <planeGeometry args={[140, 70]} />
+      {/* dark polished floor with a soft reflection of the lit gates */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, FLOOR_Y, 0]}>
+        <planeGeometry args={[150, 70]} />
         <MeshReflectorMaterial
           resolution={256}
-          mixBlur={2.2}
-          mixStrength={0.6}
-          blur={[400, 120]}
+          mixBlur={2.4}
+          mixStrength={1.1}
+          blur={[420, 130]}
           minDepthThreshold={0.3}
           maxDepthThreshold={1.4}
           depthScale={1}
-          roughness={0.95}
-          metalness={0}
-          color={'#DED7C6'}
+          roughness={0.9}
+          metalness={0.1}
+          color={'#0A1020'}
           mirror={0}
         />
       </mesh>
-      <ContactShadows position={[0, -0.41, 0]} scale={44} blur={2.4} opacity={0.3} far={5} color={EKTA.navy} frames={frozen ? 1 : Infinity} />
     </>
   )
 }

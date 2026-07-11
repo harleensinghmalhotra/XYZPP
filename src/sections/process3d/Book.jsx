@@ -1,27 +1,49 @@
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import { EKTA, transform, smooth, lerp, celebrate } from './constants'
+import { EKTA, transform, smooth, lerp } from './constants'
 
-// ── The hero object, sized to the low reference belt. ONE continuous object that
-// evolves down the line (no visibility swaps): fanned sheets → navy hardcover
-// (gold frame + emblem, ref V4) → kraft twine-wrapped bundle → open box → sealed
-// box → the finished box LIFTS to the waiting customer (R4 finale, Character.jsx).
+// ── The hero object (R5). ONE continuous object that evolves down the dusk line:
+// a generous fanned sheet-stack → navy hardcover (gold frame + emblem) → kraft
+// twine bundle → open box → sealed box, then a GREEN delivered tick stamps on and
+// the box rides on to the girl (Scene handles the travel + hand-off). No lift.
 
-const BOX_LIFT = 1.5 // how high the sealed box rises — clears the customer's head, held overhead
-
-// Emblem for the book cover / wax seal — a small open-book glyph in one colour.
-function emblemTexture(fg, bg) {
+// open-book emblem for the cover
+function emblemTexture(fg) {
   const S = 128
   const c = document.createElement('canvas')
   c.width = c.height = S
   const g = c.getContext('2d')
-  if (bg) { g.fillStyle = bg; g.fillRect(0, 0, S, S) } else g.clearRect(0, 0, S, S)
+  g.clearRect(0, 0, S, S)
   g.strokeStyle = fg; g.lineWidth = 7; g.lineJoin = 'round'; g.lineCap = 'round'
-  // open book: two pages meeting at a spine
   g.beginPath()
   g.moveTo(64, 40); g.quadraticCurveTo(40, 30, 24, 40); g.lineTo(24, 92); g.quadraticCurveTo(40, 84, 64, 92)
   g.moveTo(64, 40); g.quadraticCurveTo(88, 30, 104, 40); g.lineTo(104, 92); g.quadraticCurveTo(88, 84, 64, 92)
   g.lineTo(64, 40); g.stroke()
+  const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
+}
+
+// fine page lines for the fore-edge (reads as a stack of sheets)
+function pageLinesTexture() {
+  const c = document.createElement('canvas')
+  c.width = 8; c.height = 64
+  const g = c.getContext('2d')
+  g.fillStyle = '#EFE7D6'; g.fillRect(0, 0, 8, 64)
+  g.strokeStyle = 'rgba(150,135,105,0.5)'; g.lineWidth = 1
+  for (let y = 3; y < 64; y += 5) { g.beginPath(); g.moveTo(0, y); g.lineTo(8, y); g.stroke() }
+  const t = new THREE.CanvasTexture(c); t.wrapT = THREE.RepeatWrapping; t.repeat.set(1, 6); return t
+}
+
+// green delivered tick — clean flat badge, white check on a green disc
+function tickTexture() {
+  const S = 256
+  const c = document.createElement('canvas')
+  c.width = c.height = S
+  const g = c.getContext('2d')
+  g.clearRect(0, 0, S, S)
+  g.fillStyle = '#3EA65C'; g.beginPath(); g.arc(128, 128, 118, 0, 7); g.fill()
+  g.strokeStyle = 'rgba(255,255,255,0.9)'; g.lineWidth = 8; g.beginPath(); g.arc(128, 128, 100, 0, 7); g.stroke()
+  g.strokeStyle = '#FFFFFF'; g.lineWidth = 30; g.lineCap = 'round'; g.lineJoin = 'round'
+  g.beginPath(); g.moveTo(78, 132); g.lineTo(116, 172); g.lineTo(182, 92); g.stroke()
   const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
 }
 
@@ -36,18 +58,20 @@ const Book = forwardRef(function Book(_props, ref) {
   const twineV = useRef()
   const boxG = useRef()
   const flapRefs = useRef([])
+  const tickG = useRef()
 
   const coverEmblem = useMemo(() => emblemTexture('#C79A3E'), [])
+  const pageLines = useMemo(pageLinesTexture, [])
+  const tickTex = useMemo(tickTexture, [])
 
-  // fanned (loose) vs stacked (tight) pose per sheet — a generous fresh-print pile
+  // a generous fresh-print pile (bigger for frame-1 presence)
   const SHEETS = useMemo(
-    () => Array.from({ length: 10 }, (_, i) => ({
-      loose: { x: Math.sin(i * 1.5) * 0.12, y: 0.02 + i * 0.028, z: (i - 4.5) * 0.045, rot: (i - 4.5) * 0.05 },
-      tight: { x: 0, y: 0.02 + i * 0.02, z: 0, rot: 0 },
+    () => Array.from({ length: 13 }, (_, i) => ({
+      loose: { x: Math.sin(i * 1.5) * 0.16, y: 0.02 + i * 0.03, z: (i - 6) * 0.05, rot: (i - 6) * 0.05 },
+      tight: { x: 0, y: 0.02 + i * 0.022, z: 0, rot: 0 },
     })), [],
   )
 
-  // box flaps: staggered close heights so lids never coplanar-fight
   const FLAPS = useMemo(() => [
     { axis: 'x', open: -1.5, group: [0, 0.6, -0.36], off: [0, 0, 0.18], geo: [0.98, 0.02, 0.36], color: EKTA.kraft },
     { axis: 'x', open: 1.5, group: [0, 0.615, 0.36], off: [0, 0, -0.18], geo: [0.98, 0.02, 0.36], color: EKTA.kraft },
@@ -89,15 +113,10 @@ const Book = forwardRef(function Book(_props, ref) {
         if (twineV.current) twineV.current.scale.z = w2
       }
 
-      // 04→05 box seals; then the finished box LIFTS into the customer's hands,
-      // riding the SAME celebrate() curve as the Character so they stay locked.
-      const cel = celebrate(crown, time)
-      const liftY = lerp(0, BOX_LIFT, cel.raise) + cel.bodyY
-      if (inner.current) inner.current.position.y = lerp(0, -0.3, box) + liftY
+      if (inner.current) inner.current.position.y = lerp(0, -0.3, box)
       if (boxG.current) {
         boxG.current.visible = box > 0.02
         boxG.current.scale.y = lerp(0.05, 1, smooth(0, 0.72, box))
-        boxG.current.position.y = liftY
       }
       flapRefs.current.forEach((f, i) => {
         if (!f) return
@@ -106,36 +125,46 @@ const Book = forwardRef(function Book(_props, ref) {
         if (FLAPS[i].axis === 'x') f.rotation.x = a
         else f.rotation.z = a
       })
+
+      // Delivered — the green tick STAMPS onto the box face (press + overshoot, stays)
+      if (tickG.current) {
+        tickG.current.visible = crown > 0.02
+        const press = smooth(0.06, 0.45, crown)
+        const over = Math.sin(smooth(0.1, 0.6, crown) * Math.PI) * 0.14 // squash overshoot
+        const s = press + over
+        tickG.current.scale.set(s, s, 1)
+      }
     },
   }))
 
   const decal = { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }
 
   return (
-    <group ref={root} scale={1.2}>
+    <group ref={root} scale={1.35}>
       <group ref={inner}>
         {/* fanned printed sheets → gathered block */}
         <group ref={sheetsG}>
           {SHEETS.map((_, i) => (
             <mesh key={i} ref={(m) => (sheetRefs.current[i] = m)} castShadow>
-              <boxGeometry args={[0.9, 0.012, 0.62]} />
+              <boxGeometry args={[0.92, 0.014, 0.64]} />
               <meshStandardMaterial color={'#F3ECDD'} roughness={0.9} />
             </mesh>
           ))}
         </group>
 
-        {/* navy hardcover: cover + protruding page block + gold frame + emblem + ribbon */}
+        {/* navy hardcover: cover + page block (clearly proud on the fore-edge, no
+            coplanar faces → no jitter) + gold frame + emblem + ribbon */}
         <group ref={coverG} position={[0, 0.09, 0]}>
           <mesh castShadow>
             <boxGeometry args={[0.92, 0.15, 0.66]} />
             <meshStandardMaterial color={EKTA.navy} roughness={0.5} metalness={0.14} />
           </mesh>
-          {/* cream page block, protruding on the +X fore-edge */}
-          <mesh position={[0.02, 0, 0]}>
-            <boxGeometry args={[0.9, 0.11, 0.6]} />
-            <meshStandardMaterial color={'#EFE7D6'} roughness={0.85} {...decal} />
+          {/* page block: recessed inside the cover on all faces but the +X fore-edge,
+              which protrudes a clear 0.05 → nothing coplanar to z-fight */}
+          <mesh position={[0.06, 0, 0]}>
+            <boxGeometry args={[0.9, 0.1, 0.58]} />
+            <meshStandardMaterial color={'#EFE7D6'} roughness={0.85} map={pageLines} {...decal} />
           </mesh>
-          {/* thin gold frame on the top cover */}
           {[[0, 0.24], [0, -0.24]].map(([x, z], i) => (
             <mesh key={`fh${i}`} position={[x, 0.078, z]}>
               <boxGeometry args={[0.62, 0.006, 0.02]} />
@@ -148,12 +177,10 @@ const Book = forwardRef(function Book(_props, ref) {
               <meshStandardMaterial color={EKTA.gold2} metalness={0.7} roughness={0.32} toneMapped={false} {...decal} />
             </mesh>
           ))}
-          {/* centre emblem */}
           <mesh position={[0, 0.079, 0]} rotation={[-Math.PI / 2, 0, 0]}>
             <planeGeometry args={[0.22, 0.22]} />
             <meshBasicMaterial map={coverEmblem} transparent toneMapped={false} {...decal} />
           </mesh>
-          {/* gold ribbon bookmark off the fore-edge */}
           <mesh position={[0.42, -0.02, -0.16]}>
             <boxGeometry args={[0.04, 0.006, 0.16]} />
             <meshStandardMaterial color={EKTA.gold} metalness={0.5} roughness={0.4} toneMapped={false} {...decal} />
@@ -183,7 +210,6 @@ const Book = forwardRef(function Book(_props, ref) {
           <boxGeometry args={[0.98, 0.6, 0.72]} />
           <meshStandardMaterial color={EKTA.kraft} roughness={0.95} />
         </mesh>
-        {/* front seam groove (where the wax seal lands) */}
         <mesh position={[0, 0.3, 0.361]}>
           <boxGeometry args={[0.015, 0.6, 0.006]} />
           <meshStandardMaterial color={EKTA.kraftDark} roughness={1} {...decal} />
@@ -196,6 +222,13 @@ const Book = forwardRef(function Book(_props, ref) {
             </mesh>
           </group>
         ))}
+        {/* green delivered tick, stamped onto the front (+Z) face */}
+        <group ref={tickG} position={[0, 0.34, 0.368]} visible={false}>
+          <mesh>
+            <circleGeometry args={[0.19, 40]} />
+            <meshBasicMaterial map={tickTex} transparent toneMapped={false} {...decal} />
+          </mesh>
+        </group>
       </group>
     </group>
   )
