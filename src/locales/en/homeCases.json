@@ -5,6 +5,9 @@
   "photo": "Photo",
   "readMore": "Read the full case study →",
   "viewAll": "View All Case Studies",
+  "caseWord": "Case",
+  "prev": "Previous case",
+  "next": "Next case",
   "cases": {
     "01": {
       "heading": "TANZANIA DELIVERY",
