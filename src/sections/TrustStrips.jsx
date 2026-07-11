@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import CountUp from '@/components/CountUp'
 import { useReducedMotion } from '@/lib/useReducedMotion'
-import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
+import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
 
 // ── Trust strips (sits directly below the hero's book landing) ──────────────
 // Content ported verbatim from the client's vibe-coded homepage v17
@@ -20,9 +20,11 @@ const COUNTRIES = [
 
 // Strip 2 — institutions, exact source order + exact per-item icon. Drifts RIGHT (~38s).
 // `ministry: true` marks government / ministry / programme names gated behind
-// SHOW_MINISTRY_NAMES (permission pending); they filter out cleanly when off.
-// Labels are resolved via t(`institutions.${idx}`); some labels repeat, so each
-// item carries its source index as a stable key (duplicates translate per-slot).
+// SHOW_MINISTRY_NAMES; `restricted: true` marks named commercial clients (HDFC,
+// ZEE Learn / Kidzee, Reliance) gated behind SHOW_RESTRICTED_CLIENTS — permission
+// pending, so those stay OUT of the DOM by default. Both filter out cleanly with
+// no layout hole. Labels resolve via t(`institutions.${idx}`); some labels
+// repeat, so each item carries its source index as a stable key.
 const INSTITUTIONS_ALL = [
   { icon: 'layers', ministry: true },
   { icon: 'pin', ministry: true },
@@ -30,26 +32,28 @@ const INSTITUTIONS_ALL = [
   { icon: 'monitor', ministry: true },
   { icon: 'bank', ministry: true },
   { icon: 'monitor', ministry: true },
-  { icon: 'pin' },
-  { icon: 'globe' },
-  { icon: 'bank' },
+  { icon: 'pin', restricted: true }, // HDFC Bank Ltd
+  { icon: 'globe', restricted: true }, // ZEE Learn / Kidzee
+  { icon: 'bank', restricted: true }, // Reliance Industries
   { icon: 'pin', ministry: true },
   { icon: 'globe', ministry: true },
   { icon: 'monitor', ministry: true },
 ].map((it, idx) => ({ ...it, idx }))
-const INSTITUTIONS = INSTITUTIONS_ALL.filter((it) => SHOW_MINISTRY_NAMES || !it.ministry)
+const INSTITUTIONS = INSTITUTIONS_ALL.filter(
+  (it) => (SHOW_MINISTRY_NAMES || !it.ministry) && (SHOW_RESTRICTED_CLIENTS || !it.restricted),
+)
 
 // Strip 3 — four stats, numeric values are law; text is resolved via
 // t(`stats.${key}.label|accent|sr`). Count-up on first view. Ekta's gold-numeral
 // treatment; her dated flat-outline SVG icons and the straight gray column
-// dividers were retired per Harry's bar. Each metric is now anchored by a
-// brand-tinted 3D clay icon — 3dicons.co (CC0), navy→gold duotone, keyed to the
-// stat's own key: /qfp/icons3d/{key}-tinted.png (books/countries/containers/ontime).
+// dividers were retired per Harry's bar. Each metric is anchored by one of
+// Harry's custom navy/gold 3D clay renders, cut to true alpha (see
+// scripts/cutout-strip-icons.mjs → /qfp/icons3d/stat-*.webp).
 const STATS = [
-  { key: 'books', value: 400, suffix: 'M+' },
-  { key: 'countries', value: 25, suffix: '+' },
-  { key: 'containers', value: 1000, suffix: '+' },
-  { key: 'ontime', value: 98, suffix: '%', accent: true },
+  { key: 'books', value: 400, suffix: 'M+', img: 'stat-book' },
+  { key: 'countries', value: 25, suffix: '+', img: 'stat-globe' },
+  { key: 'containers', value: 1000, suffix: '+', img: 'stat-box' },
+  { key: 'ontime', value: 98, suffix: '%', accent: true, img: 'stat-clock' },
 ]
 
 // Institution icons — ported from source, gold stroke, uniform 1.6 (set in CSS).
@@ -221,10 +225,10 @@ export default function TrustStrips() {
                 <span className="ts-stat-fig">
                   <img
                     className="ts-stat-ico3d"
-                    src={`/qfp/icons3d/${s.key}-tinted.png`}
+                    src={`/qfp/icons3d/${s.img}.webp`}
                     alt=""
-                    width="74"
-                    height="74"
+                    width="84"
+                    height="84"
                     loading="lazy"
                     decoding="async"
                   />

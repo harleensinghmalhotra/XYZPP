@@ -625,10 +625,11 @@ body {
   stroke-linejoin: round;
 }
 /* Stats bar — numbers-led, Ekta's gold-numeral treatment. The straight gray
-   column dividers were retired per Harry's bar. Each metric is anchored by a
-   brand-tinted 3D clay icon (3dicons.co, CC0 — navy→gold duotone, see
-   public/qfp/icons3d/) that floats on a soft grounded shadow, settles once on
-   reveal and lifts gently on hover. Blocks fade up in a subtle stagger. */
+   column dividers were retired per Harry's bar. Each metric is anchored by one
+   of Harry's custom navy/gold 3D clay renders, cut to true alpha (see
+   public/qfp/icons3d/stat-*.webp), floating on a soft grounded shadow; it
+   settles once on reveal and lifts gently on hover. Blocks fade up in a subtle
+   stagger. */
 .ts-stats {
   background: #fdfaf4;
   padding: 46px 56px;
@@ -672,11 +673,11 @@ body {
 }
 .ts-stat-ico3d {
   display: block;
-  width: clamp(60px, 6vw, 74px);
+  width: clamp(72px, 6.5vw, 88px);
   height: auto;
   opacity: 0; /* hidden until the settle keyframe runs (or reduced-motion) */
   /* Soft grounded navy shadow so the icon floats above the cream. */
-  filter: drop-shadow(0 10px 14px rgba(12, 28, 56, 0.3));
+  filter: drop-shadow(0 12px 16px rgba(12, 28, 56, 0.26));
 }
 .ts-stat:hover .ts-stat-fig {
   transform: translateY(-5px);
