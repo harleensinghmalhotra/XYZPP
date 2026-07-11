@@ -832,44 +832,42 @@ body {
   scroll-margin-top: var(--nav-h); /* anchor jumps to #services clear the sticky nav */
 }
 /* The pinned panel rests BELOW the nav, not at viewport top. Its top edge sits
-   exactly on the nav's bottom line, so the header lives fully in the clear AND
-   anything that scrolls up inside it vanishes at the nav line — it can never be
-   occluded *under* the nav. Height fills the rest of the viewport. */
+   exactly on the nav's bottom line, so the heading lives fully in the clear — it
+   can never be occluded *under* the nav. Height fills the rest of the viewport.
+   `justify-content: safe center` vertically centres the natural-height stack so
+   any slack splits evenly (no dead air dumped below the cards); `safe` falls back
+   to top-alignment if the stack ever exceeds the panel, keeping the heading clear
+   of the nav rather than pushing it up under it. */
 .wwp-sticky {
   position: sticky;
   top: var(--nav-h);
   height: calc(100svh - var(--nav-h));
   display: flex;
   flex-direction: column;
+  justify-content: safe center;
   overflow: hidden;
 }
-/* The header + viewport stack together and are taller than the panel; the panel
-   clips (above via overflow, below via its height). GSAP translateY lifts this
-   stack to slide the header out and centre the cards for the horizontal scrub.
-   Transform-only — no layout per frame. */
+/* Heading + intro + card row as one natural-height block, pinned and scrubbed
+   together. No transform on this element — only the track moves. */
 .wwp-inner {
-  position: relative;
-  flex: 1;
-  min-height: 0;
+  flex: 0 0 auto;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 30px 56px 24px;
+  padding: 28px 56px 12px; /* top = nav-clearance floor (safe-center keeps it when
+                              the block ever exceeds the panel); bottom trimmed */
   display: flex;
   flex-direction: column;
-  will-change: transform;
 }
 
-/* Header — eyebrow + title left, lede + process link right */
+/* Header — eyebrow, then the single-line title, then intro copy + link below it */
 .wwp-head {
   flex: 0 0 auto; /* keeps its natural height as a flex item; never squeezed */
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 48px;
+  flex-direction: column;
 }
 .wwp-eyebrow {
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   font-family: 'Inter Tight', sans-serif;
   font-weight: 600;
   font-size: 12px;
@@ -877,21 +875,31 @@ body {
   text-transform: uppercase;
   color: #836013; /* dash removed — eyebrow text stands alone */
 }
+/* R2: ONE line. nowrap forbids wrapping; JS scales the size down per-locale to
+   fit the content width. Same display family / weight / colour — just smaller. */
 .wwp-title {
   margin: 0;
   font-family: 'Inter Tight', sans-serif;
   font-weight: 500;
-  font-size: clamp(38px, 5vw, 68px);
-  line-height: 1.08;
+  font-size: clamp(28px, 4.2vw, 62px); /* ceiling; JS shrinks to fit one line */
+  line-height: 1.06;
   letter-spacing: -0.5px;
   color: #0f2444;
+  white-space: nowrap;
 }
-.wwp-head-right {
-  max-width: 480px;
-  text-align: right;
+/* Intro copy + "Learn more" reflow below the heading, on one row (wraps if tight) */
+.wwp-head-meta {
+  margin-top: 16px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
 }
 .wwp-lede {
   margin: 0;
+  flex: 1 1 520px;
+  max-width: 860px;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 15px;
@@ -899,8 +907,8 @@ body {
   color: #444;
 }
 .wwp-more {
-  display: inline-block;
-  margin-top: 14px;
+  flex: 0 0 auto;
+  white-space: nowrap;
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 14px;
@@ -915,19 +923,14 @@ body {
   opacity: 0.85;
 }
 
-/* Track viewport — clips the row horizontally; the 60px top pad is the room the
-   images pop up into (kept inside the padding box so overflow:hidden never
-   clips the pop). */
+/* Track viewport — clips the row horizontally; the 120px top pad is the room the
+   images pop up into (kept inside the padding box so overflow:hidden never clips
+   the pop). R2: pulled up tight under the one-line heading (margin was 56px). */
 .wwp-viewport {
-  /* Full panel height so that once the header slides out the card row owns the
-     whole panel. It's taller than the space left under the header, so during the
-     header beat the row sits below it (panel clips the overflow); the reveal lifts
-     it to centre. flex:0 0 auto — no shrink, height is authoritative. */
   flex: 0 0 auto;
-  height: calc(100svh - var(--nav-h));
   overflow: hidden;
-  padding-top: 120px; /* room the images pop up into — UNCHANGED (protected) */
-  margin-top: 56px;   /* air between the header block and the card row — UNCHANGED (protected) */
+  padding-top: 120px; /* room the images pop up into */
+  margin-top: 18px;   /* R2: cards sit tight under the heading (was 56px) */
 }
 .wwp-track {
   display: flex;
@@ -1018,15 +1021,15 @@ body {
   height: auto;
   overflow: visible;
 }
+.wwp-section.is-reduced .wwp-sticky {
+  justify-content: flex-start; /* static flow — no vertical centring */
+}
 .wwp-section.is-reduced .wwp-inner {
-  padding-top: 90px;
-  padding-bottom: 90px;
-  transform: none; /* no scroll-driven reveal in reduced motion */
+  padding-top: 72px;
+  padding-bottom: 72px;
 }
 .wwp-section.is-reduced .wwp-viewport {
-  height: auto; /* native flow — the fixed panel height doesn't apply without a pin */
-  margin-top: 40px;
-  padding-top: 120px;
+  margin-top: 32px;
   overflow-x: auto;
   overflow-y: visible;
   padding-bottom: 8px;
@@ -1052,23 +1055,26 @@ body {
     position: static;
     height: auto;
     overflow: visible;
+    justify-content: flex-start;
   }
   .wwp-inner {
-    padding: 64px 20px;
-    transform: none; /* no scroll-driven reveal below 900px */
+    padding: 56px 20px;
   }
-  .wwp-head {
+  .wwp-title {
+    white-space: normal; /* allow wrapping on mobile instead of shrinking to fit */
+    font-size: clamp(26px, 7vw, 40px);
+  }
+  .wwp-head-meta {
+    margin-top: 18px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 12px;
   }
-  .wwp-head-right {
-    text-align: left;
+  .wwp-lede {
     max-width: 560px;
   }
   .wwp-viewport {
-    height: auto; /* native horizontal scroll — fixed panel height doesn't apply */
-    margin-top: 40px;
+    margin-top: 28px;
     overflow-x: auto;
     overflow-y: visible;
     scrollbar-width: thin;

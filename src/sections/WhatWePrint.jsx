@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -7,10 +7,11 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 // ── What We Print ───────────────────────────────────────────────────────────
 // Replaces the Alternativ "Printing Services" placeholder. Content is LAW —
 // her 8 QFP categories, exact names / subtitles / 4 bullets, exact order.
-// Mechanic: a scroll-jacked horizontal track. The section holds (CSS sticky —
-// CLS-free, like PrintPath) while vertical scroll scrubs the 8-card row LEFT
-// until card 08 is fully in view, then releases. Reduced motion → native
-// horizontal scroll with a thin scrollbar (no pin).
+// Mechanic: a scroll-jacked horizontal track. The sticky panel rests on the nav's
+// bottom line (top: --nav-h) so the one-line heading + intro + cards all sit in
+// the clear BELOW the nav and travel TOGETHER — visible through the whole scrub —
+// while vertical scroll scrubs the 8-card row LEFT until card 08 is in view, then
+// releases. Reduced motion → native horizontal scroll, thin scrollbar (no pin).
 //
 // Card = our 3D "pop" skeleton (image breaks out of the card top via a negative
 // margin + slight rotate) wearing her QFP skin: light card, number badge, name,
@@ -56,13 +57,13 @@ function Card({ c, t }) {
 }
 
 function Header({ t }) {
+  // R2: the title is ONE line (no <br>) — the two content strings joined with a
+  // space. JS fits it to the width per-locale. Intro copy + link reflow BELOW it.
   return (
     <div className="wwp-head">
-      <div className="wwp-head-left">
-        <p className="wwp-eyebrow">{t('eyebrow')}</p>
-        <h2 className="wwp-title">{t('titleLine1')}<br />{t('titleLine2')}</h2>
-      </div>
-      <div className="wwp-head-right">
+      <p className="wwp-eyebrow">{t('eyebrow')}</p>
+      <h2 className="wwp-title">{t('titleLine1')} {t('titleLine2')}</h2>
+      <div className="wwp-head-meta">
         <p className="wwp-lede">{t('lede')}</p>
         <a href="#process" className="wwp-more">{t('more')}</a>
       </div>
@@ -71,111 +72,97 @@ function Header({ t }) {
 }
 
 export default function WhatWePrint() {
-  const { t } = useTranslation('homeWwp')
+  const { t, i18n } = useTranslation('homeWwp')
   const wrap = useRef(null)
-  const inner = useRef(null)
   const track = useRef(null)
   const viewport = useRef(null)
   const [reduced] = useState(prefersReduced)
 
   useLayoutEffect(() => {
-    // Measure the live nav so the pin math derives the nav height from the real
-    // header, never a second hardcoded magic number. The sticky panel then rests
-    // exactly on the nav's bottom line (CSS reads --nav-h). Runs even in reduced
-    // motion so scroll-margin-top still clears the nav for #services anchors.
+    const isDesktop = () => window.matchMedia('(min-width: 901px)').matches
+
+    // Derive the nav height from the live header (never a second hardcoded number)
+    // so the pinned panel can rest exactly on the nav's bottom line (CSS --nav-h).
+    // Runs in every mode so scroll-margin-top clears the nav for #services anchors.
     const measureNav = () => {
       const nav = document.querySelector('header.sticky') || document.querySelector('header')
       const h = nav ? Math.round(nav.getBoundingClientRect().height) : 86
       wrap.current?.style.setProperty('--nav-h', `${h}px`)
       return h
     }
+
+    // ONE-LINE heading fit to its width per-locale, by measurement (Harry's R2
+    // call — clamp by measurement, no magic numbers). `nowrap` guarantees a single
+    // line; we scale the font down from the CSS ceiling only if the natural width
+    // overflows the available column. Mobile keeps the CSS size and may wrap.
+    const fitTitle = () => {
+      const title = wrap.current?.querySelector('.wwp-title')
+      if (!title) return
+      title.style.fontSize = '' // reset to the CSS ceiling before measuring
+      if (!isDesktop()) return
+      const ceiling = parseFloat(getComputedStyle(title).fontSize)
+      const target = title.clientWidth * 0.96 // leave a little side margin — "comfortably"
+      const natural = title.scrollWidth
+      if (target > 0 && natural > target) {
+        title.style.fontSize = `${Math.max(24, Math.floor(ceiling * (target / natural)))}px`
+      }
+    }
+
     measureNav()
+    fitTitle()
 
-    if (reduced) return
-    const ctx = gsap.context(() => {
-      // Pin/scrub only on desktop; ≤900px falls back to native horizontal scroll
-      // (CSS). matchMedia auto-reverts the branch — including the inline height —
-      // when the query stops matching, so mobile never gets a tall empty section.
-      const mm = gsap.matchMedia()
-      mm.add('(min-width: 901px)', () => {
-        // Sequenced pin, three beats scrubbed to scroll:
-        //   1. HOLD   — the heading rests fully clear below the nav (reveal-y = 0).
-        //   2. REVEAL — the header/viewport stack lifts, sliding the heading up and
-        //               out (it vanishes at the panel's top edge = the nav line, so
-        //               it is NEVER occluded under the nav) and centring the cards.
-        //   3. SCRUB  — the card row scrubs left until card 08 is in view.
-        let navH = 86
-        let travel = 0
-        let revealY = 0
-        let holdDist = 0
-        let revealDist = 0
+    // Keep the fit correct across resizes and late font loads in EVERY mode
+    // (reduced motion skips the GSAP branch, so it needs its own listeners).
+    const onResize = () => { measureNav(); fitTitle() }
+    window.addEventListener('resize', onResize)
+    document.fonts?.ready.then(() => { fitTitle(); ScrollTrigger.refresh() })
 
-        const measure = () => {
-          navH = measureNav()
-          const panelH = window.innerHeight - navH
-          // Reset transforms so the geometry we read is the untranslated layout.
-          gsap.set(inner.current, { y: 0 })
-          gsap.set(track.current, { x: 0 })
+    let ctx
+    if (!reduced) {
+      ctx = gsap.context(() => {
+        // Pin/scrub only on desktop; ≤900px → native horizontal scroll (CSS).
+        // matchMedia auto-reverts the branch (incl. the inline height) off-query.
+        const mm = gsap.matchMedia()
+        mm.add('(min-width: 901px)', () => {
+          // Pin-together: the panel holds on the nav line and the card row scrubs
+          // left. Heading + intro + cards stay on screen for the entire scrub; the
+          // heading never touches the nav because the panel's top edge IS the nav
+          // line. Smooth follow (~0.3s) so the row eases behind the wheel.
+          const xTo = gsap.quickTo(track.current, 'x', { duration: 0.32, ease: 'power3' })
+          let navH = 86
+          let travel = 0
+          const measure = () => {
+            navH = measureNav()
+            fitTitle()
+            gsap.set(track.current, { x: 0 })
+            travel = Math.max(0, track.current.scrollWidth - viewport.current.clientWidth)
+            // Section height = panel + travel, so the panel holds for exactly
+            // `travel` px of scroll (1:1 wheel feel), then releases.
+            wrap.current.style.height = `${window.innerHeight - navH + travel}px`
+          }
+          measure()
 
-          travel = Math.max(0, track.current.scrollWidth - viewport.current.clientWidth)
-
-          // Lift needed so the card ROW centres vertically in the panel once the
-          // header has left. Measured against the panel top (= sticky top).
-          const innerTop = inner.current.getBoundingClientRect().top
-          const card = track.current.querySelector('.wwp-card')
-          const cr = card.getBoundingClientRect()
-          const cardCentreInPanel = cr.top - innerTop + cr.height / 2
-          revealY = Math.max(0, Math.round(cardCentreInPanel - panelH / 2))
-
-          // Beat lengths in scroll px. Hold = a readable pause on the heading;
-          // reveal ≈ the lift distance for a 1:1 slide feel.
-          holdDist = Math.round(panelH * 0.22)
-          revealDist = Math.max(revealY, Math.round(panelH * 0.4))
-
-          // Section height = panel + all three beats, so the panel stays pinned
-          // for exactly hold+reveal+travel px of scroll.
-          wrap.current.style.height = `${panelH + holdDist + revealDist + travel}px`
-        }
-        measure()
-
-        // The header fades as it lifts so it's gone BEFORE it reaches the nav line
-        // — the heading is never seen cut at the nav edge, only cleanly handed off.
-        const head = inner.current.querySelector('.wwp-head')
-
-        // Smooth scrub follow (~0.3s) so beats ease behind the wheel, not 1:1 steps.
-        const tl = gsap.timeline({
-          defaults: { ease: 'none' },
-          scrollTrigger: {
+          const st = ScrollTrigger.create({
             trigger: wrap.current,
             start: () => `top top+=${navH}`, // fires when the panel begins to stick
-            end: () => `+=${holdDist + revealDist + travel}`,
-            scrub: 0.3,
+            end: () => `+=${travel}`,
             invalidateOnRefresh: true,
             onRefresh: measure,
-          },
+            onUpdate: (self) => xTo(-travel * self.progress),
+          })
+          return () => {
+            st.kill()
+            gsap.set(track.current, { x: 0 })
+            wrap.current.style.height = ''
+          }
         })
-        tl.to(inner.current, { y: 0, duration: holdDist })                 // 1. hold
-          .to(inner.current, { y: () => -revealY, duration: revealDist })  // 2. reveal
-          .to(head, { opacity: 0, duration: revealDist * 0.6, ease: 'power1.in' }, '<') // fade with the lift
-          .to(track.current, { x: () => -travel, duration: travel })       // 3. scrub
-
-        return () => {
-          tl.scrollTrigger?.kill()
-          tl.kill()
-          gsap.set([inner.current, track.current], { clearProps: 'transform' })
-          gsap.set(head, { clearProps: 'opacity' })
-          wrap.current.style.height = ''
-        }
-      })
-    }, wrap)
-    return () => ctx.revert()
-  }, [reduced])
-
-  // Refresh after web fonts settle (card widths shift → travel changes).
-  useEffect(() => {
-    if (reduced || !document.fonts) return
-    document.fonts.ready.then(() => ScrollTrigger.refresh())
-  }, [reduced])
+      }, wrap)
+    }
+    return () => {
+      window.removeEventListener('resize', onResize)
+      ctx?.revert()
+    }
+  }, [reduced, i18n.language])
 
   return (
     <section
@@ -185,7 +172,7 @@ export default function WhatWePrint() {
       className={`wwp-section ${reduced ? 'is-reduced' : ''}`}
     >
       <div className="wwp-sticky">
-        <div className="wwp-inner" ref={inner}>
+        <div className="wwp-inner">
           <Header t={t} />
           <div className="wwp-viewport" ref={viewport}>
             <div className="wwp-track" ref={track}>
