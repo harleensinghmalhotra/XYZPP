@@ -532,11 +532,11 @@ body {
   letter-spacing: -0.01em;
   background-image: linear-gradient(
     100deg,
-    #6b4d11 0%,
-    #7a5713 42%,
-    #caa14b 50%,
-    #7a5713 58%,
-    #6b4d11 100%
+    #5f430f 0%,
+    #6f4d11 42%,
+    #c49a45 50%,
+    #6f4d11 58%,
+    #5f430f 100%
   );
   background-size: 250% 100%;
   background-position: 120% 0;
@@ -844,9 +844,9 @@ body {
   overflow: hidden;
 }
 /* The header + viewport stack together and are taller than the panel; the panel
-   clips (above via overflow, below via its height). JS translates this stack up
-   (`--reveal-y`) to slide the header out and lift the cards to centre for the
-   horizontal scrub. Transform-only — no layout per frame. */
+   clips (above via overflow, below via its height). GSAP translateY lifts this
+   stack to slide the header out and centre the cards for the horizontal scrub.
+   Transform-only — no layout per frame. */
 .wwp-inner {
   position: relative;
   flex: 1;
@@ -857,7 +857,6 @@ body {
   padding: 30px 56px 24px;
   display: flex;
   flex-direction: column;
-  transform: translateY(var(--reveal-y, 0px));
   will-change: transform;
 }
 
@@ -1022,8 +1021,12 @@ body {
 .wwp-section.is-reduced .wwp-inner {
   padding-top: 90px;
   padding-bottom: 90px;
+  transform: none; /* no scroll-driven reveal in reduced motion */
 }
 .wwp-section.is-reduced .wwp-viewport {
+  height: auto; /* native flow — the fixed panel height doesn't apply without a pin */
+  margin-top: 40px;
+  padding-top: 120px;
   overflow-x: auto;
   overflow-y: visible;
   padding-bottom: 8px;
@@ -1052,6 +1055,7 @@ body {
   }
   .wwp-inner {
     padding: 64px 20px;
+    transform: none; /* no scroll-driven reveal below 900px */
   }
   .wwp-head {
     flex-direction: column;
@@ -1063,6 +1067,8 @@ body {
     max-width: 560px;
   }
   .wwp-viewport {
+    height: auto; /* native horizontal scroll — fixed panel height doesn't apply */
+    margin-top: 40px;
     overflow-x: auto;
     overflow-y: visible;
     scrollbar-width: thin;

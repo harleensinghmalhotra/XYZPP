@@ -73,11 +73,24 @@ function Header({ t }) {
 export default function WhatWePrint() {
   const { t } = useTranslation('homeWwp')
   const wrap = useRef(null)
+  const inner = useRef(null)
   const track = useRef(null)
   const viewport = useRef(null)
   const [reduced] = useState(prefersReduced)
 
   useLayoutEffect(() => {
+    // Measure the live nav so the pin math derives the nav height from the real
+    // header, never a second hardcoded magic number. The sticky panel then rests
+    // exactly on the nav's bottom line (CSS reads --nav-h). Runs even in reduced
+    // motion so scroll-margin-top still clears the nav for #services anchors.
+    const measureNav = () => {
+      const nav = document.querySelector('header.sticky') || document.querySelector('header')
+      const h = nav ? Math.round(nav.getBoundingClientRect().height) : 86
+      wrap.current?.style.setProperty('--nav-h', `${h}px`)
+      return h
+    }
+    measureNav()
+
     if (reduced) return
     const ctx = gsap.context(() => {
       // Pin/scrub only on desktop; ≤900px falls back to native horizontal scroll
@@ -85,30 +98,72 @@ export default function WhatWePrint() {
       // when the query stops matching, so mobile never gets a tall empty section.
       const mm = gsap.matchMedia()
       mm.add('(min-width: 901px)', () => {
-        // Smooth scrub (~0.3s follow) so the row eases behind the scroll rather
-        // than stepping 1:1 — transform-only, GPU, no layout per frame.
-        const xTo = gsap.quickTo(track.current, 'x', { duration: 0.32, ease: 'power3' })
+        // Sequenced pin, three beats scrubbed to scroll:
+        //   1. HOLD   — the heading rests fully clear below the nav (reveal-y = 0).
+        //   2. REVEAL — the header/viewport stack lifts, sliding the heading up and
+        //               out (it vanishes at the panel's top edge = the nav line, so
+        //               it is NEVER occluded under the nav) and centring the cards.
+        //   3. SCRUB  — the card row scrubs left until card 08 is in view.
+        let navH = 86
         let travel = 0
+        let revealY = 0
+        let holdDist = 0
+        let revealDist = 0
 
         const measure = () => {
+          navH = measureNav()
+          const panelH = window.innerHeight - navH
+          // Reset transforms so the geometry we read is the untranslated layout.
+          gsap.set(inner.current, { y: 0 })
+          gsap.set(track.current, { x: 0 })
+
           travel = Math.max(0, track.current.scrollWidth - viewport.current.clientWidth)
-          // Section height = one viewport + the horizontal travel, so the sticky
-          // panel holds for exactly `travel` px of scroll (1:1 wheel feel).
-          wrap.current.style.height = `${window.innerHeight + travel}px`
+
+          // Lift needed so the card ROW centres vertically in the panel once the
+          // header has left. Measured against the panel top (= sticky top).
+          const innerTop = inner.current.getBoundingClientRect().top
+          const card = track.current.querySelector('.wwp-card')
+          const cr = card.getBoundingClientRect()
+          const cardCentreInPanel = cr.top - innerTop + cr.height / 2
+          revealY = Math.max(0, Math.round(cardCentreInPanel - panelH / 2))
+
+          // Beat lengths in scroll px. Hold = a readable pause on the heading;
+          // reveal ≈ the lift distance for a 1:1 slide feel.
+          holdDist = Math.round(panelH * 0.22)
+          revealDist = Math.max(revealY, Math.round(panelH * 0.4))
+
+          // Section height = panel + all three beats, so the panel stays pinned
+          // for exactly hold+reveal+travel px of scroll.
+          wrap.current.style.height = `${panelH + holdDist + revealDist + travel}px`
         }
         measure()
 
-        const st = ScrollTrigger.create({
-          trigger: wrap.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          invalidateOnRefresh: true,
-          onRefresh: measure,
-          onUpdate: (self) => xTo(-travel * self.progress),
+        // The header fades as it lifts so it's gone BEFORE it reaches the nav line
+        // — the heading is never seen cut at the nav edge, only cleanly handed off.
+        const head = inner.current.querySelector('.wwp-head')
+
+        // Smooth scrub follow (~0.3s) so beats ease behind the wheel, not 1:1 steps.
+        const tl = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: wrap.current,
+            start: () => `top top+=${navH}`, // fires when the panel begins to stick
+            end: () => `+=${holdDist + revealDist + travel}`,
+            scrub: 0.3,
+            invalidateOnRefresh: true,
+            onRefresh: measure,
+          },
         })
+        tl.to(inner.current, { y: 0, duration: holdDist })                 // 1. hold
+          .to(inner.current, { y: () => -revealY, duration: revealDist })  // 2. reveal
+          .to(head, { opacity: 0, duration: revealDist * 0.6, ease: 'power1.in' }, '<') // fade with the lift
+          .to(track.current, { x: () => -travel, duration: travel })       // 3. scrub
+
         return () => {
-          st.kill()
-          gsap.set(track.current, { x: 0 })
+          tl.scrollTrigger?.kill()
+          tl.kill()
+          gsap.set([inner.current, track.current], { clearProps: 'transform' })
+          gsap.set(head, { clearProps: 'opacity' })
           wrap.current.style.height = ''
         }
       })
@@ -130,7 +185,7 @@ export default function WhatWePrint() {
       className={`wwp-section ${reduced ? 'is-reduced' : ''}`}
     >
       <div className="wwp-sticky">
-        <div className="wwp-inner">
+        <div className="wwp-inner" ref={inner}>
           <Header t={t} />
           <div className="wwp-viewport" ref={viewport}>
             <div className="wwp-track" ref={track}>
