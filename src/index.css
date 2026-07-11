@@ -1180,20 +1180,35 @@ body {
   display: flex;
   align-items: center;
 }
-/* ── LiquidEther fluid, whisper mode (bottom layer) ──────────────────────────
-   The reactbits fluid canvas fills the section at the very back, with its
-   PRESENCE capped hard: wrapper opacity 0.3, and pointer-events:none so scroll
-   and clicks pass straight through (the sim's own mouse listeners live on window,
-   so takeover still works). Not mounted under reduced motion. */
-.promise-ether {
+/* ── LetterGlitch type wall (bottom layer) ───────────────────────────────────
+   The reactbits LetterGlitch canvas fills the section at the very back — a wall of
+   DM Mono characters glitching at a slow letterpress pace, ink-on-night. Presence
+   capped hard: wrapper opacity 0.42 (VISIBILITY LAW: 0.35–0.5 max), pointer-events
+   none so scroll/clicks pass through. Its own centreVignette darkens under the
+   type; the .promise-scrim below wells opaque black over the whole text block, so
+   the wall lives only at the EDGES. Reduced motion renders one static frame. */
+.promise-typewall {
   position: absolute;
   inset: 0;
   z-index: 0;
-  opacity: 0.33; /* VISIBILITY LAW — 0.25–0.35 max; text wins every fight */
+  opacity: 0.42; /* VISIBILITY LAW — 0.35–0.5 max; text wins every fight */
   pointer-events: none;
 }
-.promise-ether-mount { width: 100%; height: 100%; }
-.promise-ether-mount canvas { display: block; width: 100%; height: 100%; }
+.promise-typewall-canvas { display: block; width: 100%; height: 100%; }
+/* centreVignette — the component's shipped radial dark-centre overlay. Wells the
+   promise-black up under the type so the wall fades to nothing behind the words
+   and only whispers at the section's edges (our text-protection pattern). */
+.promise-typewall-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 62% 66% at 50% 50%,
+    #0a0e14 0%,
+    rgba(10, 14, 20, 0.85) 34%,
+    rgba(10, 14, 20, 0) 72%
+  );
+}
 /* Two-layer celebration confetti — one canvas above the ether, BELOW the scrim so
    the opaque core hides any centre piece (text contrast never touched). DPR is
    capped at 1 in JS; the pieces only read in the peripheral ring. */
