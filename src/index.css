@@ -1202,34 +1202,28 @@ body {
   pointer-events: auto; /* canvas is hit-testable for the mouse-bend; it has no
                            click/scroll handlers, so scroll and clicks pass clean */
 }
-/* Two-layer celebration confetti — one canvas above Lightfall, BELOW the scrim so
-   the opaque core hides any centre piece (text contrast never touched). DPR is
-   capped at 1 in JS; the pieces only read in the peripheral ring. */
-.promise-confetti {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-.promise-confetti-canvas { display: block; width: 100%; height: 100%; }
-/* Radial scrim — wells deep #0A0E14 up behind the text zone, transparent toward
-   the edges, so the ink visibly parts around the type. Its opaque core covers the
-   whole centred text block: every text element sits on solid promise-black, so
-   the fluid can never touch their contrast (asserted under cursor agitation). */
+/* Radial scrim — THE LOAD-BEARING WALL at full-power rain. Wells deep #0A0E14 up
+   behind the text zone, transparent toward the edges, so the gold streaks visibly
+   DIM under the type (as the demo darkens behind its headline) while raining free
+   at the margins. Its opaque core covers the whole centred text block — every text
+   element sits on solid promise-black — so the streaks can never touch their
+   contrast (asserted at the brightest frame under cursor agitation). Strengthened
+   for 100% opacity: wider/taller core, held opaque further out before the fade. */
 .promise-scrim {
   position: absolute;
   inset: 0;
-  z-index: 3; /* above ether, dots AND confetti → clean well for the type */
+  z-index: 2; /* above lightfall + dots → clean well for the type */
   pointer-events: none;
-  /* Tall enough to keep the gold eyebrow/credit on pure ground (they sit at the
-     block's vertical extremes and are contrast-critical); narrow enough that the
-     ink shows in the side margins beside the type. The cream heading's outer
-     glyphs may cross faint fluid — cream stays ~13:1, so that's safe. */
+  /* NB: the percentages are the gradient ellipse's RADII (½-extent), not diameter.
+     Sized to hug the CENTRED TEXT BLOCK only — opaque #0A0E14 across the quote's
+     width and the eyebrow→credit height — then fade out just beyond it so the rain
+     falls FREE at the top, bottom and side margins. A soft dark pool behind the
+     type (as the demo darkens behind its headline), not a blanket over the section. */
   background: radial-gradient(
-    ellipse 60% 88% at 50% 50%,
+    ellipse 44% 56% at 50% 50%,
     #0a0e14 0%,
-    #0a0e14 78%,
-    rgba(10, 14, 20, 0.5) 90%,
+    #0a0e14 72%,
+    rgba(10, 14, 20, 0.62) 88%,
     rgba(10, 14, 20, 0) 100%
   );
 }

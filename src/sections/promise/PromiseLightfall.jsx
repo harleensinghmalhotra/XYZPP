@@ -15,14 +15,25 @@ import Lightfall from '@/components/Lightfall'
 // screen (asserted on route change). DPR is capped at 1 via the dpr prop. Under
 // reduced motion the parent never mounts this at all (static black + glow only).
 //
-// THE VISIBILITY LAW: the wrapper sits at z0 behind confetti/scrim/glow/text; the
-// section's .promise-scrim wells opaque #0A0E14 over the whole text block, so the
-// streaks live only at the edges and can never touch the type's contrast. opacity
-// is held at 0.8 (0.7–0.85) so the fall stays a warm whisper, not a floodlight.
+// FULL POWER (matches the reference demo's presence, our colours): opacity 1, the
+// demo's top-glow halo (backgroundGlow 0.5) and demo pace (speed 0.5) so the gold
+// streaks visibly RAIN, dense from the top with bright heads and long glowing tails.
+// The demo's blue/purple/pink becomes molten gold rain on night — same energy.
+//
+// THE VISIBILITY LAW: the wrapper sits at z0 behind scrim/glow/text; with the rain
+// at 100% the section's .promise-scrim is the load-bearing wall — it wells opaque
+// #0A0E14 over the whole text block so the streaks dim under the type and rain free
+// at the edges. Text wins every frame (asserted AA under cursor agitation).
 
-// Gold rebrand — light gold · deep gold · cream. Nothing else. Module-level so the
-// array identity is stable (a fresh array each render would remount the GL context).
-const GOLD_THREADS = ['#C9A96A', '#9B7420', '#FDFAF4']
+// Molten-gold rain — bright amber head · light gold · deep gold. Module-level so
+// the array identity is stable (a fresh array each render would remount the GL
+// context). NOTE: these are the WARM, low-blue tuning of the brief's gold trio
+// (#C9A96A / #9B7420 / #FDFAF4). The reference shader tone-maps with a green
+// subtraction (`- vec3(0.04,0.08,0.02)`), so any colour carrying blue turns
+// magenta/purple where a streak is dim — the brief's cream and light-gold both did
+// this on their tails. Pulling the palette to red-dominant amber keeps the rain
+// gold at EVERY brightness — "our colours, nothing else" (no blue, no purple).
+const GOLD_THREADS = ['#F4C25A', '#C9A24A', '#9B7420']
 
 export default function PromiseLightfall() {
   const wrapRef = useRef(null)
@@ -66,18 +77,28 @@ export default function PromiseLightfall() {
         <Lightfall
           dpr={1}
           colors={GOLD_THREADS}
-          backgroundColor="#0A0E14"
-          backgroundGlow={0.25}
-          speed={0.35}
+          // backgroundColor is the HALO tint (the shader only uses it for the top
+          // glow, not the ground). The brief wants "the demo's top-glow halo, ours
+          // in warm gold instead of blue" — but #0A0E14 tone-maps to blue-lavender.
+          // So the halo is set to our deep gold (a brief colour): a warm gold halo,
+          // ground stays black (seamless with the #0A0E14 section) since the shader
+          // outputs black where there is no light.
+          backgroundColor="#9B7420"
+          backgroundGlow={0.5}
+          speed={0.5}
           streakCount={3}
           streakWidth={1}
           streakLength={1}
-          density={0.5}
-          twinkle={0.7}
+          density={0.6}
+          twinkle={1}
           zoom={3}
-          opacity={0.8}
+          // glow 1 (demo) left the tails dim enough to purple under the tone-map and
+          // the rain reading thin; 1.6 keeps streaks bright gold with hot heads and
+          // long glowing tails — the demo's full-volume presence, our metal.
+          glow={1.6}
+          opacity={1}
           mouseInteraction
-          mouseStrength={0.3}
+          mouseStrength={0.5}
           mouseRadius={1}
         />
       )}
