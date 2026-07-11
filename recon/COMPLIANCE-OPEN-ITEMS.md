@@ -2,7 +2,7 @@
 
 **For:** Harry / Ekta
 **Status:** open decisions blocking full compliance sign-off
-**Last updated:** 2026-07-10
+**Last updated:** 2026-07-11
 
 These are the outstanding calls that code cannot make on its own. Each has a safe
 default already shipped; this list tracks what still needs a human decision.
@@ -30,6 +30,17 @@ default already shipped; this list tracks what still needs a human decision.
   named row/entry drops cleanly site-wide, no layout holes.
 - **Owner:** Harry to confirm written permissions. If not secured by launch,
   flip the switch off.
+
+## 2b. Named commercial clients (HDFC Bank, ZEE Learn / Kidzee) — permission confirmed verbally, WRITTEN COPY STILL OWED
+- **Where:** TrustStrips institutions marquee, Projects archive shelf (HDFC 1.3M+
+  books + ZEE 0.5M+ learning kits), About, Fulfilment trust marquee.
+- **Status:** **permission confirmed verbally, WRITTEN COPY STILL OWED — chase
+  before launch.** Gate `SHOW_RESTRICTED_CLIENTS` in `src/lib/compliance.js`
+  flipped **ON (true)** on 2026-07-11 per Harry so these names now render.
+- **Issue:** display of these private-company client names was approved verbally;
+  the written permission must still be obtained and filed here before public
+  launch. If the written copy is not secured, flip the switch back to `false`.
+- **Owner:** Harry to obtain + file the written permission.
 
 ## 3. Cookie decision — open (cookieless vs GA)
 - **Issue:** we have not decided whether the site runs **cookieless** (no consent

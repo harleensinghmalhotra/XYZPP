@@ -18,4 +18,5 @@ export const SHOW_MINISTRY_NAMES = true
 // `SHOW_RESTRICTED_CLIENTS` const (Projects/Fulfilment/About) so the TrustStrips
 // institutions marquee gates the same way. Flip to `true` only once sign-off is
 // confirmed. Default FALSE (names hidden). See recon/COMPLIANCE-OPEN-ITEMS.md.
-export const SHOW_RESTRICTED_CLIENTS = false
+// Enabled 2026-07-11 per Harry — client permission confirmed; written permission to be filed in recon/COMPLIANCE-OPEN-ITEMS.md
+export const SHOW_RESTRICTED_CLIENTS = true
