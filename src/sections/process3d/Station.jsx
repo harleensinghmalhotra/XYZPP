@@ -31,35 +31,61 @@ const PLATE_ASPECT = 862 / 649
 const plateImg = typeof Image !== 'undefined' ? new Image() : null
 if (plateImg) plateImg.src = '/qfp/conveyor/label-plate.webp'
 
-function makeLabelTexture(num, title) {
-  const W = 512, H = Math.round(W / PLATE_ASPECT)
+// ── Plaque typography (keynote weight) ────────────────────────────────────────
+// Hi-res canvas (knife-sharp at DPR 1.25), Inter Tight 700, Apple-signature TIGHT
+// tracking (−1.5%), deep INK on the warm cream face. Every plaque shares ONE font
+// size, computed by fitLabelPx() to the widest string in the active locale, so the
+// wall reads consistent and the longest word ("You're Covered" / "Contrôle qualité")
+// still breathes. The DM Mono index eyebrow keeps its own wide tracking, unchanged.
+const RES = 1024
+const H = Math.round(RES / PLATE_ASPECT)
+const NAME_MAXW = RES * 0.74 // usable width for the station name
+const TRACK = -0.015 // tight letter-spacing ratio (−1.5%)
+const nameFont = (px) => `700 ${px}px "Inter Tight", Inter, system-ui, sans-serif`
+
+// Largest name size (px) that fits EVERY title within the cream face — the shared size.
+export function fitLabelPx(titles) {
+  if (typeof document === 'undefined') return Math.round(RES * 0.135)
+  const g = document.createElement('canvas').getContext('2d')
+  const fits = (px) => {
+    g.font = nameFont(px); g.letterSpacing = `${TRACK * px}px`
+    return titles.every((s) => g.measureText(s).width <= NAME_MAXW)
+  }
+  let px = Math.round(RES * 0.155) // ~+18% over the old top size, then shrink to fit
+  while (px > 44 && !fits(px)) px -= 2
+  return px
+}
+
+function makeLabelTexture(num, title, namePx) {
   const c = document.createElement('canvas')
-  c.width = W; c.height = H
+  c.width = RES; c.height = H
   const g = c.getContext('2d')
-  const t = new THREE.CanvasTexture(c); t.anisotropy = 4
+  const t = new THREE.CanvasTexture(c); t.anisotropy = 8
   const draw = () => {
-    g.clearRect(0, 0, W, H)
-    if (plateImg && plateImg.complete && plateImg.naturalWidth) g.drawImage(plateImg, 0, 0, W, H)
+    g.clearRect(0, 0, RES, H)
+    if (plateImg && plateImg.complete && plateImg.naturalWidth) g.drawImage(plateImg, 0, 0, RES, H)
     g.textAlign = 'center'; g.textBaseline = 'middle'
-    // small number eyebrow
-    g.fillStyle = 'rgba(15,36,68,0.45)'
-    g.font = '600 20px "DM Mono", ui-monospace, monospace'
-    g.fillText(`0${num}`, W / 2, H * 0.36)
-    // station name, navy, sized to fit the cream face
-    g.fillStyle = EKTA.navy
-    let fs = 62
-    g.font = `600 ${fs}px "Inter Tight", Inter, system-ui, sans-serif`
-    const maxW = W * 0.7
-    while (g.measureText(title).width > maxW && fs > 26) { fs -= 2; g.font = `600 ${fs}px "Inter Tight", Inter, system-ui, sans-serif` }
-    g.fillText(title, W / 2, H * 0.56)
+    // index eyebrow — DM Mono, its own WIDE tracking (unchanged role), above the name
+    g.letterSpacing = '2px'
+    g.fillStyle = 'rgba(15,36,68,0.5)'
+    g.font = '600 40px "DM Mono", ui-monospace, monospace'
+    g.fillText(`0${num}`, RES / 2, H * 0.335)
+    // station name — Inter Tight 700, tight, deep ink, optically centered on the face
+    g.letterSpacing = `${TRACK * namePx}px`
+    g.fillStyle = EKTA.ink
+    g.font = nameFont(namePx)
+    g.fillText(title, RES / 2, H * 0.575)
+    g.letterSpacing = '0px'
     t.needsUpdate = true
   }
   draw()
   if (plateImg && !plateImg.complete) plateImg.addEventListener('load', draw, { once: true })
+  // redraw once the webfont is ready, so the plaque never sticks on a fallback face
+  if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) document.fonts.ready.then(draw)
   return t
 }
 
-export default function Station({ index, title, scan, register }) {
+export default function Station({ index, title, scan, register, labelPx }) {
   const navyGeo = useMemo(() => {
     const g = new THREE.ExtrudeGeometry(archShape(ARCH.half, ARCH.legW), {
       depth: ARCH.depth, bevelEnabled: true, bevelSize: 0.015, bevelThickness: 0.015, bevelSegments: 2, curveSegments: 30,
@@ -71,7 +97,7 @@ export default function Station({ index, title, scan, register }) {
     const g = new THREE.ExtrudeGeometry(archShape(ARCH.half - 0.004, ARCH.trim), { depth: 0.028, bevelEnabled: false, curveSegments: 30 })
     return g
   }, [])
-  const labelTex = useMemo(() => makeLabelTexture(index + 1, title), [index, title])
+  const labelTex = useMemo(() => makeLabelTexture(index + 1, title, labelPx), [index, title, labelPx])
 
   const api = useMemo(() => ({ trimF: null, trimB: null, coneMat: null, laserMat: null }), [])
   useEffect(() => { register(api) }, [register, api])

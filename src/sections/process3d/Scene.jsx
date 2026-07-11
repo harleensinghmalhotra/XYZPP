@@ -4,7 +4,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { MeshReflectorMaterial, Billboard } from '@react-three/drei'
 import { useTranslation } from 'react-i18next'
 import Belt from './Belt'
-import Station from './Station'
+import Station, { fitLabelPx } from './Station'
 import Book from './Book'
 import Girl from './Girl'
 import Dust from './Dust'
@@ -82,6 +82,8 @@ export default function Scene({ frozen = false, progress }) {
   // ride with the box (Paper…Shipped); leg 5 "Delivered" is raised beside the girl
   // only at the catch (never a travelling gate label).
   const legTex = useMemo(() => [0, 1, 2, 3, 4, 5].map((i) => makeStageWord(t(`legs.${i}`))), [t])
+  // one shared plaque font size for the active locale — fit to the widest station name
+  const labelPx = useMemo(() => fitLabelPx(STATIONS.map((s) => t(`stages.${s.key}.name`))), [t])
   const stageMat = useRef()
   const stageGroup = useRef()
   const shownLeg = useRef(-1)
@@ -199,7 +201,7 @@ export default function Scene({ frozen = false, progress }) {
         return (
           <group key={s.key}>
             <group position={[x, 0, 0]}>
-              <Station index={i} title={t(`stages.${s.key}.name`)} scan={s.key === 'quality'} register={(api) => (stationApis.current[i] = api)} />
+              <Station index={i} title={t(`stages.${s.key}.name`)} labelPx={labelPx} scan={s.key === 'quality'} register={(api) => (stationApis.current[i] = api)} />
             </group>
             {/* warm lamp above the gate — stronger, warmer machine-lamp pool */}
             <pointLight position={[x, LABEL_Y - 0.2, 0.5]} intensity={11} distance={6.5} decay={2} color={'#F8CE84'} />
