@@ -51,22 +51,28 @@ const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - 
   await page.screenshot({ path: resolve(out, 'shelf-en.png'), clip: await clipOf(page, '.proj-books') })
   console.log('  ✓ shelf-en.png')
 
-  // stamp ↔ title: no bounding-box overlap AND no ink overlap, on all 8
+  // stamp sits BELOW the full-width title row → assert NO 2D overlap (box + ink)
+  // against BOTH the country and the number, and that every country is ONE line.
   const coll = await page.evaluate(() => {
     return [...document.querySelectorAll('.proj-book')].map((bk, i) => {
-      const s = bk.querySelector('.proj-book-stamp'), c = bk.querySelector('.proj-book-country')
+      const s = bk.querySelector('.proj-book-stamp'), c = bk.querySelector('.proj-book-country'), n = bk.querySelector('.proj-book-countn')
       const country = c?.textContent.trim()
-      if (!s) return { i, country, stamp: false }
+      const lines = Math.round(c.getBoundingClientRect().height / parseFloat(getComputedStyle(c).lineHeight))
+      if (!s) return { i, country, lines, stamp: false }
       const sr = s.getBoundingClientRect()
-      const box = c.getBoundingClientRect()
-      const rng = document.createRange(); rng.selectNodeContents(c); const ink = rng.getBoundingClientRect()
+      const ink = (el) => { const r = document.createRange(); r.selectNodeContents(el); return r.getBoundingClientRect() }
       const ov = (r) => !(sr.right < r.left || sr.left > r.right || sr.bottom < r.top || sr.top > r.bottom)
-      return { i, country, stamp: true, boxOverlap: ov(box), inkOverlap: ov(ink), inkGap: Math.round(sr.left - ink.right) }
+      return {
+        i, country, lines, stamp: true,
+        boxVsCountry: ov(c.getBoundingClientRect()), inkVsCountry: ov(ink(c)), inkVsNumber: ov(ink(n)),
+      }
     })
   })
-  const bad = coll.filter((c) => c.stamp && (c.boxOverlap || c.inkOverlap))
-  console.log('  STAMP↔TITLE collisions:', bad.length === 0 ? 'NONE ✓' : JSON.stringify(bad))
-  for (const c of coll) if (c.stamp) console.log(`      ${c.country.padEnd(15)} boxOverlap:${c.boxOverlap} inkOverlap:${c.inkOverlap} gap:${c.inkGap}px`)
+  const bad = coll.filter((c) => c.stamp && (c.boxVsCountry || c.inkVsCountry || c.inkVsNumber))
+  const multiline = coll.filter((c) => c.lines !== 1)
+  console.log('  STAMP↔TITLE / STAMP↔NUMBER collisions:', bad.length === 0 ? 'NONE ✓' : JSON.stringify(bad))
+  console.log('  country all one line:', multiline.length === 0 ? 'YES ✓ (incl. MAHARASHTRA)' : JSON.stringify(multiline))
+  for (const c of coll) if (c.stamp) console.log(`      ${c.country.padEnd(15)} lines:${c.lines} vsCountry:${c.boxVsCountry || c.inkVsCountry ? 'OVERLAP' : 'clear'} vsNumber:${c.inkVsNumber ? 'OVERLAP' : 'clear'}`)
   console.log('  stamp labels:', JSON.stringify(await page.evaluate(() => [...document.querySelectorAll('.proj-book-stamp-text')].map((t) => t.textContent))))
 
   // gold consistency strip — crop every number, compose side by side
