@@ -25,8 +25,12 @@ const PLANE_H = 1120
 
 // Page-corner targets as fractions of the book-image box (2830×1770). Order:
 // tl, tr, br, bl. Tuned so the text plane sits ON the paper, inset from the edges.
-const LEFT_QUAD = { tl: [0.200, 0.250], tr: [0.470, 0.243], br: [0.468, 0.705], bl: [0.150, 0.700] }
-const RIGHT_QUAD = { tl: [0.505, 0.243], tr: [0.782, 0.250], br: [0.832, 0.700], bl: [0.507, 0.705] }
+// R2: the TOP corners are raised to y≈0.205 (from ≈0.246) so the plane's top edge
+// hugs the page's top margin — the highest flat line that still clears the spine's
+// paper-top curl. Combined with a tiny plane padding-top, copy now begins JUST
+// under the top curve and flows down (Harry's "Start" marks), not mid-page.
+const LEFT_QUAD = { tl: [0.200, 0.205], tr: [0.470, 0.205], br: [0.468, 0.705], bl: [0.150, 0.700] }
+const RIGHT_QUAD = { tl: [0.505, 0.205], tr: [0.782, 0.205], br: [0.832, 0.700], bl: [0.507, 0.705] }
 
 const INK = '#0F2444' // navy — her page-copy ink
 
@@ -187,12 +191,13 @@ const TypingBookOverlay = forwardRef(function TypingBookOverlay({ reduced = fals
   return (
     <div ref={rootRef} className="pointer-events-none absolute inset-0" aria-hidden="true">
       <style dangerouslySetInnerHTML={{ __html: STYLE }} />
-      {/* Left page plane — big display block */}
-      <div className="tb-plane" style={{ width: PLANE_W, height: PLANE_H, padding: '90px 40px 90px 64px', transform: leftMatrix || 'scale(0)', opacity: leftMatrix ? 1 : 0 }}>
+      {/* Left page plane — big display block. Small padding-top so the first line
+          sits right under the raised top edge (the page's top margin). */}
+      <div className="tb-plane" style={{ width: PLANE_W, height: PLANE_H, padding: '14px 40px 90px 64px', transform: leftMatrix || 'scale(0)', opacity: leftMatrix ? 1 : 0 }}>
         {content.leftPlane}
       </div>
-      {/* Right page plane — headline → mid lines → paragraph */}
-      <div className="tb-plane" style={{ width: PLANE_W, height: PLANE_H, padding: '96px 44px 90px 58px', transform: rightMatrix || 'scale(0)', opacity: rightMatrix ? 1 : 0 }}>
+      {/* Right page plane — headline → mid lines → paragraph, anchored top. */}
+      <div className="tb-plane" style={{ width: PLANE_W, height: PLANE_H, padding: '14px 44px 90px 58px', transform: rightMatrix || 'scale(0)', opacity: rightMatrix ? 1 : 0 }}>
         {content.rightPlane}
       </div>
     </div>

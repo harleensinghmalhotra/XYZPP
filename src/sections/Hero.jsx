@@ -48,11 +48,17 @@ const CUTOUTS = [
 // REAL HTML (translated via <Trans>) inside a single transform wrapper so it
 // scales WITH the bubble. `tk` = translation key in home.bubbles; the gold key
 // figure is wrapped in <1></1> in the locale string. Rest navy.
+// R2 — Harry: text must FILL the bubble (3–4 lines, generous line-height), read
+// effortlessly at 60cm. Each bubble grows ~10–16% from R1 to give the copy room
+// (tail still points at its kid — the wrapper is centred on (cx,cy)); `fs` is a
+// per-bubble type size (clamp, ≥11px floor cleared) tuned by SENTENCE LENGTH so
+// short sentences (mustard) get bigger type and long ones (green, esp. FR) get a
+// touch smaller — every bubble lands at ~70–80% interior fill in BOTH EN and FR.
 const BUBBLES = [
-  { key: 'b-mustard', tk: 'mustard', forKey: 'girl-mustard', w: 11.5, cx: -38.0, cy: -24.0 },
-  { key: 'b-red', tk: 'red', forKey: 'boy-red', w: 11.5, cx: -11.0, cy: -27.0 },
-  { key: 'b-blonde', tk: 'blonde', forKey: 'girl-blonde', w: 11.5, cx: 11.0, cy: -27.0 },
-  { key: 'b-green', tk: 'green', forKey: 'boy-green', w: 11.8, cx: 39.0, cy: -24.0 },
+  { key: 'b-mustard', tk: 'mustard', forKey: 'girl-mustard', w: 12.4, cx: -38.0, cy: -24.0, fs: 'clamp(15px, 1.4vw, 21.5px)' },
+  { key: 'b-red', tk: 'red', forKey: 'boy-red', w: 12.9, cx: -11.0, cy: -27.0, fs: 'clamp(14px, 1.2vw, 18.5px)' },
+  { key: 'b-blonde', tk: 'blonde', forKey: 'girl-blonde', w: 13.1, cx: 11.0, cy: -27.0, fs: 'clamp(13.5px, 1.16vw, 18px)' },
+  { key: 'b-green', tk: 'green', forKey: 'boy-green', w: 13.4, cx: 39.0, cy: -24.0, fs: 'clamp(13px, 1.12vw, 17.2px)' },
 ]
 
 export default function Hero() {
@@ -124,22 +130,22 @@ export default function Hero() {
             >
               <div ref={(n) => (bubbleRefs.current[i] = n)} className="relative will-change-transform" style={{ transformOrigin: '50% 100%', opacity: reduced ? 1 : 0 }}>
                 <img src={BUBBLE} alt="" aria-hidden="true" className="block w-full select-none" draggable="false" />
-                {/* text in the bubble body (top ~70%, above the tail), centred.
+                {/* text in the bubble body (upper ~78%, above the tail), centred.
                     Inter Tight (the site's display language), weight 500 sentence
                     / 700 foil-gold numerals, deep-navy ink for AA on the cream
-                    bubble ground. Wraps naturally — the bubble never resizes; the
-                    copy scales to fit it (≥11px floor via the clamp). */}
-                <div className="absolute inset-x-0 top-0 flex items-center justify-center px-[9%] text-center" style={{ height: '70%' }}>
+                    bubble ground. R2: per-bubble `fs` scales the type UP so the
+                    sentence FILLS the interior across 3–4 lines with generous
+                    ~1.4 line-height — no forced balancing, let it wrap to fill. */}
+                <div className="absolute inset-x-0 top-0 flex items-center justify-center px-[7%] text-center" style={{ height: '78%' }}>
                   <p
                     style={{
                       margin: 0,
                       fontFamily: "'Inter Tight', 'Inter', sans-serif",
                       fontWeight: 500,
                       color: '#0F2444',
-                      fontSize: 'clamp(11px, 0.72vw, 12.5px)',
-                      lineHeight: 1.2,
-                      letterSpacing: '-0.006em',
-                      textWrap: 'balance',
+                      fontSize: b.fs,
+                      lineHeight: 1.4,
+                      letterSpacing: '-0.004em',
                     }}
                   >
                     <Trans t={t} i18nKey={`hero.bubbles.${b.tk}`} components={{ 1: <b className="bub-foil" /> }} />
@@ -377,11 +383,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Scroll pill — stays through the pin, scrolls away with the stage */}
-        <div className="absolute bottom-[48px] left-1/2 z-40 flex -translate-x-1/2 items-center gap-5 rounded-none px-[25px] py-[10px] font-metrisch" style={{ backgroundColor: 'rgba(12,47,74,0.39)' }}>
-          <span className="block h-1.5 w-1.5 rounded-full bg-white" />
-          <span className="text-[11px] font-medium uppercase text-white" style={{ letterSpacing: '5px' }}>{t('hero.scroll')}</span>
-        </div>
+        {/* SCROLL pill REMOVED (R2) — Harry: the kid→bubble→typing sequence teaches
+            scrolling on its own; the pill was noise. The orphaned `hero.scroll`
+            locale key is removed from en/fr home.json too. */}
 
         {/* Sound toggle — mechanical key-clicks for the typing book, OFF by
             default. The tap IS the user gesture that unlocks WebAudio, so playback

@@ -1,0 +1,30 @@
+[
+  {
+    "key": "mustard",
+    "sentenceNavy": 12.23,
+    "foilGold": 5.45,
+    "sentencePassAA": true,
+    "foilPassAA": true
+  },
+  {
+    "key": "red",
+    "sentenceNavy": 12.11,
+    "foilGold": 5.45,
+    "sentencePassAA": true,
+    "foilPassAA": true
+  },
+  {
+    "key": "blonde",
+    "sentenceNavy": 12.29,
+    "foilGold": 4.68,
+    "sentencePassAA": true,
+    "foilPassAA": true
+  },
+  {
+    "key": "green",
+    "sentenceNavy": 12.19,
+    "foilGold": 5.16,
+    "sentencePassAA": true,
+    "foilPassAA": true
+  }
+]

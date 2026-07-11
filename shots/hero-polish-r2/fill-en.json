@@ -1,0 +1,26 @@
+[
+  {
+    "key": "mustard",
+    "fontPx": 21.5,
+    "lines": 3,
+    "fillV": 78
+  },
+  {
+    "key": "red",
+    "fontPx": 18.4,
+    "lines": 3,
+    "fillV": 67
+  },
+  {
+    "key": "blonde",
+    "fontPx": 17.8,
+    "lines": 4,
+    "fillV": 84
+  },
+  {
+    "key": "green",
+    "fontPx": 17.2,
+    "lines": 3,
+    "fillV": 59
+  }
+]
