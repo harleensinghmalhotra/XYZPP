@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Sparkles, MeshReflectorMaterial, Billboard } from '@react-three/drei'
@@ -67,6 +67,20 @@ export default function Scene({ frozen = false, progress }) {
   const lookX = useRef(xs[0])
   const heroLight = useRef() // warm lamp that travels with the hero through the dusk
 
+  // ── idle-flicker kill ──────────────────────────────────────────────────────
+  // All ambient motion (camera drift, breathing, belt, sparkles) runs on `vtime`,
+  // a clock that ONLY advances while the user is scrolling. When scroll stops,
+  // vtime freezes → every sin(time) holds still → no perpetual sub-pixel edge crawl
+  // (the "whole screen flickers at rest" bug). movingRef gates the belt + sparkles.
+  const lastP = useRef(0)
+  const vel = useRef(0)
+  const vtime = useRef(0)
+  const movingRef = useRef(true)
+  // Sparkles run on their own live clock (can't share vtime), so a rare move/idle
+  // state toggle freezes them at rest too — dust motes hold still, not twinkle.
+  const [ambient, setAmbient] = useState(true)
+  const ambientRef = useRef(true)
+
   // stage-word textures per leg (EN/FR via locale), + crossfade state. Legs 0..4
   // ride with the box (Paper…Shipped); leg 5 "Delivered" is raised beside the girl
   // only at the catch (never a travelling gate label).
@@ -75,25 +89,31 @@ export default function Scene({ frozen = false, progress }) {
   const stageGroup = useRef()
   const shownLeg = useRef(-1)
 
-  useFrame((state) => {
-    const time = frozen ? 0 : state.clock.elapsedTime
+  useFrame((state, delta) => {
     const p = frozen ? 1 : THREE.MathUtils.clamp(progress?.current ?? 0, 0, 1)
+    // scroll velocity → is the user actively scrolling? vtime only ticks while moving.
+    const dp = Math.abs(p - lastP.current); lastP.current = p
+    vel.current = Math.max(dp, vel.current * 0.9)
+    const moving = !frozen && vel.current > 2e-4
+    movingRef.current = moving
+    if (moving !== ambientRef.current) { ambientRef.current = moving; setAmbient(moving) } // rare flip → freezes sparkles at rest
+    if (moving) vtime.current += Math.min(delta, 0.05)
+    const time = frozen ? 0 : vtime.current
     const activeF = mapActiveF(p)
     const bx = mapBookX(p)
 
-    // ── hero rides the belt; box stops beside the girl, she reaches + it morphs ──
-    const handoff = handoffOf(p) // 0 = riding/waiting, →1 = reached, jumped, settled
-    // world box fades out only AFTER she has fully leaned in over it (lean completes
-    // ~0.28), so the pick sprite's held box is coincident with the world box as it
-    // fades → they read as one box, zero pop.
-    const boxFade = 1 - smooth(0.30, 0.46, handoff)
+    // ── hero rides the belt; box stops beside the girl (DELIVERED), she celebrates ──
+    // R8-B: Harry's jumping GLB is a box-less joy-leap (open, raised hands), so the
+    // box is NOT morphed into her hands — it stays DELIVERED on the belt (green tick)
+    // at its rest point while she leaps for joy beside it. One box, always on the belt.
+    const handoff = handoffOf(p) // 0 = riding/waiting, →1 = leaped + landed
     const book = bookApi.current
     if (book?.root) {
       book.root.position.x = bx
       book.root.position.y = frozen ? 0 : Math.sin(time * 1.6) * 0.012
       book.root.rotation.y = frozen ? -0.28 : -0.26 + Math.sin(time * 0.5) * 0.04
-      book.root.visible = boxFade > 0.002
-      book.apply(activeF, time, boxFade)
+      book.root.visible = true
+      book.apply(activeF, time, 1)
     }
     if (girlApi.current) girlApi.current.apply(handoff, time, camera.position.x)
     if (heroLight.current) heroLight.current.position.set(bx, 1.6, 1.3) // travels with the hero
@@ -113,23 +133,22 @@ export default function Scene({ frozen = false, progress }) {
     })
 
     // ── floating stage word ──────────────────────────────────────────────────
-    // While the box rides (handoff 0): the leg caption (Paper…Shipped) floats with
-    // it, fading out at each gate crossing. At the catch: it swaps to "Delivered",
-    // parks UP and LEFT of the girl (clear of her and the box at every frame), and
-    // glows through the end HOLD.
+    // The leg caption (Paper…Shipped) floats above the box and fades at each gate.
+    // "Delivered" arrives the SAME WAY as "Shipped": as the box reaches the final
+    // gate/girl zone it fades in (deliv, keyed on p — NOT on the jump), then hangs
+    // above the delivery point through the leap and the end HOLD.
     if (stageGroup.current && stageMat.current) {
+      const deliv = smooth(0.75, 0.83, p) // Delivered presence — box reaching the girl
       let leg, op, wx, wy
-      if (handoff <= 0.001) {
-        leg = legIndex(activeF) // 0..4 — never "Delivered" while travelling
+      if (deliv < 0.02) {
+        leg = legIndex(activeF) // 0..4 — Paper…Shipped
         const gd = Math.abs(activeF - Math.round(activeF))
         op = smooth(0.09, 0.34, gd)
         wx = bx; wy = 1.34 + Math.sin(time * 0.8) * 0.02
       } else {
-        leg = 5 // "Delivered"
-        // fade in during the settle (after the apex) so it never crosses the
-        // airborne box; parked up-and-left, clear of her and the box at every frame.
-        op = smooth(0.58, 0.82, handoff)
-        wx = ENDING.girlX - 1.95; wy = 2.72 + Math.sin(time * 0.8) * 0.02
+        leg = 5 // "Delivered" — hangs above the delivery point, clear of the leap
+        op = deliv
+        wx = ENDING.girlX - 1.55; wy = 1.46 + Math.sin(time * 0.8) * 0.02
       }
       if (leg !== shownLeg.current) { shownLeg.current = leg; stageMat.current.map = legTex[leg]; stageMat.current.needsUpdate = true }
       stageMat.current.opacity = op
@@ -140,17 +159,25 @@ export default function Scene({ frozen = false, progress }) {
     // At the catch the focus eases from the box toward the girl so the delivery is
     // framed, then holds there through the end beat.
     const focusX = lerp(bx, ENDING.girlX - 0.35, smooth(0.1, 0.72, handoff))
+    // the leap goes high — raise the look target and ease the camera back at the apex
+    // so the whole arc (and the box overhead) stays framed, then settle for the hold.
+    const apex = smooth(0.16, 0.30, handoff) * (1 - smooth(0.42, 0.80, handoff))
     const k = frozen ? 1 : CAM.ease
     const tx = focusX + CAM.side + Math.sin(time * 0.16) * CAM.drift
-    const ty = CAM.y + Math.sin(time * 0.22) * 0.06
+    const ty = CAM.y + apex * 0.7 + Math.sin(time * 0.22) * 0.06
     const d = Math.abs(activeF - Math.round(activeF))
     const push = frozen ? 0 : (1 - THREE.MathUtils.clamp(d / 0.5, 0, 1)) ** 2
-    const tz = CAM.z - push * 0.5
+    const tz = CAM.z - push * 0.5 + apex * 1.4
     camera.position.x += (tx - camera.position.x) * k
     camera.position.y += (ty - camera.position.y) * k
     camera.position.z += (tz - camera.position.z) * k
     lookX.current += (focusX - lookX.current) * (frozen ? 1 : 0.12)
-    camera.lookAt(lookX.current, CAM.lookY + Math.sin(time * 0.2) * 0.02, 0)
+    // once idle AND settled, SNAP to the target so there is zero sub-pixel drift —
+    // a perfectly still frame at rest (nothing for the antialiaser to crawl on).
+    if (!moving && Math.abs(tx - camera.position.x) < 0.004) {
+      camera.position.set(tx, ty, tz); lookX.current = focusX
+    }
+    camera.lookAt(lookX.current, CAM.lookY + apex * 0.85 + Math.sin(time * 0.2) * 0.02, 0)
   })
 
   return (
@@ -171,7 +198,7 @@ export default function Scene({ frozen = false, progress }) {
       {/* warm lamp travelling with the hero so it never falls into darkness */}
       <pointLight ref={heroLight} position={[xs[0], 1.6, 1.3]} intensity={7} distance={5.5} decay={2} color={'#F7CE86'} />
 
-      <Belt running={!frozen} />
+      <Belt running={!frozen} runningRef={movingRef} />
 
       {/* stations + their warm light pools (machine lamps at dusk) */}
       {STATIONS.map((s, i) => {
@@ -194,7 +221,7 @@ export default function Scene({ frozen = false, progress }) {
               <meshBasicMaterial map={pool} transparent opacity={0.4} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
             </mesh>
             {/* dust motes drifting in the pool */}
-            <Sparkles count={14} scale={[1.4, 1.8, 1.2]} position={[x, 0.9, 0]} size={1.5} speed={frozen ? 0 : 0.18} opacity={0.5} color={'#F0D49A'} />
+            <Sparkles count={14} scale={[1.4, 1.8, 1.2]} position={[x, 0.9, 0]} size={1.5} speed={frozen || !ambient ? 0 : 0.18} opacity={0.5} color={'#F0D49A'} />
           </group>
         )
       })}

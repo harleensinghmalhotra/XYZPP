@@ -27,13 +27,16 @@ function makeSurfaceTexture() {
 // (R6: the 4-point brand "sparkle" that sat on the rail was the reference image's
 // AI watermark faithfully reproduced — removed. Dust motes in the pools remain.)
 
-export default function Belt({ running = true }) {
+export default function Belt({ running = true, runningRef }) {
   const surf = useMemo(makeSurfaceTexture, [])
   const halfW = BELT.width / 2
   const topY = BELT.y
 
+  // The belt scrolls only while the user is scrolling (runningRef) — at rest it
+  // holds still so its texture (and its reflection) never shimmers the screen.
   useFrame((_, dt) => {
-    if (running) surf.offset.x -= Math.min(dt, 0.05) * 0.12
+    const run = runningRef ? runningRef.current : running
+    if (run) surf.offset.x -= Math.min(dt, 0.05) * 0.12
   })
 
   return (
