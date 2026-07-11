@@ -17,8 +17,27 @@ import { Howl, Howler } from 'howler'
 const SRC = '/qfp/hero/sfx/keyboard-typing.wav'
 const IDLE_PAUSE_MS = 160 // pause the bed this long after the last typed char
 
+// GLOBAL SOUND STATE — one flag rules the whole site (hero typing bed + Cases
+// page-turn SFX + any future sound moment). It defaults ON and remembers the
+// user's choice forever in localStorage('qfp-sound'): '1' = on, '0' = muted,
+// absent = on. Nothing is ever loaded or played on import — ON only means the
+// FIRST user-gesture sound moment fires without an extra unmute step; browser
+// autoplay policy is still honoured because every play() sits behind a gesture
+// (a page flip, the toggle, a click that has unlocked WebAudio).
+const STORE_KEY = 'qfp-sound'
+
+function readStored() {
+  try {
+    const v = localStorage.getItem(STORE_KEY)
+    return v === null ? true : v === '1' // default ON; only an explicit '0' mutes
+  } catch { return true }
+}
+function persist(on) {
+  try { localStorage.setItem(STORE_KEY, on ? '1' : '0') } catch { /* private mode — in-memory only */ }
+}
+
 let bed = null
-let enabled = false
+let enabled = readStored()
 let idleTimer = null
 
 function ensureLoaded() {
@@ -29,12 +48,14 @@ function ensureLoaded() {
 export const typingSound = {
   isEnabled: () => enabled,
   enable() {
+    enabled = true
+    persist(true)
     ensureLoaded()
     Howler.mute(false)
-    enabled = true
   },
   disable() {
     enabled = false
+    persist(false)
     clearTimeout(idleTimer)
     if (bed) bed.stop()
   },
@@ -46,9 +67,13 @@ export const typingSound = {
   // Keep the typing bed alive while characters are being added. Each call (re)arms
   // an idle timer; when no new characters arrive for IDLE_PAUSE_MS the bed pauses,
   // resuming seamlessly on the next keystroke. No-op when disabled or on delete
-  // (charsAdded <= 0, e.g. a reverse scroll untyping).
+  // (charsAdded <= 0, e.g. a reverse scroll untyping). Under default-ON the bed is
+  // lazy-loaded on the first typed char (the scroll/gesture that drives typing) so
+  // the hero no longer needs the toggle click as its unlock — Howler.autoUnlock
+  // defers playback to the first real gesture, so this never autoplays uninvited.
   click(charsAdded) {
-    if (!enabled || charsAdded <= 0 || !bed) return
+    if (!enabled || charsAdded <= 0) return
+    ensureLoaded()
     if (!bed.playing()) bed.play()
     clearTimeout(idleTimer)
     idleTimer = setTimeout(() => { if (bed) bed.pause() }, IDLE_PAUSE_MS)

@@ -73,7 +73,7 @@ export default function Hero() {
   const typing = useRef(null) // TypingBookOverlay imperative handle
   const elRefs = useRef([])
   const bubbleRefs = useRef([])
-  const [soundOn, setSoundOn] = useState(false)
+  const [soundOn, setSoundOn] = useState(() => typingSound.isEnabled()) // default ON, or the user's remembered choice
 
   const cutouts = useMemo(() => CUTOUTS, [])
 
