@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
+import { typingSound } from '@/lib/typingSound'
 import './Cases.css'
 
 // ── Case Studies — THE OPEN BOOK ─────────────────────────────────────────────
@@ -35,6 +36,14 @@ const CASES = [
 ]
 
 const FLIP_MS = 560 // JS lock slightly longer than the 520ms CSS leaf turn
+
+// Page-turn SFX — a quiet paper fold that fires the instant a leaf starts turning.
+// One recording, one <Audio> element: we reset currentTime to 0 on every turn so a
+// fast flipper restarts the sound cleanly instead of stacking overlapping voices.
+// Volume sits low (0.35) — a real page turn is barely there; it should feel like
+// part of the fold, not a notification.
+const TURN_SRC = '/qfp/sounds/page-turn.wav'
+const TURN_VOL = 0.35
 
 // QA seam (same spirit as ?ether=off / ?glow=olive / ?hideRestricted elsewhere):
 // `?flip=<ms>` slows the page-turn so its mid-flip frames can be captured. Default
@@ -104,6 +113,36 @@ export default function Cases() {
   }, [])
   useEffect(() => () => clearTimeout(timer.current), [])
 
+  // Page-turn SFX. The Audio object is created lazily on mount (a visitor who never
+  // renders this section pays nothing) and told to preload='auto' so the sample is
+  // decoded and ready by the first flip — no gap between fold and fold-sound. A
+  // missing/404 file just leaves a silent element: play() rejects and we swallow it.
+  const turnAudio = useRef(null)
+  useEffect(() => {
+    const a = new Audio(TURN_SRC)
+    a.preload = 'auto'
+    a.volume = TURN_VOL
+    turnAudio.current = a
+    return () => { turnAudio.current = null }
+  }, [])
+
+  // Fire one paper-turn. Called at flip START by every turn path (spine, arrows,
+  // keyboard, swipe) — never on mount or the default render. Gated three ways:
+  //   • only in `flat` (flip) mode — reduced-motion / narrow get the silent crossfade;
+  //   • only when the global sound toggle is ON — the hero's mute is law here;
+  //   • currentTime reset to 0 so rapid flips restart the sample, never stack it.
+  const playTurn = () => {
+    if (!flat) return
+    if (!typingSound.isEnabled()) return
+    const a = turnAudio.current
+    if (!a) return
+    try {
+      a.currentTime = 0
+      const p = a.play()
+      if (p && typeof p.catch === 'function') p.catch(() => {})
+    } catch { /* file missing / not ready — stay silent, never throw */ }
+  }
+
   // Resolve every case with the compliance gate applied (heading + desc).
   const cases = CASES.map((c) => ({
     ...c,
@@ -127,6 +166,7 @@ export default function Cases() {
       return
     }
     busy.current = true
+    playTurn() // paper turn fires with the fold, not after it
     setFlip({ from: active, dir })
     setActive(target)
     timer.current = setTimeout(() => {
