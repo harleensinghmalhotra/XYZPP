@@ -56,7 +56,7 @@ function makeStageWord(text) {
 }
 
 export default function Scene({ frozen = false, progress }) {
-  const { t } = useTranslation('homeProcess')
+  const { t, i18n } = useTranslation('homeProcess')
   const { camera } = useThree()
   const bookApi = useRef()
   const girlApi = useRef()
@@ -199,7 +199,7 @@ export default function Scene({ frozen = false, progress }) {
         return (
           <group key={s.key}>
             <group position={[x, 0, 0]}>
-              <Station index={i} title={t(`stages.${s.key}.name`)} scan={s.key === 'quality'} register={(api) => (stationApis.current[i] = api)} />
+              <Station index={i} title={t(`stages.${s.key}.name`)} scan={s.key === 'quality'} register={(api) => (stationApis.current[i] = api)} swapKey={s.key} lang={i18n.language} />
             </group>
             {/* warm lamp above the gate — stronger, warmer machine-lamp pool */}
             <pointLight position={[x, LABEL_Y - 0.2, 0.5]} intensity={11} distance={6.5} decay={2} color={'#F8CE84'} />

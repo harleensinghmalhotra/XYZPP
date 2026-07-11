@@ -1,7 +1,21 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { Billboard } from '@react-three/drei'
 import { ARCH, APEX_Y, LABEL_Y, EKTA } from './constants'
+
+// ── Dormant Canva-override swap path ─────────────────────────────────────────
+// If Harry drops a finished plaque PNG at
+//   public/qfp/conveyor/plaques/plaque-<key>[-fr].png
+// it REPLACES the canvas-drawn plaque face for that station; when the folder is
+// empty (as shipped) the canvas text renders exactly as before — pixel-identical.
+// We PROBE with a HEAD fetch first: a 404 resolves to res.ok===false (no console
+// error, unlike a failed <img>/texture load), and we only load when the response
+// is a real image, so an SPA 200-fallback can never poison the plaque either.
+// Template kit + spec: "FLOW assets/plaque templates/".
+const overrideUrl = (key, lang) => {
+  const fr = typeof lang === 'string' && lang.toLowerCase().startsWith('fr')
+  return `/qfp/conveyor/plaques/plaque-${key}${fr ? '-fr' : ''}.png`
+}
 
 // ── Reference arch gate (ref V1/MAIN), shortened for R5 ──────────────────────
 // Slim rounded "∩" hoop, matte navy, thin gold inner trim; the white label sign is
@@ -83,7 +97,7 @@ function makeLabelTexture(num, title) {
   return t
 }
 
-export default function Station({ index, title, scan, register }) {
+export default function Station({ index, title, scan, register, swapKey, lang }) {
   const navyGeo = useMemo(() => {
     const g = new THREE.ExtrudeGeometry(archShape(ARCH.half, ARCH.legW), {
       depth: ARCH.depth, bevelEnabled: true, bevelSize: 0.015, bevelThickness: 0.015, bevelSegments: 2, curveSegments: 30,
@@ -96,6 +110,34 @@ export default function Station({ index, title, scan, register }) {
     return g
   }, [])
   const labelTex = useMemo(() => makeLabelTexture(index + 1, title), [index, title])
+
+  // Dormant swap: if a Canva PNG exists for this station it takes over the plaque
+  // face; absent, the canvas texture above stays in place (nothing changes today).
+  const plaqueMat = useRef(null)
+  useEffect(() => {
+    if (!swapKey || typeof fetch === 'undefined') return
+    let cancelled = false
+    let overrideTex = null
+    const url = overrideUrl(swapKey, lang)
+    fetch(url, { method: 'HEAD' })
+      .then((res) => {
+        if (cancelled || !res.ok) return
+        const ct = res.headers.get('content-type') || ''
+        if (!ct.startsWith('image/')) return // SPA 200-fallback or non-image → keep canvas
+        overrideTex = new THREE.TextureLoader().load(
+          url,
+          (tx) => {
+            tx.anisotropy = 8
+            tx.colorSpace = labelTex.colorSpace
+            if (!cancelled && plaqueMat.current) { plaqueMat.current.map = tx; plaqueMat.current.needsUpdate = true }
+          },
+          undefined,
+          () => {}, // load failed → silently keep the canvas face
+        )
+      })
+      .catch(() => {})
+    return () => { cancelled = true; if (overrideTex) overrideTex.dispose() }
+  }, [swapKey, lang, labelTex])
 
   const api = useMemo(() => ({ trimF: null, trimB: null, coneMat: null, laserMat: null }), [])
   useEffect(() => { register(api) }, [register, api])
@@ -134,7 +176,7 @@ export default function Station({ index, title, scan, register }) {
       <Billboard position={[0, LABEL_Y, 0]}>
         <mesh>
           <planeGeometry args={[0.94, 0.94 / (862 / 649)]} />
-          <meshBasicMaterial map={labelTex} transparent toneMapped={false} />
+          <meshBasicMaterial ref={plaqueMat} map={labelTex} transparent toneMapped={false} />
         </mesh>
       </Billboard>
 
