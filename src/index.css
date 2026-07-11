@@ -1108,66 +1108,54 @@ body {
   }
 }
 
-/* ── Global Projects — dark cinematic proof band ─────────────────────────────
-   Palette: navy #0F2444, navy2 #1B3A6B, gold #9B7420, gold2 #C89A3C,
-   cream #FDFAF4. Fonts: Inter Tight (title/name), Inter (body), DM Mono (eyebrow).
-   ACCENT-ONLY FONT: Great Vibes (cursive) is sanctioned for the single "Global
-   Reach" header eyebrow accent (gold2 #C89A3C, ~24px) and NOWHERE else on the
-   site — do not reuse it for body, labels, or other eyebrows.
-   Text on navy is kept ≥4.5:1; labels ≥11px. GPU-only motion. */
+/* ── Global Projects — the globe on its stage ────────────────────────────────
+   The realistic Earth is the jewel; everything around it was rebuilt. Stage:
+   deep near-black navy velvet (Promise-black family, below --navy), a sparse
+   static star field and a warm gold backlight halo behind the sphere. The dotted
+   world-map behind the globe is GONE (map-behind-a-map = noise).
+   Palette: gold #9B7420 / gold-2 #C89A3C, cream #FDFAF4 / cream-3 #F5F0E8.
+   Fonts: Inter Tight (title/name), Inter (body), DM Mono (eyebrows/labels ≥11px).
+   Text on the dark ground kept ≥4.5:1. GPU-only motion. */
 .proj {
   position: relative;
   overflow: hidden;
-  background: #0f2444;
-  padding: clamp(80px, 10vh, 130px) 56px clamp(72px, 9vh, 112px);
+  /* deep near-black navy velvet with a soft navy lift toward the globe so the
+     planet floats on a graded ground, not a flat slab. */
+  background:
+    radial-gradient(120% 82% at 62% 34%, #10203c 0%, #0a1424 44%, #070c18 100%),
+    #070c18;
+  padding: clamp(80px, 10vh, 130px) 56px clamp(80px, 10vh, 120px);
   isolation: isolate;
 }
-/* dotted world map behind everything + a navy scrim for text legibility */
-.proj-map {
+
+/* THE STAGE — star field + vignette, sitting behind all content */
+.proj-stage {
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  overflow: hidden;
 }
-.proj-map-img {
+.proj-stars { position: absolute; inset: 0; }
+.proj-star {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 42%;
-  opacity: 0.42; /* sits back so the globe owns the "dotted" motif */
+  border-radius: 50%;
+  background: #f5f0e8;
+  box-shadow: 0 0 3px rgba(245, 240, 232, 0.35);
 }
-.proj-map::after {
-  content: '';
+/* barely-there twinkle on ~40% of the stars (opacity only, GPU-cheap) */
+.proj-star.is-tw { animation: proj-twinkle 5.6s ease-in-out infinite; }
+@keyframes proj-twinkle {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.16; }
+}
+/* keep the corners deep so nothing competes with the globe's halo */
+.proj-vignette {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, #0f2444 0%, rgba(15,36,68,0.78) 34%, rgba(15,36,68,0.35) 66%, rgba(15,36,68,0.55) 100%),
-    linear-gradient(180deg, #0f2444 0%, transparent 22%, transparent 78%, #0f2444 100%);
-}
-/* gold market pulses (decorative) */
-.proj-pulse {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  margin: -3px 0 0 -3px;
-  border-radius: 50%;
-  background: #c89a3c;
-  box-shadow: 0 0 9px rgba(200,154,60,0.6);
-}
-.proj-pulse::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 1px solid rgba(200,154,60,0.55);
-  animation: proj-ping 3.6s ease-out infinite;
-}
-@keyframes proj-ping {
-  0% { transform: scale(1); opacity: 0.8; }
-  70% { opacity: 0; }
-  100% { transform: scale(3.4); opacity: 0; }
+    radial-gradient(120% 92% at 50% 40%, transparent 42%, rgba(3, 7, 15, 0.55) 100%),
+    linear-gradient(180deg, rgba(3, 7, 15, 0.6) 0%, transparent 16%, transparent 82%, rgba(3, 7, 15, 0.7) 100%);
 }
 
 .proj-inner {
@@ -1243,15 +1231,16 @@ body {
   margin: 0 auto;
   aspect-ratio: 1 / 1;
 }
-.proj-globe::before { /* warm backdrop bloom so the sphere separates from the navy band */
+.proj-globe::before { /* warm gold backlight halo — the jewel floats on velvet */
   content: '';
   position: absolute;
-  inset: -14%;
+  inset: -24%;
   z-index: -1;
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(70, 108, 168, 0.38) 0%, rgba(15, 36, 68, 0) 64%),
-    radial-gradient(circle, rgba(200, 154, 60, 0.20) 34%, rgba(200, 154, 60, 0) 58%);
+    radial-gradient(circle, rgba(200, 154, 60, 0.36) 0%, rgba(200, 154, 60, 0.13) 30%, rgba(200, 154, 60, 0) 58%),
+    radial-gradient(circle, rgba(96, 132, 192, 0.26) 0%, rgba(15, 36, 68, 0) 62%);
+  filter: blur(6px);
 }
 /* react-globe.gl injects its own <canvas>; keep it square + transparent-backed so
    the section navy + the bloom above read as space. Fade in to avoid a hard pop. */
@@ -1266,158 +1255,25 @@ body {
   from { opacity: 0; transform: scale(0.94); }
   to { opacity: 1; transform: scale(1); }
 }
-/* no-WebGL / error fallback → the section's own dotted worldmap */
+/* no-WebGL / error fallback → a calm CSS "planet" disc (no dotted world-map) */
 .proj-globe-fallback {
   position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-}
-.proj-globe-fallback img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  opacity: 0.7;
-}
-
-/* region cards — cursor-following gold spotlight (MagicCard) */
-.proj-regions {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-top: clamp(44px, 6vh, 72px);
-}
-/* Aceternity "Author Card": full-bleed photo, navy overlay that LIGHTENS on
-   hover while the image zooms (the photo "comes alive"), text pinned bottom. */
-.proj-region {
-  position: relative;
-  overflow: hidden;
-  height: clamp(440px, 32vw, 500px);
-  border-radius: 0;
-  border: 1px solid rgba(200, 154, 60, 0.14);
-  isolation: isolate;
-  /* Fable-level layered stack: tight contact + mid ambient + deep soft lift +
-     a whisper of gold ambience — the card floats above the map with real weight. */
+  inset: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 34%, #24467d 0%, #14294c 46%, #0b1a33 100%);
   box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.4),
-    0 12px 32px rgba(0, 0, 0, 0.35),
-    0 40px 90px -20px rgba(0, 0, 0, 0.55),
-    0 0 60px -20px rgba(200, 154, 60, 0.15);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
-}
-.proj-region:hover {
-  transform: translateY(-6px);
-  /* stack deepens + lifts: contact firms, ambient spreads, soft shadow drops
-     further, gold ambience warms — smooth via the shared box-shadow transition. */
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.45),
-    0 20px 44px rgba(0, 0, 0, 0.4),
-    0 60px 120px -22px rgba(0, 0, 0, 0.62),
-    0 0 84px -18px rgba(200, 154, 60, 0.22);
-}
-/* media (base + photo) — scales 1.06 on hover, GPU transform only */
-.proj-region-media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.proj-region:hover .proj-region-media { transform: scale(1.06); }
-/* navy gradient placeholder — shows if a photo is ever missing (never blank) */
-.proj-region-base {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(158deg, #1b3a6b 0%, #12294c 55%, #0f2444 100%);
-}
-.proj-region-photo { /* real region photo (silent CSS bg; base shows if missing) */
-  position: absolute;
-  inset: 0;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-/* flat navy overlay — dims the photo at rest, LIGHTENS on hover so it comes alive */
-.proj-region-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: rgba(15, 36, 68, 0.62);
-  transition: background 0.5s ease;
-}
-.proj-region:hover .proj-region-overlay { background: rgba(15, 36, 68, 0.30); }
-/* fixed scrim (does NOT lighten on hover) → guarantees text legibility both states.
-   Strong at the bottom (title/body) + a moderate top band (the tag). */
-.proj-region-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background: linear-gradient(to top,
-    rgba(10, 20, 40, 0.95) 0%, rgba(10, 20, 40, 0.86) 20%,
-    rgba(10, 20, 40, 0.22) 46%, rgba(10, 20, 40, 0) 60%,
-    rgba(10, 20, 40, 0) 78%, rgba(10, 20, 40, 0.6) 100%);
-}
-/* content, pinned bottom-left. Fixed height → its top edge sits at an identical Y
-   on every card, so the title zone (first child) always starts at the same line. */
-.proj-region-content {
-  position: absolute;
-  z-index: 3;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: clamp(212px, 16vw, 248px);
-  display: flex;
-  flex-direction: column;
-  padding: 28px 26px 28px;
-}
-/* title zone — reserves 2 lines on ALL cards, text anchored to the TOP of the zone.
-   1-line titles (Africa/Asia) still occupy 2 lines of space, so every title's first
-   line starts at the identical Y; the body copy flows below. */
-.proj-region-name {
-  margin: 0 0 12px;
-  min-height: 2.12em; /* 2 lines × 1.06 line-height */
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;
-  font-size: clamp(26px, 2vw, 30px);
-  letter-spacing: -0.5px;
-  line-height: 1.06;
-  color: #fdfaf4;
-}
-.proj-region-text {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 13px;
-  line-height: 1.65;
-  color: rgba(253, 250, 244, 0.86);
-}
-.proj-region-text strong { color: #e6bd6a; font-weight: 500; }
-
-/* ── editorial ledger — Anthropic-style restraint: one hero stat + quiet rows.
-   No boxes, no cards, no glow. Hierarchy through scale + typographic calm. ──── */
-.proj-ledger {
-  position: relative;
-  margin-top: clamp(56px, 8vh, 104px);
-  isolation: isolate;
-}
-/* single soft gold light pass on entry (same family as the press-line flash);
-   GSAP sweeps it across once (~900ms), then it lives at opacity 0 forever. */
-.proj-ledger-flash {
-  position: absolute;
-  z-index: 3;
-  inset: -3% -6%;
-  pointer-events: none;
-  opacity: 0;
-  background: linear-gradient(105deg,
-    transparent 24%, rgba(200, 154, 60, 0.5) 47%,
-    rgba(255, 244, 214, 0.55) 52%, rgba(200, 154, 60, 0.5) 57%, transparent 78%);
-  mix-blend-mode: screen;
+    0 0 0 1px rgba(200, 154, 60, 0.5),
+    0 0 60px -8px rgba(200, 154, 60, 0.4),
+    inset -18px -22px 60px rgba(0, 0, 0, 0.6);
 }
 
-/* hero stat — the one loud idea */
-.ledger-hero { position: relative; z-index: 1; max-width: 900px; }
-.ledger-hero-label {
-  margin: 0 0 clamp(14px, 2vh, 22px);
+/* ── DESTINATION PANELS — three tall navy-warm duotone region posters ─────────
+   Airline-destination energy: big name in the display face + one headline stat.
+   Hover/focus: image warms + gentle zoom, panel lifts; the globe (via the JS
+   handlers) swings to face that region and brightens its arcs. */
+.proj-dests { margin-top: clamp(52px, 8vh, 92px); }
+.proj-dests-eyebrow {
+  margin: 0 0 22px;
   font-family: 'DM Mono', monospace;
   font-weight: 500;
   font-size: 12px;
@@ -1425,79 +1281,312 @@ body {
   text-transform: uppercase;
   color: #c89a3c;
 }
-.ledger-hero-num {
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 800;
-  font-size: clamp(72px, 10vw, 140px);
-  line-height: 1;
-  letter-spacing: -3px;
-  color: #fdfaf4;
-}
-.ledger-hero-story {
-  margin: clamp(18px, 2.6vh, 30px) 0 0;
-  max-width: 620px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: clamp(17px, 1.4vw, 20px);
-  line-height: 1.6;
-  color: rgba(253, 250, 244, 0.8);
-}
-.ledger-hero-story strong { color: #fdfaf4; font-weight: 400; }
-
-/* the seven quiet rows — hairline separators, no boxes */
-.proj-ledger-rows {
-  position: relative;
-  z-index: 1;
-  margin-top: clamp(40px, 6vh, 72px);
-  border-top: 1px solid rgba(253, 250, 244, 0.12);
-}
-.ledger-row {
+.proj-dests-grid {
   display: grid;
-  grid-template-columns: minmax(160px, 1fr) auto minmax(220px, 1.5fr);
-  align-items: baseline;
-  gap: clamp(16px, 3vw, 52px);
-  padding: clamp(22px, 2.6vh, 26px) 8px;
-  border-bottom: 1px solid rgba(253, 250, 244, 0.12);
-  transition: background 0.3s ease;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 1.6vw, 24px);
 }
-.ledger-row:hover { background: rgba(253, 250, 244, 0.03); }
-.ledger-name {
+.proj-dest {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  height: clamp(420px, 40vw, 560px);
+  isolation: isolate;
+  text-decoration: none;
+  border: 1px solid rgba(200, 154, 60, 0.16);
+  /* 2.7-elevation layered stack: tight contact + ambient + deep soft lift */
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 18px 44px rgba(0, 0, 0, 0.4),
+    0 44px 90px -22px rgba(0, 0, 0, 0.6);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease, border-color 0.5s ease;
+}
+.proj-dest:hover, .proj-dest:focus-visible {
+  transform: translateY(-8px);
+  border-color: rgba(200, 154, 60, 0.4);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.5),
+    0 30px 64px rgba(0, 0, 0, 0.46),
+    0 70px 130px -24px rgba(0, 0, 0, 0.66),
+    0 0 90px -20px rgba(200, 154, 60, 0.3);
+}
+.proj-dest:focus-visible { outline: 2px solid #c89a3c; outline-offset: 3px; }
+/* media — grayscale photo + navy-warm duotone (navy multiply, gold screen) */
+.proj-dest-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  isolation: isolate;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.proj-dest:hover .proj-dest-media, .proj-dest:focus-visible .proj-dest-media { transform: scale(1.06); }
+.proj-dest-base {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(158deg, #1b3a6b 0%, #12294c 55%, #0f2444 100%);
+}
+.proj-dest-photo {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: grayscale(1) contrast(1.05) brightness(0.95);
+  transition: filter 0.55s ease;
+}
+.proj-dest:hover .proj-dest-photo, .proj-dest:focus-visible .proj-dest-photo {
+  filter: grayscale(0.3) contrast(1.04) brightness(1.05); /* warms + comes alive */
+}
+.proj-dest-navy { /* shadows → navy */
+  position: absolute;
+  inset: 0;
+  background: #0c1c38;
+  mix-blend-mode: multiply;
+  opacity: 0.8;
+  transition: opacity 0.55s ease;
+}
+.proj-dest:hover .proj-dest-navy, .proj-dest:focus-visible .proj-dest-navy { opacity: 0.72; }
+.proj-dest-gold { /* highlights → warm gold */
+  position: absolute;
+  inset: 0;
+  background: #caa14a;
+  mix-blend-mode: screen;
+  opacity: 0.3;
+  transition: opacity 0.55s ease;
+}
+.proj-dest:hover .proj-dest-gold, .proj-dest:focus-visible .proj-dest-gold { opacity: 0.44; }
+/* fixed scrim → text legibility both states (does not lighten on hover) */
+.proj-dest-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top,
+    rgba(6, 12, 24, 0.94) 0%, rgba(6, 12, 24, 0.8) 22%,
+    rgba(6, 12, 24, 0.18) 50%, rgba(6, 12, 24, 0) 66%, rgba(6, 12, 24, 0) 100%);
+}
+.proj-dest-content {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: clamp(24px, 2vw, 34px);
+}
+.proj-dest-kicker {
+  display: block;
+  margin-bottom: 12px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #c89a3c;
+}
+.proj-dest-name {
+  margin: 0 0 16px;
   font-family: 'Inter Tight', sans-serif;
   font-weight: 600;
-  font-size: clamp(16px, 1.3vw, 19px);
-  letter-spacing: -0.2px;
+  font-size: clamp(26px, 2.3vw, 38px);
+  line-height: 1.04;
+  letter-spacing: -0.5px;
   color: #fdfaf4;
 }
-.ledger-num {
-  justify-self: start;
+.proj-dest-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(200, 154, 60, 0.32);
+}
+.proj-dest-stat-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: clamp(30px, 2.6vw, 42px);
+  line-height: 1;
+  letter-spacing: -1px;
+  color: #c89a3c;
+  font-variant-numeric: tabular-nums;
+}
+.proj-dest-stat-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(12px, 1vw, 14px);
+  letter-spacing: 0.2px;
+  color: rgba(245, 240, 232, 0.8);
+}
+.proj-dest-go {
+  position: absolute;
+  z-index: 2;
+  top: clamp(20px, 1.8vw, 28px);
+  right: clamp(20px, 1.8vw, 28px);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: #fdfaf4;
+  background: rgba(10, 18, 34, 0.5);
+  border: 1px solid rgba(245, 240, 232, 0.28);
+  transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
+}
+.proj-dest:hover .proj-dest-go, .proj-dest:focus-visible .proj-dest-go {
+  background: #c89a3c;
+  color: #0f2444;
+  border-color: #c89a3c;
+  transform: translateY(-2px);
+}
+
+/* ── SHIPMENT RECORDS — passport-stamped printed-label cards ──────────────────
+   Country in DM Mono caps, the big figure in gold (odometer roll-up), one human
+   line (unit · authority). Perforated left edge + a circular postmark stamp give
+   the printing-company "shipping label" detail. Uniform heights via a common
+   floor + a bottom-pinned figure line. Hover pulses that country on the globe. */
+.proj-records { margin-top: clamp(56px, 8vh, 104px); }
+.proj-records-eyebrow {
+  margin: 0 0 22px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c89a3c;
+}
+.proj-records-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+  gap: clamp(14px, 1.4vw, 20px);
+}
+.proj-rec {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 224px;
+  padding: 22px 22px 22px 30px; /* extra left for the perforation strip */
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(20, 32, 56, 0.7) 0%, rgba(12, 20, 38, 0.72) 100%);
+  border: 1px solid rgba(245, 240, 232, 0.1);
+  border-left: none; /* the perforation owns the left edge */
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+}
+.proj-rec::before { /* gold hairline top — the printing accent */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #9b7420 0%, #c89a3c 55%, transparent 100%);
+}
+.proj-rec:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200, 154, 60, 0.35);
+  background: linear-gradient(180deg, rgba(26, 42, 72, 0.82) 0%, rgba(14, 24, 44, 0.82) 100%);
+  box-shadow: 0 20px 46px -18px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(200, 154, 60, 0.14);
+}
+.proj-rec.is-featured { grid-column: span 2; }
+/* perforated left edge — ticket-stub dots */
+.proj-rec-perf {
+  position: absolute;
+  left: 9px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background-image: radial-gradient(circle, rgba(245, 240, 232, 0.5) 0 1.3px, transparent 1.6px);
+  background-size: 2px 9px;
+  background-repeat: repeat-y;
+  opacity: 0.65;
+}
+/* circular postmark stamp (rows) — rotated DM Mono unit label */
+.proj-rec-stamp {
+  position: absolute;
+  top: 15px;
+  right: 13px;
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 154, 60, 0.4);
+  transform: rotate(-13deg);
+  padding: 6px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: 8.5px;
+  letter-spacing: 1px;
+  line-height: 1.15;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(200, 154, 60, 0.72);
+  pointer-events: none;
+}
+.proj-rec-stamp::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px dotted rgba(200, 154, 60, 0.3);
+}
+/* featured milestone gets a ribbon stamp instead of a round postmark */
+.proj-rec.is-featured .proj-rec-stamp {
+  width: auto;
+  height: auto;
+  border-radius: 2px;
+  transform: none;
+  padding: 5px 11px;
+  top: 16px;
+  right: 16px;
+  background: rgba(200, 154, 60, 0.14);
+  border-color: rgba(200, 154, 60, 0.5);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #c89a3c;
+}
+.proj-rec.is-featured .proj-rec-stamp::before { display: none; }
+.proj-rec-country {
+  margin-top: 6px;
+  max-width: 62%; /* stay clear of the stamp */
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: clamp(12px, 1vw, 13px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #f5f0e8;
+}
+.proj-rec-num {
+  margin-top: auto; /* pin the figure + line to the bottom → uniform baseline */
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
   font-family: 'Inter Tight', sans-serif;
   font-weight: 700;
-  font-size: clamp(28px, 2.4vw, 32px);
+  font-size: clamp(38px, 3.4vw, 52px);
   line-height: 1;
-  letter-spacing: -0.5px;
+  letter-spacing: -1.5px;
   color: #c89a3c;
   font-variant-numeric: tabular-nums;
 }
-/* unit word — "8M+ Books" reads as one unit: quieter, smaller, cream, beside the figure */
-.ledger-unit {
+.proj-rec.is-featured .proj-rec-num { font-size: clamp(54px, 5vw, 84px); }
+.proj-rec-num .odo { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4)); }
+.proj-rec-unit {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
-  font-size: clamp(13px, 1vw, 15px);
+  font-size: clamp(12px, 1vw, 14px);
   letter-spacing: 0.1px;
-  color: rgba(253, 250, 244, 0.7);
-  white-space: nowrap;
+  color: rgba(245, 240, 232, 0.74);
 }
-.ledger-desc {
+.proj-rec-line {
+  margin: 12px 0 0;
+  max-width: 44ch;
   font-family: 'Inter', sans-serif;
   font-weight: 300;
-  font-size: clamp(13px, 1vw, 15px);
+  font-size: clamp(12px, 1vw, 13.5px);
   line-height: 1.5;
-  text-align: right;
-  color: rgba(253, 250, 244, 0.66); /* ≈4.7:1 on navy */
+  color: rgba(245, 240, 232, 0.72);
 }
+.proj-rec-line strong { color: #fdfaf4; font-weight: 500; }
 
 /* odometer — masked vertical digit reels. Each digit box clips a 20-cell strip
    to a 1em window; the reel translates (yPercent) to lock on its target. */
@@ -1513,43 +1602,26 @@ body {
 }
 .odo-dot, .odo-suffix { display: inline-block; }
 
-/* ── metallic-foil number treatment ──────────────────────────────────────────
-   HERO 10M+ gets a cream→gold gradient FILL (foil, not flat). Depth + warm bloom
-   come from filter:drop-shadow (works through gradient-clipped text, unlike
-   text-shadow, and rides along with the odometer reel masking without fighting
-   it). Rows keep a solid gold fill + the same bloom (foil there would make the
-   digits transparent, which axe can't contrast-check — so foil is hero-only). */
-.ledger-hero-num .odo-cell, .ledger-hero-num .odo-suffix, .ledger-hero-num .odo-dot,
-.ledger-hero-num .odo--static {
-  /* RELAXED per client feedback: Ekta's big stats are FLAT solid gold, never
-     foil-clipped and never glowing. Solid gold-2 (#C89A3C, 5.3:1 on navy). */
-  color: var(--gold-2);
-}
-/* rows are the same solid gold — one contrast-checkable colour on every row. */
+/* the odometer figures inherit the solid gold-2 fill from .proj-rec-num — one
+   contrast-checkable colour on every card (Ekta's big stats are flat gold, never
+   foil-clipped, never glowing). */
 
-/* subtle depth only (no gold bloom — foil/glow retired to match her flat accent) */
-.ledger-hero-num .odo {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
-}
-.ledger-num .odo {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
-}
-
-@media (max-width: 720px) {
-  .ledger-row {
-    grid-template-columns: 1fr auto;
-    gap: 4px 16px;
-  }
-  .ledger-desc { grid-column: 1 / -1; text-align: left; opacity: 0.9; }
+@media (max-width: 1024px) {
+  .proj-dests-grid { grid-template-columns: 1fr; }
+  .proj-dest { height: clamp(320px, 52vw, 460px); }
 }
 @media (max-width: 900px) {
-  .proj { padding: 72px 24px 64px; }
+  .proj { padding: 72px 24px 72px; }
   .proj-top { grid-template-columns: 1fr; }
   .proj-globe { max-width: 380px; order: -1; }
-  .proj-regions { grid-template-columns: 1fr; }
+  .proj-records-rail { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+@media (max-width: 560px) {
+  .proj-records-rail { grid-template-columns: 1fr; }
+  .proj-rec.is-featured { grid-column: 1 / -1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .proj-pulse::after { animation: none; opacity: 0.4; }
+  .proj-star.is-tw { animation: none; }
   .proj-globe[data-phase='ready'] { animation: none; }
 }
 

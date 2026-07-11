@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation, Trans } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -8,58 +8,48 @@ import Globe3D from '@/components/Globe3D'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ── Global Projects — the dark cinematic proof band ──────────────────────────
-// Navy showpiece: a dotted world map behind, a slow auto-rotating photoreal Earth
-// (react-globe.gl, see Globe3D) with gold arcs/markers from Navi Mumbai to QFP's
-// export markets, a word-rise header (Promise pattern), three
-// cursor-spotlight region cards, and an 8-tile milestone wall whose numbers tick
-// up once on view. Reduced-motion → everything static/final. GPU-only.
+// ── Global Projects — the globe on its stage ─────────────────────────────────
+// The realistic Earth (react-globe.gl, see Globe3D) is the jewel; everything
+// around it was rebuilt for the revamp:
+//   • THE STAGE — deep near-black velvet, a sparse static star field and a warm
+//     gold backlight halo (the dotted world-map behind the globe is GONE).
+//   • DESTINATION PANELS — three tall duotone region posters (airline energy);
+//     hovering one swings the globe to face that region + brightens its arcs.
+//   • SHIPMENT RECORDS — the old excel-ledger is now a rail of passport-stamped
+//     shipment cards; hovering one pulses that country's arc/marker on the globe.
+// Reduced-motion → static globe, no reveals, no globe reactions. GPU-only.
 
 // One-line compliance switch: flip to false to drop HDFC + ZEE rows (they carry
 // the same client-permission flag as the trust strips). A `?hideRestricted` URL
 // param also forces them off for preview/QA without a code change.
 const SHOW_RESTRICTED_CLIENTS = true
 
-// ambient gold pulses over the map's market regions (decorative, tuned @1536)
-const PULSES = [
-  { left: '67.5%', top: '50%', d: 0 }, // India
-  { left: '57.5%', top: '64%', d: 1.1 }, // East Africa
-  { left: '49%', top: '55%', d: 2.0 }, // West Africa
-  { left: '53%', top: '62%', d: 0.6 }, // Central Africa
-  { left: '62%', top: '46%', d: 1.6 }, // Gulf
-]
+// Destination posters — text resolved from the homeProjects namespace by slug.
+// `slug` also names the Globe3D focus region (africa | asia | europe).
+const REGIONS = [{ slug: 'africa' }, { slug: 'asia' }, { slug: 'europe' }]
 
-// Region cards — text resolved from the homeProjects namespace by key/slug; the
-// body carries an embedded <strong> country list rendered via <Trans>.
-const REGIONS = [
-  { slug: 'africa' },
-  { slug: 'asia' },
-  { slug: 'europe' },
-]
-
-// The editorial ledger — one hero stat (loud) + seven quiet rows (understated).
-// The hero story names a government body; when SHOW_MINISTRY_NAMES is off it
-// falls back to a neutral national-programme phrasing (same layout, no hole).
-// hero numbers stay numeric; the story text (with its embedded <strong>) is
-// resolved from the namespace — the ministry gate picks the key, both variants
-// are translated (ledger.heroStory / ledger.heroStoryFallback).
+// The featured milestone (loud) + seven shipment records (quiet). The featured
+// story names a government body; when SHOW_MINISTRY_NAMES is off it falls back to
+// a neutral national-programme phrasing (same card, no hole).
 const HERO = {
   value: '10',
   suffix: 'M+',
   storyKey: SHOW_MINISTRY_NAMES ? 'ledger.heroStory' : 'ledger.heroStoryFallback',
+  globeTarget: 'Tanzania',
 }
 // `ministry: true` rows carry government / ministry / programme names gated behind
 // SHOW_MINISTRY_NAMES; `restricted: true` rows carry commercial client names gated
 // behind SHOW_RESTRICTED_CLIENTS. Either gate filters its rows out cleanly.
-// `key` → stable i18n key (name/desc); `unitKey` → unit label key. Numbers numeric.
+// `key` → stable i18n key (name/desc); `unitKey` → unit label key; `globeTarget`
+// → the Globe3D marker/arc this record pulses ('__HQ' for the India-side rows).
 const LEDGER = [
-  { key: 'nigeria', num: '8', unitKey: 'books', ministry: true },
-  { key: 'cotedivoire', num: '4', unitKey: 'books', ministry: true },
-  { key: 'drcongo', num: '3.5', unitKey: 'books', ministry: true },
-  { key: 'usaidghana', num: '2', unitKey: 'books', ministry: true },
-  { key: 'maharashtra', num: '1.5', unitKey: 'books', ministry: true },
-  { key: 'hdfc', num: '1.3', unitKey: 'books', restricted: true },
-  { key: 'zee', num: '0.5', unitKey: 'kits', restricted: true },
+  { key: 'nigeria', num: '8', unitKey: 'books', ministry: true, globeTarget: 'Nigeria' },
+  { key: 'cotedivoire', num: '4', unitKey: 'books', ministry: true, globeTarget: 'Côte d’Ivoire' },
+  { key: 'drcongo', num: '3.5', unitKey: 'books', ministry: true, globeTarget: 'DR Congo' },
+  { key: 'usaidghana', num: '2', unitKey: 'books', ministry: true, globeTarget: 'Ghana' },
+  { key: 'maharashtra', num: '1.5', unitKey: 'books', ministry: true, globeTarget: '__HQ' },
+  { key: 'hdfc', num: '1.3', unitKey: 'books', restricted: true, globeTarget: '__HQ' },
+  { key: 'zee', num: '0.5', unitKey: 'kits', restricted: true, globeTarget: '__HQ' },
 ]
 
 // two stacked 0–9 sets → the reel does one full loop then locks on the target,
@@ -69,27 +59,67 @@ const REEL_CELLS = Array.from({ length: 20 }, (_, i) => i % 10)
 
 const words = (s) => s.split(' ')
 
-function RegionCard({ slug, t }) {
+// Deterministic sparse star field (seeded → stable across renders, no hydration
+// flicker). ~64 tiny dots; ~40% barely twinkle (opacity only; killed under RM).
+function mulberry32(a) {
+  return function () {
+    a |= 0
+    a = (a + 0x6d2b79f5) | 0
+    let t = Math.imul(a ^ (a >>> 15), 1 | a)
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+const STARS = (() => {
+  const r = mulberry32(0x134af7)
+  return Array.from({ length: 64 }, () => ({
+    left: +(r() * 100).toFixed(2),
+    top: +(r() * 100).toFixed(2),
+    s: +(0.8 + r() * 1.6).toFixed(2),
+    o: +(0.22 + r() * 0.55).toFixed(2),
+    tw: r() < 0.42,
+    d: +(r() * 6).toFixed(2),
+  }))
+})()
+
+// ── Destination poster — full-bleed navy-warm duotone, big name + one stat.
+// Hovering (or focusing) it swings the globe to face the region and brightens its
+// arcs. href="#" for now — per-region pages are built later, per client.
+function DestPanel({ slug, t, onFocus, onReset }) {
+  const name = t(`regions.${slug}.name`)
+  const stat = t(`regions.${slug}.stat`)
+  const statLabel = t(`regions.${slug}.statLabel`)
   return (
-    <article className="proj-region">
-      <div className="proj-region-media">
-        <div className="proj-region-base" aria-hidden="true" />
-        {/* silent CSS-bg photo: a missing file simply reveals the navy base (no 404) */}
-        <div
-          className="proj-region-photo"
-          aria-hidden="true"
-          style={{ backgroundImage: `url(/qfp/regions/region-${slug}.webp)` }}
-        />
+    // TODO(region-pages): point href to the per-region destination page once the
+    // client scopes+approves them; keep the globe-focus + stat as the poster.
+    <a
+      className="proj-dest"
+      href="#"
+      data-region={slug}
+      aria-label={`${name} — ${stat} ${statLabel}`}
+      onClick={(e) => e.preventDefault()}
+      onMouseEnter={onFocus}
+      onMouseLeave={onReset}
+      onFocus={onFocus}
+      onBlur={onReset}
+    >
+      <div className="proj-dest-media" aria-hidden="true">
+        <div className="proj-dest-base" />
+        <div className="proj-dest-photo" style={{ backgroundImage: `url(/qfp/regions/region-${slug}.webp)` }} />
+        <div className="proj-dest-navy" />
+        <div className="proj-dest-gold" />
       </div>
-      <div className="proj-region-overlay" aria-hidden="true" />
-      <div className="proj-region-scrim" aria-hidden="true" />
-      <div className="proj-region-content">
-        <h3 className="proj-region-name">{t(`regions.${slug}.name`)}</h3>
-        <p className="proj-region-text">
-          <Trans t={t} i18nKey={`regions.${slug}.body`} components={{ strong: <strong /> }} />
-        </p>
+      <div className="proj-dest-scrim" aria-hidden="true" />
+      <div className="proj-dest-content">
+        <span className="proj-dest-kicker">{t(`regions.${slug}.tag`)}</span>
+        <h3 className="proj-dest-name">{name}</h3>
+        <div className="proj-dest-stat">
+          <span className="proj-dest-stat-num">{stat}</span>
+          <span className="proj-dest-stat-label">{statLabel}</span>
+        </div>
       </div>
-    </article>
+      <span className="proj-dest-go" aria-hidden="true">→</span>
+    </a>
   )
 }
 
@@ -119,10 +149,33 @@ function Odometer({ value, suffix = 'M+', reduced }) {
   )
 }
 
+// One shipment record — printed-label / passport-stamp card. Country in DM Mono
+// caps, the big figure in gold, one human line (unit · authority). Hovering it
+// pulses that country's arc/marker on the globe.
+function RecordCard({ country, unit, story, line, stamp, num, suffix, reduced, featured, onPulse, onReset }) {
+  return (
+    <article
+      className={`proj-rec${featured ? ' is-featured' : ''}`}
+      onMouseEnter={onPulse}
+      onMouseLeave={onReset}
+    >
+      <span className="proj-rec-perf" aria-hidden="true" />
+      <span className="proj-rec-stamp" aria-hidden="true">{stamp}</span>
+      <span className="proj-rec-country">{country}</span>
+      <span className="proj-rec-num">
+        <Odometer value={num} suffix={suffix} reduced={reduced} />
+        <span className="proj-rec-unit">{unit}</span>
+      </span>
+      {story ? <p className="proj-rec-line">{story}</p> : <p className="proj-rec-line">{line}</p>}
+    </article>
+  )
+}
+
 export default function Projects() {
   const { t } = useTranslation('homeProjects')
   const root = useRef(null)
-  const ledger = useRef(null)
+  const recordsRef = useRef(null)
+  const globe = useRef(null)
   const [reduced] = useState(prefersReduced)
 
   const hideParam = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('hideRestricted')
@@ -130,6 +183,13 @@ export default function Projects() {
   const rows = LEDGER.filter(
     (r) => (SHOW_MINISTRY_NAMES || !r.ministry) && (showRestricted || !r.restricted),
   )
+
+  const stars = useMemo(() => STARS, [])
+
+  // globe-conversation handlers (no-op targets when reduced → Globe3D guards it)
+  const focusRegion = (slug) => globe.current?.focusRegion(slug)
+  const pulse = (target) => globe.current?.pulseCountry(target)
+  const releaseGlobe = () => globe.current?.reset()
 
   useLayoutEffect(() => {
     if (reduced) return
@@ -140,52 +200,54 @@ export default function Projects() {
       gsap.set(q('.pw'), { autoAlpha: 0, yPercent: 80, filter: 'blur(8px)' })
       gsap.set(q('.proj-sub'), { autoAlpha: 0, y: 14 })
       gsap.set(q('.proj-globe'), { autoAlpha: 0, scale: 0.92 })
-      gsap.set(q('.proj-region'), { autoAlpha: 0, y: 26 })
+      gsap.set(q('.proj-dests-eyebrow'), { autoAlpha: 0, y: 12 })
+      gsap.set(q('.proj-dest'), { autoAlpha: 0, y: 26 })
 
       const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: 'top 74%', once: true } })
       tl.to(q('.proj-head .proj-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' })
         .to(q('.pw'), { autoAlpha: 1, yPercent: 0, filter: 'blur(0px)', duration: 0.7, stagger: 0.055, ease: 'power3.out' }, 0.1)
-        .to(q('.proj-globe'), { autoAlpha: 1, scale: 1, duration: 0.9, ease: 'power2.out' }, 0.15)
+        .to(q('.proj-globe'), { autoAlpha: 1, scale: 1, duration: 0.9, ease: 'power2.out', clearProps: 'transform' }, 0.15)
         .to(q('.proj-sub'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '>-0.5')
-        .to(q('.proj-region'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, '>-0.3')
+        .to(q('.proj-dests-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '>-0.2')
+        .to(q('.proj-dest'), { autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.1, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, '>-0.3')
 
-      // editorial ledger — own trigger so it fires as the block enters
-      // roll a set of reels to their data-d targets. yPercent = -(10 + d) * 5:
-      // one full 0–9 loop (10 cells) then land on d, within the 20-cell strip.
+      // shipment records — own trigger so they fire as the rail enters.
       const roll = (sel, vars) =>
         gsap.fromTo(q(sel), { yPercent: 0 },
           { yPercent: (i, el) => -(10 + Number(el.dataset.d)) * 5, ...vars })
 
-      gsap.set(q('.ledger-hero-label, .ledger-hero-story'), { autoAlpha: 0, y: 12 })
-      gsap.set(q('.ledger-hero-num'), { autoAlpha: 0, y: 16 })
-      gsap.set(q('.ledger-row'), { autoAlpha: 0, y: 18 })
+      gsap.set(q('.proj-records-eyebrow'), { autoAlpha: 0, y: 12 })
+      gsap.set(q('.proj-rec'), { autoAlpha: 0, y: 22 })
 
-      const tl2 = gsap.timeline({ scrollTrigger: { trigger: ledger.current, start: 'top 78%', once: true } })
-      // 1 · single soft gold light pass over the whole block (once, ~900ms)
-      tl2.fromTo(q('.proj-ledger-flash'),
-        { autoAlpha: 0, xPercent: -35 },
-        { autoAlpha: 0.15, duration: 0.34, ease: 'power1.in' }, 0)
-        .to(q('.proj-ledger-flash'), { autoAlpha: 0, xPercent: 135, duration: 0.56, ease: 'power1.out' }, 0.34)
-      // 2 · hero stat — label, then the huge number rolls (left-first), then story
-        .to(q('.ledger-hero-label'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.15)
-        .to(q('.ledger-hero-num'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.2)
-        .add(roll('.ledger-hero .odo-reel', { duration: 1.2, ease: 'power3.out', stagger: 0.09 }), 0.25)
-        .to(q('.ledger-hero-story'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.55)
-      // 3 · the quiet rows cascade in (~60ms apart); each number rolls as it lands.
-      //     clearProps hands rows back to CSS so the :hover whisper works.
-        .to(q('.ledger-row'), { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, 0.6)
-        .add(roll('.ledger-row .odo-reel', { duration: 0.8, ease: 'power2.out', stagger: 0.05 }), 0.66)
+      const tl2 = gsap.timeline({ scrollTrigger: { trigger: recordsRef.current, start: 'top 80%', once: true } })
+      tl2.to(q('.proj-records-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' })
+        .to(q('.proj-rec'), { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.07, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, 0.05)
+        .add(roll('.proj-rec .odo-reel', { duration: 1.0, ease: 'power3.out', stagger: 0.04 }), 0.18)
     }, root)
     return () => ctx.revert()
   }, [reduced])
 
   return (
     <section id="projects" ref={root} data-theme="dark" className="proj" aria-labelledby="proj-title">
-      <div className="proj-map" aria-hidden="true">
-        <img className="proj-map-img" src="/qfp/worldmap-dots.webp" alt="" loading="lazy" decoding="async" />
-        {PULSES.map((p, i) => (
-          <span key={i} className="proj-pulse" style={{ left: p.left, top: p.top, animationDelay: `${p.d}s` }} />
-        ))}
+      {/* THE STAGE — near-black velvet, sparse stars, gold backlight (on the globe) */}
+      <div className="proj-stage" aria-hidden="true">
+        <div className="proj-stars">
+          {stars.map((st, i) => (
+            <span
+              key={i}
+              className={`proj-star${st.tw ? ' is-tw' : ''}`}
+              style={{
+                left: `${st.left}%`,
+                top: `${st.top}%`,
+                width: `${st.s}px`,
+                height: `${st.s}px`,
+                opacity: st.o,
+                animationDelay: `${st.d}s`,
+              }}
+            />
+          ))}
+        </div>
+        <div className="proj-vignette" />
       </div>
 
       <div className="proj-inner">
@@ -202,36 +264,54 @@ export default function Projects() {
             </h2>
             <p className="proj-sub">{t('sub')}</p>
           </div>
-          <Globe3D reduced={reduced} />
+          <Globe3D ref={globe} reduced={reduced} />
         </div>
 
-        <div className="proj-regions">
-          {REGIONS.map((r) => <RegionCard key={r.slug} slug={r.slug} t={t} />)}
-        </div>
-
-        <div className="proj-ledger" ref={ledger}>
-          <span className="proj-ledger-flash" aria-hidden="true" />
-
-          <div className="ledger-hero">
-            <p className="ledger-hero-label">{t('ledger.heroLabel')}</p>
-            <div className="ledger-hero-num">
-              <Odometer value={HERO.value} suffix={HERO.suffix} reduced={reduced} />
-            </div>
-            <p className="ledger-hero-story">
-              <Trans t={t} i18nKey={HERO.storyKey} components={{ strong: <strong /> }} />
-            </p>
+        {/* DESTINATION PANELS */}
+        <div className="proj-dests">
+          <p className="proj-dests-eyebrow">{t('destinationsEyebrow')}</p>
+          <div className="proj-dests-grid">
+            {REGIONS.map((r) => (
+              <DestPanel
+                key={r.slug}
+                slug={r.slug}
+                t={t}
+                onFocus={() => focusRegion(r.slug)}
+                onReset={releaseGlobe}
+              />
+            ))}
           </div>
+        </div>
 
-          <div className="proj-ledger-rows">
+        {/* SHIPMENT RECORDS */}
+        <div className="proj-records" ref={recordsRef}>
+          <p className="proj-records-eyebrow">{t('ledger.recordsEyebrow')}</p>
+          <div className="proj-records-rail">
+            <RecordCard
+              featured
+              country={t('ledger.heroCountry')}
+              unit={t('ledger.units.books')}
+              stamp={t('ledger.heroLabel')}
+              num={HERO.value}
+              suffix={HERO.suffix}
+              reduced={reduced}
+              story={<Trans t={t} i18nKey={HERO.storyKey} components={{ strong: <strong /> }} />}
+              onPulse={() => pulse(HERO.globeTarget)}
+              onReset={releaseGlobe}
+            />
             {rows.map((r) => (
-              <div className="ledger-row" key={r.key}>
-                <span className="ledger-name">{t(`ledger.rows.${r.key}.name`)}</span>
-                <span className="ledger-num">
-                  <Odometer value={r.num} suffix="M+" reduced={reduced} />
-                  <span className="ledger-unit">{t(`ledger.units.${r.unitKey}`)}</span>
-                </span>
-                <span className="ledger-desc">{t(`ledger.rows.${r.key}.desc`)}</span>
-              </div>
+              <RecordCard
+                key={r.key}
+                country={t(`ledger.rows.${r.key}.name`)}
+                unit={t(`ledger.units.${r.unitKey}`)}
+                stamp={t(`ledger.units.${r.unitKey}`)}
+                num={r.num}
+                suffix="M+"
+                reduced={reduced}
+                line={t(`ledger.rows.${r.key}.desc`)}
+                onPulse={() => pulse(r.globeTarget)}
+                onReset={releaseGlobe}
+              />
             ))}
           </div>
         </div>

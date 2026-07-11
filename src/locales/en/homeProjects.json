@@ -3,25 +3,34 @@
   "titleA": "Printed in India.",
   "titleB": "Read by the World.",
   "sub": "Governments, publishers and development organisations across 25+ countries trust us to get the job done, on spec, on schedule, every time. That's not a coincidence, it's the standard we hold ourselves to.",
+  "destinationsEyebrow": "Destinations",
   "regions": {
     "africa": {
       "tag": "Africa",
       "name": "Africa",
+      "stat": "10+",
+      "statLabel": "Countries served",
       "body": "Our largest export market. We partner with Ministries of Education across <strong>Nigeria, Kenya, Uganda, Ghana, Cameroon, Rwanda, Tanzania, Zambia, Côte d'Ivoire, DR Congo and more</strong> to deliver World Bank, USAID and UN funded education projects."
     },
     "asia": {
       "tag": "Asia",
       "name": "Asia",
+      "stat": "2+",
+      "statLabel": "Countries served",
       "body": "End-to-end solutions, print, kit, pack and deliver direct to schools, eliminating operational challenges for publishers and institutions across <strong>India, UAE</strong>, and expanding further."
     },
     "europe": {
       "tag": "Americas & Europe",
       "name": "USA, Europe & Latin America",
+      "stat": "5",
+      "statLabel": "Countries served",
       "body": "Activity books, trade books, colouring books and stationery supplied to leading publishers and major retail chains across <strong>USA, UK, Mexico, Spain and Germany</strong>."
     }
   },
   "ledger": {
-    "heroLabel": "Milestone Projects",
+    "recordsEyebrow": "Shipment Records",
+    "heroLabel": "Milestone Project",
+    "heroCountry": "Tanzania",
     "heroStory": "Books for the <strong>Tanzania Institute of Education</strong>: 4M of them delivered within 60 days.",
     "heroStoryFallback": "Books for a <strong>national education programme</strong>: 4M of them delivered within 60 days.",
     "units": {

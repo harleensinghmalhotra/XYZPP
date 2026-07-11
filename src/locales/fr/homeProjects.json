@@ -3,25 +3,34 @@
   "titleA": "Imprimé en Inde.",
   "titleB": "Lu par le monde.",
   "sub": "Gouvernements, éditeurs et organisations de développement dans plus de 25 pays nous confient leurs projets pour les mener à bien, conformes au cahier des charges, dans les délais, à chaque fois. Ce n'est pas un hasard, c'est l'exigence que nous nous imposons.",
+  "destinationsEyebrow": "Destinations",
   "regions": {
     "africa": {
       "tag": "Afrique",
       "name": "Afrique",
+      "stat": "10+",
+      "statLabel": "Pays desservis",
       "body": "Notre plus grand marché à l'export. Nous collaborons avec les ministères de l'Éducation du <strong>Nigéria, du Kenya, de l'Ouganda, du Ghana, du Cameroun, du Rwanda, de la Tanzanie, de la Zambie, de la Côte d'Ivoire, de la RD Congo et bien d'autres</strong> pour réaliser des projets éducatifs financés par la Banque mondiale, l'USAID et l'ONU."
     },
     "asia": {
       "tag": "Asie",
       "name": "Asie",
+      "stat": "2+",
+      "statLabel": "Pays desservis",
       "body": "Des solutions de bout en bout : impression, assemblage, emballage et livraison directe aux écoles, éliminant les contraintes opérationnelles des éditeurs et des institutions en <strong>Inde, aux Émirats arabes unis</strong>, avec une expansion continue."
     },
     "europe": {
       "tag": "Amériques et Europe",
       "name": "États-Unis, Europe et Amérique latine",
+      "stat": "5",
+      "statLabel": "Pays desservis",
       "body": "Livres d'activités, livres grand public, livres de coloriage et articles de papeterie fournis aux grands éditeurs et aux principales chaînes de distribution aux <strong>États-Unis, au Royaume-Uni, au Mexique, en Espagne et en Allemagne</strong>."
     }
   },
   "ledger": {
-    "heroLabel": "Projets marquants",
+    "recordsEyebrow": "Registre d'expéditions",
+    "heroLabel": "Projet marquant",
+    "heroCountry": "Tanzanie",
     "heroStory": "Livres pour le <strong>Tanzania Institute of Education</strong> : dont 4 millions livrés en 60 jours.",
     "heroStoryFallback": "Livres pour un <strong>programme éducatif national</strong> : dont 4 millions livrés en 60 jours.",
     "units": {
