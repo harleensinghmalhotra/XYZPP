@@ -67,14 +67,14 @@ export default function CTAFooter() {
         <div className="flex flex-col sm:flex-row items-center gap-4" style={{ fontFamily: INTER }}>
           <a
             href="mailto:info@quarterfoldltd.com"
-            className="focus-ring inline-flex h-14 items-center justify-center rounded-none bg-[#c89a3c] px-10 text-[15px] font-semibold text-[#0f2444] transition-all duration-300 hover:bg-[#e6bd6a] hover:scale-[1.02] active:scale-[0.98]"
+            className="btn-nebula focus-ring inline-flex h-14 items-center justify-center rounded-none bg-[#c89a3c] px-10 text-[15px] font-semibold text-[#0f2444] transition-all duration-300 hover:bg-[#e6bd6a] hover:scale-[1.02] active:scale-[0.98]"
             style={{ letterSpacing: '0.2px' }}
           >
             {t('cta.requestQuote')}
           </a>
           <a
             href="#"
-            className="focus-ring inline-flex h-14 items-center justify-center rounded-none bg-transparent border border-[#fdfaf4]/40 px-10 text-[15px] font-semibold text-[#fdfaf4] transition-all duration-300 hover:bg-[#fdfaf4]/10 hover:scale-[1.02] active:scale-[0.98]"
+            className="btn-nebula focus-ring inline-flex h-14 items-center justify-center rounded-none bg-transparent border border-[#fdfaf4]/40 px-10 text-[15px] font-semibold text-[#fdfaf4] transition-all duration-300 hover:bg-[#fdfaf4]/10 hover:scale-[1.02] active:scale-[0.98]"
             style={{ letterSpacing: '0.2px' }}
           >
             {t('cta.downloadProfile')}

@@ -50,6 +50,7 @@
      eight inner pages + homepage can no longer drift. See recon/CONSISTENCY-AUDIT.md
      §F and recon/EKTA-DESIGN-DNA.md §§2,5. ──────────────────────────────────── */
   --r-card: 0px;             /* square — Ekta uses 0 on cards/buttons/badges */
+  --r-btn: 0px;              /* button corner — the future radius pass moves this ≤2px; nebula ring inherits it */
   --r-media: 0px;
   --r-chip: 2px;             /* her only non-zero box radius (mono chips, dropdown) */
   --r-pill: 0px;             /* legacy "pills" square off */
@@ -174,6 +175,88 @@
 .u-btn--ghost  { background: transparent; border-color: rgba(245, 240, 232, 0.5); color: var(--cream-3); }
 .u-btn--ghost:hover  { background: var(--cream-3); color: var(--navy); border-color: var(--cream-3); }
 .u-btn:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
+
+/* ── GALAXY-NEBULA CTA AURA — the homepage button language ─────────────────────
+   Adapted (not copied) from Uiverse "galaxy" (zaby_4213), rebranded strictly in
+   palette: a rotating conic FOIL RING that lives on the button's edge as the
+   border, plus a faint drifting star layer. Built as an ADD-ON — .btn-nebula
+   layers onto any existing button (u-btn, Tailwind-inline, .cs-cta …) WITHOUT
+   touching its fill / padding / type. The ring is fill-agnostic: it is masked to
+   the border band only (::before), so the button's own background always shows
+   through the centre — ghost, outline, gold and navy fills all keep their look.
+   Square by law (border-radius: var(--r-btn)); the ring inherits the token so the
+   future radius pass carries it automatically.
+
+   ::before = the conic nebula, masked to a ring, blurred to a warm foil aura,
+              rotating via the animatable --nb-angle (paint-only, box never moves,
+              so square corners stay square).
+   ::after  = the star layer — three cream dots that drift on hover.            */
+@property --nb-angle {
+  syntax: '<angle>'; inherits: false; initial-value: 0deg;
+}
+@keyframes nebula-spin { to { --nb-angle: 360deg; } }
+
+.btn-nebula {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--r-btn);
+  /* knobs — override per surface via the modifier below */
+  --nb-ring: 3px;            /* ring band thickness */
+  --nb-blur: 8px;            /* foil softness */
+  --nb-op: 0.55;             /* resting aura — warm, not neon */
+  --nb-op-hover: 0.9;
+  --nb-speed: 4s;
+  --nb-speed-hover: 2s;
+  --nb-star: rgba(253, 250, 244, 0.9);   /* cream stars on dark fills */
+}
+.btn-nebula::before,
+.btn-nebula::after {
+  content: ""; position: absolute; inset: 0;
+  border-radius: inherit; pointer-events: none; z-index: -1;
+}
+/* the rotating foil ring — conic gradient masked to the border band only */
+.btn-nebula::before {
+  padding: var(--nb-ring);
+  background: conic-gradient(from var(--nb-angle) at 50% 50%,
+    #0F2444 0deg, #9B7420 60deg, #C9A96A 120deg,
+    #0F2444 180deg, #6B7A2A 240deg, #9B7420 300deg, #0F2444 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  opacity: var(--nb-op);
+  filter: blur(var(--nb-blur));
+  animation: nebula-spin var(--nb-speed) linear infinite;
+}
+/* the star drift layer — tiny dots over the fill, below the label */
+.btn-nebula::after {
+  background-image:
+    radial-gradient(1.5px 1.5px at 22% 32%, var(--nb-star), transparent 60%),
+    radial-gradient(1.4px 1.4px at 72% 58%, var(--nb-star), transparent 60%),
+    radial-gradient(1px   1px   at 46% 78%, var(--nb-star), transparent 60%);
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  transition: background-position 0.6s ease, opacity 0.4s ease;
+}
+.btn-nebula:hover::before { opacity: var(--nb-op-hover); animation-duration: var(--nb-speed-hover); }
+.btn-nebula:hover::after  { opacity: 0.85; background-position: 4px -3px, -5px 4px, 3px 5px; }
+.btn-nebula:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
+.btn-nebula:active        { transform: scale(0.96); }
+
+/* CREAM-surface variant — same ring, but drop the cream stars (they read as
+   noise on the small cream buttons) and lift the resting aura a touch so the
+   foil still reads against the lighter ground. */
+.btn-nebula--light { --nb-op: 0.85; --nb-op-hover: 1; --nb-blur: 5px; --nb-ring: 3.5px; }
+.btn-nebula--light::after { display: none; }
+
+/* Accessibility: reduced motion → static ring, no rotation, no star drift,
+   opacity pinned at resting; the foil stays as a still gold frame. */
+@media (prefers-reduced-motion: reduce) {
+  .btn-nebula::before { animation: none; opacity: var(--nb-op); }
+  .btn-nebula:hover::before { opacity: var(--nb-op); animation: none; }
+  .btn-nebula::after, .btn-nebula:hover::after { transition: none; }
+  .btn-nebula:active { transform: none; }
+}
 
 /* ── ONE CARD — square, cream-2, 1px navy-10% hairline, soft navy-tinted lift ── */
 .u-card {
@@ -1277,8 +1360,12 @@ body {
   position: relative;
   overflow: hidden;
   /* deep near-black navy velvet with a soft navy lift toward the globe so the
-     planet floats on a graded ground, not a flat slab. */
+     planet floats on a graded ground, not a flat slab. The FIRST layer is a
+     seam-bridge: its top edge is the exact colour the conveyor above dissolves to
+     (#0c192e), fading out over 220px — so the two sections meet on one shared navy
+     with no horizontal line, at any scroll position or the pin-release frame. */
   background:
+    linear-gradient(to bottom, #0c192e 0%, rgba(12, 25, 46, 0) 220px),
     radial-gradient(120% 82% at 62% 34%, #10203c 0%, #0a1424 44%, #070c18 100%),
     #070c18;
   padding: clamp(80px, 10vh, 130px) 56px clamp(80px, 10vh, 120px);

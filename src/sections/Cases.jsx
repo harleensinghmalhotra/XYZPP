@@ -67,7 +67,7 @@ function LeftPage({ c, t }) {
         ))}
       </div>
       <p className="cs-body">{c.desc}</p>
-      <a href="#" className="cs-cta" onClick={(e) => e.preventDefault()} tabIndex={-1}>
+      <a href="#" className="cs-cta btn-nebula btn-nebula--light" onClick={(e) => e.preventDefault()} tabIndex={-1}>
         {t('readMore')}
       </a>
     </div>

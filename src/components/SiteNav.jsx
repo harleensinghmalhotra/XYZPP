@@ -108,7 +108,7 @@ export default function SiteNav() {
           {/* Square navy ghost button — fills navy on hover (Ekta's .nav-cta). */}
           <Link
             to="/contact"
-            className="focus-ring hidden items-center gap-1.5 border-[1.5px] border-[#0f2444] px-[22px] py-[10px] text-[13px] font-medium text-[#0f2444] transition-colors duration-200 hover:bg-[#0f2444] hover:text-[#fdfaf4] sm:inline-flex"
+            className="btn-nebula btn-nebula--light focus-ring hidden items-center gap-1.5 border-[1.5px] border-[#0f2444] px-[22px] py-[10px] text-[13px] font-medium text-[#0f2444] transition-colors duration-200 hover:bg-[#0f2444] hover:text-[#fdfaf4] sm:inline-flex"
             style={{ fontFamily: INTER, letterSpacing: '0.3px' }}
           >
             {t('requestQuote')}

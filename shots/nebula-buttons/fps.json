@@ -1,0 +1,13 @@
+{
+  "viewport": {
+    "width": 1536,
+    "height": 743
+  },
+  "dpr": 1.25,
+  "note": "full-homepage scroll 0→bottom over 5s, nebula ON",
+  "frames": 283,
+  "medianFps": 147.1,
+  "avgFps": 56.6,
+  "worstFrameMs": 43.4,
+  "above55": true
+}
