@@ -2021,6 +2021,45 @@ body {
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* ── FACILITY PLACEHOLDER PANEL — designed stand-in until real photography lands.
+   Reuses the .infra-photo/.infra-card-photo frame (square, 16/11, slab shadow, the
+   same breakout) so a delivered .webp drops in with zero layout shift. Solid deep
+   navy ground + an ultra-faint navy-tonal dot grid + a centred gold stroke mark and
+   DM Mono caption. Reads "dressed while awaiting photography", never broken. */
+.infra-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f2444; /* solid deep navy ground */
+}
+.infra-ph-pattern { /* navy-tonal dot grid, ~4% — present but never loud */
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1.6px);
+  background-size: 15px 15px;
+  background-position: center;
+}
+.infra-ph-mark {
+  position: relative; /* above the pattern */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  text-align: center;
+}
+.infra-ph-icon { color: #d3ab57; } /* gold stroke via currentColor */
+.infra-ph-cap {
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 2px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: #e6bd6a; /* light gold — AA on the deep-navy ground */
+}
+.infra-card:hover .infra-ph-icon { color: #e2ba64; } /* gentle warm-up with the card lift */
+
 /* video — Hero Video Dialog thumbnail card (16:9) */
 .infra-video { margin-top: clamp(20px, 3vh, 36px); }
 .infra-video-thumb {

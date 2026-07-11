@@ -24,14 +24,21 @@ const VIDEO_READY = false
 const VIDEO_SRC = '/qfp/infra/facility-walkthrough.mp4'
 
 // Text (title/body/caption/photo-note) resolved from the homeInfraSection
-// namespace by `n` (facilities.<n>.*); numeric ids + image paths stay hardcoded.
-const FACILITIES = [{ n: '01' }, { n: '02' }, { n: '03' }]
+// namespace by `n` (facilities.<n>.*); numeric ids + stroke-icon names stay hardcoded.
+// Harry rejected the facility photos — each card now shows a designed placeholder
+// panel (navy + gold stroke mark) that a real photo drops straight into later.
+const FACILITIES = [
+  { n: '01', icon: 'press' },   // 3 Print Facilities → printing press
+  { n: '02', icon: 'tower' },   // 20 Printing Towers → printing tower
+  { n: '03', icon: 'carton' },  // Warehouse & Fulfilment → boxes
+]
 
 // People captions resolved from people.captions.<n>.
 const PEOPLE = [{ n: '01' }, { n: '02' }, { n: '03' }, { n: '04' }]
 
 // Silent drop-in photo surface: navy placeholder (with a DM Mono note) sits UNDER
 // the real image layer, so a delivered .webp covers it with zero code change.
+// (Still used by the "Our People" portraits, which keep real photos.)
 function InfraPhoto({ src, note, className = '' }) {
   return (
     <div className={`infra-photo ${className}`}>
@@ -42,6 +49,53 @@ function InfraPhoto({ src, note, className = '' }) {
         aria-hidden="true"
         style={{ backgroundImage: `url(${src})` }}
       />
+    </div>
+  )
+}
+
+// Stroke icons reused verbatim from the /infrastructure page's MachineIcon so the
+// placeholder mark matches the existing site icon style (no new style invented).
+function FacilityIcon({ name }) {
+  const s = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.4, strokeLinecap: 'round', strokeLinejoin: 'round', pathLength: 1 }
+  return (
+    <svg className="infra-ph-icon" viewBox="0 0 48 48" width="46" height="46" aria-hidden="true">
+      {name === 'press' && (
+        <>
+          <path d="M8 30h32M8 30V16a2 2 0 0 1 2-2h28a2 2 0 0 1 2 2v14" {...s} />
+          <path d="M14 30v8h20v-8M20 14v-4h8v4" {...s} />
+          <path d="M18 22h12" {...s} />
+        </>
+      )}
+      {name === 'tower' && (
+        <>
+          <rect x="10" y="6" width="28" height="36" rx="2" {...s} />
+          <path d="M17 14h14M17 22h14M17 30h14" {...s} />
+          <circle cx="24" cy="24" r="6" {...s} />
+        </>
+      )}
+      {name === 'carton' && (
+        <>
+          <path d="M24 6 8 14v20l16 8 16-8V14L24 6Z" {...s} />
+          <path d="M8 14l16 8 16-8M24 22v20M24 22 16 10M32 10l-8 4" {...s} />
+        </>
+      )}
+    </svg>
+  )
+}
+
+// Designed placeholder panel standing in for a facility photo until real
+// photography lands: solid deep-navy ground, an ultra-faint navy-tonal dot grid,
+// a centred gold stroke mark and a DM Mono caption. Same aspect + slab shadow as
+// the old photo so the card layout never shifts when a real image drops in.
+function FacilityPlaceholder({ icon, note }) {
+  return (
+    <div className="infra-photo infra-card-photo infra-ph" aria-hidden="true">
+      {/* TODO(Harry): real facility photo drops here */}
+      <div className="infra-ph-pattern" />
+      <div className="infra-ph-mark">
+        <FacilityIcon name={icon} />
+        <span className="infra-ph-cap">{note}</span>
+      </div>
     </div>
   )
 }
@@ -115,7 +169,7 @@ export default function Infrastructure() {
           {FACILITIES.map((f) => (
             <article key={f.n} className="infra-card">
               <div className="infra-card-inner">
-                <InfraPhoto src={`/qfp/infra/facility-${f.n}.webp`} note={t(`facilities.${f.n}.ph`)} className="infra-card-photo" />
+                <FacilityPlaceholder icon={f.icon} note={t(`facilities.${f.n}.ph`)} />
                 <h3 className="infra-card-title">{t(`facilities.${f.n}.title`)}</h3>
                 <p className="infra-card-text">{t(`facilities.${f.n}.body`)}</p>
                 <p className="infra-card-cap">{t(`facilities.${f.n}.caption`)}</p>
