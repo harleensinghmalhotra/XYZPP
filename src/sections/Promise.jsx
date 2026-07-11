@@ -1,30 +1,32 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { prefersReduced } from '@/lib/useReducedMotion'
-import PromiseTypeWall from './promise/PromiseTypeWall'
+import PromiseLightfall from './promise/PromiseLightfall'
 import PromiseConfetti from './promise/PromiseConfetti'
 
-// ── Our Promise — typography + void, with a wall of type set in the dark ──────
+// ── Our Promise — typography + void, with gold light falling behind ───────────
 // Harry's composition (option 4): kill the machinery, centre the type, let the
 // black breathe. The mission pull-quote stands alone, centred on promise-black,
 // with the soft warm-gold "reading lamp" glow behind it. The base background layer
-// is now the LetterGlitch type wall (reactbits) — a canvas grid of glitching
-// characters rebranded to letterpress: ink-on-night navies and gold, set in our
-// own DM Mono, glitching at a slow compositor's pace. It REPLACES the old fluid
-// background — two full-section canvases would fight, so the ether came out clean.
+// is now reactbits' Lightfall (WebGL/ogl) — falling light streaks with a twinkle
+// field and gentle mouse interaction, rebranded from blue/purple synth to molten
+// gold: light gold, deep gold and cream threads falling like foil off a press,
+// over the promise-black ground. It REPLACES the previous character-grid background
+// (two full-section canvases would fight, so the wall came out clean — zero dead code).
 //
-// THE VISIBILITY LAW: the wall sits at the very back (wrapper opacity ~0.42), its
-// own centreVignette darkens under the type, then a radial scrim wells deep
-// #0A0E14 up behind the text zone so the wall lives only at the EDGES and fades
-// under the words. The glow + centred text are layered ABOVE, exactly as built, so
-// every text element keeps its full contrast at the wall's brightest random frame.
-// Reduced motion: the wall renders ONE static grid frame — no glitching, no rAF.
+// THE VISIBILITY LAW: Lightfall sits at the very back (opacity ~0.8, backgroundGlow
+// held low at 0.25 so it's warm breath, not floodlight), then a radial scrim wells
+// deep #0A0E14 up behind the text zone so the streaks live only at the EDGES and
+// dim under the words. The glow + centred text are layered ABOVE, exactly as built,
+// so every text element keeps its full contrast at the brightest streak frame.
+// Reduced motion: Lightfall is NOT mounted — static promise-black + glow only.
 //
-// The two-layer celebration confetti sits ABOVE the wall and BELOW the scrim — so
-// the scrim's opaque core keeps the type's ground pure and both canvases only ever
-// read in the same peripheral ring. The wall is texture; the confetti is objects.
+// The two-layer celebration confetti sits ABOVE Lightfall and BELOW the scrim — so
+// the scrim's opaque core keeps the type's ground pure and both only ever read in
+// the same peripheral ring. Lightfall pauses/unmounts (GL context disposed) off-
+// viewport and on hidden tab, and caps DPR at 1 — see PromiseLightfall.
 //
-// Layer order (z): typewall 0 · dot grid 1 · confetti 2 · scrim 3 · glow 4 · text 5.
+// Layer order (z): lightfall 0 · dot grid 1 · confetti 2 · scrim 3 · glow 4 · text 5.
 
 export default function PromiseSection() {
   const { t, i18n } = useTranslation('home')
@@ -35,7 +37,7 @@ export default function PromiseSection() {
 
   return (
     <section id="promise" data-theme="dark" className="promise" aria-label={t('promise.aria')}>
-      <PromiseTypeWall reduced={reduced} />
+      {!reduced && <PromiseLightfall />}
       <PromiseConfetti reduced={reduced} />
       <div className="promise-scrim" aria-hidden="true" />
       <div className="promise-bg" aria-hidden="true" />

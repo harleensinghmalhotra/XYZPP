@@ -554,3 +554,62 @@
   /* the leaf turn assumes the side-by-side spine geometry → flat crossfade here */
   .cs-leaf { display: none; }
 }
+
+/* ── SIZED TO MATCH WHAT WE PRINT (canonical desktop ≥1280) ──────────────────
+   Harry's brief: the Cases section should stand as tall as the WWP section
+   ("Built on Precision…") so the two read as equals. WWP's rendered section
+   height, measured LIVE at 1536×743 DPR 1.25, is 2160px (it's the scroll-jacked
+   pin: innerHeight 743 − nav 87 + travel 1504). We adopt that number verbatim as
+   Cases' min-height — no hardcoded guess, it's the read value. The gained room is
+   spent two ways: the stage becomes a flex column that vertically CENTERS the
+   book (balanced breathing above/below — no bottom dead band), and the whole
+   open spread + spine shelf scale up ~1.4× so the book fills its stage the way
+   WWP fills its own. Below 1280 the responsive rules above are untouched. */
+@media (min-width: 1280px) {
+  .section-cases { min-height: 2160px; }         /* = WWP @1536×743, measured live */
+
+  /* stage grows to eat the extra height, then centers the book in it */
+  .cs-stage {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .cs-interactive { gap: clamp(40px, 4vw, 72px); }
+
+  /* THE BOOK — bigger pages, bigger photo, same layout logic */
+  .cs-book { width: min(1040px, 100%); }
+  .cs-spread { height: 600px; }
+  .cs-page--left::after { width: 34px; }
+
+  /* type inside the spread scales with it — hierarchy kept, ≥11px trivially */
+  .cs-face--text { padding: clamp(40px, 5vh, 64px) clamp(40px, 4vw, 72px); }
+  .cs-face--text .cs-eyebrow { font-size: 14px; letter-spacing: 2.6px; margin-bottom: 24px; }
+  .cs-title { font-size: clamp(38px, 3.4vw, 54px); margin: 0 0 28px; }
+  .cs-pills { gap: 13px; margin-bottom: 30px; }
+  .cs-pill { padding: 8px 17px; font-size: 13px; }
+  .cs-body { font-size: 19px; margin: 0 0 38px; max-width: 44ch; }
+  .cs-cta { padding: 15px 28px; font-size: 14px; letter-spacing: 1.5px; }
+
+  /* photo-page details grow along */
+  .cs-spine-shadow { width: 40px; }
+  .cs-curl { width: 90px; height: 90px; }
+
+  /* THE SHELF grows to the taller book */
+  .cs-slot, .cs-slot--gap { width: 62px; height: 560px; }
+  .cs-spine { width: 62px; padding: 16px 0 22px; }
+  .cs-spine-num { font-size: 18px; }
+  .cs-spine-label { margin-top: 20px; gap: 11px; }
+  .cs-spine-country, .cs-spine-dot { font-size: 13px; }
+  .cs-spine-title { font-size: 18px; }
+
+  /* bookmark, counter, corner arrows scale along */
+  .cs-book-wrap { padding-top: 28px; }
+  .cs-ribbon { width: 27px; height: 84px; top: -24px; }
+  .cs-counter { font-size: 15px; top: -30px; letter-spacing: 2.6px; }
+  .cs-arrow { width: 58px; height: 58px; font-size: 23px; bottom: 12px; }
+  .cs-arrow--prev { left: 12px; }
+  .cs-arrow--next { right: 12px; }
+}

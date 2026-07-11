@@ -100,6 +100,9 @@ export default function Cases() {
   const [flip, setFlip] = useState(null)    // { from, dir } while a leaf is turning
   const busy = useRef(false)
   const timer = useRef(null)
+  const sectionRef = useRef(null)
+  const inView = useRef(false)              // ≥50% of the section fills the viewport
+  const stepRef = useRef(() => {})          // latest go() stepper for the window listener
   const flipMs = useRef(FLIP_MS)
   useEffect(() => { flipMs.current = readFlipMs() }, [])
   const total = CASES.length
@@ -180,6 +183,52 @@ export default function Cases() {
     else if (e.key === 'ArrowLeft') { e.preventDefault(); go(active - 1) }
   }
 
+  // FOCUS-FREE ARROW KEYS — the book answers ← → the second it's on screen, no
+  // click required. Two effects working together:
+  //   1) an IntersectionObserver flips `inView` on when the section fills ≥50% of
+  //      the VIEWPORT. Ratio can't be measured against the section itself — it's
+  //      taller than the viewport (it matches WWP at ~2160px), so its own ratio
+  //      tops out around 34% and a threshold:0.5 would never fire. We measure
+  //      viewport COVERAGE instead: intersectionRect.height / rootBounds.height.
+  //   2) a WINDOW keydown that only acts while `inView` is true; otherwise it
+  //      passes every key through untouched so page scrolling stays normal.
+  // `stepRef` always holds the latest go() closure so the window listener can
+  // subscribe once and still see the current `active`/lock state.
+  useEffect(() => { stepRef.current = (dir) => go(active + dir) })
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const vp = entry.rootBounds?.height || window.innerHeight
+        const coverage = vp ? entry.intersectionRect.height / vp : 0
+        inView.current = coverage >= 0.5
+        el.dataset.kbdActive = inView.current ? '1' : '0' // readable by QA, no re-render
+      }
+    }, { threshold: Array.from({ length: 21 }, (_, i) => i / 20) })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const onWinKey = (e) => {
+      if (!inView.current) return                       // inactive → pass through, page scrolls
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+      if (e.defaultPrevented) return                    // focused-in-section path already handled it
+      // NEVER hijack while the user is typing.
+      const a = document.activeElement
+      if (a) {
+        const tag = a.tagName
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || a.isContentEditable) return
+      }
+      e.preventDefault()                                // stop the page scrolling under the flip
+      stepRef.current(e.key === 'ArrowRight' ? 1 : -1)  // same guarded page-turn as a click
+    }
+    window.addEventListener('keydown', onWinKey)
+    return () => window.removeEventListener('keydown', onWinKey)
+  }, [])
+
   // Touch swipe on the spread — no scroll hijack (we only act on a decisive
   // horizontal drag and never call preventDefault on the move).
   const touch = useRef(null)
@@ -217,7 +266,7 @@ export default function Cases() {
   const num = (n) => String(n).padStart(2, '0')
 
   return (
-    <section id="cases" className="section-cases" data-theme="dark">
+    <section id="cases" className="section-cases" data-theme="dark" ref={sectionRef}>
       {/* beige header band — kept from the old section (Certifications rhythm) */}
       <div className="cases-header" data-theme="light">
         <div className="cases-header-inner">
