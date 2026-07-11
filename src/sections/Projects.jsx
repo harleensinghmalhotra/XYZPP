@@ -135,25 +135,17 @@ function DestPanel({ slug, img, t, onFocus, onReset }) {
   )
 }
 
-// Circular customs / postmark stamp — pure SVG, gold outline, the unit word
-// (reused locale string) curved around a FULL-circle rim so even the long
-// "Learning Kits" / "Kits d'apprentissage" labels fit at the true 11px floor
-// without clipping. The path starts at 6 o'clock and runs so its midpoint (where
-// the centred label anchors) lands at the top, reading left-to-right. viewBox ===
-// rendered px (54) → 11px in SVG units renders at a true 11px. Decorative
-// (aria-hidden); `id` keeps the path unique when a unit word repeats across books.
-function CustomsStamp({ label, id }) {
-  const rim = `stamp-rim-${id}`
+// Circular customs / postmark stamp — pure SVG. A clean gold outline ring + a
+// dashed perforation ring, with the unit word sitting HORIZONTAL and INSIDE the
+// ring (never riding the stroke), a small star below it. viewBox === rendered px
+// (56) → the label renders at a true 11px floor. Decorative (aria-hidden).
+function CustomsStamp({ label }) {
   return (
-    <svg className="proj-book-stamp-svg" viewBox="0 0 54 54" width="54" height="54" aria-hidden="true">
-      <defs>
-        <path id={rim} d="M 27 47.5 A 20.5 20.5 0 0 0 27 6.5 A 20.5 20.5 0 0 0 27 47.5" fill="none" />
-      </defs>
-      <circle cx="27" cy="27" r="13.5" fill="none" stroke="currentColor" strokeWidth="0.8" strokeDasharray="1.2 2.6" opacity="0.55" />
-      <text className="proj-book-stamp-arc-text">
-        <textPath href={`#${rim}`} startOffset="50%" textAnchor="middle">{label}</textPath>
-      </text>
-      <text x="27" y="31" textAnchor="middle" className="proj-book-stamp-mark">✶</text>
+    <svg className="proj-book-stamp-svg" viewBox="0 0 56 56" width="56" height="56" aria-hidden="true">
+      <circle cx="28" cy="28" r="26" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="28" cy="28" r="22" fill="none" stroke="currentColor" strokeWidth="0.9" strokeDasharray="1.4 2.9" opacity="0.6" />
+      <text x="28" y="27" textAnchor="middle" className="proj-book-stamp-text">{label}</text>
+      <text x="28" y="41" textAnchor="middle" className="proj-book-stamp-mark">✶</text>
     </svg>
   )
 }
@@ -165,7 +157,7 @@ function CustomsStamp({ label, id }) {
 // gold foil banner + a ribbon bookmark, and skips the round stamp. Hovering pulls
 // the book toward the viewer and pulses its country on the globe.
 function BookRecord({
-  country, story, line, stampLabel, stampId, num, suffix, decimals,
+  country, story, line, stampLabel, num, suffix, decimals,
   reduced, variant, milestone, milestoneTag, onPulse, onReset,
 }) {
   const finalNum = `${num}${suffix}`
@@ -195,7 +187,7 @@ function BookRecord({
           <p className="proj-book-line">{story || line}</p>
           {!milestone && (
             <span className="proj-book-stamp" aria-hidden="true">
-              <CustomsStamp label={stampLabel} id={stampId} />
+              <CustomsStamp label={stampLabel} />
             </span>
           )}
         </div>
@@ -356,8 +348,11 @@ export default function Projects() {
                   key={r.key}
                   variant={(i + 1) % 2 === 0 ? 'navy' : 'cream'}
                   country={t(`ledger.rows.${r.key}.name`)}
-                  stampLabel={t(`ledger.units.${r.unitKey}`)}
-                  stampId={r.key}
+                  // Stamp label is the unit. The full "kits" unit label
+                  // ("Learning Kits" / "Kits d'apprentissage") can't fit horizontally
+                  // inside the ring at ≥11px, so the stamp uses the shared short form
+                  // "KITS" (valid EN + FR). "Books"/"Livres" fit as-is.
+                  stampLabel={r.unitKey === 'kits' ? 'KITS' : t(`ledger.units.${r.unitKey}`)}
                   num={r.num}
                   suffix="M+"
                   decimals={r.num.includes('.') ? 1 : 0}
