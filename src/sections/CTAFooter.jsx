@@ -1,6 +1,5 @@
 import { useTranslation, Trans } from 'react-i18next'
 import AuroraBackground from '@/components/AuroraBackground'
-import BookTicker from '@/components/BookTicker'
 
 // Fonts locked to our system (was inheriting the global Space Mono / font-display):
 const INTER = "'Inter', sans-serif"
@@ -167,35 +166,13 @@ export default function CTAFooter() {
                 ))}
               </div>
             </div>
-          </div>
-
-        </footer>
-
-        {/* THE COLOPHON — the quiet imprint page a hardcover ends on. Cream ink on
-            the navy surface below the card, DM Mono, a thin gold rule and generous
-            air. A printer crediting its own type; the rate a book leaves the floor;
-            and the compliance lines (FSC licence + CIN) folded in here, verbatim. */}
-        <div className="mx-auto mt-10 max-w-[1400px] px-4 pb-8 pt-2 text-center sm:px-6">
-          <div className="mx-auto mb-8 h-px w-24" style={{ background: '#9b7420' }} />
-          <div className="flex flex-col items-center gap-2.5" style={{ fontFamily: MONO }}>
-            <p className="text-[12px] leading-relaxed" style={{ color: 'rgba(253,250,244,0.66)' }}>
-              {t('colophon.setIn')}
-            </p>
-            <p className="text-[12px] leading-relaxed" style={{ color: 'rgba(253,250,244,0.66)' }}>
-              {t('colophon.printedIn')}
-            </p>
-            {/* FSC licence code beside the FSC label — verbatim, never reworded. */}
-            <p className="text-[12px] leading-relaxed" style={{ color: 'rgba(253,250,244,0.66)' }}>
-              {t('colophon.fsc')} · TUVDC-COC-101258
-            </p>
-            <BookTicker />
-            {/* Statutory entity line — site-wide compliance (CIN + registered
-                office). Proper names, verbatim, stays English in every language. */}
-            <p className="mt-3 max-w-3xl text-[11px] leading-relaxed" style={{ color: 'rgba(253,250,244,0.56)' }}>
+            {/* Statutory entity line — site-wide compliance (CIN + registered office). DM Mono, 11px floor. */}
+            <p className="mt-5 max-w-full text-[11px] leading-relaxed" style={{ fontFamily: MONO, color: 'rgba(92,83,70,0.72)' }}>
               Quarterfold Printabilities Private Limited · CIN U74999MH2020PTC337494 · Registered Office: Office No 1207, Plot No 4 &amp; 6, Sector 30A, Navi Mumbai, Maharashtra 400705
             </p>
           </div>
-        </div>
+
+        </footer>
       </div>
     </section>
   )
