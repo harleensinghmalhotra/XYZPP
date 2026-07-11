@@ -1481,14 +1481,20 @@ body {
   transform: translateY(-2px);
 }
 
-/* ── SHIPMENT RECORDS — passport-stamped printed-label cards ──────────────────
-   Country in DM Mono caps, the big figure in gold (odometer roll-up), one human
-   line (unit · authority). Perforated left edge + a circular postmark stamp give
-   the printing-company "shipping label" detail. Uniform heights via a common
-   floor + a bottom-pinned figure line. Hover pulses that country on the globe. */
-.proj-records { margin-top: clamp(56px, 8vh, 104px); }
-.proj-records-eyebrow {
-  margin: 0 0 22px;
+/* ── THE ARCHIVE SHELF — code-built hardcover books ──────────────────────────
+   Each record is a book: a navy or cream front cover + a 3D page-edge side face,
+   standing on a warm-lit shelf (pure HTML/CSS, no images/canvas). The cover reads
+   like what we print — country in DM Mono caps, the big gold figure (count-up +
+   one-pass foil shimmer on reveal), a gold rule, one human line, a corner customs
+   stamp. The milestone book is taller, wears a gold foil banner + ribbon bookmark
+   and skips the round stamp. Hover pulls a book toward the viewer (translateZ /
+   scale / tilt), its shadow deepening; neighbours lean away ~2deg. Reduced-motion
+   → glow lift only, no transforms. Square corners (Ekta's law). Soft navy-tinted
+   painted shadows, never pure black. Palette: navy #0F2444, cream #FDFAF4/#F0EBE0,
+   gold #9B7420 / #C89A3C / #836013. */
+.proj-books { margin-top: clamp(48px, 6.5vh, 84px); }
+.proj-books-eyebrow {
+  margin: 0 0 30px;
   font-family: 'DM Mono', monospace;
   font-weight: 500;
   font-size: 12px;
@@ -1496,157 +1502,286 @@ body {
   text-transform: uppercase;
   color: #c89a3c;
 }
-.proj-records-rail {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
-  gap: clamp(14px, 1.4vw, 20px);
+/* horizontal scroll only engages when the row can't fit (narrower viewports); the
+   negative margins let a pulled-forward book + banner/ribbon overflow the scroll
+   box without being clipped. */
+.proj-books-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  padding: 34px 6px 6px;
+  margin: -34px -6px -6px;
 }
-.proj-rec {
+.proj-books-scroll::-webkit-scrollbar { display: none; }
+.proj-books-rail {
   position: relative;
   display: flex;
-  flex-direction: column;
-  min-height: 224px;
-  padding: 22px 22px 22px 30px; /* extra left for the perforation strip */
-  overflow: hidden;
-  background: linear-gradient(180deg, rgba(20, 32, 56, 0.7) 0%, rgba(12, 20, 38, 0.72) 100%);
-  border: 1px solid rgba(245, 240, 232, 0.1);
-  border-left: none; /* the perforation owns the left edge */
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+  align-items: flex-end;   /* every book's foot lands on the shelf line */
+  justify-content: center;
+  gap: clamp(12px, 1.3vw, 20px);
+  min-width: min-content;
+  padding-bottom: 26px;    /* the shelf sits in this gutter, under the books */
 }
-.proj-rec::before { /* gold hairline top — the printing accent */
-  content: '';
+
+/* the shelf — a thin warm-lit edge with a gold glow whispering along it */
+.proj-books-shelf {
   position: absolute;
-  top: 0;
   left: 0;
   right: 0;
+  bottom: 20px;
   height: 2px;
-  background: linear-gradient(90deg, #9b7420 0%, #c89a3c 55%, transparent 100%);
+  border-radius: 2px;
+  transform-origin: center;
+  background: linear-gradient(90deg, transparent 0%, rgba(200, 154, 60, 0.5) 16%, rgba(200, 154, 60, 0.72) 50%, rgba(200, 154, 60, 0.5) 84%, transparent 100%);
+  box-shadow: 0 0 18px rgba(200, 154, 60, 0.32), 0 1px 0 rgba(245, 240, 232, 0.1);
+  z-index: 0;
 }
-.proj-rec:hover {
-  transform: translateY(-4px);
-  border-color: rgba(200, 154, 60, 0.35);
-  background: linear-gradient(180deg, rgba(26, 42, 72, 0.82) 0%, rgba(14, 24, 44, 0.82) 100%);
-  box-shadow: 0 20px 46px -18px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(200, 154, 60, 0.14);
-}
-.proj-rec.is-featured { grid-column: span 2; }
-/* perforated left edge — ticket-stub dots */
-.proj-rec-perf {
-  position: absolute;
-  left: 9px;
-  top: 12px;
-  bottom: 12px;
-  width: 2px;
-  background-image: radial-gradient(circle, rgba(245, 240, 232, 0.5) 0 1.3px, transparent 1.6px);
-  background-size: 2px 9px;
-  background-repeat: repeat-y;
-  opacity: 0.65;
-}
-/* circular postmark stamp (rows) — rotated DM Mono unit label */
-.proj-rec-stamp {
-  position: absolute;
-  top: 15px;
-  right: 13px;
-  display: grid;
-  place-items: center;
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
-  border: 1px solid rgba(200, 154, 60, 0.4);
-  transform: rotate(-13deg);
-  padding: 6px;
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  font-size: 8.5px;
-  letter-spacing: 1px;
-  line-height: 1.15;
-  text-transform: uppercase;
-  text-align: center;
-  color: rgba(200, 154, 60, 0.72);
-  pointer-events: none;
-}
-.proj-rec-stamp::before {
+.proj-books-shelf::after { /* soft warm pool cast down off the shelf */
   content: '';
   position: absolute;
-  inset: 4px;
-  border-radius: 50%;
-  border: 1px dotted rgba(200, 154, 60, 0.3);
+  left: 5%;
+  right: 5%;
+  top: 2px;
+  height: 30px;
+  background: linear-gradient(180deg, rgba(200, 154, 60, 0.1) 0%, transparent 100%);
+  filter: blur(3px);
 }
-/* featured milestone gets a ribbon stamp instead of a round postmark */
-.proj-rec.is-featured .proj-rec-stamp {
-  width: auto;
-  height: auto;
-  border-radius: 2px;
-  transform: none;
-  padding: 5px 11px;
-  top: 16px;
-  right: 16px;
-  background: rgba(200, 154, 60, 0.14);
-  border-color: rgba(200, 154, 60, 0.5);
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: #c89a3c;
+
+/* one book — perspective lives here so the pull/tilt read in 3D */
+.proj-book {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(150px, 12vw, 168px);
+  padding-bottom: 18px; /* clears the shelf line so the book stands ON it */
+  perspective: 1300px;
+  z-index: 1;
 }
-.proj-rec.is-featured .proj-rec-stamp::before { display: none; }
-.proj-rec-country {
-  margin-top: 6px;
-  max-width: 62%; /* stay clear of the stamp */
+.proj-book.is-milestone { width: clamp(174px, 13.5vw, 192px); }
+
+.proj-book-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateY(18deg);
+  transition: transform 0.34s cubic-bezier(0.2, 0.8, 0.25, 1);
+  will-change: transform;
+}
+
+/* the 3D page-edge side face on the bound (left) edge — cream page striations
+   receding behind the cover, a thin dark bind line where it meets the board */
+.proj-book-spine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 100%;
+  transform-origin: left center;
+  transform: rotateY(90deg);
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.32) 0 3px, rgba(0, 0, 0, 0) 3px),
+    repeating-linear-gradient(90deg, #f0ebe0 0 3px, #d9d0bd 3px 4px);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+}
+.proj-book.is-milestone .proj-book-spine { width: 22px; }
+
+/* the front cover — the plane we read. Square corners; a soft edge shadow gives
+   the board a little body. NO straight interior light lines (Ekta's law). */
+.proj-book-cover {
+  position: relative;
+  height: 240px;
+  padding: 16px 15px 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1px 3px 3px 1px;
+  backface-visibility: hidden;
+  box-shadow:
+    inset -6px 0 14px -8px rgba(0, 0, 0, 0.35),
+    inset 0 -8px 16px -10px rgba(0, 0, 0, 0.3);
+}
+.proj-book.is-milestone .proj-book-cover { height: 294px; }
+.proj-book--navy .proj-book-cover {
+  background: linear-gradient(152deg, #173257 0%, #0f2444 56%, #0b1c38 100%);
+}
+.proj-book--cream .proj-book-cover {
+  background: linear-gradient(152deg, #fdfaf4 0%, #f6f1e6 60%, #efe7d6 100%);
+}
+
+/* country — cargo-label caps, top of the cover, clearing the corner stamp */
+.proj-book-country {
+  margin: 0;
+  max-width: calc(100% - 52px);
   font-family: 'DM Mono', monospace;
   font-weight: 500;
-  font-size: clamp(12px, 1vw, 13px);
-  letter-spacing: 2px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 1.3;
   text-transform: uppercase;
-  color: #f5f0e8;
 }
-.proj-rec-num {
-  margin-top: auto; /* pin the figure + line to the bottom → uniform baseline */
-  display: inline-flex;
-  align-items: baseline;
-  gap: 8px;
+.proj-book--navy .proj-book-country { color: #f5f0e8; }
+.proj-book--cream .proj-book-country { color: #0f2444; }
+/* clear the foil banner that sits across the milestone's top corner */
+.proj-book.is-milestone .proj-book-country { max-width: 100%; margin-top: 30px; }
+
+/* the big gold figure — count-up + a foil gradient fill. The shimmer band sweeps
+   ONCE when .is-lit is added on reveal (never loops). Darkest gold stop meets AA
+   large-text contrast on both cover colours. */
+.proj-book-num { margin-top: auto; line-height: 1; }
+.proj-book-countn {
+  display: inline-block;
   font-family: 'Inter Tight', sans-serif;
   font-weight: 700;
-  font-size: clamp(38px, 3.4vw, 52px);
-  line-height: 1;
+  font-size: clamp(34px, 3vw, 44px);
+  line-height: 0.94;
   letter-spacing: -1.5px;
-  color: #c89a3c;
   font-variant-numeric: tabular-nums;
+  background-image: linear-gradient(100deg,
+    var(--foil-a) 0%, var(--foil-a) 36%, var(--foil-hi) 50%, var(--foil-b) 64%, var(--foil-b) 100%);
+  background-size: 220% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
-.proj-rec.is-featured .proj-rec-num { font-size: clamp(54px, 5vw, 84px); }
-.proj-rec-num .odo { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4)); }
-.proj-rec-unit {
+.proj-book.is-milestone .proj-book-countn { font-size: clamp(46px, 4.4vw, 62px); }
+.proj-book--navy { --foil-a: #9b7420; --foil-b: #c89a3c; --foil-hi: #f2d488; }
+.proj-book--cream { --foil-a: #836013; --foil-b: #9b7420; --foil-hi: #c89a3c; }
+.proj-book-countn.is-lit { animation: proj-foil 1.15s ease-out 0.12s 1 both; }
+@keyframes proj-foil {
+  from { background-position: 100% 0; }
+  to { background-position: -24% 0; }
+}
+
+/* one thin gold rule beneath the figure */
+.proj-book-rule {
+  width: 34px;
+  height: 2px;
+  margin: 10px 0 9px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, #9b7420, #c89a3c);
+}
+.proj-book--cream .proj-book-rule { background: linear-gradient(90deg, #836013, #9b7420); }
+
+/* the one human line, small type */
+.proj-book-line {
+  margin: 0;
   font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.42;
+}
+.proj-book--navy .proj-book-line { color: rgba(245, 240, 232, 0.86); }
+.proj-book--cream .proj-book-line { color: rgba(15, 36, 68, 0.82); }
+.proj-book-line strong { font-weight: 600; }
+.proj-book--navy .proj-book-line strong { color: #fdfaf4; }
+.proj-book--cream .proj-book-line strong { color: #0f2444; }
+
+/* corner customs stamp — pure SVG, gold outline, unit word on the top arc. Sized
+   so its curved micro-text renders at the 11px floor; decorative (aria-hidden). */
+.proj-book-stamp {
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  width: 52px;
+  height: 52px;
+  transform: rotate(-12deg);
+  pointer-events: none;
+  opacity: 0.92;
+}
+.proj-book--navy .proj-book-stamp { color: #c89a3c; }
+.proj-book--cream .proj-book-stamp { color: #9b7420; }
+.proj-book-stamp-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.proj-book-stamp-arc-text {
+  font-family: 'DM Mono', monospace;
   font-weight: 500;
-  font-size: clamp(12px, 1vw, 14px);
-  letter-spacing: 0.1px;
-  color: rgba(245, 240, 232, 0.74);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  fill: currentColor;
 }
-.proj-rec-line {
-  margin: 12px 0 0;
-  max-width: 44ch;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: clamp(12px, 1vw, 13.5px);
-  line-height: 1.5;
-  color: rgba(245, 240, 232, 0.72);
-}
-.proj-rec-line strong { color: #fdfaf4; font-weight: 500; }
+.proj-book-stamp-mark { font-size: 12px; fill: currentColor; }
 
-/* odometer — masked vertical digit reels. Each digit box clips a 20-cell strip
-   to a 1em window; the reel translates (yPercent) to lock on its target. */
-.odo { display: inline-flex; align-items: flex-start; line-height: 1; }
-.odo-digit { display: inline-block; height: 1em; overflow: hidden; }
-.odo-reel { display: flex; flex-direction: column; will-change: transform; }
-.odo-cell {
-  display: block;
-  height: 1em;
-  line-height: 1;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
+/* MILESTONE — gold foil banner across the top corner + a ribbon bookmark */
+.proj-book-banner {
+  position: absolute;
+  top: 16px;
+  left: -6px;
+  z-index: 2;
+  padding: 5px 13px 5px 12px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #241a06;
+  background: linear-gradient(100deg, #b98f36 0%, #e8ca79 46%, #b98f36 92%);
+  box-shadow: 0 7px 15px -7px rgba(0, 0, 0, 0.6);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 50%, 100% 100%, 0 100%);
 }
-.odo-dot, .odo-suffix { display: inline-block; }
+.proj-book-banner::after { /* the folded-under tail on the left */
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 100%;
+  border-width: 0 6px 6px 0;
+  border-style: solid;
+  border-color: transparent #7f611f transparent transparent;
+}
+.proj-book-ribbon {
+  position: absolute;
+  top: -11px;
+  right: 24px;
+  z-index: 1;
+  width: 15px;
+  height: 42px;
+  background: linear-gradient(180deg, #d0a244 0%, #9b7420 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+}
 
-/* the odometer figures inherit the solid gold-2 fill from .proj-rec-num — one
-   contrast-checkable colour on every card (Ekta's big stats are flat gold, never
-   foil-clipped, never glowing). */
+/* soft painted shadow under each book — navy-tinted, blurred, never pure black */
+.proj-book-shadow {
+  position: absolute;
+  left: 8%;
+  right: 0%;
+  bottom: 8px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(50% 100% at 50% 50%, rgba(11, 20, 38, 0.6) 0%, rgba(11, 20, 38, 0.26) 46%, transparent 78%);
+  filter: blur(6px);
+  transition: transform 0.34s ease, filter 0.34s ease, background 0.34s ease;
+  z-index: -1;
+}
+
+/* THE SHELF MOMENT — hover pulls the book off the shelf toward the viewer */
+.proj-book:hover { z-index: 3; }
+.proj-book:hover .proj-book-inner {
+  transform: rotateY(9deg) translateZ(46px) scale(1.05) rotateX(1.5deg);
+}
+.proj-book:hover .proj-book-shadow {
+  transform: scale(1.16);
+  filter: blur(9px);
+  background: radial-gradient(50% 100% at 50% 56%, rgba(7, 14, 28, 0.72) 0%, rgba(11, 20, 38, 0.32) 48%, transparent 80%);
+}
+/* neighbours lean away ~2deg — immediate siblings only (:has for the left one) */
+.proj-book:hover + .proj-book .proj-book-inner { transform: rotateY(20deg); }
+.proj-book:has(+ .proj-book:hover) .proj-book-inner { transform: rotateY(16deg); }
+
+/* Reduced-motion → hover becomes a simple glow lift, no transforms, no shimmer */
+@media (prefers-reduced-motion: reduce) {
+  .proj-book-inner, .proj-book-shadow { transition: none; }
+  .proj-book:hover .proj-book-inner,
+  .proj-book:hover + .proj-book .proj-book-inner,
+  .proj-book:has(+ .proj-book:hover) .proj-book-inner { transform: rotateY(18deg); }
+  .proj-book:hover .proj-book-cover {
+    box-shadow:
+      inset -6px 0 14px -8px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(200, 154, 60, 0.5),
+      0 0 26px rgba(200, 154, 60, 0.34);
+    filter: brightness(1.05);
+  }
+  .proj-book:hover .proj-book-shadow { transform: none; filter: blur(6px); }
+  .proj-book-countn.is-lit { animation: none; }
+}
 
 @media (max-width: 1024px) {
   .proj-dests-grid { grid-template-columns: 1fr; }
@@ -1656,11 +1791,8 @@ body {
   .proj { padding: 72px 24px 72px; }
   .proj-top { grid-template-columns: 1fr; }
   .proj-globe { max-width: 380px; order: -1; }
-  .proj-records-rail { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-}
-@media (max-width: 560px) {
-  .proj-records-rail { grid-template-columns: 1fr; }
-  .proj-rec.is-featured { grid-column: 1 / -1; }
+  /* the shelf can't fit as one centred row — align left and let it scroll */
+  .proj-books-rail { justify-content: flex-start; }
 }
 @media (prefers-reduced-motion: reduce) {
   .proj-star.is-tw { animation: none; }

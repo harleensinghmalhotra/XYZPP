@@ -15,9 +15,11 @@ gsap.registerPlugin(ScrollTrigger)
 //     gold backlight halo (the dotted world-map behind the globe is GONE).
 //   • DESTINATION PANELS — three tall duotone region posters (airline energy);
 //     hovering one swings the globe to face that region + brightens its arcs.
-//   • SHIPMENT RECORDS — the old excel-ledger is now a rail of passport-stamped
-//     shipment cards; hovering one pulses that country's arc/marker on the globe.
-// Reduced-motion → static globe, no reveals, no globe reactions. GPU-only.
+//   • THE ARCHIVE SHELF — the shipment records are now code-built hardcover books
+//     standing on a warm-lit shelf (pure HTML/CSS, no images/canvas). Each record
+//     IS a book: navy/cream cover, gold foil figure, a 3D page-edge side, a customs
+//     stamp. Hovering pulls a book off the shelf and pulses its country on the globe.
+// Reduced-motion → static globe, no reveals, no globe reactions, hover = glow only.
 
 // HDFC + ZEE rows carry the same client-permission flag as the trust strips, so
 // the gate is the CENTRAL one from src/lib/compliance.js (not a local const —
@@ -56,11 +58,6 @@ const LEDGER = [
   { key: 'hdfc', num: '1.3', unitKey: 'books', restricted: true, globeTarget: '__HQ' },
   { key: 'zee', num: '0.5', unitKey: 'kits', restricted: true, globeTarget: '__HQ' },
 ]
-
-// two stacked 0–9 sets → the reel does one full loop then locks on the target,
-// which reads as a satisfying vertical "roll". yPercent (not px) so the lock
-// survives font-size changes from the clamp()/vw number sizing.
-const REEL_CELLS = Array.from({ length: 20 }, (_, i) => i % 10)
 
 const words = (s) => s.split(' ')
 
@@ -138,50 +135,72 @@ function DestPanel({ slug, img, t, onFocus, onReset }) {
   )
 }
 
-// Masked digit-reel odometer. Renders real DOM text (aria-label carries the value
-// for AT); each digit is a 20-cell vertical strip clipped to a 1em window. The reels
-// sit at rest (showing "0"); the parent GSAP timeline rolls each `.odo-reel` to its
-// data-d target once on scroll entry. Reduced-motion → plain final text, no reel.
-function Odometer({ value, suffix = 'M+', reduced }) {
-  if (reduced) {
-    return <span className="odo odo--static" style={{ fontVariantNumeric: 'tabular-nums' }}>{value}{suffix}</span>
-  }
+// Circular customs / postmark stamp — pure SVG, gold outline, the unit word
+// (reused locale string) curved along the top arc, a small mark at the base. Sits
+// rotated in a book's corner. Decorative (aria-hidden); `id` keeps the arc path
+// unique when the same unit word repeats across books.
+function CustomsStamp({ label, id }) {
+  const arc = `stamp-arc-${id}`
   return (
-    <span className="odo" role="text" aria-label={`${value}${suffix}`} style={{ fontVariantNumeric: 'tabular-nums' }}>
-      {String(value).split('').map((c, i) =>
-        c === '.' ? (
-          <span key={i} className="odo-dot" aria-hidden="true">.</span>
-        ) : (
-          <span key={i} className="odo-digit" aria-hidden="true">
-            <span className="odo-reel" data-d={c}>
-              {REEL_CELLS.map((n, j) => <span key={j} className="odo-cell">{n}</span>)}
-            </span>
-          </span>
-        ),
-      )}
-      <span className="odo-suffix" aria-hidden="true">{suffix}</span>
-    </span>
+    // viewBox matches the rendered pixel size (52) so the curved unit label truly
+    // renders at the 11px floor, not scaled down.
+    <svg className="proj-book-stamp-svg" viewBox="0 0 52 52" width="52" height="52" aria-hidden="true">
+      <defs>
+        <path id={arc} d="M 7 27 A 19 19 0 0 1 45 27" fill="none" />
+      </defs>
+      <circle cx="26" cy="26" r="22.5" fill="none" stroke="currentColor" strokeWidth="1.1" opacity="0.9" />
+      <circle cx="26" cy="26" r="18.5" fill="none" stroke="currentColor" strokeWidth="0.8" strokeDasharray="1.2 2.6" opacity="0.55" />
+      <text className="proj-book-stamp-arc-text">
+        <textPath href={`#${arc}`} startOffset="50%" textAnchor="middle">{label}</textPath>
+      </text>
+      <text x="26" y="40" textAnchor="middle" className="proj-book-stamp-mark">✶</text>
+    </svg>
   )
 }
 
-// One shipment record — printed-label / passport-stamp card. Country in DM Mono
-// caps, the big figure in gold, one human line (unit · authority). Hovering it
-// pulses that country's arc/marker on the globe.
-function RecordCard({ country, unit, story, line, stamp, num, suffix, reduced, featured, onPulse, onReset }) {
+// One shipment record, rebuilt as a code-built hardcover book. A front cover
+// (navy or cream) + a 3D page-edge side face, standing on the shelf. Cover carries
+// the country (DM Mono caps), the big gold figure (count-up + foil shimmer on
+// reveal), a gold rule and one human line. The milestone book is taller, wears a
+// gold foil banner + a ribbon bookmark, and skips the round stamp. Hovering pulls
+// the book toward the viewer and pulses its country on the globe.
+function BookRecord({
+  country, story, line, stampLabel, stampId, num, suffix, decimals,
+  reduced, variant, milestone, milestoneTag, onPulse, onReset,
+}) {
+  const finalNum = `${num}${suffix}`
   return (
     <article
-      className={`proj-rec${featured ? ' is-featured' : ''}`}
+      className={`proj-book proj-book--${variant}${milestone ? ' is-milestone' : ''}`}
       onMouseEnter={onPulse}
       onMouseLeave={onReset}
     >
-      <span className="proj-rec-perf" aria-hidden="true" />
-      <span className="proj-rec-stamp" aria-hidden="true">{stamp}</span>
-      <span className="proj-rec-country">{country}</span>
-      <span className="proj-rec-num">
-        <Odometer value={num} suffix={suffix} reduced={reduced} />
-        <span className="proj-rec-unit">{unit}</span>
-      </span>
-      {story ? <p className="proj-rec-line">{story}</p> : <p className="proj-rec-line">{line}</p>}
+      <div className="proj-book-inner">
+        <span className="proj-book-spine" aria-hidden="true" />
+        <div className="proj-book-cover">
+          {milestone && <span className="proj-book-banner">{milestoneTag}</span>}
+          {milestone && <span className="proj-book-ribbon" aria-hidden="true" />}
+          <span className="proj-book-country">{country}</span>
+          <span className="proj-book-num">
+            <span
+              className="proj-book-countn"
+              data-value={num}
+              data-decimals={decimals}
+              data-suffix={suffix}
+            >
+              {reduced ? finalNum : `0${suffix}`}
+            </span>
+          </span>
+          <span className="proj-book-rule" aria-hidden="true" />
+          <p className="proj-book-line">{story || line}</p>
+          {!milestone && (
+            <span className="proj-book-stamp" aria-hidden="true">
+              <CustomsStamp label={stampLabel} id={stampId} />
+            </span>
+          )}
+        </div>
+      </div>
+      <span className="proj-book-shadow" aria-hidden="true" />
     </article>
   )
 }
@@ -230,18 +249,29 @@ export default function Projects() {
         .to(q('.proj-dests-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '>-0.2')
         .to(q('.proj-dest'), { autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.1, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, '>-0.3')
 
-      // shipment records — own trigger so they fire as the rail enters.
-      const roll = (sel, vars) =>
-        gsap.fromTo(q(sel), { yPercent: 0 },
-          { yPercent: (i, el) => -(10 + Number(el.dataset.d)) * 5, ...vars })
+      // the archive shelf — own trigger so the books slide up as the shelf enters.
+      gsap.set(q('.proj-books-eyebrow'), { autoAlpha: 0, y: 12 })
+      gsap.set(q('.proj-books-shelf'), { autoAlpha: 0, scaleX: 0.55 })
+      gsap.set(q('.proj-book'), { autoAlpha: 0, y: 34 })
 
-      gsap.set(q('.proj-records-eyebrow'), { autoAlpha: 0, y: 12 })
-      gsap.set(q('.proj-rec'), { autoAlpha: 0, y: 22 })
+      const tl2 = gsap.timeline({ scrollTrigger: { trigger: recordsRef.current, start: 'top 82%', once: true } })
+      tl2.to(q('.proj-books-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' })
+        .to(q('.proj-books-shelf'), { autoAlpha: 1, scaleX: 1, duration: 0.7, ease: 'power2.out' }, 0.04)
+        .to(q('.proj-book'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.09, ease: 'power3.out', clearProps: 'transform,opacity,visibility' }, 0.12)
 
-      const tl2 = gsap.timeline({ scrollTrigger: { trigger: recordsRef.current, start: 'top 80%', once: true } })
-      tl2.to(q('.proj-records-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' })
-        .to(q('.proj-rec'), { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.07, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, 0.05)
-        .add(roll('.proj-rec .odo-reel', { duration: 1.0, ease: 'power3.out', stagger: 0.04 }), 0.18)
+      // count-up on reveal — each figure tweens 0 → target once, formatted to the
+      // target's precision, and lights its foil shimmer (one pass) on start.
+      q('.proj-book-countn').forEach((el) => {
+        const target = parseFloat(el.dataset.value)
+        const dec = parseInt(el.dataset.decimals, 10) || 0
+        const suffix = el.dataset.suffix || ''
+        const proxy = { v: 0 }
+        tl2.to(proxy, {
+          v: target, duration: 1.15, ease: 'power2.out',
+          onStart: () => el.classList.add('is-lit'),
+          onUpdate: () => { el.textContent = proxy.v.toFixed(dec) + suffix },
+        }, 0.3)
+      })
     }, root)
     return () => ctx.revert()
   }, [reduced])
@@ -303,36 +333,42 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* SHIPMENT RECORDS */}
-        <div className="proj-records" ref={recordsRef}>
-          <p className="proj-records-eyebrow">{t('ledger.recordsEyebrow')}</p>
-          <div className="proj-records-rail">
-            <RecordCard
-              featured
-              country={t('ledger.heroCountry')}
-              unit={t('ledger.units.books')}
-              stamp={t('ledger.heroLabel')}
-              num={HERO.value}
-              suffix={HERO.suffix}
-              reduced={reduced}
-              story={<Trans t={t} i18nKey={HERO.storyKey} components={{ strong: <strong /> }} />}
-              onPulse={() => pulse(HERO.globeTarget)}
-              onReset={releaseGlobe}
-            />
-            {rows.map((r) => (
-              <RecordCard
-                key={r.key}
-                country={t(`ledger.rows.${r.key}.name`)}
-                unit={t(`ledger.units.${r.unitKey}`)}
-                stamp={t(`ledger.units.${r.unitKey}`)}
-                num={r.num}
-                suffix="M+"
+        {/* THE ARCHIVE SHELF — code-built hardcover books standing on a warm shelf */}
+        <div className="proj-books" ref={recordsRef}>
+          <p className="proj-books-eyebrow">{t('ledger.recordsEyebrow')}</p>
+          <div className="proj-books-scroll">
+            <div className="proj-books-rail">
+              <BookRecord
+                milestone
+                variant="navy"
+                milestoneTag={t('ledger.heroLabel')}
+                country={t('ledger.heroCountry')}
+                num={HERO.value}
+                suffix={HERO.suffix}
+                decimals={HERO.value.includes('.') ? 1 : 0}
                 reduced={reduced}
-                line={t(`ledger.rows.${r.key}.desc`)}
-                onPulse={() => pulse(r.globeTarget)}
+                story={<Trans t={t} i18nKey={HERO.storyKey} components={{ strong: <strong /> }} />}
+                onPulse={() => pulse(HERO.globeTarget)}
                 onReset={releaseGlobe}
               />
-            ))}
+              {rows.map((r, i) => (
+                <BookRecord
+                  key={r.key}
+                  variant={(i + 1) % 2 === 0 ? 'navy' : 'cream'}
+                  country={t(`ledger.rows.${r.key}.name`)}
+                  stampLabel={t(`ledger.units.${r.unitKey}`)}
+                  stampId={r.key}
+                  num={r.num}
+                  suffix="M+"
+                  decimals={r.num.includes('.') ? 1 : 0}
+                  reduced={reduced}
+                  line={t(`ledger.rows.${r.key}.desc`)}
+                  onPulse={() => pulse(r.globeTarget)}
+                  onReset={releaseGlobe}
+                />
+              ))}
+              <span className="proj-books-shelf" aria-hidden="true" />
+            </div>
           </div>
         </div>
       </div>
