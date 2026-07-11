@@ -39,6 +39,7 @@ async function measureFps(page, durMs) {
     const count = () => { frames++; if (!stop) requestAnimationFrame(count) }
     requestAnimationFrame(count)
     const sec = document.querySelector('.conv-scroll')
+    if (!sec) { resolve(0); return }
     const top = sec.getBoundingClientRect().top + window.scrollY
     const range = sec.offsetHeight - window.innerHeight
     const t0 = performance.now()

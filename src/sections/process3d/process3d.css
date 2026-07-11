@@ -34,6 +34,10 @@
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
+  /* promote to its own GPU compositing layer so the browser snaps the pinned canvas
+     to whole device pixels — Lenis's fractional scroll never lands it sub-pixel. */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 .conv-pin canvas { display: block; touch-action: pan-y; }
 

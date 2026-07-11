@@ -1,12 +1,13 @@
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
-import { Sparkles, MeshReflectorMaterial, Billboard } from '@react-three/drei'
+import { MeshReflectorMaterial, Billboard } from '@react-three/drei'
 import { useTranslation } from 'react-i18next'
 import Belt from './Belt'
 import Station from './Station'
 import Book from './Book'
 import Girl from './Girl'
+import Dust from './Dust'
 import { STATIONS, N, stationX, EKTA, CAM, LABEL_Y, ENDING, mapActiveF, mapBookX, legIndex, handoffOf, smooth, bell, lerp } from './constants'
 
 const FLOOR_Y = -0.42
@@ -76,10 +77,6 @@ export default function Scene({ frozen = false, progress }) {
   const vel = useRef(0)
   const vtime = useRef(0)
   const movingRef = useRef(true)
-  // Sparkles run on their own live clock (can't share vtime), so a rare move/idle
-  // state toggle freezes them at rest too — dust motes hold still, not twinkle.
-  const [ambient, setAmbient] = useState(true)
-  const ambientRef = useRef(true)
 
   // stage-word textures per leg (EN/FR via locale), + crossfade state. Legs 0..4
   // ride with the box (Paper…Shipped); leg 5 "Delivered" is raised beside the girl
@@ -96,7 +93,6 @@ export default function Scene({ frozen = false, progress }) {
     vel.current = Math.max(dp, vel.current * 0.9)
     const moving = !frozen && vel.current > 2e-4
     movingRef.current = moving
-    if (moving !== ambientRef.current) { ambientRef.current = moving; setAmbient(moving) } // rare flip → freezes sparkles at rest
     if (moving) vtime.current += Math.min(delta, 0.05)
     const time = frozen ? 0 : vtime.current
     const activeF = mapActiveF(p)
@@ -162,21 +158,18 @@ export default function Scene({ frozen = false, progress }) {
     // the leap goes high — raise the look target and ease the camera back at the apex
     // so the whole arc (and the box overhead) stays framed, then settle for the hold.
     const apex = smooth(0.16, 0.30, handoff) * (1 - smooth(0.42, 0.80, handoff))
-    const k = frozen ? 1 : CAM.ease
     const tx = focusX + CAM.side + Math.sin(time * 0.16) * CAM.drift
     const ty = CAM.y + apex * 0.7 + Math.sin(time * 0.22) * 0.06
     const d = Math.abs(activeF - Math.round(activeF))
     const push = frozen ? 0 : (1 - THREE.MathUtils.clamp(d / 0.5, 0, 1)) ** 2
     const tz = CAM.z - push * 0.5 + apex * 1.4
-    camera.position.x += (tx - camera.position.x) * k
-    camera.position.y += (ty - camera.position.y) * k
-    camera.position.z += (tz - camera.position.z) * k
-    lookX.current += (focusX - lookX.current) * (frozen ? 1 : 0.12)
-    // once idle AND settled, SNAP to the target so there is zero sub-pixel drift —
-    // a perfectly still frame at rest (nothing for the antialiaser to crawl on).
-    if (!moving && Math.abs(tx - camera.position.x) < 0.004) {
-      camera.position.set(tx, ty, tz); lookX.current = focusX
-    }
+    // SINGLE OWNER: the camera reads scroll progress DIRECTLY. Lenis already smooths
+    // the scroll, so a second damping layer here just chased a smoothed value with
+    // another smoothed value → micro overshoot ("palpitation"/ghost double-edges).
+    // No lerp now. The sin-drift is a deterministic decoration (frozen at idle via
+    // vtime), not a smoother — one smoothing layer total, everywhere.
+    camera.position.set(tx, ty, tz)
+    lookX.current = focusX
     camera.lookAt(lookX.current, CAM.lookY + apex * 0.85 + Math.sin(time * 0.2) * 0.02, 0)
   })
 
@@ -220,8 +213,9 @@ export default function Scene({ frozen = false, progress }) {
               <planeGeometry args={[2.6, 2.6]} />
               <meshBasicMaterial map={pool} transparent opacity={0.4} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
             </mesh>
-            {/* dust motes drifting in the pool */}
-            <Sparkles count={14} scale={[1.4, 1.8, 1.2]} position={[x, 0.9, 0]} size={1.5} speed={frozen || !ambient ? 0 : 0.18} opacity={0.5} color={'#F0D49A'} />
+            {/* soft dust motes in the pool — static, so they drift by parallax while
+                scrolling and never strobe or move at rest */}
+            <Dust count={14} scale={[1.4, 1.8, 1.2]} position={[x, 0.9, 0]} size={5} opacity={0.5} color={'#F0D49A'} />
           </group>
         )
       })}
