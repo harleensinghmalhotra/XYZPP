@@ -7,16 +7,16 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 gsap.registerPlugin(ScrollTrigger)
 
 // ── Sustainability — "Responsible by Practice." ──────────────────────────────
-// LEFT is a designed nature scene, not a photograph: a quiet cream→olive-wash
-// panel carrying stroke-drawn branch line-art (olive #6B7A2A + gold #9B7420) and
-// a pair of hand-built CSS butterflies — gold-gradient wings on an olive body,
-// gently flapping (rotateY, ~0.8s) as they drift a lazy wandering path across the
-// panel (12–18s, no tight loops). One pressed FSC certification plate seats
-// bottom-left, clear of the flight path. RIGHT is the fixed editorial column.
-// LAWS: System B palette, olive #6B7A2A the accent; no photo; no straight
-// interior lines; reduced-motion → butterflies static, wings open, nothing moves.
-// GPU-only (CSS transforms), 60fps, no JS rAF. (adapted from the Uiverse butterfly
-// by WerlynRodriguez — CC-attribution loader, rebuilt to the brand.)
+// LEFT is a designed nature scene (Harry's drawing), not a photograph: a quiet
+// cream panel with stroke-drawn line-art in the site's icon language — two soft
+// clouds top-left (one drifting), a gold ray-tick sun top-right (subtle shimmer),
+// a leafy plant up the right edge, and a row of swaying grass along the bottom.
+// One gold butterfly with an olive body drifts the airy middle space, its wings
+// clearly spread (rotateY flap capped low so they never collapse edge-on — the
+// R1 "snail" bug). A pressed FSC certification plate holds the bottom-left corner.
+// LAWS: strokes in olive #6B7A2A / gold #9B7420 / navy #0F2444 on cream only; no
+// photo; no long straight light lines (sun rays are short ticks); reduced-motion →
+// everything static, wings open. GPU-only (CSS transforms), 60fps, no JS rAF.
 
 const BULLETS = ['waste', 'fsc', 'iso', 'disposal']
 
@@ -29,30 +29,31 @@ function Leaf() {
   )
 }
 
-// One butterfly wing (right side; the left is a scaleX(-1) mirror). Gold-gradient
-// fill, olive stroke veins — same line-language as the leaf icons above.
-function Wing() {
+// A flat, top-down butterfly drawn as FOUR separate wing lobes (two forewings up-
+// out, two smaller hindwings down-out) with clear gaps between them + a thin olive
+// body and tiny clubbed antennae — an unmistakable butterfly silhouette. The flap
+// is a 2D scaleX squeeze of the wing group toward the body centre (bulletproof, no
+// 3D foreshortening), so the wings never collapse edge-on into the R1 "snail" lump.
+function Butterfly() {
   return (
-    <svg className="bfly-wing-svg" viewBox="0 0 66 66" fill="none" aria-hidden="true" focusable="false">
-      {/* broad forewing (up-out) + rounder hindwing (down-out) — reads as a butterfly at a glance */}
-      <path className="bfly-wing-fill" fill="url(#bflyWing)" d="M2 33C2 18 7 5 23 2C42 -2 63 3 63 17C63 28 50 34 33 34C21 34 9 34 2 33Z" />
-      <path className="bfly-wing-fill" fill="url(#bflyWing)" d="M2 35C2 49 9 62 25 64C41 66 51 58 48 48C44 40 30 37 17 36C10 36 5 35 2 35Z" />
-      <path className="bfly-wing-vein" d="M6 32C20 18 36 10 52 8" />
-      <path className="bfly-wing-vein" d="M6 37C17 47 28 54 40 58" />
+    <svg className="bfly" viewBox="0 0 120 100" fill="none" aria-hidden="true" focusable="false">
+      <g className="bfly-wings">
+        <path className="bfly-wing-fill" d="M61 39C70 20 92 9 106 16C117 22 113 41 98 46C84 50 67 49 61 44Z" />
+        <path className="bfly-wing-fill" d="M62 53C76 53 92 60 95 73C98 85 86 91 75 86C65 82 59 67 61 56Z" />
+        <path className="bfly-wing-fill" d="M59 39C50 20 28 9 14 16C3 22 7 41 22 46C36 50 53 49 59 44Z" />
+        <path className="bfly-wing-fill" d="M58 53C44 53 28 60 25 73C22 85 34 91 45 86C55 82 61 67 59 56Z" />
+        <path className="bfly-wing-pattern" d="M67 40C78 29 91 22 102 22" />
+        <path className="bfly-wing-pattern" d="M53 40C42 29 29 22 18 22" />
+        <path className="bfly-wing-pattern" d="M68 60C77 63 84 69 88 76" />
+        <path className="bfly-wing-pattern" d="M52 60C43 63 36 69 32 76" />
+      </g>
+      <g className="bfly-body">
+        <path className="bfly-antenna" d="M60 33C57 25 51.5 20 46 18M60 33C63 25 68.5 20 74 18" />
+        <circle className="bfly-antenna-tip" cx="46" cy="17.4" r="1.6" />
+        <circle className="bfly-antenna-tip" cx="74" cy="17.4" r="1.6" />
+        <path className="bfly-body-fill" d="M60 30C62 30 63.4 32.6 63.4 37L62.4 66C62.4 72 61.3 76 60 76C58.7 76 57.6 72 57.6 66L56.6 37C56.6 32.6 58 30 60 30Z" />
+      </g>
     </svg>
-  )
-}
-
-function Butterfly({ variant }) {
-  return (
-    <div className={`bfly bfly-${variant}`} aria-hidden="true">
-      <div className="bfly-wing bfly-wing-l"><Wing /></div>
-      <div className="bfly-wing bfly-wing-r"><Wing /></div>
-      <svg className="bfly-body" viewBox="0 0 12 40" fill="none" aria-hidden="true">
-        <path className="bfly-antenna" d="M6 9C5 5 3.4 3 1.5 1.6M6 9C7 5 8.6 3 10.5 1.6" />
-        <path className="bfly-body-fill" d="M6 6C7.6 6 8.6 8 8.6 12L7.8 30C7.8 34 7 37 6 37C5 37 4.2 34 4.2 30L3.4 12C3.4 8 4.4 6 6 6Z" />
-      </svg>
-    </div>
   )
 }
 
@@ -85,42 +86,56 @@ export default function Sustainability() {
   return (
     <section id="sustainability" ref={root} data-theme="light" className="sustain" aria-labelledby="sustain-title">
       <div className="sustain-inner">
-        {/* LEFT — designed nature scene: olive-wash panel, stroke branch line-art,
-            two brand butterflies drifting; one pressed FSC certification plate. */}
+        {/* LEFT — designed nature scene (Harry's drawing): clouds + sun in the sky,
+            plant up the right, grass along the bottom, one butterfly in the middle,
+            the pressed FSC plate bottom-left. All stroke line-art but the butterfly. */}
         <div className="sustain-media">
           <figure className="svA">
             <div className="svA-frame" role="img" aria-label={t('sceneAlt')}>
-              {/* stroke-drawn branch line-art — olive + gold, composed asymmetrically */}
-              <svg className="bfly-flora" viewBox="0 0 400 560" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-                <defs>
-                  {/* wing fill — deep olive-gold at the body warming to light gold at the tip */}
-                  <linearGradient id="bflyWing" x1="0" y1="0.15" x2="0.9" y2="0.95">
-                    <stop offset="0" stopColor="#7d6320" />
-                    <stop offset="0.5" stopColor="#a9822f" />
-                    <stop offset="1" stopColor="#d6ae59" />
-                  </linearGradient>
-                </defs>
-                <g className="flora-olive">
-                  {/* lower-right branch arching up-left, with leaves */}
-                  <path d="M404 566C372 512 356 468 350 414C345 366 352 326 340 286" />
-                  <path d="M350 414C368 402 386 402 402 412" />
-                  <path d="M350 414C334 404 326 388 326 368" />
-                  <path d="M345 372C361 362 379 364 393 376" />
-                  <path d="M345 372C332 360 326 344 328 326" />
-                  <path d="M342 330C356 320 374 320 388 330" />
-                  <path d="M342 330C328 320 322 304 324 286" />
-                </g>
-                <g className="flora-gold">
-                  {/* top-left sprig */}
-                  <path d="M-4 52C34 66 62 82 82 116" />
-                  <path d="M40 74C40 58 50 46 66 40" />
-                  <path d="M40 74C24 74 12 64 6 50" />
-                  <path d="M64 98C66 82 78 72 94 68" />
+              {/* SKY — two soft clouds top-left (cloud 1 drifts), a ray-tick sun top-right */}
+              <svg className="scn-cloud scn-cloud1" viewBox="0 0 64 26" fill="none" aria-hidden="true" focusable="false">
+                <path d="M9 23C2 23 1 14 9 13C9 5 22 3 26 11C30 3 44 4 45 13C54 12 57 22 48 23C41 27 17 27 9 23Z" />
+              </svg>
+              <svg className="scn-cloud scn-cloud2" viewBox="0 0 50 22" fill="none" aria-hidden="true" focusable="false">
+                <path d="M8 19C2 19 1 12 8 11C8 5 18 3 21 10C25 3 35 5 35 12C43 11 45 18 38 19C32 22 14 22 8 19Z" />
+              </svg>
+              <svg className="scn-sun" viewBox="0 0 72 72" fill="none" aria-hidden="true" focusable="false">
+                <circle className="scn-sun-disc" cx="36" cy="36" r="15" />
+                <g className="scn-sun-rays">
+                  <path d="M57 36H64" /><path d="M50.8 50.8L55.8 55.8" /><path d="M36 57V64" /><path d="M21.2 50.8L16.2 55.8" />
+                  <path d="M15 36H8" /><path d="M21.2 21.2L16.2 16.2" /><path d="M36 15V8" /><path d="M50.8 21.2L55.8 16.2" />
                 </g>
               </svg>
 
-              <Butterfly variant="1" />
-              <Butterfly variant="2" />
+              {/* PLANT — leafy branch up the right edge (Harry keeps this) */}
+              <svg className="scn-plant" viewBox="0 0 130 320" fill="none" aria-hidden="true" focusable="false">
+                <path className="scn-stem" d="M108 320C86 276 74 236 70 188C67 150 74 110 64 72C61 60 60 52 62 42" />
+                <path className="scn-leaf" d="M70 188C86 180 106 182 118 193C104 201 84 199 70 188Z" />
+                <path className="scn-leaf" d="M67 156C51 148 43 131 45 112C61 121 69 138 67 156Z" />
+                <path className="scn-leaf" d="M69 130C85 123 103 126 114 137C100 144 81 141 69 130Z" />
+                <path className="scn-leaf" d="M63 92C48 84 41 68 43 50C58 58 65 74 63 92Z" />
+                <path className="scn-leaf" d="M62 50C60 38 66 28 76 24C72 36 68 46 62 50Z" />
+              </svg>
+
+              {/* GREENERY — a row of swaying grass blades along the bottom-right */}
+              <svg className="scn-grass" viewBox="0 0 300 64" fill="none" aria-hidden="true" focusable="false">
+                <path d="M12 64C9 44 14 32 6 16" />
+                <path d="M30 64C31 46 27 34 33 22" />
+                <path d="M50 64C46 40 51 25 45 9" />
+                <path d="M68 64C70 48 66 36 72 26" />
+                <path d="M88 64C84 42 90 28 85 13" />
+                <path d="M110 64C112 46 108 34 114 22" />
+                <path d="M133 64C129 40 135 24 130 11" />
+                <path d="M156 64C158 48 154 36 160 26" />
+                <path d="M180 64C176 43 182 29 177 15" />
+                <path d="M205 64C207 48 203 34 209 24" />
+                <path d="M230 64C226 42 232 26 227 12" />
+                <path d="M256 64C258 48 254 36 260 26" />
+                <path d="M281 64C277 44 283 30 278 17" />
+              </svg>
+
+              {/* BUTTERFLY — drifts the airy middle */}
+              <Butterfly />
 
               <figcaption className="svA-chip">
                 <svg className="svA-chip-leaf" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
