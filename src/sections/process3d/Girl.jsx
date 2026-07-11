@@ -1,30 +1,26 @@
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import { Billboard } from '@react-three/drei'
+import { Billboard, useGLTF } from '@react-three/drei'
 import { smooth, ENDING } from './constants'
 
-// ── Harry's Pixar-style girl (R7) ────────────────────────────────────────────
-// Three camera-facing sprite poses at the belt's end, crossfaded (never hard-cut):
-//   stand  → idle, hands at her sides, no box
-//   pick   → bent, hands meeting the delivered box (box baked in her hands)
-//   jump   → the celebration, box raised overhead
-// Choreography (driven by `handoff` 0..1, the celebration ramp):
-//   reach: stand→pick as the world box stops · morph: world box fades as the pick
-//   sprite's box fades in (one box at any instant) · jump: pick→jump + hop arc ·
-//   settle: jump→pick, lands holding the box, then HOLDS for the end beat.
-// The planes are lit meshStandardMaterial (tone-mapped, dusk-graded) — not flat
-// meshBasic stickers — with a soft contact shadow that scales/fades through the
-// jump, and a 1–2° parallax turn so she never reads as a cardboard cutout.
+// ── Harry's girl (R8-A) ───────────────────────────────────────────────────────
+// The STANDING beat is now a REAL textured GLB (Hitem3D, simplified to ~70K tris,
+// meshopt + webp-2048, 537 KB) so she reads as standing IN the dusk hall rather
+// than printed on it — she takes real scene lighting, no grade hack. The pick and
+// jump beats stay as Harry's sprites (R7 choreography untouched). At the reach the
+// GLB crossfades out (~opacity, depthWrite off) exactly as the pick sprite fades
+// in — one girl visible at a time, no double-girl frame, reverse-scrub identical.
+const GLB_URL = '/qfp/conveyor/girl.glb'
+const STAND_H = 2.15 // world height — matches the old standing sprite so the swap doesn't jump
+const GLB_YAW = -0.36 // slight turn toward the approaching box (safe: mesh is clean all round)
 
-// Per-pose world height (h), sprite aspect (w/h), and dx (horizontal offset of the
-// plane centre from the girl's anchor, so her body stays put across poses and the
-// pick sprite's held box lands on boxRestX). Tuned by eye against the ending frame.
+// Pick + jump remain sprites. h = world height, aspect = w/h, dx = horizontal offset
+// of the plane centre so the pick sprite's held box lands on boxRestX.
 const POSES = {
-  stand: { url: '/qfp/conveyor/girl-stand.webp', h: 2.15, aspect: 0.4575, dx: 0.0 },
   pick: { url: '/qfp/conveyor/girl-pick.webp', h: 2.28, aspect: 0.739, dx: -0.34 },
   jump: { url: '/qfp/conveyor/girl-jump.webp', h: 2.78, aspect: 0.5433, dx: 0.0 },
 }
-const ORDER = ['stand', 'pick', 'jump']
+const ORDER = ['pick', 'jump']
 const HOP_H = 0.5 // world height of the celebration hop
 const LEAN = 0.8 // how far she steps LEFT toward the resting box during the reach
 
@@ -49,26 +45,61 @@ const Girl = forwardRef(function Girl({ floorY = -0.42 }, ref) {
   const outer = useRef()
   const tilt = useRef()
   const lift = useRef()
+  const glbRoot = useRef()
   const layer = useRef({}) // pose -> mesh
   const matRef = useRef({}) // pose -> material
   const shadow = useRef()
   const shadowMat = useRef()
 
-  const tex = useMemo(() => ({
-    stand: loadTex(POSES.stand.url), pick: loadTex(POSES.pick.url), jump: loadTex(POSES.jump.url),
-  }), [])
+  const tex = useMemo(() => ({ pick: loadTex(POSES.pick.url), jump: loadTex(POSES.jump.url) }), [])
   const shadowTex = useMemo(shadowTexture, [])
+
+  // Real 3D standing girl: compute smooth normals (GLB ships POSITION+UV only, so
+  // it takes no lighting until we build normals), match height to the sprite, and
+  // plant her feet exactly on the belt surface (y=0). Collect materials for the fade.
+  const { scene: glbScene } = useGLTF(GLB_URL)
+  const glb = useMemo(() => {
+    const box = new THREE.Box3().setFromObject(glbScene)
+    const size = box.getSize(new THREE.Vector3())
+    const scale = STAND_H / size.y
+    const yOffset = -box.min.y * scale // lift feet from min.y up to 0
+    const mats = []
+    glbScene.traverse((o) => {
+      if (!o.isMesh) return
+      if (!o.geometry.attributes.normal) o.geometry.computeVertexNormals()
+      o.castShadow = false; o.receiveShadow = false
+      const m = o.material
+      // transparent + depthWrite are set ONCE (never per-frame — toggling either
+      // forces a shader recompile every frame, which tanks fps). At opacity 1 a
+      // transparent+depthWrite material is pixel-identical to an opaque one but she
+      // can now fade to the pick sprite with no recompile.
+      m.transparent = true; m.depthWrite = true
+      mats.push(m)
+    })
+    return { scale, yOffset, mats }
+  }, [glbScene])
 
   useImperativeHandle(ref, () => ({
     get root() { return outer.current },
     // handoff 0..1 = celebration ramp; camX = camera x (for the parallax turn).
     apply(handoff, time, camX = ENDING.girlX) {
       const h = handoff
-      // crossfade opacities — at most two poses are ever non-zero at once
-      const standOp = 1 - smooth(0.05, 0.28, h)
+      // GLB→pick is a REAL pose change (upright 3D → bent sprite), so a 50/50
+      // crossfade would show two distinct girls. Instead the GLB fades out FAST and
+      // the pick sprite fades in just behind it — their opacities barely overlap, so
+      // neither is ever prominent while the other is: no double-girl, no hard pop.
+      const standOp = 1 - smooth(0.02, 0.14, h) // GLB standing girl — gone by ~0.14
       const jumpOp = smooth(0.42, 0.54, h) * (1 - smooth(0.74, 0.88, h))
-      const pickOp = THREE.MathUtils.clamp(1 - standOp - jumpOp, 0, 1)
-      const ops = { stand: standOp, pick: pickOp, jump: jumpOp }
+      const pickIn = smooth(0.07, 0.20, h) // pick rises just as the GLB clears
+      const pickOp = pickIn * (1 - jumpOp)
+
+      // GLB standing girl: fade out as she reaches (opacity only — no material-state
+      // toggling, so no per-frame recompile)
+      for (const m of glb.mats) m.opacity = standOp
+      if (glbRoot.current) glbRoot.current.visible = standOp > 0.002
+
+      // pick + jump sprites
+      const ops = { pick: pickOp, jump: jumpOp }
       let i = 0
       for (const name of ORDER) {
         const m = layer.current[name]; const mat = matRef.current[name]
@@ -76,7 +107,7 @@ const Girl = forwardRef(function Girl({ floorY = -0.42 }, ref) {
         const op = ops[name]
         m.visible = op > 0.002
         mat.opacity = op
-        m.renderOrder = 10 + i++ // stable back-to-front order for the crossfade
+        m.renderOrder = 10 + i++
       }
 
       // hop arc — peaks mid-jump, back to ground by the settle; idle breathing at rest
@@ -89,14 +120,15 @@ const Girl = forwardRef(function Girl({ floorY = -0.42 }, ref) {
       const lean = -LEAN * smooth(0.05, 0.28, h) * (1 - smooth(0.45, 0.72, h))
       if (outer.current) outer.current.position.x = lean
 
-      // contact shadow: shrinks + fades as she leaves the ground, thumps back on land
+      // contact shadow: shrinks + fades as she leaves the ground
       if (shadow.current && shadowMat.current) {
         const air = hop / HOP_H
         shadow.current.scale.setScalar(1 - air * 0.42)
         shadowMat.current.opacity = 0.5 - air * 0.3
       }
 
-      // parallax: a subtle turn INTO the camera as it dollies, so she has depth
+      // parallax turn for the flat sprites only (the GLB is real 3D — it parallaxes
+      // for free as the camera dollies)
       if (tilt.current) {
         const off = THREE.MathUtils.clamp((ENDING.girlX - camX) * 0.02, -0.035, 0.035)
         tilt.current.rotation.y += (off - tilt.current.rotation.y) * 0.1
@@ -113,6 +145,11 @@ const Girl = forwardRef(function Girl({ floorY = -0.42 }, ref) {
       </mesh>
 
       <group ref={lift}>
+        {/* real 3D standing girl — takes the scene's dusk lighting directly */}
+        <group ref={glbRoot} position={[0, glb.yOffset, 0]} scale={glb.scale} rotation={[0, GLB_YAW, 0]}>
+          <primitive object={glbScene} />
+        </group>
+
         <Billboard ref={tilt} lockX lockZ>
           {ORDER.map((name) => {
             const P = POSES[name]
@@ -122,7 +159,7 @@ const Girl = forwardRef(function Girl({ floorY = -0.42 }, ref) {
                 ref={(m) => (layer.current[name] = m)}
                 position={[P.dx, P.h / 2, 0]}
                 scale={[P.h * P.aspect, P.h, 1]}
-                visible={name === 'stand'}
+                visible={false}
               >
                 <planeGeometry args={[1, 1]} />
                 <meshStandardMaterial
@@ -136,7 +173,7 @@ const Girl = forwardRef(function Girl({ floorY = -0.42 }, ref) {
                   color={'#F3E4CE'}
                   emissive={'#20304F'}
                   emissiveIntensity={0.28}
-                  opacity={name === 'stand' ? 1 : 0}
+                  opacity={0}
                 />
               </mesh>
             )
@@ -146,5 +183,7 @@ const Girl = forwardRef(function Girl({ floorY = -0.42 }, ref) {
     </group>
   )
 })
+
+useGLTF.preload(GLB_URL)
 
 export default Girl

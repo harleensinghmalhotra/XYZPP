@@ -56,6 +56,9 @@ const FRAMES = {
   smoke: [0, 0.15, 0.35, 0.55, 0.72, 0.79, 0.83, 0.87, 0.90, 0.94, 0.97, 1.0],
   forward: Array.from({ length: 30 }, (_, i) => +(i / 29).toFixed(4)),
   reverse: Array.from({ length: 20 }, (_, i) => +(1 - i / 19).toFixed(4)),
+  crossfade: Array.from({ length: 13 }, (_, i) => +(0.80 + (i / 12) * 0.10).toFixed(4)), // GLB→pick
+  crossrev: Array.from({ length: 13 }, (_, i) => +(0.90 - (i / 12) * 0.10).toFixed(4)), // reverse
+  standing: [0.68, 0.72, 0.755, 0.78, 0.805, 0.825], // GLB standing beat as the box approaches
   ending: [0.80, 0.82, 0.83, 0.84, 0.855, 0.87, 0.885, 0.90, 0.915, 0.93, 0.945, 0.96, 0.98, 1.0],
   paper: Array.from({ length: 12 }, (_, i) => +(0.10 + (i / 11) * 0.14).toFixed(4)), // activeF ~0.65..1.55
 }
