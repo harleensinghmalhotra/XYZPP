@@ -1097,12 +1097,49 @@ body {
   display: flex;
   align-items: center;
 }
-/* Fine dot grid, vignetted — brightest at centre, fading toward the edges so the
-   centred type owns the room. Static (no parallax, no motion). */
-.promise-bg {
+/* ── LiquidEther fluid, whisper mode (bottom layer) ──────────────────────────
+   The reactbits fluid canvas fills the section at the very back, with its
+   PRESENCE capped hard: wrapper opacity 0.3, and pointer-events:none so scroll
+   and clicks pass straight through (the sim's own mouse listeners live on window,
+   so takeover still works). Not mounted under reduced motion. */
+.promise-ether {
   position: absolute;
   inset: 0;
   z-index: 0;
+  opacity: 0.33; /* VISIBILITY LAW — 0.25–0.35 max; text wins every fight */
+  pointer-events: none;
+}
+.promise-ether-mount { width: 100%; height: 100%; }
+.promise-ether-mount canvas { display: block; width: 100%; height: 100%; }
+/* Radial scrim — wells deep #0A0E14 up behind the text zone, transparent toward
+   the edges, so the ink visibly parts around the type. Its opaque core covers the
+   whole centred text block: every text element sits on solid promise-black, so
+   the fluid can never touch their contrast (asserted under cursor agitation). */
+.promise-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2; /* above BOTH the fluid and the dot grid → clean well for the type */
+  pointer-events: none;
+  /* Tall enough to keep the gold eyebrow/credit on pure ground (they sit at the
+     block's vertical extremes and are contrast-critical); narrow enough that the
+     ink shows in the side margins beside the type. The cream heading's outer
+     glyphs may cross faint fluid — cream stays ~13:1, so that's safe. */
+  background: radial-gradient(
+    ellipse 60% 88% at 50% 50%,
+    #0a0e14 0%,
+    #0a0e14 78%,
+    rgba(10, 14, 20, 0.5) 90%,
+    rgba(10, 14, 20, 0) 100%
+  );
+}
+/* Fine dot grid, vignetted — brightest at centre, fading toward the edges so the
+   centred type owns the room. Static (no parallax, no motion). Sits BELOW the
+   scrim so the text zone stays pure promise-black; the dots read in the same
+   peripheral ring where the fluid breathes. */
+.promise-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
   background-image: radial-gradient(rgba(253, 250, 244, 0.05) 1px, transparent 1.5px);
   background-size: 30px 30px;
@@ -1115,7 +1152,7 @@ body {
    the ground stays far above AA (asserted). Time-based CSS only, no scroll. */
 .promise-glow {
   position: absolute;
-  z-index: 0;
+  z-index: 3;
   left: 50%;
   top: 50%;
   width: min(1120px, 88%);
@@ -1138,7 +1175,7 @@ body {
 
 .promise-inner {
   position: relative;
-  z-index: 1;
+  z-index: 4;
   width: 100%;
   max-width: 940px;
   margin: 0 auto;
@@ -1152,7 +1189,9 @@ body {
   font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #9b7420;
+  /* was #9b7420 (~4.5:1, on the AA knife-edge once the warm glow lifts its ground).
+     A hair brighter, same gold hue → comfortable AA margin under the glow. */
+  color: #a8802a;
 }
 
 .promise-quote {
@@ -1192,7 +1231,9 @@ body {
   font-weight: 500;
   font-size: 12.5px;
   letter-spacing: 1px;
-  color: rgba(155, 116, 32, 0.85);
+  /* was rgba(155,116,32,0.85) ≈ 3.6:1 — below AA. Matches the eyebrow's brighter
+     gold; the scrim keeps its ground pure and it clears AA under the glow. */
+  color: #a8802a;
 }
 
 /* Reduced motion → the glow holds at its mid value; nothing in the frame moves. */

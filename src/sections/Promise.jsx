@@ -1,26 +1,46 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { prefersReduced } from '@/lib/useReducedMotion'
+import PromiseLiquidEther from './promise/PromiseLiquidEther'
 
-// ── Our Promise — typography + void ───────────────────────────────────────────
-// Harry's final call for this section (option 4): kill the machinery, centre the
-// type, let the black breathe. The mission pull-quote stands alone, centred on
-// promise-black, with ONE effect behind it — a soft warm-gold "reading lamp"
-// glow that breathes on an ~9s cycle. It is felt, not seen: never bright enough
-// to pull the eye or drop text contrast below AA (asserted at the brightest
-// frame). Emphasis is WEIGHT only (light 300 vs bold 700), never colour — gold
-// lives only on the eyebrow + attribution. Read-the-bold-alone survives across
-// locales because the bold/light split rides the translated segments.
+// ── Our Promise — typography + void, with ink breathing beneath ───────────────
+// Harry's composition (option 4): kill the machinery, centre the type, let the
+// black breathe. The mission pull-quote stands alone, centred on promise-black,
+// with the soft warm-gold "reading lamp" glow behind it. This round adds ONE more
+// layer far below: the reactbits LiquidEther fluid, tuned to whisper — navy/gold
+// ink drifting under water, capped hard in presence.
 //
-// All motion is time-based CSS (the glow keyframes); no scroll coupling, no JS
-// animation, no WebGL. Reduced motion freezes the glow at its mid value (CSS).
+// THE VISIBILITY LAW: the fluid sits at the very back (wrapper opacity ~0.3),
+// then a radial scrim wells up deep #0A0E14 behind the text zone so the ink
+// visibly parts around the type — the fluid is only ever felt at the edges. The
+// glow + centred text from the last round are layered ABOVE, exactly as built, so
+// every text element keeps its full contrast at the fluid's brightest frame.
+// Reduced motion: the sim is not mounted at all — static navy ground + the glow.
+//
+// Layer order (z): ether 0 · dot grid 1 · scrim 2 · glow 3 · text 4.
 
 export default function PromiseSection() {
   const { t, i18n } = useTranslation('home')
+  const [reduced] = useState(prefersReduced)
 
   const segments = t('promise.segments', { returnObjects: true })
   const SEGMENTS = Array.isArray(segments) ? segments : []
 
   return (
     <section id="promise" data-theme="dark" className="promise" aria-label={t('promise.aria')}>
+      {!reduced && (
+        <PromiseLiquidEther
+          resolution={0.35}
+          isBounce={false}
+          autoDemo
+          autoSpeed={0.3}
+          autoIntensity={1.2}
+          mouseForce={10}
+          cursorSize={80}
+          colors={['#1B3A6B', '#9B7420', '#0F2444']}
+        />
+      )}
+      <div className="promise-scrim" aria-hidden="true" />
       <div className="promise-bg" aria-hidden="true" />
       <div className="promise-glow" aria-hidden="true" />
       <div className="promise-inner" lang={i18n.language}>
