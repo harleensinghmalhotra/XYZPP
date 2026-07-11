@@ -1097,38 +1097,97 @@ body {
   display: flex;
   align-items: center;
 }
-/* abstract gold wireframe globe (canvas 2D) — fills the empty right, spins slow.
-   Positioned on the right half, vertically centred against the heading block,
-   large and bleeding slightly off the right edge (poster energy). Sits BEHIND the
-   text (z-index 0 < .promise-inner z-index 1); at every viewport ≥1280 its box is
-   clear of the left-aligned text column. */
-.promise-globe {
+/* ── Sentence Assembly Line ──────────────────────────────────────────────────
+   The five promise-subline words ride a hairline gold conveyor on the right.
+   CSS/SVG transforms only, no WebGL. Sits BEHIND the text (z 0 < .promise-inner
+   z 1); the box clears the left-aligned text column at every viewport ≥1280.
+   overflow:hidden makes the belt feed words in/out at the clipped ends.
+   Decorative (aria-hidden) — the real words live in .promise-support. */
+.promise-line {
   position: absolute;
   z-index: 0;
   top: 50%;
-  right: clamp(-140px, -7vw, -70px);
+  right: clamp(-90px, -5vw, -48px);
   transform: translateY(-50%);
-  width: clamp(420px, 40vw, 660px);
-  height: clamp(420px, 40vw, 660px);
-  display: block;
+  width: clamp(380px, 40vw, 620px);
+  height: clamp(220px, 24vw, 300px);
+  overflow: hidden;
   pointer-events: none;
 }
+.pl-track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.pl-belt { fill: none; stroke: #9b7420; stroke-width: 1; opacity: 0.34; stroke-linecap: round; }
+.pl-ticks { fill: none; stroke: #9b7420; stroke-width: 1; opacity: 0.22; stroke-linecap: round; }
+.pl-station { fill: none; stroke: #9b7420; stroke-width: 1.4; opacity: 0.5; stroke-linecap: round; }
+.pl-word {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(15px, 1.5vw, 20px);
+  letter-spacing: -0.2px;
+  line-height: 1.1;
+  color: #fdfaf4; /* cream on #0A0E14 → AA+ */
+  opacity: 0; /* GSAP autoAlpha drives it in; no flash before JS */
+  will-change: transform, opacity;
+}
+.pl-word-t { display: inline-block; }
+.pl-seal {
+  margin-left: 0.28em;
+  color: #c89a3c; /* gold-2 seal, echoing the customs star */
+  font-size: 0.66em;
+  vertical-align: 0.42em;
+  display: inline-block;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.pl-stamp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  color: #c89a3c;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.pl-stamp-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.pl-stamp-star { font-family: 'DM Mono', monospace; font-size: 12px; fill: currentColor; }
+
+/* Reduced motion → a static neat stack of all five words, each already stamped. */
+.promise-line--static { overflow: visible; }
+.pl-row {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(12px, 2.4vh, 24px);
+  padding-left: 12%;
+}
+.pl-word--static { position: static; opacity: 1; }
+.pl-word--static .pl-seal { opacity: 1; }
+
 @media (max-width: 1100px) {
   /* below the overlap-safe range it becomes a faint decorative backdrop behind
-     the text (text stays z-index 1 above it and fully legible). */
-  .promise-globe {
-    right: clamp(-60px, -6vw, -20px);
-    width: clamp(360px, 60vw, 560px);
-    height: clamp(360px, 60vw, 560px);
-    opacity: 0.5;
+     the text (text stays z 1 above it and fully legible). */
+  .promise-line {
+    right: clamp(-40px, -4vw, -16px);
+    width: clamp(320px, 52vw, 520px);
+    opacity: 0.55;
   }
 }
-@media (max-width: 640px) {
-  .promise-globe {
-    top: 22%;
-    right: -18%;
-    opacity: 0.35;
-  }
+@media (max-width: 860px) {
+  /* keep the small screens clean — the promise text carries the meaning alone */
+  .promise-line { display: none; }
 }
 /* faint drifting depth — quiet cream glow over a fine dot grid (parallax), now a
    legibility scrim floating just above the waves. */

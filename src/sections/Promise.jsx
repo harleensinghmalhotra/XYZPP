@@ -24,245 +24,186 @@ function segmentsToWords(segments) {
   )
 }
 
-// ── Promise globe — abstract gold wireframe, orthographic canvas 2D ───────────
-// Ekta rejected the wavy background; Harry's replacement is a slow-spinning
-// wireframe globe filling the empty right. It is deliberately NOT the realistic
-// react-globe.gl Earth (that jewel lives in Projects). This one is pure line-art:
-// a low-opacity gold graticule sphere with a handful of great-circle arcs that
-// draw on + fade (the shipping-routes echo) and tiny gold nodes where they land.
-// Canvas 2D over Three.js on purpose — the homepage already carries heavy WebGL
-// (Projects' Earth, the R3F conveyor, the hero), so this section stays near-free.
-// Reduced motion → one static frame, frozen mid-arc, no rAF loop, no rotation.
+// ── The Sentence Assembly Line ────────────────────────────────────────────────
+// Ekta killed the wavy background; Harry's replacement turns the promise copy
+// into quiet machinery. The five subline units — Printing · Kitting · Quality
+// checks · Warehousing · Shipment (pulled VERBATIM from the locale support line,
+// split on periods; FR = Impression · Assemblage · Contrôles qualité · Entreposage
+// · Expédition) — ride a hairline gold conveyor on the section's right half. Each
+// word slides in, pauses at a station where a miniature customs stamp (the exact
+// shelf-book stamp language: a gold ring + dashed perforation + a ✶ star) presses
+// down and leaves a small gold seal on the word, then the word exits as the next
+// enters. Continuous, calm, staggered — alive but never busy.
+//
+// CSS/SVG transforms only — NO WebGL, near-zero GPU cost. The whole thing is
+// decorative (aria-hidden): the real, screen-reader-read words already live in
+// the .promise-support paragraph on the left. Reduced motion → a static neat
+// stack of all five words, each already stamped, no movement.
 
-const GOLD = '155, 116, 32'    // #9B7420 — graticule
-const GOLD_HI = '200, 154, 60' // #C89A3C — brighter arc + node highlight
-const TILT = (20 * Math.PI) / 180 // gentle axial tilt so it isn't a flat globe
-const SPIN = 82                   // seconds per revolution (barely perceptible)
-const ARC_PERIOD = 9.5            // seconds for one draw→hold→fade→gap cycle
-
-// deterministic arc endpoints [lat, lon] in degrees — evokes routes, not geography
-const ARCS = [
-  { a: [22, -8], b: [-28, 66], delay: 0.0 },
-  { a: [48, 42], b: [8, -74], delay: 2.1 },
-  { a: [-16, -58], b: [40, 98], delay: 4.0 },
-  { a: [34, 118], b: [-44, 12], delay: 6.2 },
-]
-
-function latLonToVec(latDeg, lonDeg) {
-  const lat = (latDeg * Math.PI) / 180
-  const lon = (lonDeg * Math.PI) / 180
-  const cl = Math.cos(lat)
-  return { x: cl * Math.sin(lon), y: Math.sin(lat), z: cl * Math.cos(lon) }
+// The mini customs stamp — the shelf-book stamp language shrunk to a seal head.
+function MiniStamp() {
+  return (
+    <svg className="pl-stamp-svg" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="20" cy="20" r="14.5" fill="none" stroke="currentColor" strokeWidth="0.8" strokeDasharray="1.3 2.6" opacity="0.6" />
+      <text x="20" y="24.6" textAnchor="middle" className="pl-stamp-star">✶</text>
+    </svg>
+  )
 }
 
-// rotate a base unit vector about the up-axis by theta, then apply the fixed tilt,
-// scaling by r (arcs ride slightly above the surface, so r > 1 for them).
-function applyView(v, theta, r = 1) {
-  const c = Math.cos(theta), s = Math.sin(theta)
-  const x = v.x * c + v.z * s
-  const z = -v.x * s + v.z * c
-  const y = v.y
-  const ct = Math.cos(TILT), st = Math.sin(TILT)
-  return { x: x * r, y: (y * ct - z * st) * r, z: (y * st + z * ct) * r }
-}
-
-function buildGraticule() {
-  const merid = [], par = []
-  const STEP = 6
-  for (let lon = -180; lon < 180; lon += 30) {
-    const line = []
-    for (let lat = -90; lat <= 90; lat += STEP) line.push(latLonToVec(lat, lon))
-    merid.push(line)
+// Build the belt geometry for a measured box: a shallow gold sag curve (structural
+// geometry, NOT a straight glowing line), belt-edge tick marks, and two small
+// station brackets where the stamp lands. Returns the path strings + the belt
+// function y(x) so travelling words stay glued to the curve.
+function buildTrack(W, H) {
+  const baseY = H * 0.44
+  const sag = H * 0.13
+  const beltY = (x) => baseY + sag * Math.sin(Math.PI * Math.min(Math.max(x / W, 0), 1))
+  let beltD = ''
+  const N = 48
+  for (let i = 0; i <= N; i++) {
+    const x = (i / N) * W
+    beltD += (i ? 'L' : 'M') + x.toFixed(1) + ',' + beltY(x).toFixed(1) + ' '
   }
-  for (let lat = -60; lat <= 60; lat += 30) {
-    const line = []
-    for (let lon = -180; lon <= 180; lon += STEP) line.push(latLonToVec(lat, lon))
-    par.push(line)
+  let ticksD = ''
+  for (let k = 1; k < 12; k++) {
+    const x = (k / 12) * W
+    const y = beltY(x)
+    ticksD += 'M' + x.toFixed(1) + ',' + (y + 3).toFixed(1) + 'L' + x.toFixed(1) + ',' + (y + 9).toFixed(1) + ' '
   }
-  return { merid, par }
+  const xs = W * 0.5
+  const ys = beltY(xs)
+  const stationD =
+    'M' + (xs - 15).toFixed(1) + ',' + (ys - 1).toFixed(1) + 'L' + (xs - 8).toFixed(1) + ',' + (ys - 1).toFixed(1) +
+    ' M' + (xs + 8).toFixed(1) + ',' + (ys - 1).toFixed(1) + 'L' + (xs + 15).toFixed(1) + ',' + (ys - 1).toFixed(1)
+  return { beltY, beltD, ticksD, stationD }
 }
 
-// stroke a projected polyline, batching consecutive same-hemisphere runs so the
-// whole graticule is only a few dozen stroke() calls per frame (front bright,
-// back faint → a see-through wireframe with real depth).
-function drawLine(ctx, tp, cx, cy, R, frontA, backA) {
-  let i = 0
-  while (i < tp.length - 1) {
-    const front = (tp[i].z + tp[i + 1].z) / 2 >= 0
-    ctx.globalAlpha = front ? frontA : backA
-    ctx.beginPath()
-    ctx.moveTo(cx + R * tp[i].x, cy - R * tp[i].y)
-    let j = i + 1
-    ctx.lineTo(cx + R * tp[j].x, cy - R * tp[j].y)
-    while (j < tp.length - 1) {
-      const f2 = (tp[j].z + tp[j + 1].z) / 2 >= 0
-      if (f2 !== front) break
-      j++
-      ctx.lineTo(cx + R * tp[j].x, cy - R * tp[j].y)
-    }
-    ctx.stroke()
-    i = j
-  }
-}
-
-function PromiseGlobe({ reduced }) {
-  const ref = useRef(null)
+function PromiseLine({ words, reduced }) {
+  const box = useRef(null)
+  const svg = useRef(null)
+  const belt = useRef(null)
+  const ticks = useRef(null)
+  const station = useRef(null)
+  const stamp = useRef(null)
+  const wordEls = useRef([])
+  const sealEls = useRef([])
 
   useEffect(() => {
-    const canvas = ref.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    const DPR = Math.min(window.devicePixelRatio || 1, 1.5)
-    const { merid, par } = buildGraticule()
+    const boxEl = box.current
+    if (!boxEl) return
+    let ctx = null
+    let io = null
 
-    // precompute each arc's great-circle geometry (endpoints as base unit vectors
-    // + the angle between them) once — per frame we only slerp + project.
-    const arcs = ARCS.map((arc) => {
-      const a = latLonToVec(arc.a[0], arc.a[1])
-      const b = latLonToVec(arc.b[0], arc.b[1])
-      const dot = Math.max(-1, Math.min(1, a.x * b.x + a.y * b.y + a.z * b.z))
-      const omega = Math.acos(dot)
-      return { a, b, omega, sinO: Math.sin(omega) || 1e-6, delay: arc.delay }
-    })
+    const build = () => {
+      if (ctx) { ctx.revert(); ctx = null }
+      if (io) { io.disconnect(); io = null }
+      const rect = boxEl.getBoundingClientRect()
+      const W = Math.max(1, rect.width)
+      const H = Math.max(1, rect.height)
+      const track = buildTrack(W, H)
+      svg.current.setAttribute('viewBox', `0 0 ${W} ${H}`)
+      belt.current.setAttribute('d', track.beltD)
+      ticks.current.setAttribute('d', track.ticksD)
+      station.current.setAttribute('d', track.stationD)
+      if (reduced) return // static composition: track only; words placed by CSS
 
-    let w = 0, h = 0, cx = 0, cy = 0, R = 0
-    const resize = () => {
-      const rect = canvas.getBoundingClientRect()
-      w = Math.max(1, rect.width); h = Math.max(1, rect.height)
-      canvas.width = Math.round(w * DPR); canvas.height = Math.round(h * DPR)
-      ctx.setTransform(DPR, 0, 0, DPR, 0, 0)
-      cx = w / 2; cy = h / 2
-      R = (Math.min(w, h) / 2) * 0.9
+      ctx = gsap.context(() => {
+        const beltY = track.beltY
+        const enterDur = 1.0, sealDur = 0.2, hold = 0.4, travelDur = 1.0, exitDur = 0.9
+        const L = enterDur + sealDur + hold + travelDur + exitDur
+        const STAGGER = 2.3
+        const P = words.length * STAGGER // full-loop period → seamless retile
+        const cStart = -0.12 * W, cStation = 0.5 * W, cMid = 0.8 * W, cEnd = 1.16 * W
+
+        const master = gsap.timeline()
+
+        wordEls.current.forEach((el, i) => {
+          if (!el) return
+          const seal = sealEls.current[i]
+          const w = el.offsetWidth
+          const h = el.offsetHeight
+          const tx = (cx) => cx - w / 2                 // translateX so the word is centred on cx
+          const topY = (cx) => beltY(cx) - h / 2        // translateY so its middle sits on the belt
+          const follow = () => { const cx = gsap.getProperty(el, 'x') + w / 2; gsap.set(el, { y: topY(cx) }) }
+
+          const tl = gsap.timeline({ repeat: -1, repeatDelay: P - L })
+          tl.set(el, { x: tx(cStart), y: topY(cStart), scale: 0.86, autoAlpha: 0, transformOrigin: '50% 50%' })
+            .set(seal, { autoAlpha: 0, scale: 0.5, transformOrigin: '50% 60%' })
+            // slide in to the station
+            .to(el, { x: tx(cStation), scale: 1, autoAlpha: 1, duration: enterDur, ease: 'power2.out', onUpdate: follow })
+            // the stamp lands here (driven by the stamp timeline) → the seal blooms
+            .to(seal, { autoAlpha: 1, scale: 1, duration: sealDur, ease: 'back.out(2.2)' })
+            .to(el, { duration: hold })                 // dwell under the stamp
+            // continue down the belt
+            .to(el, { x: tx(cMid), scale: 0.97, duration: travelDur, ease: 'sine.inOut', onUpdate: follow })
+            // exit off the right end
+            .to(el, { x: tx(cEnd), scale: 0.9, autoAlpha: 0, duration: exitDur, ease: 'power1.in', onUpdate: follow })
+          master.add(tl, i * STAGGER)
+        })
+
+        // the shared stamp presses once per word arrival (every STAGGER seconds),
+        // first press timed to the first word reaching the station.
+        const firstEl = wordEls.current[0]
+        const hRef = firstEl ? firstEl.offsetHeight : 22
+        const slamCY = beltY(cStation) - hRef / 2 - 5 // stamp centre just above the word
+        const lift = 24
+        gsap.set(stamp.current, { x: cStation - 20, y: slamCY - 20 - lift, scale: 0.8, autoAlpha: 0, transformOrigin: '50% 100%' })
+        const stampTL = gsap.timeline({ repeat: -1 })
+        stampTL
+          .to(stamp.current, { y: slamCY - 20, scale: 1, autoAlpha: 1, duration: 0.12, ease: 'power3.in' }) // slam
+          .to(stamp.current, { scale: 0.92, duration: 0.08, ease: 'power2.out' })                            // impact settle
+          .to(stamp.current, { y: slamCY - 20 - lift, scale: 0.8, autoAlpha: 0, duration: 0.3, ease: 'power2.inOut' }) // lift
+          .to(stamp.current, { duration: STAGGER - 0.5 })                                                    // wait for next word
+        master.add(stampTL, enterDur)
+
+        // pause the whole line while the section is off screen (perf)
+        io = new IntersectionObserver(([e]) => master.paused(!e.isIntersecting), { threshold: 0.01 })
+        io.observe(boxEl)
+      }, boxEl)
     }
 
-    const drawArc = (arc, theta, phase) => {
-      // lifecycle across the cycle: draw (grow head) → hold → fade → gap
-      const head = Math.min(phase / 0.4, 1)
-      let alpha
-      if (phase < 0.6) alpha = 1
-      else if (phase < 0.85) alpha = (0.85 - phase) / 0.25
-      else return
-      if (head <= 0) return
-
-      const N = 48
-      const pts = []
-      for (let s = 0; s <= N; s++) {
-        const t = (s / N) * head
-        const k0 = Math.sin((1 - t) * arc.omega) / arc.sinO
-        const k1 = Math.sin(t * arc.omega) / arc.sinO
-        const v = {
-          x: arc.a.x * k0 + arc.b.x * k1,
-          y: arc.a.y * k0 + arc.b.y * k1,
-          z: arc.a.z * k0 + arc.b.z * k1,
-        }
-        const lift = 1 + 0.17 * Math.sin(Math.PI * t) // route bulge above surface
-        pts.push(applyView(v, theta, lift))
-      }
-      ctx.lineWidth = 1.4
-      ctx.strokeStyle = `rgba(${GOLD_HI}, ${0.9 * alpha})`
-      // draw only front-facing runs so arcs don't ghost through the back of the globe
-      let i = 0
-      while (i < pts.length - 1) {
-        if (pts[i].z < -0.02) { i++; continue }
-        ctx.globalAlpha = 1
-        ctx.beginPath()
-        ctx.moveTo(cx + R * pts[i].x, cy - R * pts[i].y)
-        let j = i + 1
-        ctx.lineTo(cx + R * pts[j].x, cy - R * pts[j].y)
-        while (j < pts.length - 1 && pts[j].z >= -0.02) {
-          j++
-          ctx.lineTo(cx + R * pts[j].x, cy - R * pts[j].y)
-        }
-        ctx.stroke()
-        i = j
-      }
-
-      // nodes: origin appears as the arc launches, destination as the head lands
-      const node = (v, on) => {
-        if (!on) return
-        const p = applyView(v, theta, 1.0)
-        if (p.z < 0) return
-        ctx.globalAlpha = 1
-        ctx.fillStyle = `rgba(${GOLD_HI}, ${0.95 * alpha})`
-        ctx.beginPath()
-        ctx.arc(cx + R * p.x, cy - R * p.y, 2.2, 0, Math.PI * 2)
-        ctx.fill()
-      }
-      node(arc.a, phase > 0.02)
-      node(arc.b, head >= 0.999)
-    }
-
-    const render = (theta, arcPhase) => {
-      ctx.clearRect(0, 0, w, h)
-      ctx.lineCap = 'round'
-      ctx.lineJoin = 'round'
-      // graticule
-      ctx.lineWidth = 1
-      ctx.strokeStyle = `rgb(${GOLD})`
-      for (const line of merid) {
-        const tp = line.map((v) => applyView(v, theta))
-        drawLine(ctx, tp, cx, cy, R, 0.32, 0.11)
-      }
-      for (let pi = 0; pi < par.length; pi++) {
-        const tp = par[pi].map((v) => applyView(v, theta))
-        const isEquator = pi === 2
-        drawLine(ctx, tp, cx, cy, R, isEquator ? 0.4 : 0.3, isEquator ? 0.14 : 0.1)
-      }
-      // faint limb ring so the sphere reads as a whole even where lines thin out
-      ctx.globalAlpha = 0.22
-      ctx.lineWidth = 1
-      ctx.strokeStyle = `rgb(${GOLD})`
-      ctx.beginPath()
-      ctx.arc(cx, cy, R, 0, Math.PI * 2)
-      ctx.stroke()
-      // arcs
-      for (const arc of arcs) {
-        const p = arcPhase(arc.delay)
-        drawArc(arc, theta, p)
-      }
-      ctx.globalAlpha = 1
-    }
-
-    resize()
-
-    if (reduced) {
-      // one static frame: a pleasant fixed angle, arcs frozen mid-draw
-      const theta = 0.65
-      render(theta, () => 0.42)
-      const onResize = () => { resize(); render(theta, () => 0.42) }
-      window.addEventListener('resize', onResize)
-      return () => window.removeEventListener('resize', onResize)
-    }
-
-    let raf = 0
-    let running = false
-    const start = performance.now()
-    const loop = (now) => {
-      const el = (now - start) / 1000
-      const theta = (el / SPIN) * Math.PI * 2
-      const phaseFor = (delay) => ((el + delay) % ARC_PERIOD) / ARC_PERIOD
-      render(theta, phaseFor)
-      raf = requestAnimationFrame(loop)
-    }
-    const play = () => { if (!running) { running = true; raf = requestAnimationFrame(loop) } }
-    const stop = () => { if (running) { running = false; cancelAnimationFrame(raf) } }
-
-    // only spin while the section is on screen
-    const io = new IntersectionObserver(
-      ([e]) => (e.isIntersecting ? play() : stop()),
-      { threshold: 0.01 },
-    )
-    io.observe(canvas)
-    const onResize = () => resize()
+    build()
+    const onResize = () => build()
     window.addEventListener('resize', onResize)
+    // rebuild once webfonts settle so word widths are exact
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(build)
     return () => {
-      io.disconnect()
-      stop()
       window.removeEventListener('resize', onResize)
+      if (io) io.disconnect()
+      if (ctx) ctx.revert()
     }
-  }, [reduced])
+  }, [reduced, words])
 
-  return <canvas ref={ref} className="promise-globe" aria-hidden="true" />
+  return (
+    <div className={`promise-line${reduced ? ' promise-line--static' : ''}`} ref={box} aria-hidden="true">
+      <svg className="pl-track" ref={svg} preserveAspectRatio="none">
+        <path className="pl-belt" ref={belt} />
+        <path className="pl-ticks" ref={ticks} />
+        <path className="pl-station" ref={station} />
+      </svg>
+      {reduced ? (
+        <div className="pl-row">
+          {words.map((word, i) => (
+            <div className="pl-word pl-word--static" key={i}>
+              <span className="pl-word-t">{word}</span>
+              <span className="pl-seal">✶</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <>
+          <div className="pl-stamp" ref={stamp}><MiniStamp /></div>
+          {words.map((word, i) => (
+            <div className="pl-word" key={i} ref={(el) => (wordEls.current[i] = el)}>
+              <span className="pl-word-t">{word}</span>
+              <span className="pl-seal" ref={(el) => (sealEls.current[i] = el)}>✶</span>
+            </div>
+          ))}
+        </>
+      )}
+    </div>
+  )
 }
 
 export default function PromiseSection() {
@@ -273,6 +214,11 @@ export default function PromiseSection() {
 
   const segments = t('promise.segments', { returnObjects: true })
   const WORDS = segmentsToWords(Array.isArray(segments) ? segments : [])
+
+  // The five assembly-line units are the period-delimited stages of the promise
+  // subline — pulled verbatim from the active locale, nothing invented.
+  const support = t('promise.support')
+  const LINE_WORDS = support.split('.').map((s) => s.trim()).filter(Boolean).slice(0, 5)
 
   useLayoutEffect(() => {
     if (reduced) return
@@ -310,7 +256,7 @@ export default function PromiseSection() {
   return (
     <section id="promise" ref={root} data-theme="dark" className="promise" aria-label={t('promise.aria')}>
       <div className="promise-bg" ref={bg} aria-hidden="true" />
-      <PromiseGlobe reduced={reduced} />
+      <PromiseLine words={LINE_WORDS} reduced={reduced} />
       <div className="promise-inner">
         <p className="promise-eyebrow">{t('promise.eyebrow')}</p>
         <blockquote className="promise-quote">
