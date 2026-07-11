@@ -1097,119 +1097,52 @@ body {
   display: flex;
   align-items: center;
 }
-/* ── Sentence Assembly Line ──────────────────────────────────────────────────
-   The five promise-subline words ride a hairline gold conveyor on the right.
-   CSS/SVG transforms only, no WebGL. Sits BEHIND the text (z 0 < .promise-inner
-   z 1); the box clears the left-aligned text column at every viewport ≥1280.
-   overflow:hidden makes the belt feed words in/out at the clipped ends.
-   Decorative (aria-hidden) — the real words live in .promise-support. */
-.promise-line {
-  position: absolute;
-  z-index: 0;
-  top: 50%;
-  right: clamp(-90px, -5vw, -48px);
-  transform: translateY(-50%);
-  width: clamp(380px, 40vw, 620px);
-  height: clamp(220px, 24vw, 300px);
-  overflow: hidden;
-  pointer-events: none;
-}
-.pl-track {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  overflow: visible;
-}
-.pl-belt { fill: none; stroke: #9b7420; stroke-width: 1; opacity: 0.34; stroke-linecap: round; }
-.pl-ticks { fill: none; stroke: #9b7420; stroke-width: 1; opacity: 0.22; stroke-linecap: round; }
-.pl-station { fill: none; stroke: #9b7420; stroke-width: 1.4; opacity: 0.5; stroke-linecap: round; }
-.pl-word {
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 600;
-  font-size: clamp(15px, 1.5vw, 20px);
-  letter-spacing: -0.2px;
-  line-height: 1.1;
-  color: #fdfaf4; /* cream on #0A0E14 → AA+ */
-  opacity: 0; /* GSAP autoAlpha drives it in; no flash before JS */
-  will-change: transform, opacity;
-}
-.pl-word-t { display: inline-block; }
-.pl-seal {
-  margin-left: 0.28em;
-  color: #c89a3c; /* gold-2 seal, echoing the customs star */
-  font-size: 0.66em;
-  vertical-align: 0.42em;
-  display: inline-block;
-  opacity: 0;
-  will-change: transform, opacity;
-}
-.pl-stamp {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 40px;
-  color: #c89a3c;
-  opacity: 0;
-  will-change: transform, opacity;
-}
-.pl-stamp-svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.pl-stamp-star { font-family: 'DM Mono', monospace; font-size: 12px; fill: currentColor; }
-
-/* Reduced motion → a static neat stack of all five words, each already stamped. */
-.promise-line--static { overflow: visible; }
-.pl-row {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: clamp(12px, 2.4vh, 24px);
-  padding-left: 12%;
-}
-.pl-word--static { position: static; opacity: 1; }
-.pl-word--static .pl-seal { opacity: 1; }
-
-@media (max-width: 1100px) {
-  /* below the overlap-safe range it becomes a faint decorative backdrop behind
-     the text (text stays z 1 above it and fully legible). */
-  .promise-line {
-    right: clamp(-40px, -4vw, -16px);
-    width: clamp(320px, 52vw, 520px);
-    opacity: 0.55;
-  }
-}
-@media (max-width: 860px) {
-  /* keep the small screens clean — the promise text carries the meaning alone */
-  .promise-line { display: none; }
-}
-/* faint drifting depth — quiet cream glow over a fine dot grid (parallax), now a
-   legibility scrim floating just above the waves. */
+/* Fine dot grid, vignetted — brightest at centre, fading toward the edges so the
+   centred type owns the room. Static (no parallax, no motion). */
 .promise-bg {
   position: absolute;
-  inset: -12% 0;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image:
-    radial-gradient(circle at 18% 26%, rgba(253, 250, 244, 0.055), transparent 46%),
-    radial-gradient(circle at 88% 82%, rgba(253, 250, 244, 0.04), transparent 48%),
-    radial-gradient(rgba(253, 250, 244, 0.05) 1px, transparent 1.5px);
-  background-size: auto, auto, 30px 30px;
-  will-change: transform;
+  background-image: radial-gradient(rgba(253, 250, 244, 0.05) 1px, transparent 1.5px);
+  background-size: 30px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 66% 62% at 50% 50%, #000 28%, transparent 82%);
+  mask-image: radial-gradient(ellipse 66% 62% at 50% 50%, #000 28%, transparent 82%);
 }
+/* THE ONE EFFECT — a soft warm-gold reading-lamp glow behind the type. Extremely
+   low alpha; scale + opacity breathe ~3.5% over 9s. Felt, not seen: at the
+   brightest frame it lifts the near-black under the text only a hair, so cream on
+   the ground stays far above AA (asserted). Time-based CSS only, no scroll. */
+.promise-glow {
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  width: min(1120px, 88%);
+  height: min(720px, 78%);
+  transform: translate(-50%, -50%) scale(1);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(201, 154, 60, 0.10) 0%,
+    rgba(155, 116, 32, 0.05) 34%,
+    rgba(155, 116, 32, 0) 66%
+  );
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: promiseGlowBreathe 9s ease-in-out infinite;
+}
+@keyframes promiseGlowBreathe {
+  0%, 100% { opacity: 0.82; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.035); }
+}
+
 .promise-inner {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 1180px;
+  max-width: 940px;
   margin: 0 auto;
-  text-align: left;
+  text-align: center; /* poster typesetting — the promise centred on its stage */
 }
 
 .promise-eyebrow {
@@ -1223,20 +1156,18 @@ body {
 }
 
 .promise-quote {
-  margin: 0;
+  margin: 0 auto;
   font-family: 'Inter Tight', sans-serif;
   font-size: clamp(2.5rem, 5.4vw, 4.75rem); /* ~40 → 76px */
-  line-height: 1.08;
-  letter-spacing: -0.6px;
-  color: #fdfaf4;
-  max-width: 17ch;
+  line-height: 1.14; /* opened a touch for the centred measure */
+  letter-spacing: 0.006em; /* widened ~0.6% from tight — room to breathe */
+  color: #fdfaf4; /* cream on #0A0E14 → AA+ even at the glow's brightest frame */
+  max-width: 20ch; /* elegant ~20ch heading measure; lines break on their own */
 }
-/* each word is an inline-block so it can transform; spacing via margin so no
-   fragile whitespace nodes. Weight is the ONLY emphasis — same cream. */
-.pq-w {
-  display: inline-block;
-  margin-right: 0.26em;
-  will-change: transform, filter, opacity;
+/* Weight is the ONLY emphasis — same cream. Inline flow so the centred lines
+   wrap and balance naturally. The longer FR sentence gets a wider measure. */
+.promise-inner:lang(fr) .promise-quote {
+  max-width: 24ch;
 }
 .pq-light {
   font-weight: 300;
@@ -1246,22 +1177,31 @@ body {
 }
 
 .promise-support {
-  margin: clamp(32px, 4.4vh, 50px) 0 0;
+  margin: clamp(32px, 4.4vh, 50px) auto 0;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: clamp(15px, 1.25vw, 18px);
   line-height: 1.8;
-  color: rgba(253, 250, 244, 0.65);
-  max-width: 620px;
+  color: rgba(253, 250, 244, 0.66); /* ≥AA on #0A0E14, glow-brightest verified */
+  max-width: 560px;
 }
 
 .promise-attr {
-  margin: 30px 0 0;
+  margin: 30px auto 0;
   font-family: 'DM Mono', monospace;
   font-weight: 500;
   font-size: 12.5px;
   letter-spacing: 1px;
   color: rgba(155, 116, 32, 0.85);
+}
+
+/* Reduced motion → the glow holds at its mid value; nothing in the frame moves. */
+@media (prefers-reduced-motion: reduce) {
+  .promise-glow {
+    animation: none;
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.018);
+  }
 }
 
 @media (max-width: 640px) {
@@ -1270,7 +1210,7 @@ body {
     min-height: 0;
   }
   .promise-quote {
-    max-width: none;
+    max-width: 18ch;
   }
 }
 
