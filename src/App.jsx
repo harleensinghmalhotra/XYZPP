@@ -9,6 +9,7 @@ import TradeBooks from '@/pages/TradeBooks'
 import InfrastructurePage from '@/pages/InfrastructurePage'
 import Fulfilment from '@/pages/Fulfilment'
 import Contact from '@/pages/Contact'
+import NotFound from '@/pages/NotFound'
 
 // App is now the routing host, not the scroll stack. Every route renders inside
 // <SiteLayout> (nav + footer chrome). The homepage ("/") owns the scroll engine;
@@ -32,7 +33,7 @@ export default function App() {
         <Route path="/legal/terms" element={<ShellPage title="Terms of Use" eyebrow="Legal" />} />
         <Route path="/legal/accessibility" element={<ShellPage title="Accessibility Statement" eyebrow="Legal" />} />
 
-        <Route path="*" element={<ShellPage title="Page Not Found" eyebrow="404" />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )

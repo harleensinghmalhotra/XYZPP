@@ -12,5 +12,11 @@
   "requestQuote": "Demander un devis",
   "learnMore": "En savoir plus",
   "explore": "Découvrir",
-  "readMore": "Lire la suite"
+  "readMore": "Lire la suite",
+  "notFound": {
+    "eyebrow": "ERREUR 404 · ÉPUISÉ",
+    "title": "Cette page n'est plus au catalogue.",
+    "body": "La page que vous cherchez ne figure pas dans notre catalogue — elle a peut-être été déplacée, ou n'a jamais été imprimée.",
+    "back": "Retour au catalogue →"
+  }
 }
