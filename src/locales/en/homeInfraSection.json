@@ -34,6 +34,7 @@
     "count": "600+",
     "title": "Hands Behind Every Shipment.",
     "body": "Press operators, quality inspectors, kitting teams and logistics specialists, working across shifts, trained to the same standard at every facility.",
+    "photoNote": "PHOTO · {{team}}",
     "captions": {
       "01": "Press Floor Team",
       "02": "Quality Check",

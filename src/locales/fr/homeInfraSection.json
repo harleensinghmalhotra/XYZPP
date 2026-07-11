@@ -34,6 +34,7 @@
     "count": "600+",
     "title": "personnes derrière chaque expédition.",
     "body": "Opérateurs de presse, inspecteurs qualité, équipes d'assemblage et spécialistes de la logistique, travaillant en équipes successives, formés selon la même norme sur chaque site.",
+    "photoNote": "PHOTO · {{team}}",
     "captions": {
       "01": "Équipe d'atelier",
       "02": "Contrôle qualité",

@@ -33,25 +33,14 @@ const FACILITIES = [
   { n: '03', icon: 'carton' },  // Warehouse & Fulfilment → boxes
 ]
 
-// People captions resolved from people.captions.<n>.
-const PEOPLE = [{ n: '01' }, { n: '02' }, { n: '03' }, { n: '04' }]
-
-// Silent drop-in photo surface: navy placeholder (with a DM Mono note) sits UNDER
-// the real image layer, so a delivered .webp covers it with zero code change.
-// (Still used by the "Our People" portraits, which keep real photos.)
-function InfraPhoto({ src, note, className = '' }) {
-  return (
-    <div className={`infra-photo ${className}`}>
-      <div className="infra-photo-base" aria-hidden="true" />
-      <span className="infra-photo-note" aria-hidden="true">{note}</span>
-      <div
-        className="infra-photo-img"
-        aria-hidden="true"
-        style={{ backgroundImage: `url(${src})` }}
-      />
-    </div>
-  )
-}
+// People captions resolved from people.captions.<n>; each team carries a stroke
+// icon that names its role, drawn onto the same placeholder panel as the facilities.
+const PEOPLE = [
+  { n: '01', icon: 'roller' },     // Press Floor Team → press operator / roller
+  { n: '02', icon: 'check' },      // Quality Check → magnifier / check
+  { n: '03', icon: 'kit' },        // Kitting & Packing → open box
+  { n: '04', icon: 'leadership' }, // Leadership Team → people / leadership
+]
 
 // Stroke icons reused verbatim from the /infrastructure page's MachineIcon so the
 // placeholder mark matches the existing site icon style (no new style invented).
@@ -94,6 +83,63 @@ function FacilityPlaceholder({ icon, note }) {
       <div className="infra-ph-pattern" />
       <div className="infra-ph-mark">
         <FacilityIcon name={icon} />
+        <span className="infra-ph-cap">{note}</span>
+      </div>
+    </div>
+  )
+}
+
+// Team stroke icons — same system as FacilityIcon (fill none, gold currentColor,
+// pathLength-normalised) so the placeholder mark reads as one site-wide language.
+function TeamIcon({ name }) {
+  const s = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.4, strokeLinecap: 'round', strokeLinejoin: 'round', pathLength: 1 }
+  return (
+    <svg className="infra-ph-icon" viewBox="0 0 48 48" width="44" height="44" aria-hidden="true">
+      {name === 'roller' && ( /* press operator — two inked rollers feeding a sheet */
+        <>
+          <rect x="9" y="13" width="30" height="7" rx="3.5" {...s} />
+          <rect x="9" y="24" width="30" height="7" rx="3.5" {...s} />
+          <path d="M24 31v8M19 39h10" {...s} />
+        </>
+      )}
+      {name === 'check' && ( /* quality — magnifier with a check inside */
+        <>
+          <circle cx="21" cy="21" r="11.5" {...s} />
+          <path d="M29.5 29.5 39 39" {...s} />
+          <path d="M16 21.5l3.8 3.8L27 17.5" {...s} />
+        </>
+      )}
+      {name === 'kit' && ( /* kitting — an open carton, flaps splayed */
+        <>
+          <path d="M24 20 10 14v16l14 7 14-7V14L24 20Z" {...s} />
+          <path d="M10 14l14 6 14-6M24 20v17" {...s} />
+          <path d="M10 14l5-5 9 5M38 14l-5-5-9 5" {...s} />
+        </>
+      )}
+      {name === 'leadership' && ( /* leadership — a lead figure with the team behind */
+        <>
+          <circle cx="24" cy="15" r="5" {...s} />
+          <path d="M14 35c0-6 4.5-10 10-10s10 4 10 10" {...s} />
+          <circle cx="10" cy="20" r="3.4" {...s} />
+          <path d="M4 32c0-3.5 2.6-6 6-6" {...s} />
+          <circle cx="38" cy="20" r="3.4" {...s} />
+          <path d="M44 32c0-3.5-2.6-6-6-6" {...s} />
+        </>
+      )}
+    </svg>
+  )
+}
+
+// Team portrait placeholder — the exact facility placeholder language on the 4/5
+// portrait frame: solid deep-navy ground, faint tonal dot grid, gold stroke mark,
+// DM Mono caption. Photos were pulled (Harry's call); a real drop restores here.
+function TeamPlaceholder({ icon, note }) {
+  return (
+    <div className="infra-photo infra-photo--portrait infra-ph" aria-hidden="true">
+      {/* TODO(Harry): real team photo drops here */}
+      <div className="infra-ph-pattern" />
+      <div className="infra-ph-mark">
+        <TeamIcon name={icon} />
         <span className="infra-ph-cap">{note}</span>
       </div>
     </div>
@@ -206,7 +252,7 @@ export default function Infrastructure() {
           <div className="infra-people-grid">
             {PEOPLE.map((p) => (
               <figure key={p.n} className="infra-person">
-                <InfraPhoto src={`/qfp/infra/people-${p.n}.webp`} note={t(`people.captions.${p.n}`).toUpperCase()} className="infra-photo--portrait" />
+                <TeamPlaceholder icon={p.icon} note={t('people.photoNote', { team: t(`people.captions.${p.n}`) })} />
                 <figcaption className="infra-person-cap">{t(`people.captions.${p.n}`)}</figcaption>
               </figure>
             ))}
