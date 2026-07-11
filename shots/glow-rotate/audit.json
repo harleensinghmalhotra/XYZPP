@@ -1,0 +1,21 @@
+{
+  "base": "http://localhost:5196",
+  "team": {
+    "transform": "matrix(0, -0.82, 0.92, 0, 0, 0)",
+    "opacity": "0.82"
+  },
+  "infra": {
+    "transform": "matrix(0, -0.82, 0.92, 0, 0, 0)",
+    "opacity": "0.82"
+  },
+  "reducedMotion": "none",
+  "fps": 200,
+  "consoleErrors": [],
+  "pass": {
+    "teamRotates": true,
+    "infraRotates": true,
+    "reducedNoRotate": true,
+    "fps55": true,
+    "zeroErrors": true
+  }
+}
