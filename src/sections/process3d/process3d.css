@@ -41,6 +41,20 @@
 }
 .conv-pin canvas { display: block; touch-action: pan-y; }
 
+/* Seamless exit — the scene's dark floor dissolves over the last ~220px into the
+   EXACT top-of-Projects navy (#0c192e, sampled from .proj's radial top), so at the
+   pin-release frame the conveyor bottom edge already IS the next section's colour —
+   no hard horizontal line, in either scroll direction. Sits above the canvas, inert. */
+.conv-pin::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 220px;
+  background: linear-gradient(to bottom, rgba(12, 25, 46, 0) 0%, rgba(12, 25, 46, 0.6) 55%, #0c192e 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
 /* reduced-motion static beauty shot — a single non-scrolling viewport */
 .conv-root {
   position: relative;
