@@ -2653,6 +2653,7 @@ body {
   perspective: 340px;
   z-index: 3;
   will-change: transform;
+  filter: drop-shadow(0 7px 9px rgba(15, 36, 68, 0.13)); /* seats it above the panel */
 }
 .bfly-1 { top: 60px; left: 96px; animation: bfly-drift-1 15s ease-in-out infinite; }
 .bfly-2 { top: 36px; left: 236px; animation: bfly-drift-2 18.5s ease-in-out infinite; }

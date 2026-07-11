@@ -13,5 +13,7 @@
     "fsc": "FSC certified",
     "iso": "ISO 14001:2015"
   },
-  "cutoutAlt": "Stack of recycled paper"
+  "cutoutAlt": "Stack of recycled paper",
+  "fscLabel": "FSC Certified",
+  "sceneAlt": "Illustrated scene of butterflies drifting over stroke-drawn branches, marked with an FSC certification plate"
 }

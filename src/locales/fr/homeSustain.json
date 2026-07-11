@@ -13,5 +13,7 @@
     "fsc": "Certifié FSC",
     "iso": "ISO 14001:2015"
   },
-  "cutoutAlt": "Pile de papier recyclé"
+  "cutoutAlt": "Pile de papier recyclé",
+  "fscLabel": "Certifié FSC",
+  "sceneAlt": "Scène illustrée de papillons dérivant au-dessus de branches dessinées au trait, marquée d'une plaque de certification FSC"
 }
