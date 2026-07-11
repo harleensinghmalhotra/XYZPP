@@ -1180,36 +1180,29 @@ body {
   display: flex;
   align-items: center;
 }
-/* ── LetterGlitch type wall (bottom layer) ───────────────────────────────────
-   The reactbits LetterGlitch canvas fills the section at the very back — a wall of
-   DM Mono characters glitching at a slow letterpress pace, ink-on-night. Presence
-   capped hard: wrapper opacity 0.42 (VISIBILITY LAW: 0.35–0.5 max), pointer-events
-   none so scroll/clicks pass through. Its own centreVignette darkens under the
-   type; the .promise-scrim below wells opaque black over the whole text block, so
-   the wall lives only at the EDGES. Reduced motion renders one static frame. */
-.promise-typewall {
+/* ── Lightfall — molten gold threads (bottom layer, WebGL) ────────────────────
+   The reactbits Lightfall canvas fills the section at the very back — gold light
+   streaks falling through the promise-black. Presence capped by the component's
+   own opacity prop (0.8) + low backgroundGlow (0.25); the .promise-scrim below
+   wells opaque black over the whole text block, so the streaks live only at the
+   EDGES. The wrapper is pointer-events:none so it never blocks scroll or clicks;
+   the canvas itself re-enables pointer-events so Lightfall's gentle mouse-bend
+   still tracks the cursor over the section's margins. Not mounted under reduced
+   motion; unmounted (GL context disposed) off-viewport and on hidden tab. */
+.promise-lightfall {
   position: absolute;
   inset: 0;
   z-index: 0;
-  opacity: 0.42; /* VISIBILITY LAW — 0.35–0.5 max; text wins every fight */
   pointer-events: none;
 }
-.promise-typewall-canvas { display: block; width: 100%; height: 100%; }
-/* centreVignette — the component's shipped radial dark-centre overlay. Wells the
-   promise-black up under the type so the wall fades to nothing behind the words
-   and only whispers at the section's edges (our text-protection pattern). */
-.promise-typewall-vignette {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse 62% 66% at 50% 50%,
-    #0a0e14 0%,
-    rgba(10, 14, 20, 0.85) 34%,
-    rgba(10, 14, 20, 0) 72%
-  );
+.promise-lightfall canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto; /* canvas is hit-testable for the mouse-bend; it has no
+                           click/scroll handlers, so scroll and clicks pass clean */
 }
-/* Two-layer celebration confetti — one canvas above the ether, BELOW the scrim so
+/* Two-layer celebration confetti — one canvas above Lightfall, BELOW the scrim so
    the opaque core hides any centre piece (text contrast never touched). DPR is
    capped at 1 in JS; the pieces only read in the peripheral ring. */
 .promise-confetti {
@@ -4492,13 +4485,25 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 .qfp-globe-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .qfp-globe[data-phase="landed"] .qfp-globe-canvas { cursor: grab; }
 .qfp-globe[data-phase="landed"] .qfp-globe-canvas:active { cursor: grabbing; }
-/* MapLibre chrome, toned to brand: keep attribution (license) but make it quiet */
-.qfp-globe .maplibregl-ctrl-attrib {
-  background: rgba(15, 36, 68, 0.55); border-radius: 8px 0 0 0;
+/* MapLibre attribution — WHISPER MODE, license-compliant. OSM's license requires
+   the credit stay rendered, readable, and its links live; we only quiet it. Pick:
+   quiet-inline (always shown) over compact-ⓘ — the credit is never gated behind a
+   click. DM Mono 11px (the compliance floor), a muted slate-navy that reads ~45%
+   against the cream/navy map corner — legible when looked at, invisible until
+   sought. No pill/border/shadow, tight padding, single line, bottom-right. */
+/* Match both classes (.maplibregl-ctrl.maplibregl-ctrl-attrib) so we out-specify
+   MapLibre's own default pill, whose CSS is injected later via dynamic import. */
+.qfp-globe .maplibregl-ctrl.maplibregl-ctrl-attrib {
+  background: transparent; border: 0; box-shadow: none; margin: 0;
+  padding: 2px 6px 2px 8px; border-radius: 0; min-height: 0;
 }
-.qfp-globe .maplibregl-ctrl-attrib a,
-.qfp-globe .maplibregl-ctrl-attrib { color: rgba(240, 235, 224, 0.7); font-family: 'DM Mono', monospace; }
-.qfp-globe .maplibregl-ctrl-attrib-button { filter: invert(1) opacity(0.6); }
+.qfp-globe .maplibregl-ctrl-attrib-inner { white-space: nowrap; }
+.qfp-globe .maplibregl-ctrl.maplibregl-ctrl-attrib,
+.qfp-globe .maplibregl-ctrl-attrib a {
+  font-family: 'DM Mono', monospace; font-size: 11px; line-height: 1.3;
+  color: #6E7B93; text-decoration: none;
+}
+.qfp-globe .maplibregl-ctrl-attrib a:hover { text-decoration: underline; }
 .qfp-globe canvas { outline: none; }
 
 /* --- gold markers (Vashi / Taloja) that pop after landing --- */

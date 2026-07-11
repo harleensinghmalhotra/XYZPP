@@ -168,7 +168,9 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
           style: STYLE_URL,
           center: reduced ? TARGET.center : SPACE_VIEW.center,
           zoom: reduced ? TARGET.zoom : SPACE_VIEW.zoom,
-          attributionControl: { compact: true },
+          // Non-compact: the OSM/OpenMapTiles credit stays permanently expanded and
+          // readable (never gated behind the ⓘ toggle) — CSS quiets it to a whisper.
+          attributionControl: { compact: false },
           interactive: true,
           // Cooperative gestures: wheel-zoom needs ctrl/cmd and touch needs two
           // fingers, so the map never hijacks normal page scroll once zoom is on.
