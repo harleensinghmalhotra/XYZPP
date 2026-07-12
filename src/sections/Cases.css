@@ -484,29 +484,40 @@
   cursor: default;
 }
 
-/* ── button row closing the section (unchanged) ───────────────────────────── */
-.cases-footer {
-  background: #f0ebe0;
-  text-align: center;
-  padding: 52px 24px 56px;
+/* ── VIEW ALL — the CTA came home to the book ──────────────────────────────────
+   The orphan cream strip is gone; the button now lives on the navy stage, centered
+   below the spread and comfortably clear of the corner arrows. Cream #FDFAF4 pill,
+   navy #0F2444 text (≈13:1 — AA easily), wearing the full nebula foil ring via
+   .btn-nebula--light (cream-surface variant: gold ring, no cream stars). Type +
+   dimensions mirror "Request a Quote" so it reads as its sibling, not a new species. */
+.cs-viewall {
+  display: flex;
+  justify-content: center;
+  /* standard rhythm below the book — well clear of the arrows, inside the stage's
+     --section-pad-y bottom breathing so the section stays coherent */
+  margin-top: clamp(44px, 6vh, 72px);
 }
 .view-all-cases {
-  background: #0f2444;
-  color: #c89a3c;
-  border: 1px solid rgba(200, 154, 60, 0.5);
-  padding: 16px 36px;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-radius: var(--r-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  padding: 0 40px;
+  background: #fdfaf4;   /* cream fill */
+  color: #0f2444;        /* navy text — AA easily on cream */
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--r-btn);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 .view-all-cases:hover {
-  background: #16305a;
-  color: #e6bd6a;
-  border-color: rgba(200, 154, 60, 0.8);
+  background: #f5f0e8;   /* a hair deeper cream — no pure white; the ring lifts too */
+  transform: scale(1.02);
 }
+.view-all-cases:active { transform: scale(0.98); }
 
 /* ── reduced motion — no leaf turn, no shelf pull travel; crossfade only ───── */
 @media (prefers-reduced-motion: reduce) {
@@ -521,6 +532,9 @@
       0 0 22px rgba(200, 154, 60, 0.32);
   }
   .cs-book[data-mode='flat'] .cs-spread { animation-duration: 0.18s; }
+  /* View-All stays static — the nebula ring is already pinned by its own rules */
+  .view-all-cases:hover,
+  .view-all-cases:active { transform: none; }
 }
 
 /* ── responsive — stack the book under the shelf; spines run in a scroll row ── */

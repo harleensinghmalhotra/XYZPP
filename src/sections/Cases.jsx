@@ -364,10 +364,14 @@ export default function Cases() {
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="cases-footer">
-        <button className="view-all-cases btn-nebula">{t('viewAll')}</button>
+        {/* THE CTA COMES HOME — "View All Case Studies" lives inside the book's
+            own stage now (no orphan cream strip below): centered under the spread,
+            clear of the corner arrows, a cream pill on navy that reads as a sibling
+            of "Request a Quote". Still within the stage's --section-pad-y breathing. */}
+        <div className="cs-viewall">
+          <button className="view-all-cases btn-nebula btn-nebula--light">{t('viewAll')}</button>
+        </div>
       </div>
     </section>
   )
