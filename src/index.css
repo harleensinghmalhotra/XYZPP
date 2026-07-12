@@ -14,6 +14,13 @@
   --navy: #0f2444;
   --navy-2: #1b3a6b;
   --navy-deep: #0a1b33;      /* her deeper footer navy */
+  /* THE SEAMLESS MELT — one shared boundary navy for the conveyor→Projects seam.
+     BOTH edges arrive here: the conveyor's exit fade ends AT this colour and the
+     Projects section's top background starts AT it, so the two sections meet on one
+     value — the horizontal line is mathematically impossible. Sits between the
+     conveyor's arrival navy (#0c192e) and Projects' deep-space core (#070c18), so
+     the night descends monotonically with no local step. See process3d.css. */
+  --section-melt: #0a1524;   /* rgb(10,21,36) — conveyor↔globe boundary */
   --gold: #9b7420;           /* THE accent — hairlines, top-borders, links */
   --gold-2: #c89a3c;         /* brighter gold — on-navy eyebrows / numbers */
   --gold-text: #836013;      /* AA-safe gold text on cream */
@@ -1362,12 +1369,15 @@ body {
   position: relative;
   overflow: hidden;
   /* deep near-black navy velvet with a soft navy lift toward the globe so the
-     planet floats on a graded ground, not a flat slab. The FIRST layer is a
-     seam-bridge: its top edge is the exact colour the conveyor above dissolves to
-     (#0c192e), fading out over 220px — so the two sections meet on one shared navy
-     with no horizontal line, at any scroll position or the pin-release frame. */
+     planet floats on a graded ground, not a flat slab. The FIRST layer is the
+     seam-bridge: its top edge IS --section-melt — the exact colour the conveyor
+     above dissolves to — fading out over 240px into the deep-space core. Both
+     sections arrive at --section-melt, so they meet on one shared navy with no
+     horizontal line, at any scroll position or the pin-release frame. NOTE: the
+     .proj-vignette below must NOT darken this top edge (it used to, which reopened
+     the seam) — its top band was removed so this melt colour renders true. */
   background:
-    linear-gradient(to bottom, #0c192e 0%, rgba(12, 25, 46, 0) 220px),
+    linear-gradient(to bottom, var(--section-melt) 0%, rgba(10, 21, 36, 0) 240px),
     radial-gradient(120% 82% at 62% 34%, #10203c 0%, #0a1424 44%, #070c18 100%),
     #070c18;
   padding: clamp(80px, 10vh, 130px) 56px clamp(80px, 10vh, 120px);
@@ -1395,13 +1405,17 @@ body {
   0%, 100% { opacity: 0.55; }
   50% { opacity: 0.16; }
 }
-/* keep the corners deep so nothing competes with the globe's halo */
+/* keep the corners deep so nothing competes with the globe's halo. The TOP
+   darkening band was removed: it composited over the seam-bridge and dragged the
+   section's top edge from --section-melt down to ~#060e1b, reopening the boundary
+   line. Depth up top now comes from the .proj radial base alone; the vignette keeps
+   only its radial corner-deepen + the bottom fade (toward the next section). */
 .proj-vignette {
   position: absolute;
   inset: 0;
   background:
     radial-gradient(120% 92% at 50% 40%, transparent 42%, rgba(3, 7, 15, 0.55) 100%),
-    linear-gradient(180deg, rgba(3, 7, 15, 0.6) 0%, transparent 16%, transparent 82%, rgba(3, 7, 15, 0.7) 100%);
+    linear-gradient(180deg, transparent 0%, transparent 82%, rgba(3, 7, 15, 0.7) 100%);
 }
 
 .proj-inner {
