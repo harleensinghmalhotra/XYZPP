@@ -33,7 +33,7 @@
   text-transform: uppercase;
   letter-spacing: 3px;
   color: #836013; /* gold-text — AA on beige */
-  margin-bottom: 14px;
+  margin-bottom: var(--section-gap-head);
 }
 .cases-header h3 {
   font-family: 'Inter Tight', sans-serif;
@@ -555,27 +555,19 @@
   .cs-leaf { display: none; }
 }
 
-/* ── SIZED TO MATCH WHAT WE PRINT (canonical desktop ≥1280) ──────────────────
-   Harry's brief: the Cases section should stand as tall as the WWP section
-   ("Built on Precision…") so the two read as equals. WWP's rendered section
-   height, measured LIVE at 1536×743 DPR 1.25, is 2160px (it's the scroll-jacked
-   pin: innerHeight 743 − nav 87 + travel 1504). We adopt that number verbatim as
-   Cases' min-height — no hardcoded guess, it's the read value. The gained room is
-   spent two ways: the stage becomes a flex column that vertically CENTERS the
-   book (balanced breathing above/below — no bottom dead band), and the whole
-   open spread + spine shelf scale up ~1.4× so the book fills its stage the way
-   WWP fills its own. Below 1280 the responsive rules above are untouched. */
+/* ── SIZED TO ITS CONTENT (canonical desktop ≥1280) ─────────────────────────
+   Harry's overrule of the earlier WWP height-match: Cases sizes to its own
+   content — beige header + the open spread + spines + counter + View-All CTA.
+   The artificial min-height (once = WWP's 2160px) is GONE, and with it the flex
+   column that centered the book inside all that borrowed height (the hundreds of
+   dead px above and below). The book keeps its scaled-up size; the dark stage
+   simply wraps it in the standard section rhythm (--section-pad-y). Below 1280
+   the responsive rules above are untouched. */
 @media (min-width: 1280px) {
-  .section-cases { min-height: 2160px; }         /* = WWP @1536×743, measured live */
-
-  /* stage grows to eat the extra height, then centers the book in it */
+  /* stage wraps the book in the standard breathing — no height-match, no dead air */
   .cs-stage {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding-top: var(--section-pad-y);
+    padding-bottom: var(--section-pad-y);
   }
   .cs-interactive { gap: clamp(40px, 4vw, 72px); }
 

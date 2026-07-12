@@ -80,11 +80,21 @@
   --r-pill: var(--radius-pill);  /* explicit pills */
   --r-round: var(--radius-round);/* circles */
 
-  --section-y: clamp(72px, 10vh, 104px);      /* Ekta ~100px section padding */
+  /* ── HOMEPAGE RHYTHM — ONE HAND, ONE SITE ────────────────────────────────────
+     Every homepage section breathes on the same vertical padding, caps at one
+     content width, and spaces its eyebrow→heading→intro on one gap unit. Derived
+     from the median of the pre-audit sections (tops 64–96 / vh 8–13 / max 104–168,
+     content 1200/1280/1360/1400/1440). Structural exceptions that hold a curve or
+     pin (Certifications dome, Infrastructure→dome tail, Hero + conveyor pins, the
+     WhatWePrint scroll-jack) keep their own math and are documented at their rule. */
+  --section-pad-y: clamp(96px, 11vh, 128px);  /* ONE vertical breathing per section */
+  --content-max: 1280px;                       /* ONE content width (was 1200/1360/1400/1440) */
+  --section-gap-head: 16px;                    /* eyebrow→heading→intro rhythm unit */
+  --section-y: var(--section-pad-y);           /* legacy alias → the one rhythm */
   --hero-pad-top: clamp(120px, 18vh, 176px);  /* one hero top rhythm */
   --hero-pad-bot: clamp(64px, 9vh, 104px);
   --page-gutter: clamp(20px, 5vw, 56px);      /* Ekta 56px page gutter */
-  --measure: 1280px;                          /* Ekta max content width */
+  --measure: var(--content-max);              /* legacy alias → the one width */
   --nav-h: 86px;                              /* solid cream SiteNav height (h-[86px]).
                                                  Fallback only — WhatWePrint measures the
                                                  live header and overrides this on the
@@ -959,7 +969,7 @@ body {
 .wwp-inner {
   flex: 0 0 auto;
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: 28px 56px 12px; /* top = nav-clearance floor (safe-center keeps it when
                               the block ever exceeds the panel); bottom trimmed */
@@ -974,7 +984,7 @@ body {
   flex-direction: column;
 }
 .wwp-eyebrow {
-  margin: 0 0 12px;
+  margin: 0 0 var(--section-gap-head);
   font-family: 'Inter Tight', sans-serif;
   font-weight: 600;
   font-size: 12px;
@@ -1112,7 +1122,7 @@ body {
 /* Premium hover — one coherent GPU motion under 300ms; only where hover exists */
 @media (hover: hover) {
   .wwp-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px);   /* unified Ekta card lift */
     box-shadow: 0 20px 44px rgba(15, 36, 68, 0.16);
   }
   .wwp-card:hover .wwp-img {
@@ -1199,7 +1209,7 @@ body {
   position: relative;
   overflow: hidden;
   background: #0a0e14; /* near-black — black + gold reads richer than navy */
-  padding: clamp(64px, 8vh, 104px) 56px;
+  padding: var(--section-pad-y) 56px;
   min-height: 100svh;
   display: flex;
   align-items: center;
@@ -1393,7 +1403,7 @@ body {
     linear-gradient(to bottom, var(--section-melt) 0%, rgba(10, 21, 36, 0) 240px),
     radial-gradient(120% 82% at 62% 34%, #10203c 0%, #0a1424 44%, #070c18 100%),
     #070c18;
-  padding: clamp(80px, 10vh, 130px) 56px clamp(80px, 10vh, 120px);
+  padding: var(--section-pad-y) 56px;
   isolation: isolate;
 }
 
@@ -1433,7 +1443,7 @@ body {
 
 .proj-inner {
   position: relative;
-  max-width: 1280px;
+  max-width: var(--content-max);
   margin: 0 auto;
 }
 
@@ -1445,7 +1455,7 @@ body {
   gap: clamp(20px, 3vw, 48px);
 }
 .proj-eyebrow {
-  margin: 0 0 18px;
+  margin: 0 0 var(--section-gap-head);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -1472,7 +1482,8 @@ body {
 .proj-title {
   margin: 0;
   font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(38px, 5vw, 68px);
+  font-weight: 500;              /* --h2 system weight (was unset → default 400) */
+  font-size: var(--h2);
   line-height: 1.05;
   letter-spacing: -0.6px;
   color: #fdfaf4;
@@ -1567,7 +1578,7 @@ body {
   text-decoration: none;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.proj-dest:hover, .proj-dest:focus-visible { transform: translateY(-8px); }
+.proj-dest:hover, .proj-dest:focus-visible { transform: translateY(-6px); }   /* unified Ekta card lift */
 .proj-dest:focus-visible { outline: 2px solid #c89a3c; outline-offset: 6px; }
 
 /* ── GLOW BORDER — Uiverse mechanic, rebranded to gold→navy (olive alt via
@@ -2106,14 +2117,16 @@ body {
   background: #f0ebe0;
   /* extra bottom clearance so the People grid + captions fully resolve ABOVE the
      Certifications dome that rises into this section's tail (no content under the curve). */
-  padding: clamp(80px, 11vh, 140px) 56px clamp(170px, 20vh, 240px);
+  /* top = standard rhythm; bottom stays STRUCTURAL — extra clearance so the People
+     grid resolves above the Certifications dome that rises into this tail. */
+  padding: var(--section-pad-y) 56px clamp(170px, 20vh, 240px);
   color: #1c2019;
 }
-.infra-inner { max-width: 1200px; margin: 0 auto; }
+.infra-inner { max-width: var(--content-max); margin: 0 auto; }
 
 /* header */
 .infra-eyebrow {
-  margin: 0 0 16px;
+  margin: 0 0 var(--section-gap-head);
   font-family: 'DM Mono', monospace;
   font-weight: 500;
   font-size: 12px;
@@ -2125,8 +2138,8 @@ body {
   margin: 0;
   max-width: 15ch;
   font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;
-  font-size: clamp(38px, 5vw, 66px);
+  font-weight: 500;              /* --h2 system weight (Ekta medium) */
+  font-size: var(--h2);
   line-height: 1.04;
   letter-spacing: -0.8px;
   color: #0f2444;
@@ -2168,7 +2181,7 @@ body {
     0 10px 28px -16px rgba(15, 36, 68, 0.18);
   transition: box-shadow 0.5s ease;
 }
-.infra-card:hover { transform: translateY(-5px); }
+.infra-card:hover { transform: translateY(-6px); }   /* unified Ekta card lift */
 .infra-card:hover .infra-card-inner {
   box-shadow:
     0 2px 4px rgba(28, 32, 25, 0.08),
@@ -2469,7 +2482,7 @@ body {
   margin: 0;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.infra-person:hover { transform: translateY(-5px); } /* Ekta lift, no scale-shrink */
+.infra-person:hover { transform: translateY(-6px); } /* unified Ekta card lift, no scale-shrink */
 .infra-person:hover .infra-ph-icon { color: #e2ba64; } /* gentle warm-up, mirrors the facility cards */
 
 /* ── GLOW BORDER — the SAME warm-gold aura as the facility .infra-card, cloned onto
@@ -2701,8 +2714,8 @@ body {
 .certs-title {
   margin: 0;
   font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;
-  font-size: clamp(40px, 5.2vw, 64px);
+  font-weight: 500;              /* --h2 system weight (Ekta medium) */
+  font-size: var(--h2);
   line-height: 1.02;
   letter-spacing: -1px;
   color: #0f2444;
@@ -2751,7 +2764,7 @@ body {
   scroll-snap-align: start;
 }
 .cert-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);   /* unified Ekta card lift */
   box-shadow:
     0 2px 4px rgba(15, 36, 68, 0.08),
     0 16px 40px rgba(15, 36, 68, 0.1),
@@ -2861,11 +2874,11 @@ body {
   min-height: 85vh; /* stature — stands like Certifications, feels expensive */
   display: flex;
   align-items: center;
-  padding: clamp(80px, 11vh, 150px) 56px; /* richer top + bottom air */
+  padding: var(--section-pad-y) 56px;
 }
 .sustain-inner {
   width: 100%;
-  max-width: 1360px; /* spread the columns across more of the container width */
+  max-width: var(--content-max);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 42fr 58fr;
@@ -3052,8 +3065,8 @@ body {
 .sustain-title {
   margin: 0;
   font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;
-  font-size: clamp(44px, 4.6vw, 60px);
+  font-weight: 500;              /* --h2 system weight (Ekta medium) */
+  font-size: var(--h2);
   line-height: 1.02;
   letter-spacing: -1px;
   color: #0f2444;
@@ -3111,7 +3124,7 @@ body {
   overflow: hidden;
   font-family: 'Inter', sans-serif;
 }
-.aw-inner { position: relative; max-width: 1440px; margin: 0 auto; }
+.aw-inner { position: relative; max-width: var(--content-max); margin: 0 auto; }
 /* Broadway lighting — TWO soft volumetric gold cones crossing like premiere
    spotlights (top-left + top-right), plus warm origin blooms. Static, GPU-cheap. */
 /* Premiere spotlight beams (v3) — two soft diagonal cones whose apex sits EXACTLY
@@ -3193,7 +3206,7 @@ body {
   -webkit-mask: radial-gradient(520px 460px at 100% 100%, #000 6%, rgba(0, 0, 0, 0.5) 26%, transparent 46%);
   mask: radial-gradient(520px 460px at 100% 100%, #000 6%, rgba(0, 0, 0, 0.5) 26%, transparent 46%);
 }
-.aw-content { position: relative; display: flex; flex-direction: column; padding: 128px 110px 100px; }
+.aw-content { position: relative; display: flex; flex-direction: column; padding: var(--section-pad-y) 110px; }
 
 /* header */
 .aw-head { display: flex; flex-direction: column; gap: 22px; }
@@ -3202,15 +3215,15 @@ body {
   font-family: 'DM Mono', monospace;
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.3em;
+  letter-spacing: var(--track-eyebrow);   /* was 0.3em — unified to the eyebrow track */
   text-transform: uppercase;
   color: #e8c275;
 }
 .aw-title {
   margin: 0;
   font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;
-  font-size: 60px;
+  font-weight: 500;              /* --h2 system weight (was 700 + non-responsive 60px) */
+  font-size: var(--h2);
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: #fdfaf4;
@@ -4588,7 +4601,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 .gr-copy { padding: clamp(64px, 9vh, 128px) clamp(24px, 5vw, 96px); max-width: 640px; }
 .gr-eyebrow {
   display: flex; align-items: center; gap: 12px; margin: 0 0 22px;
-  font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em;
+  font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: var(--track-eyebrow);
   text-transform: uppercase; color: #c89a3c;
 }
 .gr-title {
