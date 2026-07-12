@@ -124,7 +124,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 0;
+  border-radius: var(--radius-sm); /* book spine — gently eased, sm max */
   transform: translateZ(0);
   transform-style: preserve-3d;
   transition: transform 0.34s cubic-bezier(0.2, 0.8, 0.25, 1), box-shadow 0.34s ease;
@@ -343,7 +343,7 @@
   font-family: 'DM Mono', monospace;
   letter-spacing: 1px;
   text-transform: uppercase;
-  border-radius: 0;
+  border-radius: var(--r-pill);
 }
 .cs-body {
   font-size: 15px;
@@ -363,7 +363,7 @@
   font-family: 'DM Mono', monospace;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  border-radius: 0;
+  border-radius: var(--r-pill);
   transition: background 0.3s, border-color 0.3s, color 0.3s;
 }
 .cs-cta:hover {
@@ -464,7 +464,7 @@
   color: #c89a3c;
   background: rgba(11, 28, 56, 0.72);
   border: 1px solid rgba(200, 154, 60, 0.5);
-  border-radius: 0;
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
@@ -498,7 +498,7 @@
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  border-radius: 0;
+  border-radius: var(--r-pill);
   cursor: pointer;
   transition: all 0.3s ease;
 }

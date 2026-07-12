@@ -50,18 +50,35 @@
   --yellow: var(--gold-2);
   --video-tone: #12294c;     /* dark sections melt into navy, not warm brown */
 
-  /* ── STRUCTURE TOKENS — Phase 3.3 unification. Ekta's DNA is flat, square and
-     airy: square corners everywhere (radius only on circles), a single ~100px
-     section rhythm, a 1280px measure with a 56px gutter, and a 6-step type scale
-     whose section titles run at weight 500 (medium). One source of truth so the
-     eight inner pages + homepage can no longer drift. See recon/CONSISTENCY-AUDIT.md
-     §F and recon/EKTA-DESIGN-DNA.md §§2,5. ──────────────────────────────────── */
-  --r-card: 0px;             /* square — Ekta uses 0 on cards/buttons/badges */
-  --r-btn: 0px;              /* button corner — the future radius pass moves this ≤2px; nebula ring inherits it */
-  --r-media: 0px;
-  --r-chip: 2px;             /* her only non-zero box radius (mono chips, dropdown) */
-  --r-pill: 0px;             /* legacy "pills" square off */
-  --r-round: 50%;            /* circles: icons, social, play buttons only */
+  /* ── STRUCTURE TOKENS — Phase 3.3 unification. A single ~100px section rhythm,
+     a 1280px measure with a 56px gutter, and a 6-step type scale whose section
+     titles run at weight 500 (medium). One source of truth so the eight inner
+     pages + homepage can no longer drift. See recon/CONSISTENCY-AUDIT.md §F and
+     recon/EKTA-DESIGN-DNA.md §§2,5. ──────────────────────────────────────────── */
+
+  /* ── RADIUS SCALE — THE ROUNDED RETURN (Harry's call). Mined from the old
+     rounded build (branch main, deployed at xyzpp.vercel.app): buttons/CTAs/tags
+     were pills, cards/panels ~22px, media ~18px, inputs ~12–14px, small controls
+     ~8px, decorative frames ~2–3px. Collapsed here into ONE tunable family — no
+     hardcoded px radius survives anywhere else in the codebase, so the whole
+     site's softness tunes from these eight lines. Primitive scale first, then the
+     semantic aliases the section CSS actually references. ──────────────────────── */
+  --radius-xs: 3px;          /* decorative inner frames, clip lines, book-spine inner corner, tight focus */
+  --radius-sm: 8px;          /* small controls, icon tiles, mono chips, book covers, small labels */
+  --radius-md: 14px;         /* inputs, list rows, thumbnails, editorial crops */
+  --radius-lg: 18px;         /* photos / media */
+  --radius-xl: 22px;         /* cards & panels — main's dominant card radius */
+  --radius-2xl: 26px;        /* large feature panels, form cards, contact ticket, big spreads */
+  --radius-pill: 999px;      /* buttons, CTAs, tags, badges, seals — the old-build button language */
+  --radius-round: 50%;       /* circles: icons, social, play buttons, dots */
+
+  /* semantic aliases — existing names, already wired into buttons + cards + ring */
+  --r-card: var(--radius-xl);    /* cards & panels */
+  --r-btn: var(--radius-pill);   /* pill buttons; the nebula ring inherits this token */
+  --r-media: var(--radius-lg);   /* photos / images */
+  --r-chip: var(--radius-sm);    /* mono chips, dropdowns */
+  --r-pill: var(--radius-pill);  /* explicit pills */
+  --r-round: var(--radius-round);/* circles */
 
   --section-y: clamp(72px, 10vh, 104px);      /* Ekta ~100px section padding */
   --hero-pad-top: clamp(120px, 18vh, 176px);  /* one hero top rhythm */
@@ -163,11 +180,11 @@
   line-height: 1.6; color: rgba(245, 240, 232, 0.62);
 }
 
-/* ── ONE BUTTON FAMILY — square, Ekta anatomy. On light: solid-navy (→gold hover)
+/* ── ONE BUTTON FAMILY — pill, Ekta anatomy. On light: solid-navy (→gold hover)
    or outline-navy (→fill). On navy: solid-gold (→cream) or ghost-cream (→fill). ── */
 .u-btn {
   display: inline-flex; align-items: center; gap: 9px;
-  padding: 13px 26px; border-radius: 0; border: 1.5px solid transparent;
+  padding: 13px 26px; border-radius: var(--r-btn); border: 1.5px solid transparent;
   font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; letter-spacing: 0.3px;
   text-decoration: none; cursor: pointer; white-space: nowrap;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
@@ -191,12 +208,12 @@
    touching its fill / padding / type. The ring is fill-agnostic: it is masked to
    the border band only (::before), so the button's own background always shows
    through the centre — ghost, outline, gold and navy fills all keep their look.
-   Square by law (border-radius: var(--r-btn)); the ring inherits the token so the
-   future radius pass carries it automatically.
+   Radius-tokenised (border-radius: var(--r-btn)); the ring inherits the token so
+   any future radius tune carries automatically — pill today, whatever tomorrow.
 
    ::before = the conic nebula, masked to a ring, blurred to a warm foil aura,
               rotating via the animatable --nb-angle (paint-only, box never moves,
-              so square corners stay square).
+              so the rounded corners stay put mid-rotation).
    ::after  = the star layer — three cream dots that drift on hover.            */
 @property --nb-angle {
   syntax: '<angle>'; inherits: false; initial-value: 0deg;
@@ -423,7 +440,7 @@ body {
 .focus-ring:focus-visible {
   outline: 2px solid var(--cyan);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
 }
 
 @keyframes seal-spin {
@@ -1038,7 +1055,7 @@ body {
   display: grid;
   grid-template-rows: 140px 88px 96px; /* A photo / B name / C sentence = 324px */
   background: #fdfaf4;
-  border-radius: 0;
+  border-radius: var(--r-card);
   /* barely-there rest shadow — expensive, not heavy */
   box-shadow: 0 2px 12px rgba(15, 36, 68, 0.07);
   transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1137,7 +1154,7 @@ body {
 }
 .wwp-section.is-reduced .wwp-viewport::-webkit-scrollbar-thumb {
   background: rgba(15, 36, 68, 0.28);
-  border-radius: 3px;
+  border-radius: var(--radius-xs);
 }
 
 @media (max-width: 900px) {
@@ -1574,7 +1591,7 @@ body {
   margin: auto;
   width: calc(100% + 8px);
   height: calc(100% + 8px);
-  border-radius: 2px;
+  border-radius: calc(var(--r-card) + 4px);  /* outset 4px → track the frame radius so the glow stays concentric */
   z-index: -2;
   opacity: 0.5;
   transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1603,7 +1620,7 @@ body {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: var(--r-card);
   border: 1px solid rgba(200, 154, 60, 0.16);
   /* 2.7-elevation layered stack: tight contact + ambient + deep soft lift */
   box-shadow:
@@ -1786,7 +1803,7 @@ body {
   right: 0;
   bottom: 20px;
   height: 2px;
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
   transform-origin: center;
   background: linear-gradient(90deg, transparent 0%, rgba(200, 154, 60, 0.5) 16%, rgba(200, 154, 60, 0.72) 50%, rgba(200, 154, 60, 0.5) 84%, transparent 100%);
   box-shadow: 0 0 18px rgba(200, 154, 60, 0.32), 0 1px 0 rgba(245, 240, 232, 0.1);
@@ -1849,7 +1866,8 @@ body {
   padding: 14px 13px 14px;
   display: flex;
   flex-direction: column;
-  border-radius: 1px 3px 3px 1px;
+  /* hardcover: bound (left) edge tight, fore-edge gently eased — sm max, still reads as a book */
+  border-radius: var(--radius-xs) var(--radius-sm) var(--radius-sm) var(--radius-xs);
   backface-visibility: hidden;
   box-shadow:
     inset -6px 0 14px -8px rgba(0, 0, 0, 0.35),
@@ -1927,7 +1945,7 @@ body {
   width: 30px;
   height: 2px;
   margin: 8px 0 8px;
-  border-radius: 1px;
+  border-radius: var(--radius-xs);
   background: linear-gradient(90deg, #9b7420, #c89a3c);
 }
 .proj-book--cream .proj-book-rule { background: linear-gradient(90deg, #836013, #9b7420); }
@@ -2140,7 +2158,7 @@ body {
   flex-direction: column;
   flex: 1;
   padding: 24px;
-  border-radius: 0;
+  border-radius: var(--r-card);
   background: #fdfaf4; /* cream card lifted off the cream2 section */
   border: 1px solid rgba(28, 32, 25, 0.06);
   /* light-section shadow: a tight contact + a restrained ambient — kept soft so the
@@ -2174,6 +2192,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
+  border-radius: var(--r-card);  /* glow tracks the card corners — no square aura under a round card */
   pointer-events: none;
 }
 .infra-card::before {
@@ -2181,6 +2200,7 @@ body {
   margin: auto;
   width: calc(100% + 8px);
   height: calc(100% + 8px);
+  border-radius: calc(var(--r-card) + 4px);  /* outset 4px → stay concentric with the rounded card */
   z-index: -2;
   opacity: 0.52;
   background: linear-gradient(-45deg, #9b7420 0%, #1b3a6b 100%);
@@ -2243,19 +2263,19 @@ body {
 .infra-photo {
   position: relative;
   aspect-ratio: 16 / 10;
-  border-radius: 0;
+  border-radius: var(--r-media);
   overflow: hidden;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22), 0 18px 46px -22px rgba(15, 36, 68, 0.5);
 }
 .infra-card-photo {
   aspect-ratio: 16 / 11;
-  border-radius: 0;
+  border-radius: var(--r-media);
   /* deeper own shadow so the slab visibly floats above the white card */
   box-shadow:
     0 2px 6px rgba(15, 36, 68, 0.22),
     0 22px 44px -16px rgba(15, 36, 68, 0.5);
 }
-.infra-photo--portrait { aspect-ratio: 4 / 5; border-radius: 0; }
+.infra-photo--portrait { aspect-ratio: 4 / 5; border-radius: var(--r-media); }
 .infra-photo-base {
   position: absolute;
   inset: 0;
@@ -2342,7 +2362,7 @@ body {
   aspect-ratio: 16 / 9;
   padding: 0;
   border: 0;
-  border-radius: 0;
+  border-radius: var(--r-media);
   overflow: hidden;
   cursor: pointer;
   background: linear-gradient(155deg, #1b3a6b 0%, #12294c 52%, #0b1c38 100%);
@@ -2518,7 +2538,7 @@ body {
   position: relative;
   width: min(1120px, 100%);
   aspect-ratio: 16 / 9;
-  border-radius: 0;
+  border-radius: var(--r-card);
   overflow: hidden;
   box-shadow: 0 40px 120px -20px rgba(0, 0, 0, 0.7);
 }
@@ -2628,7 +2648,7 @@ body {
   border: 0;
   cursor: pointer;
   padding: 11px 22px;
-  border-radius: 0;
+  border-radius: var(--r-pill);
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 15px;
@@ -2711,7 +2731,7 @@ body {
 }
 .certs-viewport::-webkit-scrollbar { display: none; }
 .certs-viewport:active { cursor: grabbing; }
-.certs-viewport:focus-visible { outline: 2px solid #0f2444; outline-offset: 4px; border-radius: 4px; }
+.certs-viewport:focus-visible { outline: 2px solid #0f2444; outline-offset: 4px; border-radius: var(--radius-xs); }
 .certs-track { display: flex; gap: 26px; width: max-content; padding: 10px 0 24px; }
 .cert-card {
   flex: 0 0 clamp(324px, 25vw, 388px);
@@ -2721,7 +2741,7 @@ body {
   padding: clamp(32px, 2.7vw, 46px) clamp(30px, 2.5vw, 42px);
   background: #fdfaf4;
   border: 1px solid rgba(15, 36, 68, 0.08);
-  border-radius: 0;
+  border-radius: var(--r-card);
   /* premium layered shadow on cream — contact + ambient + deep soft */
   box-shadow:
     0 1px 2px rgba(15, 36, 68, 0.06),
@@ -2865,7 +2885,7 @@ body {
 .svA-frame {
   position: relative;
   height: clamp(500px, 66vh, 600px);
-  border-radius: 0; /* square corners — site language */
+  border-radius: var(--r-card); /* framed showpiece panel */
   overflow: hidden;
   /* soft ground: cream warming into a faint olive wash toward the lower corners */
   background: radial-gradient(130% 96% at 22% 8%, #fdfbf5 0%, #f7f6ea 46%, #eef1de 100%);
@@ -2999,7 +3019,7 @@ body {
   align-items: center;
   gap: 9px;
   padding: 10px 15px;
-  border-radius: 0; /* square — a pressed plate */
+  border-radius: var(--r-chip); /* FSC plate — small eased chip */
   background: #fbf8f0;
   border: 1px solid rgba(107, 122, 42, 0.22);
   border-top: 2px solid #9b7420; /* Ekta's signature gold top-edge */
@@ -3204,7 +3224,7 @@ body {
   flex-direction: column;
   background: rgba(253, 250, 244, 0.035);
   border: 1px solid rgba(232, 194, 117, 0.16);
-  border-radius: 0;
+  border-radius: var(--radius-md);
   padding: 12px 12px 0;
   box-shadow:
     inset 0 1px 0 rgba(253, 250, 244, 0.05),
@@ -3225,7 +3245,7 @@ body {
 .aw-photo {
   position: relative;
   aspect-ratio: 16 / 11;
-  border-radius: 0;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   background: rgba(9, 20, 40, 0.6);
   transition: filter 0.55s ease;
@@ -3233,7 +3253,7 @@ body {
 .plq:hover .aw-photo { filter: brightness(1.12) saturate(1.04); }
 .aw-photo-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s ease; }
 .aw-photo-ph { position: absolute; inset: 0; display: grid; place-items: center; padding: 18px; text-align: center; }
-.aw-photo-ph::before { content: ''; position: absolute; inset: 10px; border: 1px solid rgba(232, 194, 117, 0.14); border-radius: 3px; }
+.aw-photo-ph::before { content: ''; position: absolute; inset: 10px; border: 1px solid rgba(232, 194, 117, 0.14); border-radius: var(--radius-xs); }
 .aw-photo-ph span {
   position: relative;
   max-width: 80%;
@@ -3283,7 +3303,7 @@ body {
 .aw-clip-rule { height: 1px; background: rgba(15, 36, 68, 0.28); }
 .aw-clip-headline { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 15px; line-height: 1.25; color: #0f2444; }
 .aw-clip-lines { display: flex; flex-direction: column; gap: 6px; margin-top: 2px; }
-.aw-clip-lines span { height: 5px; border-radius: 2px; background: rgba(15, 36, 68, 0.13); }
+.aw-clip-lines span { height: 5px; border-radius: var(--radius-xs); background: rgba(15, 36, 68, 0.13); }
 
 /* card body */
 .aw-body { display: flex; flex-direction: column; gap: 12px; padding: 26px 14px 30px; }
@@ -4457,7 +4477,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 .focus-ring:focus-visible {
   outline: 2px solid #c89a3c;
   outline-offset: 3px;
-  border-radius: 3px;
+  border-radius: var(--radius-xs);
 }
 :where(a, button, [tabindex], input, textarea, select):focus-visible {
   outline: 2px solid #c89a3c;
@@ -4499,7 +4519,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
    MapLibre's own default pill, whose CSS is injected later via dynamic import. */
 .qfp-globe .maplibregl-ctrl.maplibregl-ctrl-attrib {
   background: transparent; border: 0; box-shadow: none; margin: 0;
-  padding: 2px 6px 2px 8px; border-radius: 0; min-height: 0;
+  padding: 2px 6px 2px 8px; border-radius: 0; /* intentional: flattens MapLibre's injected default pill; element is transparent (no visible corner) */ min-height: 0;
 }
 .qfp-globe .maplibregl-ctrl-attrib-inner { white-space: nowrap; }
 .qfp-globe .maplibregl-ctrl.maplibregl-ctrl-attrib,
@@ -4525,7 +4545,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 }
 .qfp-globe-tip {
   display: flex; flex-direction: column; align-items: center; line-height: 1;
-  padding: 5px 10px; border-radius: 0; white-space: nowrap;
+  padding: 5px 10px; border-radius: var(--radius-sm); white-space: nowrap;
   background: rgba(15, 36, 68, 0.92); border: 1px solid rgba(200, 154, 60, 0.4);
   box-shadow: 0 6px 18px rgba(10, 18, 34, 0.4);
 }
@@ -4593,7 +4613,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   .gr-link:hover { color: #c89a3c; border-color: #c89a3c; }
   .gr-link:hover span { transform: translateX(5px); }
 }
-.gr-link:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px; border-radius: 2px; }
+.gr-link:focus-visible { outline: 2px solid #c89a3c; outline-offset: 4px; border-radius: var(--radius-xs); }
 .gr-globe { position: relative; align-self: stretch; min-height: 92vh; }
 /* soft navy vignette so the globe reads as embedded, edges melt into the bg */
 .gr-globe::after {

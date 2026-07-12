@@ -81,12 +81,12 @@ export default function SiteNav() {
             {menuOpen && (
               <div className="absolute left-0 top-full pt-4">
                 {/* solid cream popover, navy hairline, soft shadow — her dropdown */}
-                <div className="min-w-[220px] rounded-[4px] border border-[#0f2444]/10 bg-[#fdfaf4] p-2 shadow-[0_16px_48px_rgba(15,36,68,0.14)]">
+                <div className="min-w-[220px] rounded-[var(--radius-md)] border border-[#0f2444]/10 bg-[#fdfaf4] p-2 shadow-[0_16px_48px_rgba(15,36,68,0.14)]">
                   {PRODUCTS.map((p) => (
                     <Link
                       key={p.to}
                       to={p.to}
-                      className="focus-ring block rounded-[3px] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#9b7420]/[0.08] hover:pl-6 hover:text-[#836013]"
+                      className="focus-ring block rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#9b7420]/[0.08] hover:pl-6 hover:text-[#836013]"
                       style={{ fontFamily: INTER }}
                     >
                       {t(p.key)}

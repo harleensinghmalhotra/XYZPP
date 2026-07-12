@@ -67,14 +67,14 @@ export default function CTAFooter() {
         <div className="flex flex-col sm:flex-row items-center gap-4" style={{ fontFamily: INTER }}>
           <a
             href="mailto:info@quarterfoldltd.com"
-            className="btn-nebula focus-ring inline-flex h-14 items-center justify-center rounded-none bg-[#c89a3c] px-10 text-[15px] font-semibold text-[#0f2444] transition-all duration-300 hover:bg-[#e6bd6a] hover:scale-[1.02] active:scale-[0.98]"
+            className="btn-nebula focus-ring inline-flex h-14 items-center justify-center rounded-[var(--r-btn)] bg-[#c89a3c] px-10 text-[15px] font-semibold text-[#0f2444] transition-all duration-300 hover:bg-[#e6bd6a] hover:scale-[1.02] active:scale-[0.98]"
             style={{ letterSpacing: '0.2px' }}
           >
             {t('cta.requestQuote')}
           </a>
           <a
             href="#"
-            className="btn-nebula focus-ring inline-flex h-14 items-center justify-center rounded-none bg-transparent border border-[#fdfaf4]/40 px-10 text-[15px] font-semibold text-[#fdfaf4] transition-all duration-300 hover:bg-[#fdfaf4]/10 hover:scale-[1.02] active:scale-[0.98]"
+            className="btn-nebula focus-ring inline-flex h-14 items-center justify-center rounded-[var(--r-btn)] bg-transparent border border-[#fdfaf4]/40 px-10 text-[15px] font-semibold text-[#fdfaf4] transition-all duration-300 hover:bg-[#fdfaf4]/10 hover:scale-[1.02] active:scale-[0.98]"
             style={{ letterSpacing: '0.2px' }}
           >
             {t('cta.downloadProfile')}
@@ -84,7 +84,7 @@ export default function CTAFooter() {
 
       {/* Embedded Rounded Footer — cream card raised on the beige surface */}
       <div className="relative z-10 mx-4 mb-4 sm:mx-6 sm:mb-6">
-        <footer className="mx-auto w-full max-w-[1400px] rounded-none bg-[#fdfaf4] px-8 pb-10 pt-16 sm:px-16 sm:pt-20 ring-1 ring-[#0f2444]/10" style={{ fontFamily: INTER, color: 'rgba(28,32,25,0.82)' }}>
+        <footer className="mx-auto w-full max-w-[1400px] rounded-[var(--r-card)] bg-[#fdfaf4] px-8 pb-10 pt-16 sm:px-16 sm:pt-20 ring-1 ring-[#0f2444]/10" style={{ fontFamily: INTER, color: 'rgba(28,32,25,0.82)' }}>
 
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
 
