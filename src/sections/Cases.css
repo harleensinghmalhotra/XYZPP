@@ -5,6 +5,7 @@
    token lands later; build square, it inherits). No straight interior light
    lines — depth comes from soft radial/edge shadows only. GPU transforms. */
 .section-cases {
+  position: relative; /* anchors the bottom curve divider */
   background-color: #0f2444;
   color: #fdfaf4;
   padding: 0 0 0;
@@ -12,6 +13,26 @@
   flex-direction: column;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
+}
+
+/* ── SIGNATURE CURVE DIVIDER — the Certifications dome language, ported ────────
+   Same SVG-arc technique, same path, same upward direction as .certs-arc-bottom;
+   sits at the section's bottom edge and domes up into the navy stage. Because the
+   Cases stage and the CTA footer share #0f2444, the arc can't rely on a solid-fill
+   colour contrast (there'd be no curve to see). Instead the path carries a vertical
+   gradient — the footer's deeper --section-melt navy at the dome, fading to #0f2444
+   at the straight base — so the curve reads on navy while the base melts seamlessly
+   into the footer below. Height stays inside the stage's bottom --section-pad-y so
+   it never reaches the View-All pill; painted above the stage's navy, pointer-safe. */
+.cases-arc-bottom {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: clamp(48px, 5.5vw, 88px);
+  display: block;
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* ── beige header band — kept from the old section (Certifications rhythm) ──── */
@@ -302,7 +323,10 @@
 /* ── a page FACE (shared by base pages and the turning leaf) ───────────────── */
 .cs-face { position: absolute; inset: 0; }
 
-/* text face — the read */
+/* text face — the read. Vertically centred; the sized-to-fit spread below (≥1280)
+   is tuned so even the longest case/locale (Ghana EN, every FR case with its longer
+   strings) stays inside the page. Centring then leaves an equal top/bottom gap, so
+   the eyebrow (first words) and the CTA both sit whole with consistent breathing. */
 .cs-face--text {
   display: flex;
   flex-direction: column;
@@ -585,18 +609,22 @@
   }
   .cs-interactive { gap: clamp(40px, 4vw, 72px); }
 
-  /* THE BOOK — bigger pages, bigger photo, same layout logic */
+  /* THE BOOK — bigger pages, bigger photo, same layout logic. The spread is a
+     touch taller (was 600px) and the vertical rhythm inside the text page a touch
+     tighter, so the longest case+locale (Ghana EN, and every case in the longer
+     FR strings) sits fully inside the page — eyebrow and CTA both clear of the
+     edges with a consistent gap. */
   .cs-book { width: min(1040px, 100%); }
-  .cs-spread { height: 600px; }
+  .cs-spread { height: 640px; }
   .cs-page--left::after { width: 34px; }
 
   /* type inside the spread scales with it — hierarchy kept, ≥11px trivially */
   .cs-face--text { padding: clamp(40px, 5vh, 64px) clamp(40px, 4vw, 72px); }
-  .cs-face--text .cs-eyebrow { font-size: 14px; letter-spacing: 2.6px; margin-bottom: 24px; }
-  .cs-title { font-size: clamp(38px, 3.4vw, 54px); margin: 0 0 28px; }
-  .cs-pills { gap: 13px; margin-bottom: 30px; }
+  .cs-face--text .cs-eyebrow { font-size: 14px; letter-spacing: 2.6px; margin-bottom: 16px; }
+  .cs-title { font-size: clamp(38px, 3.4vw, 54px); margin: 0 0 18px; }
+  .cs-pills { gap: 13px; margin-bottom: 20px; }
   .cs-pill { padding: 8px 17px; font-size: 13px; }
-  .cs-body { font-size: 19px; margin: 0 0 38px; max-width: 44ch; }
+  .cs-body { font-size: 19px; margin: 0 0 26px; max-width: 44ch; }
   .cs-cta { padding: 15px 28px; font-size: 14px; letter-spacing: 1.5px; }
 
   /* photo-page details grow along */
@@ -604,7 +632,7 @@
   .cs-curl { width: 90px; height: 90px; }
 
   /* THE SHELF grows to the taller book */
-  .cs-slot, .cs-slot--gap { width: 62px; height: 560px; }
+  .cs-slot, .cs-slot--gap { width: 62px; height: 600px; }
   .cs-spine { width: 62px; padding: 16px 0 22px; }
   .cs-spine-num { font-size: 18px; }
   .cs-spine-label { margin-top: 20px; gap: 11px; }

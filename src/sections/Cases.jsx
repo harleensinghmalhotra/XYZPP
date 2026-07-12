@@ -373,6 +373,24 @@ export default function Cases() {
           <button className="view-all-cases btn-nebula btn-nebula--light">{t('viewAll')}</button>
         </div>
       </div>
+
+      {/* SIGNATURE CURVE DIVIDER — the same dome language the Certifications section
+          teaches (exact arc path/direction/depth). Both Cases and the CTA footer are
+          navy, so a solid fill would show no curve; instead the arc carries a vertical
+          gradient — the footer's deeper --section-melt navy at the dome peak fading to
+          the shared #0f2444 at its base. The curve reads as a soft deeper-navy dome
+          against the stage, and its straight base melts seamlessly into the footer:
+          one divider language, no new hard seam. */}
+      <svg className="cases-arc-bottom" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="casesArcFill" x1="0" y1="0" x2="0" y2="150" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stopColor="#0a1524" />
+            <stop offset="0.55" stopColor="#0b1c38" />
+            <stop offset="1" stopColor="#0f2444" />
+          </linearGradient>
+        </defs>
+        <path d="M0,150 L1440,150 L1440,70 Q720,-10 0,70 Z" fill="url(#casesArcFill)" />
+      </svg>
     </section>
   )
 }
