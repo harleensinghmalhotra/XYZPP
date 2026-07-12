@@ -43,12 +43,19 @@ function makePool() {
 // Floating stage word — warm-gold italic serif, per leg of the journey.
 function makeStageWord(text) {
   const W = 512, H = 128
+  const MAX_PX = 60                 // ideal size for short legs (Paper, Livré…)
+  const MARGIN = 30                 // leave room for the 18px glow so long FR legs never clip
   const c = document.createElement('canvas')
   c.width = W; c.height = H
   const g = c.getContext('2d')
   g.clearRect(0, 0, W, H)
   g.textAlign = 'center'; g.textBaseline = 'middle'
-  g.font = 'italic 600 60px Georgia, "Times New Roman", serif'
+  const stageFont = (px) => `italic 600 ${px}px Georgia, "Times New Roman", serif`
+  // measure at MAX_PX, then shrink to fit the safe width (handles long FR captions)
+  g.font = stageFont(MAX_PX)
+  const w = Math.max(1, g.measureText(text).width)
+  const px = Math.min(MAX_PX, Math.floor((MAX_PX * (W - 2 * MARGIN)) / w))
+  g.font = stageFont(px)
   g.shadowColor = 'rgba(226,170,80,0.55)'; g.shadowBlur = 18
   g.fillStyle = '#E8C070'
   g.fillText(text, W / 2, H / 2 + 4)

@@ -251,7 +251,7 @@ export default function Hero() {
       tl.to(titleGhost.current, { opacity: 0.06, duration: 0.04 }, 0.10)
       tl.fromTo(titleGhost.current, { scale: 1 }, { scale: 3.0, ease: 'power2.in', duration: 0.12 }, 0.02)
       tl.fromTo(copyGroup.current, { opacity: 1 }, { opacity: 0, duration: 0.06 }, 0)
-      tl.fromTo(riseWrap.current, { y: 0 }, { y: () => -window.innerHeight * 0.45, ease: 'power3.out', duration: 0.12 }, 0.02)
+      tl.fromTo(riseWrap.current, { y: 0 }, { y: () => -window.innerHeight * 0.365, ease: 'power3.out', duration: 0.12 }, 0.02)
 
       // WINDOWS 1–4 — each kid pops WITH its bubble, one strict window at a time.
       // Kid finishes, then the bubble stickers in; both land before the next window.
@@ -287,9 +287,9 @@ export default function Hero() {
           <div className="hero-aurora__ribbons" />
           <div className="hero-aurora__veil" />
         </div>
-        {/* Book scene at its LANDED position (translateY(-45vh) == the animated
+        {/* Book scene at its LANDED position (translateY(-36.5vh) == the animated
             rise's end state), everything visible + fully typed. */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-[15] mt-[64vh] flex flex-col items-center" style={{ transform: 'translateY(-45vh)' }}>
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-[15] mt-[54vh] flex flex-col items-center" style={{ transform: 'translateY(-36.5vh)' }}>
           {renderBookScene()}
         </div>
       </section>
@@ -327,11 +327,12 @@ export default function Hero() {
             the clean navy field; the QFP kids/props carry the visual interest. */}
 
         {/* Book + bloom — the whole graph wrapper rises together. Book TOP sits
-            at 64vh (peeking) at rest; the rise raises it into view. */}
+            at 54vh (clearly visible, filling the lower frame like Alternativ) at
+            rest; the rise raises it into view. */}
         {/* pointer-events-none: this decorative book/bloom wrapper is tall and its
             transparent lower area overlaps the TrustStrips below — without this it
             would swallow hover from the strips (breaking their hover-to-pause). */}
-        <div ref={riseWrap} className="pointer-events-none absolute inset-x-0 top-0 z-[15] mt-[64vh] flex flex-col items-center will-change-transform">
+        <div ref={riseWrap} className="pointer-events-none absolute inset-x-0 top-0 z-[15] mt-[54vh] flex flex-col items-center will-change-transform">
           {renderBookScene()}
         </div>
 
@@ -341,27 +342,32 @@ export default function Hero() {
             Z-ORDER (Phase 3.4 R2): z-[5] sits BELOW the riseWrap book/kids stack
             (z-15), so as the book rises it passes IN FRONT of the headline —
             exactly like Alternativ. The headline never renders over the pages. */}
-        <div ref={textWrap} className="absolute inset-x-0 top-0 z-[5] flex flex-col items-center px-4 pt-[23vh] font-metrisch">
-          <div ref={titleGhost} className="flex flex-col items-center leading-[0.84] will-change-transform">
-            {/* Line 1 — POWERING GLOBAL (cream). The two original words are joined
-                into one line so the headline reads as Alternativ's two-line
-                "PRINTING / STORIES" anatomy. */}
-            <div className="text-[12vw] font-bold uppercase text-[#fdfaf4] lg:text-[8.4vw]" style={{ letterSpacing: '-0.2vw' }}>
-              {t('hero.line1')} {t('hero.line2')}
+        <div ref={textWrap} className="absolute inset-x-0 top-0 z-[5] flex flex-col items-center px-4 pt-[16vh] font-metrisch">
+          <div ref={titleGhost} className="flex flex-col items-center leading-[0.9] will-change-transform">
+            {/* Line 1 — POWERING GLOBAL EDUCATION (cream). Alternativ's two-line
+                headline anatomy: the setup line in cream, the payoff line in gold.
+                Longer copy than the old "POWERING GLOBAL", so the type relaxes from
+                8.4vw → 6.4vw to keep both lines on one line each. */}
+            <div className="text-[8.6vw] font-bold uppercase text-[#fdfaf4] lg:text-[6.4vw]" style={{ letterSpacing: '-0.2vw' }}>
+              {t('hero.line1')}
             </div>
-            {/* Line 2 — EDUCATION in Ekta's flat solid gold (foil + spinning seal
-                removed per client feedback). */}
-            <div className="mt-[2px] flex items-center justify-center text-[12vw] font-bold uppercase lg:text-[8.4vw]" style={{ letterSpacing: '-0.2vw', color: GOLD }}>
-              {t('hero.line3')}
+            {/* Line 2 — THROUGH PRINT EXCELLENCE in Ekta's flat solid gold (foil +
+                spinning seal removed per client feedback). Not a shrunken headline
+                but a deliberate TRACKED tagline: smaller, lighter weight, wide
+                letter-spacing so it reads as a refined kicker under the cream line
+                (paddingLeft offsets the trailing tracking to keep it optically
+                centred). */}
+            <div className="mt-[14px] flex items-center justify-center text-[4.2vw] font-semibold uppercase lg:text-[3.1vw]" style={{ letterSpacing: '0.16em', paddingLeft: '0.16em', color: GOLD }}>
+              {t('hero.line2')}
             </div>
           </div>
 
           <div ref={copyGroup} className="flex flex-col items-center will-change-[opacity]">
-            <p className="mt-[18px] max-w-[720px] text-center text-[18px] font-normal leading-[1.4] text-white/95">
+            <p className="mt-[4vh] max-w-[720px] text-center text-[18px] font-normal leading-[1.4] text-white/95">
               {t('hero.subhead')}
             </p>
 
-            <div className="mt-[24px] flex items-center gap-[30px]">
+            <div className="mt-[6.5vh] flex items-center gap-[30px]">
               {/* Premium hover: a gold gradient sweeps in from the left, the label
                   inverts to navy, the arrow pod flips to navy with a cream arrow,
                   and the whole pill lifts with a soft gold glow. GPU transforms only. */}

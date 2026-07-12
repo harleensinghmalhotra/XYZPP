@@ -3,3 +3,21 @@ node_modules/
 
 # Exceeds GitHub 100MB file limit
 ALTERNATIVINC.COM Walkthrough.mp4
+
+# Ekta asset handoff kit — local delivery folder, not part of the app
+EKTA-HANDOFF/
+
+# Build output — Vercel rebuilds it; committing it only causes churn
+dist/
+
+# Screenshot / recon scratch (~1.7 GB)
+shots/
+recon/
+
+# Local asset-handoff & scratch folders (not part of the app)
+FLOW assets/
+Ektas Vibe Coded Latest/
+sound/
+
+# Dev/scratch scripts
+scripts/_*.mjs
