@@ -971,8 +971,9 @@ body {
   width: 100%;
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: 28px 56px 12px; /* top = nav-clearance floor (safe-center keeps it when
-                              the block ever exceeds the panel); bottom trimmed */
+  padding: 28px 56px 28px; /* top = nav-clearance floor (safe-center keeps it when
+                              the block ever exceeds the panel); bottom mirrors the
+                              top so the card row breathes into the navy, balanced */
   display: flex;
   flex-direction: column;
 }
@@ -1063,7 +1064,11 @@ body {
   flex: 0 0 300px;
   width: 300px;
   display: grid;
-  grid-template-rows: 140px 88px 96px; /* A photo / B name / C sentence = 324px */
+  grid-template-rows: 140px 88px 72px; /* A photo / B name / C sentence = 300px.
+     Zone C trimmed 96→72 (still clears the tallest 3-line sentence, 59px): the pin
+     stack was 7px TALLER than the panel on a 743px viewport, so it top-aligned and
+     the card row butted the section's bottom edge. Losing the dead reserve lets the
+     stack fit and centre, which is what makes the mirrored bottom padding read. */
   background: #fdfaf4;
   border-radius: var(--r-card);
   /* barely-there rest shadow — expensive, not heavy */
