@@ -1187,50 +1187,46 @@ body {
   display: flex;
   align-items: center;
 }
-/* ── Lightfall — molten gold threads (bottom layer, WebGL) ────────────────────
-   The reactbits Lightfall canvas fills the section at the very back — gold light
-   streaks falling through the promise-black. Presence capped by the component's
-   own opacity prop (0.8) + low backgroundGlow (0.25); the .promise-scrim below
-   wells opaque black over the whole text block, so the streaks live only at the
-   EDGES. The wrapper is pointer-events:none so it never blocks scroll or clicks;
-   the canvas itself re-enables pointer-events so Lightfall's gentle mouse-bend
-   still tracks the cursor over the section's margins. Not mounted under reduced
-   motion; unmounted (GL context disposed) off-viewport and on hidden tab. */
-.promise-lightfall {
+/* ── LightPillar — one column of gold-and-navy light (bottom layer, WebGL) ────
+   The reactbits LightPillar canvas fills the section at the very back — a single
+   vertical column of living light, gold crown to navy root, mixBlendMode 'screen'
+   over the black stage (screen only ADDS light). The pillar rises centred behind
+   the words; the .promise-scrim below wells opaque #0A0E14 over the whole text
+   block, so the hot core reads as light BEHIND a dark pane the type sits on. The
+   wrapper is pointer-events:none (interactive:false — the promise doesn't chase
+   the cursor). Not mounted under reduced motion; unmounted (GL context disposed)
+   off-viewport and on hidden tab; DPR capped at 1 in the component's high tier. */
+.promise-pillar {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
 }
-.promise-lightfall canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  pointer-events: auto; /* canvas is hit-testable for the mouse-bend; it has no
-                           click/scroll handlers, so scroll and clicks pass clean */
-}
-/* Radial scrim — THE LOAD-BEARING WALL at full-power rain. Wells deep #0A0E14 up
-   behind the text zone, transparent toward the edges, so the gold streaks visibly
-   DIM under the type (as the demo darkens behind its headline) while raining free
-   at the margins. Its opaque core covers the whole centred text block — every text
-   element sits on solid promise-black — so the streaks can never touch their
-   contrast (asserted at the brightest frame under cursor agitation). Strengthened
-   for 100% opacity: wider/taller core, held opaque further out before the fade. */
+.promise-pillar .light-pillar-container { pointer-events: none; }
+/* Offset variant (judge option): lift the column so its hottest zone sits ABOVE the
+   headline rather than directly behind it. Only applied via ?pillarOff=1 in tests. */
+.promise-pillar--offset .light-pillar-container { transform: translateY(-14%); }
+/* Radial scrim — THE LOAD-BEARING WALL. The pillar is a vertical column that sits
+   DIRECTLY behind the type, so the scrim matters more than ever: it wells opaque
+   #0A0E14 over the whole centred text block — every text element sits on solid
+   promise-black — so the pillar's brightest rotation frame can never touch their
+   contrast (asserted). It fades just beyond the text so the column glows free above
+   and to the sides. Opaque core reaches 74% of the ellipse radius for the bright
+   central pillar (a touch stronger than the streak field needed). */
 .promise-scrim {
   position: absolute;
   inset: 0;
-  z-index: 2; /* above lightfall + dots → clean well for the type */
+  z-index: 2; /* above pillar + dots → clean well for the type */
   pointer-events: none;
   /* NB: the percentages are the gradient ellipse's RADII (½-extent), not diameter.
-     Sized to hug the CENTRED TEXT BLOCK only — opaque #0A0E14 across the quote's
-     width and the eyebrow→credit height — then fade out just beyond it so the rain
-     falls FREE at the top, bottom and side margins. A soft dark pool behind the
-     type (as the demo darkens behind its headline), not a blanket over the section. */
+     Sized to hug the CENTRED TEXT BLOCK — opaque #0A0E14 across the quote's width
+     and the eyebrow→credit height — then fade out just beyond it so the column
+     glows free at the top, bottom and side margins. */
   background: radial-gradient(
-    ellipse 44% 56% at 50% 50%,
+    ellipse 45% 57% at 50% 50%,
     #0a0e14 0%,
-    #0a0e14 72%,
-    rgba(10, 14, 20, 0.62) 88%,
+    #0a0e14 74%,
+    rgba(10, 14, 20, 0.66) 89%,
     rgba(10, 14, 20, 0) 100%
   );
 }
