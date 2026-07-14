@@ -34,12 +34,16 @@ function Kick() {
 // canvas + a GSAP ScrollTrigger scrub feeding a 0..1 progress ref into the Scene.
 // No drei ScrollControls → no nested scroller to fight Lenis or the hero pin.
 //
-// ACCESSIBILITY (client + legal review): the six stage descriptions used to live
-// ONLY as baked pixels inside the plaque texture — an a11y failure and the reason
-// the section read "amateur". They now live as REAL, translated, selectable HTML
-// in the detail grid below (`renderDetails`), so the canvas carries no essential
-// text and is marked aria-hidden. The plaque billboards still show the station
-// NAME only (Canva PNG faces); the paragraphs are HTML, never drawn to canvas.
+// TWO TEXT LAYERS, neither fighting the scene:
+//   • LAYER 1 — the museum label (`Caption`): a single caption for the CURRENT stage,
+//     floating in the dark upper sky above the arches, cross-faded imperatively off the
+//     scroll ref (never React state). aria-hidden — a visual echo only.
+//   • LAYER 2 — the document (`Details`): the full six-stage grid + badge row in NORMAL
+//     FLOW below the scene. REAL, translated, selectable HTML — this is where a screen
+//     reader reads the process, and what the legal review requires (the descriptions
+//     used to live ONLY as baked plaque pixels, an a11y failure). The canvas is
+//     aria-hidden; the plaque billboards still show the station NAME only.
+// The scene therefore renders FULL-BLEED and unobstructed at every scroll position.
 export default function Process3D() {
   const { t } = useTranslation('homeProcess')
   const reduced = useReducedMotion()
@@ -49,7 +53,7 @@ export default function Process3D() {
   const [visible, setVisible] = useState(false)
   const pinRef = useRef(null)
   const scrollRef = useRef(null)
-  const detailsRef = useRef(null) // the HTML detail grid — active column driven imperatively
+  const captionRef = useRef(null) // Layer 1 — the floating museum label; active stage driven imperatively
   const progress = useRef(0) // 0..1 conveyor progress, written by ScrollTrigger
 
   // Track viewport width for the mobile poster cutover.
@@ -73,9 +77,10 @@ export default function Process3D() {
 
   // Scroll scrub → progress ref. Lives on the SAME ScrollTrigger/Lenis loop as the
   // hero pin, so there is one scroll system and no boundary fighting. Skipped for
-  // mobile (poster) and reduced-motion (static shot). Also emphasises the active
-  // stage's HTML column — imperatively (data-active + is-active), never via React
-  // state, so the 3D frameloop is never re-rendered by the text layer.
+  // mobile (poster) and reduced-motion (static shot). Also cross-fades Layer 1 (the
+  // floating museum label) to the CURRENT stage — imperatively (data-active +
+  // is-active class swap), never via React state, so the 3D frameloop is never
+  // re-rendered by the text layer.
   useEffect(() => {
     if (reduced || mobile) return
     const el = scrollRef.current
@@ -88,13 +93,13 @@ export default function Process3D() {
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         progress.current = self.progress
-        const grid = detailsRef.current
-        if (!grid) return
+        const cap = captionRef.current
+        if (!cap) return
         const idx = Math.min(N - 1, Math.max(0, Math.round(mapActiveF(self.progress))))
-        if (grid.dataset.active !== String(idx)) {
-          grid.dataset.active = String(idx)
-          const cols = grid.children
-          for (let i = 0; i < cols.length; i++) cols[i].classList.toggle('is-active', i === idx)
+        if (cap.dataset.active !== String(idx)) {
+          cap.dataset.active = String(idx)
+          const caps = cap.children
+          for (let i = 0; i < caps.length; i++) caps[i].classList.toggle('is-active', i === idx)
         }
       },
     })
@@ -111,18 +116,19 @@ export default function Process3D() {
     </div>
   )
 
-  // ── The real-DOM text layer: a six-column detail grid + the closing badge row.
-  // ALL SIX descriptions are always present as text nodes (a screen reader reads
-  // every one at any scroll position); the active column is merely emphasised.
-  // Nothing is display:none — on narrow viewports the grid stacks. `flow` = true
-  // places it in normal document flow (mobile/reduced), false = overlaid on the
-  // lower pinned viewport (full experience), always above the exit-melt strip.
+  // ── LAYER 2 — THE DOCUMENT (real-DOM text): a six-column detail grid + the
+  // closing badge row, in NORMAL DOCUMENT FLOW below the scene. ALL SIX
+  // descriptions are always present as selectable text nodes — this is where the
+  // screen reader reads the whole process, and what satisfies compliance (real
+  // HTML, not baked pixels). It overlaps nothing; on narrow viewports the grid
+  // stacks. Nothing is display:none. Used identically in the full, mobile, and
+  // reduced-motion paths.
   const badges = t('badges', { returnObjects: true })
-  const renderDetails = (flow) => (
-    <div className={`proc-layer${flow ? ' proc-layer--flow' : ''}`}>
-      <ol className="proc-details" ref={flow ? undefined : detailsRef} aria-label={t('detailsAria')}>
+  const Details = (
+    <div className="proc-layer">
+      <ol className="proc-details" aria-label={t('detailsAria')}>
         {STATIONS.map((s, i) => (
-          <li key={s.key} className={`proc-col${i === 0 ? ' is-active' : ''}`}>
+          <li key={s.key} className="proc-col">
             <span className="proc-col-num">{String(i + 1).padStart(2, '0')}</span>
             <h3 className="proc-col-name">{t(`stages.${s.key}.name`)}</h3>
             <span className="proc-col-rule" aria-hidden="true" />
@@ -138,6 +144,24 @@ export default function Process3D() {
     </div>
   )
 
+  // ── LAYER 1 — THE MUSEUM LABEL (full experience only): a single caption for the
+  // CURRENT stage, floating in the dark upper-left sky above the arches. All six
+  // are stacked in place; only the active one is opaque, and the scroll scrub
+  // cross-fades between them (imperative is-active swap — no React re-render). No
+  // card, no panel: just the index, the name, and the description on the sky.
+  // aria-hidden — it is a visual echo; the screen-reader truth lives in Layer 2.
+  const Caption = (
+    <div className="conv-caption" aria-hidden="true" ref={captionRef}>
+      {STATIONS.map((s, i) => (
+        <figure key={s.key} className={`conv-cap${i === 0 ? ' is-active' : ''}`}>
+          <span className="conv-cap-num">{String(i + 1).padStart(2, '0')}</span>
+          <span className="conv-cap-name">{t(`stages.${s.key}.name`)}</span>
+          <figcaption className="conv-cap-desc">{t(`stages.${s.key}.desc`)}</figcaption>
+        </figure>
+      ))}
+    </div>
+  )
+
   // ── Mobile: header + static composed poster + the full HTML detail layer ──
   if (mobile) {
     return (
@@ -147,7 +171,7 @@ export default function Process3D() {
           <img src={poster} alt="" aria-hidden="true" />
           <p className="conv-poster-cap">{t('stages.covered.name')}</p>
         </div>
-        {renderDetails(true)}
+        {Details}
       </section>
     )
   }
@@ -170,7 +194,7 @@ export default function Process3D() {
             </Suspense>
           </Canvas>
         </div>
-        {renderDetails(true)}
+        {Details}
       </section>
     )
   }
@@ -193,10 +217,11 @@ export default function Process3D() {
               </Suspense>
             </Canvas>
           </div>
-          {renderDetails(false)}
+          {Caption}
           <i className="conv-hint-arrow" aria-hidden="true" />
         </div>
       </div>
+      {Details}
     </section>
   )
 }
