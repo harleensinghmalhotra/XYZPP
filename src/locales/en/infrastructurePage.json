@@ -11,9 +11,9 @@
     "sub": "Three printing facilities and two warehouses across Navi Mumbai. 300,000 sq ft engineered for one thing: books that ship on time.",
     "ctaQuote": "Request a Quote",
     "ctaProcess": "See our process",
-    "statAriaLabel": "300,000 square feet engineered across five facilities",
+    "statAriaLabel": "300,000 square feet engineered across three printing facilities and two warehouses",
     "statUnit": "SQ FT",
-    "statFoot": "Engineered across five facilities in Navi Mumbai"
+    "statFoot": "Engineered across three printing facilities in Navi Mumbai"
   },
   "strip": {
     "eyebrow": "Certified, audited and renewed",
@@ -74,10 +74,10 @@
   "results": {
     "eyebrow": "Real capacity",
     "title": "Measured, not estimated.",
-    "sub": "Not a projection. The plant that prints and ships, counted across four print facilities and two warehouses.",
+    "sub": "Not a projection. The plant that prints and ships, counted across three printing facilities and two warehouses.",
     "stats": {
-      "sqft": { "label": "Sq ft engineered", "foot": "Across six facilities" },
-      "sites": { "label": "Print & fulfilment sites", "foot": "Four print, two warehouse" },
+      "sqft": { "label": "Sq ft engineered", "foot": "Across three printing facilities and two warehouses" },
+      "sites": { "label": "Printing facilities", "foot": "Plus two warehouses in Navi Mumbai" },
       "books": { "label": "Books a year", "foot": "Shipped to 25+ countries" },
       "people": { "label": "People on the floor", "foot": "Trained to one standard" }
     },

@@ -66,6 +66,115 @@
   backface-visibility: hidden;
 }
 .conv-pin canvas { display: block; touch-action: pan-y; }
+/* canvas wrapper — marked aria-hidden; the meaning now lives in the HTML text
+   layer (.proc-layer) that sits alongside it. */
+.conv-stage { position: absolute; inset: 0; }
+
+/* ── HTML TEXT LAYER — the six-stage detail grid + the closing badge row ──────
+   REAL, translated, selectable DOM text. It replaces the baked-JPEG descriptions
+   (an a11y failure): a screen reader can read all six stages at any scroll
+   position, and the canvas beside it is aria-hidden. In the full experience the
+   layer is overlaid on the LOWER pinned viewport, above the exit-melt strip so
+   the conveyor→Projects seam is untouched; on mobile/reduced it drops into normal
+   flow (--flow). Every label clears the 11px floor; text is full-opacity so the
+   gold-on-cream body clears 4.5:1 (the number eyebrow uses --gold-text, not the
+   lighter --gold, to stay above 4.5:1). Active column = brighter gold rule + a
+   faint tint + a small lift; the rest stay fully readable. */
+.proc-layer {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 4;
+  padding: clamp(14px, 2vh, 22px) clamp(20px, 4vw, 56px) clamp(30px, 3.4vh, 44px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.5vh, 16px);
+  /* cream backing so navy/ink text reads over the dark scene; the bottom fades to
+     transparent so the pinned exit-melt (navy) shows through and the melt is intact. */
+  background: linear-gradient(to top,
+    rgba(253, 250, 244, 0) 0,
+    rgba(253, 250, 244, 0.98) 42px,
+    rgba(253, 250, 244, 0.98) 100%);
+  pointer-events: auto;
+}
+.proc-details {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(8px, 1.1vw, 18px);
+}
+.proc-col {
+  border-top: 2px solid rgba(155, 116, 32, 0.28);
+  padding: 9px 9px 2px;
+  border-radius: 0 0 6px 6px;
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.45s ease, border-color 0.45s ease;
+}
+.proc-col.is-active {
+  border-top-color: var(--gold, #9b7420);
+  background: rgba(155, 116, 32, 0.06);
+  transform: translateY(-3px);
+}
+.proc-col-num {
+  display: block;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 12px; letter-spacing: 1px;
+  color: var(--gold-text, #836013);
+}
+.proc-col-name {
+  margin: 5px 0 0;
+  font-family: 'Inter Tight', Inter, system-ui, sans-serif; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.4px;
+  font-size: clamp(13px, 0.95vw, 16px); line-height: 1.15;
+  color: var(--navy, #0f2444);
+}
+.proc-col-rule { display: block; width: 26px; height: 2px; margin: 7px 0; background: var(--gold, #9b7420); }
+.proc-col-desc {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif; font-weight: 400;
+  font-size: clamp(11.5px, 0.8vw, 13px); line-height: 1.5;
+  color: var(--ink-2, #444444);
+}
+.proc-badges {
+  list-style: none; margin: 0;
+  padding: clamp(9px, 1.3vh, 13px) 0 0;
+  border-top: 1px solid rgba(15, 36, 68, 0.12);
+  display: flex; flex-wrap: wrap; gap: 7px 22px; justify-content: center;
+}
+.proc-badge {
+  position: relative;
+  font-family: 'Inter', system-ui, sans-serif; font-weight: 500;
+  font-size: 12px; letter-spacing: 0.2px;
+  color: var(--navy, #0f2444);
+  padding-left: 15px;
+}
+.proc-badge::before {
+  content: ''; position: absolute; left: 0; top: 0.5em;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold, #9b7420);
+}
+
+/* Normal-flow variant (mobile poster + reduced-motion): full readable block below
+   the canvas, no overlay, nothing hidden. Grid stacks on narrow viewports. */
+.proc-layer--flow {
+  position: static;
+  background: var(--cream, #fdfaf4);
+  padding: clamp(28px, 5vw, 56px) clamp(20px, 5vw, 56px);
+  gap: clamp(18px, 3vw, 28px);
+}
+.proc-layer--flow .proc-details { gap: clamp(16px, 2.5vw, 28px); }
+.proc-layer--flow .proc-col-desc { font-size: clamp(13px, 3.4vw, 15px); }
+
+@media (max-width: 1180px) {
+  .proc-details { grid-template-columns: repeat(3, 1fr); row-gap: clamp(12px, 2vh, 18px); }
+}
+@media (max-width: 720px) {
+  .proc-layer--flow .proc-details { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .proc-layer--flow .proc-details { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .proc-col { transition: none; transform: none; }
+}
 
 /* Seamless exit — the scene's dark floor dissolves over the last ~220px into
    --section-melt, the SHARED boundary navy the Projects section's top also arrives

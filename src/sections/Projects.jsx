@@ -61,7 +61,7 @@ const HERO = {
 const LEDGER = [
   { key: 'nigeria', num: '8', unitKey: 'books', ministry: true, globeTarget: 'Nigeria' },
   { key: 'cotedivoire', num: '4', unitKey: 'books', ministry: true, globeTarget: 'Côte d’Ivoire' },
-  { key: 'usaidghana', num: '10', unitKey: 'books', ministry: true, globeTarget: 'Ghana' },
+  { key: 'ghana', num: '10', unitKey: 'books', ministry: true, globeTarget: 'Ghana' },
   { key: 'maharashtra', num: '1.5', unitKey: 'books', ministry: true, globeTarget: '__HQ' },
   { key: 'hdfc', num: '1.3', unitKey: 'books', restricted: true, globeTarget: '__HQ' },
 ]

@@ -57,8 +57,8 @@ const MACHINES = [
 
 const STATS = [
   { k: 'sqft', value: 300000, suffix: '' },
-  { k: 'sites', value: 6, suffix: '' },
-  { k: 'books', value: 25, suffix: 'M+' },
+  { k: 'sites', value: 3, suffix: '' },
+  { k: 'books', value: 75, suffix: 'M' },
   { k: 'people', value: 600, suffix: '+' },
 ]
 

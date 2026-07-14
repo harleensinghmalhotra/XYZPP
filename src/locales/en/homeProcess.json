@@ -3,30 +3,39 @@
   "title": "One Continuous Process",
   "sub": "One partner. One workflow. We take care of everything so you can focus on your mission.",
   "legs": ["Paper", "Paper to Book", "Book to Package", "Packed & Sealed", "Shipped", "Delivered"],
+  "detailsAria": "Our six-stage process, from print to delivery",
   "stages": {
     "print": {
       "name": "Print",
-      "desc": "Offset and sheet-fed production, calibrated for colour at volume."
+      "desc": "High speed offset and sheet fed production, calibrated for colour accuracy and built for volume."
     },
     "quality": {
       "name": "Quality",
-      "desc": "Double quality checks, so it reaches you as expected."
+      "desc": "We take quality very seriously. Every job goes through double quality checks to ensure the product reaches you as you expect it to."
     },
     "fulfillment": {
       "name": "Fulfillment",
-      "desc": "Kitting, collating and packing, tailored to your project."
+      "desc": "Kitting, collating and packing, tailored to exactly how your project needs to be delivered."
     },
     "warehouse": {
       "name": "Warehouse",
-      "desc": "Climate-appropriate storage, released on your timeline."
+      "desc": "Climate appropriate storage, ready to release against your timeline, not ours."
     },
     "ship": {
-      "name": "Shipping",
-      "desc": "Documentation, customs and delivery to 25+ countries."
+      "name": "Ship",
+      "desc": "Documentation, customs and delivery to 25+ countries, tracked from our floor to yours."
     },
     "covered": {
       "name": "You're Covered",
-      "desc": "We handle everything, you focus on your mission."
+      "desc": "We take care of everything so you don't have to. You focus on your mission, we'll handle the rest."
     }
-  }
+  },
+  "badges": [
+    "One partner. Zero runaround.",
+    "Single point of contact throughout.",
+    "Real-time updates at every stage.",
+    "Timelines met. Every time.",
+    "Quality you can trust, every time.",
+    "Built for scale, backed by experience."
+  ]
 }

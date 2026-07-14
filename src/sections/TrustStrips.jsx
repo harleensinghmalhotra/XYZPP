@@ -38,6 +38,12 @@ const INSTITUTIONS_ALL = [
   { icon: 'pin', ministry: true },
   { icon: 'globe', ministry: true },
   { icon: 'monitor', ministry: true },
+  // Programmes wired into the name-only ticker (no delivery figure needed here).
+  { icon: 'layers', ministry: true }, // NCERT
+  { icon: 'pin', ministry: true }, // PNAPAS
+  { icon: 'globe', ministry: true }, // Sarva Shiksha Abhiyan
+  { icon: 'monitor', ministry: true }, // CSR Projects
+  { icon: 'bank', ministry: true }, // Ministry of Mozambique
 ].map((it, idx) => ({ ...it, idx }))
 const INSTITUTIONS = INSTITUTIONS_ALL.filter(
   (it) => (SHOW_MINISTRY_NAMES || !it.ministry) && (SHOW_RESTRICTED_CLIENTS || !it.restricted),

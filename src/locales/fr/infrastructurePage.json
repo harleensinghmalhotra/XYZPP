@@ -11,9 +11,9 @@
     "sub": "Trois sites d’impression et deux entrepôts à Navi Mumbai. 300 000 sq ft pensés pour une seule chose : des livres expédiés à temps.",
     "ctaQuote": "Demander un devis",
     "ctaProcess": "Découvrir notre processus",
-    "statAriaLabel": "300 000 pieds carrés aménagés sur cinq sites",
+    "statAriaLabel": "300 000 pieds carrés aménagés sur trois sites d’impression et deux entrepôts",
     "statUnit": "SQ FT",
-    "statFoot": "Aménagés sur cinq sites à Navi Mumbai"
+    "statFoot": "Aménagés sur trois sites d’impression à Navi Mumbai"
   },
   "strip": {
     "eyebrow": "Certifié, audité et renouvelé",
@@ -74,10 +74,10 @@
   "results": {
     "eyebrow": "Capacité réelle",
     "title": "Mesurée, pas estimée.",
-    "sub": "Pas une projection. L’usine qui imprime et expédie, mesurée sur quatre sites de production et deux entrepôts.",
+    "sub": "Pas une projection. L’usine qui imprime et expédie, mesurée sur trois sites d’impression et deux entrepôts.",
     "stats": {
-      "sqft": { "label": "Sq ft aménagés", "foot": "Sur six sites" },
-      "sites": { "label": "Sites de production et de logistique", "foot": "Quatre de production, deux entrepôts" },
+      "sqft": { "label": "Sq ft aménagés", "foot": "Sur trois sites d’impression et deux entrepôts" },
+      "sites": { "label": "Sites d’impression", "foot": "Plus deux entrepôts à Navi Mumbai" },
       "books": { "label": "Livres par an", "foot": "Expédiés dans plus de 25 pays" },
       "people": { "label": "Personnes à l’atelier", "foot": "Formées à un standard unique" }
     },

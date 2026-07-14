@@ -60,6 +60,10 @@
         "name": "USAID Ghana",
         "desc": "USAID funded programme"
       },
+      "ghana": {
+        "name": "Ghana",
+        "desc": "10 million books delivered every educational season, across various publishers."
+      },
       "maharashtra": {
         "name": "Maharashtra",
         "desc": "State Bureau of Textbook Production"
