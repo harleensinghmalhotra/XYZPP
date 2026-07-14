@@ -954,13 +954,26 @@ body {
   scroll-margin-top: var(--nav-h); /* anchor jumps to #services clear the sticky nav */
 }
 /* Normal-flow section — the horizontal scroll-pin was removed on the client's
-   call (it trapped the visitor). Heading, intro and the card grid stack and
-   scroll past exactly like any other section; nothing here touches page scroll. */
+   call (it trapped the visitor). Heading, intro and the card row stack and scroll
+   past exactly like any other section; nothing here touches page scroll. */
 .wwp-inner {
   width: 100%;
   max-width: var(--content-max);
   margin: 0 auto;
   padding: var(--section-pad-y) 56px;
+}
+/* Hero → WWP clearance. The hero's open-book graphic (z-[1], anchored to the
+   hero's bottom edge and sized by viewport WIDTH via w-full) overhangs into the
+   section directly below it. Its reach into WWP grows with the width∶height ratio
+   — harmless at ~16∶9, but at wide-and-short geometry (e.g. 1536×743 at a scaled
+   display, ratio ~2.07) the book's clipped bottom + drop-shadow poke down over the
+   eyebrow/heading. We can't clip the hero (it would flatten the book's bowed page
+   stack — a deliberate look), so we push WWP's header clear only where the ratio
+   actually collides. ~16∶9 laptops (1366×768, 1440×900, 1920×1080) never trip it. */
+@media (min-aspect-ratio: 39 / 20) {
+  .wwp-inner {
+    padding-top: calc(var(--section-pad-y) + 140px);
+  }
 }
 
 /* Header — eyebrow, then the single-line title, then intro copy + link below it */
@@ -989,15 +1002,50 @@ body {
   letter-spacing: -0.5px;
   color: #0f2444;
 }
-/* Intro copy + "Learn more" reflow below the heading, on one row (wraps if tight) */
+/* Intro copy + "Learn more" reflow below the heading, on one row (wraps if tight).
+   The right side clusters the "Learn more" link with the row's arrow controls. */
 .wwp-head-meta {
   margin-top: 16px;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 32px;
   flex-wrap: wrap;
 }
+/* Right-side cluster: the process link + the two row-scroll arrows, vertically
+   centred against the intro copy. */
+.wwp-controls {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.wwp-arrows {
+  display: flex;
+  gap: 8px;
+}
+/* On-palette arrow chip — navy stroke on transparent at rest, fills navy on hover.
+   Nudges the row one card width; keyboard-focusable (the .focus-ring ring shows). */
+.wwp-arrow {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1.5px solid rgba(15, 36, 68, 0.35);
+  border-radius: 999px;
+  background: transparent;
+  color: #0f2444;
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+.wwp-arrow:hover {
+  background: #0f2444;
+  border-color: #0f2444;
+  color: #f5f0e8;
+}
+.wwp-arrow svg { display: block; }
 .wwp-lede {
   margin: 0;
   flex: 1 1 520px;
@@ -1025,24 +1073,54 @@ body {
   opacity: 0.85;
 }
 
-/* Card grid — five across on wide screens (5×2 for the ten categories), collapsing
-   to three / two / one on narrower widths. The 84px top padding + 84px row gap are
-   the room the cutouts pop up into; the image width is capped so the overhang stays
-   bounded (≤~70px) at every column count, so one gap value clears it everywhere. */
-.wwp-grid {
-  margin-top: 52px;
-  padding-top: 84px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 84px 28px;
-  justify-items: center;
+/* Card row — a NATIVE horizontal scroller (client R3b: the row is back, the pin
+   is gone). overflow-x scrolls the row on its own axis; vertical page scroll is
+   never touched. scroll-snap eases each card to a rest start; momentum + touch-drag
+   on mobile, shift+wheel / trackpad-horizontal on desktop, and the header arrows
+   all drive it. The row is focusable (tabIndex) so arrow keys scroll it natively.
+   The 120px top padding is the room the cutouts pop up into — kept INSIDE the
+   scroller's own padding box so overflow-x (which clips the cross-axis) never cuts
+   the pop. The row overflows on purpose: the last card peeks cut-off at the right
+   edge as the visual cue that there's more to scroll. */
+.wwp-viewport {
+  margin-top: 40px;
+  padding-top: 120px; /* room the images pop up into (inside the padding box) */
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  /* Minimal, on-palette scrollbar: thin, gold thumb on a transparent track. */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 116, 32, 0.55) transparent;
+}
+.wwp-viewport::-webkit-scrollbar { height: 8px; }
+.wwp-viewport::-webkit-scrollbar-track { background: transparent; }
+.wwp-viewport::-webkit-scrollbar-thumb {
+  background: rgba(155, 116, 32, 0.55);
+  border-radius: 999px;
+}
+.wwp-viewport::-webkit-scrollbar-thumb:hover { background: rgba(155, 116, 32, 0.85); }
+.wwp-viewport:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: var(--radius-xs);
+}
+.wwp-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 56px;
+  width: max-content;
+  padding-bottom: 10px; /* breathing between the card feet and the scrollbar */
 }
 
 /* Card — cutout + name + one sentence. Three fixed grid rows so every card is
    EXACTLY the same height AND every heading anchors on the same baseline. */
 .wwp-card {
-  width: 100%;
-  max-width: 300px;
+  flex: 0 0 300px;
+  width: 300px;
+  scroll-snap-align: start;
   display: grid;
   grid-template-rows: 140px 88px 72px; /* A photo / B name / C sentence = 300px.
      Zone C trimmed 96→72 (still clears the tallest 3-line sentence, 59px): the pin
@@ -1068,9 +1146,7 @@ body {
 }
 .wwp-img {
   display: block;
-  width: 104%;
-  max-width: 240px;
-  height: auto;
+  width: 312px;
   margin-top: -10px;
   transform: rotate(var(--rot, 0deg));
   transform-origin: center bottom;
@@ -1119,13 +1195,17 @@ body {
   }
 }
 
-/* Responsive column count — 5 → 3 → 2 → 1. The bounded image overhang means the
-   84px row gap keeps clearing the pop at every width, so only the columns change. */
-@media (max-width: 1180px) {
-  .wwp-grid {
-    grid-template-columns: repeat(3, 1fr);
+/* prefers-reduced-motion — the row still scrolls, just instantly: no smooth
+   easing, no snap glide. There's no animation to guard beyond that. */
+@media (prefers-reduced-motion: reduce) {
+  .wwp-viewport {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
   }
 }
+
+/* Mobile — same native horizontal scroller, just tighter section gutters and a
+   heading that may wrap. The row keeps its card size and touch-drags. */
 @media (max-width: 900px) {
   .wwp-inner {
     padding: var(--section-pad-y-mobile, 56px) 20px;
@@ -1139,17 +1219,15 @@ body {
     align-items: flex-start;
     gap: 12px;
   }
+  .wwp-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
   .wwp-lede {
     max-width: 560px;
   }
-  .wwp-grid {
-    grid-template-columns: repeat(2, 1fr);
-    margin-top: 40px;
-  }
-}
-@media (max-width: 480px) {
-  .wwp-grid {
-    grid-template-columns: 1fr;
+  .wwp-viewport {
+    margin-top: 28px;
   }
 }
 

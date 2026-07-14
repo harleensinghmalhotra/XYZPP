@@ -4,6 +4,9 @@
   "titleLine2": "Categories",
   "lede": "Across educational books, notebooks, trade titles, religious texts and packaging, we bring the same care and consistency to every project we take on.",
   "more": "Learn more about our process",
+  "rowLabel": "Product categories",
+  "scrollPrev": "Scroll categories left",
+  "scrollNext": "Scroll categories right",
   "cards": {
     "educational": {
       "name": "Educational Book Printing",

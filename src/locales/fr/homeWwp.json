@@ -4,6 +4,9 @@
   "titleLine2": "catégories",
   "lede": "Des livres éducatifs aux cahiers, en passant par les titres grand public, les textes religieux et l'emballage, nous apportons le même soin et la même constance à chaque projet que nous entreprenons.",
   "more": "En savoir plus sur notre processus",
+  "rowLabel": "Catégories de produits",
+  "scrollPrev": "Faire défiler les catégories vers la gauche",
+  "scrollNext": "Faire défiler les catégories vers la droite",
   "cards": {
     "educational": {
       "name": "Impression de livres éducatifs",
