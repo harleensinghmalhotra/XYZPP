@@ -14,7 +14,7 @@ import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
 const COUNTRIES = [
   'india', 'nigeria', 'ghana', 'kenya', 'uganda', 'tanzania', 'zambia',
   'cotedivoire', 'cameroon', 'congo', 'senegal', 'benin', 'ethiopia',
-  'rwanda', 'mozambique', 'madagascar', 'mauritius', 'southafrica', 'gabon',
+  'rwanda', 'mozambique', 'zimbabwe', 'madagascar', 'mauritius', 'southafrica', 'gabon',
   'mexico', 'usa', 'puertorico', 'germany', 'unitedkingdom', 'spain', 'uae',
 ]
 
@@ -49,10 +49,12 @@ const INSTITUTIONS = INSTITUTIONS_ALL.filter(
 // dividers were retired per Harry's bar. Each metric is anchored by one of
 // Harry's custom navy/gold 3D clay renders, cut to true alpha (see
 // scripts/cutout-strip-icons.mjs → /qfp/icons3d/stat-*.webp).
+// Four canonical stats — numerals match the corrected locale copy (9cccb0d):
+// 75 million books printed every year · 25+ countries · 800+ containers · 98% on-time.
 const STATS = [
-  { key: 'books', value: 400, suffix: 'M+', img: 'stat-book' },
+  { key: 'books', value: 75, suffix: 'M', img: 'stat-book' },
   { key: 'countries', value: 25, suffix: '+', img: 'stat-globe' },
-  { key: 'containers', value: 1000, suffix: '+', img: 'stat-box' },
+  { key: 'containers', value: 800, suffix: '+', img: 'stat-box' },
   { key: 'ontime', value: 98, suffix: '%', accent: true, img: 'stat-clock' },
 ]
 
@@ -134,13 +136,15 @@ export default function TrustStrips() {
 
     // GPU-composited transform loops via WAAPI (off the main thread, no React
     // state per frame). Strip 1 drifts left, strip 2 drifts right.
+    // Ticker speed dialed ~40% slower per client (countries + institutions/projects
+    // marquees): 30s → 42s and 38s → 53.2s. Hover-pause + reduced-motion unchanged.
     const a1 = track1.current.animate(
       [{ transform: 'translateX(0)' }, { transform: 'translateX(-50%)' }],
-      { duration: 30000, iterations: Infinity, easing: 'linear' },
+      { duration: 42000, iterations: Infinity, easing: 'linear' },
     )
     const a2 = track2.current.animate(
       [{ transform: 'translateX(-50%)' }, { transform: 'translateX(0)' }],
-      { duration: 38000, iterations: Infinity, easing: 'linear' },
+      { duration: 53200, iterations: Infinity, easing: 'linear' },
     )
 
     // Eased hover-pause: ramp playbackRate 1↔0 over 300ms (cubic-out) so the

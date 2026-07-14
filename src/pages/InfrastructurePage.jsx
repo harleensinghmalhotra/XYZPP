@@ -56,7 +56,7 @@ const MACHINES = [
 ]
 
 const STATS = [
-  { k: 'sqft', value: 250000, suffix: '' },
+  { k: 'sqft', value: 300000, suffix: '' },
   { k: 'sites', value: 6, suffix: '' },
   { k: 'books', value: 25, suffix: 'M+' },
   { k: 'people', value: 600, suffix: '+' },
@@ -274,7 +274,7 @@ export default function InfrastructurePage() {
 
           {/* single big number on the page — the flagship stat */}
           <div className="u-hero-stat" aria-label={t('hero.statAriaLabel')}>
-            <span className="u-stat-num" aria-hidden="true">250,000</span>
+            <span className="u-stat-num" aria-hidden="true">300,000</span>
             <span className="u-stat-unit">{t('hero.statUnit')}</span>
             <span className="u-stat-foot">{t('hero.statFoot')}</span>
           </div>

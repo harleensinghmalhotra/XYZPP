@@ -309,7 +309,7 @@ export default function About() {
               {[
                 { node: <CountUp value={3} />, label: t('story.stats.presses') },
                 { node: <CountUp value={2} />, label: t('story.stats.centres') },
-                { node: <CountUp value={250000} suffix="" />, label: t('story.stats.space') },
+                { node: <CountUp value={300000} suffix="" />, label: t('story.stats.space') },
                 { node: <><CountUp value={25} />+</>, label: t('story.stats.countries') },
               ].map((s, i) => (
                 <div key={i} className="border-t pt-4" style={{ borderColor: 'rgba(15,36,68,0.15)' }}>

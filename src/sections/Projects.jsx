@@ -49,14 +49,21 @@ const HERO = {
 // behind SHOW_RESTRICTED_CLIENTS. Either gate filters its rows out cleanly.
 // `key` → stable i18n key (name/desc); `unitKey` → unit label key; `globeTarget`
 // → the Globe3D marker/arc this record pulses ('__HQ' for the India-side rows).
+// Milestone rows (client change doc, lane 2):
+//   • ZEE Learn removed entirely (client asked for it gone, not just gated).
+//   • DR Congo removed; replaced by Côte d'Ivoire (already present below) — the
+//     requested Mozambique row is pending an approved delivery figure (see report).
+//   • Ghana set to the client's 10M milestone (was 2M). The row still resolves its
+//     name/desc from the `usaidghana` locale key ("USAID Ghana / USAID funded
+//     programme"); reframing that copy to "Ghana / various publishers" is a locale
+//     change (another lane) — flagged in the report.
+//   • HDFC stays in code, gated behind SHOW_RESTRICTED_CLIENTS (currently false).
 const LEDGER = [
   { key: 'nigeria', num: '8', unitKey: 'books', ministry: true, globeTarget: 'Nigeria' },
   { key: 'cotedivoire', num: '4', unitKey: 'books', ministry: true, globeTarget: 'Côte d’Ivoire' },
-  { key: 'drcongo', num: '3.5', unitKey: 'books', ministry: true, globeTarget: 'DR Congo' },
-  { key: 'usaidghana', num: '2', unitKey: 'books', ministry: true, globeTarget: 'Ghana' },
+  { key: 'usaidghana', num: '10', unitKey: 'books', ministry: true, globeTarget: 'Ghana' },
   { key: 'maharashtra', num: '1.5', unitKey: 'books', ministry: true, globeTarget: '__HQ' },
   { key: 'hdfc', num: '1.3', unitKey: 'books', restricted: true, globeTarget: '__HQ' },
-  { key: 'zee', num: '0.5', unitKey: 'kits', restricted: true, globeTarget: '__HQ' },
 ]
 
 const words = (s) => s.split(' ')
