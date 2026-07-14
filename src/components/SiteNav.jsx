@@ -56,6 +56,10 @@ export default function SiteNav() {
 
         {/* center nav */}
         <nav className="hidden items-center gap-9 lg:flex">
+          {/* Home — first, explicit; the logo also links home but she wants a named
+              item. aria-current marks it on "/" (no other link carries an active
+              treatment, so we match that: same qnav-link, semantics only). */}
+          <Link to="/" aria-current={pathname === '/' ? 'page' : undefined} className="qnav-link">{t('home')}</Link>
           <Link to="/about" className="qnav-link">{t('about')}</Link>
 
           {/* What We Print — dropdown to the three product shells */}

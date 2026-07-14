@@ -953,34 +953,14 @@ body {
   background: #f0ebe0;
   scroll-margin-top: var(--nav-h); /* anchor jumps to #services clear the sticky nav */
 }
-/* The pinned panel rests BELOW the nav, not at viewport top. Its top edge sits
-   exactly on the nav's bottom line, so the heading lives fully in the clear — it
-   can never be occluded *under* the nav. Height fills the rest of the viewport.
-   `justify-content: safe center` vertically centres the natural-height stack so
-   any slack splits evenly (no dead air dumped below the cards); `safe` falls back
-   to top-alignment if the stack ever exceeds the panel, keeping the heading clear
-   of the nav rather than pushing it up under it. */
-.wwp-sticky {
-  position: sticky;
-  top: var(--nav-h);
-  height: calc(100svh - var(--nav-h));
-  display: flex;
-  flex-direction: column;
-  justify-content: safe center;
-  overflow: hidden;
-}
-/* Heading + intro + card row as one natural-height block, pinned and scrubbed
-   together. No transform on this element — only the track moves. */
+/* Normal-flow section — the horizontal scroll-pin was removed on the client's
+   call (it trapped the visitor). Heading, intro and the card grid stack and
+   scroll past exactly like any other section; nothing here touches page scroll. */
 .wwp-inner {
-  flex: 0 0 auto;
   width: 100%;
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: 28px 56px 28px; /* top = nav-clearance floor (safe-center keeps it when
-                              the block ever exceeds the panel); bottom mirrors the
-                              top so the card row breathes into the navy, balanced */
-  display: flex;
-  flex-direction: column;
+  padding: var(--section-pad-y) 56px;
 }
 
 /* Header — eyebrow, then the single-line title, then intro copy + link below it */
@@ -998,17 +978,16 @@ body {
   text-transform: uppercase;
   color: #836013; /* dash removed — eyebrow text stands alone */
 }
-/* R2: ONE line. nowrap forbids wrapping; JS scales the size down per-locale to
-   fit the content width. Same display family / weight / colour — just smaller. */
+/* Short heading — wraps naturally if a locale ever needs it (no JS fit now that
+   the section is normal-flow; nothing measures against a pinned panel width). */
 .wwp-title {
   margin: 0;
   font-family: 'Inter Tight', sans-serif;
   font-weight: 500;
-  font-size: clamp(28px, 4.2vw, 62px); /* ceiling; JS shrinks to fit one line */
+  font-size: clamp(28px, 4.2vw, 62px);
   line-height: 1.06;
   letter-spacing: -0.5px;
   color: #0f2444;
-  white-space: nowrap;
 }
 /* Intro copy + "Learn more" reflow below the heading, on one row (wraps if tight) */
 .wwp-head-meta {
@@ -1046,28 +1025,24 @@ body {
   opacity: 0.85;
 }
 
-/* Track viewport — clips the row horizontally; the 120px top pad is the room the
-   images pop up into (kept inside the padding box so overflow:hidden never clips
-   the pop). R2: pulled up tight under the one-line heading (margin was 56px). */
-.wwp-viewport {
-  flex: 0 0 auto;
-  overflow: hidden;
-  padding-top: 120px; /* room the images pop up into */
-  margin-top: 18px;   /* R2: cards sit tight under the heading (was 56px) */
-}
-.wwp-track {
-  display: flex;
-  align-items: flex-start;
-  gap: 56px;
-  width: max-content;
-  will-change: transform;
+/* Card grid — five across on wide screens (5×2 for the ten categories), collapsing
+   to three / two / one on narrower widths. The 84px top padding + 84px row gap are
+   the room the cutouts pop up into; the image width is capped so the overhang stays
+   bounded (≤~70px) at every column count, so one gap value clears it everywhere. */
+.wwp-grid {
+  margin-top: 52px;
+  padding-top: 84px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 84px 28px;
+  justify-items: center;
 }
 
 /* Card — cutout + name + one sentence. Three fixed grid rows so every card is
    EXACTLY the same height AND every heading anchors on the same baseline. */
 .wwp-card {
-  flex: 0 0 300px;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   display: grid;
   grid-template-rows: 140px 88px 72px; /* A photo / B name / C sentence = 300px.
      Zone C trimmed 96→72 (still clears the tallest 3-line sentence, 59px): the pin
@@ -1093,7 +1068,9 @@ body {
 }
 .wwp-img {
   display: block;
-  width: 312px;
+  width: 104%;
+  max-width: 240px;
+  height: auto;
   margin-top: -10px;
   transform: rotate(var(--rot, 0deg));
   transform-origin: center bottom;
@@ -1142,53 +1119,18 @@ body {
   }
 }
 
-/* Reduced motion / no-pin fallback — native horizontal scroll, thin scrollbar */
-.wwp-section.is-reduced .wwp-sticky {
-  position: static;
-  height: auto;
-  overflow: visible;
-}
-.wwp-section.is-reduced .wwp-sticky {
-  justify-content: flex-start; /* static flow — no vertical centring */
-}
-.wwp-section.is-reduced .wwp-inner {
-  padding-top: 72px;
-  padding-bottom: 72px;
-}
-.wwp-section.is-reduced .wwp-viewport {
-  margin-top: 32px;
-  overflow-x: auto;
-  overflow-y: visible;
-  padding-bottom: 8px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(15, 36, 68, 0.28) transparent;
-}
-.wwp-section.is-reduced .wwp-track {
-  transform: none !important;
-}
-.wwp-section.is-reduced .wwp-viewport::-webkit-scrollbar {
-  height: 3px;
-}
-.wwp-section.is-reduced .wwp-viewport::-webkit-scrollbar-track {
-  background: transparent;
-}
-.wwp-section.is-reduced .wwp-viewport::-webkit-scrollbar-thumb {
-  background: rgba(15, 36, 68, 0.28);
-  border-radius: var(--radius-xs);
-}
-
-@media (max-width: 900px) {
-  .wwp-sticky {
-    position: static;
-    height: auto;
-    overflow: visible;
-    justify-content: flex-start;
+/* Responsive column count — 5 → 3 → 2 → 1. The bounded image overhang means the
+   84px row gap keeps clearing the pop at every width, so only the columns change. */
+@media (max-width: 1180px) {
+  .wwp-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
+}
+@media (max-width: 900px) {
   .wwp-inner {
-    padding: 56px 20px;
+    padding: var(--section-pad-y-mobile, 56px) 20px;
   }
   .wwp-title {
-    white-space: normal; /* allow wrapping on mobile instead of shrinking to fit */
     font-size: clamp(26px, 7vw, 40px);
   }
   .wwp-head-meta {
@@ -1200,15 +1142,14 @@ body {
   .wwp-lede {
     max-width: 560px;
   }
-  .wwp-viewport {
-    margin-top: 28px;
-    overflow-x: auto;
-    overflow-y: visible;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(15, 36, 68, 0.28) transparent;
+  .wwp-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 40px;
   }
-  .wwp-track {
-    transform: none !important;
+}
+@media (max-width: 480px) {
+  .wwp-grid {
+    grid-template-columns: 1fr;
   }
 }
 

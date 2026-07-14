@@ -8,8 +8,13 @@ import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
 // Content ported verbatim from the client's vibe-coded homepage v17
 // (COUNTRIES STRIP + institutions row + STATS BAR). Text, order and icons are
 // law — not reworded, trimmed or reordered. Only the presentation is elevated.
+//
+// The STATS bar was extracted (client reorder) into the `HomeStats` export at the
+// foot of this file, so the homepage can drop it BELOW the mission band on its own.
+// TrustStrips itself keeps only its two marquees, in place.
 
-// Strip 1 — 26 countries, exact source order. Drifts LEFT (~30s).
+// Strip 1 — 27 countries (Ekta's authoritative list), exact source order. Drifts
+// LEFT (~42s).
 // Display text is resolved via t(`countries.${key}`); keys are stable, order is law.
 const COUNTRIES = [
   'india', 'nigeria', 'ghana', 'kenya', 'uganda', 'tanzania', 'zambia',
@@ -110,30 +115,6 @@ export default function TrustStrips() {
   const reduced = useReducedMotion()
   const track1 = useRef(null)
   const track2 = useRef(null)
-  const statsRef = useRef(null)
-  const [statsIn, setStatsIn] = useState(false)
-
-  // Subtle staggered fade-up when the stats grid scrolls into view. Instant
-  // (no transform) under reduced-motion; the number count-up is CountUp's own.
-  useEffect(() => {
-    if (reduced) {
-      setStatsIn(true)
-      return
-    }
-    const el = statsRef.current
-    if (!el) return
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setStatsIn(true)
-          io.disconnect()
-        }
-      },
-      { threshold: 0.4 },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [reduced])
 
   useEffect(() => {
     if (reduced) return
@@ -224,35 +205,70 @@ export default function TrustStrips() {
           </div>
         </div>
       </div>
+    </section>
+  )
+}
 
-      {/* Stats bar — numbers-led in Ekta's gold-numeral treatment */}
-      <div className="ts-stats">
-        <ul className={`ts-stats-grid${statsIn ? ' is-in' : ''}`} ref={statsRef}>
-          {STATS.map((s) => (
-            <li key={s.key} className="ts-stat">
-              <span className="sr-only">{t(`stats.${s.key}.sr`)}</span>
-              <div aria-hidden="true">
-                <span className="ts-stat-fig">
-                  <img
-                    className="ts-stat-ico3d"
-                    src={`/qfp/icons3d/${s.img}.webp`}
-                    alt=""
-                    width="84"
-                    height="84"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </span>
-                <div className="ts-stat-num">
-                  <CountUp value={s.value} suffix={s.suffix} grouping={false} duration={1200} />
-                  {s.accent && <span className="ts-stat-accent">{t(`stats.${s.key}.accent`)}</span>}
-                </div>
-                <div className="ts-stat-lbl">{t(`stats.${s.key}.label`)}</div>
+// ── HomeStats — the four-metric bar, extracted so the homepage can place it as its
+// own standalone block BELOW the mission band (client reorder). Same markup, same
+// CountUp, same IntersectionObserver reveal, same numbers — only its home moved.
+// Wrapped in a labelled <section> so it is a named landmark on its own.
+export function HomeStats() {
+  const { t } = useTranslation('homeTrust')
+  const reduced = useReducedMotion()
+  const statsRef = useRef(null)
+  const [statsIn, setStatsIn] = useState(false)
+
+  // Subtle staggered fade-up when the stats grid scrolls into view. Instant
+  // (no transform) under reduced-motion; the number count-up is CountUp's own.
+  useEffect(() => {
+    if (reduced) {
+      setStatsIn(true)
+      return
+    }
+    const el = statsRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setStatsIn(true)
+          io.disconnect()
+        }
+      },
+      { threshold: 0.4 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [reduced])
+
+  return (
+    <section className="ts-stats" aria-labelledby="stats-heading">
+      <h2 id="stats-heading" className="sr-only">{t('statsHeading')}</h2>
+      <ul className={`ts-stats-grid${statsIn ? ' is-in' : ''}`} ref={statsRef}>
+        {STATS.map((s) => (
+          <li key={s.key} className="ts-stat">
+            <span className="sr-only">{t(`stats.${s.key}.sr`)}</span>
+            <div aria-hidden="true">
+              <span className="ts-stat-fig">
+                <img
+                  className="ts-stat-ico3d"
+                  src={`/qfp/icons3d/${s.img}.webp`}
+                  alt=""
+                  width="84"
+                  height="84"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <div className="ts-stat-num">
+                <CountUp value={s.value} suffix={s.suffix} grouping={false} duration={1200} />
+                {s.accent && <span className="ts-stat-accent">{t(`stats.${s.key}.accent`)}</span>}
               </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+              <div className="ts-stat-lbl">{t(`stats.${s.key}.label`)}</div>
+            </div>
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }
