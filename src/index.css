@@ -502,6 +502,36 @@ body {
   }
 }
 
+/* ── Highlights marquee — explicit brand faces (Lane 12) ──────────────────────
+   The strip's words are Inter Tight (display); the gold separator is an inline SVG
+   sparkle (no font glyph), so the whole strip resolves to the brand stack with no
+   system-symbol fallback. Sizes/margins match the prior Tailwind values 1:1. */
+.mq-row { display: flex; flex-shrink: 0; align-items: center; }
+.mq-item { display: flex; align-items: center; }
+.mq-word {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+  font-size: 8vw;
+  color: var(--paper);
+}
+.mq-word--outline {
+  color: transparent;
+  -webkit-text-stroke: 1.4px var(--paper);
+}
+.mq-star {
+  flex: 0 0 auto;
+  width: 3.4vw;
+  height: 3.4vw;
+  margin: 0 3vw;
+  fill: var(--gold-2);
+}
+@media (min-width: 768px) {
+  .mq-word { font-size: 5.6vw; }
+  .mq-star { width: 2.2vw; height: 2.2vw; }
+}
+
 /* ── HERO AURORA — the hero's signature background, EXCLUSIVE to the hero -----
    Ported from Aceternity UI "Aurora Background" (layered animated gradients +
    60s linear drift + blur/saturation), fully reskinned to the QFP palette. The
@@ -3062,8 +3092,16 @@ body {
 }
 .aw-content { position: relative; display: flex; flex-direction: column; padding: var(--section-pad-y) 110px; }
 
-/* header */
-.aw-head { display: flex; flex-direction: column; gap: 22px; }
+/* header — text column on the left, paging arrows top-right */
+.aw-head { display: flex; flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.aw-head-text { display: flex; flex-direction: column; gap: 22px; }
+.aw-arrows { flex: 0 0 auto; }
+/* Reused WhatWePrint arrow chip, recoloured for the dark Awards surface (the base
+   .wwp-arrow is navy-on-light; here it's cream-on-navy). Same geometry, same
+   .focus-ring, same aria pattern — not a third arrow style. */
+.aw .wwp-arrow { border-color: rgba(253, 250, 244, 0.4); color: var(--cream); }
+.aw .wwp-arrow:hover:not(:disabled) { background: var(--cream); color: var(--navy); border-color: var(--cream); }
+.aw .wwp-arrow:disabled { opacity: 0.32; cursor: default; }
 .aw-eyebrow { /* dash removed — text only */
   margin: 0;
   font-family: 'DM Mono', monospace;
@@ -3083,9 +3121,30 @@ body {
   color: #fdfaf4;
 }
 
-/* card grid */
-.aw-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 80px; }
+/* paged card strip — native horizontal scroller showing 4 at a time (same
+   mechanics as .wwp-viewport). The track is a flex row of fixed-fraction cards;
+   with 4 cards it exactly fills the viewport (no overflow → arrows disabled). */
+.aw-viewport {
+  margin-top: 80px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200, 154, 60, 0.55) transparent;
+  padding-bottom: 6px;
+}
+.aw-viewport::-webkit-scrollbar { height: 8px; }
+.aw-viewport::-webkit-scrollbar-track { background: transparent; }
+.aw-viewport::-webkit-scrollbar-thumb { background: rgba(200, 154, 60, 0.55); border-radius: 999px; }
+.aw-viewport::-webkit-scrollbar-thumb:hover { background: rgba(200, 154, 60, 0.85); }
+.aw-viewport:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 4px; border-radius: var(--radius-xs); }
+.aw-grid { display: flex; gap: 32px; }
 .plq {
+  flex: 0 0 calc((100% - 3 * 32px) / 4); /* exactly 4 across the viewport width */
+  scroll-snap-align: start;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -3204,11 +3263,17 @@ body {
 
 @media (max-width: 1200px) {
   .aw-content { padding: 96px 48px 80px; }
-  .aw-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .aw-grid { gap: 24px; }
+  .plq { flex-basis: calc((100% - 24px) / 2); } /* 2 across */
   .aw-title { font-size: 48px; }
 }
 @media (max-width: 640px) {
-  .aw-grid { grid-template-columns: 1fr; }
+  .aw-head { flex-direction: column; align-items: flex-start; }
+  .plq { flex-basis: 100%; } /* 1 across */
+}
+/* reduced motion → the strip still scrolls, just instantly (matches .wwp-viewport) */
+@media (prefers-reduced-motion: reduce) {
+  .aw-viewport { scroll-behavior: auto; scroll-snap-type: none; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -72,7 +72,45 @@ function AwardPhoto({ img, ph }) {
 export default function Awards() {
   const { t } = useTranslation('homeAwards')
   const root = useRef(null)
+  const viewport = useRef(null)
   const [reduced] = useState(prefersReduced)
+  // Arrow paging — same mechanics as the WhatWePrint row: a native overflow-x
+  // scroller nudged one card per click, arrows disabled at each end. With only the
+  // four real awards (no RESERVED slots) the track equals the viewport → no overflow
+  // → both arrows disabled-but-present, exactly as the client asked. More awards drop
+  // into RESERVED tomorrow and the arrows light up with zero further work.
+  const [atStart, setAtStart] = useState(true)
+  const [atEnd, setAtEnd] = useState(true)
+
+  const cardStep = () => {
+    const vp = viewport.current
+    if (!vp) return 0
+    const cards = vp.querySelectorAll('.plq')
+    if (cards.length >= 2) {
+      return cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left
+    }
+    return cards[0]?.getBoundingClientRect().width ?? 0
+  }
+
+  const scrollRow = (dir) => {
+    const vp = viewport.current
+    if (!vp) return
+    vp.scrollBy({ left: dir * cardStep(), behavior: prefersReduced() ? 'auto' : 'smooth' })
+  }
+
+  useEffect(() => {
+    const vp = viewport.current
+    if (!vp) return
+    const update = () => {
+      const max = vp.scrollWidth - vp.clientWidth
+      setAtStart(vp.scrollLeft <= 1)
+      setAtEnd(vp.scrollLeft >= max - 1) // max<=0 (no overflow) → both ends true → both disabled
+    }
+    update()
+    vp.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => { vp.removeEventListener('scroll', update); window.removeEventListener('resize', update) }
+  }, [])
 
   useLayoutEffect(() => {
     if (reduced) return
@@ -97,28 +135,60 @@ export default function Awards() {
       <div className="aw-vignette" aria-hidden="true" />
       <div className="aw-inner">
         <div className="aw-content">
-          {/* header — eyebrow (dash removed) + heading */}
+          {/* header — eyebrow (dash removed) + heading, with the paging arrows
+              top-right (reuses the WhatWePrint arrow chip + .focus-ring pattern) */}
           <div className="aw-head">
-            <p className="aw-eyebrow">{t('eyebrow')}</p>
-            <h2 id="aw-title" className="aw-title">{t('title')}</h2>
+            <div className="aw-head-text">
+              <p className="aw-eyebrow">{t('eyebrow')}</p>
+              <h2 id="aw-title" className="aw-title">{t('title')}</h2>
+            </div>
+            <div className="wwp-arrows aw-arrows">
+              <button
+                type="button"
+                className="wwp-arrow focus-ring"
+                onClick={() => scrollRow(-1)}
+                disabled={atStart}
+                aria-label={t('scrollPrev')}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg>
+              </button>
+              <button
+                type="button"
+                className="wwp-arrow focus-ring"
+                onClick={() => scrollRow(1)}
+                disabled={atEnd}
+                aria-label={t('scrollNext')}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m10 6 6 6-6 6" /></svg>
+              </button>
+            </div>
           </div>
 
-          {/* four plaque cards */}
-          <div className="aw-grid">
-            {SLOTS.map((c) => (
-              <article className="plq" key={c.key}>
-                <div className="aw-photo">
-                  {c.forbes ? <ForbesClipping t={t} /> : <AwardPhoto img={c.img} ph={t(`cards.${c.key}.ph`)} />}
-                  <div className="plq-tint" aria-hidden="true" />
-                  <div className="plq-sheen" aria-hidden="true" />
-                </div>
-                <div className="aw-body">
-                  <div className="aw-label">{t(`labels.${c.labelKey}`)}</div>
-                  <h3 className="aw-name">{t(`cards.${c.key}.name`)}</h3>
-                  <p className="aw-desc">{t(`cards.${c.key}.body`)}</p>
-                </div>
-              </article>
-            ))}
+          {/* paged plaque strip — native horizontal scroller (4 visible), focusable
+              labelled region so arrow keys scroll it and it degrades like the WWP row */}
+          <div
+            className="aw-viewport"
+            ref={viewport}
+            role="region"
+            aria-label={t('rowLabel')}
+            tabIndex={0}
+          >
+            <div className="aw-grid">
+              {SLOTS.map((c) => (
+                <article className="plq" key={c.key}>
+                  <div className="aw-photo">
+                    {c.forbes ? <ForbesClipping t={t} /> : <AwardPhoto img={c.img} ph={t(`cards.${c.key}.ph`)} />}
+                    <div className="plq-tint" aria-hidden="true" />
+                    <div className="plq-sheen" aria-hidden="true" />
+                  </div>
+                  <div className="aw-body">
+                    <div className="aw-label">{t(`labels.${c.labelKey}`)}</div>
+                    <h3 className="aw-name">{t(`cards.${c.key}.name`)}</h3>
+                    <p className="aw-desc">{t(`cards.${c.key}.body`)}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
 
           {/* explore link, bottom-right */}

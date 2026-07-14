@@ -14,6 +14,7 @@ import Certifications from '@/sections/Certifications'
 import Sustainability from '@/sections/Sustainability'
 import Awards from '@/sections/Awards'
 import Cases from '@/sections/Cases'
+import { SHOW_CASE_STUDIES } from '@/lib/compliance'
 
 // The homepage owns the entire scroll engine. SmoothScrollProvider (Lenis + GSAP
 // ScrollTrigger) lives INSIDE this route only: it boots when "/" mounts and fully
@@ -53,7 +54,9 @@ export default function Home() {
         <Marquee />
         <Sustainability />
         <Awards />
-        <Cases />
+        {/* Cases hidden on client instruction — see SHOW_CASE_STUDIES in
+            lib/compliance.js. Component preserved for the Infrastructure rebuild. */}
+        {SHOW_CASE_STUDIES && <Cases />}
       </main>
     </SmoothScrollProvider>
   )

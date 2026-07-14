@@ -22,3 +22,11 @@ export const SHOW_MINISTRY_NAMES = true
 // permission is ever withdrawn.
 // TRUE (names shown) — written permission confirmed. See recon/COMPLIANCE-OPEN-ITEMS.md.
 export const SHOW_RESTRICTED_CLIENTS = true
+
+// ── Case Studies section (homepage) ─────────────────────────────────────────
+// HIDDEN on client instruction (2026-07-15 meeting): competitor-poaching concern —
+// the named case studies expose which publishers we print for. Hide, do NOT delete:
+// the section may return, and its page-turn "book" effect is being recycled into the
+// Infrastructure rebuild tomorrow. Gate only — Cases.jsx / Cases.css / its locale keys
+// stay intact. When false, the <Cases/> render AND every nav/footer link to it drop.
+export const SHOW_CASE_STUDIES = false

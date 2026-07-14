@@ -32,5 +32,8 @@
     "date": "DÉC. 2024",
     "headline": "La liste D.Gems, 2024"
   },
-  "more": "VOIR PLUS DE PRIX ET PRESSE →"
+  "more": "VOIR PLUS DE PRIX ET PRESSE →",
+  "rowLabel": "Prix et presse",
+  "scrollPrev": "Prix précédents",
+  "scrollNext": "Prix suivants"
 }

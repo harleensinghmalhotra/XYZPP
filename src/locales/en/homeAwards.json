@@ -32,5 +32,8 @@
     "date": "DEC 2024",
     "headline": "The D.Gems List, 2024"
   },
-  "more": "EXPLORE MORE AWARDS & PRESS →"
+  "more": "EXPLORE MORE AWARDS & PRESS →",
+  "rowLabel": "Awards and press",
+  "scrollPrev": "Previous awards",
+  "scrollNext": "Next awards"
 }

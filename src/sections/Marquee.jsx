@@ -3,25 +3,22 @@ import { useTranslation } from 'react-i18next'
 // Print-craft capability labels, resolved from the home namespace so the marquee
 // switches language with the rest of the site. Order is fixed by this key list.
 const TERM_KEYS = ['offset', 'case', 'foil', 'perfect', 'spotuv', 'saddle', 'litho', 'emboss', 'fourcolour']
-const STAR = 'text-[#C89A3C]' // gold separators — full brand cohesion
 
+// Lane 12 font re-audit: the runtime computed families were already brand (words →
+// Inter Tight, text → Inter), but the ✶ (U+2726) separator glyph is in NEITHER brand
+// font, so the browser drew it from a system symbol fallback (Segoe UI Symbol) — the
+// off-brand face the client caught. Fix: declare the brand faces EXPLICITLY (like the
+// neighbouring sections do, not via Tailwind aliases) in the .mq-* block, and draw the
+// gold sparkle as an inline SVG so no non-brand font can ever render in the strip.
 function Row({ terms }) {
   return (
-    <div className="flex shrink-0 items-center">
+    <div className="mq-row">
       {terms.map((t, i) => (
-        <span key={t} className="flex items-center">
-          <span
-            className={
-              i % 2
-                ? 'font-display text-[8vw] font-extrabold uppercase leading-none text-transparent [-webkit-text-stroke:1.4px_var(--paper)] md:text-[5.6vw]'
-                : 'font-display text-[8vw] font-extrabold uppercase leading-none text-paper md:text-[5.6vw]'
-            }
-          >
-            {t}
-          </span>
-          <span className={`mx-[3vw] text-[3.4vw] md:text-[2.2vw] ${STAR}`} aria-hidden="true">
-            ✶
-          </span>
+        <span key={t} className="mq-item">
+          <span className={i % 2 ? 'mq-word mq-word--outline' : 'mq-word'}>{t}</span>
+          <svg className="mq-star" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 1.5 L13.7 10.3 L22.5 12 L13.7 13.7 L12 22.5 L10.3 13.7 L1.5 12 L10.3 10.3 Z" />
+          </svg>
         </span>
       ))}
     </div>

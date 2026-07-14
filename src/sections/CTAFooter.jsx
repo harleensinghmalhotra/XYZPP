@@ -1,5 +1,6 @@
 import { useTranslation, Trans } from 'react-i18next'
 import AuroraBackground from '@/components/AuroraBackground'
+import { SHOW_CASE_STUDIES } from '@/lib/compliance'
 
 // Fonts locked to our system (was inheriting the global Space Mono / font-display):
 const INTER = "'Inter', sans-serif"
@@ -14,11 +15,13 @@ export default function CTAFooter() {
   const columns = [
     {
       h: t('quickLinks'),
+      // Case Studies link gated with the section (client instruction) — hidden
+      // while SHOW_CASE_STUDIES is false so no link points at a hidden section.
       items: [
         t('links.products'),
         t('links.globalReach'),
         t('links.infrastructure'),
-        t('links.caseStudies'),
+        ...(SHOW_CASE_STUDIES ? [t('links.caseStudies')] : []),
         t('links.contact'),
       ],
     },
