@@ -85,7 +85,7 @@
       "quantity": "Quantity"
     },
     "request": "Request This Book",
-    "note": "No prices, no obligation. We’ll send a tailored quote and a free proof. Prefer to talk it through? <link>Speak to us.</link>"
+    "note": "No prices, no obligation. We’ll send a tailored quote and a free proof. Prefer to talk it through? <1>Speak to us.</1>"
   },
   "qtyBadgeSr": "Quantity",
   "how": {

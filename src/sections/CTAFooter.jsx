@@ -167,7 +167,7 @@ export default function CTAFooter() {
               </div>
             </div>
             {/* Statutory entity line — site-wide compliance (CIN + registered office). DM Mono, 11px floor. */}
-            <p className="mt-5 max-w-full text-[11px] leading-relaxed" style={{ fontFamily: MONO, color: 'rgba(92,83,70,0.72)' }}>
+            <p className="mt-5 max-w-full text-[11px] leading-relaxed" style={{ fontFamily: MONO, color: 'rgba(92,83,70,0.92)' }}>
               Quarterfold Printabilities Private Limited · CIN U74999MH2020PTC337494 · Registered Office: Office No 1207, Plot No 4 &amp; 6, Sector 30A, Navi Mumbai, Maharashtra 400705
             </p>
           </div>

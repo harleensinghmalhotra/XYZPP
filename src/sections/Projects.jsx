@@ -53,10 +53,8 @@ const HERO = {
 //   • ZEE Learn removed entirely (client asked for it gone, not just gated).
 //   • DR Congo removed; replaced by Côte d'Ivoire (already present below) — the
 //     requested Mozambique row is pending an approved delivery figure (see report).
-//   • Ghana set to the client's 10M milestone (was 2M). The row still resolves its
-//     name/desc from the `usaidghana` locale key ("USAID Ghana / USAID funded
-//     programme"); reframing that copy to "Ghana / various publishers" is a locale
-//     change (another lane) — flagged in the report.
+//   • Ghana set to the client's 10M milestone (was 2M), keyed to `ledger.rows.ghana`
+//     ("Ghana / 10 million books... across various publishers").
 //   • HDFC stays in code, gated behind SHOW_RESTRICTED_CLIENTS (currently false).
 const LEDGER = [
   { key: 'nigeria', num: '8', unitKey: 'books', ministry: true, globeTarget: 'Nigeria' },
@@ -276,7 +274,7 @@ export default function Projects() {
   }, [reduced])
 
   return (
-    <section id="projects" ref={root} data-theme="dark" className="proj" aria-labelledby="proj-title">
+    <section id="projects" ref={root} data-theme="dark" className="proj" role="region" aria-labelledby="proj-title">
       {/* THE STAGE — near-black velvet, sparse stars, gold backlight (on the globe) */}
       <div className="proj-stage" aria-hidden="true">
         <div className="proj-stars">

@@ -38,7 +38,8 @@
     "previewAria": "Preview facilities walkthrough, video coming soon",
     "dialogAria": "Facilities walkthrough video",
     "closeAria": "Close video",
-    "comingSoon": "Walkthrough footage coming soon"
+    "comingSoon": "Walkthrough footage coming soon",
+    "captionsLabel": "Captions"
   },
   "people": {
     "count": "600+",

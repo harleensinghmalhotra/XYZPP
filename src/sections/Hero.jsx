@@ -343,7 +343,7 @@ export default function Hero() {
             (z-15), so as the book rises it passes IN FRONT of the headline —
             exactly like Alternativ. The headline never renders over the pages. */}
         <div ref={textWrap} className="absolute inset-x-0 top-0 z-[5] flex flex-col items-center px-4 pt-[16vh] font-metrisch">
-          <div ref={titleGhost} className="flex flex-col items-center leading-[0.9] will-change-transform">
+          <h1 ref={titleGhost} className="m-0 flex flex-col items-center leading-[0.9] will-change-transform">
             {/* Line 1 — POWERING GLOBAL EDUCATION (cream). Alternativ's two-line
                 headline anatomy: the setup line in cream, the payoff line in gold.
                 Longer copy than the old "POWERING GLOBAL", so the type relaxes from
@@ -360,7 +360,7 @@ export default function Hero() {
             <div className="mt-[14px] flex items-center justify-center text-[4.2vw] font-semibold uppercase lg:text-[3.1vw]" style={{ letterSpacing: '0.16em', paddingLeft: '0.16em', color: GOLD }}>
               {t('hero.line2')}
             </div>
-          </div>
+          </h1>
 
           <div ref={copyGroup} className="flex flex-col items-center will-change-[opacity]">
             <p className="mt-[4vh] max-w-[720px] text-center text-[18px] font-normal leading-[1.4] text-white/95">
@@ -412,7 +412,7 @@ export default function Hero() {
           ) : (
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" /><path d="m22 9-6 6" /><path d="m16 9 6 6" /></svg>
           )}
-          <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '2.5px' }}>{t('hero.bookSound')}</span>
+          <span className="text-[11px] font-medium uppercase" style={{ letterSpacing: '2.5px' }}>{t('hero.bookSound')}</span>
         </button>
       </div>
     </section>

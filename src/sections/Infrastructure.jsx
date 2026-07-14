@@ -224,7 +224,25 @@ export default function Infrastructure() {
           ))}
         </div>
 
-        {/* ── VIDEO — Hero Video Dialog (recreated, no shadcn) ── */}
+        {/* ── OUR PEOPLE ── */}
+        <div className="infra-people">
+          <h3 className="infra-people-title">
+            <span className="infra-foil">{t('people.count')}</span> {t('people.title')}
+          </h3>
+          <p className="infra-people-body">{t('people.body')}</p>
+          <div className="infra-people-grid">
+            {PEOPLE.map((p) => (
+              <figure key={p.n} className="infra-person">
+                <TeamPlaceholder icon={p.icon} note={t('people.photoNote', { team: t(`people.captions.${p.n}`) })} />
+                <figcaption className="infra-person-cap">{t(`people.captions.${p.n}`)}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        {/* ── VIDEO — walkthrough placeholder, positioned AFTER the infrastructure
+             content (client request). Gated by VIDEO_READY (false): the click opens a
+             graceful "coming soon" panel, never a broken <video>. ── */}
         <div className="infra-video">
           <button
             type="button"
@@ -241,22 +259,6 @@ export default function Infrastructure() {
               </svg>
             </span>
           </button>
-        </div>
-
-        {/* ── OUR PEOPLE ── */}
-        <div className="infra-people">
-          <h3 className="infra-people-title">
-            <span className="infra-foil">{t('people.count')}</span> {t('people.title')}
-          </h3>
-          <p className="infra-people-body">{t('people.body')}</p>
-          <div className="infra-people-grid">
-            {PEOPLE.map((p) => (
-              <figure key={p.n} className="infra-person">
-                <TeamPlaceholder icon={p.icon} note={t('people.photoNote', { team: t(`people.captions.${p.n}`) })} />
-                <figcaption className="infra-person-cap">{t(`people.captions.${p.n}`)}</figcaption>
-              </figure>
-            ))}
-          </div>
         </div>
       </div>
 
@@ -276,8 +278,12 @@ export default function Infrastructure() {
               </svg>
             </button>
             {VIDEO_READY ? (
-              // NOTE: ship with <track kind="captions"> + linked transcript before go-live.
-              <video className="infra-dialog-video" src={VIDEO_SRC} controls autoPlay playsInline />
+              // Caption-ready: the <track> ships with the element so a <video> is never
+              // shipped without captions. Drop facility-walkthrough.vtt beside the mp4
+              // (+ a linked transcript) before flipping VIDEO_READY on.
+              <video className="infra-dialog-video" src={VIDEO_SRC} controls autoPlay playsInline crossOrigin="anonymous">
+                <track kind="captions" srcLang="en" src="/qfp/infra/facility-walkthrough.vtt" label={t('video.captionsLabel')} default />
+              </video>
             ) : (
               <div className="infra-dialog-ph" aria-hidden="true">
                 <span className="infra-video-note">{t('video.note')}</span>

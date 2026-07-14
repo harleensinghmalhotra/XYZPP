@@ -38,7 +38,8 @@
     "previewAria": "Aperçu de la visite des sites, vidéo bientôt disponible",
     "dialogAria": "Vidéo de visite des sites",
     "closeAria": "Fermer la vidéo",
-    "comingSoon": "Visite en vidéo bientôt disponible"
+    "comingSoon": "Visite en vidéo bientôt disponible",
+    "captionsLabel": "Sous-titres"
   },
   "people": {
     "count": "600+",

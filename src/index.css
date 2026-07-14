@@ -3057,7 +3057,7 @@ body {
   color: #1c2019; /* ink */
 }
 .svA-chip-leaf { flex: none; color: #6b7a2a; } /* olive stroke leaf ≥3:1 */
-.svA-chip-label { color: #3c470f; }             /* deep olive label */
+.svA-chip-label { color: var(--olive-deep); }    /* #5a6623 token — olive label, ~5.5:1 */
 .svA-chip-sep { color: #9b7420; opacity: 0.85; } /* gold divider */
 .svA-chip-code { color: #1c2019; }               /* verbatim compliance code */
 
@@ -3070,7 +3070,7 @@ body {
   font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #5c6b1e; /* olive accent, contrast-safe on cream */
+  color: var(--olive-deep); /* #5a6623 token — olive accent, ~5.5:1 on cream */
 }
 .sustain-title {
   margin: 0;

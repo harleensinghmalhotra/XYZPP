@@ -19,6 +19,15 @@ const CARDS = [
   { key: 'capexil', img: 'award-04.webp', labelKey: 'export' },
 ]
 
+// Reserved slots for awards the client says are coming. Add an entry here (drop the
+// webp at the path below + its locale keys cards.<key>.name/body/ph + labels.<key>)
+// and the plaque appears — using the same graceful AwardPhoto frame until the photo
+// lands, so a missing file is never a broken image. Empty by default → NO dead space
+// while unfilled. Next expected paths, in order:
+//   public/qfp/awards/award-05.webp · award-06.webp · award-07.webp · award-08.webp
+const RESERVED = [] // e.g. { key: 'pw25', img: 'award-05.webp', labelKey: 'industry' }
+const SLOTS = [...CARDS, ...RESERVED]
+
 // The Forbes card's photo zone IS a designed press clipping (no photo needed).
 function ForbesClipping({ t }) {
   return (
@@ -96,7 +105,7 @@ export default function Awards() {
 
           {/* four plaque cards */}
           <div className="aw-grid">
-            {CARDS.map((c) => (
+            {SLOTS.map((c) => (
               <article className="plq" key={c.key}>
                 <div className="aw-photo">
                   {c.forbes ? <ForbesClipping t={t} /> : <AwardPhoto img={c.img} ph={t(`cards.${c.key}.ph`)} />}

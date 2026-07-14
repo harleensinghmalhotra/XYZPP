@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next'
 
 const MONO = "'DM Mono', monospace"
-const GOLD = '#c89a3c'
+// --gold-text (#836013) not the lighter #c89a3c: the active label is informational
+// and must clear 4.5:1 on the cream nav (5.9:1 vs the old 2.47:1 hard-fail).
+const GOLD = '#836013'
 
 // Quiet EN | FR pill for the nav's right group (beside Request a Quote). Mirrors
 // Alternativ's understated globe toggle: two short labels in DM Mono, the active
@@ -18,7 +20,7 @@ export default function LanguageToggle({ light = false }) {
   const current = i18n.resolvedLanguage || i18n.language
 
   // Inactive label + hairlines adapt to the nav tone; active is always gold.
-  const inactive = light ? 'rgba(28,32,25,0.55)' : 'rgba(253,250,244,0.6)'
+  const inactive = light ? 'rgba(28,32,25,0.72)' : 'rgba(253,250,244,0.6)'
   const inactiveHover = light ? 'rgba(28,32,25,0.9)' : 'rgba(253,250,244,0.95)'
   const ring = light ? 'ring-[#0f2444]/15' : 'ring-white/20'
 

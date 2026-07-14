@@ -421,7 +421,7 @@ export default function PrintOnDemand() {
                 </svg>
               </Link>
               <p className="pod-summary-note">
-                <Trans t={t} i18nKey="summary.note" components={{ link: <Link to="/contact" /> }} />
+                <Trans t={t} i18nKey="summary.note" components={{ 1: <Link to="/contact" /> }} />
               </p>
             </aside>
           </div>

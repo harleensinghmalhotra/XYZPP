@@ -361,7 +361,7 @@
   max-width: 34ch;
   font-size: 13px;
   line-height: 1.45;
-  color: rgba(28, 32, 25, 0.6);
+  color: rgba(28, 32, 25, 0.72); /* AA: 0.6 measured 4.33:1; 0.72 clears 4.5 (~6:1) */
   text-align: right;
 }
 
@@ -482,7 +482,7 @@
   margin: 0;
   font-size: 12px;
   line-height: 1.5;
-  color: rgba(28, 32, 25, 0.6);
+  color: rgba(28, 32, 25, 0.72); /* AA: 0.6 measured 4.38:1; 0.72 clears 4.5 */
   /* hard cap at two lines so every card in a row is the same height */
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -520,7 +520,7 @@
   line-height: 1.3;
   letter-spacing: 0.6px;
   text-transform: uppercase;
-  color: rgba(28, 32, 25, 0.58);
+  color: rgba(28, 32, 25, 0.72); /* AA: 0.58 measured 4.09:1; 0.72 clears 4.5 */
 }
 .pod-opts.chips .pod-chip[aria-checked='true'] .pod-chip-hero { color: var(--gold-3); }
 
