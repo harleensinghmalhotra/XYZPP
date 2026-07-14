@@ -67,7 +67,7 @@ function fitPx(g, title) {
   return Math.min(MAX_PX, Math.round((100 * FILL) / w100))
 }
 
-function makeLabelTexture(num, title) {
+function makeLabelTexture(title) {
   const c = document.createElement('canvas')
   c.width = RES; c.height = H
   const g = c.getContext('2d')
@@ -76,17 +76,15 @@ function makeLabelTexture(num, title) {
     g.clearRect(0, 0, RES, H)
     if (plateImg && plateImg.complete && plateImg.naturalWidth) g.drawImage(plateImg, 0, 0, RES, H)
     g.textAlign = 'center'; g.textBaseline = 'middle'
-    // index eyebrow — DM Mono, its own WIDE tracking (unchanged role), above the name
-    g.letterSpacing = '2.5px'
-    g.fillStyle = 'rgba(15,36,68,0.5)'
-    g.font = '600 48px "DM Mono", ui-monospace, monospace'
-    g.fillText(`0${num}`, RES / 2, H * 0.30)
+    // No index eyebrow — Harry: no numbers anywhere (the shipped Canva PNG faces
+    // already carry the NAME only; this fallback face now matches them). The name
+    // is centred on the plate, the sole mark on the face.
     // station name — Inter Tight 700, tight, deep ink, sized to own the face
     const namePx = fitPx(g, title)
     g.letterSpacing = `${TRACK * namePx}px`
     g.fillStyle = EKTA.ink
     g.font = nameFont(namePx)
-    g.fillText(title, RES / 2, H * 0.585)
+    g.fillText(title, RES / 2, H * 0.5) // centred — no eyebrow above it now
     g.letterSpacing = '0px'
     t.needsUpdate = true
   }
@@ -97,7 +95,7 @@ function makeLabelTexture(num, title) {
   return t
 }
 
-export default function Station({ index, title, scan, register, swapKey, lang }) {
+export default function Station({ title, scan, register, swapKey, lang }) {
   const navyGeo = useMemo(() => {
     const g = new THREE.ExtrudeGeometry(archShape(ARCH.half, ARCH.legW), {
       depth: ARCH.depth, bevelEnabled: true, bevelSize: 0.015, bevelThickness: 0.015, bevelSegments: 2, curveSegments: 30,
@@ -109,7 +107,7 @@ export default function Station({ index, title, scan, register, swapKey, lang })
     const g = new THREE.ExtrudeGeometry(archShape(ARCH.half - 0.004, ARCH.trim), { depth: 0.028, bevelEnabled: false, curveSegments: 30 })
     return g
   }, [])
-  const labelTex = useMemo(() => makeLabelTexture(index + 1, title), [index, title])
+  const labelTex = useMemo(() => makeLabelTexture(title), [title])
 
   // Dormant swap: if a Canva PNG exists for this station it takes over the plaque
   // face; absent, the canvas texture above stays in place (nothing changes today).

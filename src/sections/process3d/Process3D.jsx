@@ -145,16 +145,16 @@ export default function Process3D() {
   )
 
   // ── LAYER 1 — THE MUSEUM LABEL (full experience only): a single caption for the
-  // CURRENT stage, floating in the dark upper-left sky above the arches. All six
-  // are stacked in place; only the active one is opaque, and the scroll scrub
+  // CURRENT stage, floating in the dark upper-left sky above the arches. Two
+  // elements now — NAME + DESCRIPTION, no index (Harry: no numbers anywhere). All
+  // six are stacked in place; only the active one is opaque, and the scroll scrub
   // cross-fades between them (imperative is-active swap — no React re-render). No
-  // card, no panel: just the index, the name, and the description on the sky.
-  // aria-hidden — it is a visual echo; the screen-reader truth lives in Layer 2.
+  // card, no panel: the title and its deck sit straight on the sky, composed like
+  // a film title card. aria-hidden — a visual echo; the reachable truth is Layer 2.
   const Caption = (
     <div className="conv-caption" aria-hidden="true" ref={captionRef}>
       {STATIONS.map((s, i) => (
         <figure key={s.key} className={`conv-cap${i === 0 ? ' is-active' : ''}`}>
-          <span className="conv-cap-num">{String(i + 1).padStart(2, '0')}</span>
           <span className="conv-cap-name">{t(`stages.${s.key}.name`)}</span>
           <figcaption className="conv-cap-desc">{t(`stages.${s.key}.desc`)}</figcaption>
         </figure>

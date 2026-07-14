@@ -71,27 +71,27 @@
 .conv-stage { position: absolute; inset: 0; }
 
 /* ══ LAYER 1 — THE MUSEUM LABEL ═══════════════════════════════════════════════
-   A single caption for the CURRENT stage in the dark upper-left sky — the small
-   ENGRAVED PLATE beside the artwork, not a subtitle bar. Three elements composed as a
-   hierarchy: a gold DM Mono index (its own tracked line), a big cream Inter-Tight name
-   (the anchor), then a quiet cream paragraph — with an UNEQUAL rhythm (6px index→name,
-   they are one unit; 10px before the copy). No card, no panel, no border, no fill — type
-   straight on the navy sky. All six are stacked in
-   place; the scroll scrub cross-fades opacity between them (imperative .is-active swap).
-   aria-hidden — a visual echo; the screen-reader truth lives in Layer 2.
+   The current stage, composed like the opening TITLE CARD of a prestige film,
+   floating in the dark upper-left sky. No index anymore (Harry: no numbers), so
+   the NAME carries everything and is sized with real presence; a single quiet gold
+   rule sits under it — the one expensive detail, no more — then the DECK. No card,
+   no panel, no border, no fill: type straight on the navy sky, which is dark enough
+   (~#182A4E) that cream clears 4.5:1 many times over; the soft text-shadows are
+   legibility insurance, not a scrim. All six are stacked in place; the scroll scrub
+   cross-fades opacity between them (imperative .is-active swap — no React re-render).
+   aria-hidden — a visual echo; the reachable, translated truth is Layer 2.
 
-   Geometry, MEASURED on the built render (scripts/_lane6b-measure.mjs): the solid cream nav
-   owns the top --nav-h (86px), and every plaque plate sits in the CSS y-band [226..282]. So
-   the plate is inset ~11px BELOW the nav (its index fully clear, never clipped), and the whole
-   block — index, name and a wide 2–3 line paragraph — finishes in the dead sky ABOVE y226,
-   clearing the nearest plaque top by ~8–21px at every station in both languages. Cream clears
-   4.5:1 on the sky many times over (see report); the soft text-shadows are legibility
-   insurance, not a scrim. */
+   Geometry, MEASURED on the built render (scripts/recon-6c-label.mjs): the solid cream
+   nav owns the top --nav-h (86px); the block is anchored ≥16px BELOW it (never clipped),
+   inset ~56–72px from the left, and the whole card — name, gold rule, and a 2–3 line
+   deck — finishes in the dead sky ABOVE the plaque band, clearing the nearest plaque top
+   at every station in both languages (re-measured; the reclaimed index space is spent on
+   the bigger name, not on dropping lower). */
 .conv-caption {
   position: absolute;
-  top: calc(var(--nav-h, 86px) + clamp(10px, 1.5vh, 14px));
-  left: clamp(24px, 2.8vw, 36px);
-  width: min(415px, 50vw);
+  top: calc(var(--nav-h, 86px) + clamp(16px, 2.2vh, 24px));
+  left: clamp(56px, 5.2vw, 72px);
+  width: min(440px, 46vw);
   z-index: 4;
   pointer-events: none;
 }
@@ -99,39 +99,40 @@
   position: absolute; top: 0; left: 0;
   margin: 0; width: 100%;
   opacity: 0;
-  /* calm ease-out — the label arrives, never slides */
-  transition: opacity 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity 300ms ease-out; /* the label arrives, never slides */
 }
 .conv-cap.is-active { opacity: 1; }
 
-/* THE INDEX — DM Mono, gold-2 (legible on the dark sky), generous tracking, its own line */
-.conv-cap-num {
-  display: block;
-  font-family: 'DM Mono', ui-monospace, monospace;
-  font-size: 12px; line-height: 1.1; letter-spacing: 0.2em; font-weight: 500;
-  color: var(--gold-2, #c89a3c);
-  text-shadow: 0 1px 10px rgba(10, 21, 36, 0.5);
-}
-/* THE NAME — the anchor: Inter Tight, tight tracking, cream */
+/* THE NAME — the title card: Inter Tight, cream. With the index gone the name owns
+   the space, so it is set large; tight tracking keeps it composed at that size. */
 .conv-cap-name {
   display: block;
-  margin: 6px 0 0;                 /* tight — index + name read as one unit (vs 10px before the copy) */
+  margin: 0;
   font-family: 'Inter Tight', Inter, system-ui, sans-serif; font-weight: 600;
-  font-size: clamp(28px, 2.7vw, 30px); line-height: 1.02; letter-spacing: -0.015em;
+  font-size: clamp(34px, 3.2vw, 44px); line-height: 1.0; letter-spacing: -0.015em;
   color: var(--cream, #fdfaf4);
-  text-shadow: 0 1px 18px rgba(10, 21, 36, 0.55);
+  text-shadow: 0 2px 22px rgba(10, 21, 36, 0.55);
 }
-/* THE DESCRIPTION — Inter 400, cream ~0.8α, a calm WIDE paragraph in the dead sky ABOVE the
-   plaque band (y226). At ~415px even the longest FR copy holds to three lines, so it finishes
-   clear of the plaque top at every station (measured) — no narrow ribbon, no plaque collision.
-   The 10px gap here (vs the 6px above the name) is the unequal rhythm: index+name are one unit,
-   the copy gets its own air. */
+/* THE ONE DETAIL — a short gold rule set well below the name's baseline. Restraint:
+   this is the whole treatment, no box, no border, no fill. */
+.conv-cap-name::after {
+  content: '';
+  display: block;
+  width: 48px; height: 2px;
+  margin-top: 16px;
+  background: var(--gold-2, #c89a3c);
+  border-radius: 1px;
+}
+/* THE DECK — Inter 400, a calm cream paragraph, held to 2–3 lines. The generous gap
+   above (name+rule are one unit, the deck gets its own air) reads as title + deck,
+   never a crammed block. */
 .conv-cap-desc {
-  margin: 10px 0 0;
+  margin: 16px 0 0;
+  max-width: 420px;
   font-family: 'Inter', system-ui, sans-serif; font-weight: 400;
-  font-size: 15px; line-height: 1.4;
-  color: rgba(253, 250, 244, 0.8);
-  text-shadow: 0 1px 12px rgba(10, 21, 36, 0.5);
+  font-size: 15.5px; line-height: 1.6;
+  color: rgba(253, 250, 244, 0.82);
+  text-shadow: 0 1px 14px rgba(10, 21, 36, 0.5);
 }
 @media (prefers-reduced-motion: reduce) {
   .conv-cap { transition: none; } /* swap, never cross-fade */
@@ -221,22 +222,19 @@
   .proc-details { grid-template-columns: 1fr; }
 }
 
-/* Seamless exit — RE-TUNED for Layer 2. The document grid (cream) now sits between
-   the conveyor and Projects, so the pin no longer releases into Projects' navy; it
-   releases into the CREAM grid. The scene's dark floor therefore dissolves over the
-   last ~240px into CREAM, so at the pin-release frame the conveyor's bottom edge IS
-   the grid's colour — no hard horizontal line as the dark scene lifts over the cream
-   document. (The grid→Projects navy transition is now carried by .conv-section::after
-   at the section boundary below the grid.) Sits above the canvas, inert. */
+/* Seamless exit — the scene's dark floor dissolves over the last ~220px into
+   --section-melt, the moody navy the scene already lives in, so the dead floor at
+   the bottom of the frame stays DARK at every scroll depth (never a milky cream
+   wash — the lane-6c regression was this scrim flipped to cream, bleaching the
+   lower third). Inert, above the canvas. The scene→document(cream) boundary below
+   is a normal scroll section change; the document's own foot melt + the
+   .conv-section::after bridge carry the colour on into Projects. */
 .conv-pin::after {
   content: '';
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  height: 240px;
-  background: linear-gradient(to bottom,
-    rgba(253, 250, 244, 0) 0%,
-    rgba(253, 250, 244, 0.55) 60%,
-    var(--cream, #fdfaf4) 100%);
+  height: 220px;
+  background: linear-gradient(to bottom, rgba(10, 21, 36, 0) 0%, rgba(10, 21, 36, 0.6) 55%, var(--section-melt, #0a1524) 100%);
   pointer-events: none;
   z-index: 2;
 }
