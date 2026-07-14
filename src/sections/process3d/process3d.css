@@ -71,26 +71,27 @@
 .conv-stage { position: absolute; inset: 0; }
 
 /* ══ LAYER 1 — THE MUSEUM LABEL ═══════════════════════════════════════════════
-   A single caption for the CURRENT stage, floating in the empty dark sky at the
-   upper-left of the pinned viewport — a gallery-wall label, NOT a subtitle bar.
-   No card, no panel, no border, no fill: the index (DM Mono, gold), the stage
-   name (Inter Tight, cream) and the description (Inter, cream ~0.8α) sit straight
-   on the navy sky, which is dark enough (~#182A4E) that cream clears 4.5:1 far
-   over — a soft text-shadow is legibility insurance only, not a scrim. All six
-   are stacked in place; the scroll scrub cross-fades opacity between them
-   (imperative .is-active swap). aria-hidden — the reachable truth is Layer 2. */
-/* Geometry, MEASURED against the built render (scripts/_lane6-plaque.mjs + _lane6-band.mjs):
-   every plaque billboard plate sits in the CSS y-band [226..290]. Above y≈220 the frame
-   is dead navy sky, full width — the plaques (and arches) are all lower. So the caption
-   is kept COMPACT and lives entirely in that top strip: number, name and a short wide
-   description all finish above y≈215, ~10px clear of the nearest plaque top. This holds
-   at all six stations AND through the delivery ending (the exiting plaque drops to the
-   same y-band, so staying above it clears it too). No card/panel/fill — text on sky. */
+   A single caption for the CURRENT stage in the dark upper-left sky — the small
+   ENGRAVED PLATE beside the artwork, not a subtitle bar. Three elements composed as a
+   hierarchy: a gold DM Mono index (its own tracked line), a big cream Inter-Tight name
+   (the anchor), then a quiet cream paragraph — with an UNEQUAL rhythm (6px index→name,
+   they are one unit; 10px before the copy). No card, no panel, no border, no fill — type
+   straight on the navy sky. All six are stacked in
+   place; the scroll scrub cross-fades opacity between them (imperative .is-active swap).
+   aria-hidden — a visual echo; the screen-reader truth lives in Layer 2.
+
+   Geometry, MEASURED on the built render (scripts/_lane6b-measure.mjs): the solid cream nav
+   owns the top --nav-h (86px), and every plaque plate sits in the CSS y-band [226..282]. So
+   the plate is inset ~11px BELOW the nav (its index fully clear, never clipped), and the whole
+   block — index, name and a wide 2–3 line paragraph — finishes in the dead sky ABOVE y226,
+   clearing the nearest plaque top by ~8–21px at every station in both languages. Cream clears
+   4.5:1 on the sky many times over (see report); the soft text-shadows are legibility
+   insurance, not a scrim. */
 .conv-caption {
   position: absolute;
-  top: clamp(64px, 9.5vh, 92px);
-  left: clamp(16px, 2.4vw, 30px);
-  width: min(330px, 44vw);
+  top: calc(var(--nav-h, 86px) + clamp(10px, 1.5vh, 14px));
+  left: clamp(24px, 2.8vw, 36px);
+  width: min(415px, 50vw);
   z-index: 4;
   pointer-events: none;
 }
@@ -98,28 +99,39 @@
   position: absolute; top: 0; left: 0;
   margin: 0; width: 100%;
   opacity: 0;
-  transition: opacity 300ms ease-out;
-  text-shadow: 0 1px 16px rgba(10, 21, 36, 0.6);
+  /* calm ease-out — the label arrives, never slides */
+  transition: opacity 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .conv-cap.is-active { opacity: 1; }
+
+/* THE INDEX — DM Mono, gold-2 (legible on the dark sky), generous tracking, its own line */
 .conv-cap-num {
   display: block;
   font-family: 'DM Mono', ui-monospace, monospace;
-  font-size: 12.5px; letter-spacing: 3px;
-  color: var(--gold, #9b7420);
+  font-size: 12px; line-height: 1.1; letter-spacing: 0.2em; font-weight: 500;
+  color: var(--gold-2, #c89a3c);
+  text-shadow: 0 1px 10px rgba(10, 21, 36, 0.5);
 }
+/* THE NAME — the anchor: Inter Tight, tight tracking, cream */
 .conv-cap-name {
   display: block;
-  margin: 6px 0 0;
+  margin: 6px 0 0;                 /* tight — index + name read as one unit (vs 10px before the copy) */
   font-family: 'Inter Tight', Inter, system-ui, sans-serif; font-weight: 600;
-  font-size: clamp(22px, 2.1vw, 29px); line-height: 1.05; letter-spacing: 0.2px;
+  font-size: clamp(28px, 2.7vw, 30px); line-height: 1.02; letter-spacing: -0.015em;
   color: var(--cream, #fdfaf4);
+  text-shadow: 0 1px 18px rgba(10, 21, 36, 0.55);
 }
+/* THE DESCRIPTION — Inter 400, cream ~0.8α, a calm WIDE paragraph in the dead sky ABOVE the
+   plaque band (y226). At ~415px even the longest FR copy holds to three lines, so it finishes
+   clear of the plaque top at every station (measured) — no narrow ribbon, no plaque collision.
+   The 10px gap here (vs the 6px above the name) is the unequal rhythm: index+name are one unit,
+   the copy gets its own air. */
 .conv-cap-desc {
-  margin: 9px 0 0;
+  margin: 10px 0 0;
   font-family: 'Inter', system-ui, sans-serif; font-weight: 400;
-  font-size: clamp(12.5px, 0.85vw, 13.5px); line-height: 1.45;
-  color: rgba(253, 250, 244, 0.82);
+  font-size: 15px; line-height: 1.4;
+  color: rgba(253, 250, 244, 0.8);
+  text-shadow: 0 1px 12px rgba(10, 21, 36, 0.5);
 }
 @media (prefers-reduced-motion: reduce) {
   .conv-cap { transition: none; } /* swap, never cross-fade */
