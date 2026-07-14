@@ -1224,100 +1224,23 @@ body {
 }
 
 /* ── Our Promise (mission pull-quote) ────────────────────────────────────────
-   Palette law: navy #0F2444, gold #9B7420, gold-text #836013, cream #FDFAF4.
-   Fonts: DM Mono (eyebrow), Inter Tight (quote/attr), Inter (support). */
+   Palette law: navy #0F2444, gold-2 #C89A3C (on-navy accent), cream #FDFAF4.
+   Fonts: DM Mono (eyebrow/attr), Inter Tight (quote), Inter (support).
+   Lane 10: flat navy — the SAME var(--navy) GlobeReach uses — so the two navy
+   sections read as one continuous passage. No pillar, scrim, dot grid or glow. */
 .promise {
   position: relative;
   overflow: hidden;
-  background: #0a0e14; /* near-black — black + gold reads richer than navy */
+  background: var(--navy); /* #0F2444 — matches GlobeReach's .gr-section exactly */
   padding: var(--section-pad-y) 56px;
   min-height: 100svh;
   display: flex;
   align-items: center;
 }
-/* ── LightPillar — one column of gold-and-navy light (bottom layer, WebGL) ────
-   The reactbits LightPillar canvas fills the section at the very back — a single
-   vertical column of living light, gold crown to navy root, mixBlendMode 'screen'
-   over the black stage (screen only ADDS light). The pillar rises centred behind
-   the words; the .promise-scrim below wells opaque #0A0E14 over the whole text
-   block, so the hot core reads as light BEHIND a dark pane the type sits on. The
-   wrapper is pointer-events:none (interactive:false — the promise doesn't chase
-   the cursor). Not mounted under reduced motion; unmounted (GL context disposed)
-   off-viewport and on hidden tab; DPR capped at 1 in the component's high tier. */
-.promise-pillar {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-.promise-pillar .light-pillar-container { pointer-events: none; }
-/* Offset variant (judge option): lift the column so its hottest zone sits ABOVE the
-   headline rather than directly behind it. Only applied via ?pillarOff=1 in tests. */
-.promise-pillar--offset .light-pillar-container { transform: translateY(-14%); }
-/* Radial scrim — THE LOAD-BEARING WALL. The pillar is a vertical column that sits
-   DIRECTLY behind the type, so the scrim matters more than ever: it wells opaque
-   #0A0E14 over the whole centred text block — every text element sits on solid
-   promise-black — so the pillar's brightest rotation frame can never touch their
-   contrast (asserted). It fades just beyond the text so the column glows free above
-   and to the sides. Opaque core reaches 74% of the ellipse radius for the bright
-   central pillar (a touch stronger than the streak field needed). */
-.promise-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 2; /* above pillar + dots → clean well for the type */
-  pointer-events: none;
-  /* NB: the percentages are the gradient ellipse's RADII (½-extent), not diameter.
-     Sized to hug the CENTRED TEXT BLOCK — opaque #0A0E14 across the quote's width
-     and the eyebrow→credit height — then fade out just beyond it so the column
-     glows free at the top, bottom and side margins. */
-  background: radial-gradient(
-    ellipse 45% 57% at 50% 50%,
-    #0a0e14 0%,
-    #0a0e14 74%,
-    rgba(10, 14, 20, 0.66) 89%,
-    rgba(10, 14, 20, 0) 100%
-  );
-}
-/* Fine dot grid, vignetted — brightest at centre, fading toward the edges so the
-   centred type owns the room. Static (no parallax, no motion). Sits BELOW the
-   scrim so the text zone stays pure promise-black; the dots read in the same
-   peripheral ring where the fluid breathes. */
-.promise-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(253, 250, 244, 0.05) 1px, transparent 1.5px);
-  background-size: 30px 30px;
-  -webkit-mask-image: radial-gradient(ellipse 66% 62% at 50% 50%, #000 28%, transparent 82%);
-  mask-image: radial-gradient(ellipse 66% 62% at 50% 50%, #000 28%, transparent 82%);
-}
-/* THE ONE EFFECT — a soft warm-gold reading-lamp glow behind the type. Extremely
-   low alpha; scale + opacity breathe ~3.5% over 9s. Felt, not seen: at the
-   brightest frame it lifts the near-black under the text only a hair, so cream on
-   the ground stays far above AA (asserted). Time-based CSS only, no scroll. */
-.promise-glow {
-  position: absolute;
-  z-index: 4;
-  left: 50%;
-  top: 50%;
-  width: min(1120px, 88%);
-  height: min(720px, 78%);
-  transform: translate(-50%, -50%) scale(1);
-  background: radial-gradient(
-    ellipse at center,
-    rgba(201, 154, 60, 0.10) 0%,
-    rgba(155, 116, 32, 0.05) 34%,
-    rgba(155, 116, 32, 0) 66%
-  );
-  pointer-events: none;
-  will-change: transform, opacity;
-  animation: promiseGlowBreathe 9s ease-in-out infinite;
-}
-@keyframes promiseGlowBreathe {
-  0%, 100% { opacity: 0.82; transform: translate(-50%, -50%) scale(1); }
-  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.035); }
-}
+/* Lane 10 removed the entire background stack — .promise-pillar (+ .light-pillar-
+   container / --offset), .promise-scrim, .promise-bg (dot grid) and .promise-glow
+   (+ @keyframes promiseGlowBreathe) — when the client killed the glow/aura effect.
+   The section is now flat var(--navy); only the centred type remains. */
 
 .promise-inner {
   position: relative;
@@ -1335,9 +1258,10 @@ body {
   font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  /* was #9b7420 (~4.5:1, on the AA knife-edge once the warm glow lifts its ground).
-     A hair brighter, same gold hue → comfortable AA margin under the glow. */
-  color: #a8802a;
+  /* gold-2 on navy: the on-navy eyebrow gold (matches GlobeReach's .gr-eyebrow).
+     #A8802A dropped to 4.27:1 once the ground lifted from near-black to navy;
+     #C89A3C clears 6.0:1. */
+  color: var(--gold-2);
 }
 
 .promise-quote {
@@ -1377,18 +1301,8 @@ body {
   font-weight: 500;
   font-size: 12.5px;
   letter-spacing: 1px;
-  /* was rgba(155,116,32,0.85) ≈ 3.6:1 — below AA. Matches the eyebrow's brighter
-     gold; the scrim keeps its ground pure and it clears AA under the glow. */
-  color: #a8802a;
-}
-
-/* Reduced motion → the glow holds at its mid value; nothing in the frame moves. */
-@media (prefers-reduced-motion: reduce) {
-  .promise-glow {
-    animation: none;
-    opacity: 0.9;
-    transform: translate(-50%, -50%) scale(1.018);
-  }
+  /* gold-2 sign-off — same on-navy gold as the eyebrow (6.0:1 on flat navy). */
+  color: var(--gold-2);
 }
 
 @media (max-width: 640px) {
