@@ -1,36 +1,43 @@
-import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { EKTA, transform, smooth, lerp } from './constants'
 
-// ── The hero object (R5). ONE continuous object that evolves down the dusk line:
-// a generous fanned sheet-stack → navy hardcover (gold frame + emblem) → kraft
-// twine bundle → open box → sealed box, then a GREEN delivered tick stamps on and
-// the box rides on to the girl (Scene handles the travel + hand-off). No lift.
+// ── The hero object (R5 → L11). ONE continuous object that evolves down the dusk
+// line: a wide WHITE press-sheet stack → THREE textbooks (Quality) → kraft twine
+// bundle → open box → sealed box, then a GREEN delivered tick stamps on and the box
+// rides on to the girl (Scene handles the travel + hand-off). No lift.
+//
+// Lane 11 (client): the paper is now a LARGE, PURE-WHITE, wide press-sheet stack
+// (web-offset stock, ~2:1 footprint) — not office cream. The single navy/gold book
+// at Quality is replaced by THREE mock textbooks with SWAPPABLE cover materials, so
+// tomorrow's real photos are a texture drop only (see TEXTBOOK_SWAP below).
 
-// open-book emblem for the cover
-function emblemTexture(fg) {
-  const S = 128
-  const c = document.createElement('canvas')
-  c.width = c.height = S
-  const g = c.getContext('2d')
-  g.clearRect(0, 0, S, S)
-  g.strokeStyle = fg; g.lineWidth = 7; g.lineJoin = 'round'; g.lineCap = 'round'
-  g.beginPath()
-  g.moveTo(64, 40); g.quadraticCurveTo(40, 30, 24, 40); g.lineTo(24, 92); g.quadraticCurveTo(40, 84, 64, 92)
-  g.moveTo(64, 40); g.quadraticCurveTo(88, 30, 104, 40); g.lineTo(104, 92); g.quadraticCurveTo(88, 84, 64, 92)
-  g.lineTo(64, 40); g.stroke()
-  const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
-}
+// ── Dormant textbook-cover swap ──────────────────────────────────────────────
+// Drop real cover art at public/qfp/conveyor/textbook-{1,2,3}.webp and it REPLACES
+// the placeholder canvas cover for that book (front cover + spine share one slot).
+// Absent (as shipped) the placeholder renders — nothing changes today. We HEAD-probe
+// first (a 404 → res.ok===false, no console error) and only load a real image, so an
+// SPA 200-fallback can never poison the cover either. Mirrors Station's plaque swap.
+const textbookUrl = (i) => `/qfp/conveyor/textbook-${i}.webp`
 
-// fine page lines for the fore-edge (reads as a stack of sheets)
-function pageLinesTexture() {
+// Placeholder cover — a clean on-palette mock: base colour, a title band, two blind
+// title bars + a footer rule. Portrait proportions. Swapped out by the real webp.
+function textbookCover(bg, band, ink) {
+  const W = 256, H = 332
   const c = document.createElement('canvas')
-  c.width = 8; c.height = 64
+  c.width = W; c.height = H
   const g = c.getContext('2d')
-  g.fillStyle = '#EFE7D6'; g.fillRect(0, 0, 8, 64)
-  g.strokeStyle = 'rgba(150,135,105,0.5)'; g.lineWidth = 1
-  for (let y = 3; y < 64; y += 5) { g.beginPath(); g.moveTo(0, y); g.lineTo(8, y); g.stroke() }
-  const t = new THREE.CanvasTexture(c); t.wrapT = THREE.RepeatWrapping; t.repeat.set(1, 6); return t
+  g.fillStyle = bg; g.fillRect(0, 0, W, H)
+  g.fillStyle = band; g.fillRect(0, Math.round(H * 0.17), W, Math.round(H * 0.15))
+  g.fillStyle = ink
+  g.fillRect(Math.round(W * 0.16), Math.round(H * 0.205), Math.round(W * 0.62), 10)
+  g.fillRect(Math.round(W * 0.16), Math.round(H * 0.255), Math.round(W * 0.40), 10)
+  g.fillStyle = band
+  g.fillRect(Math.round(W * 0.16), Math.round(H * 0.82), Math.round(W * 0.36), 6)
+  const t = new THREE.CanvasTexture(c)
+  t.anisotropy = 8
+  t.colorSpace = THREE.SRGBColorSpace
+  return t
 }
 
 // green delivered tick — clean flat badge, white check on a green disc
@@ -47,6 +54,21 @@ function tickTexture() {
   const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
 }
 
+// ── Three mock textbooks (Quality station) ───────────────────────────────────
+// Portrait proportions, modest thickness variation, arranged as an offset stack so
+// all three covers + spines read clearly from the scroll camera's side-on angle.
+// PALETTE LAW (covers): navy #0F2444, cream #FDFAF4, gold #9B7420 only.
+// dims [w(X, cover width) · t(Y, thickness) · h(Z, cover height, portrait h>w)].
+const PAGE = '#F3EFE6' // pale paper-white page block
+// Composition: two lying flat (offset stack) + one leaning upright against them,
+// its full cover to the camera — reads unmistakably as THREE books from the scroll
+// camera's shallow side-on angle. rot = [x,y,z] radians.
+const TEXTBOOKS = [
+  { w: 0.60, t: 0.11, h: 0.76, pos: [-0.14, 0.055, 0.05], rot: [0, 0.12, 0], cover: { bg: EKTA.cream, band: EKTA.navy, ink: EKTA.navy } },
+  { w: 0.54, t: 0.10, h: 0.68, pos: [-0.05, 0.16, -0.04], rot: [0, -0.16, 0], cover: { bg: EKTA.navy, band: EKTA.gold, ink: EKTA.cream } },
+  { w: 0.50, t: 0.09, h: 0.66, pos: [0.30, 0.30, -0.02], rot: [1.24, 0.36, 0], cover: { bg: EKTA.gold, band: EKTA.navy, ink: EKTA.cream } },
+]
+
 const Book = forwardRef(function Book(_props, ref) {
   const root = useRef()
   const inner = useRef()
@@ -59,15 +81,62 @@ const Book = forwardRef(function Book(_props, ref) {
   const boxG = useRef()
   const flapRefs = useRef([])
   const tickG = useRef()
+  const coverMatRefs = useRef([])
 
-  const coverEmblem = useMemo(() => emblemTexture('#C79A3E'), [])
-  const pageLines = useMemo(pageLinesTexture, [])
   const tickTex = useMemo(tickTexture, [])
 
-  // a generous fresh-print pile (bigger for frame-1 presence)
+  // Per-book placeholder cover textures (swappable). Built once.
+  const coverTex = useMemo(() => TEXTBOOKS.map((b) => textbookCover(b.cover.bg, b.cover.band, b.cover.ink)), [])
+
+  // Per-book 6-material array: +Y front cover + −X spine share the swappable cover
+  // slot; the page faces are pale paper-white; back is the cover colour. metalness 0.
+  const bookMats = useMemo(() => TEXTBOOKS.map((b, i) => {
+    const cover = new THREE.MeshStandardMaterial({ map: coverTex[i], color: '#ffffff', roughness: 0.62, metalness: 0 })
+    const spine = new THREE.MeshStandardMaterial({ map: coverTex[i], color: '#ffffff', roughness: 0.62, metalness: 0 })
+    const back = new THREE.MeshStandardMaterial({ color: b.cover.bg, roughness: 0.6, metalness: 0 })
+    const page = new THREE.MeshStandardMaterial({ color: PAGE, roughness: 0.85, metalness: 0 })
+    coverMatRefs.current[i] = cover
+    // box face order: +X, −X, +Y, −Y, +Z, −Z
+    return [page /* +X fore-edge */, spine /* −X spine */, cover /* +Y front */, back /* −Y back */, page /* +Z */, page /* −Z */]
+  }), [coverTex])
+
+  const bookGeo = useMemo(() => TEXTBOOKS.map((b) => new THREE.BoxGeometry(b.w, b.t, b.h)), [])
+
+  // Dormant swap: if textbook-{i}.webp exists it takes over that book's cover + spine.
+  useEffect(() => {
+    if (typeof fetch === 'undefined') return
+    let cancelled = false
+    const loaded = []
+    TEXTBOOKS.forEach((_, idx) => {
+      const url = textbookUrl(idx + 1)
+      fetch(url, { method: 'HEAD' })
+        .then((res) => {
+          if (cancelled || !res.ok) return
+          const ct = res.headers.get('content-type') || ''
+          if (!ct.startsWith('image/')) return // SPA 200-fallback / non-image → keep placeholder
+          const tex = new THREE.TextureLoader().load(
+            url,
+            (tx) => {
+              tx.anisotropy = 8
+              tx.colorSpace = THREE.SRGBColorSpace
+              const m = coverMatRefs.current[idx]
+              if (!cancelled && m) { m.map = tx; m.needsUpdate = true }
+            },
+            undefined,
+            () => {}, // load failed → silently keep the placeholder
+          )
+          loaded.push(tex)
+        })
+        .catch(() => {})
+    })
+    return () => { cancelled = true; loaded.forEach((t) => t.dispose()) }
+  }, [])
+
+  // a generous fresh-print pile — WIDE press sheets (web-offset), ~2:1 footprint.
+  // Fan Z-spread kept tight so the outermost sheet clears the Print arch legs.
   const SHEETS = useMemo(
     () => Array.from({ length: 13 }, (_, i) => ({
-      loose: { x: Math.sin(i * 1.5) * 0.16, y: 0.02 + i * 0.03, z: (i - 6) * 0.05, rot: (i - 6) * 0.05 },
+      loose: { x: Math.sin(i * 1.5) * 0.14, y: 0.02 + i * 0.03, z: (i - 6) * 0.028, rot: (i - 6) * 0.045 },
       tight: { x: 0, y: 0.02 + i * 0.022, z: 0, rot: 0 },
     })), [],
   )
@@ -90,9 +159,9 @@ const Book = forwardRef(function Book(_props, ref) {
       const seal = transform(4, activeF)
       const crown = transform(5, activeF)
 
-      // ── sheets → cover: a DISSOLVE, not an overlap. The sheets gather (bind),
-      // then fade out (transparent, depthWrite off) as the solid cover grows in
-      // beneath them. Only the cover ever writes depth here → no interpenetration,
+      // ── sheets → books: a DISSOLVE, not an overlap. The sheets gather (bind),
+      // then fade out (transparent, depthWrite off) as the solid books grow in
+      // beneath them. Only the books ever write depth here → no interpenetration,
       // no z-fight (the old cause: both solid + coplanar for the whole morph).
       const sheetOp = 1 - smooth(0.5, 0.72, bind)
       sheetRefs.current.forEach((m, i) => {
@@ -164,51 +233,26 @@ const Book = forwardRef(function Book(_props, ref) {
   return (
     <group ref={root} scale={1.35}>
       <group ref={inner}>
-        {/* fanned printed sheets → gathered block */}
+        {/* fanned WHITE press sheets → gathered block. Wide (~2:1) web-offset stock;
+            pure white — emissive white + toneMapped:false so the warm belt pool can
+            never yellow it (the scene lights stay warm; only the sheet's response is
+            corrected). metalness 0. */}
         <group ref={sheetsG}>
           {SHEETS.map((_, i) => (
             <mesh key={i} ref={(m) => (sheetRefs.current[i] = m)} castShadow>
-              <boxGeometry args={[0.92, 0.014, 0.64]} />
-              <meshStandardMaterial color={'#F3ECDD'} roughness={0.9} />
+              <boxGeometry args={[1.34, 0.014, 0.60]} />
+              <meshStandardMaterial color={'#FFFFFF'} emissive={'#FFFFFF'} emissiveIntensity={0.42} roughness={0.9} metalness={0} toneMapped={false} />
             </mesh>
           ))}
         </group>
 
-        {/* navy hardcover: cover + page block (clearly proud on the fore-edge, no
-            coplanar faces → no jitter) + gold frame + emblem + ribbon */}
-        <group ref={coverG} position={[0, 0.09, 0]}>
-          <mesh castShadow>
-            <boxGeometry args={[0.92, 0.15, 0.66]} />
-            <meshStandardMaterial color={EKTA.navy} roughness={0.5} metalness={0.14} />
-          </mesh>
-          {/* page block: recessed inside the cover on all faces but the +X fore-edge,
-              which protrudes a clear 0.05 → nothing coplanar to z-fight */}
-          <mesh position={[0.06, 0, 0]}>
-            <boxGeometry args={[0.9, 0.1, 0.58]} />
-            <meshStandardMaterial color={'#EFE7D6'} roughness={0.85} map={pageLines} />
-          </mesh>
-          {/* gold frame + emblem: real height offsets above the cover top (y 0.075),
-              no polygonOffset — each floats a clear ~0.008 proud, never coplanar */}
-          {[[0, 0.24], [0, -0.24]].map(([x, z], i) => (
-            <mesh key={`fh${i}`} position={[x, 0.083, z]}>
-              <boxGeometry args={[0.62, 0.006, 0.02]} />
-              <meshStandardMaterial color={EKTA.gold2} metalness={0.7} roughness={0.32} toneMapped={false} />
-            </mesh>
+        {/* THREE mock textbooks (Quality). coverG keeps the grow-in scale animation
+            from Scene (bind → 1); the three books grow together, then the kraft wrap
+            grows over them. Covers are swappable material slots (textbook-{1,2,3}.webp). */}
+        <group ref={coverG} position={[0, 0, 0]}>
+          {TEXTBOOKS.map((b, i) => (
+            <mesh key={i} geometry={bookGeo[i]} material={bookMats[i]} position={b.pos} rotation={b.rot} castShadow receiveShadow />
           ))}
-          {[[0.31, 0], [-0.31, 0]].map(([x, z], i) => (
-            <mesh key={`fv${i}`} position={[x, 0.083, z]}>
-              <boxGeometry args={[0.02, 0.006, 0.5]} />
-              <meshStandardMaterial color={EKTA.gold2} metalness={0.7} roughness={0.32} toneMapped={false} />
-            </mesh>
-          ))}
-          <mesh position={[0, 0.087, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-            <planeGeometry args={[0.22, 0.22]} />
-            <meshBasicMaterial map={coverEmblem} transparent depthWrite={false} toneMapped={false} />
-          </mesh>
-          <mesh position={[0.42, -0.02, -0.16]}>
-            <boxGeometry args={[0.04, 0.006, 0.16]} />
-            <meshStandardMaterial color={EKTA.gold} metalness={0.5} roughness={0.4} toneMapped={false} />
-          </mesh>
         </group>
 
         {/* kraft wrap + thin twine cross (twine sits a clear step above the wrap top
