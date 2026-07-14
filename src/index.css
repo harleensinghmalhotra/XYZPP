@@ -962,19 +962,6 @@ body {
   margin: 0 auto;
   padding: var(--section-pad-y) 56px;
 }
-/* Hero → WWP clearance. The hero's open-book graphic (z-[1], anchored to the
-   hero's bottom edge and sized by viewport WIDTH via w-full) overhangs into the
-   section directly below it. Its reach into WWP grows with the width∶height ratio
-   — harmless at ~16∶9, but at wide-and-short geometry (e.g. 1536×743 at a scaled
-   display, ratio ~2.07) the book's clipped bottom + drop-shadow poke down over the
-   eyebrow/heading. We can't clip the hero (it would flatten the book's bowed page
-   stack — a deliberate look), so we push WWP's header clear only where the ratio
-   actually collides. ~16∶9 laptops (1366×768, 1440×900, 1920×1080) never trip it. */
-@media (min-aspect-ratio: 39 / 20) {
-  .wwp-inner {
-    padding-top: calc(var(--section-pad-y) + 140px);
-  }
-}
 
 /* Header — eyebrow, then the single-line title, then intro copy + link below it */
 .wwp-head {
@@ -2193,7 +2180,8 @@ body {
   position: relative;
   display: flex;
   height: 100%;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  /* WWP card timing — one hover language across the site */
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .infra-card-inner {
   display: flex;
@@ -2205,16 +2193,16 @@ body {
   border: 1px solid rgba(28, 32, 25, 0.06);
   /* light-section shadow: a tight contact + a restrained ambient — kept soft so the
      warm gold glow behind reads as the dominant elevation cue on cream. */
-  box-shadow:
-    0 1px 2px rgba(28, 32, 25, 0.06),
-    0 10px 28px -16px rgba(15, 36, 68, 0.18);
-  transition: box-shadow 0.5s ease;
+  box-shadow: 0 2px 12px rgba(15, 36, 68, 0.07); /* WWP rest shadow */
+  transition: box-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.infra-card:hover { transform: translateY(-6px); }   /* unified Ekta card lift */
-.infra-card:hover .infra-card-inner {
-  box-shadow:
-    0 2px 4px rgba(28, 32, 25, 0.08),
-    0 20px 44px -20px rgba(15, 36, 68, 0.26);
+/* Hover — the SAME lift + shadow the What We Print cards use; one hover language
+   across the site. Guarded to hover-capable pointers so touch never sticks it on. */
+@media (hover: hover) {
+  .infra-card:hover { transform: translateY(-6px); }
+  .infra-card:hover .infra-card-inner {
+    box-shadow: 0 20px 44px rgba(15, 36, 68, 0.16);
+  }
 }
 
 /* ── GLOW BORDER — Uiverse mechanic, rebranded to a warm gold aura and tuned for the
