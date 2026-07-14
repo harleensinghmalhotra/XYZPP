@@ -224,25 +224,9 @@ export default function Infrastructure() {
           ))}
         </div>
 
-        {/* ── OUR PEOPLE ── */}
-        <div className="infra-people">
-          <h3 className="infra-people-title">
-            <span className="infra-foil">{t('people.count')}</span> {t('people.title')}
-          </h3>
-          <p className="infra-people-body">{t('people.body')}</p>
-          <div className="infra-people-grid">
-            {PEOPLE.map((p) => (
-              <figure key={p.n} className="infra-person">
-                <TeamPlaceholder icon={p.icon} note={t('people.photoNote', { team: t(`people.captions.${p.n}`) })} />
-                <figcaption className="infra-person-cap">{t(`people.captions.${p.n}`)}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-
-        {/* ── VIDEO — walkthrough placeholder, positioned AFTER the infrastructure
-             content (client request). Gated by VIDEO_READY (false): the click opens a
-             graceful "coming soon" panel, never a broken <video>. ── */}
+        {/* ── VIDEO — walkthrough placeholder, sits between the facility cards and the
+             People block (client request). Gated by VIDEO_READY (false): the click opens
+             a graceful "coming soon" panel, never a broken <video>. ── */}
         <div className="infra-video">
           <button
             type="button"
@@ -259,6 +243,22 @@ export default function Infrastructure() {
               </svg>
             </span>
           </button>
+        </div>
+
+        {/* ── OUR PEOPLE — the closing note of the section (client request) ── */}
+        <div className="infra-people">
+          <h3 className="infra-people-title">
+            <span className="infra-foil">{t('people.count')}</span> {t('people.title')}
+          </h3>
+          <p className="infra-people-body">{t('people.body')}</p>
+          <div className="infra-people-grid">
+            {PEOPLE.map((p) => (
+              <figure key={p.n} className="infra-person">
+                <TeamPlaceholder icon={p.icon} note={t('people.photoNote', { team: t(`people.captions.${p.n}`) })} />
+                <figcaption className="infra-person-cap">{t(`people.captions.${p.n}`)}</figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
 
