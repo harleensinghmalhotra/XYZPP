@@ -20,13 +20,14 @@ import Cases from '@/sections/Cases'
 // tears down (Lenis destroy + ScrollTrigger.killAll) when navigating away, so no
 // pin ever leaks onto a native-scroll inner page.
 //
-// Section order (client reorder, lane 7 → refined lane 7c):
-//   • TrustStrips rides directly under the Hero again — the two are a designed
-//     PAIR. The hero's open book deliberately overhangs its section bottom and
+// Section order (client reorder, lane 7 → 7c → 7d):
+//   • TrustStrips rides directly under the Hero — the two are a designed PAIR.
+//     The hero's open book deliberately overhangs its section bottom and
 //     TrustStrips receives it with reserved top padding (ts-band, 115px): the
-//     book lands ON the strips. Lane 7 split them (WWP went in between) which
-//     stranded the strips' curve/tickers and left the book dangling; 7c welds
-//     them back. WhatWePrint then follows as the THIRD section.
+//     book lands ON the strips. (7c welded them back after lane 7 split them.)
+//   • 7d (Harry): GlobeReach moves ABOVE WhatWePrint — TrustStrips → GlobeReach
+//     restores the original 9cccb0d adjacency (light band → flat navy top), and
+//     WhatWePrint drops one slot to sit right before the mission band.
 //   • The stats bar (HomeStats) was pulled out of TrustStrips and dropped BELOW
 //     the mission band (Promise), as its own standalone block.
 // HARD CONSTRAINT preserved: Process3D stays immediately before Projects — the
@@ -41,8 +42,8 @@ export default function Home() {
         <span id="top" />
         <Hero />
         <TrustStrips />
-        <WhatWePrint />
         <GlobeReach />
+        <WhatWePrint />
         <Promise />
         <HomeStats />
         <Process3D />
