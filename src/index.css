@@ -208,7 +208,7 @@
 .u-btn--gold:hover   { background: var(--cream-3); color: var(--navy); }
 .u-btn--ghost  { background: transparent; border-color: rgba(245, 240, 232, 0.5); color: var(--cream-3); }
 .u-btn--ghost:hover  { background: var(--cream-3); color: var(--navy); border-color: var(--cream-3); }
-.u-btn:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
+.u-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 /* ── GALAXY-NEBULA CTA AURA — the homepage button language ─────────────────────
    Adapted (not copied) from Uiverse "galaxy" (zaby_4213), rebranded strictly in
@@ -274,7 +274,7 @@
 }
 .btn-nebula:hover::before { opacity: var(--nb-op-hover); animation-duration: var(--nb-speed-hover); }
 .btn-nebula:hover::after  { opacity: 0.85; background-position: 4px -3px, -5px 4px, 3px 5px; }
-.btn-nebula:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
+.btn-nebula:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 .btn-nebula:active        { transform: scale(0.96); }
 
 /* CREAM-surface variant — same ring, but drop the cream stars (they read as
@@ -447,8 +447,11 @@ body {
   }
 }
 
+/* Focus indicator — gold (#9b7420) clears the 3:1 non-text contrast on BOTH the
+   cream page (3.8:1) and the navy sections (3.7:1); the old --cyan (navy-2) was a
+   navy ring that vanished on navy. Used across the site via the .focus-ring class. */
 .focus-ring:focus-visible {
-  outline: 2px solid var(--cyan);
+  outline: 2px solid var(--gold);
   outline-offset: 3px;
   border-radius: var(--radius-xs);
 }
@@ -4575,7 +4578,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 }
 .qfp-globe-tip i {
   margin-top: 3px; font-style: normal; font-family: 'DM Mono', monospace;
-  font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: #c89a3c;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #c89a3c;
 }
 
 /* --- static fallback (mobile / tile failure) --- */

@@ -62,9 +62,9 @@
     "enquiryPlaceholder": "Choose one",
     "message": "Message",
     "messagePlaceholder": "Trim size, page count, paper, binding, quantity, delivery country, whatever you have.",
-    "consent": "I agree that Quarterfold may use these details to respond to my enquiry, in line with the <1>Privacy Policy</1>.",
+    "consent": "I agree that Quarterfold may use these details to respond to my enquiry and prepare a quotation, in line with the <1>Privacy Policy</1>.",
     "submit": "Send enquiry",
-    "dpa": "We only use what you send here to reply to your enquiry. We never sell your details. See our <1>Privacy Policy</1> for how we handle your data."
+    "dpa": "We only use what you send here to reply to your enquiry and prepare your quotation. We never sell your details. See our <1>Privacy Policy</1> for how we handle your data."
   },
   "enquiryTypes": {
     "quote": "Request a Quote",

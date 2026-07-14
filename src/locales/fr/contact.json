@@ -62,9 +62,9 @@
     "enquiryPlaceholder": "Choisissez une option",
     "message": "Message",
     "messagePlaceholder": "Format, nombre de pages, papier, reliure, quantité, pays de livraison, toutes les informations dont vous disposez.",
-    "consent": "J'accepte que Quarterfold utilise ces informations pour répondre à ma demande, conformément à la <1>politique de confidentialité</1>.",
+    "consent": "J'accepte que Quarterfold utilise ces informations pour répondre à ma demande et préparer un devis, conformément à la <1>politique de confidentialité</1>.",
     "submit": "Envoyer la demande",
-    "dpa": "Nous utilisons uniquement les informations que vous envoyez ici pour répondre à votre demande. Nous ne vendons jamais vos données. Consultez notre <1>politique de confidentialité</1> pour savoir comment nous traitons vos données."
+    "dpa": "Nous utilisons uniquement les informations que vous envoyez ici pour répondre à votre demande et préparer votre devis. Nous ne vendons jamais vos données. Consultez notre <1>politique de confidentialité</1> pour savoir comment nous traitons vos données."
   },
   "enquiryTypes": {
     "quote": "Demander un devis",

@@ -1,0 +1,78 @@
+/* Cookie consent banner — bottom-anchored, on-palette (navy / cream / gold).
+   Accept and Reject are two equally-prominent buttons (identical size + weight;
+   navy text on gold-2 clears 4.5:1, cream on navy clears it easily). */
+.ck-banner {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 200;
+  background: var(--navy, #0f2444);
+  border-top: 2px solid var(--gold, #9b7420);
+  box-shadow: 0 -8px 30px rgba(10, 18, 34, 0.35);
+  animation: ck-rise 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ck-inner {
+  max-width: var(--content-max, 1280px);
+  margin: 0 auto;
+  padding: clamp(14px, 2vh, 18px) clamp(20px, 4vw, 40px);
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 3vw, 32px);
+  flex-wrap: wrap;
+}
+.ck-copy {
+  margin: 0;
+  flex: 1 1 320px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(253, 250, 244, 0.92);
+}
+.ck-link {
+  color: var(--gold-2, #c89a3c);
+  font-weight: 500;
+  text-underline-offset: 3px;
+}
+.ck-link:hover { color: #f0cd82; }
+.ck-actions {
+  display: flex;
+  gap: 12px;
+  flex: none;
+}
+.ck-btn {
+  font-family: 'Inter Tight', Inter, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  min-width: 172px;
+  padding: 12px 22px;
+  border-radius: var(--radius-pill, 999px);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.ck-btn--accept {
+  background: var(--gold-2, #c89a3c);
+  color: var(--navy, #0f2444);
+  border-color: var(--gold-2, #c89a3c);
+}
+.ck-btn--accept:hover { background: #e6bd6a; border-color: #e6bd6a; }
+.ck-btn--reject {
+  background: transparent;
+  color: var(--cream, #fdfaf4);
+  border-color: rgba(253, 250, 244, 0.55);
+}
+.ck-btn--reject:hover { background: rgba(253, 250, 244, 0.1); border-color: var(--cream, #fdfaf4); }
+
+@keyframes ck-rise {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ck-banner { animation: none; }
+  .ck-btn { transition: none; }
+}
+@media (max-width: 560px) {
+  .ck-actions { width: 100%; }
+  .ck-btn { flex: 1 1 0; min-width: 0; padding: 12px 14px; }
+}
