@@ -2205,13 +2205,9 @@ body {
   }
 }
 
-/* Facility-card glow removed (client rejected the old hover) — the cards now carry
-   only the WWP lift + shadow above, so the section speaks one hover language. The
-   shared breathe keyframe stays: the People grid glow (.infra-person) still uses it. */
-@keyframes infraGlowBreathe {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(0.97); }
-  50%      { transform: translate3d(0, 0, 0) scale(1); }
-}
+/* Both the facility cards and the People grid dropped the client-rejected gold glow —
+   the whole section now speaks the single WWP hover language (lift + shadow), so the
+   old glow ring, backlight and breathe keyframe are gone entirely. */
 /* photo breaks OUT of the card: lifted above the top edge + wider than the inner
    padding, so the navy slab floats proud of the cream card (WWP-style pop). */
 .infra-card-photo { margin: -32px -28px 22px; }
@@ -2261,7 +2257,12 @@ body {
     0 2px 6px rgba(15, 36, 68, 0.22),
     0 22px 44px -16px rgba(15, 36, 68, 0.5);
 }
-.infra-photo--portrait { aspect-ratio: 4 / 5; border-radius: var(--r-media); }
+.infra-photo--portrait {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-media);
+  box-shadow: 0 2px 12px rgba(15, 36, 68, 0.07); /* WWP rest shadow — deepens on hover */
+  transition: box-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
 .infra-photo-base {
   position: absolute;
   inset: 0;
@@ -2450,51 +2451,20 @@ body {
   border-top: 1px solid rgba(28, 32, 25, 0.14);
 }
 .infra-person {
-  position: relative; /* glow host + lift context (mirrors .infra-card) */
+  position: relative; /* lift context (mirrors .infra-card) */
   margin: 0;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  /* WWP card timing — one hover language across the site */
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.infra-person:hover { transform: translateY(-6px); } /* unified Ekta card lift, no scale-shrink */
-.infra-person:hover .infra-ph-icon { color: #e2ba64; } /* gentle warm-up, mirrors the facility cards */
-
-/* ── GLOW BORDER — the SAME warm-gold aura as the facility .infra-card, cloned onto
-   the 4 navy team placeholder panels so both read as one hand's work. The figure is
-   the transparent host; the opaque navy .infra-ph panel paints ABOVE two negative-z
-   pseudos that escape around its edges. The panel is 4:5 and full-width, so the
-   pseudos are anchored to the top with aspect-ratio 4/5 (NOT height:100% — the figure
-   also holds the name caption below, which must stay off the glow for AA). Identical
-   gradient direction / blur / opacity / breathe to the facility cards; navy ring
-   endpoint (the people grid carries no [data-glow="olive"]). */
-.infra-person::before,
-.infra-person::after {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  width: calc(100% + 8px);
-  aspect-ratio: 4 / 5; /* matches the .infra-photo--portrait panel box */
-  pointer-events: none;
+/* Hover — the SAME lift + shadow the What We Print cards use. The shadow lives on
+   the portrait panel (below) so it hugs the navy card and never haloes the caption
+   text. Guarded to hover-capable pointers so touch never sticks it on. */
+@media (hover: hover) {
+  .infra-person:hover { transform: translateY(-6px); }
+  .infra-person:hover .infra-photo--portrait {
+    box-shadow: 0 20px 44px rgba(15, 36, 68, 0.16);
+  }
 }
-.infra-person::before {
-  z-index: -2;
-  opacity: 0.52;
-  background: linear-gradient(-45deg, #9b7420 0%, #1b3a6b 100%);
-  /* box is centred on the navy panel (±1px), so -90deg swings around the panel centre;
-     springy ease matches the facility cards + the Uiverse original */
-  transform-origin: center;
-  transition: opacity 0.55s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.infra-person::after {
-  z-index: -1;
-  opacity: 0.3;
-  background: linear-gradient(-45deg, #9b7420 0%, #6a4d10 100%);
-  filter: blur(18px);
-  transform: translate3d(0, 0, 0) scale(0.98);
-  transition: opacity 0.55s ease, filter 0.55s ease;
-  animation: infraGlowBreathe 7s ease-in-out infinite;
-}
-.infra-person:hover::before { opacity: 0.82; transform: rotate(-90deg) scaleX(0.82) scaleY(0.92); }
-.infra-person:hover::after  { opacity: 0.48; filter: blur(23px); }
 
 .infra-person-cap {
   position: relative; /* above the glow, on cream — keeps gold-on-cream AA intact */
@@ -2575,10 +2545,6 @@ body {
   .infra-video-thumb:hover .infra-play-ring { animation: none; }
   .infra-video-thumb:hover { transform: none; }
   .infra-dialog { animation: none; }
-  /* team cards: static glow, no breathe, no lift, no ring shift */
-  .infra-person::after { animation: none; }
-  .infra-person:hover { transform: none; }
-  .infra-person:hover::before { transform: none; }
 }
 
 /* ── Certifications — Alternativ port, reskinned to our palette ───────────────

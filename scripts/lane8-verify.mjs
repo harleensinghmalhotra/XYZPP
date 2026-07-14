@@ -89,15 +89,37 @@ for (const lng of ['en', 'fr']) {
   if (wwpHover.shadow === WWP_HOVER_SHADOW) ok('WWP hover shadow confirmed as reference')
   else fail(`WWP hover shadow unexpected: ${wwpHover.shadow}`)
 
-  // No stray glow pseudo-elements left painting on the infra card.
+  // ── PEOPLE card: rest → hover (same WWP treatment) ──────────────────────────
+  await page.evaluate(() => document.querySelector('#infrastructure .infra-people')?.scrollIntoView())
+  await page.mouse.move(5, 5)
+  await page.waitForTimeout(1600) // let the staggered GSAP reveal finish + clearProps settle
+  const personRest = await readCard('#infrastructure .infra-person', '.infra-photo--portrait')
+  await page.hover('#infrastructure .infra-person')
+  await page.waitForTimeout(500)
+  const personHover = await readCard('#infrastructure .infra-person', '.infra-photo--portrait')
+  await page.locator('#infrastructure .infra-person').first().screenshot({ path: `${OUT}/person-hover-${lng}.png` })
+  console.log('  PERSON rest :', JSON.stringify(personRest))
+  console.log('  PERSON hover:', JSON.stringify(personHover))
+
+  if (flatTy(personRest.transform)) ok('person card sits flat at rest (no lift)')
+  else fail('person rest transform not flat: ' + personRest.transform)
+  if (personHover.transform === WWP_HOVER_TRANSFORM) ok(`person hover lift matches WWP (${WWP_HOVER_TRANSFORM})`)
+  else fail(`person hover transform ${personHover.transform} ≠ WWP ${WWP_HOVER_TRANSFORM}`)
+  if (personHover.shadow === WWP_HOVER_SHADOW) ok(`person hover shadow matches WWP (${WWP_HOVER_SHADOW})`)
+  else fail(`person hover shadow ${personHover.shadow} ≠ WWP ${WWP_HOVER_SHADOW}`)
+
+  // No stray glow pseudo-elements left painting on either infra card.
   const glow = await page.evaluate(() => {
-    const el = document.querySelector('#infrastructure .infra-card')
-    const before = getComputedStyle(el, '::before')
-    const after = getComputedStyle(el, '::after')
-    return { before: before.content, after: after.content }
+    const read = (sel) => {
+      const el = document.querySelector(sel)
+      return { before: getComputedStyle(el, '::before').content, after: getComputedStyle(el, '::after').content }
+    }
+    return { card: read('#infrastructure .infra-card'), person: read('#infrastructure .infra-person') }
   })
-  if (glow.before === 'none' && glow.after === 'none') ok('no ::before/::after glow on infra card')
-  else fail(`glow pseudo still present: before=${glow.before} after=${glow.after}`)
+  if (glow.card.before === 'none' && glow.card.after === 'none') ok('no ::before/::after glow on facility card')
+  else fail(`facility glow still present: before=${glow.card.before} after=${glow.card.after}`)
+  if (glow.person.before === 'none' && glow.person.after === 'none') ok('no ::before/::after glow on person card')
+  else fail(`person glow still present: before=${glow.person.before} after=${glow.person.after}`)
 
   // ── console / axe ───────────────────────────────────────────────────────────
   if (!consoleErrors.length) ok('zero console errors'); else { fail(`${consoleErrors.length} console errors`); consoleErrors.slice(0, 6).forEach((e) => console.log('      · ' + e)) }
