@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import Seo from '@/components/Seo'
 import { SmoothScrollProvider } from '@/lib/smooth-scroll'
 import Hero from '@/sections/Hero'
-import TrustStrips, { HomeStats } from '@/sections/TrustStrips'
+import TrustStrips from '@/sections/TrustStrips'
 import GlobeReach from '@/sections/GlobeReach'
 import WhatWePrint from '@/sections/WhatWePrint'
 import Marquee from '@/sections/Marquee'
@@ -28,8 +28,10 @@ import Cases from '@/sections/Cases'
 //   • 7d (Harry): GlobeReach moves ABOVE WhatWePrint — TrustStrips → GlobeReach
 //     restores the original 9cccb0d adjacency (light band → flat navy top), and
 //     WhatWePrint drops one slot to sit right before the mission band.
-//   • The stats bar (HomeStats) was pulled out of TrustStrips and dropped BELOW
-//     the mission band (Promise), as its own standalone block.
+//   • 7e (Harry): the four-stat bar returns INTO TrustStrips as its third strip
+//     (countries ticker → institutions ticker → stats = one welded unit under the
+//     hero). Lane 7 had parked it below the Mission Band; on screen it read as an
+//     orphan, so it goes back to its 9cccb0d home. No standalone stats block here.
 // HARD CONSTRAINT preserved: Process3D stays immediately before Projects — the
 // conveyor's exit melt is tuned to Projects' navy top. Everything else keeps its
 // prior relative order.
@@ -45,7 +47,6 @@ export default function Home() {
         <GlobeReach />
         <WhatWePrint />
         <Promise />
-        <HomeStats />
         <Process3D />
         <Projects />
         <Infrastructure />
