@@ -18,6 +18,7 @@
     "ethiopia": "Ethiopia",
     "rwanda": "Rwanda",
     "mozambique": "Mozambique",
+    "zimbabwe": "Zimbabwe",
     "madagascar": "Madagascar",
     "mauritius": "Mauritius",
     "southafrica": "South Africa",
@@ -46,16 +47,16 @@
   },
   "stats": {
     "books": {
-      "label": "Books Delivered Since Inception",
-      "sr": "400M+ Books Delivered Since Inception"
+      "label": "Books Printed Every Year",
+      "sr": "75 million books printed every year"
     },
     "countries": {
       "label": "Countries Across 4 Continents",
       "sr": "25+ Countries Across 4 Continents"
     },
     "containers": {
-      "label": "Containers Shipped in 2024 to 25",
-      "sr": "1000+ Containers Shipped in 2024 to 25"
+      "label": "Containers Shipped",
+      "sr": "800+ containers shipped"
     },
     "ontime": {
       "accent": "On-Time",

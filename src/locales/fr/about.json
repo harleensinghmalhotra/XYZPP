@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "À propos | Quarterfold Printabilities",
-    "description": "L'une des plus grandes entreprises indiennes de solutions d'impression et d'édition, imprimant plus de 25 M de livres par an pour des éditeurs et des programmes éducatifs dans plus de 25 pays.",
+    "description": "L'une des plus grandes entreprises indiennes de solutions d'impression et d'édition, imprimant 75 millions de livres par an pour des éditeurs et des programmes éducatifs dans plus de 25 pays.",
     "breadcrumb": {
       "home": "Accueil",
       "about": "À propos"
@@ -40,7 +40,7 @@
     "eyebrow": "Notre histoire",
     "title": "La plus grande entreprise indienne de solutions d'impression et d'édition.",
     "para1": "Quarterfold est spécialisée dans les presses d'impression haut de gamme conçues pour la production de livres à grande échelle et l'impression à la demande, et prend en charge les projets de gros volumes pour les éditeurs privés ainsi que les appels d'offres publics financés par la Banque mondiale.",
-    "para2": "Nos opérations s'appuient sur trois presses d'impression à la pointe de la technologie à Taloja, Navi Mumbai, ainsi que sur deux grands entrepôts et centres de logistique, couvrant 250 000 pi² de tours de rotative haut de gamme, de machines à feuilles et de lignes de façonnage.",
+    "para2": "Nos opérations s'appuient sur trois presses d'impression à la pointe de la technologie à Taloja, Navi Mumbai, ainsi que sur deux grands entrepôts et centres de logistique, couvrant 300 000 pi² de tours de rotative haut de gamme, de machines à feuilles et de lignes de façonnage.",
     "imageAlt": "Site d'impression Quarterfold à Taloja, Navi Mumbai",
     "stats": {
       "presses": "Presses d'impression",
@@ -126,7 +126,7 @@
     },
     "fulfilment": {
       "title": "Logistique",
-      "desc": "Conditionnement, entreposage et livraison du dernier kilomètre depuis 250 000 pi² de surface."
+      "desc": "Conditionnement, entreposage et livraison du dernier kilomètre depuis 300 000 pi² de surface."
     }
   },
   "services": {
@@ -182,7 +182,7 @@
     },
     "infrastructure": {
       "title": "Infrastructure",
-      "desc": "Tours de rotative et lignes de façonnage sur 250 000 pi² de sites de production."
+      "desc": "Tours de rotative et lignes de façonnage sur 300 000 pi² de sites de production."
     },
     "certifications": {
       "title": "Certifications",

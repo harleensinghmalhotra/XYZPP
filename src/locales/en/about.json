@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "About Us | Quarterfold Printabilities",
-    "description": "One of India's largest print and publishing solutions companies, printing 25M+ books a year for publishers and education programmes across 25+ countries.",
+    "description": "One of India's largest print and publishing solutions companies, printing 75 million books a year for publishers and education programmes across 25+ countries.",
     "breadcrumb": {
       "home": "Home",
       "about": "About Us"
@@ -40,7 +40,7 @@
     "eyebrow": "Our Story",
     "title": "India's largest print and publishing solutions company.",
     "para1": "Quarterfold specialises in high-quality printing presses built for large-scale book production and print-on-demand, handling large-volume projects for private publishers and government, World Bank backed tenders.",
-    "para2": "Our operations run across three state-of-the-art printing presses in Taloja, Navi Mumbai, and two large warehouses and fulfilment centres, spanning 250,000 sq ft of high-end web towers, sheet-fed machines and finishing lines.",
+    "para2": "Our operations run across three state-of-the-art printing presses in Taloja, Navi Mumbai, and two large warehouses and fulfilment centres, spanning 300,000 sq ft of high-end web towers, sheet-fed machines and finishing lines.",
     "imageAlt": "Quarterfold printing facility in Taloja, Navi Mumbai",
     "stats": {
       "presses": "Printing presses",
@@ -126,7 +126,7 @@
     },
     "fulfilment": {
       "title": "Fulfilment",
-      "desc": "Kitting, warehousing and last-mile logistics from 250,000 sq ft of space."
+      "desc": "Kitting, warehousing and last-mile logistics from 300,000 sq ft of space."
     }
   },
   "services": {
@@ -182,7 +182,7 @@
     },
     "infrastructure": {
       "title": "Infrastructure",
-      "desc": "Web towers and finishing lines across 250,000 sq ft of facilities."
+      "desc": "Web towers and finishing lines across 300,000 sq ft of facilities."
     },
     "certifications": {
       "title": "Certifications",

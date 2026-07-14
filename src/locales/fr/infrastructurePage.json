@@ -1,19 +1,19 @@
 {
   "seo": {
     "title": "Infrastructure d’impression | Quarterfold Printabilities",
-    "description": "Quatre sites de production et deux entrepôts à Navi Mumbai. 250 000 sq ft pensés pour que vos livres soient expédiés à temps, à chaque fois.",
+    "description": "Trois sites d’impression et deux entrepôts à Navi Mumbai. 300 000 sq ft pensés pour que vos livres soient expédiés à temps, à chaque fois.",
     "breadcrumbHome": "Accueil",
     "breadcrumbCurrent": "Infrastructure"
   },
   "hero": {
     "eyebrow": "Infrastructure",
     "title": "Conçu pour l’échelle. <strong>Pensé pour la confiance.</strong>",
-    "sub": "Quatre sites de production et deux entrepôts à Navi Mumbai. 250 000 sq ft pensés pour une seule chose : des livres expédiés à temps.",
+    "sub": "Trois sites d’impression et deux entrepôts à Navi Mumbai. 300 000 sq ft pensés pour une seule chose : des livres expédiés à temps.",
     "ctaQuote": "Demander un devis",
     "ctaProcess": "Découvrir notre processus",
-    "statAriaLabel": "250 000 pieds carrés aménagés sur six sites",
+    "statAriaLabel": "300 000 pieds carrés aménagés sur cinq sites",
     "statUnit": "SQ FT",
-    "statFoot": "Aménagés sur six sites à Navi Mumbai"
+    "statFoot": "Aménagés sur cinq sites à Navi Mumbai"
   },
   "strip": {
     "eyebrow": "Certifié, audité et renouvelé",
@@ -34,7 +34,7 @@
     "capabilities": {
       "print": {
         "label": "Capacité d’impression",
-        "body": "Une tour d’impression à vingt groupes rotatifs, cinq presses feuille à feuille et trois lignes Lineomatic, conçues pour les tirages de manuels en grand volume.",
+        "body": "Vingt-deux tours web, six presses feuille à feuille et trois lignes Lineomatic, conçues pour les tirages de manuels en grand volume.",
         "photoNote": "PHOTO · HALL DES PRESSES, TOURS D’IMPRESSION"
       },
       "bind": {
@@ -54,12 +54,12 @@
     "title": "Les machines derrière le volume.",
     "items": {
       "tower": {
-        "name": "Tour offset à 20 groupes rotatifs",
-        "spec": "Une tour offset rotative à vingt groupes imprime les grands cahiers de manuels à pleine vitesse, avec un repérage maintenu au plus juste sur chaque signature."
+        "name": "22 tours offset web",
+        "spec": "Vingt-deux tours offset web impriment les grands cahiers de manuels à pleine vitesse, avec un repérage maintenu au plus juste sur chaque signature."
       },
       "press": {
-        "name": "Parc feuille à feuille, 5 presses",
-        "spec": "Cinq presses feuille à feuille gèrent les couvertures, les petits tirages et les travaux exigeants en couleur, là où la finition et la fidélité comptent le plus."
+        "name": "Parc feuille à feuille, 6 presses",
+        "spec": "Six presses feuille à feuille gèrent les couvertures, les petits tirages et les travaux exigeants en couleur, là où la finition et la fidélité comptent le plus."
       },
       "book": {
         "name": "3 lignes de cahiers Lineomatic",

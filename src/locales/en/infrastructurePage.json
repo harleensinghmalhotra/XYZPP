@@ -1,19 +1,19 @@
 {
   "seo": {
     "title": "Print Infrastructure | Quarterfold Printabilities",
-    "description": "Four print facilities and two warehouses across Navi Mumbai. 250,000 sq ft engineered so your books ship on time, every time.",
+    "description": "Three printing facilities and two warehouses across Navi Mumbai. 300,000 sq ft engineered so your books ship on time, every time.",
     "breadcrumbHome": "Home",
     "breadcrumbCurrent": "Infrastructure"
   },
   "hero": {
     "eyebrow": "Infrastructure",
     "title": "Built for Scale. <strong>Engineered for Trust.</strong>",
-    "sub": "Four print facilities and two warehouses across Navi Mumbai. 250,000 sq ft engineered for one thing: books that ship on time.",
+    "sub": "Three printing facilities and two warehouses across Navi Mumbai. 300,000 sq ft engineered for one thing: books that ship on time.",
     "ctaQuote": "Request a Quote",
     "ctaProcess": "See our process",
-    "statAriaLabel": "250,000 square feet engineered across six facilities",
+    "statAriaLabel": "300,000 square feet engineered across five facilities",
     "statUnit": "SQ FT",
-    "statFoot": "Engineered across six facilities in Navi Mumbai"
+    "statFoot": "Engineered across five facilities in Navi Mumbai"
   },
   "strip": {
     "eyebrow": "Certified, audited and renewed",
@@ -34,7 +34,7 @@
     "capabilities": {
       "print": {
         "label": "Print Capacity",
-        "body": "A twenty-web machine tower alongside five sheet-fed presses and three Lineomatic lines, engineered for large-volume textbook runs.",
+        "body": "Twenty-two web towers alongside six sheet-fed presses and three Lineomatic lines, engineered for large-volume textbook runs.",
         "photoNote": "PHOTO · PRESS HALL, PRINTING TOWERS"
       },
       "bind": {
@@ -54,12 +54,12 @@
     "title": "The machines behind the volume.",
     "items": {
       "tower": {
-        "name": "20-Web Offset Tower",
-        "spec": "A twenty-unit web-offset tower runs long textbook forms at full speed, register held tight across every signature."
+        "name": "22-Web Offset Towers",
+        "spec": "Twenty-two web-offset towers run long textbook forms at full speed, register held tight across every signature."
       },
       "press": {
-        "name": "Sheet-Fed Fleet, 5 Presses",
-        "spec": "Five sheet-fed presses handle covers, short runs and colour-critical work where finish and fidelity matter most."
+        "name": "Sheet-Fed Fleet, 6 Presses",
+        "spec": "Six sheet-fed presses handle covers, short runs and colour-critical work where finish and fidelity matter most."
       },
       "book": {
         "name": "3 Lineomatic Exercise-Book Lines",

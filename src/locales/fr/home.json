@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Quarterfold Printabilities | Impression et logistique de livres à l'international",
-    "description": "Nous aidons les éditeurs et les programmes éducatifs de plus de 25 pays à imprimer, relier, conditionner et livrer plus de 25 millions de livres par an, dans les délais, à chaque fois."
+    "description": "Nous aidons les éditeurs et les programmes éducatifs de plus de 25 pays à imprimer, relier, conditionner et livrer 75 millions de livres par an, dans les délais, à chaque fois."
   },
   "hero": {
     "line1": "L'éducation mondiale",
@@ -13,9 +13,9 @@
     "ctaReach": "Notre présence mondiale",
     "bubbles": {
       "mustard": "Oh oui ! L'éducation n'a pas de frontières.",
-      "red": "Quarterfold imprime <1>25 millions de livres</1> chaque année.",
-      "blonde": "Comment ? Ils exportent aussi vers <1>plus de 25 pays</1> chaque année ?",
-      "green": "Waouh ! Cela veut dire que ces livres ont été lus par des <1>milliards</1> de personnes !"
+      "red": "Quarterfold imprime <1>75 millions de livres</1> chaque année,",
+      "blonde": "qui rejoignent des salles de classe dans <1>plus de 25 pays</1>.",
+      "green": "Imprimé en Inde, lu partout dans le monde."
     },
     "bookSound": "Son",
     "book": {
@@ -42,7 +42,7 @@
     "titleLine1": "Imprimé en Inde.",
     "titleThin": "Lu par le",
     "titleBold2": "monde.",
-    "lede": "Chaque expédition quitte deux sites du littoral de Navi Mumbai, Vashi et Taloja, pour rejoindre des salles de classe dans plus de 25 pays, sur quatre continents.",
+    "lede": "À 15 minutes du port JNPT de Mumbai, répartis sur trois usines à Navi Mumbai et 300 000 pieds carrés, avec des livraisons partout dans le monde.",
     "link": "Découvrir notre présence mondiale"
   },
   "marquee": {

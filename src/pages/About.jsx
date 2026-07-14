@@ -6,7 +6,7 @@ import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
 import { DotField, EdgeGlow, PaperGrain, WavyBackground } from '@/components/atmosphere'
 import GlobeFlyTo from '@/components/GlobeFlyTo'
-import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
+import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
 
 /* ─────────────────────────────────────────────────────────────────────────────
    /about — QFP "About Us"
@@ -34,9 +34,9 @@ const FOIL = 'linear-gradient(180deg, #fdfaf4 0%, #f0cd82 58%, #c89a3c 100%)'
 const FOIL_SHADOW =
   'drop-shadow(0 2px 3px rgba(0,0,0,.5)) drop-shadow(0 0 26px rgba(200,154,60,.28)) drop-shadow(0 0 64px rgba(200,154,60,.14))'
 
-// Client-name permission gate (mirrors Projects.jsx). Until Harry confirms written
-// permission, HDFC / ZEE / Kidzee rows stay hidden — never placeholdered.
-const SHOW_RESTRICTED_CLIENTS = false
+// Client-name permission gate now imported from the single source of truth
+// (src/lib/compliance.js). No written permission on file → HDFC / ZEE / Kidzee
+// rows stay hidden, never placeholdered. One flag, no per-page divergence.
 
 const focusGold = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9B7420] focus-visible:ring-offset-2'
 

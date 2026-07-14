@@ -71,6 +71,26 @@
       "zee": {
         "name": "ZEE Learn",
         "desc": "Learning kits for Kidzee"
+      },
+      "ncert": {
+        "name": "NCERT",
+        "desc": "National Council of Educational Research and Training"
+      },
+      "ssa": {
+        "name": "Sarva Shiksha Abhiyan",
+        "desc": "India's education for all programme"
+      },
+      "pnapas": {
+        "name": "PNAPAS",
+        "desc": "National school book and supplies programme"
+      },
+      "csr": {
+        "name": "CSR Projects",
+        "desc": "Corporate social responsibility education initiatives"
+      },
+      "mozambique": {
+        "name": "Mozambique",
+        "desc": "Ministry of Education, Mozambique"
       }
     }
   }

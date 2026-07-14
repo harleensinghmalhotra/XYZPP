@@ -1,8 +1,8 @@
 {
   "eyebrow": "What We Print",
-  "titleLine1": "Built on Precision.",
-  "titleLine2": "Backed by Experience.",
-  "lede": "Across educational books, trade titles, coffee table editions and more, we bring the same care and consistency to every project we take on.",
+  "titleLine1": "Formats and",
+  "titleLine2": "Categories",
+  "lede": "Across educational books, notebooks, trade titles, religious texts and packaging, we bring the same care and consistency to every project we take on.",
   "more": "Learn more about our process",
   "cards": {
     "educational": {
@@ -10,12 +10,12 @@
       "line": "Textbooks, workbooks and ministry curriculum print for 25+ countries."
     },
     "trade": {
-      "name": "Trade Books",
+      "name": "Notebooks and Stationery",
       "line": "Notebooks, counterbooks, pads and custom branded stationery."
     },
     "coffee": {
-      "name": "Coffee Table & Hardcase Books",
-      "line": "Premium photography, heritage and collector's editions with specialty finishes."
+      "name": "Trade Books",
+      "line": "Coffee table editions, hardcase and collector's titles with premium photography and specialty finishes."
     },
     "general": {
       "name": "General Books",
@@ -36,6 +36,14 @@
     "pod": {
       "name": "Print on Demand",
       "line": "Single copy to short run, printed and shipped fast."
+    },
+    "religious": {
+      "name": "Religious Books",
+      "line": "Bibles, Qurans, Bhagavad Gitas, hymnals and other religious texts, printed with the care and durability these titles require."
+    },
+    "packaging": {
+      "name": "Packaging and Gifting",
+      "line": "Gift boxes, rigid boxes and party gift bags, crafted with the same precision and finish as our books."
     }
   }
 }

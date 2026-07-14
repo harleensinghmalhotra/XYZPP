@@ -8,7 +8,7 @@ import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
 import { DotField, PaperGrain, WavyBackground } from '@/components/atmosphere'
 import { useReducedMotion } from '@/lib/useReducedMotion'
-import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
+import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -18,14 +18,13 @@ gsap.registerPlugin(ScrollTrigger)
 // Native scroll (the homepage owns Lenis; inner routes are plain scroll). Every
 // section carries data-theme so the fixed SiteNav flips ink/paper under it.
 //
-// Compliance gate, OFF by default:
-//   SHOW_RESTRICTED_CLIENTS — the trust marquee is permission-safe (ministries /
-//                            programmes only). Named commercial clients (HDFC,
-//                            ZEE, Reliance) stay OUT of the DOM until sign-off.
+// Compliance gate now imported from the single source of truth
+// (src/lib/compliance.js): SHOW_RESTRICTED_CLIENTS is FALSE (no written permission
+// on file), so named commercial clients (HDFC, ZEE, Reliance) stay OUT of the DOM.
+// The trust marquee otherwise stays permission-safe (ministries / programmes only).
 // (Phase 3.3: the ambient-video hero was retired — the client rejected background
 //  motion, so Fulfilment now uses the same static navy hero skeleton as every page.)
 // ─────────────────────────────────────────────────────────────────────────────
-const SHOW_RESTRICTED_CLIENTS = false
 
 const BASE = '/qfp/fulfil'
 
