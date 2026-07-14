@@ -2205,57 +2205,13 @@ body {
   }
 }
 
-/* ── GLOW BORDER — Uiverse mechanic, rebranded to a warm gold aura and tuned for the
-   CREAM ground (this section is #f0ebe0, not black). Two layers escape BEHIND the
-   opaque .infra-card-inner:
-     ::before — a crisp gold→navy gradient rim peeking ~3px around the square card
-                (the Uiverse signature edge; olive endpoint via [data-glow="olive"]).
-     ::after  — a soft blurred gold backlight; deep brand gold so it reads as a warm
-                aura on cream, never neon. The gold is identical in both variants —
-                only the ring's far colour (navy vs olive) changes, which is the A/B.
-   Lower opacity + tighter blur than the dark-ground destinations glow so it can't
-   wash out. A scale-only breathe keeps it alive (compositor-cheap → holds 60fps), and
-   on hover the ::before ring swings -90deg with a stretch — the Uiverse signature
-   sweep (tabs move from top/bottom to the sides). No paint-animated gradient. */
-.infra-card::before,
-.infra-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: var(--r-card);  /* glow tracks the card corners — no square aura under a round card */
-  pointer-events: none;
-}
-.infra-card::before {
-  left: -4px;
-  margin: auto;
-  width: calc(100% + 8px);
-  height: calc(100% + 8px);
-  border-radius: calc(var(--r-card) + 4px);  /* outset 4px → stay concentric with the rounded card */
-  z-index: -2;
-  opacity: 0.52;
-  background: linear-gradient(-45deg, #9b7420 0%, #1b3a6b 100%);
-  /* springy ease (Uiverse original) so the ring overshoots as it swings on hover */
-  transition: opacity 0.55s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.infra-card::after {
-  z-index: -1;
-  opacity: 0.3;
-  background: linear-gradient(-45deg, #9b7420 0%, #6a4d10 100%);
-  filter: blur(18px);
-  transform: translate3d(0, 0, 0) scale(0.98);
-  transition: opacity 0.55s ease, filter 0.55s ease;
-  animation: infraGlowBreathe 7s ease-in-out infinite;
-}
+/* Facility-card glow removed (client rejected the old hover) — the cards now carry
+   only the WWP lift + shadow above, so the section speaks one hover language. The
+   shared breathe keyframe stays: the People grid glow (.infra-person) still uses it. */
 @keyframes infraGlowBreathe {
   0%, 100% { transform: translate3d(0, 0, 0) scale(0.97); }
   50%      { transform: translate3d(0, 0, 0) scale(1); }
 }
-.infra-card:hover::before { opacity: 0.82; transform: rotate(-90deg) scaleX(0.82) scaleY(0.92); }
-.infra-card:hover::after  { opacity: 0.48; filter: blur(23px); }
-.infra-cards[data-glow="olive"] .infra-card::before {
-  background: linear-gradient(-45deg, #9b7420 0%, #6b7a2a 100%);
-}
-.infra-card:hover .infra-photo-img { transform: scale(1.03); }
 /* photo breaks OUT of the card: lifted above the top edge + wider than the inner
    padding, so the navy slab floats proud of the cream card (WWP-style pop). */
 .infra-card-photo { margin: -32px -28px 22px; }
@@ -2381,7 +2337,6 @@ body {
   text-transform: uppercase;
   color: #e6bd6a; /* light gold — AA on the deep-navy ground */
 }
-.infra-card:hover .infra-ph-icon { color: #e2ba64; } /* gentle warm-up with the card lift */
 
 /* video — Hero Video Dialog thumbnail card (16:9) */
 .infra-video { margin-top: clamp(20px, 3vh, 36px); }
@@ -2620,9 +2575,6 @@ body {
   .infra-video-thumb:hover .infra-play-ring { animation: none; }
   .infra-video-thumb:hover { transform: none; }
   .infra-dialog { animation: none; }
-  /* glow stays but goes static — no breathe, no scale/shift; a simple lift remains */
-  .infra-card::after { animation: none; }
-  .infra-card:hover::before { transform: none; }
   /* team cards: static glow, no breathe, no lift, no ring shift */
   .infra-person::after { animation: none; }
   .infra-person:hover { transform: none; }
