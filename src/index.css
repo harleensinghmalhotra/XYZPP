@@ -958,7 +958,12 @@ body {
    past exactly like any other section; nothing here touches page scroll. */
 .wwp-inner {
   width: 100%;
-  max-width: var(--content-max);
+  /* +112px so the 56px side padding lands OUTSIDE the content cap: the inner
+     content box is then exactly --content-max wide and its left edge matches the
+     max-width container the other light sections use (Projects, Infrastructure).
+     Previously the 56px sat inside the 1280 cap, pushing the heading ~56px right
+     of the site standard — the "What We Print starts too far right" the client flagged. */
+  max-width: calc(var(--content-max) + 112px);
   margin: 0 auto;
   padding: var(--section-pad-y) 56px;
 }
@@ -4532,8 +4537,16 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 .gr-grid {
   position: relative; z-index: 2; width: 100%;
   display: grid; grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr); align-items: center;
+  /* Inset the copy column to the site standard container edge so "Printed in
+     India." lines up with the other sections' headings. Uses % (section width =
+     body width, excludes the scrollbar) — NOT vw — so it matches the max-width
+     container math exactly. The globe still bleeds to the right edge (no right
+     padding). Was full-bleed left (5vw ≈ 77px): "Global Reach starts way left". */
+  padding-left: max(56px, calc((100% - var(--content-max)) / 2));
 }
-.gr-copy { padding: clamp(64px, 9vh, 128px) clamp(24px, 5vw, 96px); max-width: 640px; }
+/* left padding zeroed — the grid now owns the left inset (above); keeping it here
+   would double-inset the heading past the standard. */
+.gr-copy { padding: clamp(64px, 9vh, 128px) clamp(24px, 5vw, 96px) clamp(64px, 9vh, 128px) 0; max-width: 640px; }
 .gr-eyebrow {
   display: flex; align-items: center; gap: 12px; margin: 0 0 22px;
   font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: var(--track-eyebrow);

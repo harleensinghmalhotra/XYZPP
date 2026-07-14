@@ -20,18 +20,17 @@ import Cases from '@/sections/Cases'
 // tears down (Lenis destroy + ScrollTrigger.killAll) when navigating away, so no
 // pin ever leaks onto a native-scroll inner page.
 //
-// Section order (client reorder, lane 7 → 7c → 7d):
+// Section order (client reorder, lane 7 → 7c → 7d → 9 — LAW):
 //   • TrustStrips rides directly under the Hero — the two are a designed PAIR.
 //     The hero's open book deliberately overhangs its section bottom and
 //     TrustStrips receives it with reserved top padding (ts-band, 115px): the
 //     book lands ON the strips. (7c welded them back after lane 7 split them.)
-//   • 7d (Harry): GlobeReach moves ABOVE WhatWePrint — TrustStrips → GlobeReach
-//     restores the original 9cccb0d adjacency (light band → flat navy top), and
-//     WhatWePrint drops one slot to sit right before the mission band.
-//   • 7e (Harry): the four-stat bar returns INTO TrustStrips as its third strip
+//   • 9 (fresh client meeting): WhatWePrint moves BACK ABOVE GlobeReach —
+//     reversing 7d. TrustStrips → WhatWePrint (light band → WWP header, seamless),
+//     WhatWePrint → GlobeReach (cream → navy flat edge). This is the final order.
+//   • 7e (Harry): the four-stat bar lives INSIDE TrustStrips as its third strip
 //     (countries ticker → institutions ticker → stats = one welded unit under the
-//     hero). Lane 7 had parked it below the Mission Band; on screen it read as an
-//     orphan, so it goes back to its 9cccb0d home. No standalone stats block here.
+//     hero). No standalone stats block here.
 // HARD CONSTRAINT preserved: Process3D stays immediately before Projects — the
 // conveyor's exit melt is tuned to Projects' navy top. Everything else keeps its
 // prior relative order.
@@ -44,8 +43,8 @@ export default function Home() {
         <span id="top" />
         <Hero />
         <TrustStrips />
-        <GlobeReach />
         <WhatWePrint />
+        <GlobeReach />
         <Promise />
         <Process3D />
         <Projects />
