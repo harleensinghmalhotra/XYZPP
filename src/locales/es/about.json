@@ -1,0 +1,200 @@
+{
+  "seo": {
+    "title": "Nosotros | Quarterfold Printabilities",
+    "description": "Una de las mayores empresas de soluciones de impresión y edición de la India, que imprime 75 millones de libros al año para editoriales y programas educativos de más de 25 países.",
+    "breadcrumb": {
+      "home": "Inicio",
+      "about": "Nosotros"
+    }
+  },
+  "hero": {
+    "eyebrow": "Quarterfold Printabilities",
+    "title": "Nosotros",
+    "lede": "Una de las mayores empresas de soluciones de impresión y edición de la India, que impulsa la educación en más de 25 países.",
+    "cta": "Solicitar presupuesto",
+    "statNum": "25+",
+    "statUnit": "Países atendidos",
+    "statFoot": "Editoriales y programas nacionales de educación atendidos en todo el mundo.",
+    "statAria": "Atendemos a más de 25 países"
+  },
+  "founder": {
+    "greeting": "Hola",
+    "quote": "Nuestra misión es simple. Ser una de las diez principales empresas de impresión y contenido educativo del mundo para 2030, impulsando a editoriales y programas educativos en cada mercado que atendemos.",
+    "attribution": "Fundador y director general, Quarterfold Printabilities",
+    "imageAlt": "Fundador y director general de Quarterfold Printabilities"
+  },
+  "recognition": {
+    "eyebrow": "Reconocidos por",
+    "aria": "Premios y reconocimientos"
+  },
+  "awards": {
+    "dun": "Dun & Bradstreet",
+    "printweek": "PrintWeek",
+    "capexil": "CAPEXIL, mayor exportador de libros",
+    "assocham": "ASSOCHAM",
+    "fip": "Federation of Indian Publishers",
+    "forbes": "FORBES D-GEMS",
+    "eduExport": "Empresa exportadora educativa del año 2024"
+  },
+  "story": {
+    "eyebrow": "Nuestra historia",
+    "title": "La mayor empresa de soluciones de impresión y edición de la India.",
+    "para1": "Quarterfold se especializa en prensas de impresión de alta calidad pensadas para la producción de libros a gran escala y la impresión bajo demanda, gestionando proyectos de gran volumen para editoriales privadas y licitaciones gubernamentales respaldadas por el Banco Mundial.",
+    "para2": "Nuestras operaciones se desarrollan en tres prensas de impresión de última generación en Taloja, Navi Mumbai, y dos grandes almacenes y centros de logística, que abarcan 300,000 pies cuadrados de torres web de alta gama, máquinas de pliego y líneas de acabado.",
+    "imageAlt": "Instalación de impresión de Quarterfold en Taloja, Navi Mumbai",
+    "stats": {
+      "presses": "Prensas de impresión",
+      "centres": "Centros de logística",
+      "space": "Pies cuadrados de superficie",
+      "countries": "Países atendidos"
+    }
+  },
+  "reach": {
+    "eyebrow": "Dónde se fabrica",
+    "titleLine1": "Dos sedes,",
+    "titleLine2": "una misma costa.",
+    "body": "Nuestras prensas y centros de logística se encuentran en Vashi y Taloja, Navi Mumbai, el punto de partida de cada libro que enviamos a más de 25 países.",
+    "link": "Descubra nuestro alcance global"
+  },
+  "history": {
+    "eyebrow": "Hitos",
+    "title": "Nuestra historia"
+  },
+  "milestones": {
+    "delivered": {
+      "title": "Libros entregados hasta la fecha",
+      "desc": "Impresos en la India, leídos en más de 25 países."
+    },
+    "tanzania": {
+      "title": "Ministerio de Educación, Tanzania",
+      "desc": "Programa nacional de libros de texto impreso y enviado a gran escala."
+    },
+    "ghana": {
+      "title": "Ministerio de Educación y Deportes, Ghana",
+      "desc": "Impresión educativa respaldada por el Banco Mundial y USAID."
+    },
+    "nigeria": {
+      "title": "Universal Basic Education Commission, Nigeria",
+      "desc": "Títulos de educación primaria para el programa de la UBEC."
+    },
+    "ivoryCoast": {
+      "title": "Ministère de l'Éducation Nationale, Côte d'Ivoire",
+      "desc": "Libros de currículo en francés para las escuelas nacionales."
+    },
+    "topPublishers": {
+      "title": "Las 10 principales editoriales de la India",
+      "desc": "Títulos de currículo y comerciales para las principales editoriales indias."
+    },
+    "drCongo": {
+      "title": "République Démocratique du Congo",
+      "desc": "Impresión de currículo para el ministerio nacional de educación."
+    },
+    "maharashtra": {
+      "title": "Maharashtra State Education Board",
+      "desc": "Libros de texto Bal Bharti del consejo estatal de Maharashtra, India."
+    },
+    "hdfc": {
+      "title": "HDFC Bank",
+      "desc": "Cuadernillos de contratos de préstamo impresos cada mes."
+    }
+  },
+  "statement": {
+    "printedInIndia": "Impreso en la India",
+    "readByTheWorld": "Leído por el mundo",
+    "aria": "Impreso en la India, leído por el mundo",
+    "sr": "Impreso en la India. Leído por el mundo."
+  },
+  "whatWeDo": {
+    "eyebrow": "Qué hacemos",
+    "title": "Cinco formas en que ayudamos a las editoriales a poner libros en manos de los lectores.",
+    "explore": "Explorar",
+    "educationalBooks": {
+      "title": "Libros educativos",
+      "desc": "Títulos de currículo y comerciales para más de 250 editoriales y programas nacionales de educación."
+    },
+    "tradeBooks": {
+      "title": "Libros comerciales",
+      "desc": "Cuadernos premium, ediciones de gran formato, agendas y diarios."
+    },
+    "printOnDemand": {
+      "title": "Impresión bajo demanda",
+      "desc": "Impresión de tiradas cortas y ejemplares únicos para autoeditores y títulos independientes."
+    },
+    "infrastructure": {
+      "title": "Infraestructura",
+      "desc": "Torres web, prensas de pliego y líneas de acabado en todas nuestras instalaciones."
+    },
+    "fulfilment": {
+      "title": "Logística",
+      "desc": "Preparación de kits, almacenamiento y logística de última milla desde 300,000 pies cuadrados de superficie."
+    }
+  },
+  "services": {
+    "eyebrow": "Qué ofrecemos",
+    "title": "Apoyo experto en impresión para todo tipo de socio.",
+    "tablistAria": "A quién atendemos",
+    "tabs": {
+      "publishers": "Para editoriales",
+      "institutions": "Para instituciones y programas"
+    },
+    "publishers": {
+      "largeVolume": {
+        "title": "Producción de libros de gran volumen",
+        "desc": "Impresión offset y web para tiradas de currículo y comerciales a escala nacional."
+      },
+      "pod": {
+        "title": "Impresión bajo demanda",
+        "desc": "Impresión de tiradas cortas y ejemplares únicos para autoeditores y títulos de fondo editorial."
+      },
+      "warehousing": {
+        "title": "Almacenamiento y logística",
+        "desc": "Almacenamiento, preparación de kits y entrega de última milla desde dos centros de logística."
+      }
+    },
+    "institutions": {
+      "government": {
+        "title": "Impresión para gobiernos y licitaciones",
+        "desc": "Programas de libros de texto respaldados por el Banco Mundial y USAID en más de 25 países."
+      },
+      "content": {
+        "title": "Contenido educativo",
+        "desc": "Libros de currículo producidos para ministerios y consejos estatales de educación."
+      },
+      "export": {
+        "title": "Exportación y logística",
+        "desc": "Más de 800 contenedores enviados cada año a editoriales y programas de todo el mundo."
+      }
+    }
+  },
+  "people": {
+    "eyebrow": "Nuestro equipo",
+    "titleSuffix": "manos detrás de cada envío.",
+    "body": "Cada libro que sale de nuestra planta lleva el cuidado de las personas que ajustan las prensas, revisan los pliegos y embalan los palés.",
+    "imageAlt": "Integrante del equipo de Quarterfold {{n}}"
+  },
+  "hub": {
+    "eyebrow": "Explorar",
+    "title": "Explore Quarterfold.",
+    "sub": "Conozca más en las siguientes secciones.",
+    "contact": {
+      "title": "Contacto",
+      "desc": "Díganos qué va a imprimir y le responderemos en un día laborable."
+    },
+    "infrastructure": {
+      "title": "Infraestructura",
+      "desc": "Torres web y líneas de acabado en 300,000 pies cuadrados de instalaciones."
+    },
+    "certifications": {
+      "title": "Certificaciones",
+      "desc": "Producción certificada FSC, ISO y Sedex."
+    },
+    "sustainability": {
+      "title": "Sostenibilidad",
+      "desc": "Abastecimiento responsable y prácticas ambientales concretas."
+    },
+    "legal": {
+      "title": "Legal",
+      "desc": "Privacidad, cookies, condiciones de uso y accesibilidad."
+    }
+  }
+}

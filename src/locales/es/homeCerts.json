@@ -1,0 +1,42 @@
+{
+  "filterAria": "Filtrar certificaciones",
+  "pills": {
+    "certifications": "Certificaciones",
+    "environment": "Medio ambiente",
+    "social": "Responsabilidad social"
+  },
+  "seal": "CONFIANZA · RESPONSABILIDAD · CONFIANZA · RESPONSABILIDAD · ",
+  "title": "Certificados en calidad",
+  "sub": "Productos de calidad, conciencia ambiental y comercio ético, todo auditado, certificado y renovado.",
+  "licence": "Licencia",
+  "carouselAria": "Carrusel de certificaciones (desplácese o use las teclas de flecha)",
+  "prevAria": "Certificaciones anteriores",
+  "nextAria": "Certificaciones siguientes",
+  "cards": {
+    "fsc": {
+      "eyebrow": "Forest Stewardship Council",
+      "title": "Cadena de Custodia FSC",
+      "body": "La certificación de Cadena de Custodia FSC rastrea el material certificado en cada etapa de la cadena de suministro. Confirma que el papel sobre el que imprimimos procede de bosques gestionados de forma responsable que cumplen estrictos estándares ambientales y sociales. Cada trabajo puede rastrearse desde el bosque hasta el libro terminado."
+    },
+    "iso9001": {
+      "eyebrow": "Gestión de la calidad",
+      "title": "ISO 9001:2015",
+      "body": "La norma ISO 9001:2015 es el estándar internacional para los sistemas de gestión de la calidad. Certifica que nuestros procesos están documentados, supervisados y en mejora continua para cumplir los requisitos de los clientes y de la normativa. Auditorías independientes renuevan la certificación y someten a cada instalación al mismo criterio."
+    },
+    "iso14001": {
+      "eyebrow": "Gestión ambiental",
+      "title": "ISO 14001:2015",
+      "body": "La norma ISO 14001:2015 establece el marco de un sistema de gestión ambiental certificado. Nos exige identificar, controlar y reducir de forma continua el impacto ambiental de nuestras operaciones, desde los residuos y la energía hasta las emisiones. El cumplimiento se verifica mediante evaluaciones externas periódicas."
+    },
+    "sedex": {
+      "eyebrow": "Auditoría de comercio ético",
+      "title": "Miembro de Sedex",
+      "body": "La membresía de Sedex respalda nuestro compromiso con un abastecimiento ético y responsable. Mediante la auditoría SMETA se evalúan de forma independiente nuestros estándares laborales, la salud y la seguridad, el medio ambiente y la ética empresarial. Los resultados se comparten de forma transparente con los clientes en la plataforma Sedex."
+    },
+    "star": {
+      "eyebrow": "Gobierno de la India",
+      "title": "Star Export House",
+      "body": "Star Export House es un estatus otorgado por la Dirección General de Comercio Exterior del Gobierno de la India a los exportadores reconocidos y de alto rendimiento. Refleja una trayectoria sostenida de excelencia y fiabilidad en la exportación, y agiliza los trámites aduaneros y comerciales de los envíos que entregamos en todo el mundo."
+    }
+  }
+}

@@ -5,14 +5,16 @@ const MONO = "'DM Mono', monospace"
 // and must clear 4.5:1 on the cream nav (5.9:1 vs the old 2.47:1 hard-fail).
 const GOLD = '#836013'
 
-// Quiet EN | FR pill for the nav's right group (beside Request a Quote). Mirrors
-// Alternativ's understated globe toggle: two short labels in DM Mono, the active
-// language in gold, the inactive one in the nav's current ink/cream so it stays
+// Quiet EN / FR / ES pill for the nav's right group (beside Request a Quote).
+// Mirrors Alternativ's understated globe toggle: short labels in DM Mono, the active
+// language in gold, the inactive ones in the nav's current ink/cream so they stay
 // legible on both dark and light nav states. Each language is a real <button> with
-// aria-pressed for keyboard + screen-reader users.
+// aria-pressed + aria-current for keyboard + screen-reader users. Three items still
+// fit the nav pill at 1366px (DM Mono 12px, tight tracking).
 const LANGS = [
   { code: 'en', label: 'EN' },
   { code: 'fr', label: 'FR' },
+  { code: 'es', label: 'ES' },
 ]
 
 export default function LanguageToggle({ light = false }) {
@@ -44,6 +46,7 @@ export default function LanguageToggle({ light = false }) {
               type="button"
               onClick={() => i18n.changeLanguage(lng.code)}
               aria-pressed={active}
+              aria-current={active ? 'true' : undefined}
               className="focus-ring rounded-full px-2 py-0.5 text-[12px] font-medium uppercase tracking-[0.08em] transition-colors duration-200"
               style={{ color: active ? GOLD : inactive }}
               onMouseEnter={(e) => { if (!active) e.currentTarget.style.color = inactiveHover }}

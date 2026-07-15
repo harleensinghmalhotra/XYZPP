@@ -1,0 +1,41 @@
+{
+  "eyebrow": "Cómo trabajamos",
+  "title": "Un proceso continuo",
+  "sub": "Un solo socio. Un solo flujo de trabajo. Nos encargamos de todo para que usted pueda centrarse en su misión.",
+  "legs": ["Papel", "Del papel al libro", "Del libro al paquete", "Empaquetado y sellado", "Enviado", "Entregado"],
+  "detailsAria": "Nuestro proceso de seis etapas, de la impresión a la entrega",
+  "stages": {
+    "print": {
+      "name": "Impresión",
+      "desc": "Producción offset y en pliego de alta velocidad, calibrada para lograr precisión de color y pensada para el volumen."
+    },
+    "quality": {
+      "name": "Calidad",
+      "desc": "Nos tomamos la calidad muy en serio. Cada trabajo pasa por un doble control de calidad para asegurar que el producto le llegue tal como lo espera."
+    },
+    "fulfillment": {
+      "name": "Preparación",
+      "desc": "Preparación de kits, intercalado y embalaje, adaptados exactamente a cómo debe entregarse su proyecto."
+    },
+    "warehouse": {
+      "name": "Almacenamiento",
+      "desc": "Almacenamiento con clima controlado, listo para despacharse según su calendario, no el nuestro."
+    },
+    "ship": {
+      "name": "Envío",
+      "desc": "Documentación, aduanas y entrega a más de 25 países, con seguimiento desde nuestra planta hasta la suya."
+    },
+    "covered": {
+      "name": "Todo cubierto",
+      "desc": "Nos encargamos de todo para que usted no tenga que hacerlo. Usted se centra en su misión y nosotros nos ocupamos del resto."
+    }
+  },
+  "badges": [
+    "Un solo socio. Cero complicaciones.",
+    "Un único punto de contacto en todo momento.",
+    "Actualizaciones en tiempo real en cada etapa.",
+    "Plazos cumplidos. Siempre.",
+    "Calidad en la que confiar, siempre.",
+    "Preparados para escalar, respaldados por la experiencia."
+  ]
+}

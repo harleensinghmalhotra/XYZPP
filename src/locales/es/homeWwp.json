@@ -1,0 +1,52 @@
+{
+  "eyebrow": "Qué imprimimos",
+  "titleLine1": "Formatos y",
+  "titleLine2": "categorías",
+  "lede": "Desde libros educativos, cuadernos y títulos comerciales hasta textos religiosos y embalaje, aportamos el mismo cuidado y la misma constancia a cada proyecto que emprendemos.",
+  "more": "Conozca más sobre nuestro proceso",
+  "rowLabel": "Categorías de productos",
+  "scrollPrev": "Desplazar categorías a la izquierda",
+  "scrollNext": "Desplazar categorías a la derecha",
+  "cards": {
+    "educational": {
+      "name": "Impresión de libros educativos",
+      "line": "Manuales, cuadernos de trabajo e impresión de currículos ministeriales para más de 25 países."
+    },
+    "trade": {
+      "name": "Cuadernos y papelería",
+      "line": "Cuadernos, libros de contabilidad, blocs y papelería personalizada con marca."
+    },
+    "coffee": {
+      "name": "Libros comerciales",
+      "line": "Ediciones de gran formato, tapa dura y títulos de coleccionista con fotografía premium y acabados especiales."
+    },
+    "general": {
+      "name": "Libros generales",
+      "line": "Manga, novelas gráficas, pasatiempos y lectura de ocio."
+    },
+    "children": {
+      "name": "Libros infantiles",
+      "line": "Libros ilustrados, libros de cartón, para colorear y formatos desplegables."
+    },
+    "kits": {
+      "name": "Kits de actividades educativas",
+      "line": "Kits de actividades prácticas, tarjetas de pasatiempos y sets de aprendizaje para armar."
+    },
+    "corporate": {
+      "name": "Empresas, bancos y multinacionales",
+      "line": "Informes anuales, kits de bienvenida y documentación financiera."
+    },
+    "pod": {
+      "name": "Impresión bajo demanda",
+      "line": "Desde una sola copia hasta tiradas cortas, impresas y enviadas con rapidez."
+    },
+    "religious": {
+      "name": "Libros religiosos",
+      "line": "Biblias, coranes, Bhagavad Guitas, cancioneros y otros textos religiosos, impresos con el cuidado y la durabilidad que estos títulos requieren."
+    },
+    "packaging": {
+      "name": "Embalaje y regalos",
+      "line": "Cajas de regalo, cajas rígidas y bolsas de regalo para fiestas, elaboradas con la misma precisión y el mismo acabado que nuestros libros."
+    }
+  }
+}

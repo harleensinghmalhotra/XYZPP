@@ -1,0 +1,122 @@
+{
+  "seo": {
+    "title": "Almacenamiento y logística | Quarterfold Printabilities",
+    "description": "Preparación de kits, 100,000 pies cuadrados de almacenamiento, cajas a 5 colores de producción propia y envío de última milla: sus libros gestionados bajo un mismo techo, de la prensa al puerto.",
+    "breadcrumb": {
+      "home": "Inicio",
+      "fulfilment": "Almacenamiento y logística"
+    }
+  },
+  "hero": {
+    "eyebrow": "Almacenamiento y logística",
+    "title": {
+      "one": "Un",
+      "system": "Sistema,",
+      "start": "De principio",
+      "to": "a",
+      "finish": "fin."
+    },
+    "sub": "Imprimir, embalar, almacenar, enviar: sus libros gestionados bajo un mismo techo hasta que llegan al suyo.",
+    "cue": "Desplácese",
+    "cta": "Solicitar presupuesto",
+    "statNum": "100,000",
+    "statUnit": "Pies² de almacenamiento",
+    "statFoot": "Preparación de kits, cajas de producción propia y envío de última milla, todo bajo un mismo techo.",
+    "statAria": "100,000 pies cuadrados de almacenamiento"
+  },
+  "trust": {
+    "eyebrow": "Confían en nosotros",
+    "title": "Ministerios y programas que envían con nosotros."
+  },
+  "partners": {
+    "tie": { "label": "Tanzania Institute of Education", "sub": "Currículo nacional" },
+    "ghana": { "label": "Ghana: Programas de USAID", "sub": "Suministro educativo" },
+    "ivory": { "label": "Côte d'Ivoire", "sub": "Licitación ministerial" },
+    "balbharti": { "label": "Maharashtra Bal Bharti", "sub": "Oficina Estatal de Libros de Texto" },
+    "worldbank": { "label": "Programas del Banco Mundial", "sub": "Proyectos financiados" },
+    "un": { "label": "Programas de ayuda de la ONU", "sub": "Distribución global" },
+    "ministry": { "label": "Licitaciones de ministerios gubernamentales", "sub": "Sector público" },
+    "hdfc": { "label": "HDFC Bank Ltd", "sub": "Corporativo" },
+    "zee": { "label": "ZEE Learn / Kidzee", "sub": "Educación" }
+  },
+  "conviction": {
+    "eyebrow": "Nuestra convicción",
+    "quoteLight": "Creemos que",
+    "quoteBold": "la entrega es parte de la impresión."
+  },
+  "cards": {
+    "01": {
+      "name": "Preparación y ensamblaje de kits",
+      "text": "Componentes intercalados, montados y verificados en kits terminados, listos el día que se necesitan."
+    },
+    "02": {
+      "name": "Almacenamiento",
+      "text": "Un almacenamiento de última generación guarda sus libros de forma segura durante todo el tiempo que dure el programa."
+    },
+    "03": {
+      "name": "Entrega de última milla",
+      "text": "Una logística optimizada lleva cada envío la última milla, hasta la puerta que importa."
+    }
+  },
+  "value": {
+    "eyebrow": "Por qué confiar en nuestra logística",
+    "title": "Un mismo techo diseñado para la escala, la rapidez y el tránsito seguro."
+  },
+  "values": {
+    "warehouse": { "unit": "pies²", "label": "Almacén dedicado, construido para almacenamiento de larga permanencia." },
+    "carton": { "word": "Propias", "label": "Cajas de cartón corrugado y microcanal, producidas in situ." },
+    "printer": { "unit": "-colores", "label": "Impresión de cajas para expositores listos para venta y envío." },
+    "anchor": { "word": "JNPT", "label": "A minutos del mayor puerto de contenedores de la India." },
+    "containers": { "unit": "/ año", "label": "Contenedores de exportación enviados, y en aumento." },
+    "clock": { "unit": "a tiempo", "label": "de entrega, año tras año." }
+  },
+  "features": {
+    "01": {
+      "eyebrow": "Almacenar",
+      "title": "El almacén",
+      "body": "Un almacén dedicado de 100,000 pies cuadrados sostiene todo lo que viene después: un almacenamiento de última generación que guarda el producto terminado de forma segura durante largos periodos, listo para moverse en cuanto un programa lo requiere.",
+      "more": "Con estanterías, códigos de barras y organizado para una recuperación rápida, la planta está diseñada tanto para el almacenamiento de larga permanencia como para el alto volumen, con un intercalado automatizado que alimenta directamente la preparación de kits."
+    },
+    "02": {
+      "eyebrow": "Montar",
+      "title": "Preparación y ensamblaje de kits",
+      "body": "La preparación y el ensamblaje integrales convierten componentes sueltos en kits terminados y verificados, intercalados, montados y controlados bajo un mismo techo para que nada se envíe incompleto.",
+      "more": "Las líneas automatizadas de intercalado y retractilado procesan hasta 10,000 kits al día, cada uno montado según una especificación repetible e inspeccionado antes de salir de la planta."
+    },
+    "03": {
+      "eyebrow": "Proteger",
+      "title": "Embalaje de producción propia",
+      "body": "Las cajas de cartón corrugado y microcanal se producen internamente con impresión avanzada a 5 colores: embalaje diseñado a medida para expositores de venta y tránsito seguro.",
+      "more": "Fabricar nuestro propio cartón y nuestras cajas significa que controlamos el ajuste, la resistencia y el acabado de principio a fin, así que el embalaje listo para venta y las cajas de exportación salen de la misma línea controlada."
+    },
+    "04": {
+      "eyebrow": "Entregar",
+      "title": "Envíos globales",
+      "body": "Una logística optimizada gestiona la entrega de última milla y el despacho de exportación, con los libros atendidos desde nuestra planta hasta su destino en más de 25 países y cuatro continentes.",
+      "more": "Situados a minutos del JNPT, el mayor puerto de contenedores de la India, enviamos más de 800 contenedores de exportación al año con un 98% de puntualidad, año tras año."
+    }
+  },
+  "feature": {
+    "showLess": "Ver menos",
+    "learnMore": "Más información",
+    "panelLabel": "Más sobre {{title}}"
+  },
+  "sections": {
+    "featuresLabel": "Cómo funciona la logística, paso a paso"
+  },
+  "journey": {
+    "eyebrow": "De la prensa al puerto",
+    "title": "Un recorrido continuo, vigilado en cada paso."
+  },
+  "stages": {
+    "01": { "verb": "Embalar", "word": "Preciso", "line": "Cajas cortadas, impresas y embaladas según especificación, de producción propia." },
+    "02": { "verb": "Almacenar", "word": "Seguro", "line": "Con estanterías y código de barras en unas instalaciones de 100,000 pies cuadrados." },
+    "03": { "verb": "Enviar", "word": "A tiempo", "line": "Contenedores de exportación despachados a minutos del puerto JNPT." }
+  },
+  "cta": {
+    "eyebrow": "Un mismo techo, de principio a fin",
+    "title": "Movamos sus libros.",
+    "sub": "Díganos qué va a imprimir y dónde debe llegar. Nosotros hacemos el resto: embalado, almacenado y enviado.",
+    "pill": "Inicie una conversación"
+  }
+}

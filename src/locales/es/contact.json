@@ -1,0 +1,166 @@
+{
+  "seo": {
+    "title": "Contacto | Quarterfold Printabilities",
+    "description": "Hable con Quarterfold sobre su programa de impresión. Llámenos, escríbanos o contáctenos por WhatsApp, o envíe una consulta y le responderemos en un día laborable. Oficinas en Navi Mumbai."
+  },
+  "breadcrumb": {
+    "label": "Ruta de navegación",
+    "home": "Inicio",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "eyebrow": "Contacto",
+    "title": "Hablemos. <strong>Respondemos en un día laborable.</strong>",
+    "line": "Ya sea un ministerio, una editorial o un autor con un solo libro, nos encantaría saber de usted.",
+    "callLabel": "Llámenos directamente",
+    "callFoot": "De lunes a sábado, en horario comercial, o envíe el formulario de consulta a continuación.",
+    "callAriaLabel": "Llámenos directamente al +91 829 199 9922"
+  },
+  "map": {
+    "regionLabel": "Dónde estamos",
+    "alt": "Mapa que muestra las dos sedes de Quarterfold en Navi Mumbai, India: la oficina central de Vashi y la fábrica principal de Taloja.",
+    "kicker": "Navi Mumbai, India",
+    "openInMaps": "Abrir en Google Maps"
+  },
+  "welcome": {
+    "eyebrow": "Nos encantaría saber de usted",
+    "head": "Un solo socio para todo el recorrido de impresión, desde un programa nacional de libros de texto hasta una primera tirada de un solo libro.",
+    "sub": "Díganos qué va a imprimir y le responderemos en un día laborable. Elija la vía que le resulte más fácil a continuación, o envíe el formulario de consulta y nos encargamos del resto."
+  },
+  "tiles": {
+    "regionLabel": "Formas de contactarnos",
+    "call": { "kicker": "Llámenos", "line": "(+91) 829 199 9922", "sub": "De lunes a sábado, en horario comercial" },
+    "info": { "kicker": "General", "sub": "Para cualquier consulta" },
+    "enq": { "kicker": "Consultas", "sub": "Presupuestos y briefs de proyecto" },
+    "wa": { "kicker": "WhatsApp", "line": "Escríbanos", "sub": "Preguntas rápidas, respuestas rápidas" },
+    "quote": { "kicker": "La vía más rápida", "line": "Solicitar presupuesto", "sub": "Ir al formulario de consulta" }
+  },
+  "addr": {
+    "eyebrow": "Nuestras sedes",
+    "title": "Dos sedes en Navi Mumbai.",
+    "head": { "name": "Oficina central", "directions": "Cómo llegar" },
+    "factory": { "name": "Fábrica principal", "directions": "Cómo llegar" },
+    "hours": {
+      "name": "Horario comercial",
+      "lines": "De lunes a sábado<1/>9:30 – 18:30 IST",
+      "flag": "Horario por confirmar"
+    }
+  },
+  "form": {
+    "regionLabel": "Enviar una consulta",
+    "eyebrow": "Enviar una consulta",
+    "title": "Cuéntenos sobre su proyecto.",
+    "lede": "Con unos pocos datos nos basta para responderle con la persona adecuada y una respuesta realista. Los campos marcados con un asterisco son obligatorios.",
+    "firstName": "Nombre",
+    "lastName": "Apellidos",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "company": "Empresa u organización",
+    "country": "País",
+    "countryPlaceholder": "Seleccione un país",
+    "enquiryLabel": "¿Sobre qué es su consulta?",
+    "enquiryPlaceholder": "Elija una opción",
+    "message": "Mensaje",
+    "messagePlaceholder": "Formato, número de páginas, papel, encuadernación, cantidad, país de entrega, lo que tenga.",
+    "consent": "Acepto que Quarterfold utilice estos datos para responder a mi consulta y preparar un presupuesto, conforme a la <1>Política de privacidad</1>.",
+    "submit": "Enviar consulta",
+    "dpa": "Solo utilizamos lo que envía aquí para responder a su consulta y preparar su presupuesto. Nunca vendemos sus datos. Consulte nuestra <1>Política de privacidad</1> para saber cómo tratamos su información."
+  },
+  "enquiryTypes": {
+    "quote": "Solicitar presupuesto",
+    "programme": "Programa educativo o licitación",
+    "trade": "Libros comerciales",
+    "pod": "Impresión bajo demanda",
+    "other": "Otro"
+  },
+  "errors": {
+    "first": "Introduzca su nombre.",
+    "last": "Introduzca sus apellidos.",
+    "emailRequired": "Introduzca su correo electrónico.",
+    "emailInvalid": "Introduzca un correo electrónico válido.",
+    "country": "Seleccione su país.",
+    "enquiry": "Elija sobre qué es su consulta.",
+    "message": "Cuéntenos un poco sobre lo que necesita.",
+    "consent": "Acepte la política de privacidad para que podamos responder.",
+    "summaryOne": "Hay 1 problema con el formulario. Revise los campos resaltados.",
+    "summaryMany": "Hay {{count}} problemas con el formulario. Revise los campos resaltados."
+  },
+  "success": {
+    "title": "Gracias, su consulta está lista para enviar.",
+    "sub": "Su aplicación de correo debería haberse abierto con todo cumplimentado. Si no fue así, use el botón de abajo y le responderemos en un día laborable.",
+    "button": "Abrir su aplicación de correo"
+  },
+  "mailto": {
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "company": "Empresa u organización",
+    "country": "País",
+    "enquiryType": "Tipo de consulta",
+    "subject": "Consulta"
+  },
+  "faq": {
+    "regionLabel": "Preguntas frecuentes",
+    "eyebrow": "Preguntas, respondidas",
+    "title": "Preguntas frecuentes.",
+    "tablistLabel": "Públicos de las preguntas frecuentes",
+    "tabs": {
+      "publishers": "Para editoriales",
+      "institutions": "Para instituciones y programas",
+      "self": "Para autoeditores"
+    },
+    "items": {
+      "publishers-0": {
+        "q": "¿Imprimen para editoriales fuera de la India?",
+        "a": "Sí. Atendemos a más de 250 editoriales en todo el mundo y exportamos más de 800 contenedores al año a más de 25 países, trabajando con muchas de las principales editoriales de la India."
+      },
+      "publishers-1": {
+        "q": "¿Qué certificaciones de impresión tienen?",
+        "a": "Contamos con la certificación FSC bajo la licencia TUVDC COC 101258, además de ISO y Sedex, de modo que sus títulos pueden llevar sellos reconocidos de abastecimiento responsable y suministro auditado."
+      },
+      "publishers-2": {
+        "q": "¿Pueden gestionar grandes tiradas offset?",
+        "a": "Sí. Nuestras tres instalaciones, con 300,000 pies cuadrados, imprimen más de 75 millones de libros al año en prensas web offset y de pliego, por lo que escalamos con holgura a tiradas largas."
+      },
+      "publishers-3": {
+        "q": "¿Gestionan la exportación y el envío?",
+        "a": "Nos encargamos de la exportación en contenedor, la documentación aduanera y la entrega, moviendo más de 800 contenedores al año a ministerios, distribuidores y editoriales de más de 25 países."
+      },
+      "institutions-0": {
+        "q": "¿Trabajan con gobiernos y ministerios en licitaciones?",
+        "a": "Sí. Realizamos programas nacionales de libros de texto para ministerios de educación y somos socios de impresión en programas financiados por el Banco Mundial y USAID."
+      },
+      "institutions-1": {
+        "q": "¿Para qué países han impreso programas nacionales?",
+        "a": "Hemos impreso programas de currículo en más de 10 países africanos, entre ellos Tanzania, Ghana, Nigeria, Côte d'Ivoire y RD Congo."
+      },
+      "institutions-2": {
+        "q": "¿Los libros de los programas se producen de forma responsable?",
+        "a": "Sí. Contamos con la certificación FSC bajo la licencia TUVDC COC 101258, por lo que los libros de los programas pueden imprimirse en papel de origen responsable para las licitaciones que así lo exijan."
+      },
+      "institutions-3": {
+        "q": "¿Con qué rapidez pueden escalar para un despliegue nacional?",
+        "a": "Con tres instalaciones, 300,000 pies cuadrados y capacidad para más de 75 millones de libros al año, escalamos desde una sola edición de currículo hasta un despliegue nacional completo."
+      },
+      "self-0": {
+        "q": "¿Imprimen ejemplares únicos o tiradas cortas?",
+        "a": "Sí. Nuestro servicio de impresión bajo demanda está pensado para autoeditores y autores independientes, desde un solo libro hasta tiradas cortas."
+      },
+      "self-1": {
+        "q": "¿Puedo ver una muestra antes de una tirada completa?",
+        "a": "Sí. Podemos producir muestras para que compruebe el formato, el papel y la encuadernación antes de comprometerse con una tirada completa."
+      },
+      "self-2": {
+        "q": "¿Qué formatos pueden producir?",
+        "a": "Desde libros en rústica y tapa dura hasta cuadernos premium, agendas y libros de gran formato, con encuadernaciones en tapa dura, blanda y en piel."
+      },
+      "self-3": {
+        "q": "¿Cómo obtengo un presupuesto para un solo título?",
+        "a": "Envíe su especificación, formato, número de páginas, papel, encuadernación y cantidad, usando el formulario de consulta anterior, y le responderemos en un día laborable."
+      }
+    }
+  },
+  "closer": {
+    "line": "¿Prefiere el correo electrónico?"
+  }
+}

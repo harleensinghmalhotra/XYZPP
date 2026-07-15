@@ -1,0 +1,56 @@
+{
+  "eyebrow": "Infraestructura",
+  "titleA": "Preparados para escalar.",
+  "titleB": "Diseñados para generar confianza.",
+  "facilities": {
+    "01": {
+      "title": "3 instalaciones de impresión",
+      "body": "Una sede central en Sanpada y tres fábricas en Taloja, B8, L28 y L123, en Navi Mumbai, con un total de 300,000 pies cuadrados, construidas para la eficiencia, la seguridad y la escala.",
+      "caption": "Taloja MIDC, Navi Mumbai",
+      "ph": "FOTO · INSTALACIONES DE IMPRESIÓN, NAVI MUMBAI"
+    },
+    "02": {
+      "title": "22 torres web, 6 de pliego",
+      "body": "22 torres web y 6 máquinas de pliego totalmente nuevas, con el apoyo de 17 plegadoras, 10 líneas de encuadernación y cosido y 2 prensas digitales, para lograr precisión a cualquier escala.",
+      "caption": "30,000 t enviadas al año",
+      "ph": "FOTO · SALA DE PRENSAS, TORRES DE IMPRESIÓN"
+    },
+    "03": {
+      "title": "2 centros de almacenamiento y logística",
+      "body": "Intercalado, preparación de kits y retractilado automatizados, hasta 10,000 kits procesados cada día.",
+      "caption": "Navi Mumbai · Listo para exportar",
+      "ph": "FOTO · ALMACÉN Y LOGÍSTICA"
+    }
+  },
+  "processes": {
+    "binding": {
+      "title": "Encuadernación y acabado",
+      "body": "Intercalado, retractilado, encuadernación rústica, cosido central, encuadernación flexible y cosido por secciones, en 6 máquinas."
+    },
+    "lamination": {
+      "title": "Laminado y embellecimiento",
+      "body": "Laminado localizado, distintos tipos de laminado, gofrado y estampación en oro."
+    }
+  },
+  "video": {
+    "note": "VIDEO · DENTRO DE NUESTRAS INSTALACIONES",
+    "playAria": "Reproducir el video del recorrido por las instalaciones",
+    "previewAria": "Vista previa del recorrido por las instalaciones, video próximamente",
+    "dialogAria": "Video del recorrido por las instalaciones",
+    "closeAria": "Cerrar video",
+    "comingSoon": "Imágenes del recorrido próximamente",
+    "captionsLabel": "Subtítulos"
+  },
+  "people": {
+    "count": "600+",
+    "title": "Manos detrás de cada envío",
+    "body": "Operarios de prensa, inspectores de calidad, equipos de preparación de kits y especialistas en logística, trabajando por turnos, formados según el mismo estándar en cada instalación.",
+    "photoNote": "FOTO · {{team}}",
+    "captions": {
+      "01": "Equipo de planta de impresión",
+      "02": "Control de calidad",
+      "03": "Preparación y embalaje",
+      "04": "Equipo directivo"
+    }
+  }
+}

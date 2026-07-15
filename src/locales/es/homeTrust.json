@@ -1,0 +1,73 @@
+{
+  "sectionHeading": "Alcance global, socios institucionales y trayectoria de entregas",
+  "statsHeading": "En cifras",
+  "countriesHeading": "Países atendidos",
+  "institutionsHeading": "Instituciones y programas atendidos",
+  "countries": {
+    "india": "India",
+    "nigeria": "Nigeria",
+    "ghana": "Ghana",
+    "kenya": "Kenia",
+    "uganda": "Uganda",
+    "tanzania": "Tanzania",
+    "zambia": "Zambia",
+    "cotedivoire": "Côte d'Ivoire",
+    "cameroon": "Camerún",
+    "congo": "Congo (RDC)",
+    "senegal": "Senegal",
+    "benin": "Benín",
+    "ethiopia": "Etiopía",
+    "rwanda": "Ruanda",
+    "mozambique": "Mozambique",
+    "zimbabwe": "Zimbabue",
+    "madagascar": "Madagascar",
+    "mauritius": "Mauricio",
+    "southafrica": "Sudáfrica",
+    "gabon": "Gabón",
+    "mexico": "México",
+    "usa": "EE. UU.",
+    "puertorico": "Puerto Rico",
+    "germany": "Alemania",
+    "unitedkingdom": "Reino Unido",
+    "spain": "España",
+    "uae": "EAU"
+  },
+  "institutions": {
+    "0": "Proyectos financiados por el Banco Mundial",
+    "1": "Programas de USAID",
+    "2": "Programas de ayuda de la ONU",
+    "3": "Licitaciones de ministerios gubernamentales",
+    "4": "Tanzania Institute of Education",
+    "5": "Maharashtra State Bureau",
+    "6": "HDFC Bank Ltd",
+    "7": "ZEE Learn / Kidzee",
+    "8": "Reliance Industries",
+    "9": "Proyectos financiados por el Banco Mundial",
+    "10": "Programas de USAID",
+    "11": "Licitaciones de ministerios gubernamentales",
+    "12": "NCERT",
+    "13": "PNAPAS",
+    "14": "Sarva Shiksha Abhiyan",
+    "15": "Proyectos de RSC",
+    "16": "Ministerio de Mozambique"
+  },
+  "stats": {
+    "books": {
+      "label": "Libros impresos cada año",
+      "sr": "75 millones de libros impresos cada año"
+    },
+    "countries": {
+      "label": "Países en 4 continentes",
+      "sr": "Más de 25 países en 4 continentes"
+    },
+    "containers": {
+      "label": "Contenedores enviados",
+      "sr": "Más de 800 contenedores enviados"
+    },
+    "ontime": {
+      "accent": "Puntualidad",
+      "label": "de entrega, cada año",
+      "sr": "98% de puntualidad de entrega, cada año"
+    }
+  }
+}

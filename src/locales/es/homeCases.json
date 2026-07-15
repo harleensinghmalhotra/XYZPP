@@ -1,0 +1,35 @@
+{
+  "eyebrow": "Hechos, no promesas",
+  "title": "Casos de éxito",
+  "sub": "Algunos proyectos que muestran cómo trabajamos de verdad, no solo lo que decimos.",
+  "photo": "Foto",
+  "readMore": "Leer el caso completo →",
+  "viewAll": "Ver todos los casos de éxito",
+  "caseWord": "Caso",
+  "prev": "Caso anterior",
+  "next": "Caso siguiente",
+  "cases": {
+    "01": {
+      "heading": "ENTREGA EN TANZANIA",
+      "tags": { "country": "Tanzania", "books": "Más de 10M de libros" },
+      "title": "Un plazo de currículo nacional, cumplido antes de tiempo",
+      "desc": "El Tanzania Institute of Education necesitaba volumen con rapidez. Entregamos 4M de libros en 60 días frente a un plazo nacional inamovible.",
+      "descSafe": "Un programa de currículo nacional necesitaba volumen con rapidez. Entregamos 4M de libros en 60 días frente a un plazo nacional inamovible."
+    },
+    "02": {
+      "heading": "ENTREGA EN NIGERIA",
+      "tags": { "country": "Nigeria", "books": "Más de 8M de libros" },
+      "title": "Escalar para un mandato de educación universal",
+      "desc": "Libros para la Universal Basic Education Commission, producidos y enviados a una escala que la mayoría de las imprentas no puede sostener.",
+      "descSafe": "Libros para un mandato nacional de educación básica, producidos y enviados a una escala que la mayoría de las imprentas no puede sostener."
+    },
+    "03": {
+      "heading": "ENTREGA USAID GHANA",
+      "headingSafe": "ENTREGA EN GHANA",
+      "tags": { "country": "Ghana", "books": "Más de 2M de libros" },
+      "title": "Cumplir el calendario de un programa financiado",
+      "desc": "Libros entregados en el marco de un programa financiado por USAID, coordinados de principio a fin desde la impresión hasta la entrega de última milla.",
+      "descSafe": "Libros entregados en el marco de un programa educativo financiado por donantes, coordinados de principio a fin desde la impresión hasta la entrega de última milla."
+    }
+  }
+}

@@ -5,7 +5,7 @@ import { initReactI18next } from 'react-i18next'
 // any key a translation file hasn't filled yet. The chosen language persists in
 // localStorage and drives the document <html lang> attribute so the two stay in
 // sync across reloads and routes.
-export const SUPPORTED_LANGS = ['en', 'fr']
+export const SUPPORTED_LANGS = ['en', 'fr', 'es']
 const STORAGE_KEY = 'qfp.lang'
 
 // Auto-load every locale namespace file. Each file at locales/<lng>/<ns>.json

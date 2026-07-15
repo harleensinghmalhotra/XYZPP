@@ -1,0 +1,135 @@
+{
+  "seo": {
+    "title": "Infraestructura de impresión | Quarterfold Printabilities",
+    "description": "Tres instalaciones de impresión y dos almacenes en Navi Mumbai. 300,000 pies cuadrados diseñados para que sus libros se envíen a tiempo, siempre.",
+    "breadcrumbHome": "Inicio",
+    "breadcrumbCurrent": "Infraestructura"
+  },
+  "hero": {
+    "eyebrow": "Infraestructura",
+    "title": "Preparados para escalar. <strong>Diseñados para generar confianza.</strong>",
+    "sub": "Tres instalaciones de impresión y dos almacenes en Navi Mumbai. 300,000 pies cuadrados diseñados para una sola cosa: libros que se envían a tiempo.",
+    "ctaQuote": "Solicitar presupuesto",
+    "ctaProcess": "Ver nuestro proceso",
+    "statAriaLabel": "300,000 pies cuadrados diseñados en tres instalaciones de impresión y dos almacenes",
+    "statUnit": "PIES²",
+    "statFoot": "Diseñados en tres instalaciones de impresión en Navi Mumbai"
+  },
+  "strip": {
+    "eyebrow": "Certificado, auditado y renovado",
+    "certAlt": "Certificación {{name}}",
+    "licence": "Licencia {{code}}",
+    "certs": {
+      "fsc": { "name": "Cadena de Custodia FSC", "sub": "Abastecimiento responsable de papel" },
+      "iso9001": { "name": "ISO 9001:2015", "sub": "Gestión de la calidad" },
+      "iso14001": { "name": "ISO 14001:2015", "sub": "Gestión ambiental" },
+      "sedex": { "name": "Miembro de Sedex", "sub": "Auditoría de comercio ético" },
+      "starExport": { "name": "Star Export House", "sub": "Gobierno de la India" }
+    }
+  },
+  "acc": {
+    "eyebrow": "Lo que mueve la planta",
+    "title": "Tres capacidades, una sola línea.",
+    "quoteText": "de puntualidad en la entrega, año tras año.",
+    "capabilities": {
+      "print": {
+        "label": "Capacidad de impresión",
+        "body": "Veintidós torres web junto a seis prensas de pliego y tres líneas Lineomatic, diseñadas para tiradas de libros de texto de gran volumen.",
+        "photoNote": "FOTO · SALA DE PRENSAS, TORRES DE IMPRESIÓN"
+      },
+      "bind": {
+        "label": "Encuadernación y acabado",
+        "body": "Diecisiete plegadoras, diez líneas de encuadernación y cosido y seis máquinas automáticas de cosido con hilo dan el acabado a cada libro según especificación.",
+        "photoNote": "FOTO · TALLER DE ENCUADERNACIÓN Y ACABADO"
+      },
+      "ware": {
+        "label": "Almacenamiento y expedición",
+        "body": "Dos centros de logística realizan intercalado, preparación de kits y retractilado automatizados, hasta 10,000 kits procesados cada día.",
+        "photoNote": "FOTO · ALMACÉN Y EXPEDICIÓN"
+      }
+    }
+  },
+  "machines": {
+    "eyebrow": "En la planta de impresión",
+    "title": "Las máquinas detrás del volumen.",
+    "items": {
+      "tower": {
+        "name": "22 torres offset web",
+        "spec": "Veintidós torres offset web producen formas largas de libros de texto a plena velocidad, con el registro mantenido con precisión en cada pliego."
+      },
+      "press": {
+        "name": "Flota de pliego, 6 prensas",
+        "spec": "Seis prensas de pliego se encargan de las cubiertas, las tiradas cortas y los trabajos críticos de color donde el acabado y la fidelidad importan más."
+      },
+      "book": {
+        "name": "3 líneas Lineomatic de cuadernos",
+        "spec": "Tres líneas Lineomatic rayan, pliegan y cosen cuadernos de principio a fin y a gran volumen."
+      },
+      "carton": {
+        "name": "Cajas de cartón corrugado y microcanal de producción propia",
+        "spec": "Las cajas se fabrican internamente, así cada envío sale en un embalaje pensado para su carga."
+      }
+    }
+  },
+  "results": {
+    "eyebrow": "Capacidad real",
+    "title": "Medida, no estimada.",
+    "sub": "No es una proyección. La planta que imprime y envía, contabilizada en tres instalaciones de impresión y dos almacenes.",
+    "stats": {
+      "sqft": { "label": "Pies² diseñados", "foot": "En tres instalaciones de impresión y dos almacenes" },
+      "sites": { "label": "Instalaciones de impresión", "foot": "Más dos almacenes en Navi Mumbai" },
+      "books": { "label": "Libros al año", "foot": "Enviados a más de 25 países" },
+      "people": { "label": "Personas en la planta", "foot": "Formadas según un mismo estándar" }
+    },
+    "videoPlayLabel": "Reproducir el video del recorrido por las instalaciones",
+    "videoPendingLabel": "Vista previa del recorrido por las instalaciones, video próximamente",
+    "videoNote": "VIDEO · DENTRO DE NUESTRAS INSTALACIONES"
+  },
+  "recognition": {
+    "eyebrow": "Reconocimiento",
+    "title": "Premiados por el trabajo, año tras año.",
+    "awards": {
+      "capexil": {
+        "name": "Mayor exportador de libros",
+        "body": "CAPEXIL, Gobierno de la India, otorgado en años consecutivos.",
+        "kicker": "CAPEXIL · GOB. DE LA INDIA"
+      },
+      "printweek": {
+        "name": "Distinciones PrintWeek",
+        "body": "Reconocidos por PrintWeek por la calidad y la escala de producción.",
+        "kicker": "PRINTWEEK INDIA"
+      },
+      "dnb": {
+        "name": "Dun & Bradstreet",
+        "body": "Incluidos entre las principales empresas de impresión y edición de la India.",
+        "kicker": "RECONOCIMIENTO D&B",
+        "clipMasthead": "Dun & Bradstreet",
+        "clipDate": "REGISTRO GLOBAL",
+        "clipHeadline": "Líderes en impresión y edición de la India"
+      }
+    }
+  },
+  "gallery": {
+    "eyebrow": "Dentro de las instalaciones",
+    "title": "Un vistazo por la planta.",
+    "photoNote": "FOTO · {{caption}}",
+    "items": {
+      "pressHall": "SALA DE PRENSAS",
+      "bindery": "ENCUADERNACIÓN",
+      "warehouse": "ALMACÉN",
+      "dispatch": "EXPEDICIÓN"
+    }
+  },
+  "cta": {
+    "title": "Véalo en persona o en una llamada.",
+    "sub": "Recorra la planta, conozca al equipo y obtenga un presupuesto ajustado a su tirada.",
+    "button": "Solicitar presupuesto"
+  },
+  "dialog": {
+    "ariaLabel": "Video del recorrido por las instalaciones",
+    "closeLabel": "Cerrar video",
+    "captionsLabel": "Inglés",
+    "videoNote": "VIDEO · DENTRO DE NUESTRAS INSTALACIONES",
+    "comingSoon": "Imágenes del recorrido próximamente"
+  }
+}

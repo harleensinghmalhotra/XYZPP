@@ -1,0 +1,121 @@
+{
+  "seo": {
+    "title": "Impresión de libros comerciales | Quarterfold Printabilities",
+    "description": "Impresión premium de libros comerciales por Quarterfold: libros de gran formato, cuadernos, agendas de piel, calendarios, autobiografías y novelas. Solicite un presupuesto.",
+    "breadcrumb": {
+      "home": "Inicio",
+      "whatWePrint": "Qué imprimimos",
+      "tradeBooks": "Libros comerciales"
+    }
+  },
+  "experience": {
+    "regionLabel": "Experiencia de producto de Libros comerciales"
+  },
+  "hero": {
+    "eyebrow": "Libros comerciales",
+    "badge": "Calidad de exportación",
+    "title": "Libros comerciales",
+    "ledeLight": "Algunos libros informan. ",
+    "ledeBold": "Estos están hechos para conservarse.",
+    "heroSub": "Libros de gran formato, cuadernos, agendas de piel, calendarios, autobiografías y novelas, libros comerciales y de regalo de calidad de exportación, hechos para conservarse.",
+    "statNum": "6",
+    "statUnit": "Formatos premium",
+    "statFoot": "Desde volúmenes de gran formato hasta agendas de piel, con un acabado a la altura de una reliquia.",
+    "statAria": "Seis formatos premium de libros comerciales"
+  },
+  "gallery": {
+    "imageAlt": "{{name}}, libro comercial de Quarterfold, vista {{index}}",
+    "viewsLabel": "Vistas de {{name}}",
+    "viewLabel": "Vista {{index}}"
+  },
+  "switcher": {
+    "groupLabel": "Elija una categoría de libro comercial"
+  },
+  "cta": {
+    "requestQuote": "Solicitar presupuesto",
+    "compareRange": "Comparar la gama"
+  },
+  "accordion": {
+    "craft": "El oficio",
+    "materials": "Los materiales",
+    "options": "Las opciones",
+    "delivery": "Entrega"
+  },
+  "delivery": "Listos para exportar desde nuestras instalaciones de Taloja y Vashi: impresos, embalados, paletizados y enviados a socios educativos y comerciales de más de 25 países.",
+  "life": {
+    "regionLabel": "Libros comerciales, conservados",
+    "light": "Algunos libros informan. ",
+    "bold": "Estos se conservan."
+  },
+  "range": {
+    "regionLabel": "Explore la gama",
+    "eyebrow": "Explore la gama",
+    "sub": "Cambie entre categorías, o pase a un servicio hermano.",
+    "siblingEyebrow": "Servicio hermano",
+    "visit": "Visitar",
+    "educational": "Libros educativos",
+    "pod": "Impresión bajo demanda"
+  },
+  "close": {
+    "regionLabel": "Inicie un proyecto de libro comercial",
+    "eyebrow": "Hecho a medida",
+    "title": "Creemos su edición.",
+    "requestQuote": "Solicitar presupuesto"
+  },
+  "features": {
+    "case": "Encuadernación en tapa dura",
+    "foil": "Estampación con foil",
+    "uv": "Barniz UV selectivo",
+    "perfect": "Encuadernación rústica",
+    "emboss": "Gofrado",
+    "formats": "Formatos personalizados",
+    "saddle": "Encuadernación grapada",
+    "fourc": "Cuatricromía",
+    "offset": "Impresión offset",
+    "litho": "Litografía"
+  },
+  "categories": {
+    "coffee-table": {
+      "name": "Libros de gran formato",
+      "story": "Hechos para dejar a la vista, no para guardar en la estantería.",
+      "craft": "Encuadernados en tapa dura y acabados a mano, con estampación de foil y gofrado sobre cubiertas de tela y cartón: la encuadernación experta que permite que un libro de gran formato se abra plano y por igual.",
+      "materials": "Papeles estucados y no estucados premium, impresos en cuatricromía en prensas offset, y luego realzados con foils metálicos y barniz UV selectivo.",
+      "options": "Formatos vertical u horizontal, medidas de corte personalizadas, laminado mate o brillante y acabados especiales a medida."
+    },
+    "notebooks": {
+      "name": "Cuadernos premium",
+      "story": "Una página en blanco que vale la pena conservar.",
+      "craft": "En encuadernación rústica o en tapa dura, con cubiertas grabadas en bajorrelieve y relieve y detalles estampados con foil: libros de contabilidad, blocs y papelería de marca hechos para el uso diario.",
+      "materials": "Papeles premium con interiores rayados, punteados o lisos; cubiertas de polipiel, tela y cartón acabadas con foil.",
+      "options": "Del A6 al A4 y tamaños a medida, esquinas redondeadas, cierres elásticos y marcadores de cinta, impresos o estampados en seco."
+    },
+    "diaries": {
+      "name": "Agendas de piel",
+      "story": "Un año, encuadernado en piel.",
+      "craft": "Estructuras de lujo con tapa de piel, en tapa dura y tapa blanda, estampadas con foil y gofradas a mano: las técnicas de encuadernación expertas que hacen que una agenda dure un año y más.",
+      "materials": "Tapas de piel auténtica y regenerada sobre papeles premium, con cantos en foil dorado y mate.",
+      "options": "Con fecha o sin fecha, de semana vista o día por página, con bandas elásticas, presillas para bolígrafo y foil personalizado."
+    },
+    "calendars": {
+      "name": "Calendarios",
+      "story": "Doce meses, impresos para durar.",
+      "craft": "Calendarios de pared grapados y con encuadernación de anillas, impresos en cuatricromía con acentos de foil y barniz UV selectivo en el mes de portada.",
+      "materials": "Papeles estucados de alto gramaje para los meses con imagen, respaldo de cartón y encuadernación de metal o wire-o.",
+      "options": "Formatos de pared, de sobremesa y horizontal, cuadrículas personalizadas y medidas de corte a medida."
+    },
+    "autobiographies": {
+      "name": "Autobiografías",
+      "story": "Una vida, compuesta en letra impresa.",
+      "craft": "Encuadernadas en tapa dura con sobrecubiertas impresas o estampadas con foil, impresión offset y acabado a mano: ediciones de prestigio y de coleccionista hechas para conservarse.",
+      "materials": "Papeles ahuesados color crema y blanco, cubiertas impresas de tela o cartón, cabezadas y lomos estampados en foil.",
+      "options": "Formatos royal, demy y a medida, sobrecubiertas, marcadores de cinta y estuches a medida."
+    },
+    "novels": {
+      "name": "Novelas",
+      "story": "En rústica perfecta, de principio a fin.",
+      "craft": "Encuadernación rústica en prensas offset y litográficas: libros comerciales en rústica y tapa dura, impresos limpios y encuadernados para abrirse planos.",
+      "materials": "Papeles ahuesados y de alto volumen, cubiertas laminadas en mate o brillante, con opciones de foil y barniz UV selectivo.",
+      "options": "Del formato A a royal, solapas francesas, cortes personalizados y tiradas cortas o largas."
+    }
+  }
+}

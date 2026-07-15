@@ -1,0 +1,22 @@
+{
+  "eyebrow": {
+    "Legal": "Legal"
+  },
+  "shellTitle": {
+    "Privacy Policy": "Política de privacidad",
+    "Cookie Policy": "Política de cookies",
+    "Terms of Use": "Condiciones de uso",
+    "Accessibility Statement": "Declaración de accesibilidad",
+    "Page Not Found": "Página no encontrada"
+  },
+  "requestQuote": "Solicitar presupuesto",
+  "learnMore": "Más información",
+  "explore": "Explorar",
+  "readMore": "Leer más",
+  "notFound": {
+    "eyebrow": "ERROR 404 · AGOTADO",
+    "title": "Esta página está descatalogada.",
+    "body": "La página que busca no está en nuestro catálogo, puede que se haya movido o que nunca llegara a imprimirse.",
+    "back": "Volver al catálogo →"
+  }
+}

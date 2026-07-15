@@ -1,0 +1,73 @@
+{
+  "seo": {
+    "title": "Impresión de libros educativos | Quarterfold Printabilities",
+    "description": "Imprimimos 25 millones de libros educativos al año para ministerios y programas del Banco Mundial y USAID en más de 25 países: alineados con el currículo y listos para exportar.",
+    "breadcrumbHome": "Inicio",
+    "breadcrumbCurrent": "Libros educativos"
+  },
+  "hero": {
+    "eyebrow": "Libros educativos",
+    "title": "25 millones de libros al año. <1>En manos de los niños.</1>",
+    "sub": "Un solo socio para los programas nacionales de libros de texto, desde la licitación ministerial hasta el pupitre del aula.",
+    "ctaPrimary": "Imprima su programa",
+    "ctaSecondary": "Nuestro impacto",
+    "statAria": "25 millones de libros educativos impresos cada año",
+    "statUnit": "Libros cada año",
+    "statFoot": "Socio de programas del Banco Mundial y USAID · más de 250 editoriales atendidas · más de 800 contenedores exportados al año."
+  },
+  "process": {
+    "eyebrow": "Cómo se desarrolla un programa",
+    "title": "De la licitación ministerial al pupitre del aula.",
+    "steps": {
+      "tender": {
+        "name": "Licitación y especificación",
+        "desc": "Ganamos licitaciones gubernamentales y ministeriales, y luego fijamos las especificaciones exactas: formato, papel, encuadernación y la edición del currículo."
+      },
+      "print": {
+        "name": "Impresión alineada con el currículo",
+        "desc": "Tiradas offset calibradas para el color a volumen nacional, ajustadas con precisión al plan de estudios de cada país."
+      },
+      "export": {
+        "name": "Exportación y logística",
+        "desc": "Exportación en contenedor, documentación aduanera y más de 800 contenedores al año con destino a más de 25 países."
+      },
+      "classroom": {
+        "name": "Hasta el aula",
+        "desc": "Entregados a ministerios y escuelas, en manos de los niños de toda África y más allá."
+      }
+    }
+  },
+  "impact": {
+    "eyebrow": "Programas en África",
+    "title": "Planes de estudio nacionales, impresos y entregados.",
+    "lede": "Libros de texto impresos en la India y enviados a ministerios de educación de todo el continente: decenas de millones de libros, un plan de estudios a la vez.",
+    "countries": {
+      "tanzania": "Tanzania",
+      "ghana": "Ghana",
+      "nigeria": "Nigeria",
+      "ivoryCoast": "Côte d'Ivoire",
+      "drCongo": "RD Congo",
+      "senegal": "Senegal",
+      "cameroon": "Camerún",
+      "benin": "Benín",
+      "uganda": "Uganda",
+      "ethiopia": "Etiopía"
+    },
+    "figures": {
+      "tanzania": "10M de libros",
+      "ghana": "10M · Banco Mundial / USAID",
+      "ghanaSafe": "10M de libros",
+      "nigeria": "8M · UBEC",
+      "nigeriaSafe": "8M de libros",
+      "ivoryCoast": "7M de libros",
+      "drCongo": "5M de libros",
+      "nationalProgramme": "Programa nacional"
+    },
+    "awards": "<1>Cuatro premios de exportación CAPEXIL consecutivos</1>: Empresa exportadora educativa del año, 2024."
+  },
+  "cta": {
+    "title": "Imprima su programa con nosotros.",
+    "sub": "Diez millones de libros de texto para un despliegue nacional, o una primera edición de currículo. Díganos la especificación y le responderemos en un día laborable.",
+    "btn": "Inicie su programa"
+  }
+}

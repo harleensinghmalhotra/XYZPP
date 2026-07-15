@@ -1,0 +1,113 @@
+{
+  "seo": {
+    "title": "Impresión bajo demanda | Quarterfold Printabilities",
+    "description": "Cree su libro en línea: elija formato, tamaño, papel, encuadernación y acabado. Desde un solo ejemplar hasta una tirada corta, impreso con nuestro estándar de escala millonaria.",
+    "breadcrumbHome": "Inicio",
+    "breadcrumbCurrent": "Impresión bajo demanda"
+  },
+  "hero": {
+    "eyebrow": "Impresión bajo demanda",
+    "title": "Su libro. <em>Exactamente</em> como lo imaginó.",
+    "sub": "Desde un solo ejemplar hasta una tirada corta, impreso con el mismo estándar que nuestros millones. Elija cómo se ve y se siente su libro, y convertiremos sus archivos en ejemplares terminados que estará orgulloso de sostener.",
+    "cta": "Empezar a crear",
+    "statNum": "1",
+    "statUnit": "Ejemplar mínimo",
+    "statFoot": "Desde un solo ejemplar hasta una tirada corta, impreso con el mismo estándar que nuestros millones.",
+    "statAria": "Mínimo un ejemplar"
+  },
+  "build": {
+    "eyebrow": "El configurador",
+    "title": "Cree su libro",
+    "lede": "Tome cada decisión a continuación. La vista previa y su ficha de especificaciones se actualizan a medida que avanza. Sin precios, sin compromiso, solo el libro que tiene en mente.",
+    "previewTag": "Vista previa en vivo",
+    "previewCaptionSep": " · "
+  },
+  "steps": {
+    "format": { "num": "Paso 01", "title": "Formato", "help": "Cómo se encuaderna y se sostiene el libro." },
+    "size": { "num": "Paso 02", "title": "Tamaño", "help": "Cortes estándar, sin complicaciones de preparación." },
+    "paper": { "num": "Paso 03", "title": "Papel", "help": "Cómo se sienten las páginas en la mano." },
+    "binding": { "num": "Paso 04", "title": "Encuadernación", "help": "Lo que mantiene unidas las páginas." },
+    "finish": { "num": "Paso 05", "title": "Acabado", "help": "La superficie de su cubierta." },
+    "quantity": { "num": "Paso 06", "title": "Cantidad", "help": "Un ejemplar o una tirada corta." }
+  },
+  "options": {
+    "format": {
+      "paperback": { "label": "Rústica", "desc": "La clásica tapa blanda.", "sub": "Tapa blanda" },
+      "hardcover": { "label": "Tapa dura", "desc": "Rígida, hecha para durar.", "sub": "Encuadernación cartoné" },
+      "landscape": { "label": "Horizontal", "desc": "Ancho, espacio para imágenes.", "sub": "Formato ancho" }
+    },
+    "size": {
+      "5x8": { "label": "5 × 8 in", "sub": "Novela de bolsillo" },
+      "6x9": { "label": "6 × 9 in", "sub": "Estándar comercial" },
+      "8x10": { "label": "8 × 10 in", "sub": "Ilustrado" },
+      "a4": { "label": "A4", "sub": "210 × 297 mm" }
+    },
+    "paper": {
+      "cream": { "label": "Crema 80 g/m²", "desc": "Cálido, cómodo para la vista.", "sub": "No estucado, cálido" },
+      "white": { "label": "Blanco 100 g/m²", "desc": "Brillante y nítido para el texto.", "sub": "No estucado, brillante" },
+      "art": { "label": "Estucado 150 g/m²", "desc": "Estucado para que el color luzca.", "sub": "Estucado, liso" }
+    },
+    "binding": {
+      "perfect": { "label": "Rústica fresada", "desc": "Lomo cuadrado encolado.", "sub": "Lomo encolado" },
+      "sewn": { "label": "Cosido por secciones", "desc": "Cosido para abrirse plano.", "sub": "Cosido, abre plano" },
+      "wiro": { "label": "Wiro", "desc": "Doble anilla, se abre plano.", "sub": "Espiral doble" }
+    },
+    "finish": {
+      "matte": { "label": "Laminado mate", "desc": "Suave y sin reflejos.", "sub": "Película soft-touch" },
+      "gloss": { "label": "Laminado brillante", "desc": "Alto brillo, los colores resaltan.", "sub": "Película de alto brillo" },
+      "layflat": { "label": "Laminado lay-flat", "desc": "Acabado satinado y duradero.", "sub": "Película satinada" }
+    },
+    "quantity": {
+      "1": { "label": "1 copia", "sub": "Un solo libro" },
+      "10": { "label": "10 copias", "sub": "Pruebas de autor" },
+      "50": { "label": "50 copias", "sub": "Lote de lanzamiento" },
+      "250": { "label": "250 copias", "sub": "Tirada corta" },
+      "500": { "label": "500+ copias", "sub": "Tirada completa" }
+    }
+  },
+  "included": {
+    "head": "Incluido en cada pedido",
+    "proof": { "name": "Prueba digital gratuita", "desc": "Vea una prueba con color fiel y dé su aprobación antes de que imprimamos una sola página." },
+    "check": { "name": "Control de calidad manual", "desc": "Cada ejemplar es inspeccionado en color, corte y encuadernación por una persona real." },
+    "packing": { "name": "Embalaje seguro", "desc": "Los libros se envuelven para llegar impecables: sin esquinas golpeadas ni rozaduras." },
+    "delivery": { "name": "Entrega a domicilio", "desc": "Envío con seguimiento hasta su puerta, ya sea un libro o quinientos." }
+  },
+  "summary": {
+    "eyebrow": "Su especificación",
+    "title": "Este libro",
+    "ariaLabel": "La especificación de su libro",
+    "keys": {
+      "format": "Formato",
+      "size": "Tamaño",
+      "paper": "Papel",
+      "binding": "Encuadernación",
+      "finish": "Acabado",
+      "quantity": "Cantidad"
+    },
+    "request": "Solicitar este libro",
+    "note": "Sin precios, sin obligación. Le enviaremos un presupuesto a medida y una prueba gratuita. ¿Prefiere hablarlo? <1>Hable con nosotros.</1>"
+  },
+  "qtyBadgeSr": "Cantidad",
+  "how": {
+    "eyebrow": "Cómo funciona",
+    "title": "Tres pasos hasta los ejemplares terminados",
+    "upload": { "step": "Paso 01", "name": "Suba sus archivos", "desc": "Envíe sus archivos listos para imprimir, o su manuscrito y su cubierta. Los revisamos por usted." },
+    "approve": { "step": "Paso 02", "name": "Apruebe la prueba", "desc": "Le enviamos una prueba con color fiel. Nada se imprime hasta que usted quede satisfecho." },
+    "ship": { "step": "Paso 03", "name": "Imprimimos y enviamos", "desc": "Su libro se produce en las mismas prensas que nuestros millones, y luego se envía a su puerta." }
+  },
+  "band": {
+    "eyebrow": "Las mismas prensas",
+    "quote": "Un libro pasa por las mismas prensas que <em>un millón.</em>",
+    "sub": "Aquí no hay atajos para los «pedidos pequeños». Ya imprima una sola prueba o una tirada completa, su libro pasa por las mismas prensas con gestión de color y por las mismas manos que producen nuestros millones de libros al año.",
+    "stat1Label": "Copia, nuestra tirada más pequeña",
+    "stat2Label": "Libros al año en las mismas prensas",
+    "stat3Num": "Días",
+    "stat3Label": "No semanas: tiempo de entrega de muestras"
+  },
+  "cta": {
+    "eyebrow": "Con calma",
+    "title": "¿Aún no está seguro? Pida primero una muestra.",
+    "sub": "Toque el papel, compruebe el color, sienta la encuadernación y luego decida. Díganos qué está creando y le ayudaremos a tener un único ejemplar de muestra en sus manos.",
+    "btn": "Pedir una muestra"
+  }
+}

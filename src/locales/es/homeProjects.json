@@ -1,0 +1,97 @@
+{
+  "eyebrow": "Trayectoria",
+  "titleA": "Donde hemos",
+  "titleB": "Entregado.",
+  "sub": "Gobiernos, editoriales y organizaciones de desarrollo de más de 25 países confían en nosotros para hacer el trabajo, según las especificaciones y en plazo, siempre. No es casualidad, es el estándar que nos exigimos.",
+  "destinationsEyebrow": "Destinos",
+  "regions": {
+    "africa": {
+      "tag": "África",
+      "name": "África",
+      "descriptor": "Mercado de exportación establecido",
+      "alt": "Dos niños africanos leyendo juntos un cuento ilustrado",
+      "stat": "10+",
+      "statLabel": "Países atendidos",
+      "body": "Nuestro mayor mercado de exportación. Colaboramos con ministerios de educación de <strong>Nigeria, Kenia, Uganda, Ghana, Camerún, Ruanda, Tanzania, Zambia, Côte d'Ivoire, RD Congo y más</strong> para desarrollar proyectos educativos financiados por el Banco Mundial, USAID y la ONU."
+    },
+    "asia": {
+      "tag": "Asia",
+      "name": "Asia",
+      "descriptor": "Entrega integral",
+      "alt": "Colegiala asiática de uniforme leyendo un libro en un aula",
+      "stat": "2+",
+      "statLabel": "Países atendidos",
+      "body": "Soluciones integrales: imprimimos, preparamos, embalamos y entregamos directamente a las escuelas, eliminando los desafíos operativos para editoriales e instituciones de <strong>India, EAU</strong>, y en expansión."
+    },
+    "europe": {
+      "tag": "América y Europa",
+      "name": "EE. UU., Europa y América Latina",
+      "descriptor": "Mercados en expansión",
+      "alt": "Niño sonriente sosteniendo un libro en una biblioteca",
+      "stat": "5",
+      "statLabel": "Países atendidos",
+      "body": "Libros de actividades, libros comerciales, libros para colorear y papelería suministrados a editoriales líderes y grandes cadenas minoristas de <strong>EE. UU., Reino Unido, México, España y Alemania</strong>."
+    }
+  },
+  "ledger": {
+    "recordsEyebrow": "Registros de envíos",
+    "heroLabel": "Proyecto emblemático",
+    "heroCountry": "Tanzania",
+    "heroStory": "Libros para el <strong>Tanzania Institute of Education</strong>: 4M entregados en 60 días.",
+    "heroStoryFallback": "Libros para un <strong>programa educativo nacional</strong>: 4M entregados en 60 días.",
+    "units": {
+      "books": "Libros",
+      "kits": "Kits educativos"
+    },
+    "rows": {
+      "nigeria": {
+        "name": "Nigeria",
+        "desc": "Universal Basic Education Commission"
+      },
+      "cotedivoire": {
+        "name": "Côte d'Ivoire",
+        "desc": "Ministerio de Educación Nacional y Alfabetización"
+      },
+      "drcongo": {
+        "name": "RD Congo",
+        "desc": "República Democrática del Congo"
+      },
+      "ghana": {
+        "name": "Ghana",
+        "desc": "10 millones de libros entregados cada temporada educativa, para diversas editoriales."
+      },
+      "maharashtra": {
+        "name": "Maharashtra",
+        "desc": "Oficina Estatal de Producción de Libros de Texto"
+      },
+      "hdfc": {
+        "name": "HDFC Bank",
+        "desc": "El principal banco privado de la India"
+      },
+      "zee": {
+        "name": "ZEE Learn",
+        "desc": "Kits educativos para Kidzee"
+      },
+      "ncert": {
+        "name": "NCERT",
+        "desc": "National Council of Educational Research and Training"
+      },
+      "ssa": {
+        "name": "Sarva Shiksha Abhiyan",
+        "desc": "El programa de educación para todos de la India"
+      },
+      "pnapas": {
+        "name": "PNAPAS",
+        "desc": "Programa nacional de libros y material escolar"
+      },
+      "csr": {
+        "name": "Proyectos de RSC",
+        "desc": "Iniciativas educativas de responsabilidad social corporativa"
+      },
+      "mozambique": {
+        "name": "Mozambique",
+        "desc": "Ministerio de Educación, Mozambique"
+      }
+    }
+  }
+}
