@@ -1,14 +1,19 @@
-import { forwardRef, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { typingSound } from '@/lib/typingSound'
 
-// ── HERO TYPING-BOOK OVERLAY ────────────────────────────────────────────────
+// ── HERO BOOK-PAGE OVERLAY (STATIC) ─────────────────────────────────────────
 // The book base image is the BLANK spread (qfp-book-cover.webp). This layer draws
-// EKTA'S REAL page copy as live HTML text that types itself onto the two page
-// surfaces, scrubbed directly to scroll. Typography matches her vibe-coded mockup
-// (recon/ekta-assets/powering-global-education-through-print-.png): clean BOLD
-// NAVY Inter Tight — her stack, no script face — left page a big display block,
-// right page a headline → two mid lines → a small paragraph.
+// EKTA'S page copy as HTML text laid onto the two page surfaces. Typography matches
+// her vibe-coded mockup (recon/ekta-assets/powering-global-education-through-print-
+// .png): clean BOLD NAVY Inter Tight — left page a big display headline, right page
+// a headline → two mid lines → a small paragraph.
+//
+// LANE 16 — the character-by-character typing reveal (scrub-driven, sound-cued) is
+// GONE per the client: the copy renders STATIC, present immediately. The reveal
+// engine, the per-glyph spans, the caret and the typingSound cue are removed; the
+// homography that maps flat text onto the paper's perspective is what remains (and
+// is why Hero still uses this component). The page text is decorative here
+// (aria-hidden) — Hero carries the real semantic <h1> with the same headline copy.
 //
 // WHY THIS ARCHITECTURE (note for whoever regenerates art later): the old lettered
 // asset (qfp-book-pages.webp) is kept in the repo untouched. Because the base is
@@ -25,10 +30,6 @@ const PLANE_H = 1120
 
 // Page-corner targets as fractions of the book-image box (2830×1770). Order:
 // tl, tr, br, bl. Tuned so the text plane sits ON the paper, inset from the edges.
-// R2: the TOP corners are raised to y≈0.205 (from ≈0.246) so the plane's top edge
-// hugs the page's top margin — the highest flat line that still clears the spine's
-// paper-top curl. Combined with a tiny plane padding-top, copy now begins JUST
-// under the top curve and flows down (Harry's "Start" marks), not mid-page.
 const LEFT_QUAD = { tl: [0.200, 0.205], tr: [0.470, 0.205], br: [0.468, 0.705], bl: [0.150, 0.700] }
 const RIGHT_QUAD = { tl: [0.505, 0.205], tr: [0.782, 0.205], br: [0.832, 0.700], bl: [0.507, 0.705] }
 
@@ -66,9 +67,7 @@ function matrix3dFor(w, h, quad, box) {
 const STYLE = `
 /* justify-content:flex-start — copy begins at the TOP of each page's safe area
    (just below the page curve / top margin, set by the plane's padding-top) and
-   flows downward like real typeset print, ending roughly mid-page. The typing
-   reveal follows DOM/reading order (top→bottom), so it now types from this new
-   top origin with no change to the scrub engine. */
+   flows downward like real typeset print, ending roughly mid-page. */
 .tb-plane{position:absolute;top:0;left:0;transform-origin:0 0;color:${INK};
   font-family:'Inter Tight','Inter',sans-serif;display:flex;flex-direction:column;
   justify-content:flex-start;box-sizing:border-box}
@@ -79,41 +78,26 @@ const STYLE = `
 .tb-rpara{font-size:38px;font-weight:400;line-height:1.24;letter-spacing:-0.01em}
 .tb-gap{height:46px}
 .tb-gap-sm{height:24px}
-.tb-char{position:relative;opacity:0;transition:opacity 45ms linear}
-.tb-char.is-on{opacity:1}
-.tb-char.is-caret::after{content:'';position:absolute;right:-0.04em;top:8%;bottom:8%;
-  width:0.05em;background:currentColor;border-radius:1px;opacity:.9;
-  animation:tbCaret 1s steps(1) infinite}
-@keyframes tbCaret{0%,50%{opacity:.9}51%,100%{opacity:0}}
-@media (prefers-reduced-motion: reduce){.tb-char.is-caret::after{display:none}}
 `
 
-const TypingBookOverlay = forwardRef(function TypingBookOverlay({ reduced = false }, ref) {
-  const { t, i18n } = useTranslation('home')
+// STATIC page-copy renderer. No props, no imperative handle — Hero mounts it once
+// and it draws the finished pages. Decorative (aria-hidden); the accessible
+// headline lives in Hero's real <h1>.
+export default function TypingBookOverlay() {
+  const { t } = useTranslation('home')
   const rootRef = useRef(null)
   const [box, setBox] = useState(null) // rendered book-image box size in px
-  const seqRef = useRef([]) // char nodes in reveal order (left page, then right)
-  const shownRef = useRef(0)
-  const caretRef = useRef(null)
 
   const left = t('hero.book.left', { returnObjects: true })
   const rightHead = t('hero.book.rightHead', { returnObjects: true })
   const rightMid = t('hero.book.rightMid', { returnObjects: true })
   const rightPara = t('hero.book.rightPara', { returnObjects: true })
 
-  // Reading order == reveal order: left page (top→bottom) then right page
-  // (headline → mid → paragraph). A running counter stamps each glyph with data-k
-  // so the driver can order them regardless of DOM quirks. Spaces are real slots.
+  // Left page (display block) then right page (headline → mid → paragraph). Plain
+  // text lines — no per-glyph spans now that the typing reveal is gone.
   const content = useMemo(() => {
-    let k = 0
     const line = (text, cls, key) => (
-      <div className={`tb-line ${cls}`} key={key}>
-        {Array.from(String(text)).map((ch, i) => (
-          <span className={`tb-char${reduced ? ' is-on' : ''}`} data-k={k++} key={i}>
-            {ch === ' ' ? ' ' : ch}
-          </span>
-        ))}
-      </div>
+      <div className={`tb-line ${cls}`} key={key}>{String(text)}</div>
     )
     const arr = (lines, cls, tag) => (Array.isArray(lines) ? lines : []).map((ln, i) => line(ln, cls, `${tag}${i}`))
     const leftPlane = arr(left, 'tb-lhead', 'l')
@@ -125,7 +109,7 @@ const TypingBookOverlay = forwardRef(function TypingBookOverlay({ reduced = fals
       ...arr(rightPara, 'tb-rpara', 'rp'),
     ]
     return { leftPlane, rightPlane }
-  }, [left, rightHead, rightMid, rightPara, reduced])
+  }, [left, rightHead, rightMid, rightPara])
 
   // Measure the book-image box (this overlay is inset-0 over it) so the page quads
   // land in px. Recompute on resize → matrices below follow.
@@ -143,56 +127,10 @@ const TypingBookOverlay = forwardRef(function TypingBookOverlay({ reduced = fals
   const leftMatrix = useMemo(() => (box ? matrix3dFor(PLANE_W, PLANE_H, LEFT_QUAD, box) : null), [box])
   const rightMatrix = useMemo(() => (box ? matrix3dFor(PLANE_W, PLANE_H, RIGHT_QUAD, box) : null), [box])
 
-  // Rebuild the ordered char sequence whenever the copy (language) changes.
-  useLayoutEffect(() => {
-    const el = rootRef.current
-    if (!el) return
-    const nodes = Array.from(el.querySelectorAll('.tb-char'))
-    nodes.sort((a, b) => Number(a.dataset.k) - Number(b.dataset.k))
-    seqRef.current = nodes
-    caretRef.current = null
-    if (reduced) {
-      nodes.forEach((n) => n.classList.add('is-on'))
-      shownRef.current = nodes.length
-    } else {
-      shownRef.current = 0
-      nodes.forEach((n) => n.classList.remove('is-on'))
-    }
-  }, [reduced, i18n.language])
-
-  // Imperative, per-frame, allocation-free scrub. Pure substring-of-progress:
-  // n = round(progress · total). Only the delta between frames is touched, so any
-  // scroll speed (or a reverse scroll = untype) lands the exact same glyphs.
-  useImperativeHandle(ref, () => ({
-    setProgress(p) {
-      if (reduced) return
-      const seq = seqRef.current
-      const total = seq.length
-      if (!total) return
-      const n = Math.max(0, Math.min(total, Math.round(p * total)))
-      const shown = shownRef.current
-      if (n === shown) return
-      let added = 0
-      if (n > shown) {
-        for (let i = shown; i < n; i++) seq[i].classList.add('is-on')
-        added = n - shown
-      } else {
-        for (let i = n; i < shown; i++) seq[i].classList.remove('is-on')
-      }
-      if (caretRef.current) caretRef.current.classList.remove('is-caret')
-      const caret = n > 0 && n < total ? seq[n - 1] : null
-      if (caret) caret.classList.add('is-caret')
-      caretRef.current = caret
-      shownRef.current = n
-      typingSound.click(added)
-    },
-  }), [reduced])
-
   return (
     <div ref={rootRef} className="pointer-events-none absolute inset-0" aria-hidden="true">
       <style dangerouslySetInnerHTML={{ __html: STYLE }} />
-      {/* Left page plane — big display block. Small padding-top so the first line
-          sits right under the raised top edge (the page's top margin). */}
+      {/* Left page plane — big display block. */}
       <div className="tb-plane" style={{ width: PLANE_W, height: PLANE_H, padding: '14px 40px 90px 64px', transform: leftMatrix || 'scale(0)', opacity: leftMatrix ? 1 : 0 }}>
         {content.leftPlane}
       </div>
@@ -202,6 +140,4 @@ const TypingBookOverlay = forwardRef(function TypingBookOverlay({ reduced = fals
       </div>
     </div>
   )
-})
-
-export default TypingBookOverlay
+}
