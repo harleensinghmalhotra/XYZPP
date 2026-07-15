@@ -67,6 +67,28 @@ function fitPx(g, title) {
   return Math.min(MAX_PX, Math.round((100 * FILL) / w100))
 }
 
+// Lane 14c: EVERY plaque face — the canvas fallback plate (FRAME.jpeg) AND Harry's
+// shipped Canva override PNGs (plaque-*.png) — bakes a soft dark drop-shadow into its
+// transparent TOP MARGIN, above the gold frame. Invisible on the old navy sky, it reads
+// as a grey smudge above each plaque on the new white sky. On both faces the gold frame
+// starts ~21% down, so wherever we draw a face we wipe that top strip back to transparent.
+// (Lane 14b only cleared the canvas plate — but 5 of 6 stations show the override PNG,
+// so the smudge survived on everything except Quality, which skips the override.)
+const TOP_CLEAR = 0.21
+
+// Draw an already-decoded plaque image onto a canvas with its shadowed top margin wiped,
+// returned as a texture — used for the Canva override faces so they get the same fix.
+function makeTrimmedTexture(img) {
+  const w = img.naturalWidth || img.width
+  const h = img.naturalHeight || img.height
+  const c = document.createElement('canvas')
+  c.width = w; c.height = h
+  const g = c.getContext('2d')
+  g.drawImage(img, 0, 0, w, h)
+  g.clearRect(0, 0, w, Math.round(h * TOP_CLEAR)) // wipe the baked top-margin shadow
+  return new THREE.CanvasTexture(c)
+}
+
 function makeLabelTexture(title) {
   const c = document.createElement('canvas')
   c.width = RES; c.height = H
@@ -75,12 +97,8 @@ function makeLabelTexture(title) {
   const draw = () => {
     g.clearRect(0, 0, RES, H)
     if (plateImg && plateImg.complete && plateImg.naturalWidth) g.drawImage(plateImg, 0, 0, RES, H)
-    // Lane 14b: the plate PNG bakes a soft dark drop-shadow into its transparent top
-    // margin (a halo above the gold frame). It was invisible on the old navy sky but
-    // reads as a grey smudge/nub above each plaque on the new white sky. The gold
-    // frame starts ~21.4% down, so wipe the margin strip above it back to transparent —
-    // this kills the baked shadow and never touches the frame or the name below it.
-    g.clearRect(0, 0, RES, Math.round(H * 0.21))
+    // wipe the plate PNG's baked top-margin shadow (see TOP_CLEAR above)
+    g.clearRect(0, 0, RES, Math.round(H * TOP_CLEAR))
     g.textAlign = 'center'; g.textBaseline = 'middle'
     // No index eyebrow — Harry: no numbers anywhere (the shipped Canva PNG faces
     // already carry the NAME only; this fallback face now matches them). The name
@@ -133,12 +151,20 @@ export default function Station({ title, scan, register, swapKey, lang }) {
         if (cancelled || !res.ok) return
         const ct = res.headers.get('content-type') || ''
         if (!ct.startsWith('image/')) return // SPA 200-fallback or non-image → keep canvas
-        overrideTex = new THREE.TextureLoader().load(
+        new THREE.TextureLoader().load(
           url,
           (tx) => {
-            tx.anisotropy = 8
-            tx.colorSpace = labelTex.colorSpace
-            if (!cancelled && plaqueMat.current) { plaqueMat.current.map = tx; plaqueMat.current.needsUpdate = true }
+            if (cancelled || !plaqueMat.current) { tx.dispose(); return }
+            // The Canva override PNG carries the same baked top-margin shadow as the
+            // canvas plate — redraw it through makeTrimmedTexture so the strip above the
+            // gold frame is wiped clean, then swap that in (and drop the raw texture).
+            const trimmed = makeTrimmedTexture(tx.image)
+            trimmed.anisotropy = 8
+            trimmed.colorSpace = labelTex.colorSpace
+            tx.dispose()
+            overrideTex = trimmed
+            plaqueMat.current.map = trimmed
+            plaqueMat.current.needsUpdate = true
           },
           undefined,
           () => {}, // load failed → silently keep the canvas face
