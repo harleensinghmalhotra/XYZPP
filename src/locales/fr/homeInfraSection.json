@@ -22,6 +22,30 @@
       "ph": "PHOTO · ENTREPOSAGE ET LOGISTIQUE"
     }
   },
+  "books": {
+    "ui": {
+      "region": "Pile de livres Infrastructure",
+      "pageWord": "Page",
+      "prev": "Page précédente",
+      "next": "Page suivante",
+      "open": "Ouvrir {{title}}",
+      "coverEyebrow": "Site",
+      "overviewEyebrow": "Aperçu",
+      "glanceEyebrow": "En bref"
+    },
+    "04": {
+      "eyebrow": "Réservé",
+      "title": "Contenu à venir",
+      "body": "Ce chapitre est en préparation. De nouveaux détails sur nos sites seront ajoutés ici prochainement.",
+      "cover": "RÉSERVÉ · À VENIR"
+    },
+    "05": {
+      "eyebrow": "Réservé",
+      "title": "Contenu à venir",
+      "body": "Ce chapitre est en préparation. De nouveaux détails sur nos sites seront ajoutés ici prochainement.",
+      "cover": "RÉSERVÉ · À VENIR"
+    }
+  },
   "processes": {
     "binding": {
       "title": "Reliure et finition",

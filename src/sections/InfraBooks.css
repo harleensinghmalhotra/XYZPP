@@ -1,0 +1,506 @@
+/* ── Infrastructure — THE BOOK STACK ──────────────────────────────────────────
+   Mechanics recycled from Cases.css (the open book) — copied, not shared, so the
+   gated Case Studies styling stays untouched. Same tokens: navy #0F2444,
+   navy2 #1B3A6B, deep-navy #0B1C38, gold #C89A3C, gold-bright #E6BD6A,
+   gold-text #836013, cream #FDFAF4. No reds, no pure black/white. Square-ish
+   corners via the shared radius tokens. Depth from soft radial/edge shadows only.
+   Spines are SLIMMER than Cases' (client: "a little thinner than before"). */
+
+/* ── THE STAGE — a navy panel housing the dark book, dropped into the cream
+   Infrastructure section where the three cards used to sit. ── */
+.ib-stage {
+  position: relative;
+  margin-top: clamp(44px, 6vh, 80px);
+  border-radius: var(--r-card);
+  padding: clamp(40px, 5vw, 72px) clamp(22px, 3.4vw, 60px);
+  color: #fdfaf4;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  /* a faint warm reading-light pooled behind the book — radial, never a line */
+  background:
+    radial-gradient(120% 90% at 62% 30%, rgba(200, 154, 60, 0.10) 0%, transparent 58%),
+    #0f2444;
+}
+
+.ib-interactive {
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 3vw, 52px);
+  outline: none;
+}
+.ib-interactive:focus-visible {
+  outline: 2px solid #c89a3c;
+  outline-offset: 8px;
+}
+
+/* ── THE SHELF OF SPINES — standing books; the open book is MISSING ─────────── */
+.ib-shelf {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 9px;
+  flex: 0 0 auto;
+  perspective: 900px;
+  position: relative;
+}
+.ib-shelf::after {
+  content: '';
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  bottom: -14px;
+  height: 14px;
+  background: radial-gradient(60% 100% at 50% 0%, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.16) 50%, transparent 82%);
+  filter: blur(3px);
+}
+.ib-slot {
+  width: 34px; /* slimmer than Cases' 44px */
+  height: 336px;
+  display: flex;
+  align-items: stretch;
+}
+/* the visible gap the pulled book leaves behind — a recessed empty slot */
+.ib-slot--gap {
+  width: 34px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.05) 24%, rgba(0, 0, 0, 0.05) 76%, rgba(0, 0, 0, 0.34) 100%),
+    #0a1a33;
+  box-shadow: inset 0 8px 22px -8px rgba(0, 0, 0, 0.7);
+}
+
+.ib-spine {
+  position: relative;
+  width: 34px;
+  height: 100%;
+  border: none;
+  padding: 11px 0 14px;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--radius-sm);
+  transform: translateZ(0);
+  transform-style: preserve-3d;
+  transition: transform 0.34s cubic-bezier(0.2, 0.8, 0.25, 1), box-shadow 0.34s ease;
+  font-family: 'Inter Tight', sans-serif;
+  box-shadow:
+    inset 4px 0 9px -6px rgba(0, 0, 0, 0.5),
+    inset -4px 0 9px -6px rgba(0, 0, 0, 0.5),
+    0 10px 18px -12px rgba(0, 0, 0, 0.6);
+}
+.ib-spine--navy {
+  background: linear-gradient(100deg, #173257 0%, #0f2444 58%, #0b1c38 100%);
+}
+.ib-spine--cream {
+  background: linear-gradient(100deg, #fdfaf4 0%, #f4eede 60%, #e9dfca 100%);
+}
+/* reserved books read a touch quieter — a dashed hint they're awaiting content */
+.ib-spine--soon { opacity: 0.82; }
+
+.ib-spine-num {
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: #c89a3c; /* foil gold — AA-large on navy */
+}
+.ib-spine--cream .ib-spine-num { color: #836013; } /* gold-text — AA on cream */
+
+.ib-spine-label {
+  margin-top: 12px;
+  flex: 1;
+  min-height: 0;
+  writing-mode: vertical-rl; /* real spine direction: top → bottom */
+  text-orientation: mixed;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.ib-spine-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 230px;
+}
+.ib-spine--navy .ib-spine-title { color: #f5f0e8; }
+.ib-spine--cream .ib-spine-title { color: #0f2444; }
+
+/* THE SHELF MOVE — hover pulls the spine off the shelf toward the viewer */
+.ib-spine:hover,
+.ib-spine:focus-visible {
+  transform: translateZ(24px) translateY(-10px) scale(1.02);
+  outline: none;
+  opacity: 1;
+  box-shadow:
+    inset 4px 0 9px -6px rgba(0, 0, 0, 0.5),
+    inset -4px 0 9px -6px rgba(0, 0, 0, 0.5),
+    0 22px 34px -14px rgba(0, 0, 0, 0.72);
+  z-index: 3;
+}
+.ib-spine:focus-visible {
+  outline: 2px solid #c89a3c;
+  outline-offset: 3px;
+}
+
+/* ── THE OPEN BOOK ─────────────────────────────────────────────────────────── */
+.ib-book-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px; /* room for the ribbon + counter draped over the top edge */
+}
+
+/* gold ribbon bookmark — "you are here", draped over the spread's top edge */
+.ib-ribbon {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 56px;
+  z-index: 6;
+  background: linear-gradient(180deg, #e6bd6a 0%, #c89a3c 46%, #9b7420 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 74%, 0 100%);
+}
+
+/* DM Mono counter — announces the current page (aria-live) */
+.ib-counter {
+  position: absolute;
+  top: -22px;
+  right: 2px;
+  z-index: 6;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #c89a3c;
+  text-transform: uppercase;
+}
+.ib-counter-sep { opacity: 0.5; margin: 0 2px; }
+.ib-sr {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.ib-book {
+  position: relative;
+  width: min(820px, 100%);
+  perspective: 2000px;
+}
+/* the open hardcover the pages rest on — a navy board proud of the spread */
+.ib-book::before {
+  content: '';
+  position: absolute;
+  inset: -13px -15px -17px;
+  background: linear-gradient(150deg, #12294a 0%, #0b1c38 70%, #081527 100%);
+  box-shadow:
+    0 32px 58px -30px rgba(0, 0, 0, 0.85),
+    inset 0 0 40px -18px rgba(0, 0, 0, 0.7);
+  z-index: 0;
+}
+
+.ib-spread {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: clamp(392px, 44vh, 440px);
+  transform-style: preserve-3d;
+}
+/* the spread is keyed on the open book (+ a bump in flat mode), so it remounts on
+   every book switch and on flat-mode page changes → a soft crossfade each time.
+   In flip mode a page turn keeps the same key (the leaf animates instead). */
+.ib-spread { animation: ib-xfade 0.26s ease-out; }
+@keyframes ib-xfade {
+  from { opacity: 0.28; }
+  to { opacity: 1; }
+}
+
+.ib-page {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+.ib-page--left {
+  background: linear-gradient(120deg, #fdfaf4 0%, #f7f2e8 62%, #f1ead9 100%);
+}
+/* the inner spine — a soft valley where the two pages meet */
+.ib-page--left::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 26px;
+  background: linear-gradient(90deg, transparent 0%, rgba(11, 28, 56, 0.06) 55%, rgba(11, 28, 56, 0.22) 100%);
+  pointer-events: none;
+}
+
+/* ── a page FACE (shared by base pages and the turning leaf) ───────────────── */
+.ib-face { position: absolute; inset: 0; }
+
+/* text face — the read. Vertically centred, cream ground, navy ink. */
+.ib-face--text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 3.6vh, 44px) clamp(28px, 3vw, 50px);
+  color: #0f2444;
+}
+.ib-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #836013; /* gold-text — AA on cream */
+  margin-bottom: 18px;
+}
+.ib-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(23px, 2.2vw, 32px);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.4px;
+  margin: 0 0 18px;
+  color: #0f2444;
+}
+.ib-title--cover {
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 500;
+  margin: 0;
+}
+.ib-title--soon { color: #1c2019; }
+.ib-body {
+  font-size: 15px;
+  line-height: 1.62;
+  color: rgba(15, 36, 68, 0.82);
+  margin: 0;
+  max-width: 42ch;
+}
+.ib-body--soon { color: rgba(28, 32, 25, 0.6); }
+/* AT A GLANCE — a headline stat / location set large, the page's single note */
+.ib-glance {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(26px, 2.6vw, 38px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.4px;
+  color: #0f2444;
+  margin: 0;
+  max-width: 16ch;
+}
+
+/* ── panel face — the designed MOCK cover (a real photo drops in later) ─────── */
+.ib-face--panel {
+  background:
+    radial-gradient(120% 120% at 30% 20%, #16305a 0%, #0f2444 56%, #0b1c38 100%);
+  display: grid;
+  place-items: center;
+}
+.ib-ph-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(200, 154, 60, 0.10) 1px, transparent 1.5px);
+  background-size: 16px 16px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.ib-ph-mark {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  color: #c89a3c;
+  text-align: center;
+  padding: 0 26px;
+}
+.ib-ph-icon { color: #c89a3c; }
+.ib-ph-cap {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; /* 11px floor */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #d8ae5e; /* a hair brighter than #c89a3c — AA on the deep-navy panel */
+  max-width: 24ch;
+  line-height: 1.55;
+}
+/* inner spine shadow up the bound (left) edge of the panel page */
+.ib-spine-shadow {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 30px;
+  background: linear-gradient(90deg, rgba(6, 16, 32, 0.5) 0%, rgba(6, 16, 32, 0.12) 55%, transparent 100%);
+  pointer-events: none;
+}
+/* soft page-curl hint lifting off the bottom-right corner */
+.ib-curl {
+  position: absolute;
+  right: 0; bottom: 0;
+  width: 62px; height: 62px;
+  pointer-events: none;
+  background: radial-gradient(120% 120% at 100% 100%, rgba(253, 250, 244, 0.30) 0%, rgba(253, 250, 244, 0.07) 34%, transparent 52%);
+  box-shadow: -10px -10px 18px -10px rgba(0, 0, 0, 0.55) inset;
+}
+
+/* ── THE TURNING LEAF — a double-sided page hinged on the spine ────────────── */
+.ib-leaf {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  transform-origin: left center; /* the spine */
+  transform-style: preserve-3d;
+  z-index: 5;
+  will-change: transform;
+}
+.ib-book.is-next .ib-leaf { animation: ib-turn-next 0.52s cubic-bezier(0.33, 0.02, 0.2, 1) forwards; }
+.ib-book.is-prev .ib-leaf { animation: ib-turn-prev 0.52s cubic-bezier(0.33, 0.02, 0.2, 1) forwards; }
+@keyframes ib-turn-next {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(-180deg); }
+}
+@keyframes ib-turn-prev {
+  from { transform: rotateY(-180deg); }
+  to { transform: rotateY(0deg); }
+}
+.ib-leaf-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: -10px 8px 22px -8px rgba(0, 0, 0, 0.45);
+}
+.ib-leaf-front { transform: rotateY(0deg); }       /* panel — faces up at 0° */
+.ib-leaf-back {                                     /* text — reads correct at −180° */
+  transform: rotateY(180deg);
+  background: linear-gradient(120deg, #fdfaf4 0%, #f7f2e8 62%, #f1ead9 100%);
+}
+
+/* ── page-corner arrow buttons — bottom corners of the spread ──────────────── */
+.ib-arrow {
+  position: absolute;
+  bottom: 8px;
+  z-index: 7;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+  line-height: 1;
+  color: #c89a3c;
+  background: rgba(11, 28, 56, 0.72);
+  border: 1px solid rgba(200, 154, 60, 0.5);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.ib-arrow--prev { left: 8px; }
+.ib-arrow--next { right: 8px; }
+.ib-arrow:hover:not(:disabled) {
+  background: rgba(200, 154, 60, 0.16);
+  color: #e6bd6a;
+  border-color: rgba(200, 154, 60, 0.85);
+}
+.ib-arrow:focus-visible {
+  outline: 2px solid #e6bd6a;
+  outline-offset: 2px;
+}
+.ib-arrow:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+/* ── reduced motion — no leaf turn, no shelf-pull travel; crossfade only ────── */
+@media (prefers-reduced-motion: reduce) {
+  .ib-spine { transition: box-shadow 0.2s ease; }
+  .ib-spine:hover,
+  .ib-spine:focus-visible {
+    transform: none;
+    box-shadow:
+      inset 4px 0 9px -6px rgba(0, 0, 0, 0.5),
+      inset -4px 0 9px -6px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(200, 154, 60, 0.6),
+      0 0 22px rgba(200, 154, 60, 0.32);
+  }
+  .ib-spread { animation-duration: 0.18s; }
+}
+
+/* ── responsive — stack the book under the shelf; spines run in a wrap row ──── */
+@media (max-width: 900px) {
+  .ib-stage { padding: 34px 20px 44px; }
+  .ib-interactive {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+  .ib-shelf {
+    order: 2;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .ib-slot, .ib-slot--gap { height: 260px; width: 32px; }
+  .ib-book-wrap { order: 1; padding-top: 26px; }
+  .ib-book { width: 100%; }
+  .ib-spread {
+    flex-direction: column;
+    height: auto;
+  }
+  .ib-page { width: 100%; }
+  .ib-page--right { height: 220px; order: -1; } /* mock cover on top */
+  .ib-page--left { min-height: 320px; }
+  .ib-page--left::after { display: none; }
+  .ib-face--text { position: relative; }
+  .ib-face--panel { position: absolute; inset: 0; }
+  /* the leaf turn assumes side-by-side geometry → flat crossfade here */
+  .ib-leaf { display: none; }
+}
+
+/* ── SCALED UP (canonical desktop ≥1280) — bigger pages, slim spines grow ───── */
+@media (min-width: 1280px) {
+  .ib-interactive { gap: clamp(36px, 3.4vw, 60px); }
+
+  .ib-book { width: min(960px, 100%); }
+  .ib-spread { height: 560px; }
+  .ib-page--left::after { width: 32px; }
+
+  .ib-face--text { padding: clamp(38px, 4.6vh, 58px) clamp(38px, 3.4vw, 64px); }
+  .ib-eyebrow { font-size: 13px; letter-spacing: 2.4px; margin-bottom: 16px; }
+  .ib-title { font-size: clamp(30px, 2.8vw, 42px); }
+  .ib-title--cover { font-size: clamp(38px, 3.2vw, 52px); }
+  .ib-body { font-size: 18px; max-width: 44ch; }
+  .ib-glance { font-size: clamp(34px, 3vw, 48px); }
+  .ib-ph-cap { font-size: 12px; letter-spacing: 2.4px; }
+  .ib-spine-shadow { width: 38px; }
+  .ib-curl { width: 84px; height: 84px; }
+
+  /* THE SHELF grows to the taller book — still slimmer than Cases (48 vs 62) */
+  .ib-slot, .ib-slot--gap { width: 48px; height: 528px; }
+  .ib-spine { width: 48px; padding: 15px 0 20px; }
+  .ib-spine-num { font-size: 16px; }
+  .ib-spine-label { margin-top: 18px; }
+  .ib-spine-title { font-size: 16px; }
+
+  .ib-book-wrap { padding-top: 28px; }
+  .ib-ribbon { width: 24px; height: 76px; top: -22px; }
+  .ib-counter { font-size: 14px; top: -28px; letter-spacing: 2.4px; }
+  .ib-arrow { width: 54px; height: 54px; font-size: 21px; bottom: 12px; }
+  .ib-arrow--prev { left: 12px; }
+  .ib-arrow--next { right: 12px; }
+}

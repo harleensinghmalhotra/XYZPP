@@ -22,6 +22,30 @@
       "ph": "FOTO · ALMACÉN Y LOGÍSTICA"
     }
   },
+  "books": {
+    "ui": {
+      "region": "Pila de libros de infraestructura",
+      "pageWord": "Página",
+      "prev": "Página anterior",
+      "next": "Página siguiente",
+      "open": "Abrir {{title}}",
+      "coverEyebrow": "Instalación",
+      "overviewEyebrow": "Resumen",
+      "glanceEyebrow": "De un vistazo"
+    },
+    "04": {
+      "eyebrow": "Reservado",
+      "title": "Contenido próximamente",
+      "body": "Este capítulo se está preparando. Pronto se añadirán aquí nuevos detalles de nuestras instalaciones.",
+      "cover": "RESERVADO · PRÓXIMAMENTE"
+    },
+    "05": {
+      "eyebrow": "Reservado",
+      "title": "Contenido próximamente",
+      "body": "Este capítulo se está preparando. Pronto se añadirán aquí nuevos detalles de nuestras instalaciones.",
+      "cover": "RESERVADO · PRÓXIMAMENTE"
+    }
+  },
   "processes": {
     "binding": {
       "title": "Encuadernación y acabado",

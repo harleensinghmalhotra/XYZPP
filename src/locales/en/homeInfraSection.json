@@ -22,6 +22,30 @@
       "ph": "PHOTO · WAREHOUSE & FULFILMENT"
     }
   },
+  "books": {
+    "ui": {
+      "region": "Infrastructure book stack",
+      "pageWord": "Page",
+      "prev": "Previous page",
+      "next": "Next page",
+      "open": "Open {{title}}",
+      "coverEyebrow": "Facility",
+      "overviewEyebrow": "Overview",
+      "glanceEyebrow": "At a Glance"
+    },
+    "04": {
+      "eyebrow": "Reserved",
+      "title": "Content coming soon",
+      "body": "This chapter is being prepared. New facility detail will be added here soon.",
+      "cover": "RESERVED · COMING SOON"
+    },
+    "05": {
+      "eyebrow": "Reserved",
+      "title": "Content coming soon",
+      "body": "This chapter is being prepared. New facility detail will be added here soon.",
+      "cover": "RESERVED · COMING SOON"
+    }
+  },
   "processes": {
     "binding": {
       "title": "Binding and Finishing",
