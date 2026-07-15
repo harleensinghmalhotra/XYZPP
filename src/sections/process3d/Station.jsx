@@ -75,6 +75,12 @@ function makeLabelTexture(title) {
   const draw = () => {
     g.clearRect(0, 0, RES, H)
     if (plateImg && plateImg.complete && plateImg.naturalWidth) g.drawImage(plateImg, 0, 0, RES, H)
+    // Lane 14b: the plate PNG bakes a soft dark drop-shadow into its transparent top
+    // margin (a halo above the gold frame). It was invisible on the old navy sky but
+    // reads as a grey smudge/nub above each plaque on the new white sky. The gold
+    // frame starts ~21.4% down, so wipe the margin strip above it back to transparent —
+    // this kills the baked shadow and never touches the frame or the name below it.
+    g.clearRect(0, 0, RES, Math.round(H * 0.21))
     g.textAlign = 'center'; g.textBaseline = 'middle'
     // No index eyebrow — Harry: no numbers anywhere (the shipped Canva PNG faces
     // already carry the NAME only; this fallback face now matches them). The name
