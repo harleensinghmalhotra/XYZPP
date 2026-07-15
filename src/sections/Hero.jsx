@@ -61,8 +61,11 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* BLANK book base */}
-      <img src={BOOK_BASE} alt="" aria-hidden="true" className="relative z-[1] block w-full select-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]" style={{ clipPath: 'inset(0 0 19% 0)' }} draggable="false" />
+      {/* BLANK book base. No CSS drop-shadow: the book overhangs the trust strips,
+          so any downward drop-shadow smudges the gold border + first marquee. The
+          book's own baked-in shading grounds it against the navy; the strips stay
+          clean (matches the reference). */}
+      <img src={BOOK_BASE} alt="" aria-hidden="true" className="relative z-[1] block w-full select-none object-contain" style={{ clipPath: 'inset(0 0 19% 0)' }} draggable="false" />
 
       {/* PAGE COPY (static) */}
       <div className="absolute inset-0 z-[2]">
