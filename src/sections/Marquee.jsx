@@ -4,18 +4,19 @@ import { useTranslation } from 'react-i18next'
 // switches language with the rest of the site. Order is fixed by this key list.
 const TERM_KEYS = ['offset', 'case', 'foil', 'perfect', 'spotuv', 'saddle', 'litho', 'emboss', 'fourcolour']
 
-// Lane 12 font re-audit: the runtime computed families were already brand (words →
-// Inter Tight, text → Inter), but the ✶ (U+2726) separator glyph is in NEITHER brand
-// font, so the browser drew it from a system symbol fallback (Segoe UI Symbol) — the
-// off-brand face the client caught. Fix: declare the brand faces EXPLICITLY (like the
-// neighbouring sections do, not via Tailwind aliases) in the .mq-* block, and draw the
-// gold sparkle as an inline SVG so no non-brand font can ever render in the strip.
+// Lane 12b font re-audit: family/weight were already brand (Inter Tight 800, a loaded
+// weight), so there was no fallback face. The off-brand look the client caught was the
+// ALTERNATING -webkit-text-stroke outline treatment (every odd term drawn transparent
+// with a paper stroke) — outline-only letterforms read like a different, condensed
+// display face (Anton/Bebas), unlike the solid fill every other heading on the site
+// uses. Fix: drop the outline variant so every term is solid Inter Tight fill. The gold
+// separator stays an inline SVG sparkle (no font glyph → no system-symbol fallback).
 function Row({ terms }) {
   return (
     <div className="mq-row">
-      {terms.map((t, i) => (
+      {terms.map((t) => (
         <span key={t} className="mq-item">
-          <span className={i % 2 ? 'mq-word mq-word--outline' : 'mq-word'}>{t}</span>
+          <span className="mq-word">{t}</span>
           <svg className="mq-star" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 1.5 L13.7 10.3 L22.5 12 L13.7 13.7 L12 22.5 L10.3 13.7 L1.5 12 L10.3 10.3 Z" />
           </svg>

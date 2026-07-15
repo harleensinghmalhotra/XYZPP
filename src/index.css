@@ -502,10 +502,14 @@ body {
   }
 }
 
-/* ── Highlights marquee — explicit brand faces (Lane 12) ──────────────────────
-   The strip's words are Inter Tight (display); the gold separator is an inline SVG
-   sparkle (no font glyph), so the whole strip resolves to the brand stack with no
-   system-symbol fallback. Sizes/margins match the prior Tailwind values 1:1. */
+/* ── Highlights marquee — explicit brand faces (Lane 12b) ─────────────────────
+   The strip's words are Inter Tight (display), solid paper fill — the same
+   typeface and fill treatment as every other heading on the site. The gold
+   separator is an inline SVG sparkle (no font glyph), so the whole strip
+   resolves to the brand stack with no system-symbol fallback. Lane 12b removed
+   the alternating -webkit-text-stroke outline variant: outline-only letterforms
+   read like a different condensed display face, which is what the client caught.
+   Sizes/margins match the prior Tailwind values 1:1. */
 .mq-row { display: flex; flex-shrink: 0; align-items: center; }
 .mq-item { display: flex; align-items: center; }
 .mq-word {
@@ -515,10 +519,6 @@ body {
   line-height: 1;
   font-size: 8vw;
   color: var(--paper);
-}
-.mq-word--outline {
-  color: transparent;
-  -webkit-text-stroke: 1.4px var(--paper);
 }
 .mq-star {
   flex: 0 0 auto;
