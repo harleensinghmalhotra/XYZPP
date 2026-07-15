@@ -223,11 +223,11 @@ export default function Scene({ frozen = false, progress }) {
               <planeGeometry args={[3.4, 2.6]} />
               <meshBasicMaterial map={pool} transparent opacity={0.72} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
             </mesh>
-            {/* soft glow disc behind the apex (the lamp bloom) */}
-            <mesh position={[x, LABEL_Y - 0.35, -0.3]}>
-              <planeGeometry args={[2.6, 2.6]} />
-              <meshBasicMaterial map={pool} transparent opacity={0.4} blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
-            </mesh>
+            {/* Lane 14b: the "soft glow disc behind the apex" (additive warm lamp bloom
+                that hung above each plaque) is removed. Flattering over the old navy sky,
+                it read as a grey smudge above the plaque top on the new white sky. The
+                floor pool above stays — it still reads as a clean lamp pool on the dark
+                belt/floor below the horizon. */}
             {/* soft dust motes in the pool — static, so they drift by parallax while
                 scrolling and never strobe or move at rest */}
             <Dust count={14} scale={[1.4, 1.8, 1.2]} position={[x, 0.9, 0]} size={5} opacity={0.5} color={'#F0D49A'} />
