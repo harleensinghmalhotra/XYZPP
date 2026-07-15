@@ -60,13 +60,15 @@ function tickTexture() {
 // PALETTE LAW (covers): navy #0F2444, cream #FDFAF4, gold #9B7420 only.
 // dims [w(X, cover width) · t(Y, thickness) · h(Z, cover height, portrait h>w)].
 const PAGE = '#F3EFE6' // pale paper-white page block
-// Composition: two lying flat (offset stack) + one leaning upright against them,
-// its full cover to the camera — reads unmistakably as THREE books from the scroll
-// camera's shallow side-on angle. rot = [x,y,z] radians.
+// Composition (Lane 14): THREE books all lying FLAT, in a fanned offset stack —
+// each rotated a different way so covers + spines read distinctly from the scroll
+// camera's shallow side-on angle. The client's note: "keep this sleeping, not
+// standing" — the third book no longer leans; it sleeps flat on the pile, cover up.
+// rot = [x,y,z] radians (x stays 0 → every book lies flat, cover facing the camera).
 const TEXTBOOKS = [
   { w: 0.60, t: 0.11, h: 0.76, pos: [-0.14, 0.055, 0.05], rot: [0, 0.12, 0], cover: { bg: EKTA.cream, band: EKTA.navy, ink: EKTA.navy } },
   { w: 0.54, t: 0.10, h: 0.68, pos: [-0.05, 0.16, -0.04], rot: [0, -0.16, 0], cover: { bg: EKTA.navy, band: EKTA.gold, ink: EKTA.cream } },
-  { w: 0.50, t: 0.09, h: 0.66, pos: [0.30, 0.30, -0.02], rot: [1.24, 0.36, 0], cover: { bg: EKTA.gold, band: EKTA.navy, ink: EKTA.cream } },
+  { w: 0.50, t: 0.09, h: 0.66, pos: [0.11, 0.255, 0.03], rot: [0, 0.34, 0], cover: { bg: EKTA.gold, band: EKTA.navy, ink: EKTA.cream } },
 ]
 
 const Book = forwardRef(function Book(_props, ref) {

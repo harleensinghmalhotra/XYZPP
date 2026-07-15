@@ -103,15 +103,16 @@
 }
 .conv-cap.is-active { opacity: 1; }
 
-/* THE NAME — the title card: Inter Tight, cream. With the index gone the name owns
-   the space, so it is set large; tight tracking keeps it composed at that size. */
+/* THE NAME — the title card: Inter Tight. Lane 14 flipped the sky to cream, so the
+   name is now NAVY (#0F2444) — the same ink the site's other cream-section headings
+   use (What We Print, Projects), so it reads as a peer heading, not body copy. No
+   drop shadow now that it sits dark-on-light. */
 .conv-cap-name {
   display: block;
   margin: 0;
   font-family: 'Inter Tight', Inter, system-ui, sans-serif; font-weight: 600;
   font-size: clamp(34px, 3.2vw, 44px); line-height: 1.0; letter-spacing: -0.015em;
-  color: var(--cream, #fdfaf4);
-  text-shadow: 0 2px 22px rgba(10, 21, 36, 0.55);
+  color: var(--navy, #0f2444);
 }
 /* THE ONE DETAIL — a short gold rule set well below the name's baseline. Restraint:
    this is the whole treatment, no box, no border, no fill. */
@@ -131,8 +132,7 @@
   max-width: 420px;
   font-family: 'Inter', system-ui, sans-serif; font-weight: 400;
   font-size: 15.5px; line-height: 1.6;
-  color: rgba(253, 250, 244, 0.82);
-  text-shadow: 0 1px 14px rgba(10, 21, 36, 0.5);
+  color: rgba(28, 32, 25, 0.75); /* ink @ 0.75 on the cream sky (≥4.5:1, measured) */
 }
 @media (prefers-reduced-motion: reduce) {
   .conv-cap { transition: none; } /* swap, never cross-fade */

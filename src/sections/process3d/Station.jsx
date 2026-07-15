@@ -114,6 +114,11 @@ export default function Station({ title, scan, register, swapKey, lang }) {
   const plaqueMat = useRef(null)
   useEffect(() => {
     if (!swapKey || typeof fetch === 'undefined') return
+    // Lane 14 (interim): the Quality plaque name changed to "Quality Check" but the
+    // baked Canva PNG still reads "QUALITY". Skip the PNG override for THIS station
+    // only, so the canvas fallback renders the new localised name from the locale.
+    // Harry re-exports plaque-quality[-fr|-es].png with the new name to restore the art.
+    if (swapKey === 'quality') return
     let cancelled = false
     let overrideTex = null
     const url = overrideUrl(swapKey, lang)

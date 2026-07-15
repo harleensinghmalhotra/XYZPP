@@ -12,18 +12,26 @@ import { STATIONS, N, stationX, EKTA, CAM, LABEL_Y, ENDING, mapActiveF, mapBookX
 
 const FLOOR_Y = -0.42
 
-// Evening-showroom navy wall — a READABLE navy gradient (not black), warmer + a
-// clear lift toward the belt line so the hall reads as evening, not a power cut.
+// Lane 14 — WHITE sky over a dark floor. The upper sky is cream (#FDFAF4), the
+// same value as the solid nav above it, so the scene reads seamlessly out of the
+// nav. It holds cream down through the visible sky, then a clean gradient darkens
+// to navy right at/above the horizon so it meets the dark belt/floor (floor is
+// #1A2C4E, fog #1B2E52) with no seam — the mirror of the old navy-into-floor blend,
+// flipped light-side-up. The backdrop mesh is fog:false, so this texture renders
+// true (a distant navy fog can never dirty the white).
 function makeBackdrop() {
   const c = document.createElement('canvas')
-  c.width = 16; c.height = 256
+  c.width = 16; c.height = 512
   const g = c.getContext('2d')
-  const grd = g.createLinearGradient(0, 0, 0, 256)
-  grd.addColorStop(0, '#182A4E')
-  grd.addColorStop(0.5, '#233A62')
-  grd.addColorStop(0.82, '#2E4A7A')
-  grd.addColorStop(1, '#1C3056')
-  g.fillStyle = grd; g.fillRect(0, 0, 16, 256)
+  const grd = g.createLinearGradient(0, 0, 0, 512)
+  grd.addColorStop(0, '#FDFAF4')    // sky top — cream, seamless into the cream nav
+  grd.addColorStop(0.52, '#FDFAF4') // hold cream through the upper sky
+  grd.addColorStop(0.64, '#D6DEE8') // cool steel step, easing off the cream
+  grd.addColorStop(0.72, '#4E6890') // mid navy-blue — the darkening begins near the horizon
+  grd.addColorStop(0.80, '#233F6B')
+  grd.addColorStop(0.90, '#1A2C4E') // = floor colour → the horizon seam is clean
+  grd.addColorStop(1, '#16273C')
+  g.fillStyle = grd; g.fillRect(0, 0, 16, 512)
   return new THREE.CanvasTexture(c)
 }
 
