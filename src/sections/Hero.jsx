@@ -105,7 +105,7 @@ export default function Hero() {
 
 
   return (
-    <section id="hero" ref={section} data-theme="dark" className="relative z-[1] bg-[#0c2f4a] overflow-x-clip">
+    <section id="hero" ref={section} data-theme="dark" className="relative bg-[#0c2f4a] overflow-x-clip">
       {/* HERO AURORA — static background */}
       <div className="hero-aurora" aria-hidden="true">
         <div className="hero-aurora__ribbons" />
@@ -150,7 +150,7 @@ export default function Hero() {
       {/* BOOK SCENE — below headline. The negative margin-bottom pulls TrustStrips up
           UNDER the book so its clipped bottom cover edge lands on the white landing
           zone / gold border (the book overhangs the strips, no navy gap). */}
-      <div className="relative z-[15] flex flex-col items-center px-4 pt-[6vh]" style={{ marginBottom: '-19vw' }}>
+      <div className="relative z-[15] flex flex-col items-center px-4 pt-[6vh]" style={{ marginBottom: '-21vw' }}>
         {renderBookScene()}
       </div>
     </section>
