@@ -30,3 +30,11 @@ export const SHOW_RESTRICTED_CLIENTS = true
 // Infrastructure rebuild tomorrow. Gate only — Cases.jsx / Cases.css / its locale keys
 // stay intact. When false, the <Cases/> render AND every nav/footer link to it drop.
 export const SHOW_CASE_STUDIES = false
+
+// ── Shipment Records (Archive Shelf in Projects section) ─────────────────────
+// HIDDEN on client request: the milestone ledger with Tanzania 10M+, Nigeria 8M+,
+// Côte d'Ivoire, Ghana, Maharashtra, HDFC rows is gated off. The Archive Shelf
+// component and its locale keys stay intact and fully functional — NOT deleted.
+// The Projects globe and destination panels remain visible. When false, only the
+// <div className="proj-books"> archive shelf disappears, leaving the 3D globe intact.
+export const SHOW_SHIPMENT_RECORDS = false

@@ -3,7 +3,7 @@ import { useTranslation, Trans } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
-import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
+import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS, SHOW_SHIPMENT_RECORDS } from '@/lib/compliance'
 import Globe3D from '@/components/Globe3D'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -330,47 +330,50 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* THE ARCHIVE SHELF — code-built hardcover books standing on a warm shelf */}
-        <div className="proj-books" ref={recordsRef}>
-          <p className="proj-books-eyebrow">{t('ledger.recordsEyebrow')}</p>
-          <div className="proj-books-scroll">
-            <div className="proj-books-rail">
-              <BookRecord
-                milestone
-                variant="navy"
-                milestoneTag={t('ledger.heroLabel')}
-                country={t('ledger.heroCountry')}
-                num={HERO.value}
-                suffix={HERO.suffix}
-                decimals={HERO.value.includes('.') ? 1 : 0}
-                reduced={reduced}
-                story={<Trans t={t} i18nKey={HERO.storyKey} components={{ strong: <strong /> }} />}
-                onPulse={() => pulse(HERO.globeTarget)}
-                onReset={releaseGlobe}
-              />
-              {rows.map((r, i) => (
+        {/* THE ARCHIVE SHELF — code-built hardcover books standing on a warm shelf.
+            Hidden-not-deleted; reusable later. See SHOW_SHIPMENT_RECORDS in lib/compliance.js. */}
+        {SHOW_SHIPMENT_RECORDS && (
+          <div className="proj-books" ref={recordsRef}>
+            <p className="proj-books-eyebrow">{t('ledger.recordsEyebrow')}</p>
+            <div className="proj-books-scroll">
+              <div className="proj-books-rail">
                 <BookRecord
-                  key={r.key}
-                  variant={(i + 1) % 2 === 0 ? 'navy' : 'cream'}
-                  country={t(`ledger.rows.${r.key}.name`)}
-                  // Stamp label is the unit. The full "kits" unit label
-                  // ("Learning Kits" / "Kits d'apprentissage") can't fit horizontally
-                  // inside the ring at ≥11px, so the stamp uses the shared short form
-                  // "KITS" (valid EN + FR). "Books"/"Livres" fit as-is.
-                  stampLabel={r.unitKey === 'kits' ? 'KITS' : t(`ledger.units.${r.unitKey}`)}
-                  num={r.num}
-                  suffix="M+"
-                  decimals={r.num.includes('.') ? 1 : 0}
+                  milestone
+                  variant="navy"
+                  milestoneTag={t('ledger.heroLabel')}
+                  country={t('ledger.heroCountry')}
+                  num={HERO.value}
+                  suffix={HERO.suffix}
+                  decimals={HERO.value.includes('.') ? 1 : 0}
                   reduced={reduced}
-                  line={t(`ledger.rows.${r.key}.desc`)}
-                  onPulse={() => pulse(r.globeTarget)}
+                  story={<Trans t={t} i18nKey={HERO.storyKey} components={{ strong: <strong /> }} />}
+                  onPulse={() => pulse(HERO.globeTarget)}
                   onReset={releaseGlobe}
                 />
-              ))}
-              <span className="proj-books-shelf" aria-hidden="true" />
+                {rows.map((r, i) => (
+                  <BookRecord
+                    key={r.key}
+                    variant={(i + 1) % 2 === 0 ? 'navy' : 'cream'}
+                    country={t(`ledger.rows.${r.key}.name`)}
+                    // Stamp label is the unit. The full "kits" unit label
+                    // ("Learning Kits" / "Kits d'apprentissage") can't fit horizontally
+                    // inside the ring at ≥11px, so the stamp uses the shared short form
+                    // "KITS" (valid EN + FR). "Books"/"Livres" fit as-is.
+                    stampLabel={r.unitKey === 'kits' ? 'KITS' : t(`ledger.units.${r.unitKey}`)}
+                    num={r.num}
+                    suffix="M+"
+                    decimals={r.num.includes('.') ? 1 : 0}
+                    reduced={reduced}
+                    line={t(`ledger.rows.${r.key}.desc`)}
+                    onPulse={() => pulse(r.globeTarget)}
+                    onReset={releaseGlobe}
+                  />
+                ))}
+                <span className="proj-books-shelf" aria-hidden="true" />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   )
