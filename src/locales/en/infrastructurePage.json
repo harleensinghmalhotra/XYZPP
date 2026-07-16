@@ -34,12 +34,12 @@
     "capabilities": {
       "print": {
         "label": "Print Capacity",
-        "body": "Twenty-two web towers alongside six sheet-fed presses and three Lineomatic lines, engineered for large-volume textbook runs.",
+        "body": "Twenty web towers alongside five sheet-fed presses and three Lineomatic lines, engineered for large-volume textbook runs.",
         "photoNote": "PHOTO · PRESS HALL, PRINTING TOWERS"
       },
       "bind": {
         "label": "Binding & Finishing",
-        "body": "Seventeen folders, ten binding and stitching lines and six automatic thread-sewing machines finish every book to spec.",
+        "body": "Seventeen folders and six automatic thread-sewing machines finish every book to spec.",
         "photoNote": "PHOTO · BINDERY & FINISHING LINES"
       },
       "ware": {
@@ -54,12 +54,12 @@
     "title": "The machines behind the volume.",
     "items": {
       "tower": {
-        "name": "22-Web Offset Towers",
-        "spec": "Twenty-two web-offset towers run long textbook forms at full speed, register held tight across every signature."
+        "name": "20-Web Offset Towers",
+        "spec": "Twenty web-offset towers run long textbook forms at full speed, register held tight across every signature."
       },
       "press": {
-        "name": "Sheet-Fed Fleet, 6 Presses",
-        "spec": "Six sheet-fed presses handle covers, short runs and colour-critical work where finish and fidelity matter most."
+        "name": "Sheet-Fed Fleet, 5 Presses",
+        "spec": "Five sheet-fed presses handle covers, short runs and colour-critical work where finish and fidelity matter most."
       },
       "book": {
         "name": "3 Lineomatic Exercise-Book Lines",

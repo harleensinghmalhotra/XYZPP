@@ -34,12 +34,12 @@
     "capabilities": {
       "print": {
         "label": "Capacité d’impression",
-        "body": "Vingt-deux tours web, six presses feuille à feuille et trois lignes Lineomatic, conçues pour les tirages de manuels en grand volume.",
+        "body": "Vingt tours web, cinq presses feuille à feuille et trois lignes Lineomatic, conçues pour les tirages de manuels en grand volume.",
         "photoNote": "PHOTO · HALL DES PRESSES, TOURS D’IMPRESSION"
       },
       "bind": {
         "label": "Reliure et finition",
-        "body": "Dix-sept plieuses, dix lignes de reliure et de piqûre, et six machines automatiques de couture au fil finissent chaque livre selon le cahier des charges.",
+        "body": "Dix-sept plieuses et six machines automatiques de couture au fil finissent chaque livre selon le cahier des charges.",
         "photoNote": "PHOTO · LIGNES DE RELIURE ET DE FINITION"
       },
       "ware": {
@@ -54,12 +54,12 @@
     "title": "Les machines derrière le volume.",
     "items": {
       "tower": {
-        "name": "22 tours offset web",
-        "spec": "Vingt-deux tours offset web impriment les grands cahiers de manuels à pleine vitesse, avec un repérage maintenu au plus juste sur chaque signature."
+        "name": "20 tours offset web",
+        "spec": "Vingt tours offset web impriment les grands cahiers de manuels à pleine vitesse, avec un repérage maintenu au plus juste sur chaque signature."
       },
       "press": {
-        "name": "Parc feuille à feuille, 6 presses",
-        "spec": "Six presses feuille à feuille gèrent les couvertures, les petits tirages et les travaux exigeants en couleur, là où la finition et la fidélité comptent le plus."
+        "name": "Parc feuille à feuille, 5 presses",
+        "spec": "Cinq presses feuille à feuille gèrent les couvertures, les petits tirages et les travaux exigeants en couleur, là où la finition et la fidélité comptent le plus."
       },
       "book": {
         "name": "3 lignes de cahiers Lineomatic",

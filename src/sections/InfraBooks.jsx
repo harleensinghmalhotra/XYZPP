@@ -33,7 +33,7 @@ import './InfraBooks.css'
 // (or convert it to a facilities-backed book) and clear its `placeholder` flag.
 const BOOKS = [
   { id: '01', src: '01', icon: 'press' },   // 3 Printing Facilities
-  { id: '02', src: '02', icon: 'tower' },   // 22 Web Towers, 6 Sheet Fed
+  { id: '02', src: '02', icon: 'tower' },   // 20 Web Towers, 5 Sheet Fed
   { id: '03', src: '03', icon: 'carton' },  // 2 Warehouse & Fulfilment Centres
   { id: '04', icon: 'soon', placeholder: true },
   { id: '05', icon: 'soon', placeholder: true },

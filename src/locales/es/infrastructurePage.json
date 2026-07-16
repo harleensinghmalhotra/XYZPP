@@ -34,12 +34,12 @@
     "capabilities": {
       "print": {
         "label": "Capacidad de impresión",
-        "body": "Veintidós torres web junto a seis prensas de pliego y tres líneas Lineomatic, diseñadas para tiradas de libros de texto de gran volumen.",
+        "body": "Veinte torres web junto a cinco prensas de pliego y tres líneas Lineomatic, diseñadas para tiradas de libros de texto de gran volumen.",
         "photoNote": "FOTO · SALA DE PRENSAS, TORRES DE IMPRESIÓN"
       },
       "bind": {
         "label": "Encuadernación y acabado",
-        "body": "Diecisiete plegadoras, diez líneas de encuadernación y cosido y seis máquinas automáticas de cosido con hilo dan el acabado a cada libro según especificación.",
+        "body": "Diecisiete plegadoras y seis máquinas automáticas de cosido con hilo dan el acabado a cada libro según especificación.",
         "photoNote": "FOTO · TALLER DE ENCUADERNACIÓN Y ACABADO"
       },
       "ware": {
@@ -54,12 +54,12 @@
     "title": "Las máquinas detrás del volumen.",
     "items": {
       "tower": {
-        "name": "22 torres offset web",
-        "spec": "Veintidós torres offset web producen formas largas de libros de texto a plena velocidad, con el registro mantenido con precisión en cada pliego."
+        "name": "20 torres offset web",
+        "spec": "Veinte torres offset web producen formas largas de libros de texto a plena velocidad, con el registro mantenido con precisión en cada pliego."
       },
       "press": {
-        "name": "Flota de pliego, 6 prensas",
-        "spec": "Seis prensas de pliego se encargan de las cubiertas, las tiradas cortas y los trabajos críticos de color donde el acabado y la fidelidad importan más."
+        "name": "Flota de pliego, 5 prensas",
+        "spec": "Cinco prensas de pliego se encargan de las cubiertas, las tiradas cortas y los trabajos críticos de color donde el acabado y la fidelidad importan más."
       },
       "book": {
         "name": "3 líneas Lineomatic de cuadernos",
