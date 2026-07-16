@@ -4,22 +4,22 @@
   "titleB": "Engineered for Trust.",
   "facilities": {
     "01": {
-      "title": "3 Printing Facilities",
-      "body": "A Sanpada head office and three Taloja factories, B8, L28 and L123, across Navi Mumbai, totalling 300,000 sq ft, built for efficiency, safety and scale.",
-      "caption": "Taloja MIDC, Navi Mumbai",
-      "ph": "PHOTO · PRINT FACILITIES, NAVI MUMBAI"
+      "title": "Web Machines",
+      "body": "20 web towers configured for high-speed roll-fed printing, delivering precision and consistency across the broadest print spectrum.",
+      "caption": "Web Towers, Press Hall",
+      "ph": "PHOTO · WEB TOWERS, PRESS HALL"
     },
     "02": {
-      "title": "20 Web Towers, 5 Sheet Fed",
-      "body": "20 web towers and 5 sheet fed presses, supported by 17 folders and 6 automatic thread sewing machines, for precision at any scale.",
-      "caption": "30,000 MT Shipped Annually",
-      "ph": "PHOTO · PRESS HALL, PRINTING TOWERS"
+      "title": "Sheetfed Machines",
+      "body": "5 sheet-fed presses handling cut-sheet stock from 65x90 mm to 720x1040 mm, with colour registration to ±2mm and inline finishing capability.",
+      "caption": "Sheet-Fed Presses, Taloja",
+      "ph": "PHOTO · SHEET-FED PRESSES"
     },
     "03": {
-      "title": "2 Warehouse & Fulfilment Centres",
-      "body": "Automated collating, kitting and shrink-wrapping, up to 10,000 kits processed every single day.",
-      "caption": "Navi Mumbai · Export-Ready",
-      "ph": "PHOTO · WAREHOUSE & FULFILMENT"
+      "title": "Binding and Finishing",
+      "body": "17 collators and 6 automatic thread-sewing machines, perfect binding, centre pinning, flexi binding and shrink-wrapping, processing 10,000+ kits daily.",
+      "caption": "Binding Line, Navi Mumbai",
+      "ph": "PHOTO · BINDING & FINISHING"
     }
   },
   "books": {
@@ -34,16 +34,16 @@
       "glanceEyebrow": "At a Glance"
     },
     "04": {
-      "eyebrow": "Reserved",
-      "title": "Content coming soon",
-      "body": "This chapter is being prepared. New facility detail will be added here soon.",
-      "cover": "RESERVED · COMING SOON"
+      "eyebrow": "Fulfilment",
+      "title": "Warehousing",
+      "body": "Automated collating, kitting and shrink-wrapping across two regional fulfilment centres. From print to pack to ship — integrated logistics serving 25+ countries.",
+      "cover": "PHOTO · WAREHOUSE & FULFILMENT"
     },
     "05": {
-      "eyebrow": "Reserved",
-      "title": "Content coming soon",
-      "body": "This chapter is being prepared. New facility detail will be added here soon.",
-      "cover": "RESERVED · COMING SOON"
+      "eyebrow": "Leadership",
+      "title": "Head Office",
+      "body": "Sanpada headquarters overseeing operations across three Taloja facilities totalling 300,000 sq ft. Quality, safety and delivery excellence engineered into every shipment.",
+      "cover": "PHOTO · SANPADA HEAD OFFICE"
     }
   },
   "processes": {

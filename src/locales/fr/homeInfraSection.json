@@ -4,22 +4,22 @@
   "titleB": "Pensé pour la confiance.",
   "facilities": {
     "01": {
-      "title": "3 sites d'impression",
-      "body": "Un siège social à Sanpada et trois usines à Taloja, B8, L28 et L123, réparties dans tout Navi Mumbai, totalisant 300 000 pi², conçues pour l'efficacité, la sécurité et la montée en charge.",
-      "caption": "Taloja MIDC, Navi Mumbai",
-      "ph": "PHOTO · SITES DE PRODUCTION, NAVI MUMBAI"
+      "title": "Machines web",
+      "body": "20 tours web configurées pour l'impression rouleau haute vitesse, offrant précision et cohérence sur le spectre d'impression le plus large.",
+      "caption": "Tours web, atelier de presse",
+      "ph": "PHOTO · TOURS WEB, ATELIER DE PRESSE"
     },
     "02": {
-      "title": "20 tours web, 5 feuille à feuille",
-      "body": "20 tours web et 5 presses feuille à feuille, épaulées par 17 plieuses et 6 machines de couture automatiques au fil, pour une précision à toute échelle.",
-      "caption": "30 000 t expédiées chaque année",
-      "ph": "PHOTO · ATELIER DE PRESSE, TOURS D'IMPRESSION"
+      "title": "Machines feuille à feuille",
+      "body": "5 presses feuille à feuille traitant les stocks découpés de 65x90 mm à 720x1040 mm, avec calage des couleurs à ±2 mm et capacité de finition intégrée.",
+      "caption": "Presses feuille à feuille, Taloja",
+      "ph": "PHOTO · PRESSES FEUILLE À FEUILLE"
     },
     "03": {
-      "title": "2 centres d'entreposage et de logistique",
-      "body": "Assemblage, mise en kit et filmage automatisés, jusqu'à 10 000 kits traités chaque jour.",
-      "caption": "Navi Mumbai · Prêt à l'export",
-      "ph": "PHOTO · ENTREPOSAGE ET LOGISTIQUE"
+      "title": "Reliure et façonnage",
+      "body": "17 collateurs et 6 machines de couture automatiques au fil, reliure par collage, agrafage centre, reliure souple et filmage, traitant 10 000+ kits quotidiennement.",
+      "caption": "Chaîne de reliure, Navi Mumbai",
+      "ph": "PHOTO · RELIURE ET FAÇONNAGE"
     }
   },
   "books": {
@@ -34,16 +34,16 @@
       "glanceEyebrow": "En bref"
     },
     "04": {
-      "eyebrow": "Réservé",
-      "title": "Contenu à venir",
-      "body": "Ce chapitre est en préparation. De nouveaux détails sur nos sites seront ajoutés ici prochainement.",
-      "cover": "RÉSERVÉ · À VENIR"
+      "eyebrow": "Logistique",
+      "title": "Entreposage",
+      "body": "Assemblage, mise en kit et filmage automatisés répartis sur deux centres logistiques régionaux. De l'impression à l'emballage à la livraison — logistique intégrée servant 25+ pays.",
+      "cover": "PHOTO · ENTREPOSAGE ET LOGISTIQUE"
     },
     "05": {
-      "eyebrow": "Réservé",
-      "title": "Contenu à venir",
-      "body": "Ce chapitre est en préparation. De nouveaux détails sur nos sites seront ajoutés ici prochainement.",
-      "cover": "RÉSERVÉ · À VENIR"
+      "eyebrow": "Direction",
+      "title": "Siège social",
+      "body": "Siège de Sanpada pilotant les opérations sur trois usines de Taloja totalisant 300 000 pi². Qualité, sécurité et excellence de la livraison inscrites dans chaque envoi.",
+      "cover": "PHOTO · SIÈGE SOCIAL SANPADA"
     }
   },
   "processes": {

@@ -4,22 +4,22 @@
   "titleB": "Diseñados para generar confianza.",
   "facilities": {
     "01": {
-      "title": "3 instalaciones de impresión",
-      "body": "Una sede central en Sanpada y tres fábricas en Taloja, B8, L28 y L123, en Navi Mumbai, con un total de 300,000 pies cuadrados, construidas para la eficiencia, la seguridad y la escala.",
-      "caption": "Taloja MIDC, Navi Mumbai",
-      "ph": "FOTO · INSTALACIONES DE IMPRESIÓN, NAVI MUMBAI"
+      "title": "Máquinas web",
+      "body": "20 torres web configuradas para impresión de bobina de alta velocidad, ofreciendo precisión y consistencia en el espectro de impresión más amplio.",
+      "caption": "Torres web, sala de prensas",
+      "ph": "FOTO · TORRES WEB, SALA DE PRENSAS"
     },
     "02": {
-      "title": "20 torres web, 5 de pliego",
-      "body": "20 torres web y 5 prensas de pliego, con el apoyo de 17 plegadoras y 6 máquinas automáticas de cosido con hilo, para lograr precisión a cualquier escala.",
-      "caption": "30,000 t enviadas al año",
-      "ph": "FOTO · SALA DE PRENSAS, TORRES DE IMPRESIÓN"
+      "title": "Máquinas de pliego",
+      "body": "5 prensas de pliego manejando stock cortado de 65x90 mm a 720x1040 mm, con registro de color a ±2 mm y capacidad de acabado en línea.",
+      "caption": "Prensas de pliego, Taloja",
+      "ph": "FOTO · PRENSAS DE PLIEGO"
     },
     "03": {
-      "title": "2 centros de almacenamiento y logística",
-      "body": "Intercalado, preparación de kits y retractilado automatizados, hasta 10,000 kits procesados cada día.",
-      "caption": "Navi Mumbai · Listo para exportar",
-      "ph": "FOTO · ALMACÉN Y LOGÍSTICA"
+      "title": "Encuadernación y acabado",
+      "body": "17 intercaladoras y 6 máquinas automáticas de cosido con hilo, encuadernación perfecta, grapado al centro, encuadernación flexible y retractilado, procesando 10,000+ kits diarios.",
+      "caption": "Línea de encuadernación, Navi Mumbai",
+      "ph": "FOTO · ENCUADERNACIÓN Y ACABADO"
     }
   },
   "books": {
@@ -34,16 +34,16 @@
       "glanceEyebrow": "De un vistazo"
     },
     "04": {
-      "eyebrow": "Reservado",
-      "title": "Contenido próximamente",
-      "body": "Este capítulo se está preparando. Pronto se añadirán aquí nuevos detalles de nuestras instalaciones.",
-      "cover": "RESERVADO · PRÓXIMAMENTE"
+      "eyebrow": "Logística",
+      "title": "Almacenamiento",
+      "body": "Intercalado, preparación de kits y retractilado automatizados en dos centros logísticos regionales. De la impresión al empaque al envío — logística integrada sirviendo 25+ países.",
+      "cover": "FOTO · ALMACÉN Y LOGÍSTICA"
     },
     "05": {
-      "eyebrow": "Reservado",
-      "title": "Contenido próximamente",
-      "body": "Este capítulo se está preparando. Pronto se añadirán aquí nuevos detalles de nuestras instalaciones.",
-      "cover": "RESERVADO · PRÓXIMAMENTE"
+      "eyebrow": "Dirección",
+      "title": "Sede central",
+      "body": "Sede de Sanpada supervisando operaciones en tres fábricas de Taloja con un total de 300,000 pies cuadrados. Calidad, seguridad y excelencia en la entrega en cada envío.",
+      "cover": "FOTO · SEDE CENTRAL SANPADA"
     }
   },
   "processes": {

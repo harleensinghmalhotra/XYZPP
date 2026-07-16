@@ -32,11 +32,11 @@ import './InfraBooks.css'
 // To fill a reserved book later: drop real content into `books.04` / `books.05`
 // (or convert it to a facilities-backed book) and clear its `placeholder` flag.
 const BOOKS = [
-  { id: '01', src: '01', icon: 'press' },   // 3 Printing Facilities
-  { id: '02', src: '02', icon: 'tower' },   // 20 Web Towers, 5 Sheet Fed
-  { id: '03', src: '03', icon: 'carton' },  // 2 Warehouse & Fulfilment Centres
-  { id: '04', icon: 'soon', placeholder: true },
-  { id: '05', icon: 'soon', placeholder: true },
+  { id: '01', src: '01', icon: 'tower' },   // Web Machines
+  { id: '02', src: '02', icon: 'press' },   // Sheetfed Machines
+  { id: '03', src: '03', icon: 'carton' },  // Binding and Finishing
+  { id: '04', icon: 'carton', placeholder: true },  // Warehousing
+  { id: '05', icon: 'tower', placeholder: true },   // Head Office
 ]
 
 const FLIP_MS = 560 // JS lock slightly longer than the 520ms CSS leaf turn
