@@ -1506,6 +1506,44 @@ body {
   color: rgba(245, 240, 232, 0.8);
 }
 
+.proj-lead {
+  margin: 22px 0 12px;
+  max-width: 560px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: clamp(13px, 1.1vw, 15px);
+  line-height: 1.6;
+  color: var(--gold-2);
+}
+
+.proj-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  max-width: 560px;
+}
+
+.proj-list-item {
+  margin: 8px 0;
+  padding-left: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(13px, 1.1vw, 15px);
+  line-height: 1.6;
+  color: rgba(245, 240, 232, 0.85);
+  position: relative;
+}
+
+.proj-list-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 1px;
+  background: var(--gold-2);
+}
+
 /* the photoreal Earth (react-globe.gl → Globe3D) */
 .proj-globe {
   position: relative;

@@ -1,8 +1,17 @@
 {
-  "eyebrow": "Notre bilan",
+  "eyebrow": "Portée mondiale",
   "titleA": "Livraisons",
   "titleB": "mondiales.",
-  "sub": "Gouvernements, éditeurs et organisations de développement dans plus de 25 pays nous confient leurs projets pour les mener à bien, conformes au cahier des charges, dans les délais, à chaque fois. Ce n'est pas un hasard, c'est l'exigence que nous nous imposons.",
+  "sub": "De confiance auprès de 200+ maisons d'édition et organisations éducatives dans le monde entier, Quarterfold livre des produits imprimés de haute qualité sur les marchés mondiaux.",
+  "leadInText": "Notre expérience comprend le service de :",
+  "listItems": [
+    "Grands éditeurs",
+    "Établissements d'enseignement et organisations",
+    "Projets financés par la Banque mondiale",
+    "Ministères de l'Éducation",
+    "Organisations non gouvernementales (ONG)",
+    "Marques de vente au détail multinationales"
+  ],
   "destinationsEyebrow": "Destinations",
   "regions": {
     "africa": {

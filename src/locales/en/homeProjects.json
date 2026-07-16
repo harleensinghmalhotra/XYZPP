@@ -1,8 +1,17 @@
 {
-  "eyebrow": "Track Record",
+  "eyebrow": "Global Reach",
   "titleA": "Worldwide",
   "titleB": "Deliveries.",
-  "sub": "Governments, publishers and development organisations across 25+ countries trust us to get the job done, on spec, on schedule, every time. That's not a coincidence, it's the standard we hold ourselves to.",
+  "sub": "Trusted by 200+ publishers and educational organizations worldwide, Quarterfold delivers high quality printed products across global markets.",
+  "leadInText": "Our experience includes serving:",
+  "listItems": [
+    "Leading Publishers",
+    "Educational Institutions and Organizations",
+    "World Bank Funded Projects",
+    "Ministries of Education",
+    "Non Governmental Organizations (NGOs)",
+    "Multinational Retail Brands"
+  ],
   "destinationsEyebrow": "Destinations",
   "regions": {
     "africa": {

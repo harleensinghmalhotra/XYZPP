@@ -1,8 +1,17 @@
 {
-  "eyebrow": "Trayectoria",
+  "eyebrow": "Alcance global",
   "titleA": "Entregas",
   "titleB": "mundiales.",
-  "sub": "Gobiernos, editoriales y organizaciones de desarrollo de más de 25 países confían en nosotros para hacer el trabajo, según las especificaciones y en plazo, siempre. No es casualidad, es el estándar que nos exigimos.",
+  "sub": "Confiada por 200+ editoriales y organizaciones educativas en todo el mundo, Quarterfold entrega productos impresos de alta calidad en mercados globales.",
+  "leadInText": "Nuestra experiencia incluye servir a:",
+  "listItems": [
+    "Editoriales líderes",
+    "Instituciones educativas y organizaciones",
+    "Proyectos financiados por el Banco Mundial",
+    "Ministerios de Educación",
+    "Organizaciones no gubernamentales (ONG)",
+    "Marcas minoristas multinacionales"
+  ],
   "destinationsEyebrow": "Destinos",
   "regions": {
     "africa": {

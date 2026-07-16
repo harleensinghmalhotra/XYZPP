@@ -309,6 +309,12 @@ export default function Projects() {
               </span>
             </h2>
             <p className="proj-sub">{t('sub')}</p>
+            <p className="proj-lead">{t('leadInText')}</p>
+            <ul className="proj-list">
+              {t('listItems', { returnObjects: true }).map((item, idx) => (
+                <li key={idx} className="proj-list-item">{item}</li>
+              ))}
+            </ul>
           </div>
           <Globe3D ref={globe} reduced={reduced} />
         </div>
