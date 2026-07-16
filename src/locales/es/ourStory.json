@@ -1,0 +1,62 @@
+{
+  "seo": {
+    "title": "Nuestra Historia | Quarterfold Printabilities",
+    "description": "Potenciando la educación global a través de la excelencia en la impresión. Desde 2014, hemos crecido de un único pedido de 50 000 libros a servir más de 25 países con materiales educativos.",
+    "breadcrumb": {
+      "home": "Inicio",
+      "about": "Nuestra Historia"
+    }
+  },
+  "hero": {
+    "eyebrow": "Quarterfold Printabilities",
+    "title": "Potenciando la educación global a través de la excelencia en la impresión",
+    "lede": "En 2014, Quarterfold Printabilities comenzó con un único pedido de 50 000 copias para un editor africano. Hoy, la empresa imprime y entrega libros educativos para ministerios, programas de donantes y editores en más de 25 países. La escala cambió. La promesa detrás de cada libro no.",
+    "cta": "Solicitar presupuesto",
+    "statNum": "50 000",
+    "statUnit": "El primer pedido",
+    "statFoot": "Libros impresos en 2014 que marcaron la dirección de todo lo que hemos construido desde entonces."
+  },
+  "timeline": {
+    "eyebrow": "Nuestro viaje",
+    "title": "Cinco años de crecimiento",
+    "stops": [
+      {
+        "year": "2014",
+        "label": "El primer pedido",
+        "desc": "Fundada en Navi Mumbai como empresa de gestión de impresión. Un único pedido de 50 000 libros para un editor africano marca la dirección."
+      },
+      {
+        "year": "2015 a 2017",
+        "label": "Aprendiendo el continente",
+        "desc": "La producción anual crece a 15 a 18 millones de libros para mercados internacionales."
+      },
+      {
+        "year": "2018",
+        "label": "Nuestra primera instalación",
+        "desc": "Primera instalación de impresión establecida en Navi Mumbai, llevando la calidad de la producción bajo control directo."
+      },
+      {
+        "year": "2021 a 2023",
+        "label": "Escala con sistemas",
+        "desc": "Tres instalaciones avanzadas que abarcan 300 000 pies cuadrados, con inversión adicional en toda maquinaria nueva, incluido un centro de cumplimiento dedicado. Más de 75 millones de libros entregados a varios editores y programas del Ministerio de Educación."
+      },
+      {
+        "year": "2024 a 2025",
+        "label": "Una operación global",
+        "desc": "Más de 800 contenedores enviados a 25 países en un solo año. PrintWeek nombra a Quarterfold Printabilities la Mejor Empresa de Libros Educativos del Año."
+      }
+    ]
+  },
+  "mission": {
+    "title": "Nuestra misión",
+    "desc": "Entregar materiales educativos de alta calidad y rentables mediante la impresión responsable, empoderando a los estudiantes en más de 25 países mientras superamos las expectativas de cada editor, ministerio e institución que servimos."
+  },
+  "vision": {
+    "title": "Nuestra visión",
+    "desc": "Ser líder en la industria mundial de la impresión con soluciones innovadoras, responsables y asequibles que apoyen la educación, promuevan la cultura de la lectura y defiendan la responsabilidad ambiental y social."
+  },
+  "values": {
+    "title": "Nuestros valores",
+    "desc": "Calidad, confiabilidad y cuidado en cada proyecto, ya sea mil copias o un millón."
+  }
+}

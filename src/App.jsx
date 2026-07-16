@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import SiteLayout from '@/components/SiteLayout'
 import Home from '@/pages/Home'
 import ShellPage from '@/pages/ShellPage'
-import About from '@/pages/About'
+import OurStory from '@/pages/OurStory'
 import EducationalBooks from '@/pages/EducationalBooks'
 import PrintOnDemand from '@/pages/PrintOnDemand'
 import TradeBooks from '@/pages/TradeBooks'
@@ -20,7 +20,7 @@ export default function App() {
       <Route element={<SiteLayout />}>
         <Route index element={<Home />} />
 
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<OurStory />} />
         <Route path="/educational-books" element={<EducationalBooks />} />
         <Route path="/trade-books" element={<TradeBooks />} />
         <Route path="/print-on-demand" element={<PrintOnDemand />} />
