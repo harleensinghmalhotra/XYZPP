@@ -4588,6 +4588,41 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   .gr-link:hover span { transform: translateX(5px); }
 }
 .gr-link:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 4px; border-radius: var(--radius-xs); }
+.gr-subhead {
+  margin: 26px 0 42px; max-width: 35ch; font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(15px, 1.4vw, 18px); line-height: 1.65; color: rgba(253, 250, 244, 0.72);
+}
+.gr-regions {
+  margin: 48px 0; display: flex; flex-direction: column; gap: 32px; max-width: 45ch;
+}
+.gr-region {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.gr-region-title {
+  margin: 0; font-family: 'Inter Tight', sans-serif; font-size: clamp(16px, 1.6vw, 19px);
+  font-weight: 700; line-height: 1.3; letter-spacing: -0.5px; color: #fdfaf4;
+}
+.gr-region-subtitle {
+  font-weight: 400; color: rgba(253, 250, 244, 0.68); font-size: 0.95em;
+}
+.gr-region-description {
+  margin: 0; font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(14px, 1.2vw, 16px); line-height: 1.6; color: rgba(253, 250, 244, 0.66);
+}
+.gr-bullets {
+  margin: 48px 0 0; display: flex; flex-direction: column; gap: 24px; max-width: 50ch;
+}
+.gr-bullet {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.gr-bullet-title {
+  margin: 0; font-family: 'Inter Tight', sans-serif; font-size: clamp(14px, 1.3vw, 17px);
+  font-weight: 700; line-height: 1.3; letter-spacing: -0.4px; color: rgba(253, 250, 244, 0.88);
+}
+.gr-bullet-description {
+  margin: 0; font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: max(11px, clamp(13px, 1.1vw, 15px)); line-height: 1.55; color: rgba(253, 250, 244, 0.62);
+}
 .gr-globe { position: relative; align-self: stretch; min-height: 92vh; }
 /* soft navy vignette so the globe reads as embedded, edges melt into the bg */
 .gr-globe::after {

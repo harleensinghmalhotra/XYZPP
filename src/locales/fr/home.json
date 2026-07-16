@@ -37,12 +37,45 @@
     "aria": "Notre engagement"
   },
   "globeReach": {
-    "eyebrow": "Présence mondiale",
+    "eyebrow": "Marchés mondiaux",
     "titleLine1": "Imprimé en Inde.",
     "titleThin": "Lu par le",
     "titleBold2": "monde.",
-    "lede": "À 15 minutes du port JNPT de Mumbai, répartis sur trois usines à Navi Mumbai et 300 000 pieds carrés, avec des livraisons partout dans le monde.",
-    "link": "Découvrir notre présence mondiale"
+    "subhead": "À partir de nos installations à Navi Mumbai, à 15 minutes du port JNPT, nos livres atteignent des apprenants et des lecteurs dans plus de 25 pays, avec des systèmes de logistique, de documentation et de qualité adaptés à chaque région desservie.",
+    "regions": [
+      {
+        "title": "Afrique",
+        "subtitle": "(plus grand marché d'exportation)",
+        "description": "Ministères de l'Éducation et institutions gouvernementales au Nigeria, Kenya, Ouganda, Ghana, Cameroun, Rwanda, Tanzanie, Zambie, Côte d'Ivoire, République Démocratique du Congo et bien d'autres."
+      },
+      {
+        "title": "Inde, Émirats arabes unis et Asie",
+        "description": "Solutions complètes de bout en bout, impression, préparation, emballage et livraison directe aux écoles, pour les bureaux des manuels scolaires de l'État, les banques nationales et les principales sociétés d'éducation."
+      },
+      {
+        "title": "Amérique du Nord, Royaume-Uni et Europe",
+        "subtitle": "(expansion, conçue avec soin)",
+        "description": "Livres d'activités, livres de détente, livres à colorier et papeterie pour les principaux éditeurs et grandes chaînes de distribution aux États-Unis, au Royaume-Uni, au Mexique, en Espagne et en Allemagne."
+      }
+    ],
+    "bullets": [
+      {
+        "title": "Certifié et audité",
+        "description": "Chaîne de traçabilité FSC, ISO 9001:2015, ISO 14001:2015, ISO/IEC 27001:2022, adhésion Sedex."
+      },
+      {
+        "title": "Support éditorial et de préparation en anglais",
+        "description": "Avec un point de contact unique à travers les fuseaux horaires."
+      },
+      {
+        "title": "Capacité de montée en charge sans surcoût",
+        "description": "Sur 20 tours d'impression, 5 presses à feuilles et une gamme de finition complète incluant 17 plieuses et 6 machines à coudure automatique."
+      },
+      {
+        "title": "Gestionnaire de compte dédié pour les clients d'Amérique du Nord et du Royaume-Uni",
+        "description": "Avec documentation, douanes et fret gérés de bout en bout."
+      }
+    ]
   },
   "marquee": {
     "aria": "Savoir-faire d'impression",
