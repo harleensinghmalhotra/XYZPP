@@ -1,7 +1,7 @@
 /* ── Infrastructure — THE BOOK STACK ──────────────────────────────────────────
    Mechanics recycled from Cases.css (the open book) — copied, not shared, so the
-   gated Case Studies styling stays untouched. Same tokens: navy #0F2444,
-   navy2 #1B3A6B, deep-navy #0B1C38, gold #C89A3C, gold-bright #E6BD6A,
+   gated Case Studies styling stays untouched. Same tokens: navy var(--navy),
+   navy2 var(--navy-2), deep-navy #0B1C38, gold var(--gold-2), gold-bright #E6BD6A,
    gold-text #836013, cream #FDFAF4. No reds, no pure black/white. Square-ish
    corners via the shared radius tokens. Depth from soft radial/edge shadows only.
    Spines are SLIMMER than Cases' (client: "a little thinner than before"). */
@@ -18,8 +18,8 @@
   font-family: 'Inter', sans-serif;
   /* a faint warm reading-light pooled behind the book — radial, never a line */
   background:
-    radial-gradient(120% 90% at 62% 30%, rgba(200, 154, 60, 0.10) 0%, transparent 58%),
-    #0f2444;
+    radial-gradient(120% 90% at 62% 30%, rgb(var(--gold-2-rgb) / 0.10) 0%, transparent 58%),
+    var(--navy);
 }
 
 .ib-interactive {
@@ -32,7 +32,7 @@
   outline: none;
 }
 .ib-interactive:focus-visible {
-  outline: 2px solid #c89a3c;
+  outline: 2px solid var(--gold-2);
   outline-offset: 8px;
 }
 
@@ -95,7 +95,7 @@
     0 10px 18px -12px rgba(0, 0, 0, 0.6);
 }
 .ib-spine--navy {
-  background: linear-gradient(100deg, #173257 0%, #0f2444 58%, #0b1c38 100%);
+  background: linear-gradient(100deg, #173257 0%, var(--navy) 58%, #0b1c38 100%);
 }
 .ib-spine--cream {
   background: linear-gradient(100deg, #fdfaf4 0%, #f4eede 60%, #e9dfca 100%);
@@ -108,7 +108,7 @@
   font-weight: 500;
   font-size: 12px;
   letter-spacing: 0.5px;
-  color: #c89a3c; /* foil gold — AA-large on navy */
+  color: var(--gold-2); /* foil gold — AA-large on navy */
 }
 .ib-spine--cream .ib-spine-num { color: #836013; } /* gold-text — AA on cream */
 
@@ -133,7 +133,7 @@
   max-height: 230px;
 }
 .ib-spine--navy .ib-spine-title { color: #f5f0e8; }
-.ib-spine--cream .ib-spine-title { color: #0f2444; }
+.ib-spine--cream .ib-spine-title { color: var(--navy); }
 
 /* THE SHELF MOVE — hover pulls the spine off the shelf toward the viewer */
 .ib-spine:hover,
@@ -148,7 +148,7 @@
   z-index: 3;
 }
 .ib-spine:focus-visible {
-  outline: 2px solid #c89a3c;
+  outline: 2px solid var(--gold-2);
   outline-offset: 3px;
 }
 
@@ -171,7 +171,7 @@
   width: 18px;
   height: 56px;
   z-index: 6;
-  background: linear-gradient(180deg, #e6bd6a 0%, #c89a3c 46%, #9b7420 100%);
+  background: linear-gradient(180deg, #e6bd6a 0%, var(--gold-2) 46%, var(--gold) 100%);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 74%, 0 100%);
 }
@@ -185,7 +185,7 @@
   font-family: 'DM Mono', monospace;
   font-size: 12px;
   letter-spacing: 2px;
-  color: #c89a3c;
+  color: var(--gold-2);
   text-transform: uppercase;
 }
 .ib-counter-sep { opacity: 0.5; margin: 0 2px; }
@@ -258,7 +258,7 @@
   flex-direction: column;
   justify-content: center;
   padding: clamp(28px, 3.6vh, 44px) clamp(28px, 3vw, 50px);
-  color: #0f2444;
+  color: var(--navy);
 }
 .ib-eyebrow {
   font-family: 'DM Mono', monospace;
@@ -276,7 +276,7 @@
   line-height: 1.14;
   letter-spacing: -0.4px;
   margin: 0 0 18px;
-  color: #0f2444;
+  color: var(--navy);
 }
 .ib-title--cover {
   font-size: clamp(28px, 2.8vw, 40px);
@@ -287,7 +287,7 @@
 .ib-body {
   font-size: 15px;
   line-height: 1.62;
-  color: rgba(15, 36, 68, 0.82);
+  color: rgb(var(--navy-rgb) / 0.82);
   margin: 0;
   max-width: 42ch;
 }
@@ -299,7 +299,7 @@
   font-weight: 500;
   line-height: 1.18;
   letter-spacing: -0.4px;
-  color: #0f2444;
+  color: var(--navy);
   margin: 0;
   max-width: 16ch;
 }
@@ -307,14 +307,14 @@
 /* ── panel face — the designed MOCK cover (a real photo drops in later) ─────── */
 .ib-face--panel {
   background:
-    radial-gradient(120% 120% at 30% 20%, #16305a 0%, #0f2444 56%, #0b1c38 100%);
+    radial-gradient(120% 120% at 30% 20%, #16305a 0%, var(--navy) 56%, #0b1c38 100%);
   display: grid;
   place-items: center;
 }
 .ib-ph-pattern {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(200, 154, 60, 0.10) 1px, transparent 1.5px);
+  background-image: radial-gradient(rgb(var(--gold-2-rgb) / 0.10) 1px, transparent 1.5px);
   background-size: 16px 16px;
   opacity: 0.55;
   pointer-events: none;
@@ -325,17 +325,17 @@
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  color: #c89a3c;
+  color: var(--gold-2);
   text-align: center;
   padding: 0 26px;
 }
-.ib-ph-icon { color: #c89a3c; }
+.ib-ph-icon { color: var(--gold-2); }
 .ib-ph-cap {
   font-family: 'DM Mono', monospace;
   font-size: 11px; /* 11px floor */
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #d8ae5e; /* a hair brighter than #c89a3c — AA on the deep-navy panel */
+  color: #d8ae5e; /* a hair brighter than var(--gold-2) — AA on the deep-navy panel */
   max-width: 24ch;
   line-height: 1.55;
 }
@@ -403,9 +403,9 @@
   place-items: center;
   font-size: 17px;
   line-height: 1;
-  color: #c89a3c;
+  color: var(--gold-2);
   background: rgba(11, 28, 56, 0.72);
-  border: 1px solid rgba(200, 154, 60, 0.5);
+  border: 1px solid rgb(var(--gold-2-rgb) / 0.5);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: background 0.25s, color 0.25s, border-color 0.25s;
@@ -413,9 +413,9 @@
 .ib-arrow--prev { left: 8px; }
 .ib-arrow--next { right: 8px; }
 .ib-arrow:hover:not(:disabled) {
-  background: rgba(200, 154, 60, 0.16);
+  background: rgb(var(--gold-2-rgb) / 0.16);
   color: #e6bd6a;
-  border-color: rgba(200, 154, 60, 0.85);
+  border-color: rgb(var(--gold-2-rgb) / 0.85);
 }
 .ib-arrow:focus-visible {
   outline: 2px solid #e6bd6a;
@@ -435,8 +435,8 @@
     box-shadow:
       inset 4px 0 9px -6px rgba(0, 0, 0, 0.5),
       inset -4px 0 9px -6px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(200, 154, 60, 0.6),
-      0 0 22px rgba(200, 154, 60, 0.32);
+      0 0 0 1px rgb(var(--gold-2-rgb) / 0.6),
+      0 0 22px rgb(var(--gold-2-rgb) / 0.32);
   }
   .ib-spread { animation-duration: 0.18s; }
 }

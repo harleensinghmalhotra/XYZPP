@@ -36,12 +36,12 @@ export default function Marquee() {
       data-theme="dark"
       // z-0 so the hero (z-1) overhangs onto this section as it lands; extra top
       // padding leaves the landing zone clear for the overhanging book spine.
-      className="relative z-0 overflow-hidden border-b border-paper/10 bg-[#0f2444] pb-8 pt-[18svh] md:pb-10 md:pt-[16svh]"
+      className="relative z-0 overflow-hidden border-b border-paper/10 bg-[var(--navy)] pb-8 pt-[18svh] md:pb-10 md:pt-[16svh]"
     >
       {/* curved boundary that tops the section — the book overhangs and lands on it */}
       <svg
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[9svh] w-full text-[#0f2444]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[9svh] w-full text-[var(--navy)]"
         viewBox="0 0 1440 120"
         preserveAspectRatio="none"
       >

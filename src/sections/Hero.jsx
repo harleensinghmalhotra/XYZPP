@@ -31,8 +31,12 @@ import { useTranslation } from 'react-i18next'
 // the band (z-1). Result: no navy gap, no shadow smudge.
 
 const HERO_ART = '/qfp/hero/hero-composed.webp'
-const NAVY = '#0d1b45' // matches the baked sky so the HTML block sits on the same sky, no seam above the art
-const GOLD = '#C89A3C'
+// Navy/gold come from the homepage-scoped palette (.home-palette in index.css),
+// which is set to Ekta's baked hero values (navy #0e1b46 / gold #aa6f1d) — so the
+// section sky matches the art pixel-for-pixel and the headline gold matches the
+// baked bubbles.
+const NAVY = 'var(--navy)'
+const GOLD = 'var(--gold)' // exact Ekta gold; the headline is large so AA holds on navy
 
 // The four speech-bubble messages exactly as PAINTED into the art (English only —
 // see the known-limitation note). Surfaced sr-only so screen-reader users hear what
@@ -77,16 +81,16 @@ export default function Hero() {
         <div className="mt-[6.5vh] flex flex-wrap items-center justify-center gap-[24px]">
           <a
             href="#services"
-            className="btn-nebula group relative inline-flex h-[54px] items-center gap-[18px] border-[1.5px] border-white/60 pl-[26px] pr-[7px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[#0f2444] hover:border-[#f5f0e8]"
+            className="btn-nebula group relative inline-flex h-[54px] items-center gap-[18px] border-[1.5px] border-white/60 pl-[26px] pr-[7px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[var(--navy)] hover:border-[#f5f0e8]"
           >
             <span className="relative z-10">{t('hero.ctaPrint')}</span>
-            <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-white/60 transition-[background-color,border-color] duration-300 ease-out group-hover:border-[#0f2444] group-hover:bg-[#0f2444]">
+            <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-white/60 transition-[background-color,border-color] duration-300 ease-out group-hover:border-[var(--navy)] group-hover:bg-[var(--navy)]">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-white transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
             </span>
           </a>
           <a
             href="#reach"
-            className="btn-nebula group relative inline-flex h-[54px] items-center border-[1.5px] border-white/60 px-[26px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[#0f2444] hover:border-[#f5f0e8]"
+            className="btn-nebula group relative inline-flex h-[54px] items-center border-[1.5px] border-white/60 px-[26px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[var(--navy)] hover:border-[#f5f0e8]"
           >
             {t('hero.ctaReach')}
           </a>

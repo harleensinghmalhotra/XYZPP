@@ -237,7 +237,7 @@ export default function Certifications() {
 
       {/* signature curve — the next dark section (techniques strip) arcs in below */}
       <svg className="certs-arc-bottom" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0,150 L1440,150 L1440,70 Q720,-10 0,70 Z" fill="#0f2444" />
+        <path d="M0,150 L1440,150 L1440,70 Q720,-10 0,70 Z" fill="var(--navy)" />
       </svg>
     </section>
   )
