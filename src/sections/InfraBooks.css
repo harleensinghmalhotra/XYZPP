@@ -72,27 +72,40 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 6px;
 }
 
-/* Gold underline — hidden, kept for structure */
+/* Gold underline — grows from 0 to full-width on hover/focus */
 .ib-nav-underline {
-  display: none;
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold-2);
+  transition: width 0.28s ease-out;
 }
 
-/* Hover state — label brightens */
+/* Hover state — underline grows, label brightens */
+.ib-nav-button:hover:not(.ib-nav-button--soon) .ib-nav-underline {
+  width: 100%;
+}
 .ib-nav-button:hover:not(.ib-nav-button--soon) {
   color: #e6bd6a;
 }
 
-/* Active state — brighter gold text */
-.ib-nav-button--active {
-  color: #e6bd6a;
+/* Focus-visible — underline grows + ring */
+.ib-nav-button:focus-visible .ib-nav-underline {
+  width: 100%;
 }
-
-/* Focus-visible ring */
 .ib-nav-button:focus-visible {
   outline: 2px solid var(--gold-2);
   outline-offset: 4px;
+}
+
+/* Active state — brighter gold text (no persistent underline) */
+.ib-nav-button--active {
+  color: #e6bd6a;
 }
 
 /* Reserved buttons — quieter appearance */
