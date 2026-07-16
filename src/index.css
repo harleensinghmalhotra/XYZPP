@@ -762,19 +762,19 @@ body {
    Palette law: navy var(--navy), gold var(--gold), ink #1C2019, cream #FDFAF4,
    strip greys #EFEDE8 / #E5E2DA. Dividers are navy at low alpha. */
 .ts-band {
-  /* White landing zone, flat top (navy→white curve removed — hero image now
-     carries its own white-ground band flowing directly into the gold border).
-     Visual order: navy hero → white ground → gold border → strips.
+  /* White landing zone — hero image overhangs 115px via marginBottom: -115px on
+     its wrapper, pulling the white-ground curve below the section's visual bottom.
+     This padding-top restores the junction: the image's white ground lands exactly
+     on the gold border, which lands exactly on ts-band's top. No navy gap, no smudge.
+     Visual order: navy hero → image overhangs → white ground → gold border → strips.
      The hero <section> is position:relative, which makes it a POSITIONED box —
-     so its navy background paints ABOVE any static sibling it overlaps. The book
-     scene's margin pulls this band up UNDER the hero, so without its own
-     positioning the band's strips lose the paint order and the navy slabs over
-     them (only the stats bar, which clears the hero's box bottom, survived).
+     so its navy background paints ABOVE any static sibling it overlaps. Without
+     positioning, the band's strips lose the paint order (navy slabs over them).
      Give the band position:relative + z-index:1 so it paints OVER the hero navy;
-     the book scene (z-15, inside the hero) still overhangs ON TOP of the strips. */
+     the CTA wrapper (z-15, inside the hero image) still floats ON TOP. */
   position: relative;
   z-index: 1;
-  padding-top: 0;
+  padding-top: 115px;
   background-color: #fffffc;
 }
 .ts-wrap {

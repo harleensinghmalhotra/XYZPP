@@ -49,15 +49,11 @@ export default function Hero() {
         ))}
       </ul>
 
-      {/* White safety band — covers any navy that peeks through if the image's
-          white-ground curve doesn't span the full width at edges/wide viewports. */}
-      <div className="absolute bottom-0 left-0 right-0 z-[10] h-[20%] bg-[#fffaf4] pointer-events-none" />
-
-      {/* THE COMPOSED HERO — full-bleed from header to TrustStrips. Image sits on
-          the section's navy background, no overhang at z-15 so the full image
-          (including white-ground band) is visible inside the hero section, and the
-          image's bottom edge aligns cleanly with the TrustStrips junction below. */}
-      <div className="pointer-events-none relative z-[15]">
+      {/* THE COMPOSED HERO — full-bleed from header to TrustStrips. Image overhangs
+          115px below the white ground via marginBottom: -115px; the ts-band padding-top
+          compensates so the gold border lands at the section junction. The wrapper div
+          (relative z-15) is the positioning context for the CTAs. */}
+      <div className="pointer-events-none relative z-[15]" style={{ marginBottom: '-115px' }}>
         <img
           src={HERO_ART}
           alt="Four children stand around a giant open book resting on a dotted world map. The book's pages read: Powering Global Education Through Print Excellence. Printing is stronger than ever. We love books. We love printing."
@@ -65,27 +61,26 @@ export default function Hero() {
           draggable="false"
           fetchPriority="high"
         />
-      </div>
 
-      {/* TWO PILL CTAs — positioned absolutely over the image's baked empty pill
-          outlines (visible at ~93% from image top in Ekta's art, verified measured).
-          Simple capsule pills matching the baked art: 2px navy outline, transparent
-          fill, centered text, no inner elements. Both identical in style. Positioned
-          using ONLY % of image height (no vh units) so they land precisely on the
-          baked outlines at every viewport size. */}
-      <div className="absolute inset-x-0 z-[20] flex flex-wrap items-center justify-center gap-[24px]" style={{ top: '90.6%', bottom: 'auto' }}>
-        <a
-          href="#services"
-          className="inline-flex h-[54px] items-center px-[26px] border-[2px] border-[var(--navy)] rounded-full text-[15px] font-medium text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
-        >
-          {t('hero.ctaPrint')}
-        </a>
-        <a
-          href="#reach"
-          className="inline-flex h-[54px] items-center px-[26px] border-[2px] border-[var(--navy)] rounded-full text-[15px] font-medium text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
-        >
-          {t('hero.ctaReach')}
-        </a>
+        {/* TWO PILL CTAs — positioned absolutely inside the image wrapper, so they
+            stay pinned to the image's baked pill outlines regardless of section size.
+            Simple capsule pills: 2px navy outline, transparent fill, centered text.
+            Positioned at 93% of wrapper height (measured from baked outlines in art).
+            Wrapper pointer-events-none; CTA row pointer-events-auto so pills click. */}
+        <div className="absolute inset-x-0 z-[20] flex flex-wrap items-center justify-center gap-[24px] pointer-events-auto" style={{ top: '93%', transform: 'translateY(-50%)' }}>
+          <a
+            href="#services"
+            className="inline-flex h-[54px] items-center px-[26px] border-[2px] border-[var(--navy)] rounded-full text-[15px] font-medium text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
+          >
+            {t('hero.ctaPrint')}
+          </a>
+          <a
+            href="#reach"
+            className="inline-flex h-[54px] items-center px-[26px] border-[2px] border-[var(--navy)] rounded-full text-[15px] font-medium text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
+          >
+            {t('hero.ctaReach')}
+          </a>
+        </div>
       </div>
     </section>
   )
