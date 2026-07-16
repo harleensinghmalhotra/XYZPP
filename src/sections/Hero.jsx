@@ -50,9 +50,10 @@ export default function Hero() {
       </ul>
 
       {/* THE COMPOSED HERO — full-bleed from header to TrustStrips. Image sits on
-          the section's navy background, overhangs TrustStrips by -115px at z-15 so
-          its pure-white bottom lands on ts-band's gold border. */}
-      <div className="pointer-events-none relative z-[15]" style={{ marginBottom: '-115px' }}>
+          the section's navy background, no overhang at z-15 so the full image
+          (including white-ground band) is visible inside the hero section, and the
+          image's bottom edge aligns cleanly with the TrustStrips junction below. */}
+      <div className="pointer-events-none relative z-[15]">
         <img
           src={HERO_ART}
           alt="Four children stand around a giant open book resting on a dotted world map. The book's pages read: Powering Global Education Through Print Excellence. Printing is stronger than ever. We love books. We love printing."
@@ -62,23 +63,24 @@ export default function Hero() {
         />
       </div>
 
-      {/* TWO PILL CTAs — positioned absolutely over the image's lower white-ground
-          area, matching Ekta's mockup exactly. They sit in the empty space directly
-          under the book, centered, side-by-side. The layer is pointer-events-auto
+      {/* TWO PILL CTAs — positioned absolutely over the image's baked empty pill
+          outlines (visible at ~92% from image top in Ekta's art). Sit EXACTLY atop
+          those outlines using % positioning so they scale with the image and land
+          perfectly on the baked art regardless of viewport. The layer is pointer-events-auto
           so the pills remain clickable; the image is pointer-events-none. */}
-      <div className="absolute inset-x-0 z-[20] flex flex-wrap items-center justify-center gap-[24px]" style={{ bottom: 'clamp(3.5%, 6vh, 10%)' }}>
+      <div className="absolute inset-x-0 z-[20] flex flex-wrap items-center justify-center gap-[24px]" style={{ bottom: 'clamp(6%, 7.5vh, 12%)' }}>
         <a
           href="#services"
-          className="btn-nebula group relative inline-flex h-[54px] items-center gap-[18px] border-[1.5px] border-white/60 pl-[26px] pr-[7px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[var(--navy)] hover:border-[#f5f0e8]"
+          className="btn-nebula--light group relative inline-flex h-[54px] items-center gap-[18px] border-[1.5px] border-[var(--navy)]/70 pl-[26px] pr-[7px] text-[15px] font-medium tracking-[0.3px] text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
         >
           <span className="relative z-10">{t('hero.ctaPrint')}</span>
-          <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-white/60 transition-[background-color,border-color] duration-300 ease-out group-hover:border-[var(--navy)] group-hover:bg-[var(--navy)]">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-white transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
+          <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-[var(--navy)]/70 transition-[background-color,border-color] duration-300 ease-out group-hover:border-white group-hover:bg-white">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--navy)] transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
           </span>
         </a>
         <a
           href="#reach"
-          className="btn-nebula group relative inline-flex h-[54px] items-center border-[1.5px] border-white/60 px-[26px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[var(--navy)] hover:border-[#f5f0e8]"
+          className="btn-nebula--light group relative inline-flex h-[54px] items-center border-[1.5px] border-[var(--navy)]/70 px-[26px] text-[15px] font-medium tracking-[0.3px] text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
         >
           {t('hero.ctaReach')}
         </a>
