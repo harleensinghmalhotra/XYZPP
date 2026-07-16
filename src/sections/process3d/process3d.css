@@ -33,11 +33,17 @@
   z-index: 3;
 }
 
-/* header — centred eyebrow + heading + sub, unified language */
+/* header — centred eyebrow + heading + sub, unified language. Top padding is left at
+   the global --section-y so the heading always clears the fixed nav at section entry.
+   The BOTTOM is tightened hard (below): the stage text + scene then read as one unit
+   directly under the sub, killing the dead cream band Harry flagged. */
 .conv-head {
   text-align: center;
-  padding-bottom: clamp(8px, 2vh, 20px);
 }
+/* NOTE: the global .u-section rule loads AFTER this file, so its `padding` shorthand
+   was silently resetting .conv-head's bottom back to the full --section-y (96–128px) —
+   that reset WAS the huge subhead→scene gap. Reclaim it with section-scoped specificity. */
+.conv-section .conv-head { padding-bottom: clamp(12px, 2vh, 22px); }
 .conv-head .u-eyebrow,
 .conv-head .u-h2 { text-align: center; }
 .conv-head .u-h2 { margin-inline: auto; max-width: 20ch; }
@@ -60,15 +66,26 @@
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
+  /* Reserved top band the 3D scene starts BELOW. The scene (belt, arches and the
+     floating plaque billboards) is dropped by this much so the museum label (Layer 1)
+     owns a clear cream strip above the plaque zone — text can never cross a plaque at
+     any stage, viewport or locale (the old free-overlay shared the sky with the
+     billboards and collided once trailing plaques dollied left). Sized to clear the
+     longest locale deck (FR "Contrôle Qualité", 4 lines) with margin at 720–1080 tall. */
+  --conv-textband: clamp(116px, 16vh, 188px);
   /* promote to its own GPU compositing layer so the browser snaps the pinned canvas
      to whole device pixels — Lenis's fractional scroll never lands it sub-pixel. */
   transform: translateZ(0);
   backface-visibility: hidden;
 }
 .conv-pin canvas { display: block; touch-action: pan-y; }
-/* canvas wrapper — marked aria-hidden; the meaning now lives in the HTML text
-   layer (.proc-layer) that sits alongside it. */
-.conv-stage { position: absolute; inset: 0; }
+/* canvas wrapper — marked aria-hidden; the meaning now lives in the HTML text layer
+   (.proc-layer) that sits alongside it. Starts below the reserved --conv-textband so
+   the scene drops clear of the label; its BOTTOM stays pinned to the pin floor, so the
+   exit-melt over the dark floor and the seam into Projects are pixel-unchanged. The
+   uncovered band shows the section cream — the same tone as the scene's dawn sky, so
+   the join is seamless. */
+.conv-stage { position: absolute; top: var(--conv-textband); left: 0; right: 0; bottom: 0; }
 
 /* ══ LAYER 1 — THE MUSEUM LABEL ═══════════════════════════════════════════════
    The current stage, composed like the opening TITLE CARD of a prestige film,
@@ -81,17 +98,17 @@
    cross-fades opacity between them (imperative .is-active swap — no React re-render).
    aria-hidden — a visual echo; the reachable, translated truth is Layer 2.
 
-   Geometry, MEASURED on the built render (scripts/recon-6c-label.mjs): the solid cream
-   nav owns the top --nav-h (86px); the block is anchored ≥16px BELOW it (never clipped),
-   inset ~56–72px from the left, and the whole card — name, gold rule, and a 2–3 line
-   deck — finishes in the dead sky ABOVE the plaque band, clearing the nearest plaque top
-   at every station in both languages (re-measured; the reclaimed index space is spent on
-   the bigger name, not on dropping lower). */
+   Geometry: the solid cream nav owns the top --nav-h (86px); the block is anchored just
+   below it, inset ~56–72px from the left, in the reserved --conv-textband cream strip.
+   The scene now starts BELOW that band (see .conv-stage), so the label no longer shares
+   the sky with the plaque billboards — name, gold rule and the deck sit on clean cream
+   and clear the plaque zone at every station, viewport and locale (was a free overlay
+   that collided with the WAREHOUSE/FULFILLMENT plaques once they dollied left). */
 .conv-caption {
   position: absolute;
-  top: calc(var(--nav-h, 86px) + clamp(16px, 2.2vh, 24px));
+  top: calc(var(--nav-h, 86px) + clamp(8px, 1.4vh, 14px));
   left: clamp(56px, 5.2vw, 72px);
-  width: min(440px, 46vw);
+  width: min(420px, 44vw);
   z-index: 4;
   pointer-events: none;
 }
@@ -111,7 +128,7 @@
   display: block;
   margin: 0;
   font-family: 'Inter Tight', Inter, system-ui, sans-serif; font-weight: 600;
-  font-size: clamp(34px, 3.2vw, 44px); line-height: 1.0; letter-spacing: -0.015em;
+  font-size: clamp(30px, 2.7vw, 40px); line-height: 1.0; letter-spacing: -0.015em;
   color: var(--navy, #0f2444);
 }
 /* THE ONE DETAIL — a short gold rule set well below the name's baseline. Restraint:
@@ -120,7 +137,7 @@
   content: '';
   display: block;
   width: 48px; height: 2px;
-  margin-top: 16px;
+  margin-top: 12px;
   background: var(--gold-2, #c89a3c);
   border-radius: 1px;
 }
@@ -128,11 +145,11 @@
    above (name+rule are one unit, the deck gets its own air) reads as title + deck,
    never a crammed block. */
 .conv-cap-desc {
-  margin: 16px 0 0;
-  max-width: 420px;
+  margin: 12px 0 0;
+  max-width: 380px;
   font-family: 'Inter', system-ui, sans-serif; font-weight: 400;
-  font-size: 15.5px; line-height: 1.6;
-  color: rgba(28, 32, 25, 0.75); /* ink @ 0.75 on the cream sky (≥4.5:1, measured) */
+  font-size: 14.5px; line-height: 1.5;
+  color: rgba(28, 32, 25, 0.78); /* ink @ 0.78 on the cream sky (≥4.5:1, measured) */
 }
 @media (prefers-reduced-motion: reduce) {
   .conv-cap { transition: none; } /* swap, never cross-fade */
