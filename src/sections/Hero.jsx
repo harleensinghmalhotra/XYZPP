@@ -1,29 +1,27 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-// ── QFP hero — EKTA'S MOCKUP EXACTLY (wsw.png / 16 Jul 2026) ─────────────────
-// Structure (final): the section goes DIRECTLY from the header into Ekta's
-// full-bleed composed image — no HTML headline/subhead block visible. The image
-// (navy sky + dotted world map + open book with headline printed on its pages +
-// four kids + four speech bubbles + white ground curve) fills the hero top-to-
-// bottom. The only HTML overlays are the two pill CTAs, positioned absolutely
-// in the white ground area directly under the book, matching Ekta's mockup
-// exactly.
+// ── QFP hero — EKTA'S FINAL MOCKUP (wsw.png → hero-final.webp) ───────────────
+// Structure: the section displays Ekta's full-bleed composed mockup at full width
+// and natural aspect ratio (2400×1350). The HTML layout is dead simple: image
+// full-width, no overhang, no crops, section bottom = image bottom. The only
+// HTML overlays are two pill CTAs, pinned absolutely to the baked outline coords.
 //
-// A11y: the <h1> and subhead are sr-only (semantic + SEO, not visually rendered);
-// the bubble lines are also sr-only; the image alt is descriptive. Sighted users
-// read the headline baked into the art and the pill CTAs; screen-reader users
-// hear the sr-only copy.
+// Pill measurements from wsw.png baked outlines:
+//   Vertical center: 77% of image height
+//   Left pill:  33% from left, ~7.5% wide, ~4% tall
+//   Right pill: 67% from left, ~7.5% wide, ~4% tall
+//   Style: navy 2px outline, transparent fill, rounded-full capsule
 //
-// KNOWN LIMITATION: the baked-in text (headline on the book, bubbles) is ENGLISH
-// ONLY. FR/ES visitors see English text in the art; the pill CTAs localize. The
-// real fix is a future set of localized re-exports from Ekta, not code.
+// A11y: the <h1> and subhead are sr-only (semantic + SEO); the bubble lines
+// are sr-only; image alt is descriptive. Sighted users read the baked headline
+// and pill CTAs; screen-reader users hear the sr-only copy.
 //
-// JUNCTION: unchanged (de1dcdb / d47d341 / 03ed769 / 7dd1e24 / a4f1e27). The
-// art's pure-white bottom lands exactly on ts-band's gold border via the fixed
-// -115px overhang at z-15. No navy gap, no shadow smudge.
+// KNOWN LIMITATION: baked-in text (headline, bubbles) is ENGLISH ONLY. FR/ES
+// visitors see English text in the art; pill CTAs localize. Future localized
+// re-exports from Ekta will address this.
 
-const HERO_ART = '/qfp/hero/hero-composed.webp'
+const HERO_ART = '/qfp/hero/hero-final.webp'
 
 // The four speech-bubble messages exactly as PAINTED into the art (English only).
 // Surfaced sr-only so screen-reader users hear what sighted users read.
@@ -39,7 +37,7 @@ export default function Hero() {
   const section = useRef(null)
 
   return (
-    <section id="hero" ref={section} data-theme="dark" className="relative overflow-x-clip" style={{ backgroundColor: 'var(--navy)' }}>
+    <section id="hero" ref={section} data-theme="dark" className="relative overflow-x-clip">
       {/* Semantic copy — baked into the image, surfaced sr-only for SEO + a11y. */}
       <h1 className="sr-only">{t('hero.line1')} — {t('hero.line2')}</h1>
       <p className="sr-only">{t('hero.subhead')}</p>
@@ -49,11 +47,10 @@ export default function Hero() {
         ))}
       </ul>
 
-      {/* THE COMPOSED HERO — full-bleed from header to TrustStrips. Image overhangs
-          115px below the white ground via marginBottom: -115px; the ts-band padding-top
-          compensates so the gold border lands at the section junction. The wrapper div
-          (relative z-15) is the positioning context for the CTAs. */}
-      <div className="pointer-events-none relative z-[15]" style={{ marginBottom: '-115px' }}>
+      {/* HERO IMAGE — Ekta's final mockup displayed at full width, natural aspect ratio.
+          No overhang, no crops. Section bottom = image bottom. The wrapper is the
+          positioning context for the pill CTAs. */}
+      <div className="pointer-events-none relative">
         <img
           src={HERO_ART}
           alt="Four children stand around a giant open book resting on a dotted world map. The book's pages read: Powering Global Education Through Print Excellence. Printing is stronger than ever. We love books. We love printing."
@@ -62,12 +59,14 @@ export default function Hero() {
           fetchPriority="high"
         />
 
-        {/* TWO PILL CTAs — positioned absolutely inside the image wrapper, so they
-            stay pinned to the image's baked pill outlines regardless of section size.
-            Simple capsule pills: 2px navy outline, transparent fill, centered text.
-            Positioned at 93% of wrapper height (measured from baked outlines in art).
-            Wrapper pointer-events-none; CTA row pointer-events-auto so pills click. */}
-        <div className="absolute inset-x-0 z-[20] flex flex-wrap items-center justify-center gap-[24px] pointer-events-auto" style={{ top: '93%', transform: 'translateY(-50%)' }}>
+        {/* TWO PILL CTAs — positioned absolutely over the image's baked pill outlines.
+            Pinned to 77% vertical center via top: 77% + translateY(-50%). Horizontal
+            layout: two pills at ~33% and ~67%, each ~7.5% wide. Wrapper pointer-events-none;
+            pill row pointer-events-auto so CTAs remain clickable. */}
+        <div
+          className="absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-[32px]"
+          style={{ top: '77%', transform: 'translateY(-50%)' }}
+        >
           <a
             href="#services"
             className="inline-flex h-[54px] items-center px-[26px] border-[2px] border-[var(--navy)] rounded-full text-[15px] font-medium text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"

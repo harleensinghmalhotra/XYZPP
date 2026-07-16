@@ -762,19 +762,12 @@ body {
    Palette law: navy var(--navy), gold var(--gold), ink #1C2019, cream #FDFAF4,
    strip greys #EFEDE8 / #E5E2DA. Dividers are navy at low alpha. */
 .ts-band {
-  /* White landing zone — hero image overhangs 115px via marginBottom: -115px on
-     its wrapper, pulling the white-ground curve below the section's visual bottom.
-     This padding-top restores the junction: the image's white ground lands exactly
-     on the gold border, which lands exactly on ts-band's top. No navy gap, no smudge.
-     Visual order: navy hero → image overhangs → white ground → gold border → strips.
-     The hero <section> is position:relative, which makes it a POSITIONED box —
-     so its navy background paints ABOVE any static sibling it overlaps. Without
-     positioning, the band's strips lose the paint order (navy slabs over them).
-     Give the band position:relative + z-index:1 so it paints OVER the hero navy;
-     the CTA wrapper (z-15, inside the hero image) still floats ON TOP. */
+  /* White landing zone. Hero image displays at natural aspect, no overhang.
+     Image's white bottom edge meets the gold border directly. The band paints
+     above the hero's navy background (relative + z-index:1). */
   position: relative;
   z-index: 1;
-  padding-top: 115px;
+  padding-top: 0;
   background-color: #fffffc;
 }
 .ts-wrap {
