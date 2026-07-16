@@ -72,33 +72,20 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 6px;
 }
 
-/* Gold underline — decorative rule below the label */
+/* Gold underline — hidden, kept for structure */
 .ib-nav-underline {
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--gold-2);
-  transition: width 0.28s ease-out;
+  display: none;
 }
 
-/* Active state — full-width brighter underline */
-.ib-nav-button--active .ib-nav-underline {
-  width: 100%;
-  height: 3px;
-  background: #e6bd6a;
-}
-
-/* Hover state — underline grows, label brightens */
-.ib-nav-button:hover:not(.ib-nav-button--soon) .ib-nav-underline {
-  width: 100%;
-  background: var(--gold-2);
-}
+/* Hover state — label brightens */
 .ib-nav-button:hover:not(.ib-nav-button--soon) {
+  color: #e6bd6a;
+}
+
+/* Active state — brighter gold text */
+.ib-nav-button--active {
   color: #e6bd6a;
 }
 
@@ -111,9 +98,6 @@
 /* Reserved buttons — quieter appearance */
 .ib-nav-button--soon {
   opacity: 0.72;
-}
-.ib-nav-button--soon .ib-nav-underline {
-  opacity: 0.6;
 }
 
 /* ── THE OPEN BOOK ─────────────────────────────────────────────────────────── */
