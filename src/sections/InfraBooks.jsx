@@ -322,31 +322,27 @@ export default function InfraBooks() {
         tabIndex={0}
         onKeyDown={onKeyDown}
       >
-        {/* THE SHELF — five standing spines; the OPEN book's spine is MISSING (a gap) */}
-        <ul className="ib-shelf" aria-label={regionLabel}>
+        {/* LEFT RAIL — five gold-underline nav buttons */}
+        <nav className="ib-nav" aria-label={regionLabel}>
           {BOOKS.map((b, i) => {
-            if (i === activeBook) {
-              return <li key={b.id} className="ib-slot ib-slot--gap" aria-hidden="true" />
-            }
             const label = b.placeholder ? t(`books.${b.id}.eyebrow`) : t(`facilities.${b.src}.title`)
             const titleFull = b.placeholder ? t(`books.${b.id}.title`) : t(`facilities.${b.src}.title`)
+            const isActive = i === activeBook
             return (
-              <li key={b.id} className="ib-slot">
-                <button
-                  type="button"
-                  className={`ib-spine ib-spine--${i % 2 === 0 ? 'navy' : 'cream'}${b.placeholder ? ' ib-spine--soon' : ''}`}
-                  onClick={() => openBook(i)}
-                  aria-label={t('books.ui.open', { title: `${titleFull} (${num(i + 1)} / ${num(BOOKS.length)})` })}
-                >
-                  <span className="ib-spine-num">{num(i + 1)}</span>
-                  <span className="ib-spine-label">
-                    <span className="ib-spine-title">{label}</span>
-                  </span>
-                </button>
-              </li>
+              <button
+                key={b.id}
+                type="button"
+                className={`ib-nav-button${isActive ? ' ib-nav-button--active' : ''}${b.placeholder ? ' ib-nav-button--soon' : ''}`}
+                onClick={() => openBook(i)}
+                aria-label={t('books.ui.open', { title: `${titleFull} (${num(i + 1)} / ${num(BOOKS.length)})` })}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <span className="ib-nav-label">{label}</span>
+                <span className="ib-nav-underline" aria-hidden="true" />
+              </button>
             )
           })}
-        </ul>
+        </nav>
 
         {/* THE OPEN BOOK */}
         <div className="ib-book-wrap">
