@@ -49,6 +49,10 @@ export default function Hero() {
         ))}
       </ul>
 
+      {/* White safety band — covers any navy that peeks through if the image's
+          white-ground curve doesn't span the full width at edges/wide viewports. */}
+      <div className="absolute bottom-0 left-0 right-0 z-[10] h-[20%] bg-[#fffaf4] pointer-events-none" />
+
       {/* THE COMPOSED HERO — full-bleed from header to TrustStrips. Image sits on
           the section's navy background, no overhang at z-15 so the full image
           (including white-ground band) is visible inside the hero section, and the
@@ -64,12 +68,12 @@ export default function Hero() {
       </div>
 
       {/* TWO PILL CTAs — positioned absolutely over the image's baked empty pill
-          outlines (visible at ~92% from image top in Ekta's art). Simple capsule
-          pills matching the baked art: 2px navy outline, transparent fill, centered
-          text, no inner elements. Both identical in style. Sit EXACTLY atop those
-          outlines using % positioning so they scale with the image and land
-          perfectly on the baked art regardless of viewport. */}
-      <div className="absolute inset-x-0 z-[20] flex flex-wrap items-center justify-center gap-[24px]" style={{ bottom: 'clamp(6%, 7.5vh, 12%)' }}>
+          outlines (visible at ~93% from image top in Ekta's art, verified measured).
+          Simple capsule pills matching the baked art: 2px navy outline, transparent
+          fill, centered text, no inner elements. Both identical in style. Positioned
+          using ONLY % of image height (no vh units) so they land precisely on the
+          baked outlines at every viewport size. */}
+      <div className="absolute inset-x-0 z-[20] flex flex-wrap items-center justify-center gap-[24px]" style={{ top: '90.6%', bottom: 'auto' }}>
         <a
           href="#services"
           className="inline-flex h-[54px] items-center px-[26px] border-[2px] border-[var(--navy)] rounded-full text-[15px] font-medium text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
