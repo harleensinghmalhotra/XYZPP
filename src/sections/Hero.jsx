@@ -64,23 +64,21 @@ export default function Hero() {
       </div>
 
       {/* TWO PILL CTAs — positioned absolutely over the image's baked empty pill
-          outlines (visible at ~92% from image top in Ekta's art). Sit EXACTLY atop
-          those outlines using % positioning so they scale with the image and land
-          perfectly on the baked art regardless of viewport. The layer is pointer-events-auto
-          so the pills remain clickable; the image is pointer-events-none. */}
+          outlines (visible at ~92% from image top in Ekta's art). Simple capsule
+          pills matching the baked art: 2px navy outline, transparent fill, centered
+          text, no inner elements. Both identical in style. Sit EXACTLY atop those
+          outlines using % positioning so they scale with the image and land
+          perfectly on the baked art regardless of viewport. */}
       <div className="absolute inset-x-0 z-[20] flex flex-wrap items-center justify-center gap-[24px]" style={{ bottom: 'clamp(6%, 7.5vh, 12%)' }}>
         <a
           href="#services"
-          className="btn-nebula--light group relative inline-flex h-[54px] items-center gap-[18px] border-[1.5px] border-[var(--navy)]/70 pl-[26px] pr-[7px] text-[15px] font-medium tracking-[0.3px] text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
+          className="inline-flex h-[54px] items-center px-[26px] border-[2px] border-[var(--navy)] rounded-full text-[15px] font-medium text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
         >
-          <span className="relative z-10">{t('hero.ctaPrint')}</span>
-          <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-[var(--navy)]/70 transition-[background-color,border-color] duration-300 ease-out group-hover:border-white group-hover:bg-white">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--navy)] transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
-          </span>
+          {t('hero.ctaPrint')}
         </a>
         <a
           href="#reach"
-          className="btn-nebula--light group relative inline-flex h-[54px] items-center border-[1.5px] border-[var(--navy)]/70 px-[26px] text-[15px] font-medium tracking-[0.3px] text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
+          className="inline-flex h-[54px] items-center px-[26px] border-[2px] border-[var(--navy)] rounded-full text-[15px] font-medium text-[var(--navy)] transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)]"
         >
           {t('hero.ctaReach')}
         </a>
