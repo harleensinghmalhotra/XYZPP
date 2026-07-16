@@ -1,17 +1,16 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-// ── QFP hero — EKTA'S FINAL MOCKUP (wsw.png → hero-final.webp) ───────────────
-// Structure: the section displays Ekta's full-bleed composed mockup at full width
-// and natural aspect ratio (2400×1350). The HTML layout is dead simple: image
-// full-width, no overhang, no crops, section bottom = image bottom. The only
-// HTML overlays are two pill CTAs, pinned absolutely to the baked outline coords.
+// ── QFP hero — OUTLINE-FREE ART (wsw without the buttons.png → hero-clean.webp) ───────────
+// Structure: the section displays Ekta's outline-free mockup at full width and natural
+// aspect ratio (2400×1350). No baked pill outlines—white ground below book is our canvas.
+// The HTML layout: image full-width, no overhang, no crops, section bottom = image bottom.
+// HTML pill CTAs are positioned absolutely in the white ground below the book base.
 //
-// Pill measurements from wsw.png baked outlines (constrained scan y=85%-100%, x=20%-80%):
-//   Vertical center: 87.5% of image height
-//   Left pill:  32% from left, 7% wide, 4% tall
-//   Right pill: 68% from left, 7% wide, 4% tall
-//   Style: navy 2px outline, transparent fill, rounded-full capsule
+// Pill positioning:
+//   Vertical center: 93% of image height (mid-white-ground, below book base, above image bottom)
+//   Horizontal: centered flex row, gap 28px
+//   Style: navy 2px border, rounded-full capsule, transparent fill, hover invert
 //
 // A11y: the <h1> and subhead are sr-only (semantic + SEO); the bubble lines
 // are sr-only; image alt is descriptive. Sighted users read the baked headline
@@ -21,7 +20,7 @@ import { useTranslation } from 'react-i18next'
 // visitors see English text in the art; pill CTAs localize. Future localized
 // re-exports from Ekta will address this.
 
-const HERO_ART = '/qfp/hero/hero-final.webp'
+const HERO_ART = '/qfp/hero/hero-clean.webp'
 
 // The four speech-bubble messages exactly as PAINTED into the art (English only).
 // Surfaced sr-only so screen-reader users hear what sighted users read.
@@ -59,13 +58,12 @@ export default function Hero() {
           fetchPriority="high"
         />
 
-        {/* TWO PILL CTAs — positioned absolutely over the image's baked pill outlines.
-            Pinned to 87.5% vertical center via top: 87.5% + translateY(-50%). Horizontal
-            layout: two pills at ~32% and ~68%, each ~7% wide. Wrapper pointer-events-none;
-            pill row pointer-events-auto so CTAs remain clickable. */}
+        {/* TWO PILL CTAs — positioned in white ground below book base.
+            Pinned to 93% vertical center via top: 93% + translateY(-50%). Centered
+            flex row with 28px gap. Row pointer-events-auto so CTAs remain clickable. */}
         <div
-          className="absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-[32px]"
-          style={{ top: '87.5%', transform: 'translateY(-50%)' }}
+          className="absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-[28px]"
+          style={{ top: '93%', transform: 'translateY(-50%)' }}
         >
           <a
             href="#services"
