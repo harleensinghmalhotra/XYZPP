@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next'
 // full-width, no overhang, no crops, section bottom = image bottom. The only
 // HTML overlays are two pill CTAs, pinned absolutely to the baked outline coords.
 //
-// Pill measurements from wsw.png baked outlines:
-//   Vertical center: 77% of image height
-//   Left pill:  33% from left, ~7.5% wide, ~4% tall
-//   Right pill: 67% from left, ~7.5% wide, ~4% tall
+// Pill measurements from wsw.png baked outlines (constrained scan y=85%-100%, x=20%-80%):
+//   Vertical center: 87.5% of image height
+//   Left pill:  32% from left, 7% wide, 4% tall
+//   Right pill: 68% from left, 7% wide, 4% tall
 //   Style: navy 2px outline, transparent fill, rounded-full capsule
 //
 // A11y: the <h1> and subhead are sr-only (semantic + SEO); the bubble lines
@@ -60,12 +60,12 @@ export default function Hero() {
         />
 
         {/* TWO PILL CTAs — positioned absolutely over the image's baked pill outlines.
-            Pinned to 77% vertical center via top: 77% + translateY(-50%). Horizontal
-            layout: two pills at ~33% and ~67%, each ~7.5% wide. Wrapper pointer-events-none;
+            Pinned to 87.5% vertical center via top: 87.5% + translateY(-50%). Horizontal
+            layout: two pills at ~32% and ~68%, each ~7% wide. Wrapper pointer-events-none;
             pill row pointer-events-auto so CTAs remain clickable. */}
         <div
           className="absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-[32px]"
-          style={{ top: '77%', transform: 'translateY(-50%)' }}
+          style={{ top: '87.5%', transform: 'translateY(-50%)' }}
         >
           <a
             href="#services"
