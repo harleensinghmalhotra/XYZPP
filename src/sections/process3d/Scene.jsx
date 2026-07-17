@@ -77,6 +77,7 @@ export default function Scene({ frozen = false, progress }) {
   const girlApi = useRef()
   const stationApis = useRef([])
   const backdrop = useMemo(makeBackdrop, [])
+  const backdropDots = useMemo(() => STATION_STYLE === 'machines' ? makeWorldMapDots() : null, [])
   const pool = useMemo(makePool, [])
 
   const xs = useMemo(() => STATIONS.map((_, i) => stationX(i)), [])
@@ -198,6 +199,14 @@ export default function Scene({ frozen = false, progress }) {
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial map={backdrop} toneMapped={false} depthWrite={false} fog={false} />
       </mesh>
+
+      {/* dotted world map overlay for machine restyle (opacity ≤ 0.12) */}
+      {backdropDots && (
+        <mesh position={[0, 5.5, -15.99]} scale={[100, 26, 1]}>
+          <planeGeometry args={[1, 1]} />
+          <meshBasicMaterial map={backdropDots} toneMapped={false} depthWrite={false} fog={false} transparent opacity={0.12} />
+        </mesh>
+      )}
 
       {/* evening base light — lifted so the hall + belt read; warmth from the pools */}
       <ambientLight intensity={0.55} color={'#4A5C82'} />
