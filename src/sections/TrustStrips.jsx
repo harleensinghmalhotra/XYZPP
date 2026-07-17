@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import CountUp from '@/components/CountUp'
 import { useReducedMotion } from '@/lib/useReducedMotion'
-import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
+import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS, SHOW_STRIP_3 } from '@/lib/compliance'
 
 // ── Trust strips (sits directly below the hero's book landing) ──────────────
 // Content ported verbatim from the client's vibe-coded homepage v17
@@ -232,33 +232,35 @@ export default function TrustStrips() {
       </div>
 
       {/* Stats bar — numbers-led in Ekta's gold-numeral treatment */}
-      <div className="ts-stats">
-        <ul className={`ts-stats-grid${statsIn ? ' is-in' : ''}`} ref={statsRef}>
-          {STATS.map((s) => (
-            <li key={s.key} className="ts-stat">
-              <span className="sr-only">{t(`stats.${s.key}.sr`)}</span>
-              <div aria-hidden="true">
-                <span className="ts-stat-fig">
-                  <img
-                    className="ts-stat-ico3d"
-                    src={`/qfp/icons3d/${s.img}.webp`}
-                    alt=""
-                    width="84"
-                    height="84"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </span>
-                <div className="ts-stat-num">
-                  <CountUp value={s.value} suffix={s.suffix} grouping={false} duration={1200} />
-                  {s.accent && <span className="ts-stat-accent">{t(`stats.${s.key}.accent`)}</span>}
+      {SHOW_STRIP_3 && (
+        <div className="ts-stats">
+          <ul className={`ts-stats-grid${statsIn ? ' is-in' : ''}`} ref={statsRef}>
+            {STATS.map((s) => (
+              <li key={s.key} className="ts-stat">
+                <span className="sr-only">{t(`stats.${s.key}.sr`)}</span>
+                <div aria-hidden="true">
+                  <span className="ts-stat-fig">
+                    <img
+                      className="ts-stat-ico3d"
+                      src={`/qfp/icons3d/${s.img}.webp`}
+                      alt=""
+                      width="84"
+                      height="84"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </span>
+                  <div className="ts-stat-num">
+                    <CountUp value={s.value} suffix={s.suffix} grouping={false} duration={1200} />
+                    {s.accent && <span className="ts-stat-accent">{t(`stats.${s.key}.accent`)}</span>}
+                  </div>
+                  <div className="ts-stat-lbl">{t(`stats.${s.key}.label`)}</div>
                 </div>
-                <div className="ts-stat-lbl">{t(`stats.${s.key}.label`)}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   )
 }

@@ -38,3 +38,10 @@ export const SHOW_CASE_STUDIES = false
 // The Projects globe and destination panels remain visible. When false, only the
 // <div className="proj-books"> archive shelf disappears, leaving the 3D globe intact.
 export const SHOW_SHIPMENT_RECORDS = false
+
+// ── Stats Strip (Strip 3 in TrustStrips) ────────────────────────────────────
+// HIDDEN: the 4-stat row (75M Books / 25+ Countries / 800+ Containers / 98% On-Time)
+// is gated off. The Stats array and its locale keys stay intact and fully functional
+// — NOT deleted. The country marquee (Strip 1) and institution marquee (Strip 2)
+// remain visible. When false, only the stats grid disappears.
+export const SHOW_STRIP_3 = false
