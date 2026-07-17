@@ -21,3 +21,8 @@ sound/
 
 # Dev/scratch scripts
 scripts/_*.mjs
+calibrate.mjs
+build_out.txt
+
+# Source asset folders (Ekta's handoff, not part of the app build)
+FRESH EKTA FEEDBACK*/
