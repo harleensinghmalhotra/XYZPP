@@ -41,41 +41,7 @@
     "titleLine1": "Impreso en la India.",
     "titleThin": "Leído por el",
     "titleBold2": "Mundo.",
-    "subhead": "Desde nuestras instalaciones en Navi Mumbai, a 15 minutos del puerto JNPT, nuestros libros llegan a estudiantes y lectores en más de 25 países, con sistemas de logística, documentación y calidad adaptados a cada región que servimos.",
-    "regions": [
-      {
-        "title": "África",
-        "subtitle": "(mayor mercado de exportación)",
-        "description": "Ministerios de Educación e instituciones gubernamentales en Nigeria, Kenia, Uganda, Ghana, Camerún, Ruanda, Tanzania, Zambia, Costa de Marfil, República Democrática del Congo y muchas más."
-      },
-      {
-        "title": "India, Emiratos Árabes Unidos y Asia",
-        "description": "Soluciones completas de principio a fin, impresión, preparación, empaque y entrega directa a escuelas, para oficinas de libros de texto estatales, bancos nacionales y principales empresas de educación."
-      },
-      {
-        "title": "América del Norte, Reino Unido y Europa",
-        "subtitle": "(expansión, diseñado con cuidado)",
-        "description": "Libros de actividades, libros recreativos, libros para colorear y papelería para los principales editores y grandes cadenas minoristas en EE. UU., Reino Unido, México, España y Alemania."
-      }
-    ],
-    "bullets": [
-      {
-        "title": "Certificado y auditado",
-        "description": "Cadena de Custodia FSC, ISO 9001:2015, ISO 14001:2015, ISO/IEC 27001:2022, membresía Sedex."
-      },
-      {
-        "title": "Soporte editorial y de preprensa en inglés",
-        "description": "Con un único punto de contacto en todas las zonas horarias."
-      },
-      {
-        "title": "Capacidad de ampliación sin sobrecostos",
-        "description": "En 20 torres de impresión, 5 prensas de alimentación de hojas y una línea de acabado completa incluyendo 17 plegadoras y 6 máquinas de costura automática."
-      },
-      {
-        "title": "Gerente de cuenta dedicado para clientes de América del Norte y Reino Unido",
-        "description": "Con documentación, aduanas y flete manejados de principio a fin."
-      }
-    ]
+    "subhead": "Desde nuestras instalaciones en Navi Mumbai, a 15 minutos del puerto JNPT, nuestros libros llegan a estudiantes y lectores en más de 25 países, con sistemas de logística, documentación y calidad adaptados a cada región que servimos."
   },
   "marquee": {
     "aria": "Capacidades de impresión",
