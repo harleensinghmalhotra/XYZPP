@@ -58,23 +58,26 @@ export default function Hero() {
           fetchPriority="high"
         />
 
-        {/* TWO BUTTON CTAs — positioned in white ground below book base.
-            Pinned to 93% vertical center via top: 93% + translateY(-50%). Centered
-            flex row with 16px gap. Both buttons identical width, sized to the longer
-            label "Our global reach". Row pointer-events-auto so CTAs remain clickable. */}
+        {/* TWO BUTTON CTAs — old style recovered from ba7b134 ─────────────────────
+            Positioned centered on book spine's vertical centerline. First button has
+            text + arrow-in-circle. Second button text-only. Both outlined style,
+            hover inverts (bg → cream, text → navy). Gap center aligns with spine-x. */}
         <div
-          className="absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-4"
+          className="hero-cta-pair absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-6"
           style={{ top: '93%', transform: 'translateY(-50%)' }}
         >
           <a
             href="#services"
-            className="btn-nebula inline-flex h-[54px] w-[168px] items-center justify-center rounded-[var(--r-btn)] bg-[var(--navy)] text-[15px] font-semibold text-[#fdfaf4] transition-all duration-300 hover:bg-[#1a3d5a] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
+            className="hero-btn group relative inline-flex h-[54px] items-center gap-[18px] border-[1.5px] border-white/60 pl-[26px] pr-[7px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[#0f2444] hover:border-[#f5f0e8] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px]"
           >
-            {t('hero.ctaPrint')}
+            <span className="relative z-10">{t('hero.ctaPrint')}</span>
+            <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-white/60 transition-[background-color,border-color] duration-300 ease-out group-hover:border-[#0f2444] group-hover:bg-[#0f2444]">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-white transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
+            </span>
           </a>
           <a
             href="#reach"
-            className="btn-nebula inline-flex h-[54px] w-[168px] items-center justify-center rounded-[var(--r-btn)] bg-[var(--navy)] text-[15px] font-semibold text-[#fdfaf4] transition-all duration-300 hover:bg-[#1a3d5a] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
+            className="hero-btn relative inline-flex h-[54px] items-center border-[1.5px] border-white/60 px-[26px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[#0f2444] hover:border-[#f5f0e8] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px]"
           >
             {t('hero.ctaReach')}
           </a>
