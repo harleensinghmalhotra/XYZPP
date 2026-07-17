@@ -456,7 +456,7 @@ export default function PrintOnDemand() {
         <WavyBackground className="pointer-events-none absolute inset-0 h-full w-full opacity-60" />
         <SectionCurve position="bottom" fill="#f0ebe0" inward />
         <div className="pod-band-inner">
-          <p className="pod-eyebrow" style={{ color: '#c89a3c' }} data-reveal>{t('band.eyebrow')}</p>
+          <p className="pod-eyebrow" style={{ color: '#D99637' }} data-reveal>{t('band.eyebrow')}</p>
           <p className="pod-band-quote" id="pod-band-title" data-reveal>
             <Trans t={t} i18nKey="band.quote" components={{ em: <em /> }} />
           </p>

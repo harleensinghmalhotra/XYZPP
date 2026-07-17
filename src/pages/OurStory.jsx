@@ -10,7 +10,7 @@ const BEIGE = '#F0EBE0'
 const INK = '#1C2019'
 const GOLD = '#9B7420'
 const GOLD_BRIGHT = '#C89A3C'
-const GOLD_TEXT = '#836013'
+const GOLD_TEXT = '#9d6f14'
 const TIGHT = "'Inter Tight', sans-serif"
 const INTER = "'Inter', sans-serif"
 const MONO = "'DM Mono', monospace"
@@ -85,7 +85,7 @@ export default function OurStory() {
                 className="grid grid-cols-1 items-baseline gap-3 border-t py-8 md:grid-cols-[160px_1fr_1.1fr] md:gap-10 md:py-9"
                 style={{ borderColor: 'rgba(200,154,60,0.28)' }}
               >
-                <div className="text-[clamp(28px,4vw,48px)] font-extrabold leading-[0.9]" style={{ fontFamily: TIGHT, background: 'linear-gradient(180deg, #fdfaf4 0%, #f0cd82 58%, #c89a3c 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', WebkitTextFillColor: 'transparent' }}>
+                <div className="text-[clamp(28px,4vw,48px)] font-extrabold leading-[0.9]" style={{ fontFamily: TIGHT, background: 'linear-gradient(180deg, #fdfaf4 0%, #f0cd82 58%, #D99637 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', WebkitTextFillColor: 'transparent' }}>
                   {stop.year}
                 </div>
                 <h3 className="text-[20px] font-semibold md:text-[23px]" style={{ fontFamily: TIGHT, color: CREAM }}>{stop.label}</h3>

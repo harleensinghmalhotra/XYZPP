@@ -1,5 +1,5 @@
 /* ── /print-on-demand — "Build Your Book" configurator ───────────────────────
-   Brand System B ONLY: navy #0F2444, gold #9B7420 / #C89A3C / #836013,
+   Brand System B ONLY: navy #0F2444, gold #9B7420 / #C89A3C / #9d6f14,
    cream #FDFAF4, beige #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter / DM Mono.
    Warmest page on the site — it talks to one author. Anti-slop: uniform card
    heights, no thin light rules (hairlines are navy at low alpha), grounded
@@ -7,9 +7,9 @@
 
 .pod {
   --navy: #0f2444;
-  --gold: #9b7420;
-  --gold-2: #c89a3c;
-  --gold-3: #836013;
+  --gold: #B06F14;
+  --gold-2: #D99637;
+  --gold-3: #9d6f14;
   --cream: #fdfaf4;
   --beige: #f0ebe0;
   --ink: #1c2019;
@@ -239,7 +239,7 @@
   margin-top: calc(var(--bh) / -2);
   transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2));
   border-radius: 2px 0 0 2px;
-  background: linear-gradient(90deg, #6f5416, #9b7420 45%, #b98a2e 78%, #7a5b18);
+  background: linear-gradient(90deg, #6f5416, #B06F14 45%, #b98a2e 78%, #7a5b18);
   box-shadow: inset 0 0 0 1px rgba(60, 43, 8, 0.5);
 }
 /* perfect binding = clean flat spine (default, above) */
@@ -691,7 +691,7 @@
   text-decoration: none;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
 }
-.pod-request:hover { background: #e6bd6a; transform: translateY(-2px); }
+.pod-request:hover { background: #E8B45F; transform: translateY(-2px); }
 .pod-request svg { width: 17px; height: 17px; }
 .pod-summary-note {
   position: relative;

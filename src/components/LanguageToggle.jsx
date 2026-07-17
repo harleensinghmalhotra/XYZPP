@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 
 const MONO = "'DM Mono', monospace"
-// --gold-text (#836013) not the lighter #c89a3c: the active label is informational
+// --gold-text (#9d6f14) not the lighter #D99637: the active label is informational
 // and must clear 4.5:1 on the cream nav (5.9:1 vs the old 2.47:1 hard-fail).
-const GOLD = '#836013'
+const GOLD = '#9d6f14'
 
 // Quiet EN / FR / ES pill for the nav's right group (beside Request a Quote).
 // Mirrors Alternativ's understated globe toggle: short labels in DM Mono, the active

@@ -10,7 +10,7 @@ const BEIGE = '#F0EBE0'
 const INK = '#1C2019'
 const GOLD = '#9B7420'
 const GOLD_BRIGHT = '#C89A3C'
-const GOLD_TEXT = '#836013'
+const GOLD_TEXT = '#9d6f14'
 const TIGHT = "'Inter Tight', sans-serif"
 const INTER = "'Inter', sans-serif"
 const MONO = "'DM Mono', monospace"
@@ -70,7 +70,7 @@ export default function Founder() {
             {/* Portrait placeholder */}
             <div data-reveal className="flex justify-center">
               <div
-                className="w-full max-w-sm aspect-[3/4] rounded-lg flex items-center justify-center border border-[#9b7420]/20"
+                className="w-full max-w-sm aspect-[3/4] rounded-lg flex items-center justify-center border border-[#B06F14]/20"
                 style={{ background: BEIGE }}
                 aria-label={t('hero.portraitAlt')}
               >

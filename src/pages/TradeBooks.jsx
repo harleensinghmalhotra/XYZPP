@@ -11,7 +11,7 @@ import { DotField, EdgeGlow, PaperGrain, WavyBackground } from '@/components/atm
 // immersive product experience; the six categories behave like "colourways" —
 // clicking a swatch swaps the sticky gallery + copy client-side (no route change).
 //
-// Palette LAW — System B only: navy #0F2444, gold #9B7420/#C89A3C/#836013 (accent),
+// Palette LAW — System B only: navy #0F2444, gold #9B7420/#C89A3C/#9d6f14 (accent),
 // cream #FDFAF4, beige #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter / DM Mono.
 // B2B showcase: no prices, no cart, no sizes — "Request a Quote" → /contact.
 // All copy is drawn from recon/qfp-live-pages/trade-books.md + the homepage

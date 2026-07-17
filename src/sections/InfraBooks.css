@@ -2,7 +2,7 @@
    Mechanics recycled from Cases.css (the open book) — copied, not shared, so the
    gated Case Studies styling stays untouched. Same tokens: navy var(--navy),
    navy2 var(--navy-2), deep-navy #0B1C38, gold var(--gold-2), gold-bright #E6BD6A,
-   gold-text #836013, cream #FDFAF4. No reds, no pure black/white. Square-ish
+   gold-text #9d6f14, cream #FDFAF4. No reds, no pure black/white. Square-ish
    corners via the shared radius tokens. Depth from soft radial/edge shadows only.
    Spines are SLIMMER than Cases' (client: "a little thinner than before"). */
 
@@ -91,7 +91,7 @@
   width: 100%;
 }
 .ib-nav-button:hover:not(.ib-nav-button--soon) {
-  color: #e6bd6a;
+  color: #E8B45F;
 }
 
 /* Focus-visible — underline grows + ring */
@@ -105,7 +105,7 @@
 
 /* Active state — brighter gold text (no persistent underline) */
 .ib-nav-button--active {
-  color: #e6bd6a;
+  color: #E8B45F;
 }
 
 /* Reserved buttons — quieter appearance */
@@ -132,7 +132,7 @@
   width: 18px;
   height: 56px;
   z-index: 6;
-  background: linear-gradient(180deg, #e6bd6a 0%, var(--gold-2) 46%, var(--gold) 100%);
+  background: linear-gradient(180deg, #E8B45F 0%, var(--gold-2) 46%, var(--gold) 100%);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 74%, 0 100%);
 }
@@ -227,7 +227,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #836013; /* gold-text — AA on cream */
+  color: #9d6f14; /* gold-text — AA on cream */
   margin-bottom: 18px;
 }
 .ib-title {
@@ -375,11 +375,11 @@
 .ib-arrow--next { right: 8px; }
 .ib-arrow:hover:not(:disabled) {
   background: rgb(var(--gold-2-rgb) / 0.16);
-  color: #e6bd6a;
+  color: #E8B45F;
   border-color: rgb(var(--gold-2-rgb) / 0.85);
 }
 .ib-arrow:focus-visible {
-  outline: 2px solid #e6bd6a;
+  outline: 2px solid #E8B45F;
   outline-offset: 2px;
 }
 .ib-arrow:disabled {

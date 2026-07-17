@@ -34,14 +34,14 @@ export default function NotFound() {
       >
         <rect x="14" y="8" width="36" height="48" />
         <line x1="20" y1="8" x2="20" y2="56" />
-        <line x1="28" y1="23" x2="44" y2="23" stroke="#9b7420" />
+        <line x1="28" y1="23" x2="44" y2="23" stroke="#B06F14" />
         <line x1="28" y1="31" x2="40" y2="31" opacity="0.55" />
-        <path d="M40 8 V26 L43 22.5 L46 26 V8" stroke="#9b7420" />
+        <path d="M40 8 V26 L43 22.5 L46 26 V8" stroke="#B06F14" />
       </svg>
 
       <p
         className="mb-5 text-[12px] font-medium uppercase tracking-[0.28em]"
-        style={{ fontFamily: MONO, color: '#836013' }}
+        style={{ fontFamily: MONO, color: '#9d6f14' }}
       >
         {t('notFound.eyebrow')}
       </p>
@@ -59,8 +59,8 @@ export default function NotFound() {
       </p>
       <Link
         to="/"
-        className="focus-ring mt-10 inline-flex items-center text-[15px] font-semibold tracking-[0.02em] transition-colors hover:text-[#9b7420]"
-        style={{ fontFamily: MONO, color: '#836013' }}
+        className="focus-ring mt-10 inline-flex items-center text-[15px] font-semibold tracking-[0.02em] transition-colors hover:text-[#B06F14]"
+        style={{ fontFamily: MONO, color: '#9d6f14' }}
       >
         {t('notFound.back')}
       </Link>

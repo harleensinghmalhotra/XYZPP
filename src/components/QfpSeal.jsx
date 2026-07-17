@@ -15,7 +15,7 @@ export default function QfpSeal({ size = 72, className = '', title = 'Quarterfol
         <linearGradient id="qfp-seal-shared-foil" x1="0" y1="0" x2="0.35" y2="1">
           <stop offset="0" stopColor="#fbeec2" />
           <stop offset="0.5" stopColor="#d8a94a" />
-          <stop offset="1" stopColor="#9b7420" />
+          <stop offset="1" stopColor="#B06F14" />
         </linearGradient>
       </defs>
       <circle cx="60" cy="60" r="57" fill="none" stroke="url(#qfp-seal-shared-foil)" strokeWidth="2" />

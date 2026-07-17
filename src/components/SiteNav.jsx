@@ -92,7 +92,7 @@ export default function SiteNav() {
                     <Link
                       key={p.to}
                       to={p.to}
-                      className="focus-ring block rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#9b7420]/[0.08] hover:pl-6 hover:text-[#836013]"
+                      className="focus-ring block rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F14]/[0.08] hover:pl-6 hover:text-[#9d6f14]"
                       style={{ fontFamily: INTER }}
                     >
                       {t(p.key)}

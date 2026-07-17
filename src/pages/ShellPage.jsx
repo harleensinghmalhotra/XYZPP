@@ -19,7 +19,7 @@ export default function ShellPage({ title, eyebrow = 'Quarterfold Printabilities
     >
       <p
         className="mb-5 text-[12px] font-medium uppercase tracking-[0.28em]"
-        style={{ fontFamily: "'DM Mono', monospace", color: '#836013' }}
+        style={{ fontFamily: "'DM Mono', monospace", color: '#9d6f14' }}
       >
         {eyebrowText}
       </p>
