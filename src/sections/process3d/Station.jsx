@@ -13,8 +13,9 @@ import { ARCH, APEX_Y, LABEL_Y, EKTA } from './constants'
 // is a real image, so an SPA 200-fallback can never poison the plaque either.
 // Template kit + spec: "FLOW assets/plaque templates/".
 const overrideUrl = (key, lang) => {
-  const fr = typeof lang === 'string' && lang.toLowerCase().startsWith('fr')
-  return `/qfp/conveyor/plaques/plaque-${key}${fr ? '-fr' : ''}.png`
+  const isFr = typeof lang === 'string' && lang.toLowerCase().startsWith('fr')
+  const isEs = typeof lang === 'string' && lang.toLowerCase().startsWith('es')
+  return `/qfp/conveyor/plaques/plaque-${key}${isFr ? '-fr' : isEs ? '-es' : ''}.png`
 }
 
 // ── Reference arch gate (ref V1/MAIN), shortened for R5 ──────────────────────
