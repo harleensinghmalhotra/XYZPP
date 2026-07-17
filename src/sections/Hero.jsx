@@ -58,28 +58,28 @@ export default function Hero() {
           fetchPriority="high"
         />
 
-        {/* TWO BUTTON CTAs — pill shape matching "Request a Quote" nav button ──────────
+        {/* TWO BUTTON CTAs — pill shape, one-line labels, equal width on spine ────────
             Positioned centered on book spine. Navy fill with gold outline + cream text.
-            Pill radius (rounded-full). Both buttons equal width sized to wider label.
-            Hover: scale lift + focus ring. Arrow on first button only. */}
+            Pill radius (rounded-full). Both buttons equal width, widened for comfortable
+            padding. Labels nowrap (one line each). Gap-center re-centered on spine. */}
         <div
           className="hero-cta-pair absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-6"
           style={{ top: '93%', transform: 'translateY(-50%)' }}
         >
           <a
             href="#services"
-            className="hero-btn btn-nebula group relative inline-flex h-[54px] w-[176px] items-center justify-center gap-[18px] rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] px-[26px] pr-[7px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
+            className="hero-btn btn-nebula group relative inline-flex h-[54px] w-[220px] items-center justify-center gap-[12px] rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] px-[24px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
-            <span className="relative z-10 flex-1 text-left">{t('hero.ctaPrint')}</span>
+            <span className="relative z-10 whitespace-nowrap">{t('hero.ctaPrint')}</span>
             <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-[#fdfaf4]/15 transition-all duration-300 ease-out group-hover:bg-[#fdfaf4]/25">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-[#fdfaf4] transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
             </span>
           </a>
           <a
             href="#reach"
-            className="hero-btn btn-nebula relative inline-flex h-[54px] w-[176px] items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] px-[26px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
+            className="hero-btn btn-nebula relative inline-flex h-[54px] w-[220px] items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] px-[24px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
-            {t('hero.ctaReach')}
+            <span className="relative z-10 whitespace-nowrap">{t('hero.ctaReach')}</span>
           </a>
         </div>
       </div>
