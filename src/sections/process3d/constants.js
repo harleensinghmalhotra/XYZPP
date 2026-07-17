@@ -100,7 +100,3 @@ export const transform = (k, activeF) => smooth(k - 1 + 0.42, k - 0.05, activeF)
 // R6: the whole line sits in the LOWER THIRD with generous air above the arches — a
 // higher look target drops the belt down and opens sky/label breathing room. Dolly tracks.
 export const CAM = { y: 2.55, z: 11.6, side: 4.2, lookY: 1.5, drift: 0.18, ease: 0.07, fov: 25 }
-
-// ── Station style toggle ──────────────────────────────────────────────────────
-// 'arches' = original gate design | 'machines' = factory restyle
-export const STATION_STYLE = 'machines'
