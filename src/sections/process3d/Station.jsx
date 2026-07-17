@@ -115,7 +115,7 @@ function PrintStation() {
   )
 }
 
-function QualityStation(api) {
+function QualityStation({ api }) {
   // Gantry: two vertical posts + horizontal beam, reuse existing scanner as-is
   const metalMat = useMemo(() => new THREE.MeshStandardMaterial({ color: EKTA.navy, roughness: 0.6, metalness: 0.2 }), [])
   const trimMat = useMemo(() => new THREE.MeshStandardMaterial({ color: EKTA.gold, emissive: EKTA.gold, emissiveIntensity: 0.15, roughness: 0.32, metalness: 0.75, toneMapped: false }), [])
@@ -331,8 +331,8 @@ export default function Station({ title, scan, register, swapKey, lang }) {
   // ── Gate on STATION_STYLE ──────────────────────────────────────────────────
   if (STATION_STYLE === 'machines') {
     // Machine restyle path
-    const api = useMemo(() => ({ trimF: null, trimB: null, coneMat: null, laserMat: null }), [])
-    useEffect(() => { register(api) }, [register, api])
+    const apiRef = useRef({ trimF: null, trimB: null, coneMat: null, laserMat: null })
+    useEffect(() => { register(apiRef.current) }, [register])
 
     return (
       <group>
@@ -346,7 +346,7 @@ export default function Station({ title, scan, register, swapKey, lang }) {
 
         {/* per-station machine geometry */}
         {swapKey === 'print' && <PrintStation />}
-        {swapKey === 'quality' && <QualityStation api={api} />}
+        {swapKey === 'quality' && <QualityStation api={apiRef.current} />}
         {swapKey === 'fulfillment' && <FulfillmentStation />}
         {swapKey === 'warehouse' && <WarehouseStation />}
         {swapKey === 'ship' && <ShippingStation />}
@@ -410,12 +410,13 @@ export default function Station({ title, scan, register, swapKey, lang }) {
     return () => { cancelled = true; if (overrideTex) overrideTex.dispose() }
   }, [swapKey, lang, labelTex])
 
-  const api = useMemo(() => ({ trimF: null, trimB: null, coneMat: null, laserMat: null }), [])
-  useEffect(() => { register(api) }, [register, api])
+  const apiRef = useRef({ trimF: null, trimB: null, coneMat: null, laserMat: null })
+  useEffect(() => { register(apiRef.current) }, [register])
 
   const ro = ARCH.half + ARCH.legW / 2
   const scanTopY = APEX_Y - 0.34
   const coneH = scanTopY - 0.24
+  const api = apiRef.current
 
   return (
     <group>
