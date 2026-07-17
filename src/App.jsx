@@ -9,6 +9,8 @@ import EducationalBooks from '@/pages/EducationalBooks'
 import PrintOnDemand from '@/pages/PrintOnDemand'
 import TradeBooks from '@/pages/TradeBooks'
 import InfrastructurePage from '@/pages/InfrastructurePage'
+import Newsroom from '@/pages/Newsroom'
+import CSR from '@/pages/CSR'
 import Fulfilment from '@/pages/Fulfilment'
 import Contact from '@/pages/Contact'
 import NotFound from '@/pages/NotFound'
@@ -29,6 +31,8 @@ export default function App() {
         <Route path="/trade-books" element={<TradeBooks />} />
         <Route path="/print-on-demand" element={<PrintOnDemand />} />
         <Route path="/infrastructure" element={<InfrastructurePage />} />
+        <Route path="/newsroom" element={<Newsroom />} />
+        <Route path="/csr" element={<CSR />} />
         <Route path="/fulfilment" element={<Fulfilment />} />
         <Route path="/contact" element={<Contact />} />
 
