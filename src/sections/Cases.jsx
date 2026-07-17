@@ -298,7 +298,7 @@ export default function Cases() {
                     type="button"
                     className={`cs-spine cs-spine--${i % 2 === 0 ? 'navy' : 'cream'}`}
                     onClick={() => go(i)}
-                    aria-label={`${t('caseWord', 'Case')} ${num(i + 1)} — ${c.tags[0]}, ${c.title}`}
+                    aria-label={`${t('caseWord', 'Case')} ${num(i + 1)}, ${c.tags[0]}, ${c.title}`}
                   >
                     <span className="cs-spine-num">{num(i + 1)}</span>
                     <span className="cs-spine-label">
@@ -325,7 +325,7 @@ export default function Cases() {
               <div className="cs-ribbon" aria-hidden="true" />
               <div className="cs-counter" aria-live="polite">
                 {t('caseWord', 'Case').toUpperCase()} {num(active + 1)} <span className="cs-counter-sep">/</span> {num(total)}
-                <span className="cs-sr"> — {cur.title}</span>
+                <span className="cs-sr">, {cur.title}</span>
               </div>
 
               <div className="cs-spread" key={flat ? 'flip' : `x${xfade}`}>

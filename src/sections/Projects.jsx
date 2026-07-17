@@ -107,7 +107,7 @@ function DestPanel({ slug, img, t, onFocus, onReset }) {
       className="proj-dest"
       href="#"
       data-region={slug}
-      aria-label={`${name} — ${stat} ${statLabel}`}
+      aria-label={`${name}, ${stat} ${statLabel}`}
       onClick={(e) => e.preventDefault()}
       onMouseEnter={onFocus}
       onMouseLeave={onReset}

@@ -355,7 +355,7 @@ export default function InfraBooks() {
             <div className="ib-ribbon" aria-hidden="true" />
             <div className="ib-counter" aria-live="polite">
               {t('books.ui.pageWord').toUpperCase()} {num(page + 1)} <span className="ib-counter-sep">/</span> {num(total)}
-              <span className="ib-sr"> — {cur.title || cur.big || cur.eyebrow}</span>
+              <span className="ib-sr">, {cur.title || cur.big || cur.eyebrow}</span>
             </div>
 
             <div className="ib-spread" key={flat ? `b${activeBook}` : `x${activeBook}-${xfade}`}>

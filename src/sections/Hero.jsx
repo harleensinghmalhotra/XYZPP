@@ -38,7 +38,7 @@ export default function Hero() {
   return (
     <section id="hero" ref={section} data-theme="dark" className="relative overflow-x-clip">
       {/* Semantic copy — baked into the image, surfaced sr-only for SEO + a11y. */}
-      <h1 className="sr-only">{t('hero.line1')} — {t('hero.line2')}</h1>
+      <h1 className="sr-only">{t('hero.line1')}, {t('hero.line2')}</h1>
       <p className="sr-only">{t('hero.subhead')}</p>
       <ul className="sr-only">
         {BUBBLE_LINES.map((line) => (
