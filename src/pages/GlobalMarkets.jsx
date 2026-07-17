@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import { PaperGrain, WavyBackground } from '@/components/atmosphere'
+import { CertificateIcon, PenNibIcon, PrinterIcon, HeadsetIcon } from '@/components/CredentialIcons'
 
 const NAVY = '#0F2444'
 const CREAM = '#FDFAF4'
@@ -82,7 +83,7 @@ export default function GlobalMarkets() {
         </div>
       </section>
 
-      {/* 3 ── CREDENTIALS (navy) ─ lead-in + bullet list ────────────────────── */}
+      {/* 3 ── CREDENTIALS (navy) ─ lead-in + 4-column aligned cards ────────────── */}
       <section data-theme="dark" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: NAVY }}>
         <SectionCurve position="top" fill={NAVY} />
         <div className="relative z-10 mx-auto max-w-[1400px]">
@@ -92,17 +93,27 @@ export default function GlobalMarkets() {
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2">
-            {bullets && bullets.map((bullet, idx) => (
-              <div key={idx} data-reveal className="flex flex-col">
-                <h3 className="text-[18px] font-bold mb-3" style={{ fontFamily: TIGHT, color: GOLD_BRIGHT }}>
-                  {bullet.title}
-                </h3>
-                <p className="text-[16px] leading-relaxed" style={{ fontFamily: INTER, color: 'rgba(253,250,244,0.72)' }}>
-                  {bullet.description}
-                </p>
-              </div>
-            ))}
+          <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+            {bullets && bullets.map((bullet, idx) => {
+              const icons = [CertificateIcon, PenNibIcon, PrinterIcon, HeadsetIcon]
+              const Icon = icons[idx]
+              return (
+                <div key={idx} data-reveal className="flex flex-col group">
+                  {/* Icon */}
+                  <div className="mb-5">
+                    <Icon />
+                  </div>
+                  {/* Fixed title zone for alignment */}
+                  <h3 className="text-[18px] font-bold leading-tight" style={{ fontFamily: TIGHT, color: GOLD_BRIGHT, minHeight: '3em' }}>
+                    {bullet.title}
+                  </h3>
+                  {/* Description aligned to common baseline */}
+                  <p className="text-[16px] leading-relaxed" style={{ fontFamily: INTER, color: 'rgba(253,250,244,0.72)' }}>
+                    {bullet.description}
+                  </p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
