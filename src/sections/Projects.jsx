@@ -98,45 +98,49 @@ function DestPanel({ slug, img, t, onFocus, onReset }) {
   const name = t(`regions.${slug}.name`)
   const stat = t(`regions.${slug}.stat`)
   const statLabel = t(`regions.${slug}.statLabel`)
+  const body = t(`regions.${slug}.body`)
   return (
     // TODO(region-pages): point href to the per-region destination page once the
     // client scopes+approves them; keep the globe-focus + stat as the poster.
     // The glow lives on ::before/::after of .proj-dest (outside .proj-dest-frame,
     // which owns overflow:hidden so only the photo zoom is clipped, not the glow).
-    <a
-      className="proj-dest"
-      href="#"
-      data-region={slug}
-      aria-label={`${name}, ${stat} ${statLabel}`}
-      onClick={(e) => e.preventDefault()}
-      onMouseEnter={onFocus}
-      onMouseLeave={onReset}
-      onFocus={onFocus}
-      onBlur={onReset}
-    >
-      <div className="proj-dest-frame">
-        <div className="proj-dest-media" aria-hidden="true">
-          <div className="proj-dest-base" />
-          <img
-            className="proj-dest-photo"
-            src={img}
-            alt={t(`regions.${slug}.alt`)}
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
-        <div className="proj-dest-scrim" aria-hidden="true" />
-        <div className="proj-dest-content">
-          <span className="proj-dest-kicker">{t(`regions.${slug}.descriptor`)}</span>
-          <h3 className="proj-dest-name">{name}</h3>
-          <div className="proj-dest-stat">
-            <span className="proj-dest-stat-num">{stat}</span>
-            <span className="proj-dest-stat-label">{statLabel}</span>
+    <div className="proj-dest-wrapper">
+      <a
+        className="proj-dest"
+        href="#"
+        data-region={slug}
+        aria-label={`${name}, ${stat} ${statLabel}`}
+        onClick={(e) => e.preventDefault()}
+        onMouseEnter={onFocus}
+        onMouseLeave={onReset}
+        onFocus={onFocus}
+        onBlur={onReset}
+      >
+        <div className="proj-dest-frame">
+          <div className="proj-dest-media" aria-hidden="true">
+            <div className="proj-dest-base" />
+            <img
+              className="proj-dest-photo"
+              src={img}
+              alt={t(`regions.${slug}.alt`)}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
+          <div className="proj-dest-scrim" aria-hidden="true" />
+          <div className="proj-dest-content">
+            <span className="proj-dest-kicker">{t(`regions.${slug}.descriptor`)}</span>
+            <h3 className="proj-dest-name">{name}</h3>
+            <div className="proj-dest-stat">
+              <span className="proj-dest-stat-num">{stat}</span>
+              <span className="proj-dest-stat-label">{statLabel}</span>
+            </div>
+          </div>
+          <span className="proj-dest-go" aria-hidden="true">→</span>
         </div>
-        <span className="proj-dest-go" aria-hidden="true">→</span>
-      </div>
-    </a>
+      </a>
+      <p className="proj-dest-body" dangerouslySetInnerHTML={{ __html: body }} />
+    </div>
   )
 }
 
@@ -237,6 +241,7 @@ export default function Projects() {
       gsap.set(q('.proj-globe'), { autoAlpha: 0, scale: 0.92 })
       gsap.set(q('.proj-dests-eyebrow'), { autoAlpha: 0, y: 12 })
       gsap.set(q('.proj-dest'), { autoAlpha: 0, y: 26 })
+      gsap.set(q('.proj-dest-body'), { autoAlpha: 0, y: 14 })
 
       const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: 'top 74%', once: true } })
       tl.to(q('.proj-head .proj-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' })
@@ -245,6 +250,7 @@ export default function Projects() {
         .to(q('.proj-sub'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '>-0.5')
         .to(q('.proj-dests-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '>-0.2')
         .to(q('.proj-dest'), { autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.1, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, '>-0.3')
+        .to(q('.proj-dest-body'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, '>-0.4')
 
       // the archive shelf — own trigger so the books slide up as the shelf enters.
       gsap.set(q('.proj-books-eyebrow'), { autoAlpha: 0, y: 12 })

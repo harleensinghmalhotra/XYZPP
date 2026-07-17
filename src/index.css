@@ -1726,7 +1726,8 @@ body {
   .proj-dest-frame,
   .proj-dest-media,
   .proj-dest::before,
-  .proj-dest::after { transition: none; }
+  .proj-dest::after,
+  .proj-dest-body { transition: none; }
   .proj-dest::after { animation: none; transform: translate3d(0, 0, 0) scale(0.97); }
 }
 .proj-dest-content {
@@ -1801,6 +1802,33 @@ body {
   color: var(--navy);
   border-color: var(--gold-2);
   transform: translateY(-2px);
+}
+
+/* ── DESTINATION DESCRIPTION — text below each region card ──────────────────
+   Each region has a detailed description mounted below its card, using the
+   brand gold accent (#B06F14) for emphasis and cream background. Reduced-motion
+   safe fade-in on scroll trigger. */
+.proj-dest-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.proj-dest-body {
+  margin-top: 20px;
+  padding: 18px;
+  background: rgba(253, 250, 244, 0.08);
+  border: 1px solid rgba(176, 111, 20, 0.3);
+  border-radius: var(--r-card);
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(245, 240, 232, 0.85);
+  font-family: 'Inter', sans-serif;
+}
+.proj-dest-body strong {
+  color: var(--gold-2);
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: reduce) {
+  .proj-dest-body { transition: none; }
 }
 
 /* ── THE ARCHIVE SHELF — code-built hardcover books ──────────────────────────
