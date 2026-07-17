@@ -2,54 +2,78 @@ import { useTranslation } from 'react-i18next'
 import GlobeFlyTo from '@/components/GlobeFlyTo'
 
 // ── Printed in India. Read by the World. ────────────────────────────────────
-// Homepage global markets moment (sits between WhatWePrint and Promise). Normal
-// flow, ~92vh, NOT pinned. Text left (header, subhead, regions, bullets),
-// branded MapLibre globe right-weighted/full-bleed. The globe boots itself only
-// when it nears the viewport (see GlobeFlyTo) and flies space → Navi Mumbai.
+// Homepage global markets moment (sits between WhatWePrint and Promise).
+// RESTRUCTURE (Lane 6): Section header kept to eyebrow + title + subhead + globe.
+// Regions restructured as destination cards with descriptions below.
+// Credentials moved to 2x2 grid below destinations (compact card treatment).
 export default function GlobeReach() {
   const { t } = useTranslation('home')
   const regions = t('globeReach.regions', { returnObjects: true })
   const bullets = t('globeReach.bullets', { returnObjects: true })
 
   return (
-    <section id="reach" data-theme="dark" aria-labelledby="reach-heading" className="gr-section">
-      <div className="gr-grid">
-        <div className="gr-copy">
-          <p className="gr-eyebrow">{t('globeReach.eyebrow')}</p>
-          <h2 id="reach-heading" className="gr-title">
-            <span className="gr-bold">{t('globeReach.titleLine1')}</span>
-            <br />
-            <span className="gr-thin">{t('globeReach.titleThin')}</span> <span className="gr-bold">{t('globeReach.titleBold2')}</span>
-          </h2>
-          <p className="gr-subhead">
-            {t('globeReach.subhead')}
-          </p>
+    <>
+      {/* Header section with globe */}
+      <section id="reach" data-theme="dark" aria-labelledby="reach-heading" className="gr-section">
+        <div className="gr-grid">
+          <div className="gr-copy">
+            <p className="gr-eyebrow">{t('globeReach.eyebrow')}</p>
+            <h2 id="reach-heading" className="gr-title">
+              <span className="gr-bold">{t('globeReach.titleLine1')}</span>
+              <br />
+              <span className="gr-thin">{t('globeReach.titleThin')}</span> <span className="gr-bold">{t('globeReach.titleBold2')}</span>
+            </h2>
+            <p className="gr-subhead">
+              {t('globeReach.subhead')}
+            </p>
+          </div>
+          <div className="gr-globe">
+            <GlobeFlyTo flightMs={6000} beatMs={1200} />
+          </div>
+        </div>
+      </section>
 
-          <div className="gr-regions">
+      {/* Destination cards section */}
+      <section data-theme="dark" className="relative bg-[var(--navy)] px-6 py-24 sm:px-10 lg:px-14">
+        <div className="mx-auto max-w-page">
+          <div className="grid gap-8 md:grid-cols-3">
             {regions && regions.map((region, idx) => (
-              <div key={idx} className="gr-region">
-                <h3 className="gr-region-title">
-                  {region.title}
-                  {region.subtitle && <span className="gr-region-subtitle"> {region.subtitle}</span>}
-                </h3>
-                <p className="gr-region-description">{region.description}</p>
+              <div key={idx} className="flex flex-col">
+                <div className="flex-1 rounded-[var(--r-card)] bg-[rgb(var(--navy-2-rgb))] p-6">
+                  <h3 className="mb-2 text-xl font-semibold text-[#fdfaf4]">
+                    {region.title}
+                    {region.subtitle && <span className="block text-sm font-normal text-[#fdfaf4]/70"> {region.subtitle}</span>}
+                  </h3>
+                </div>
+                <p className="mt-4 text-sm leading-relaxed text-[#fdfaf4]/85">
+                  {region.description}
+                </p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="gr-bullets">
+      {/* Credentials grid section */}
+      <section data-theme="dark" className="relative bg-[var(--navy)] px-6 py-24 sm:px-10 lg:px-14">
+        <div className="mx-auto max-w-page">
+          <div className="grid gap-6 sm:grid-cols-2">
             {bullets && bullets.map((bullet, idx) => (
-              <div key={idx} className="gr-bullet">
-                <h4 className="gr-bullet-title">{bullet.title}</h4>
-                <p className="gr-bullet-description">{bullet.description}</p>
+              <div key={idx} className="rounded-[var(--r-card)] border border-[#fdfaf4]/10 bg-[rgb(var(--navy-2-rgb))] p-6">
+                <div className="mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[var(--gold)]/20">
+                  <span className="text-sm font-bold text-[var(--gold-2)]">✓</span>
+                </div>
+                <h4 className="mb-2 text-base font-semibold text-[#fdfaf4]">
+                  {bullet.title}
+                </h4>
+                <p className="text-sm leading-relaxed text-[#fdfaf4]/75">
+                  {bullet.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
-        <div className="gr-globe">
-          <GlobeFlyTo flightMs={6000} beatMs={1200} />
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
