@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { Billboard } from '@react-three/drei'
-import { ARCH, APEX_Y, LABEL_Y, EKTA } from './constants'
+import { ARCH, APEX_Y, LABEL_Y, EKTA, STATION_STYLE } from './constants'
 
 // ── Dormant Canva-override swap path ─────────────────────────────────────────
 // If Harry drops a finished plaque PNG at
