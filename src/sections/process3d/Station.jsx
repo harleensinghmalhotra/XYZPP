@@ -81,40 +81,30 @@ const TOP_CLEAR = 0.21
 // All machines positioned BEHIND/AROUND the belt so the hero book path is never occluded
 
 function PrintStation() {
-  // Paper roll (horizontal cylinder) + 4-tower press (dark navy boxes with muted accent strips)
-  const metalMat = useMemo(() => ({
-    body: new THREE.MeshStandardMaterial({ color: EKTA.navy, roughness: 0.6, metalness: 0.2 }),
-    trim: new THREE.MeshStandardMaterial({ color: EKTA.gold, emissive: EKTA.gold, emissiveIntensity: 0.15, roughness: 0.32, metalness: 0.75, toneMapped: false }),
-    accent: [
-      new THREE.MeshStandardMaterial({ color: '#4FC3F7', roughness: 0.65, metalness: 0.15 }), // cyan
-      new THREE.MeshStandardMaterial({ color: '#D584D1', roughness: 0.65, metalness: 0.15 }), // magenta
-      new THREE.MeshStandardMaterial({ color: '#C4A860', roughness: 0.65, metalness: 0.15 }), // ochre
-      new THREE.MeshStandardMaterial({ color: '#2A2A2A', roughness: 0.65, metalness: 0.15 }), // black
-    ],
-  }), [])
-
+  // Paper roll + 4-tower press with muted accent strips
+  const accentColors = ['#4FC3F7', '#D584D1', '#C4A860', '#2A2A2A']
   return (
     <group>
       {/* paper roll — large horizontal cylinder on left */}
       <mesh position={[-1.2, 0.5, 0]} rotation={[0, 0, Math.PI / 2]}>
         <cylinderGeometry args={[0.35, 0.35, 0.8, 24]} />
-        <primitive object={metalMat.body} />
+        <meshStandardMaterial color={EKTA.navy} roughness={0.6} metalness={0.2} />
       </mesh>
 
       {/* 4-tower press — four tall boxes in a row */}
       {[0, 0.35, 0.7, 1.05].map((offset, i) => (
         <group key={`tower-${i}`} position={[offset - 0.525, 0, 0]}>
-          {/* main tower body */}
+          {/* tower body */}
           <mesh position={[0, 0.85, 0]}>
             <boxGeometry args={[0.28, 1.7, 0.25]} />
-            <primitive object={metalMat.body} />
+            <meshStandardMaterial color={EKTA.navy} roughness={0.6} metalness={0.2} />
           </mesh>
-          {/* thin accent strip at top */}
+          {/* accent strip at top */}
           <mesh position={[0, 1.75, 0]}>
             <boxGeometry args={[0.3, 0.12, 0.27]} />
-            <primitive object={metalMat.accent[i]} />
+            <meshStandardMaterial color={accentColors[i]} roughness={0.65} metalness={0.15} />
           </mesh>
-          {/* tiny emissive control panel */}
+          {/* control panel */}
           <mesh position={[0.15, 0.6, 0.14]}>
             <boxGeometry args={[0.08, 0.15, 0.04]} />
             <meshStandardMaterial color={EKTA.navy2} emissive={'#2A5A7A'} emissiveIntensity={0.4} roughness={0.4} metalness={0.25} />
