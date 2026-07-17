@@ -4605,8 +4605,8 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
    #F0EBE0/#FDFAF4, gold var(--gold-2)/var(--gold). DM Mono eyebrow, Inter Tight heading. */
 
 /* --- the globe itself (fills its parent; parent owns the height) --- */
-.qfp-globe { position: relative; width: 100%; height: 100%; }
-.qfp-globe-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.qfp-globe { position: relative; width: 100%; height: 100%; background: var(--navy); }
+.qfp-globe-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
 .qfp-globe[data-phase="landed"] .qfp-globe-canvas { cursor: grab; }
 .qfp-globe[data-phase="landed"] .qfp-globe-canvas:active { cursor: grabbing; }
 /* MapLibre attribution — WHISPER MODE, license-compliant. OSM's license requires
@@ -4760,7 +4760,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 .gr-globe { position: relative; align-self: stretch; min-height: 92vh; }
 /* soft navy vignette so the globe reads as embedded, edges melt into the bg */
 .gr-globe::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 3;
   background:
     radial-gradient(120% 90% at 62% 50%, transparent 52%, rgb(var(--navy-rgb) / 0.55) 100%),
     linear-gradient(90deg, var(--navy) 0%, rgb(var(--navy-rgb) / 0.35) 16%, transparent 34%);
