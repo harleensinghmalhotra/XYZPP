@@ -159,6 +159,30 @@ function CustomsStamp({ label }) {
   )
 }
 
+// Credentials row — 4 compact cards (grid-cols-4 at desktop, grid-cols-2 on tablet,
+// stacked on mobile) with gold checkmark icon, title, and one-line description.
+// Mounts immediately after Destinations section. Reduced-motion safe reveal.
+function CredentialsRow({ credentials, reduced }) {
+  return (
+    <div className="proj-creds" role="region" aria-label="Credentials">
+      <div className="proj-creds-grid">
+        {credentials && credentials.map((cred, idx) => (
+          <div key={idx} className="proj-cred-card">
+            <div className="proj-cred-icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="10" cy="10" r="9" />
+                <path d="M6.5 10l2 2 5-5" />
+              </svg>
+            </div>
+            <h4 className="proj-cred-title">{cred.title}</h4>
+            <p className="proj-cred-desc">{cred.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // One shipment record, rebuilt as a code-built hardcover book. A front cover
 // (navy or cream) + a 3D page-edge side face, standing on the shelf. Cover carries
 // the country (DM Mono caps), the big gold figure (count-up + foil shimmer on
@@ -212,6 +236,7 @@ export default function Projects() {
   const recordsRef = useRef(null)
   const globe = useRef(null)
   const [reduced] = useState(prefersReduced)
+  const credentials = t('credentials', { returnObjects: true })
 
   const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
   const hideParam = !!params && params.has('hideRestricted')
@@ -242,6 +267,7 @@ export default function Projects() {
       gsap.set(q('.proj-dests-eyebrow'), { autoAlpha: 0, y: 12 })
       gsap.set(q('.proj-dest'), { autoAlpha: 0, y: 26 })
       gsap.set(q('.proj-dest-body'), { autoAlpha: 0, y: 14 })
+      gsap.set(q('.proj-cred-card'), { autoAlpha: 0, y: 12 })
 
       const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: 'top 74%', once: true } })
       tl.to(q('.proj-head .proj-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' })
@@ -251,6 +277,7 @@ export default function Projects() {
         .to(q('.proj-dests-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '>-0.2')
         .to(q('.proj-dest'), { autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.1, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, '>-0.3')
         .to(q('.proj-dest-body'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, '>-0.4')
+        .to(q('.proj-cred-card'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, '>-0.3')
 
       // the archive shelf — own trigger so the books slide up as the shelf enters.
       gsap.set(q('.proj-books-eyebrow'), { autoAlpha: 0, y: 12 })
@@ -341,6 +368,9 @@ export default function Projects() {
             ))}
           </div>
         </div>
+
+        {/* CREDENTIALS ROW — 4 cards below destinations */}
+        <CredentialsRow credentials={credentials} reduced={reduced} />
 
         {/* THE ARCHIVE SHELF — code-built hardcover books standing on a warm shelf.
             Hidden-not-deleted; reusable later. See SHOW_SHIPMENT_RECORDS in lib/compliance.js. */}

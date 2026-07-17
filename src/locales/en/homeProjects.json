@@ -13,6 +13,24 @@
     "Multinational Retail Brands"
   ],
   "destinationsEyebrow": "Destinations",
+  "credentials": [
+    {
+      "title": "Certified and audited",
+      "description": "FSC Chain of Custody, ISO 9001:2015, ISO 14001:2015, ISO/IEC 27001:2022, Sedex membership."
+    },
+    {
+      "title": "Editorial and prepress support in English",
+      "description": "With a single point of contact across time zones."
+    },
+    {
+      "title": "Surge capacity without surge pricing",
+      "description": "Across 20 printing towers, 5 sheet fed presses and a full finishing line up including 17 folders and 6 automatic thread sewing machines."
+    },
+    {
+      "title": "Dedicated account manager",
+      "description": "For North American and UK clients, with documentation, customs and freight handled end to end."
+    }
+  ],
   "regions": {
     "africa": {
       "tag": "Africa",
