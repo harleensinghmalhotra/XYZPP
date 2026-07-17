@@ -1,0 +1,26 @@
+{
+  "seo": {
+    "title": "Fundador | Quarterfold Printabilities",
+    "description": "Conoce a Nilesh Dhankani, fundador y CEO de Quarterfold Printabilities. Del diseño gráfico a liderar una de las imprentas de libros más avanzadas de India.",
+    "breadcrumb": {
+      "home": "Inicio",
+      "founder": "Fundador"
+    }
+  },
+  "hero": {
+    "eyebrow": "De diseñador a una de las imprentas de libros más celebradas de India",
+    "title": "Nilesh Dhankani",
+    "subhead": "Fundador y CEO",
+    "narrative": "Nilesh Dhankani comenzó como diseñador gráfico en 2000, se movió hacia el marketing, y encontró su trabajo definitivo en la impresión. En 2014, un pedido de 50 000 libros para un editor africano lo llevó a fundar Quarterfold Printabilities. Lo que comenzó como una operación de dos personas creció hasta convertirse en una de las imprentas de libros más avanzadas de India.",
+    "portraitAlt": "Nilesh Dhankani, Fundador y CEO"
+  },
+  "quote": {
+    "text": "No importa cuán desafiante sea el trabajo, nunca nos apartamos de apoyar a nuestros amigos editores.",
+    "attribution": "Nilesh Dhankani, Fundador y CEO"
+  },
+  "cta": {
+    "heading": "¿Listo para colaborar?",
+    "text": "Asociate con nosotros para hacer realidad tu visión, respaldado por más de una década de experiencia en edición educativa.",
+    "button": "Solicitar presupuesto"
+  }
+}

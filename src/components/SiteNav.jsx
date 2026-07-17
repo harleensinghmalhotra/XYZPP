@@ -61,6 +61,7 @@ export default function SiteNav() {
               treatment, so we match that: same qnav-link, semantics only). */}
           <Link to="/" aria-current={pathname === '/' ? 'page' : undefined} className="qnav-link">{t('home')}</Link>
           <Link to="/about" className="qnav-link">{t('about')}</Link>
+          <Link to="/founder" className="qnav-link">{t('founder')}</Link>
 
           {/* What We Print — dropdown to the three product shells */}
           <div

@@ -3,6 +3,7 @@ import SiteLayout from '@/components/SiteLayout'
 import Home from '@/pages/Home'
 import ShellPage from '@/pages/ShellPage'
 import OurStory from '@/pages/OurStory'
+import Founder from '@/pages/Founder'
 import EducationalBooks from '@/pages/EducationalBooks'
 import PrintOnDemand from '@/pages/PrintOnDemand'
 import TradeBooks from '@/pages/TradeBooks'
@@ -21,6 +22,7 @@ export default function App() {
         <Route index element={<Home />} />
 
         <Route path="/about" element={<OurStory />} />
+        <Route path="/founder" element={<Founder />} />
         <Route path="/educational-books" element={<EducationalBooks />} />
         <Route path="/trade-books" element={<TradeBooks />} />
         <Route path="/print-on-demand" element={<PrintOnDemand />} />
