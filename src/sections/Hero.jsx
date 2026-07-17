@@ -58,22 +58,23 @@ export default function Hero() {
           fetchPriority="high"
         />
 
-        {/* TWO PILL CTAs — positioned in white ground below book base.
+        {/* TWO BUTTON CTAs — positioned in white ground below book base.
             Pinned to 93% vertical center via top: 93% + translateY(-50%). Centered
-            flex row with 28px gap. Row pointer-events-auto so CTAs remain clickable. */}
+            flex row with 16px gap. Both buttons identical width, sized to the longer
+            label "Our global reach". Row pointer-events-auto so CTAs remain clickable. */}
         <div
-          className="absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-[28px]"
+          className="absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-4"
           style={{ top: '93%', transform: 'translateY(-50%)' }}
         >
           <a
             href="#services"
-            className="btn-nebula--light inline-flex h-[54px] items-center px-[26px] border-[2px] border-[var(--navy)] rounded-full text-[15px] font-medium text-[var(--navy)] transition-all duration-300 hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px]"
+            className="btn-nebula inline-flex h-[54px] w-[168px] items-center justify-center rounded-[var(--r-btn)] bg-[var(--navy)] text-[15px] font-semibold text-[#fdfaf4] transition-all duration-300 hover:bg-[#1a3d5a] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
             {t('hero.ctaPrint')}
           </a>
           <a
             href="#reach"
-            className="btn-nebula--light inline-flex h-[54px] items-center px-[26px] border-[2px] border-[var(--navy)] rounded-full text-[15px] font-medium text-[var(--navy)] transition-all duration-300 hover:bg-[var(--navy)] hover:text-white hover:border-[var(--navy)] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px]"
+            className="btn-nebula inline-flex h-[54px] w-[168px] items-center justify-center rounded-[var(--r-btn)] bg-[var(--navy)] text-[15px] font-semibold text-[#fdfaf4] transition-all duration-300 hover:bg-[#1a3d5a] hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
             {t('hero.ctaReach')}
           </a>
