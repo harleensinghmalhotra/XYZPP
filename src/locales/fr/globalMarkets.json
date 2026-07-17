@@ -1,0 +1,55 @@
+{
+  "seo": {
+    "title": "Marchés mondiaux | Quarterfold Printabilities",
+    "description": "Imprimé en Inde. Lu dans le monde entier. Impression et livraison de livres mondiaux dans plus de 25 pays avec des solutions certifiées et vérifiées pour les éditeurs et les programmes d'éducation.",
+    "breadcrumb": {
+      "home": "Accueil",
+      "globalMarkets": "Marchés mondiaux"
+    }
+  },
+  "hero": {
+    "title": "Imprimé en Inde. Lu dans le monde entier.",
+    "subhead": "De nos installations à Navi Mumbai, à 15 minutes du port JNPT, les livres parviennent aux apprenants et aux lecteurs dans plus de 25 pays, avec des systèmes de logistique, de documentation et de qualité construits pour chaque région servie."
+  },
+  "regions": [
+    {
+      "title": "Afrique",
+      "subtitle": "(plus grand marché d'export)",
+      "description": "Ministères de l'éducation et institutions gouvernementales à travers le Nigeria, le Kenya, l'Ouganda, le Ghana, le Cameroun, le Rwanda, la Tanzanie, la Zambie, la Côte d'Ivoire, la République démocratique du Congo et plus."
+    },
+    {
+      "title": "Inde, Émirats Arabes Unis et Asie",
+      "description": "Solutions complètes de bout en bout, impression, kit, emballage et livraison directe aux écoles, pour les bureaux des manuels scolaires d'État, les banques nationales et les principales sociétés d'éducation."
+    },
+    {
+      "title": "Amérique du Nord, Royaume-Uni et Europe",
+      "subtitle": "(expansion, écrite avec soin)",
+      "description": "Livres d'activités, livres commerciaux, livres de coloriage et papeterie pour les principaux éditeurs et les grandes chaînes de vente au détail aux États-Unis, au Royaume-Uni, au Mexique, en Espagne et en Allemagne."
+    }
+  ],
+  "credentials": {
+    "leadIn": "Pour les éditeurs évaluant un partenaire offshore:",
+    "bullets": [
+      {
+        "title": "Certifié et vérifié",
+        "description": "Chaîne de contrôle FSC, ISO 9001:2015, ISO 14001:2015, ISO/IEC 27001:2022, adhésion à Sedex."
+      },
+      {
+        "title": "Support éditorial et de préimpression en anglais",
+        "description": "Avec un point de contact unique dans tous les fuseaux horaires."
+      },
+      {
+        "title": "Capacité de pointe sans tarification de pointe",
+        "description": "Sur 20 tours d'impression, 5 presses à feuilles et une gamme complète de finition incluant 17 plieuses et 6 machines de couture à fil automatique."
+      },
+      {
+        "title": "Gestionnaire de compte dédié pour les clients d'Amérique du Nord et du Royaume-Uni",
+        "description": "Avec documentation, douanes et fret gérés de bout en bout."
+      }
+    ]
+  },
+  "teamSection": {
+    "heading": "Notre équipe mondiale",
+    "placeholder": "Les détails arrivent bientôt. Rencontrez les spécialistes régionaux, les gestionnaires de comptes et les responsables de la qualité qui assurent que chaque livre atteint les bonnes mains, à temps."
+  }
+}

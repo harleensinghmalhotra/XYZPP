@@ -4,6 +4,7 @@ import Home from '@/pages/Home'
 import ShellPage from '@/pages/ShellPage'
 import OurStory from '@/pages/OurStory'
 import Founder from '@/pages/Founder'
+import GlobalMarkets from '@/pages/GlobalMarkets'
 import EducationalBooks from '@/pages/EducationalBooks'
 import PrintOnDemand from '@/pages/PrintOnDemand'
 import TradeBooks from '@/pages/TradeBooks'
@@ -23,6 +24,7 @@ export default function App() {
 
         <Route path="/about" element={<OurStory />} />
         <Route path="/founder" element={<Founder />} />
+        <Route path="/global-markets" element={<GlobalMarkets />} />
         <Route path="/educational-books" element={<EducationalBooks />} />
         <Route path="/trade-books" element={<TradeBooks />} />
         <Route path="/print-on-demand" element={<PrintOnDemand />} />

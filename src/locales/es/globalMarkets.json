@@ -1,0 +1,55 @@
+{
+  "seo": {
+    "title": "Mercados globales | Quarterfold Printabilities",
+    "description": "Impreso en India. Leído en todo el mundo. Impresión y entrega de libros globales en más de 25 países con soluciones certificadas y auditadas para editoriales y programas educativos.",
+    "breadcrumb": {
+      "home": "Inicio",
+      "globalMarkets": "Mercados globales"
+    }
+  },
+  "hero": {
+    "title": "Impreso en India. Leído en todo el mundo.",
+    "subhead": "Desde nuestras instalaciones en Navi Mumbai, a 15 minutos del puerto JNPT, los libros llegan a estudiantes y lectores en más de 25 países, con sistemas de logística, documentación y calidad construidos para cada región servida."
+  },
+  "regions": [
+    {
+      "title": "África",
+      "subtitle": "(mayor mercado de exportación)",
+      "description": "Ministerios de Educación e instituciones gubernamentales en Nigeria, Kenia, Uganda, Ghana, Camerún, Ruanda, Tanzania, Zambia, Costa de Marfil, República Democrática del Congo y más."
+    },
+    {
+      "title": "India, Emiratos Árabes Unidos y Asia",
+      "description": "Soluciones integrales de punta a punta, impresión, kits, embalaje y entrega directa a escuelas, para oficinas de libros de texto estatales, bancos nacionales y principales empresas de educación."
+    },
+    {
+      "title": "América del Norte, Reino Unido y Europa",
+      "subtitle": "(expansión, escrita con cuidado)",
+      "description": "Libros de actividades, libros comerciales, libros para colorear y papelería para principales editoriales y grandes cadenas minoristas en EE.UU., Reino Unido, México, España y Alemania."
+    }
+  ],
+  "credentials": {
+    "leadIn": "Para editoriales que evalúan un socio offshore:",
+    "bullets": [
+      {
+        "title": "Certificado y auditado",
+        "description": "Cadena de custodia FSC, ISO 9001:2015, ISO 14001:2015, ISO/IEC 27001:2022, membresía de Sedex."
+      },
+      {
+        "title": "Apoyo editorial y de preimpresión en inglés",
+        "description": "Con un único punto de contacto en todos los husos horarios."
+      },
+      {
+        "title": "Capacidad de pico sin tarificación de pico",
+        "description": "En 20 torres de impresión, 5 prensas de hojas y una línea de acabado completa que incluye 17 plegadoras y 6 máquinas de cosido automático."
+      },
+      {
+        "title": "Gerente de cuenta dedicado para clientes de América del Norte y Reino Unido",
+        "description": "Con documentación, aduanas y flete gestionados de punta a punta."
+      }
+    ]
+  },
+  "teamSection": {
+    "heading": "Nuestro equipo global",
+    "placeholder": "Los detalles llegarán pronto. Conozca a los especialistas regionales, gerentes de cuenta y líderes de calidad que garantizan que cada libro llegue a las manos correctas, a tiempo."
+  }
+}

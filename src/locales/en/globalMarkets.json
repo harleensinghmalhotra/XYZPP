@@ -1,0 +1,55 @@
+{
+  "seo": {
+    "title": "Global Markets | Quarterfold Printabilities",
+    "description": "Printed in India. Read by the World. Global book printing and delivery across 25+ countries with certified, audited solutions for publishers and education programmes.",
+    "breadcrumb": {
+      "home": "Home",
+      "globalMarkets": "Global Markets"
+    }
+  },
+  "hero": {
+    "title": "Printed in India. Read by the World.",
+    "subhead": "From facilities in Navi Mumbai, 15 minutes from JNPT port, books reach learners and readers across 25+ countries, with logistics, documentation and quality systems built for each region served."
+  },
+  "regions": [
+    {
+      "title": "Africa",
+      "subtitle": "(largest export market)",
+      "description": "Ministries of Education and government institutions across Nigeria, Kenya, Uganda, Ghana, Cameroon, Rwanda, Tanzania, Zambia, Cote d'Ivoire, the Democratic Republic of Congo and more."
+    },
+    {
+      "title": "India, UAE and Asia",
+      "description": "Complete end to end solutions, print, kit, pack and deliver directly to schools, for state textbook bureaus, national banks and leading education companies."
+    },
+    {
+      "title": "North America, UK and Europe",
+      "subtitle": "(expansion, written with care)",
+      "description": "Activity books, trade books, colouring books and stationery for leading publishers and major retail chains across the US, UK, Mexico, Spain and Germany."
+    }
+  ],
+  "credentials": {
+    "leadIn": "For publishers evaluating an offshore partner:",
+    "bullets": [
+      {
+        "title": "Certified and audited",
+        "description": "FSC Chain of Custody, ISO 9001:2015, ISO 14001:2015, ISO/IEC 27001:2022, Sedex membership."
+      },
+      {
+        "title": "Editorial and prepress support in English",
+        "description": "With a single point of contact across time zones."
+      },
+      {
+        "title": "Surge capacity without surge pricing",
+        "description": "Across 20 printing towers, 5 sheet fed presses and a full finishing line up including 17 folders and 6 automatic thread sewing machines."
+      },
+      {
+        "title": "Dedicated account manager for North American and UK clients",
+        "description": "With documentation, customs and freight handled end to end."
+      }
+    ]
+  },
+  "teamSection": {
+    "heading": "Our Global Team",
+    "placeholder": "Details coming shortly. Meet the regional specialists, account managers, and quality leaders who ensure every book reaches the right hands, on time."
+  }
+}

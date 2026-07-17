@@ -16,6 +16,7 @@ const PRODUCTS = [
 
 // Primary route links that follow the What We Print dropdown.
 const LINKS = [
+  { key: 'globalMarkets', to: '/global-markets' },
   { key: 'infrastructure', to: '/infrastructure' },
   { key: 'fulfilment', to: '/fulfilment' },
   { key: 'contact', to: '/contact' },
@@ -38,6 +39,7 @@ export default function SiteNav() {
 
   return (
     <header
+      role="banner"
       className="sticky top-0 z-[200] border-b border-[#0f2444]/[0.08] bg-[#fdfaf4]"
       style={{ boxShadow: '0 2px 24px rgba(15,36,68,0.06)' }}
     >
