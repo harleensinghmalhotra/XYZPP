@@ -509,9 +509,10 @@ body {
 .qnav-link {
   position: relative;
   font-family: 'Inter Tight', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.8px;
+  white-space: nowrap;
   color: var(--navy);
   text-decoration: none;
   background: none;

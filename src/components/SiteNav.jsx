@@ -44,7 +44,7 @@ export default function SiteNav() {
       style={{ boxShadow: '0 2px 24px rgba(15,36,68,0.06)' }}
     >
       <div
-        className="mx-auto flex h-[86px] max-w-page items-center justify-between px-6 sm:px-10 lg:px-14"
+        className="mx-auto flex h-[86px] max-w-page items-center gap-8 px-6 sm:px-10 lg:px-14"
         style={{ fontFamily: TIGHT }}
       >
         {/* logo lockup — 48px monogram + two-line wordmark, all navy */}
@@ -57,7 +57,7 @@ export default function SiteNav() {
         </Link>
 
         {/* center nav */}
-        <nav className="hidden items-center gap-9 lg:flex">
+        <nav className="hidden items-center gap-5 lg:flex">
           {/* Home — first, explicit; the logo also links home but she wants a named
               item. aria-current marks it on "/" (no other link carries an active
               treatment, so we match that: same qnav-link, semantics only). */}
@@ -110,7 +110,7 @@ export default function SiteNav() {
         </nav>
 
         {/* right group: language toggle + square ghost CTA */}
-        <div className="flex items-center gap-4">
+        <div className="ml-auto flex items-center gap-4">
           <LanguageToggle light />
           {/* Square navy ghost button — fills navy on hover (Ekta's .nav-cta). */}
           <Link
