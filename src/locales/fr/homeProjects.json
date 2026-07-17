@@ -13,6 +13,24 @@
     "Marques de vente au détail multinationales"
   ],
   "destinationsEyebrow": "Destinations",
+  "credentials": [
+    {
+      "title": "Certifié et audité",
+      "description": "Chaîne de traçabilité FSC, ISO 9001:2015, ISO 14001:2015, ISO/IEC 27001:2022, adhésion Sedex."
+    },
+    {
+      "title": "Support éditorial et de préparation en anglais",
+      "description": "Avec un point de contact unique à travers les fuseaux horaires."
+    },
+    {
+      "title": "Capacité de montée en charge sans surcoût",
+      "description": "Sur 20 tours d'impression, 5 presses à feuilles et une gamme de finition complète incluant 17 plieuses et 6 machines à coudure automatique."
+    },
+    {
+      "title": "Gestionnaire de compte dédié",
+      "description": "Pour les clients d'Amérique du Nord et du Royaume-Uni, avec documentation, douanes et fret gérés de bout en bout."
+    }
+  ],
   "regions": {
     "africa": {
       "tag": "Afrique",

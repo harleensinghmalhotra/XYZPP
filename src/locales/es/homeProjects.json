@@ -13,6 +13,24 @@
     "Marcas minoristas multinacionales"
   ],
   "destinationsEyebrow": "Destinos",
+  "credentials": [
+    {
+      "title": "Certificado y auditado",
+      "description": "Cadena de Custodia FSC, ISO 9001:2015, ISO 14001:2015, ISO/IEC 27001:2022, membresía Sedex."
+    },
+    {
+      "title": "Soporte editorial y de preprensa en inglés",
+      "description": "Con un único punto de contacto en todas las zonas horarias."
+    },
+    {
+      "title": "Capacidad de ampliación sin sobrecostos",
+      "description": "En 20 torres de impresión, 5 prensas de alimentación de hojas y una línea de acabado completa incluyendo 17 plegadoras y 6 máquinas de costura automática."
+    },
+    {
+      "title": "Gerente de cuenta dedicado",
+      "description": "Para clientes de América del Norte y Reino Unido, con documentación, aduanas y flete manejados de principio a fin."
+    }
+  ],
   "regions": {
     "africa": {
       "tag": "África",
