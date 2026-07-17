@@ -58,26 +58,25 @@ export default function Hero() {
           fetchPriority="high"
         />
 
-        {/* TWO BUTTON CTAs — old style recovered from ba7b134 ─────────────────────
-            Positioned centered on book spine's vertical centerline. First button has
-            text + arrow-in-circle. Second button text-only. Both outlined style,
-            hover inverts (bg → cream, text → navy). Gap center aligns with spine-x. */}
+        {/* TWO BUTTON CTAs — navy solid fill, cream text, visible on white ground ───────
+            Positioned centered on book spine. Navy fill with white text for legibility.
+            Moderate rounded rectangle (not full pill). Hover: scale lift + focus ring. */}
         <div
           className="hero-cta-pair absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-6"
           style={{ top: '93%', transform: 'translateY(-50%)' }}
         >
           <a
             href="#services"
-            className="hero-btn group relative inline-flex h-[54px] items-center gap-[18px] border-[1.5px] border-white/60 pl-[26px] pr-[7px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[#0f2444] hover:border-[#f5f0e8] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px]"
+            className="hero-btn group relative inline-flex h-[54px] items-center gap-[18px] rounded-[8px] bg-[var(--navy)] px-[26px] pr-[7px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
             <span className="relative z-10">{t('hero.ctaPrint')}</span>
-            <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-white/60 transition-[background-color,border-color] duration-300 ease-out group-hover:border-[#0f2444] group-hover:bg-[#0f2444]">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-white transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
+            <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-[#fdfaf4]/15 transition-all duration-300 ease-out group-hover:bg-[#fdfaf4]/25">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-[#fdfaf4] transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
             </span>
           </a>
           <a
             href="#reach"
-            className="hero-btn relative inline-flex h-[54px] items-center border-[1.5px] border-white/60 px-[26px] text-[15px] font-medium tracking-[0.3px] text-white transition-[color,border-color,background-color] duration-300 ease-out hover:bg-[#f5f0e8] hover:text-[#0f2444] hover:border-[#f5f0e8] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px]"
+            className="hero-btn relative inline-flex h-[54px] items-center rounded-[8px] bg-[var(--navy)] px-[26px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
             {t('hero.ctaReach')}
           </a>
