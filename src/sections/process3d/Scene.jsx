@@ -8,7 +8,7 @@ import Station from './Station'
 import Book from './Book'
 import Girl from './Girl'
 import Dust from './Dust'
-import { STATIONS, N, stationX, EKTA, CAM, LABEL_Y, ENDING, mapActiveF, mapBookX, legIndex, handoffOf, smooth, bell, lerp } from './constants'
+import { STATIONS, N, stationX, EKTA, CAM, LABEL_Y, ENDING, mapActiveF, mapBookX, legIndex, handoffOf, smooth, bell, lerp, STATION_STYLE } from './constants'
 
 const FLOOR_Y = -0.42
 
@@ -68,6 +68,11 @@ function makeStageWord(text) {
   g.fillStyle = '#E8C070'
   g.fillText(text, W / 2, H / 2 + 4)
   const t = new THREE.CanvasTexture(c); t.anisotropy = 4; return t
+}
+
+// Dormant world-map backdrop dots (gated on STATION_STYLE === 'machines')
+function makeWorldMapDots() {
+  return null // Feature not yet implemented; rendered as no-op
 }
 
 export default function Scene({ frozen = false, progress }) {
