@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import SectionCurve from '@/components/SectionCurve'
+import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -249,32 +250,19 @@ export default function Contact() {
 
   return (
     <main id="main" ref={root}>
-      {/* ── 1. HERO (navy) — anatomy mirrored from /infrastructure ── */}
-      <section data-theme="dark" className="u-hero" aria-labelledby="ctc-h1">
-        <div className="u-hero-inner">
-          <div className="u-hero-copy">
-            <nav className="ctc-crumb" aria-label={t('breadcrumb.label')}>
-              <Link to="/">{t('breadcrumb.home')}</Link>
-              <span aria-hidden="true">»</span>
-              <span aria-current="page">{t('breadcrumb.contact')}</span>
-            </nav>
-            <p className="u-eyebrow">{t('hero.eyebrow')}</p>
-            <h1 id="ctc-h1" data-textreveal className="u-h1">
-              <Trans t={t} i18nKey="hero.title" components={{ strong: <span className="u-h1-accent" /> }} />
-            </h1>
-            <p className="u-hero-sub" data-reveal>
-              {t('hero.line')}
-            </p>
-          </div>
-
-          {/* right-side big number — phone number LARGE, echoing infra's flagship stat */}
-          <div className="u-hero-stat" aria-label={t('hero.callAriaLabel')}>
-            <a className="u-stat-num u-stat-num--text" href={`tel:${PHONE_TEL}`}>{PHONE_FOIL}</a>
-            <span className="u-stat-unit">{t('hero.callLabel')}</span>
-            <span className="u-stat-foot">{t('hero.callFoot')}</span>
-          </div>
-        </div>
-      </section>
+      {/* ── 1. HERO (navy) — centered two-line band; phone stat moves below ── */}
+      {(() => {
+        const [l1, l2] = splitTitle(t('hero.title'))
+        return (
+          <PageHero id="ctc-h1" eyebrow={t('hero.eyebrow')} line1={l1} line2={l2} subline={t('hero.line')} minVh={62}>
+            <div className="ph-stat" aria-label={t('hero.callAriaLabel')}>
+              <a className="ph-stat-num ph-stat-num--text" href={`tel:${PHONE_TEL}`}>{PHONE_FOIL}</a>
+              <span className="ph-stat-label">{t('hero.callLabel')}</span>
+              <span className="ph-stat-foot">{t('hero.callFoot')}</span>
+            </div>
+          </PageHero>
+        )
+      })()}
 
       {/* ── 2. LOCATION STRIP (navy, compact) — replaces the oversized static map ── */}
       <section data-theme="dark" className="ctc-loc" aria-label={t('map.regionLabel')}>
