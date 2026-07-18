@@ -3733,7 +3733,7 @@ body {
 .ctc-tile {
   display: flex; flex-direction: column;
   min-height: 214px; padding: 26px 22px 26px;
-  border-radius: var(--r-card); background: #ffffff;
+  border-radius: var(--r-card); background: #fffffc;
   border: 1px solid rgb(var(--navy-rgb) / 0.08);
   box-shadow: 0 2px 16px rgb(var(--navy-rgb) / 0.05);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
