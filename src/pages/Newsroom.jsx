@@ -1,23 +1,24 @@
 import { useTranslation } from 'react-i18next'
 
+// Stub page — minimal conformed navy band (shared `.u-hero` skeleton) carrying the
+// existing eyebrow / title / "coming soon" stub strings, nothing more. Adopts the
+// site's display-band anatomy: gold top-hairline, DM Mono gold-2 eyebrow, Inter
+// Tight cream H1, cream sub — so it reads as a homepage sibling until the real
+// Newsroom lands.
 export default function Newsroom() {
   const { t } = useTranslation('newsroom')
 
   return (
-    <section className="relative bg-[#fdfaf4] py-24">
-      <div className="mx-auto max-w-3xl px-6 sm:px-10 lg:px-14">
-        <div className="text-center">
-          <p className="mb-4 text-sm font-semibold tracking-wide text-[var(--gold)] uppercase">
-            {t('eyebrow')}
-          </p>
-          <h1 className="mb-8 text-4xl font-bold tracking-tight text-[var(--navy)] sm:text-5xl">
-            {t('title')}
-          </h1>
-          <p className="text-lg leading-relaxed text-[var(--ink)]">
-            {t('coming')}
-          </p>
+    <main id="main">
+      <section data-theme="dark" className="u-hero" aria-labelledby="newsroom-h1">
+        <div className="u-hero-inner">
+          <div className="u-hero-copy">
+            <p className="u-eyebrow">{t('eyebrow')}</p>
+            <h1 id="newsroom-h1" className="u-h1">{t('title')}</h1>
+            <p className="u-hero-sub">{t('coming')}</p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
   )
 }
