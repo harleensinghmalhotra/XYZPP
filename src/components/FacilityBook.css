@@ -4,7 +4,7 @@
    navy2 var(--navy-2), deep-navy #0B1C38, gold var(--gold-2), gold-bright #E6BD6A,
    gold-text #9d6f14, cream #FDFAF4. No reds, no pure black/white. Square-ish
    corners via the shared radius tokens. Depth from soft radial/edge shadows only.
-   Spines are SLIMMER than Cases' (client: "a little thinner than before"). */
+   NEW: Book stack design with physical spine appearance, CSS 3D depth, page edges. */
 
 /* ── THE STAGE — a navy panel housing the dark book, dropped into the cream
    Infrastructure section where the three cards used to sit. ── */
@@ -36,8 +36,8 @@
   outline-offset: 8px;
 }
 
-/* ── LEFT RAIL — five gold-underline nav buttons (vertical stack) ──────────── */
-.ib-nav {
+/* ── LEFT RAIL — PHYSICAL BOOK STACK (5 spines, stacked vertically) ─────────── */
+.ib-stack {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -48,69 +48,169 @@
   padding: 0;
   margin: 0;
   list-style: none;
+  perspective: 1200px;
 }
 
-.ib-nav-button {
+/* Individual spine — CSS 3D book appearance */
+.ib-spine {
   position: relative;
+  width: 260px;
+  height: 56px;
   background: none;
   border: none;
   padding: 0;
   margin: 0;
   cursor: pointer;
-  text-align: left;
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  color: #fdfaf4;
-  transition: color 0.25s ease-out;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  line-height: 1.2;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
+  transform-style: preserve-3d;
+  /* Alternating offsets/rotations for a careless stack effect */
+  transform:
+    translateX(calc(var(--spine-index, 0) % 2 * 8px - 4px))
+    translateY(calc(var(--spine-index, 0) * 2px))
+    rotateZ(calc((var(--spine-index, 0) % 2 - 0.5) * 1.5deg));
 }
 
-.ib-nav-label {
-  display: inline-block;
-  max-width: 200px;
+/* Spine backdrop — layered for depth effect */
+.ib-spine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #0e1b46;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(253, 250, 244, 0.05),
+      rgba(253, 250, 244, 0.05) 2px,
+      transparent 2px,
+      transparent 4px
+    );
+  background-position: 0 8px;
+  transition: background 0.3s ease;
+}
+
+/* Spine top edge — subtle highlight */
+.ib-spine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(180deg, rgba(253, 250, 244, 0.15), transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Spine bottom edge — darker shadow for depth */
+.ib-spine {
+  box-shadow:
+    inset 0 -8px 12px rgba(0, 0, 0, 0.5),
+    inset 1px 0 4px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Spine text — cream on navy (default), navy on cream (alternate) */
+.ib-spine-text {
+  position: relative;
+  z-index: 1;
+  color: #FDFAF4;
+  transition: color 0.3s ease;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 6px;
+  max-width: 240px;
+  display: block;
+  padding: 0 12px;
 }
 
-/* Gold underline — grows from 0 to full-width on hover/focus */
-.ib-nav-underline {
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--gold-2);
-  transition: width 0.28s ease-out;
+/* Cream spine (even indices) — navy text on cream background */
+.ib-spine:nth-child(even) {
+  background: #FDFAF4;
+}
+.ib-spine:nth-child(even)::before {
+  background: #FDFAF4;
+  background-image: none;
+  box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.1);
+}
+.ib-spine:nth-child(even)::after {
+  background: linear-gradient(180deg, rgba(253, 250, 244, 0.05), transparent);
+}
+.ib-spine:nth-child(even) .ib-spine-text {
+  color: #0e1b46;
 }
 
-/* Hover state — underline grows, label brightens */
-.ib-nav-button:hover:not(.ib-nav-button--soon) .ib-nav-underline {
-  width: 100%;
-}
-.ib-nav-button:hover:not(.ib-nav-button--soon) {
-  color: #E8B45F;
+/* Gold accent stripe on spine */
+.ib-spine {
+  border-left: 3px solid #9d6f14;
+  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
+  /* Use CSS nth-child to compute offsets */
 }
 
-/* Focus-visible — underline grows + ring */
-.ib-nav-button:focus-visible .ib-nav-underline {
-  width: 100%;
+.ib-spine:nth-child(1) { transform: translateX(-4px) translateY(0px) rotateZ(-1.5deg); }
+.ib-spine:nth-child(2) { transform: translateX(4px) translateY(2px) rotateZ(1.5deg); }
+.ib-spine:nth-child(3) { transform: translateX(-4px) translateY(4px) rotateZ(-1.5deg); }
+.ib-spine:nth-child(4) { transform: translateX(4px) translateY(6px) rotateZ(1.5deg); }
+.ib-spine:nth-child(5) { transform: translateX(-4px) translateY(8px) rotateZ(-1.5deg); }
+
+/* Hover on inactive spine — small nudge */
+.ib-spine:not(.ib-spine--active):hover {
+  transform-origin: bottom left;
 }
-.ib-nav-button:focus-visible {
+.ib-spine:nth-child(1):not(.ib-spine--active):hover { transform: translateX(2px) translateY(0px) rotateZ(-1.5deg); }
+.ib-spine:nth-child(2):not(.ib-spine--active):hover { transform: translateX(10px) translateY(2px) rotateZ(1.5deg); }
+.ib-spine:nth-child(3):not(.ib-spine--active):hover { transform: translateX(2px) translateY(4px) rotateZ(-1.5deg); }
+.ib-spine:nth-child(4):not(.ib-spine--active):hover { transform: translateX(10px) translateY(6px) rotateZ(1.5deg); }
+.ib-spine:nth-child(5):not(.ib-spine--active):hover { transform: translateX(2px) translateY(8px) rotateZ(-1.5deg); }
+
+/* Active spine — pulls out and brightens gold stripe */
+.ib-spine--active {
+  border-left-color: #E6BD6A;
+  z-index: 10;
+}
+.ib-spine:nth-child(1).ib-spine--active { transform: translateX(10px) translateY(0px) rotateZ(-1.5deg); }
+.ib-spine:nth-child(2).ib-spine--active { transform: translateX(18px) translateY(2px) rotateZ(1.5deg); }
+.ib-spine:nth-child(3).ib-spine--active { transform: translateX(10px) translateY(4px) rotateZ(-1.5deg); }
+.ib-spine:nth-child(4).ib-spine--active { transform: translateX(18px) translateY(6px) rotateZ(1.5deg); }
+.ib-spine:nth-child(5).ib-spine--active { transform: translateX(10px) translateY(8px) rotateZ(-1.5deg); }
+
+/* Focus visible — ring around spine */
+.ib-spine:focus-visible {
   outline: 2px solid var(--gold-2);
   outline-offset: 4px;
 }
 
-/* Active state — brighter gold text (no persistent underline) */
-.ib-nav-button--active {
-  color: #E8B45F;
-}
+/* Reduced motion — no nudge, show active by gold stripe + dot */
+@media (prefers-reduced-motion: reduce) {
+  .ib-spine {
+    transform:
+      translateX(calc(var(--spine-index, 0) % 2 * 0px))
+      rotateZ(0deg) !important;
+    transition: none;
+  }
 
-/* Reserved buttons — quieter appearance */
-.ib-nav-button--soon {
-  opacity: 0.72;
+  .ib-spine:not(.ib-spine--active):hover {
+    transform:
+      translateX(calc(var(--spine-index, 0) % 2 * 0px))
+      rotateZ(0deg) !important;
+  }
+
+  .ib-spine--active {
+    transform:
+      translateX(0)
+      rotateZ(0deg) !important;
+  }
 }
 
 /* ── THE OPEN BOOK ─────────────────────────────────────────────────────────── */
@@ -210,6 +310,11 @@
   pointer-events: none;
 }
 
+/* Intro spread right page — different styling for the intro body */
+.ib-page--intro {
+  background: #FDFAF4;
+}
+
 /* ── a page FACE (shared by base pages and the turning leaf) ───────────────── */
 .ib-face { position: absolute; inset: 0; }
 
@@ -263,6 +368,44 @@
   color: var(--navy);
   margin: 0;
   max-width: 16ch;
+}
+
+/* Intro spread — centered heading and body text on cream pages */
+.ib-intro-heading {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #0e1b46;
+  margin: 0;
+  text-align: center;
+}
+
+/* Intro face — the intro right page with body text and decorative arrow */
+.ib-face--intro {
+  background: #FDFAF4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(28px, 3.6vh, 44px) clamp(28px, 3vw, 50px);
+}
+
+.ib-intro-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #1c2019;
+  margin: 0 0 16px;
+  text-align: center;
+  max-width: 28ch;
+}
+
+.ib-intro-arrow {
+  font-size: 20px;
+  color: #9d6f14;
+  display: inline-block;
 }
 
 /* ── panel face — the designed MOCK cover (a real photo drops in later) ─────── */
@@ -389,8 +532,6 @@
 
 /* ── reduced motion ────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .ib-nav-button { transition: color 0.15s ease-out; }
-  .ib-nav-underline { transition: width 0.15s ease-out; }
   .ib-spread { animation-duration: 0.18s; }
 }
 
@@ -402,17 +543,20 @@
     align-items: stretch;
     gap: 24px;
   }
-  .ib-nav {
+  .ib-stack {
     order: 2;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
     min-height: auto;
     align-items: center;
   }
-  .ib-nav-button {
-    font-size: 12px;
+  .ib-spine {
+    width: auto;
+    height: auto;
+    padding: 8px 16px;
+    font-size: 11px;
     flex: 0 1 auto;
   }
   .ib-book-wrap { order: 1; padding-top: 26px; }
@@ -435,8 +579,8 @@
 @media (min-width: 1280px) {
   .ib-interactive { gap: clamp(36px, 3.4vw, 60px); }
 
-  .ib-nav { min-height: 560px; }
-  .ib-nav-button { font-size: 15px; }
+  .ib-stack { min-height: 560px; }
+  .ib-spine { width: 280px; height: 64px; font-size: 12px; }
 
   .ib-book { width: min(960px, 100%); }
   .ib-spread { height: 560px; }
@@ -451,6 +595,9 @@
   .ib-ph-cap { font-size: 12px; letter-spacing: 2.4px; }
   .ib-spine-shadow { width: 38px; }
   .ib-curl { width: 84px; height: 84px; }
+
+  .ib-intro-heading { font-size: clamp(48px, 5.5vw, 64px); }
+  .ib-intro-body { font-size: 16px; max-width: 32ch; }
 
   .ib-book-wrap { padding-top: 28px; }
   .ib-ribbon { width: 24px; height: 76px; top: -22px; }

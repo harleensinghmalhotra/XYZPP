@@ -95,8 +95,16 @@ function BookIcon({ name }) {
 
 // The left page — the read. Cream ground, navy ink. Shape depends on the leaf kind:
 // a COVER (big facility title), an OVERVIEW (body copy), AT A GLANCE (a headline
-// stat/location), or the RESERVED placeholder (title + a soft "coming soon" line).
+// stat/location), the RESERVED placeholder (title + a soft "coming soon" line),
+// or the INTRO (centered heading for the resting state).
 function LeftPage({ pg }) {
+  if (pg.kind === 'intro') {
+    return (
+      <div className="ib-face ib-face--text" aria-hidden="true">
+        <h3 className="ib-intro-heading">{pg.heading}</h3>
+      </div>
+    )
+  }
   return (
     <div className="ib-face ib-face--text" aria-hidden="true">
       <div className="ib-eyebrow">{pg.eyebrow}</div>
@@ -132,6 +140,21 @@ function RightPage({ icon, caption }) {
   )
 }
 
+// Intro spread — book zero, resting state before any facility is selected
+function IntroSpread({ t }) {
+  return (
+    <>
+      <div className="ib-face ib-face--text" aria-hidden="true">
+        <h3 className="ib-intro-heading">{t('books.intro.heading')}</h3>
+      </div>
+      <div className="ib-face ib-face--intro" aria-hidden="true">
+        <p className="ib-intro-body">{t('books.intro.body')}</p>
+        <span className="ib-intro-arrow" aria-hidden="true">→</span>
+      </div>
+    </>
+  )
+}
+
 const num = (n) => String(n).padStart(2, '0')
 
 export default function FacilityBook() {
@@ -140,7 +163,7 @@ export default function FacilityBook() {
   const [narrow, setNarrow] = useState(
     () => typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches,
   )
-  const [activeBook, setActiveBook] = useState(0)
+  const [activeBook, setActiveBook] = useState(-1) // -1 = intro spread, 0+ = book index
   const [page, setPage] = useState(0)      // current leaf within the open book
   const [xfade, setXfade] = useState(0)     // bumps to re-trigger the crossfade
   const [flip, setFlip] = useState(null)    // { from, dir } while a leaf is turning
@@ -186,8 +209,20 @@ export default function FacilityBook() {
   // existing facility copy into cover / overview / at-a-glance; a reserved book is a
   // single graceful placeholder leaf. `coverCaption` is the mock panel's label —
   // shared across a book's pages so its cover art stays consistent as you flip.
-  const book = BOOKS[activeBook]
+  // Intro state (-1) renders a special resting spread before any book opens.
+  const isIntro = activeBook === -1
+  const book = isIntro ? null : BOOKS[activeBook]
   const buildPages = (b) => {
+    if (!b) {
+      return {
+        coverCaption: null,
+        pages: [{
+          kind: 'intro',
+          heading: t('books.intro.heading'),
+          body: t('books.intro.body'),
+        }],
+      }
+    }
     if (b.placeholder) {
       return {
         coverCaption: t(`books.${b.id}.cover`),
@@ -322,27 +357,33 @@ export default function FacilityBook() {
         tabIndex={0}
         onKeyDown={onKeyDown}
       >
-        {/* LEFT RAIL — five gold-underline nav buttons */}
-        <nav className="ib-nav" aria-label={regionLabel}>
+        {/* LEFT RAIL — BOOK STACK (5 spines, clickable to open each book) */}
+        <div className="ib-stack" aria-label={regionLabel}>
           {BOOKS.map((b, i) => {
             const label = b.placeholder ? t(`books.${b.id}.eyebrow`) : t(`facilities.${b.src}.title`)
             const titleFull = b.placeholder ? t(`books.${b.id}.title`) : t(`facilities.${b.src}.title`)
             const isActive = i === activeBook
+            // Spine colors alternate navy/cream with gold accents
+            const isNavySpine = i % 2 === 0
             return (
               <button
                 key={b.id}
                 type="button"
-                className={`ib-nav-button${isActive ? ' ib-nav-button--active' : ''}${b.placeholder ? ' ib-nav-button--soon' : ''}`}
+                className={`ib-spine${isActive ? ' ib-spine--active' : ''}`}
+                style={{
+                  '--spine-index': i,
+                  '--is-active': isActive ? '1' : '0',
+                  '--is-navy': isNavySpine ? '1' : '0',
+                }}
                 onClick={() => openBook(i)}
                 aria-label={t('books.ui.open', { title: `${titleFull} (${num(i + 1)} / ${num(BOOKS.length)})` })}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <span className="ib-nav-label">{label}</span>
-                <span className="ib-nav-underline" aria-hidden="true" />
+                <span className="ib-spine-text">{label}</span>
               </button>
             )
           })}
-        </nav>
+        </div>
 
         {/* THE OPEN BOOK */}
         <div className="ib-book-wrap">
@@ -353,41 +394,62 @@ export default function FacilityBook() {
             onTouchEnd={onTouchEnd}
           >
             <div className="ib-ribbon" aria-hidden="true" />
-            <div className="ib-counter" aria-live="polite">
-              {t('books.ui.pageWord').toUpperCase()} {num(page + 1)} <span className="ib-counter-sep">/</span> {num(total)}
-              <span className="ib-sr">{cur.title || cur.big || cur.eyebrow}</span>
-            </div>
+            {/* Counter hidden for intro spread, visible for facility books */}
+            {!isIntro && (
+              <div className="ib-counter" aria-live="polite">
+                {t('books.ui.pageWord').toUpperCase()} {num(page + 1)} <span className="ib-counter-sep">/</span> {num(total)}
+                <span className="ib-sr">{cur.title || cur.big || cur.eyebrow}</span>
+              </div>
+            )}
 
             <div className="ib-spread" key={flat ? `b${activeBook}` : `x${activeBook}-${xfade}`}>
-              <div className="ib-page ib-page--left"><LeftPage pg={baseLeft} /></div>
-              <div className="ib-page ib-page--right"><RightPage icon={book.icon} caption={coverCaption} /></div>
+              {isIntro ? (
+                <>
+                  <div className="ib-page ib-page--left"><LeftPage pg={baseLeft} /></div>
+                  <div className="ib-page ib-page--right ib-page--intro">
+                    <div className="ib-face ib-face--intro" aria-hidden="true">
+                      <p className="ib-intro-body">{cur.body}</p>
+                      <span className="ib-intro-arrow" aria-hidden="true">→</span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="ib-page ib-page--left"><LeftPage pg={baseLeft} /></div>
+                  <div className="ib-page ib-page--right"><RightPage icon={book.icon} caption={coverCaption} /></div>
 
-              {flip && (
-                <div className="ib-leaf" style={{ animationDuration: `${flipMs.current - 40}ms` }}>
-                  <div className="ib-leaf-face ib-leaf-front"><RightPage icon={book.icon} caption={coverCaption} /></div>
-                  <div className="ib-leaf-face ib-leaf-back"><LeftPage pg={leafBack} /></div>
-                </div>
+                  {flip && (
+                    <div className="ib-leaf" style={{ animationDuration: `${flipMs.current - 40}ms` }}>
+                      <div className="ib-leaf-face ib-leaf-front"><RightPage icon={book.icon} caption={coverCaption} /></div>
+                      <div className="ib-leaf-face ib-leaf-back"><LeftPage pg={leafBack} /></div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
-            <button
-              type="button"
-              className="ib-arrow ib-arrow--prev"
-              onClick={() => go(page - 1)}
-              disabled={page === 0}
-              aria-label={t('books.ui.prev')}
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              className="ib-arrow ib-arrow--next"
-              onClick={() => go(page + 1)}
-              disabled={page === total - 1}
-              aria-label={t('books.ui.next')}
-            >
-              →
-            </button>
+            {!isIntro && (
+              <>
+                <button
+                  type="button"
+                  className="ib-arrow ib-arrow--prev"
+                  onClick={() => go(page - 1)}
+                  disabled={page === 0}
+                  aria-label={t('books.ui.prev')}
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  className="ib-arrow ib-arrow--next"
+                  onClick={() => go(page + 1)}
+                  disabled={page === total - 1}
+                  aria-label={t('books.ui.next')}
+                >
+                  →
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
