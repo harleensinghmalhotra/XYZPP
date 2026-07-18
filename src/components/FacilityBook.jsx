@@ -363,23 +363,24 @@ export default function FacilityBook() {
             const label = b.placeholder ? t(`books.${b.id}.eyebrow`) : t(`facilities.${b.src}.title`)
             const titleFull = b.placeholder ? t(`books.${b.id}.title`) : t(`facilities.${b.src}.title`)
             const isActive = i === activeBook
-            // Spine colors alternate navy/cream with gold accents
-            const isNavySpine = i % 2 === 0
+            // Each book: a skewed TOP face (page block) over a SPINE face carrying
+            // the foil band + title. Colourway / variance / 180° flip are CSS-driven.
             return (
               <button
                 key={b.id}
                 type="button"
                 className={`ib-spine${isActive ? ' ib-spine--active' : ''}`}
-                style={{
-                  '--spine-index': i,
-                  '--is-active': isActive ? '1' : '0',
-                  '--is-navy': isNavySpine ? '1' : '0',
-                }}
                 onClick={() => openBook(i)}
                 aria-label={t('books.ui.open', { title: `${titleFull} (${num(i + 1)} / ${num(BOOKS.length)})` })}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <span className="ib-spine-text">{label}</span>
+                <span className="ib-book-top" aria-hidden="true" />
+                <span className="ib-book-spine">
+                  <span className="ib-book-print">
+                    <span className="ib-book-foil" aria-hidden="true" />
+                    <span className="ib-spine-text">{label}</span>
+                  </span>
+                </span>
               </button>
             )
           })}

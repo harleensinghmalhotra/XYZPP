@@ -36,187 +36,186 @@
   outline-offset: 8px;
 }
 
-/* ── LEFT RAIL — PHYSICAL BOOK STACK (5 spines, stacked vertically) ─────────── */
+/* ── LEFT RAIL — REAL BOOK PILE (5 hardcover slabs, spines to camera) ─────────
+   Each book is a column of two faces: a thin skewed TOP face (page block + board
+   caps, seen slightly from above) over a tall SPINE face (cloth board, foil band,
+   DM Mono title). Books sit gapless with junction shadows and an irregular lean;
+   a soft ground ellipse grounds the pile. Per-book width / x-offset / rotation /
+   spine-height are nth-child vars so media queries can rescale them. */
 .ib-stack {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-around;
   gap: 0;
   flex: 0 0 auto;
-  min-height: clamp(360px, 50vh, 440px);
-  padding: 0;
+  padding: 6px 0 26px;
   margin: 0;
   list-style: none;
-  perspective: 1200px;
+  perspective: 1000px;
+}
+/* soft ground ellipse under the whole pile */
+.ib-stack::after {
+  content: '';
+  position: absolute;
+  left: 4%; right: 8%; bottom: 6px; height: 24px;
+  background: radial-gradient(52% 100% at 47% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 42%, transparent 74%);
+  filter: blur(4px);
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* Individual spine — CSS 3D book appearance */
+/* the book — a positioned COLUMN (top face + spine face); carries the pile lean
+   and all interaction. Colourway + per-book variance set below via nth-child. */
 .ib-spine {
+  --board: #0e1b46;
+  --ink: #FDFAF4;
+  --foil-a: #f0c87a;
+  --foil-b: #b07f28;
   position: relative;
-  width: 260px;
-  height: 56px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: var(--book-w, 256px);
   background: none;
-  border: none;
+  border: 0;
   padding: 0;
   margin: 0;
   cursor: pointer;
-  text-align: center;
+  transform: translateX(var(--book-x, 6px)) rotate(var(--book-rot, -0.6deg));
+  transform-origin: center bottom;
+  transition: transform 0.32s cubic-bezier(0.33, 0.66, 0.66, 1), filter 0.3s ease;
+  filter: drop-shadow(0 6px 9px rgba(0, 0, 0, 0.42));
+}
+
+/* per-book physical variance — irregular but a TIGHT pile: small offsets, subtle
+   lean, and each book overlaps the one above so there are no gaps (it sits on it). */
+.ib-spine:nth-child(1) { --book-w: 262px; --book-x: 3px; --book-rot: -0.5deg; --spine-h: 62px; }
+.ib-spine:nth-child(2) { --book-w: 246px; --book-x: 8px; --book-rot: 0.6deg;  --spine-h: 56px; }
+.ib-spine:nth-child(3) { --book-w: 258px; --book-x: 2px; --book-rot: -0.8deg; --spine-h: 60px; }
+.ib-spine:nth-child(4) { --book-w: 250px; --book-x: 7px; --book-rot: 0.4deg;  --spine-h: 54px; }
+.ib-spine:nth-child(5) { --book-w: 256px; --book-x: 4px; --book-rot: -0.6deg; --spine-h: 58px; }
+/* each book sits ON the one above — overlap closes the gaps; later (lower) books
+   paint in front, so the pile reads as receding back-and-up. */
+.ib-spine + .ib-spine { margin-top: -6px; }
+
+/* flipped books (2 & 4): cream board, ink text, printing rotated 180° */
+.ib-spine:nth-child(even) {
+  --board: #FDFAF4;
+  --ink: #16223f;
+  --foil-a: #e7bd6a;
+  --foil-b: #9d6f14;
+}
+
+/* TOP FACE — page block seen slightly from above (skewed parallelogram):
+   3px board caps at both ends + cream/off-cream 2px horizontal page lines. */
+.ib-book-top {
+  height: 13px;
+  margin-left: 4px;
+  transform: skewX(-34deg);
+  transform-origin: bottom left;
+  border-radius: 2px 2px 0 0;
+  background:
+    linear-gradient(90deg, var(--board) 0 3px, transparent 3px calc(100% - 3px), var(--board) calc(100% - 3px) 100%),
+    repeating-linear-gradient(0deg, #fdfaf4 0 1px, #e6ddcb 1px 2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 -3px 4px -1px rgba(0, 0, 0, 0.4);  /* junction contact shadow (book resting above) */
+}
+
+/* SPINE FACE — cloth board, rounded head/tail shading, 1px top bevel highlight */
+.ib-book-spine {
+  position: relative;
+  height: var(--spine-h, 58px);
+  overflow: hidden;
+  border-radius: 0 0 2px 2px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0, transparent 4px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(255, 255, 255, 0.06) 15%, transparent 48%, rgba(0, 0, 0, 0.10) 78%, rgba(0, 0, 0, 0.34) 100%),
+    var(--board);
+  box-shadow:
+    inset 0 -3px 6px rgba(0, 0, 0, 0.32),
+    inset 2px 0 3px rgba(0, 0, 0, 0.14),
+    inset -2px 0 3px rgba(0, 0, 0, 0.14);
+}
+
+/* printed content — foil band + title; rotates 180° on flipped books */
+.ib-book-print {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.ib-spine:nth-child(even) .ib-book-print { transform: rotate(180deg); }
+
+/* gold foil title-band near one spine end, with a metallic sheen */
+.ib-book-foil {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 5px;
+  height: calc(100% - 14px);
+  transform: translateY(-50%);
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--foil-a) 0%, var(--foil-b) 46%, var(--foil-a) 62%, var(--foil-b) 100%);
+  box-shadow: 0 0 4px rgba(240, 200, 122, 0.4), inset 0 0 1px rgba(255, 255, 255, 0.6);
+  transition: filter 0.3s ease;
+}
+
+.ib-spine-text {
+  position: relative;
+  z-index: 1;
+  max-width: calc(100% - 42px);
+  padding-left: 14px;   /* clear the foil band */
+  color: var(--ink);
   font-family: 'DM Mono', monospace;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.16em;
   line-height: 1.2;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
-  transform-style: preserve-3d;
-  /* Alternating offsets/rotations for a careless stack effect */
-  transform:
-    translateX(calc(var(--spine-index, 0) % 2 * 8px - 4px))
-    translateY(calc(var(--spine-index, 0) * 2px))
-    rotateZ(calc((var(--spine-index, 0) % 2 - 0.5) * 1.5deg));
-}
-
-/* Spine backdrop — a rounded book spine, not a flat bar:
-   layer 1 = fine vertical page edges peeking along the bottom (the fore-edge),
-   layer 2 = rounded-spine shading (dark head & tail, lit belly),
-   layer 3 = the navy board colour. */
-.ib-spine::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    repeating-linear-gradient(90deg, rgba(253, 250, 244, 0.34) 0 1px, rgba(180, 170, 150, 0.16) 1px 3px) left bottom / 100% 5px no-repeat,
-    linear-gradient(180deg, rgba(0, 0, 0, 0.42) 0%, rgba(255, 255, 255, 0.07) 14%, transparent 33%, transparent 67%, rgba(0, 0, 0, 0.16) 86%, rgba(0, 0, 0, 0.48) 100%),
-    #0e1b46;
-  transition: background 0.3s ease;
-}
-
-/* Spine top edge — subtle highlight */
-.ib-spine::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(180deg, rgba(253, 250, 244, 0.15), transparent);
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* Physical lift — the book sits proud of the stack, with a soft cast shadow */
-.ib-spine {
-  box-shadow:
-    inset 0 2px 3px rgba(255, 255, 255, 0.12),
-    inset 0 -6px 10px rgba(0, 0, 0, 0.42),
-    0 7px 16px -5px rgba(0, 0, 0, 0.55),
-    0 2px 4px rgba(0, 0, 0, 0.32);
-}
-
-/* Spine text — cream on navy (default), navy on cream (alternate) */
-.ib-spine-text {
-  position: relative;
-  z-index: 1;
-  color: #FDFAF4;
-  transition: color 0.3s ease;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 240px;
-  display: block;
-  padding: 0 12px;
+  transition: color 0.3s ease;
 }
 
-/* Cream spine (even indices) — navy text on cream background */
-.ib-spine:nth-child(even) {
-  background: #FDFAF4;
-}
-.ib-spine:nth-child(even)::before {
-  background:
-    repeating-linear-gradient(90deg, rgba(28, 32, 25, 0.30) 0 1px, rgba(28, 32, 25, 0.07) 1px 2.5px) left bottom / 100% 6px no-repeat,
-    linear-gradient(180deg, rgba(0, 0, 0, 0.16) 0%, rgba(255, 255, 255, 0.55) 14%, transparent 34%, transparent 66%, rgba(0, 0, 0, 0.05) 86%, rgba(0, 0, 0, 0.18) 100%),
-    #FDFAF4;
-}
-.ib-spine:nth-child(even)::after {
-  background: linear-gradient(180deg, rgba(253, 250, 244, 0.05), transparent);
-}
-.ib-spine:nth-child(even) .ib-spine-text {
-  color: #0e1b46;
-}
-
-/* Careless-pile realism — books 2 and 4 sit flipped in the stack, so their
-   spine text reads 180° like the client's casual-stack photo reference.
-   (Static transform, not motion — the button's aria-label stays upright for AT.) */
-.ib-spine:nth-child(2) .ib-spine-text,
-.ib-spine:nth-child(4) .ib-spine-text {
-  transform: rotate(180deg);
-}
-
-/* Gold accent stripe on spine */
-.ib-spine {
-  border-left: 3px solid #9d6f14;
-  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.33, 0.66, 0.66, 1);
-  /* Use CSS nth-child to compute offsets */
-}
-
-.ib-spine:nth-child(1) { transform: translateX(-4px) translateY(0px) rotateZ(-1.5deg); }
-.ib-spine:nth-child(2) { transform: translateX(4px) translateY(2px) rotateZ(1.5deg); }
-.ib-spine:nth-child(3) { transform: translateX(-4px) translateY(4px) rotateZ(-1.5deg); }
-.ib-spine:nth-child(4) { transform: translateX(4px) translateY(6px) rotateZ(1.5deg); }
-.ib-spine:nth-child(5) { transform: translateX(-4px) translateY(8px) rotateZ(-1.5deg); }
-
-/* Hover on inactive spine — small nudge */
+/* hover — a 6px nudge out of the pile */
 .ib-spine:not(.ib-spine--active):hover {
-  transform-origin: bottom left;
+  transform: translateX(calc(var(--book-x, 6px) + 6px)) rotate(var(--book-rot, -0.6deg));
 }
-.ib-spine:nth-child(1):not(.ib-spine--active):hover { transform: translateX(2px) translateY(0px) rotateZ(-1.5deg); }
-.ib-spine:nth-child(2):not(.ib-spine--active):hover { transform: translateX(10px) translateY(2px) rotateZ(1.5deg); }
-.ib-spine:nth-child(3):not(.ib-spine--active):hover { transform: translateX(2px) translateY(4px) rotateZ(-1.5deg); }
-.ib-spine:nth-child(4):not(.ib-spine--active):hover { transform: translateX(10px) translateY(6px) rotateZ(1.5deg); }
-.ib-spine:nth-child(5):not(.ib-spine--active):hover { transform: translateX(2px) translateY(8px) rotateZ(-1.5deg); }
 
-/* Active spine — pulls out and brightens gold stripe */
+/* active — slides ~18px out, foil brightens, cast shadow deepens */
 .ib-spine--active {
-  border-left-color: #E6BD6A;
   z-index: 10;
+  transform: translateX(calc(var(--book-x, 6px) + 18px)) rotate(var(--book-rot, -0.6deg));
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.55));
 }
-.ib-spine:nth-child(1).ib-spine--active { transform: translateX(10px) translateY(0px) rotateZ(-1.5deg); }
-.ib-spine:nth-child(2).ib-spine--active { transform: translateX(18px) translateY(2px) rotateZ(1.5deg); }
-.ib-spine:nth-child(3).ib-spine--active { transform: translateX(10px) translateY(4px) rotateZ(-1.5deg); }
-.ib-spine:nth-child(4).ib-spine--active { transform: translateX(18px) translateY(6px) rotateZ(1.5deg); }
-.ib-spine:nth-child(5).ib-spine--active { transform: translateX(10px) translateY(8px) rotateZ(-1.5deg); }
+.ib-spine--active .ib-book-foil { filter: brightness(1.4) saturate(1.1); }
 
-/* Focus visible — ring around spine */
-.ib-spine:focus-visible {
-  outline: 2px solid var(--gold-2);
-  outline-offset: 4px;
-}
+/* focus ring */
+.ib-spine:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 4px; }
 
-/* Reduced motion — no nudge, show active by gold stripe + dot */
+/* reduced motion — no slides; active shows a gold dot + brightened foil */
 @media (prefers-reduced-motion: reduce) {
-  .ib-spine {
-    transform:
-      translateX(calc(var(--spine-index, 0) % 2 * 0px))
-      rotateZ(0deg) !important;
+  .ib-spine,
+  .ib-spine:hover,
+  .ib-spine--active {
+    transform: translateX(var(--book-x, 6px)) rotate(var(--book-rot, -0.6deg)) !important;
     transition: none;
   }
-
-  .ib-spine:not(.ib-spine--active):hover {
-    transform:
-      translateX(calc(var(--spine-index, 0) % 2 * 0px))
-      rotateZ(0deg) !important;
-  }
-
-  .ib-spine--active {
-    transform:
-      translateX(0)
-      rotateZ(0deg) !important;
+  .ib-spine--active .ib-book-foil { filter: brightness(1.45) saturate(1.1); }
+  .ib-spine--active .ib-book-spine::after {
+    content: '';
+    position: absolute;
+    right: 10px; top: 50%;
+    width: 7px; height: 7px; margin-top: -3.5px;
+    border-radius: 50%;
+    background: var(--gold-2);
+    box-shadow: 0 0 0 4px rgb(var(--gold-2-rgb) / 0.18);
   }
 }
 
@@ -565,13 +564,17 @@
     min-height: auto;
     align-items: center;
   }
+  /* mobile — simplify each book to a compact chip (spine face only, no lean) */
   .ib-spine {
     width: auto;
-    height: auto;
-    padding: 8px 16px;
-    font-size: 11px;
     flex: 0 1 auto;
+    transform: none !important;
+    filter: none;
   }
+  .ib-book-top { display: none; }
+  .ib-book-spine { height: auto; padding: 9px 18px; border-radius: 4px; }
+  .ib-spine-text { max-width: none; }
+  .ib-stack::after { display: none; }
   .ib-book-wrap { order: 1; padding-top: 26px; }
   .ib-book { width: 100%; }
   .ib-spread {
@@ -592,8 +595,13 @@
 @media (min-width: 1280px) {
   .ib-interactive { gap: clamp(36px, 3.4vw, 60px); }
 
-  .ib-stack { min-height: 560px; }
-  .ib-spine { width: 280px; height: 64px; font-size: 12px; }
+  .ib-stack { min-height: 560px; justify-content: center; }
+  .ib-spine:nth-child(1) { --book-w: 286px; --spine-h: 68px; }
+  .ib-spine:nth-child(2) { --book-w: 266px; --spine-h: 62px; }
+  .ib-spine:nth-child(3) { --book-w: 282px; --spine-h: 66px; }
+  .ib-spine:nth-child(4) { --book-w: 272px; --spine-h: 60px; }
+  .ib-spine:nth-child(5) { --book-w: 278px; --spine-h: 64px; }
+  .ib-spine-text { font-size: 12px; }
 
   .ib-book { width: min(960px, 100%); }
   .ib-spread { height: 560px; }
