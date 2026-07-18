@@ -39,6 +39,20 @@ const BOOKS = [
   { id: '05', icon: 'tower', placeholder: true },   // Head Office
 ]
 
+// Physical pile order — the 5 facility books interleaved with non-interactive
+// FILLER slabs whose spines are turned AWAY (we see the page-block fore-edge, no
+// label). A real pile has books BETWEEN the labelled ones, so the stack reads as a
+// genuine pile rather than a neat 5-spine shelf. Only the facility books are
+// buttons; fillers are aria-hidden, unfocusable decoration. `book` maps a slot back
+// to its BOOKS index; positions 1,3,5,7,9 are facility books, 2,4,6,8,10 fillers.
+const PILE = [
+  { book: 0 }, { filler: true },
+  { book: 1 }, { filler: true },
+  { book: 2 }, { filler: true },
+  { book: 3 }, { filler: true },
+  { book: 4 }, { filler: true },
+]
+
 const FLIP_MS = 560 // JS lock slightly longer than the 520ms CSS leaf turn
 
 // Page-turn SFX — the SAME quiet paper fold Cases uses, fired the instant a leaf
@@ -357,21 +371,35 @@ export default function FacilityBook() {
         tabIndex={0}
         onKeyDown={onKeyDown}
       >
-        {/* LEFT RAIL — BOOK STACK (5 spines, clickable to open each book) */}
+        {/* LEFT RAIL — BOOK PILE (10 slabs: 5 labelled facility books interleaved
+            with 5 turned-away FILLER books; only the facility ones are buttons) */}
         <div className="ib-stack" aria-label={regionLabel}>
-          {BOOKS.map((b, i) => {
+          {PILE.map((slot, pos) => {
+            // FILLER — a book placed backwards: skewed TOP face over a page-block
+            // fore-edge FACE (no spine, no text). Purely decorative and inert.
+            if (slot.filler) {
+              return (
+                <div key={`f${pos}`} className="ib-filler" aria-hidden="true">
+                  <span className="ib-book-top" />
+                  <span className="ib-filler-edge" />
+                </div>
+              )
+            }
+            const bi = slot.book
+            const b = BOOKS[bi]
             const label = b.placeholder ? t(`books.${b.id}.eyebrow`) : t(`facilities.${b.src}.title`)
             const titleFull = b.placeholder ? t(`books.${b.id}.title`) : t(`facilities.${b.src}.title`)
-            const isActive = i === activeBook
+            const isActive = bi === activeBook
+            const cream = bi % 2 === 1 // 2nd & 4th facility books cream, for variety
             // Each book: a skewed TOP face (page block) over a SPINE face carrying
-            // the foil band + title. Colourway / variance / 180° flip are CSS-driven.
+            // the foil band + title. Colourway / variance are CSS-driven by position.
             return (
               <button
                 key={b.id}
                 type="button"
-                className={`ib-spine${isActive ? ' ib-spine--active' : ''}`}
-                onClick={() => openBook(i)}
-                aria-label={t('books.ui.open', { title: `${titleFull} (${num(i + 1)} / ${num(BOOKS.length)})` })}
+                className={`ib-spine${cream ? ' ib-spine--cream' : ''}${isActive ? ' ib-spine--active' : ''}`}
+                onClick={() => openBook(bi)}
+                aria-label={t('books.ui.open', { title: `${titleFull} (${num(bi + 1)} / ${num(BOOKS.length)})` })}
                 aria-current={isActive ? 'page' : undefined}
               >
                 <span className="ib-book-top" aria-hidden="true" />

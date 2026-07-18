@@ -36,12 +36,15 @@
   outline-offset: 8px;
 }
 
-/* ── LEFT RAIL — REAL BOOK PILE (5 hardcover slabs, spines to camera) ─────────
-   Each book is a column of two faces: a thin skewed TOP face (page block + board
-   caps, seen slightly from above) over a tall SPINE face (cloth board, foil band,
-   DM Mono title). Books sit gapless with junction shadows and an irregular lean;
-   a soft ground ellipse grounds the pile. Per-book width / x-offset / rotation /
-   spine-height are nth-child vars so media queries can rescale them. */
+/* ── LEFT RAIL — REAL BOOK PILE (10 slabs: 5 labelled facility books interleaved
+   with 5 turned-away FILLER books) ─────────────────────────────────────────────
+   A facility book is a column of two faces: a thin skewed TOP face (page block +
+   board caps, from above) over a tall SPINE face (cloth board, foil band, DM Mono
+   title). A FILLER is the same slab placed BACKWARDS — the tall face is the page-
+   block fore-edge (faint vertical page striations, no text). Fillers are thinner so
+   the 5 real books dominate. Books overlap so the pile sits gapless; a soft contact
+   shadow anchored to the BOTTOM book grounds the whole pile on the surface. Per-book
+   width / x-offset / rotation / height are position vars so media queries rescale. */
 .ib-stack {
   position: relative;
   display: flex;
@@ -49,24 +52,33 @@
   align-items: flex-start;
   gap: 0;
   flex: 0 0 auto;
-  padding: 6px 0 26px;
+  padding: 6px 0 8px;
   margin: 0;
   list-style: none;
   perspective: 1000px;
 }
-/* soft ground ellipse under the whole pile */
-.ib-stack::after {
+
+/* GROUND CONTACT SHADOW — anchored to the bottom book (the pile is vertically
+   centred in the stack, so a container-anchored ellipse would detach and float).
+   Densest right at the book's lower edge (at 50% 0%), fading down and out — the
+   pile reads as RESTING on the surface with zero air gap. */
+.ib-stack > :last-child { position: relative; }
+.ib-stack > :last-child::after {
   content: '';
   position: absolute;
-  left: 4%; right: 8%; bottom: 6px; height: 24px;
-  background: radial-gradient(52% 100% at 47% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 42%, transparent 74%);
-  filter: blur(4px);
-  z-index: 0;
+  left: 50%;
+  bottom: -7px;
+  transform: translateX(-50%);
+  width: 150%;
+  height: 30px;
+  background: radial-gradient(58% 100% at 50% 0%, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.34) 32%, rgba(0,0,0,0.14) 56%, transparent 76%);
+  filter: blur(5px);
+  z-index: -1;
   pointer-events: none;
 }
 
 /* the book — a positioned COLUMN (top face + spine face); carries the pile lean
-   and all interaction. Colourway + per-book variance set below via nth-child. */
+   and all interaction. Colourway + per-book variance set below via position. */
 .ib-spine {
   --board: #0e1b46;
   --ink: #FDFAF4;
@@ -89,19 +101,50 @@
   filter: drop-shadow(0 6px 9px rgba(0, 0, 0, 0.42));
 }
 
+/* FILLER — a book turned backwards: same slab, page-block fore-edge to camera,
+   no label, non-interactive. Thinner than the facility books (~65% height) so the
+   5 real ones dominate; a lighter drop-shadow keeps it reading as depth, not a peer. */
+.ib-filler {
+  --board: #16223f;
+  --edge: #efe7d5;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: var(--book-w, 244px);
+  transform: translateX(var(--book-x, 8px)) rotate(var(--book-rot, 0.5deg));
+  transform-origin: center bottom;
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.38));
+  pointer-events: none;
+}
+
 /* per-book physical variance — irregular but a TIGHT pile: small offsets, subtle
-   lean, and each book overlaps the one above so there are no gaps (it sits on it). */
-.ib-spine:nth-child(1) { --book-w: 262px; --book-x: 3px; --book-rot: -0.5deg; --spine-h: 62px; }
-.ib-spine:nth-child(2) { --book-w: 246px; --book-x: 8px; --book-rot: 0.6deg;  --spine-h: 56px; }
-.ib-spine:nth-child(3) { --book-w: 258px; --book-x: 2px; --book-rot: -0.8deg; --spine-h: 60px; }
-.ib-spine:nth-child(4) { --book-w: 250px; --book-x: 7px; --book-rot: 0.4deg;  --spine-h: 54px; }
-.ib-spine:nth-child(5) { --book-w: 256px; --book-x: 4px; --book-rot: -0.6deg; --spine-h: 58px; }
+   lean, and each book overlaps the one above so there are no gaps (it sits on it).
+   Odd positions = facility books; even positions = thinner turned-away fillers. */
+.ib-stack > :nth-child(1)  { --book-w: 262px; --book-x: 3px;  --book-rot: -0.5deg; --spine-h: 42px; }
+.ib-stack > :nth-child(2)  { --book-w: 236px; --book-x: 12px; --book-rot: 0.7deg;  --spine-h: 26px; }
+.ib-stack > :nth-child(3)  { --book-w: 258px; --book-x: 2px;  --book-rot: -0.8deg; --spine-h: 44px; }
+.ib-stack > :nth-child(4)  { --book-w: 248px; --book-x: 9px;  --book-rot: 0.5deg;  --spine-h: 25px; }
+.ib-stack > :nth-child(5)  { --book-w: 256px; --book-x: 4px;  --book-rot: -0.6deg; --spine-h: 43px; }
+.ib-stack > :nth-child(6)  { --book-w: 230px; --book-x: 14px; --book-rot: 0.8deg;  --spine-h: 28px; }
+.ib-stack > :nth-child(7)  { --book-w: 260px; --book-x: 3px;  --book-rot: -0.7deg; --spine-h: 43px; }
+.ib-stack > :nth-child(8)  { --book-w: 244px; --book-x: 10px; --book-rot: 0.5deg;  --spine-h: 24px; }
+.ib-stack > :nth-child(9)  { --book-w: 254px; --book-x: 5px;  --book-rot: -0.5deg; --spine-h: 42px; }
+.ib-stack > :nth-child(10) { --book-w: 240px; --book-x: 8px;  --book-rot: 0.4deg;  --spine-h: 28px; }
 /* each book sits ON the one above — overlap closes the gaps; later (lower) books
    paint in front, so the pile reads as receding back-and-up. */
-.ib-spine + .ib-spine { margin-top: -6px; }
+.ib-stack > * + * { margin-top: -6px; }
 
-/* flipped books (2 & 4): cream board, ink text, printing rotated 180° */
-.ib-spine:nth-child(even) {
+/* filler colourways — mix of navy / cream / one warm beige board tone, so the
+   turned-away books vary like a real pile. The fore-edge stays paper regardless. */
+.ib-stack > :nth-child(4) { --board: #F0EBE0; --edge: #f3ecdd; } /* warm beige board */
+.ib-stack > :nth-child(6) { --board: #FDFAF4; --edge: #f4eede; } /* cream board */
+.ib-stack > :nth-child(8) { --board: #101d3f; --edge: #ece3cf; } /* navy board */
+
+/* cream facility books (the 2nd & 4th real books): cream board, navy ink — kept
+   upright and readable, just a lighter colourway for pile variety. */
+.ib-spine--cream {
   --board: #FDFAF4;
   --ink: #16223f;
   --foil-a: #e7bd6a;
@@ -149,7 +192,25 @@
   align-items: center;
   justify-content: center;
 }
-.ib-spine:nth-child(even) .ib-book-print { transform: rotate(180deg); }
+
+/* ── FILLER FORE-EDGE FACE — the page-block seen from the side (book turned round).
+   Faint vertical page striations (unreadable), board hairlines top & bottom, and a
+   soft bulge shade. No text, no foil — clearly NOT one of the labelled books. ── */
+.ib-filler-edge {
+  position: relative;
+  height: var(--spine-h, 28px);
+  overflow: hidden;
+  border-radius: 0 0 2px 2px;
+  background:
+    linear-gradient(180deg, var(--board) 0 2px, transparent 2px calc(100% - 2px), var(--board) calc(100% - 2px) 100%),
+    repeating-linear-gradient(90deg, #efe7d5 0 1px, #ded1b6 1px 2px, #f4eede 2px 4px),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, transparent 24%, transparent 72%, rgba(0, 0, 0, 0.24) 100%),
+    var(--edge, #efe7d5);
+  box-shadow:
+    inset 0 -3px 6px rgba(0, 0, 0, 0.22),
+    inset 2px 0 3px rgba(0, 0, 0, 0.12),
+    inset -2px 0 3px rgba(0, 0, 0, 0.12);
+}
 
 /* gold foil title-band near one spine end, with a metallic sheen */
 .ib-book-foil {
@@ -564,7 +625,11 @@
     min-height: auto;
     align-items: center;
   }
-  /* mobile — simplify each book to a compact chip (spine face only, no lean) */
+  /* mobile — simplify each book to a compact chip (spine face only, no lean); the
+     turned-away fillers are decorative pile depth and make no sense as chips, so
+     drop them and flatten the pile overlap. */
+  .ib-filler { display: none; }
+  .ib-stack > * + * { margin-top: 0; }
   .ib-spine {
     width: auto;
     flex: 0 1 auto;
@@ -574,7 +639,7 @@
   .ib-book-top { display: none; }
   .ib-book-spine { height: auto; padding: 9px 18px; border-radius: 4px; }
   .ib-spine-text { max-width: none; }
-  .ib-stack::after { display: none; }
+  .ib-stack > :last-child::after { display: none; }
   .ib-book-wrap { order: 1; padding-top: 26px; }
   .ib-book { width: 100%; }
   .ib-spread {
@@ -595,12 +660,20 @@
 @media (min-width: 1280px) {
   .ib-interactive { gap: clamp(36px, 3.4vw, 60px); }
 
+  /* pile centred in the 560px column (= the open book's height); the 10 slabs are
+     sized so the whole pile stays UNDER that height — facility books ~50px spines,
+     fillers ~34px, capped so nothing overflows the open book at 1536×743. */
   .ib-stack { min-height: 560px; justify-content: center; }
-  .ib-spine:nth-child(1) { --book-w: 286px; --spine-h: 68px; }
-  .ib-spine:nth-child(2) { --book-w: 266px; --spine-h: 62px; }
-  .ib-spine:nth-child(3) { --book-w: 282px; --spine-h: 66px; }
-  .ib-spine:nth-child(4) { --book-w: 272px; --spine-h: 60px; }
-  .ib-spine:nth-child(5) { --book-w: 278px; --spine-h: 64px; }
+  .ib-stack > :nth-child(1)  { --book-w: 286px; --spine-h: 50px; }
+  .ib-stack > :nth-child(2)  { --book-w: 258px; --spine-h: 33px; }
+  .ib-stack > :nth-child(3)  { --book-w: 282px; --spine-h: 52px; }
+  .ib-stack > :nth-child(4)  { --book-w: 270px; --spine-h: 32px; }
+  .ib-stack > :nth-child(5)  { --book-w: 278px; --spine-h: 51px; }
+  .ib-stack > :nth-child(6)  { --book-w: 252px; --spine-h: 35px; }
+  .ib-stack > :nth-child(7)  { --book-w: 280px; --spine-h: 51px; }
+  .ib-stack > :nth-child(8)  { --book-w: 266px; --spine-h: 31px; }
+  .ib-stack > :nth-child(9)  { --book-w: 276px; --spine-h: 50px; }
+  .ib-stack > :nth-child(10) { --book-w: 262px; --spine-h: 34px; }
   .ib-spine-text { font-size: 12px; }
 
   .ib-book { width: min(960px, 100%); }
