@@ -127,7 +127,7 @@
 @keyframes inf-draw { to { stroke-dashoffset: 0; } }
 
 /* ── 5 · MEASURABLE RESULTS + video (navy) ────────────────────────────────── */
-.inf-results { position: relative; overflow: hidden; background: #0f2444; color: #fdfaf4; padding: clamp(80px, 12vh, 140px) 0; }
+.inf-results { position: relative; overflow: hidden; background: #0e1b46; color: #fdfaf4; padding: clamp(80px, 12vh, 140px) 0; }
 .inf-results-beam {
   position: absolute; inset: 0; pointer-events: none;
   background:
@@ -184,19 +184,26 @@
 .inf-video-thumb:hover .inf-play-ring { animation: inf-pulse 1.6s ease-out infinite; }
 @keyframes inf-pulse { 0% { transform: scale(0.9); opacity: 0.7; } 100% { transform: scale(1.35); opacity: 0; } }
 
-/* ── 6 · RECOGNITION — homepage Awards plaque language, adapted 3-up (navy) ──
-   Structure + craft come straight from the global .aw/.plq rules (index.css): the
-   Broadway spotlights, gold-bordered navy plaques, ceremony photos, press-clipping
-   and gold-foil names. These overrides only (a) hold the navy so page-CSS cascade
-   order can't beat it back to beige, (b) fit the page's 1200 rhythm, and (c) drop
-   the 4-up grid to a 3-up row. Everything visual is inherited, not re-authored. */
-.inf-recognition.aw { padding: 0; background: #0f2444; }
+/* ── 6 · RECOGNITION — homepage Awards anatomy, 1:1 (navy) ────────────────────
+   Every visual + the layout come straight from the global .aw/.plq/.aw-viewport
+   rules (index.css): Broadway spotlights, the .aw-head-text + paging-arrow header,
+   the horizontal .aw-viewport scroller, gold-bordered navy plaques, ceremony photos,
+   press-clipping and gold-foil names. These page overrides only (a) hold the
+   canonical #0e1b46 navy so the page cascade can't beat it back to beige, (b) fit
+   the page's 1240 rhythm, and (c) size the three plaques to fill the row (the
+   homepage's .plq basis is tuned for four). Nothing visual is re-authored. */
+.inf-recognition.aw { padding: 0; background: #0e1b46; }
 .inf-recognition .aw-inner { max-width: 1240px; }
 .inf-recognition .aw-content { padding: clamp(72px, 11vh, 130px) clamp(20px, 4vw, 56px) clamp(84px, 12vh, 146px); }
 .inf-recognition .aw-title { font-size: clamp(32px, 5vw, 58px); }
-.inf-recognition .aw-grid { grid-template-columns: repeat(3, 1fr); margin-top: clamp(40px, 6vh, 72px); }
-@media (max-width: 900px) {
-  .inf-recognition .aw-grid { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; }
+/* three plaques fill the viewport row (gap inherited: 32px). Narrower viewports show
+   two, then one — at which point the row overflows and the paging arrows light up. */
+.inf-recognition .plq { flex-basis: calc((100% - 2 * 32px) / 3); }
+@media (max-width: 1000px) {
+  .inf-recognition .plq { flex-basis: calc((100% - 32px) / 2); } /* two across → arrows enable */
+}
+@media (max-width: 640px) {
+  .inf-recognition .plq { flex-basis: 100%; } /* one across, native swipe + arrows */
 }
 
 /* ── 7 · GALLERY — facility photos only (cream) ───────────────────────────── */

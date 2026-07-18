@@ -24,6 +24,12 @@ gsap.registerPlugin(ScrollTrigger)
 const VIDEO_READY = false
 const VIDEO_SRC = '/qfp/infra/facility-walkthrough.mp4'
 
+// "Our People" grid ("600+ Hands Behind Every Shipment" — Press Floor Team /
+// Quality Check / Kitting & Packing / Leadership Team). Hidden, not deleted:
+// pending client photography. Locale keys stay so the block returns by flipping
+// this to true once real team photos land. Same pattern as SHOW_STRIP_3.
+const SHOW_TEAM_SECTION = false
+
 // The three facility cards are now the InfraBooks book stack (Lane 15): the copy
 // still lives in the same `facilities.<n>.*` keys, re-paginated into book pages by
 // InfraBooks.jsx. Only the card GRID moved — the video + People blocks below stay.
@@ -184,21 +190,24 @@ export default function Infrastructure() {
           </button>
         </div>
 
-        {/* ── OUR PEOPLE — the closing note of the section (client request) ── */}
-        <div className="infra-people">
-          <h3 className="infra-people-title">
-            <span className="infra-foil">{t('people.count')}</span> {t('people.title')}
-          </h3>
-          <p className="infra-people-body">{t('people.body')}</p>
-          <div className="infra-people-grid">
-            {PEOPLE.map((p) => (
-              <figure key={p.n} className="infra-person">
-                <TeamPlaceholder icon={p.icon} note={t('people.photoNote', { team: t(`people.captions.${p.n}`) })} />
-                <figcaption className="infra-person-cap">{t(`people.captions.${p.n}`)}</figcaption>
-              </figure>
-            ))}
+        {/* ── OUR PEOPLE — the closing note of the section (client request).
+             Gated behind SHOW_TEAM_SECTION (pending client photography). ── */}
+        {SHOW_TEAM_SECTION && (
+          <div className="infra-people">
+            <h3 className="infra-people-title">
+              <span className="infra-foil">{t('people.count')}</span> {t('people.title')}
+            </h3>
+            <p className="infra-people-body">{t('people.body')}</p>
+            <div className="infra-people-grid">
+              {PEOPLE.map((p) => (
+                <figure key={p.n} className="infra-person">
+                  <TeamPlaceholder icon={p.icon} note={t('people.photoNote', { team: t(`people.captions.${p.n}`) })} />
+                  <figcaption className="infra-person-cap">{t(`people.captions.${p.n}`)}</figcaption>
+                </figure>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* ── VIDEO DIALOG — backdrop blur + navy scrim; Esc / click-out close ── */}

@@ -175,6 +175,86 @@ function PlaqueClipping({ t }) {
   )
 }
 
+// Recognition rail — the homepage Awards anatomy replicated 1:1 (in-territory, so
+// the homepage stays untouched): left-aligned .aw-head-text + paging arrows, an
+// .aw-viewport scroller wrapping a flex .aw-grid of .plq plaques. Same arrow chip
+// (.wwp-arrow), same scroll mechanics as Awards.jsx — with three cards filling the
+// row on desktop the arrows sit disabled (exactly the homepage's rendered state),
+// and they light up when a narrower viewport shows fewer than three at a time.
+function RecognitionRail({ t }) {
+  const viewport = useRef(null)
+  const [atStart, setAtStart] = useState(true)
+  const [atEnd, setAtEnd] = useState(true)
+
+  const cardStep = () => {
+    const vp = viewport.current
+    if (!vp) return 0
+    const cards = vp.querySelectorAll('.plq')
+    if (cards.length >= 2) {
+      return cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left
+    }
+    return cards[0]?.getBoundingClientRect().width ?? 0
+  }
+  const scrollRow = (dir) => {
+    const vp = viewport.current
+    if (!vp) return
+    vp.scrollBy({ left: dir * cardStep(), behavior: prefersReduced() ? 'auto' : 'smooth' })
+  }
+  useEffect(() => {
+    const vp = viewport.current
+    if (!vp) return
+    const update = () => {
+      const max = vp.scrollWidth - vp.clientWidth
+      setAtStart(vp.scrollLeft <= 1)
+      setAtEnd(vp.scrollLeft >= max - 1) // no overflow → both ends true → both disabled
+    }
+    update()
+    vp.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => { vp.removeEventListener('scroll', update); window.removeEventListener('resize', update) }
+  }, [])
+
+  return (
+    <div className="aw-content">
+      <div className="aw-head">
+        <div className="aw-head-text">
+          <p className="aw-eyebrow">{t('recognition.eyebrow')}</p>
+          <h2 id="inf-rec-h" className="aw-title">{t('recognition.title')}</h2>
+        </div>
+        <div className="wwp-arrows aw-arrows">
+          <button type="button" className="wwp-arrow focus-ring" onClick={() => scrollRow(-1)} disabled={atStart} aria-label={t('recognition.scrollPrev')}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg>
+          </button>
+          <button type="button" className="wwp-arrow focus-ring" onClick={() => scrollRow(1)} disabled={atEnd} aria-label={t('recognition.scrollNext')}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m10 6 6 6-6 6" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <div className="aw-viewport" ref={viewport} role="region" aria-label={t('recognition.rowLabel')} tabIndex={0}>
+        <div className="aw-grid">
+          {AWARDS.map((a) => (
+            <article className="plq" key={a.k}>
+              <div className="aw-photo">
+                {a.clipping
+                  ? <PlaqueClipping t={t} />
+                  : <PlaquePhoto img={a.img} ph={t(`recognition.awards.${a.k}.kicker`)} />}
+                <div className="plq-tint" aria-hidden="true" />
+                <div className="plq-sheen" aria-hidden="true" />
+              </div>
+              <div className="aw-body">
+                <div className="aw-label">{t(`recognition.awards.${a.k}.kicker`)}</div>
+                <h3 className="aw-name">{t(`recognition.awards.${a.k}.name`)}</h3>
+                <p className="aw-desc">{t(`recognition.awards.${a.k}.body`)}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function InfrastructurePage() {
   const { t } = useTranslation('infrastructurePage')
   const root = useRef(null)
@@ -426,30 +506,7 @@ export default function InfrastructurePage() {
         <div className="aw-carpet" aria-hidden="true" />
         <div className="aw-vignette" aria-hidden="true" />
         <div className="aw-inner">
-          <div className="aw-content">
-            <div className="aw-head">
-              <p className="aw-eyebrow">{t('recognition.eyebrow')}</p>
-              <h2 id="inf-rec-h" className="aw-title">{t('recognition.title')}</h2>
-            </div>
-            <div className="aw-grid">
-              {AWARDS.map((a) => (
-                <article className="plq" key={a.k}>
-                  <div className="aw-photo">
-                    {a.clipping
-                      ? <PlaqueClipping t={t} />
-                      : <PlaquePhoto img={a.img} ph={t(`recognition.awards.${a.k}.kicker`)} />}
-                    <div className="plq-tint" aria-hidden="true" />
-                    <div className="plq-sheen" aria-hidden="true" />
-                  </div>
-                  <div className="aw-body">
-                    <div className="aw-label">{t(`recognition.awards.${a.k}.kicker`)}</div>
-                    <h3 className="aw-name">{t(`recognition.awards.${a.k}.name`)}</h3>
-                    <p className="aw-desc">{t(`recognition.awards.${a.k}.body`)}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
+          <RecognitionRail t={t} />
         </div>
         <SectionCurve position="bottom" fill="#fdfaf4" inward />
       </section>

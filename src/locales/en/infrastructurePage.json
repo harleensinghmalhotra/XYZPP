@@ -88,6 +88,9 @@
   "recognition": {
     "eyebrow": "Recognition",
     "title": "Awarded for the work, year on year.",
+    "rowLabel": "Awards and press",
+    "scrollPrev": "Previous awards",
+    "scrollNext": "Next awards",
     "awards": {
       "capexil": {
         "name": "Highest Book Exporter",

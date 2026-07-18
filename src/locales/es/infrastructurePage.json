@@ -88,6 +88,9 @@
   "recognition": {
     "eyebrow": "Reconocimiento",
     "title": "Premiados por el trabajo, año tras año.",
+    "rowLabel": "Premios y prensa",
+    "scrollPrev": "Premios anteriores",
+    "scrollNext": "Premios siguientes",
     "awards": {
       "capexil": {
         "name": "Mayor exportador de libros",
