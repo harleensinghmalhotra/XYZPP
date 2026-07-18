@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
+import PageHero, { splitTitle } from '@/components/PageHero'
 import { PaperGrain } from '@/components/atmosphere'
 import { CertificateIcon, PenNibIcon, PrinterIcon, HeadsetIcon } from '@/components/CredentialIcons'
 
@@ -47,20 +48,23 @@ export default function GlobalMarkets() {
         jsonLd={breadcrumb}
       />
 
-      {/* 1 ── HERO (navy) — header + subline ──────────────────────────────────── */}
-      <section data-theme="dark" className="u-hero" aria-labelledby="globalmarkets-h1">
-        <div className="u-hero-inner">
-          <div className="u-hero-copy">
-            {/* Eyebrow brings the hero to parity with its sentence-hero siblings
-                (Contact/POD/Fulfilment). Sourced from the existing nav string —
-                no new copy. Right-column stat intentionally omitted: no clean
-                standalone stat key exists on this page (see audit report). */}
-            <p className="u-eyebrow" data-reveal>{t('globalMarkets', { ns: 'nav' })}</p>
-            <h1 id="globalmarkets-h1" className="u-h1" data-textreveal>{t('hero.title')}</h1>
-            <p className="u-hero-sub" data-reveal>{t('hero.subhead')}</p>
-          </div>
-        </div>
-      </section>
+      {/* 1 ── HERO (navy) — centered two-line band ────────────────────────────── */}
+      {/* Eyebrow from the existing nav string (no new copy). No right-column stat:
+          no clean standalone stat key exists on this page — the "25+ countries"
+          figure lives only inside the subhead sentence (see audit report). */}
+      {(() => {
+        const [l1, l2] = splitTitle(t('hero.title'))
+        return (
+          <PageHero
+            id="globalmarkets-h1"
+            eyebrow={t('globalMarkets', { ns: 'nav' })}
+            line1={l1}
+            line2={l2}
+            subline={t('hero.subhead')}
+            minVh={62}
+          />
+        )
+      })()}
 
       {/* 2 ── REGIONS (cream) ─ three regional blocks ────────────────────────── */}
       <section data-theme="light" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
