@@ -256,21 +256,23 @@ function Timeline({ stops }) {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   useEffect(() => {
+    // Always register; decide per-keystroke whether the timeline owns the arrows.
+    // (The old code checked focus containment ONCE at mount, when focus is still on
+    // <body> — so the listener never attached and ← → were dead. Check at event time
+    // instead: the arrows drive the rail only while focus sits inside the section,
+    // e.g. a year button is focused, and never hijack a text field.)
     const handleKeyDown = (e) => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault()
-        setActiveIdx(prev => Math.max(0, prev - 1))
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault()
-        setActiveIdx(prev => Math.min(stops.length - 1, prev + 1))
-      }
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+      const section = sectionRef.current
+      if (!section || !section.contains(document.activeElement)) return
+      const a = document.activeElement
+      if (a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA' || a.isContentEditable)) return
+      e.preventDefault()
+      if (e.key === 'ArrowLeft') setActiveIdx(prev => Math.max(0, prev - 1))
+      else setActiveIdx(prev => Math.min(stops.length - 1, prev + 1))
     }
-
-    const section = sectionRef.current
-    if (section && section.contains(document.activeElement)) {
-      window.addEventListener('keydown', handleKeyDown)
-      return () => window.removeEventListener('keydown', handleKeyDown)
-    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
   }, [stops.length])
 
   const handleYearClick = (idx) => {
