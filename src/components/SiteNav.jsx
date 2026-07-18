@@ -6,8 +6,7 @@ import LanguageToggle from '@/components/LanguageToggle'
 const TIGHT = "'Inter Tight', sans-serif"
 const INTER = "'Inter', sans-serif"
 
-// 10-item What We Print dropdown: 9 anchor to homepage WWP section,
-// Print on Demand routes to its dedicated page.
+// 9-item What We Print dropdown: all anchor to homepage WWP section.
 const PRODUCTS = [
   { key: 'educationalBooks', cardKey: 'educational' },
   { key: 'counterbookStationery', cardKey: 'trade' },
@@ -16,13 +15,13 @@ const PRODUCTS = [
   { key: 'childrenBooks', cardKey: 'children' },
   { key: 'learningKits', cardKey: 'kits' },
   { key: 'corporateBanks', cardKey: 'corporate' },
-  { key: 'printOnDemand', cardKey: 'pod' },
   { key: 'religiousBooks', cardKey: 'religious' },
   { key: 'packagingGifting', cardKey: 'packaging' },
 ]
 
-// Primary route links that follow the What We Print dropdown.
+// Primary route links: Print on Demand (standalone), then Infrastructure, Newsroom, Contact.
 const LINKS = [
+  { key: 'printOnDemand', to: '/print-on-demand' },
   { key: 'infrastructure', to: '/infrastructure' },
   { key: 'newsroom', to: '/newsroom' },
   { key: 'contact', to: '/contact' },
@@ -49,11 +48,7 @@ export default function SiteNav() {
   }, [pathname])
 
   const handleProductClick = (product) => {
-    if (product.key === 'printOnDemand') {
-      navigate('/print-on-demand')
-    } else {
-      navigate(`/#wwp-${product.cardKey}`)
-    }
+    navigate(`/#wwp-${product.cardKey}`)
     setMenuOpen(false)
     setActiveItem(-1)
   }

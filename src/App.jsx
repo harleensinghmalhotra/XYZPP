@@ -1,13 +1,11 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import SiteLayout from '@/components/SiteLayout'
 import Home from '@/pages/Home'
 import ShellPage from '@/pages/ShellPage'
 import OurStory from '@/pages/OurStory'
 import Founder from '@/pages/Founder'
 import GlobalMarkets from '@/pages/GlobalMarkets'
-import EducationalBooks from '@/pages/EducationalBooks'
 import PrintOnDemand from '@/pages/PrintOnDemand'
-import TradeBooks from '@/pages/TradeBooks'
 import InfrastructurePage from '@/pages/InfrastructurePage'
 import Newsroom from '@/pages/Newsroom'
 import CSR from '@/pages/CSR'
@@ -27,8 +25,8 @@ export default function App() {
         <Route path="/about" element={<OurStory />} />
         <Route path="/founder" element={<Founder />} />
         <Route path="/global-markets" element={<GlobalMarkets />} />
-        <Route path="/educational-books" element={<EducationalBooks />} />
-        <Route path="/trade-books" element={<TradeBooks />} />
+        <Route path="/educational-books" element={<Navigate to="/#wwp-educational" replace />} />
+        <Route path="/trade-books" element={<Navigate to="/#wwp-trade" replace />} />
         <Route path="/print-on-demand" element={<PrintOnDemand />} />
         <Route path="/infrastructure" element={<InfrastructurePage />} />
         <Route path="/newsroom" element={<Newsroom />} />
