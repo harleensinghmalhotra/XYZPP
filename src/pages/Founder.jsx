@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
+import PageHero from '@/components/PageHero'
 import { PaperGrain } from '@/components/atmosphere'
 
 const NAVY = '#0F2444'
@@ -42,32 +43,20 @@ export default function Founder() {
         jsonLd={breadcrumb}
       />
 
-      {/* HERO — navy background with name and intro */}
-      <section data-theme="dark" className="u-hero" aria-labelledby="founder-h1">
-        <div className="u-hero-inner">
-          <div className="u-hero-copy">
-            <p className="u-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
-            {/* Name-as-display-word: scaled to the /about display range (Inter Tight
-                800, cream), page-scoped inline so the shared .u-h1 token is untouched.
-                Wraps to two lines within the hero copy column at the top of the clamp. */}
-            <h1
-              id="founder-h1"
-              className="u-h1"
-              data-textreveal
-              style={{ fontSize: 'clamp(56px, 9.5vw, 144px)', fontWeight: 800, lineHeight: 0.92 }}
-            >
-              {t('hero.title')}
-            </h1>
-            <p className="mt-5 text-[20px] font-semibold leading-relaxed md:text-[24px]" style={{ fontFamily: TIGHT, color: CREAM }} data-reveal>
-              {t('hero.subhead')}
-            </p>
-            <p className="u-hero-sub" data-reveal>{t('hero.narrative')}</p>
-            <div className="u-hero-ctas" data-reveal>
-              <Link to="/contact" className="u-btn u-btn--gold">{t('cta.button')}</Link>
-            </div>
-          </div>
+      {/* HERO — two-line band: name is the H1, role a gold sub-line (not the H1) */}
+      <PageHero
+        id="founder-h1"
+        eyebrow={t('hero.eyebrow')}
+        line1={t('hero.title')}
+        line2={t('hero.subhead')}
+        line2Role
+        subline={t('hero.narrative')}
+        minVh={62}
+      >
+        <div className="ph-ctas">
+          <Link to="/contact" className="u-btn u-btn--gold">{t('cta.button')}</Link>
         </div>
-      </section>
+      </PageHero>
 
       {/* PORTRAIT SECTION — cream background with placeholder */}
       <section data-theme="light" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
