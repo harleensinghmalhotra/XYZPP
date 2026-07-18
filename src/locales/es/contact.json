@@ -42,7 +42,7 @@
     "factory": { "name": "Fábrica principal", "directions": "Cómo llegar" },
     "hours": {
       "name": "Horario comercial",
-      "lines": "De lunes a sábado<1/>9:30 – 18:30 IST",
+      "lines": "De lunes a sábado<1/>9:30 - 18:30 IST",
       "flag": "Horario por confirmar"
     }
   },

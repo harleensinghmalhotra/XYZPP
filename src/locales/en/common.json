@@ -16,7 +16,7 @@
   "notFound": {
     "eyebrow": "ERROR 404 · OUT OF STOCK",
     "title": "This page is out of print.",
-    "body": "The page you're looking for isn't in our catalogue — it may have moved, or never gone to press.",
+    "body": "The page you're looking for isn't in our catalogue, it may have moved, or never gone to press.",
     "back": "Back to the catalogue →"
   }
 }

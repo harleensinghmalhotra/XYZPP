@@ -13,7 +13,7 @@
     "title": "Let's Talk. <strong>We Reply in One Business Day.</strong>",
     "line": "Whether you're a ministry, a publisher, or an author with one book, we'd love to hear from you.",
     "callLabel": "Call us direct",
-    "callFoot": "Mon–Sat, business hours — or send the enquiry form below.",
+    "callFoot": "Mon-Sat, business hours, or send the enquiry form below.",
     "callAriaLabel": "Call us direct on +91 829 199 9922"
   },
   "map": {
@@ -29,7 +29,7 @@
   },
   "tiles": {
     "regionLabel": "Ways to reach us",
-    "call": { "kicker": "Call us", "line": "(+91) 829 199 9922", "sub": "Mon–Sat, business hours" },
+    "call": { "kicker": "Call us", "line": "(+91) 829 199 9922", "sub": "Mon-Sat, business hours" },
     "info": { "kicker": "General", "sub": "For anything and everything" },
     "enq": { "kicker": "Enquiries", "sub": "Quotes and project briefs" },
     "wa": { "kicker": "WhatsApp", "line": "Message us", "sub": "Quick questions, fast replies" },
@@ -42,7 +42,7 @@
     "factory": { "name": "Main Factory", "directions": "Directions" },
     "hours": {
       "name": "Business Hours",
-      "lines": "Monday to Saturday<1/>9:30am – 6:30pm IST",
+      "lines": "Monday to Saturday<1/>9:30am - 6:30pm IST",
       "flag": "Hours to be confirmed"
     }
   },
