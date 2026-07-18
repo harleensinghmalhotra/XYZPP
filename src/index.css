@@ -4071,7 +4071,7 @@ body {
   margin-top: clamp(48px, 6vh, 76px);
 }
 .ff-card {
-  position: relative; overflow: hidden; border-radius: 0;
+  position: relative; overflow: hidden; border-radius: var(--r-card);
   border: 1px solid rgb(var(--navy-rgb) / 0.1);
   background: var(--navy);
   box-shadow: 0 1px 2px rgb(var(--navy-rgb) / 0.3), 0 20px 48px -24px rgb(var(--navy-rgb) / 0.45);
@@ -4117,7 +4117,7 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 500;
   font-size: clamp(28px, 3.6vw, 50px); line-height: 1.06; letter-spacing: -0.025em; color: #fdfaf4;
 }
-.ff-value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgb(var(--gold-2-rgb) / 0.16); border: 1px solid rgb(var(--gold-2-rgb) / 0.16); border-radius: 0; overflow: hidden; }
+.ff-value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgb(var(--gold-2-rgb) / 0.16); border: 1px solid rgb(var(--gold-2-rgb) / 0.16); border-radius: var(--r-card); overflow: hidden; }
 .ff-vi {
   background: var(--navy); padding: clamp(30px, 4vh, 44px) clamp(26px, 3vw, 38px);
   display: flex; flex-direction: column; gap: 14px; min-height: 220px;
@@ -4146,7 +4146,7 @@ body {
 .ff-feat:first-child { border-top: none; }
 .ff-feat--rev .ff-feat-media { order: 2; }
 .ff-feat-media {
-  position: relative; aspect-ratio: 4 / 3; border-radius: 0; overflow: hidden;
+  position: relative; aspect-ratio: 4 / 3; border-radius: var(--r-media); overflow: hidden;
   background: var(--navy) center / cover no-repeat;
   border: 1px solid rgb(var(--navy-rgb) / 0.1);
   box-shadow: 0 20px 44px -26px rgb(var(--navy-rgb) / 0.4);
@@ -4229,7 +4229,7 @@ body {
 }
 .ff-cta-sub { margin: 24px auto 40px; max-width: 46ch; font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.6; color: #4a4436; }
 .ff-cta-pill {
-  display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 34px; border-radius: 0;
+  display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 34px; border-radius: var(--r-btn);
   background: var(--gold-2); color: var(--navy); font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
   transition: transform 0.25s ease, background 0.25s ease;
 }
