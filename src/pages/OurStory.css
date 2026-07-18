@@ -5,21 +5,23 @@
    empty cream between chapters is intentional. Reveal/split-text via alive.js
    (data-reveal / data-textreveal) so everything degrades and honours reduced motion. */
 
-/* ── SECTION 1 — HERO (flat #0e1b46, ~78vh, centered) ─────────────────────── */
+/* ── SECTION 1 — GIANT HERO (flat #0e1b46, full viewport minus nav) ──────────
+   YOO-exact: ONE giant word fills the frame. A small gold DM Mono eyebrow sits
+   above it, a scroll cue + animated hairline anchors the bottom. Nothing else. */
 .ab-hero {
   position: relative;
   background: #0e1b46;
-  min-height: 88vh;
+  min-height: calc(100svh - var(--nav-h));
   display: grid;
-  grid-template-rows: 1fr auto;   /* content centers in row 1, cue owns row 2 */
+  grid-template-rows: 1fr auto;   /* word centers in row 1, cue owns row 2 */
   text-align: center;
-  padding: clamp(112px, 14vh, 168px) var(--page-gutter) clamp(30px, 5vh, 52px);
+  padding: clamp(40px, 7vh, 84px) var(--page-gutter) clamp(24px, 4vh, 44px);
   overflow: hidden;
 }
-.ab-hero-inner { place-self: center; max-width: 1120px; width: 100%; }
+.ab-hero-inner { place-self: center; width: 100%; }
 
 .ab-eyebrow {
-  margin: 0 0 clamp(26px, 4vh, 42px);
+  margin: 0 0 clamp(20px, 3.2vh, 34px);
   font-family: 'DM Mono', monospace;
   font-weight: 500;
   font-size: 12px;
@@ -28,36 +30,24 @@
   color: var(--gold-2);
 }
 
-/* the single H1 — two styled lines from the one title string */
-.ab-hero-title { margin: 0; font-family: 'Inter Tight', sans-serif; }
-.ab-hero-l1,
-.ab-hero-l2 { display: block; text-transform: uppercase; }
-.ab-hero-l1 {
+/* the giant word — decorative display, sized in vw so it fills ~90% of the frame
+   width and tracks the viewport. Inter Tight 800, uppercase, tight tracking, cream.
+   Words wrap on narrow viewports (the split .aw-word spans are inline-block). */
+.ab-hero-display {
+  margin: 0;
+  font-family: 'Inter Tight', sans-serif;
   font-weight: 800;
-  font-size: clamp(40px, 6.2vw, 84px);
-  line-height: 1.0;
-  letter-spacing: -0.005em;
+  /* 18vw fills ~87% of the frame width; EN "ABOUT US" holds one line, longer
+     locales (FR "À PROPOS DE NOUS", ES "ACERCA DE NOSOTROS") wrap and balance. */
+  font-size: clamp(56px, 18vw, 280px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
   color: var(--cream);
-}
-.ab-hero-l2 {
-  margin-top: clamp(10px, 1.6vh, 18px);
-  font-weight: 600;
-  font-size: clamp(22px, 3.4vw, 46px);       /* ~55% of line 1 */
-  line-height: 1.12;
-  letter-spacing: 0.12em;
-  color: var(--gold-2);
+  text-wrap: balance;
 }
 
-.ab-hero-lede {
-  margin: clamp(30px, 4.5vh, 48px) auto 0;
-  max-width: 62ch;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(15px, 1.15vw, 18px);
-  line-height: 1.75;
-  color: rgba(253, 250, 244, 0.8);
-}
-
-/* bottom-center scroll cue — its own grid row, so it can never overlap the lede */
+/* bottom-center scroll cue — its own grid row, so it can never overlap the word */
 .ab-scroll {
   justify-self: center;
   align-self: end;
@@ -85,7 +75,41 @@
   50%      { transform: scaleY(1);   opacity: 1; }
 }
 
-/* ── SECTIONS 2+3 — JOURNEY intro + interactive timeline (cream) ──────────── */
+/* ── SECTION 2 — CHAPTER 1: THE STATEMENT (cream) ────────────────────────────
+   The editorial payoff after the giant word: the page's single H1 as a big
+   Inter Tight statement (~18ch), a 40px gold rule, then the lede (~58ch). Left-
+   aligned, generous top/bottom air so it reads as its own chapter. */
+.ab-statement {
+  position: relative;
+  background: var(--cream);
+  padding: clamp(88px, 14vh, 168px) var(--page-gutter) clamp(72px, 11vh, 132px);
+  overflow: hidden;
+}
+.ab-statement-h1 {
+  margin: 0;
+  max-width: 18ch;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: #0e1b46;
+}
+.ab-statement-rule {
+  width: 40px; height: 2px; border: 0;
+  background: var(--gold-text);
+  margin: clamp(30px, 4.5vh, 44px) 0 clamp(30px, 4.5vh, 44px);
+}
+.ab-statement-lede {
+  margin: 0;
+  max-width: 58ch;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.75;
+  color: rgb(var(--navy-rgb) / 0.78);
+}
+
+/* ── SECTIONS 3+4 — JOURNEY intro + interactive timeline (cream) ──────────── */
 .ab-journey {
   position: relative;
   background: var(--cream);

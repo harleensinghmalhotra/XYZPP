@@ -5,10 +5,12 @@ import SectionCurve from '@/components/SectionCurve'
 import { PaperGrain } from '@/components/atmosphere'
 import './OurStory.css'
 
-// ── /about — "Our Story" v4, YOO-faithful rebuild ────────────────────────────
-// Hero → Journey(timeline) → MVV manifesto → Founder. Every user-facing string
-// resolves from ourStory.json verbatim; the hero title is split into two styled
-// lines (titleLine1/titleLine2) that together still form the page's single H1.
+// ── /about — "Our Story" v5, YOO-exact rebuild ───────────────────────────────
+// GiantHero → Statement(ch.1) → Journey(timeline) → MVV manifesto → Founder.
+// Mirrors yoointerior.com/about: the hero is ONE giant word ("ABOUT US") filling
+// the viewport — decorative, not the H1 — then chapter 1 lands the editorial
+// statement (the page's single H1) + gold rule + lede, YOO's "a great team finds
+// a way to win" beat. Every user-facing string resolves from ourStory.json verbatim.
 // Reveals + split-text via alive.js data attributes (degrade + reduced-motion safe).
 
 export default function OurStory() {
@@ -29,18 +31,13 @@ export default function OurStory() {
     <main id="main">
       <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={breadcrumb} />
 
-      {/* SECTION 1 ── HERO — flat #0e1b46, ~78vh, centered, two-line title ─────── */}
-      <section data-theme="dark" className="ab-hero" aria-labelledby="about-h1">
+      {/* SECTION 1 ── GIANT HERO — flat #0e1b46, full viewport, the word fills it.
+          The display word is DECORATIVE (a <p>, split into rising words); the page's
+          single H1 lives in chapter 1 below. ─────────────────────────────────── */}
+      <section data-theme="dark" className="ab-hero" aria-label={t('hero.eyebrow')}>
         <div className="ab-hero-inner">
           <p className="ab-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
-
-          {/* Single H1 — two spans styled differently, together = the full title */}
-          <h1 id="about-h1" className="ab-hero-title">
-            <span className="ab-hero-l1" data-textreveal>{t('hero.titleLine1')}</span>{' '}
-            <span className="ab-hero-l2" data-textreveal>{t('hero.titleLine2')}</span>
-          </h1>
-
-          <p className="ab-hero-lede" data-reveal>{t('hero.lede')}</p>
+          <p className="ab-hero-display" data-textreveal>{t('hero.display')}</p>
         </div>
 
         <div className="ab-scroll" aria-hidden="true">
@@ -49,7 +46,18 @@ export default function OurStory() {
         </div>
       </section>
 
-      {/* SECTIONS 2+3 ── JOURNEY intro + interactive timeline (cream) ─────────── */}
+      {/* SECTION 2 ── CHAPTER 1: THE STATEMENT (cream) — the editorial H1 + gold
+          rule + lede. YOO's "a great team finds a way to win" beat. ───────────── */}
+      <section data-theme="light" className="ab-statement" aria-labelledby="about-h1">
+        <PaperGrain />
+        <div className="ab-wrap">
+          <h1 id="about-h1" className="ab-statement-h1" data-textreveal>{t('hero.title')}</h1>
+          <hr className="ab-statement-rule" data-reveal aria-hidden="true" />
+          <p className="ab-statement-lede" data-reveal>{t('hero.lede')}</p>
+        </div>
+      </section>
+
+      {/* SECTIONS 3+4 ── JOURNEY intro + interactive timeline (cream) ─────────── */}
       <Timeline stops={timelineStops} />
 
       {/* SECTION 4 ── MVV MANIFESTO — flat navy band, curves top+bottom ───────── */}
