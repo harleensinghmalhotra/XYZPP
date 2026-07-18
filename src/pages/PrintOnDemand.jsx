@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation, Trans } from 'react-i18next'
 import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
-import { WavyBackground, DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 import './PrintOnDemand.css'
 
 /* /print-on-demand — replaces the ShellPage. A "Build Your Book" configurator
@@ -199,8 +199,6 @@ export default function PrintOnDemand() {
     <main id="main" className="pod">
       {/* 1 · HERO */}
       <section className="u-hero" data-theme="dark" aria-labelledby="pod-h1">
-        <WavyBackground className="u-hero-waves" />
-        <div className="u-hero-beam" aria-hidden="true" />
         <div className="u-hero-inner">
           <div className="u-hero-copy">
             <p className="u-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
@@ -453,7 +451,6 @@ export default function PrintOnDemand() {
       {/* 4 · REASSURANCE BAND */}
       <section className="pod-band" data-theme="dark" aria-labelledby="pod-band-title">
         <SectionCurve position="top" fill="#f0ebe0" inward />
-        <WavyBackground className="pointer-events-none absolute inset-0 h-full w-full opacity-60" />
         <SectionCurve position="bottom" fill="#f0ebe0" inward />
         <div className="pod-band-inner">
           <p className="pod-eyebrow" style={{ color: '#D99637' }} data-reveal>{t('band.eyebrow')}</p>

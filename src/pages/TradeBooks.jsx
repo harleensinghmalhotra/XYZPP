@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
-import { DotField, EdgeGlow, PaperGrain, WavyBackground } from '@/components/atmosphere'
+import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 
 // ── /trade-books ─────────────────────────────────────────────────────────────
 // fctrylab.com product-page anatomy, reskinned into QFP System B and adapted for
@@ -175,8 +175,6 @@ export default function TradeBooks() {
       {/* 0 ── HERO (navy) — unified skeleton, added Phase 3.3 so Trade Books
           opens on the same navy statement moment as every other page ──────── */}
       <section data-theme="dark" className="u-hero" aria-labelledby="tb-h1">
-        <WavyBackground className="u-hero-waves" />
-        <div className="u-hero-beam" aria-hidden="true" />
         <div className="u-hero-inner">
           <div className="u-hero-copy">
             <p className="u-eyebrow" data-reveal>{t('hero.badge')}</p>

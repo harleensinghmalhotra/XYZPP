@@ -1,5 +1,4 @@
 import { useTranslation, Trans } from 'react-i18next'
-import AuroraBackground from '@/components/AuroraBackground'
 import { SHOW_CASE_STUDIES } from '@/lib/compliance'
 
 // Fonts locked to our system (was inheriting the global Space Mono / font-display):
@@ -48,10 +47,6 @@ export default function CTAFooter() {
         minHeight: '100svh',
       }}
     >
-      {/* SIGNATURE AURORA — the site-wide CTA's one flagship dark moment. Reused
-          from the hero, dialled subtler; sits at the very back, under the content. */}
-      <AuroraBackground />
-
       {/* Top CTA Area — on the navy outer surface, so text is light */}
       <div className="relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center px-6 py-32 text-center" style={{ color: '#fdfaf4' }}>
         {/* Static QF logo mark (replaces the rotating seal — no motion). */}

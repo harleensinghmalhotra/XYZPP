@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionCurve from '@/components/SectionCurve'
-import { PaperGrain, WavyBackground } from '@/components/atmosphere'
+import { PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
@@ -173,9 +173,6 @@ export default function EducationalBooks() {
     <main id="main" ref={root}>
       {/* ── 1. HERO — /infrastructure anatomy, navy ── */}
       <section ref={heroRef} data-theme="dark" className="u-hero" aria-labelledby="edu-h1">
-        <WavyBackground className="u-hero-waves" />
-        <div className="u-hero-beam" aria-hidden="true" />
-
         {FLOATS.map(renderFloat)}
 
         <div className="u-hero-inner">

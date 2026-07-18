@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Seo from '@/components/Seo'
 import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
-import { DotField, PaperGrain, WavyBackground } from '@/components/atmosphere'
+import { DotField, PaperGrain } from '@/components/atmosphere'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
 
@@ -141,8 +141,6 @@ function Hero() {
   const { t } = useTranslation('fulfilment')
   return (
     <section data-theme="dark" className="u-hero" aria-labelledby="ff-h1">
-      <WavyBackground className="u-hero-waves" />
-      <div className="u-hero-beam" aria-hidden="true" />
       <div className="u-hero-inner">
         <div className="u-hero-copy">
           <p className="u-eyebrow ff-reveal">{t('hero.eyebrow')}</p>

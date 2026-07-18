@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
-import { PaperGrain, WavyBackground } from '@/components/atmosphere'
+import { PaperGrain } from '@/components/atmosphere'
 
 const HERO_NAVY = '#0e1b46'
 const HERO_GOLD = 'rgb(170, 111, 29)'
@@ -59,12 +59,6 @@ export default function OurStory() {
 
       {/* SECTION 1 ── FULLSCREEN TYPOGRAPHIC HERO ───────────────────────────────────────── */}
       <section data-theme="dark" className="relative overflow-hidden px-6 sm:px-10" style={{ background: HERO_NAVY, minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <WavyBackground className="u-hero-waves absolute inset-0" />
-        <div className="u-hero-beam absolute inset-0" aria-hidden="true" style={{
-          background: `radial-gradient(120% 90% at 100% 0%, rgba(187,122,32,0.13) 0%, transparent 55%),
-                      radial-gradient(90% 80% at 0% 100%, rgba(26,49,109,0.5) 0%, transparent 60%)`
-        }} />
-
         <div className="relative z-10 mx-auto max-w-[1280px] w-full px-[clamp(20px,5vw,56px)]">
           {/* Eyebrow */}
           <div data-reveal className="mb-12">

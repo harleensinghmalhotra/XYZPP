@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
-import { PaperGrain, WavyBackground } from '@/components/atmosphere'
+import { PaperGrain } from '@/components/atmosphere'
 import { CertificateIcon, PenNibIcon, PrinterIcon, HeadsetIcon } from '@/components/CredentialIcons'
 
 const NAVY = '#0F2444'
@@ -49,8 +49,6 @@ export default function GlobalMarkets() {
 
       {/* 1 ── HERO (navy) — header + subline ──────────────────────────────────── */}
       <section data-theme="dark" className="u-hero" aria-labelledby="globalmarkets-h1">
-        <WavyBackground className="u-hero-waves" />
-        <div className="u-hero-beam" aria-hidden="true" />
         <div className="u-hero-inner">
           <div className="u-hero-copy">
             <h1 id="globalmarkets-h1" className="u-h1" data-textreveal>{t('hero.title')}</h1>

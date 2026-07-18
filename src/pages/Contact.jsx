@@ -5,7 +5,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import SectionCurve from '@/components/SectionCurve'
-import { WavyBackground, DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -251,8 +251,6 @@ export default function Contact() {
     <main id="main" ref={root}>
       {/* ── 1. HERO (navy) — anatomy mirrored from /infrastructure ── */}
       <section data-theme="dark" className="u-hero" aria-labelledby="ctc-h1">
-        <WavyBackground className="u-hero-waves" />
-        <div className="u-hero-beam" aria-hidden="true" />
         <div className="u-hero-inner">
           <div className="u-hero-copy">
             <nav className="ctc-crumb" aria-label={t('breadcrumb.label')}>

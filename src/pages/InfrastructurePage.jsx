@@ -7,7 +7,7 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 import CountUp from '@/components/CountUp'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
-import { WavyBackground, DotField, PaperGrain } from '@/components/atmosphere'
+import { DotField, PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
 import './InfrastructurePage.css'
 
@@ -252,8 +252,6 @@ export default function InfrastructurePage() {
 
       {/* ── 1 · HERO (navy) ─────────────────────────────────────────────── */}
       <section data-theme="dark" className="u-hero" aria-labelledby="inf-h1">
-        <WavyBackground className="u-hero-waves" />
-        <div className="u-hero-beam" aria-hidden="true" />
         <div className="u-hero-inner">
           <div className="u-hero-copy">
             <p className="u-eyebrow">{t('hero.eyebrow')}</p>

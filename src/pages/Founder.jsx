@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
-import { PaperGrain, WavyBackground } from '@/components/atmosphere'
+import { PaperGrain } from '@/components/atmosphere'
 
 const NAVY = '#0F2444'
 const CREAM = '#FDFAF4'
@@ -45,8 +45,6 @@ export default function Founder() {
 
       {/* HERO — navy background with name and intro */}
       <section data-theme="dark" className="u-hero" aria-labelledby="founder-h1">
-        <WavyBackground className="u-hero-waves" />
-        <div className="u-hero-beam" aria-hidden="true" />
         <div className="u-hero-inner">
           <div className="u-hero-copy">
             <p className="u-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
