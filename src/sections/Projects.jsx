@@ -159,21 +159,47 @@ function CustomsStamp({ label }) {
   )
 }
 
-// Credentials row — 4 compact cards (grid-cols-4 at desktop, grid-cols-2 on tablet,
-// stacked on mobile) with gold checkmark icon, title, and one-line description.
-// Mounts immediately after Destinations section. Reduced-motion safe reveal.
+// Credentials row — 4-column aligned cards (grid-cols-4 at desktop, grid-cols-2 on tablet,
+// stacked on mobile) with 4 bespoke SVG icons, title, and description. Mounts immediately
+// after Destinations section. Reduced-motion safe reveal. Uses fixed title height to
+// ensure all 4 descriptions align to a common baseline regardless of title wrap count.
 function CredentialsRow({ credentials, reduced }) {
+  const icons = [
+    // Certificate/seal with rosette
+    <svg viewBox="0 0 28 28" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" key="cert">
+      <circle cx="14" cy="12" r="7" />
+      <path d="M14 6V2M14 22v4M8 12H4M24 12h4" />
+      <path d="M9.17 6.83L6.46 4.12M21.83 19.17l2.71 2.71M18.83 6.83L21.54 4.12M9.17 19.17L6.46 21.88" />
+      <path d="M11 12l2 2 4-4" />
+    </svg>,
+    // Pen nib with text lines
+    <svg viewBox="0 0 28 28" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" key="pen">
+      <path d="M4 24h20M7 10l8 10 6-6M5 6h16c1 0 2 1 2 2v12c0 1-1 2-2 2H5c-1 0-2-1-2-2V8c0-1 1-2 2-2z" />
+      <line x1="7" y1="14" x2="16" y2="14" />
+    </svg>,
+    // Gauge/stacked press
+    <svg viewBox="0 0 28 28" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" key="gauge">
+      <circle cx="14" cy="14" r="11" />
+      <path d="M14 14V5M8.5 14H5M22.5 14H25" />
+      <rect x="6" y="18" width="16" height="2" rx="1" />
+      <rect x="5" y="21" width="18" height="2" rx="1" />
+      <path d="M12 8a2 2 0 1 0 4 0 2 2 0 0 0-4 0" />
+    </svg>,
+    // Headset
+    <svg viewBox="0 0 28 28" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" key="headset">
+      <path d="M5 16c0-5 3-8 9-8s9 3 9 8" />
+      <circle cx="5" cy="18" r="2.5" />
+      <circle cx="23" cy="18" r="2.5" />
+      <path d="M5 21v2M23 21v2M6 24h16" />
+    </svg>,
+  ]
+
   return (
     <div className="proj-creds" role="region" aria-label="Credentials">
       <div className="proj-creds-grid">
         {credentials && credentials.map((cred, idx) => (
           <div key={idx} className="proj-cred-card">
-            <div className="proj-cred-icon" aria-hidden="true">
-              <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="10" cy="10" r="9" />
-                <path d="M6.5 10l2 2 5-5" />
-              </svg>
-            </div>
+            <div className="proj-cred-icon">{icons[idx]}</div>
             <h4 className="proj-cred-title">{cred.title}</h4>
             <p className="proj-cred-desc">{cred.description}</p>
           </div>
