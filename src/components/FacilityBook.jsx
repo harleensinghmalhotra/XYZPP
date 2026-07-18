@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import { typingSound } from '@/lib/typingSound'
-import '../sections/InfraBooks.css'
+import './FacilityBook.css'
 
 // ── Facility Book — shared component for Infrastructure section & /infrastructure page ──
 // The three facility cards become a shelf of hardcover books, recycled straight
