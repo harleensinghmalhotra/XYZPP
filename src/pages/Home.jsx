@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Seo from '@/components/Seo'
 import { SmoothScrollProvider } from '@/lib/smooth-scroll'
+import { prefersReduced } from '@/lib/useReducedMotion'
 import Hero from '@/sections/Hero'
 import TrustStrips from '@/sections/TrustStrips'
 import GlobeReach from '@/sections/GlobeReach'
@@ -37,6 +40,46 @@ import { SHOW_CASE_STUDIES } from '@/lib/compliance'
 // prior relative order.
 export default function Home() {
   const { t } = useTranslation('home')
+  const { hash } = useLocation()
+
+  useEffect(() => {
+    if (!hash) return
+
+    const scrollTarget = hash.replace('#', '')
+    const delay = prefersReduced() ? 0 : 100
+
+    const scrollHandler = () => {
+      const element = document.getElementById(scrollTarget)
+      if (!element) return
+
+      element.scrollIntoView({
+        behavior: prefersReduced() ? 'auto' : 'smooth',
+        block: 'start',
+      })
+
+      // If this is a card anchor, also scroll the row to center the card
+      if (scrollTarget.startsWith('wwp-') && scrollTarget !== 'what-we-print') {
+        setTimeout(() => {
+          const card = document.getElementById(scrollTarget)
+          const viewport = document.querySelector('.wwp-viewport')
+          if (card && viewport) {
+            card.scrollIntoView({
+              behavior: prefersReduced() ? 'auto' : 'smooth',
+              block: 'nearest',
+              inline: 'center',
+            })
+          }
+        }, prefersReduced() ? 0 : 500)
+      }
+    }
+
+    if (delay > 0) {
+      setTimeout(scrollHandler, delay)
+    } else {
+      requestAnimationFrame(scrollHandler)
+    }
+  }, [hash])
+
   return (
     <SmoothScrollProvider>
       <Seo title={t('seo.title')} description={t('seo.description')} />

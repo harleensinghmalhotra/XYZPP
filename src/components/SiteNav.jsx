@@ -1,24 +1,30 @@
-import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useEffect, useState, useRef } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageToggle from '@/components/LanguageToggle'
 
 const TIGHT = "'Inter Tight', sans-serif"
 const INTER = "'Inter', sans-serif"
 
-// The three product shells share one "What We Print" menu. Labels resolve through
-// the nav namespace so the dropdown follows the active language.
+// 10-item What We Print dropdown: 9 anchor to homepage WWP section,
+// Print on Demand routes to its dedicated page.
 const PRODUCTS = [
-  { key: 'educationalBooks', to: '/educational-books' },
-  { key: 'tradeBooks', to: '/trade-books' },
-  { key: 'printOnDemand', to: '/print-on-demand' },
+  { key: 'educationalBooks', cardKey: 'educational' },
+  { key: 'counterbookStationery', cardKey: 'trade' },
+  { key: 'tradeBooks', cardKey: 'coffee' },
+  { key: 'generalBooks', cardKey: 'general' },
+  { key: 'childrenBooks', cardKey: 'children' },
+  { key: 'learningKits', cardKey: 'kits' },
+  { key: 'corporateBanks', cardKey: 'corporate' },
+  { key: 'printOnDemand', cardKey: 'pod' },
+  { key: 'religiousBooks', cardKey: 'religious' },
+  { key: 'packagingGifting', cardKey: 'packaging' },
 ]
 
 // Primary route links that follow the What We Print dropdown.
 const LINKS = [
   { key: 'infrastructure', to: '/infrastructure' },
   { key: 'newsroom', to: '/newsroom' },
-  { key: 'csr', to: '/csr' },
   { key: 'contact', to: '/contact' },
 ]
 
@@ -31,11 +37,54 @@ const LINKS = [
 // ghost button that fills navy on hover.
 export default function SiteNav() {
   const { pathname } = useLocation()
+  const navigate = useNavigate()
   const { t } = useTranslation('nav')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeItem, setActiveItem] = useState(-1)
+  const menuRef = useRef(null)
 
-  // Close the What-We-Print dropdown whenever the route changes.
-  useEffect(() => { setMenuOpen(false) }, [pathname])
+  useEffect(() => {
+    setMenuOpen(false)
+    setActiveItem(-1)
+  }, [pathname])
+
+  const handleProductClick = (product) => {
+    if (product.key === 'printOnDemand') {
+      navigate('/print-on-demand')
+    } else {
+      navigate(`/#wwp-${product.cardKey}`)
+    }
+    setMenuOpen(false)
+    setActiveItem(-1)
+  }
+
+  const handleKeyDown = (e) => {
+    if (!menuOpen) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        setMenuOpen(true)
+        setActiveItem(0)
+      }
+      return
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setActiveItem((prev) => (prev < PRODUCTS.length - 1 ? prev + 1 : 0))
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setActiveItem((prev) => (prev > 0 ? prev - 1 : PRODUCTS.length - 1))
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      if (activeItem >= 0) {
+        handleProductClick(PRODUCTS[activeItem])
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault()
+      setMenuOpen(false)
+      setActiveItem(-1)
+    }
+  }
 
   return (
     <header
@@ -64,39 +113,74 @@ export default function SiteNav() {
           <Link to="/" aria-current={pathname === '/' ? 'page' : undefined} className="qnav-link">{t('home')}</Link>
           <Link to="/about" className="qnav-link">{t('about')}</Link>
 
-          {/* What We Print — dropdown to the three product shells */}
+          {/* What We Print — 10-item dropdown */}
           <div
             className="relative"
+            ref={menuRef}
             onMouseEnter={() => setMenuOpen(true)}
             onMouseLeave={() => setMenuOpen(false)}
             onFocus={() => setMenuOpen(true)}
-            onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setMenuOpen(false) }}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) setMenuOpen(false)
+            }}
           >
             <button
               type="button"
               className="qnav-link inline-flex items-center gap-1.5"
               aria-haspopup="true"
               aria-expanded={menuOpen}
+              aria-controls="wwp-dropdown"
               onClick={() => setMenuOpen((v) => !v)}
+              onKeyDown={handleKeyDown}
             >
               {t('whatWePrint')}
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true" className={`transition-transform duration-200 ${menuOpen ? 'rotate-180' : ''}`}>
-                <path d="M2.5 4.5 6 8l3.5-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 12 12"
+                fill="none"
+                aria-hidden="true"
+                style={{
+                  transition: 'transform 200ms ease',
+                  transform: menuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                }}
+              >
+                <path
+                  d="M2.5 4.5 6 8l3.5-3.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
             {menuOpen && (
               <div className="absolute left-0 top-full pt-4">
-                {/* solid cream popover, navy hairline, soft shadow — her dropdown */}
-                <div className="min-w-[220px] rounded-[var(--radius-md)] border border-[#0f2444]/10 bg-[#fdfaf4] p-2 shadow-[0_16px_48px_rgba(15,36,68,0.14)]">
-                  {PRODUCTS.map((p) => (
-                    <Link
-                      key={p.to}
-                      to={p.to}
-                      className="focus-ring block rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F14]/[0.08] hover:pl-6 hover:text-[#9d6f14]"
-                      style={{ fontFamily: INTER }}
+                <div
+                  id="wwp-dropdown"
+                  className="min-w-[260px] rounded-[var(--radius-md)] border border-[#0f2444]/10 bg-[#fdfaf4] p-2 shadow-[0_16px_48px_rgba(15,36,68,0.14)]"
+                  role="menu"
+                >
+                  {PRODUCTS.map((p, idx) => (
+                    <button
+                      key={p.key}
+                      type="button"
+                      onClick={() => handleProductClick(p)}
+                      onKeyDown={handleKeyDown}
+                      onMouseEnter={() => setActiveItem(idx)}
+                      className="focus-ring w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F14]/[0.08] hover:pl-6 hover:text-[#9d6f14]"
+                      style={{
+                        fontFamily: INTER,
+                        backgroundColor:
+                          activeItem === idx ? '#B06F14/[0.08]' : 'transparent',
+                        paddingLeft: activeItem === idx ? '1.5rem' : '1rem',
+                        color: activeItem === idx ? '#9d6f14' : '#1c2019/85',
+                      }}
+                      role="menuitem"
+                      aria-current={activeItem === idx ? 'true' : undefined}
                     >
                       {t(p.key)}
-                    </Link>
+                    </button>
                   ))}
                 </div>
               </div>

@@ -46,7 +46,7 @@ const CARDS = [
 function Card({ c, t }) {
   const name = t(`cards.${c.key}.name`)
   return (
-    <article className="wwp-card">
+    <article className="wwp-card" id={`wwp-${c.key}`}>
       <div className="wwp-pop">
         <img
           className="wwp-img"
@@ -122,7 +122,7 @@ export default function WhatWePrint() {
   }
 
   return (
-    <section id="services" data-theme="light" className="wwp-section">
+    <section id="what-we-print" data-theme="light" className="wwp-section">
       <div className="wwp-inner">
         <Header t={t} onPrev={() => scrollRow(-1)} onNext={() => scrollRow(1)} />
         {/* Native horizontal scroller. Focusable region (arrow keys scroll it);
