@@ -47,7 +47,17 @@ export default function Founder() {
         <div className="u-hero-inner">
           <div className="u-hero-copy">
             <p className="u-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
-            <h1 id="founder-h1" className="u-h1" data-textreveal>{t('hero.title')}</h1>
+            {/* Name-as-display-word: scaled to the /about display range (Inter Tight
+                800, cream), page-scoped inline so the shared .u-h1 token is untouched.
+                Wraps to two lines within the hero copy column at the top of the clamp. */}
+            <h1
+              id="founder-h1"
+              className="u-h1"
+              data-textreveal
+              style={{ fontSize: 'clamp(56px, 9.5vw, 144px)', fontWeight: 800, lineHeight: 0.92 }}
+            >
+              {t('hero.title')}
+            </h1>
             <p className="mt-5 text-[20px] font-semibold leading-relaxed md:text-[24px]" style={{ fontFamily: TIGHT, color: CREAM }} data-reveal>
               {t('hero.subhead')}
             </p>
