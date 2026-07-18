@@ -9,7 +9,6 @@ const CREAM = '#FDFAF4'
 const BEIGE = '#F0EBE0'
 const INK = '#1C2019'
 const GOLD = '#9B7420'
-const GOLD_BRIGHT = '#C89A3C'
 const GOLD_TEXT = '#9d6f14'
 const TIGHT = "'Inter Tight', sans-serif"
 const INTER = "'Inter', sans-serif"
