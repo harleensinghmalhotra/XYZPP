@@ -281,7 +281,13 @@ function ValueGrid() {
         </h2>
         <div className="ff-value-grid">
           {VALUES.map((v) => {
-            const unit = t(`values.${v.icon}.unit`, { defaultValue: '' })
+            // returnEmptyString:false (src/i18n.js) makes an empty defaultValue fall
+            // back to the raw key, so word-type values (carton/anchor, which carry no
+            // unit) leaked "values.<icon>.unit" on screen. Coerce a key-echo back to
+            // empty so only genuine units render.
+            const unitKey = `values.${v.icon}.unit`
+            const unitRaw = t(unitKey, { defaultValue: '' })
+            const unit = unitRaw === unitKey ? '' : unitRaw
             return (
               <div className="ff-vi ff-reveal" key={v.icon}>
                 <span className="ff-vi-ico" aria-hidden="true">
