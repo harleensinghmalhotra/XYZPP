@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { useState, useEffect, useRef } from 'react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import { PaperGrain } from '@/components/atmosphere'
@@ -139,68 +140,9 @@ export default function OurStory() {
         </div>
       </section>
 
-      {/* CHAPTER 2 ── JOURNEY (Editorial timeline entries, no spine) ───────────────────── */}
-      <section data-theme="light" className="relative px-6 py-24 sm:px-10 md:py-32 overflow-hidden" style={{ background: CREAM }}>
-        <PaperGrain />
-        <div className="relative z-10 mx-auto max-w-[1280px] px-[clamp(20px,5vw,56px)]">
-          <div data-reveal className="mb-20">
-            <Eyebrow color={GOLD_TEXT}>{t('timeline.eyebrow')}</Eyebrow>
-          </div>
+      {/* CHAPTER 2 ── JOURNEY (Interactive year-rail timeline) ───────────────────────────── */}
+      <Timeline stops={timelineStops} />
 
-          {/* Timeline entries as editorial sections */}
-          <div className="space-y-0">
-            {timelineStops && timelineStops.map((stop, idx) => (
-              <div key={idx}>
-                {/* Media slot between stops 3 and 4 */}
-                {idx === 3 && (
-                  <div
-                    data-reveal
-                    className="mb-20 md:mb-28"
-                    style={{
-                      aspectRatio: '16/9',
-                      background: BEIGE,
-                      borderRadius: '8px',
-                      border: '1px solid rgba(155, 116, 32, 0.15)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                    data-slot="about-facility"
-                  >
-                    <span style={{ fontFamily: MONO, fontSize: '13px', color: 'rgba(28,32,25,0.35)', letterSpacing: '0.2em' }}>IMAGE</span>
-                  </div>
-                )}
-
-                {/* Entry */}
-                <div
-                  key={`entry-${idx}`}
-                  data-reveal
-                  className="border-t py-14 md:py-20"
-                  style={{ borderColor: 'rgba(155,116,32,0.12)' }}
-                >
-                  {/* Year (gold solid, no gradient) */}
-                  <div className="mb-4" style={{ fontFamily: MONO, fontSize: '20px', fontWeight: 600, color: GOLD_TEXT }}>
-                    {stop.year}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="mb-4 text-[18px] md:text-[20px] font-bold leading-tight" style={{ fontFamily: TIGHT, color: INK }}>
-                    {stop.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-[15px] md:text-[16px] leading-relaxed max-w-[65ch]" style={{ fontFamily: INTER, color: 'rgba(28,32,25,0.75)' }}>
-                    {stop.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-
-            {/* Final border */}
-            <div className="border-t" style={{ borderColor: 'rgba(155,116,32,0.12)' }} />
-          </div>
-        </div>
-      </section>
 
       {/* CHAPTER 3 ── MISSION / VISION / VALUES (Manifesto stacking on navy band) ──────── */}
       <section data-theme="dark" className="relative px-6 py-24 sm:px-10 md:py-32" style={{ background: HERO_NAVY }}>
@@ -303,5 +245,366 @@ export default function OurStory() {
         </div>
       </section>
     </main>
+  )
+}
+
+function Timeline({ stops }) {
+  const { t } = useTranslation('ourStory')
+  const [activeIdx, setActiveIdx] = useState(0)
+  const [prevIdx, setPrevIdx] = useState(-1)
+  const sectionRef = useRef(null)
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        setActiveIdx(prev => Math.max(0, prev - 1))
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        setActiveIdx(prev => Math.min(stops.length - 1, prev + 1))
+      }
+    }
+
+    const section = sectionRef.current
+    if (section && section.contains(document.activeElement)) {
+      window.addEventListener('keydown', handleKeyDown)
+      return () => window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [stops.length])
+
+  const handleYearClick = (idx) => {
+    setPrevIdx(activeIdx)
+    setActiveIdx(idx)
+  }
+
+  const handlePrev = () => {
+    if (activeIdx > 0) {
+      setPrevIdx(activeIdx)
+      setActiveIdx(activeIdx - 1)
+    }
+  }
+
+  const handleNext = () => {
+    if (activeIdx < stops.length - 1) {
+      setPrevIdx(activeIdx)
+      setActiveIdx(activeIdx + 1)
+    }
+  }
+
+  const stop = stops[activeIdx]
+  const transitionStyle = reduceMotion
+    ? {}
+    : {
+      transition: 'all 300ms ease-out',
+      opacity: 1,
+      transform: 'translateY(0)',
+    }
+
+  return (
+    <section data-theme="light" className="relative px-6 py-24 sm:px-10 md:py-32 overflow-hidden" style={{ background: CREAM }} ref={sectionRef}>
+      <PaperGrain />
+      <div className="relative z-10 mx-auto max-w-[1280px] px-[clamp(20px,5vw,56px)]">
+        <div data-reveal className="mb-16">
+          <Eyebrow color={GOLD_TEXT}>{t('timeline.eyebrow')}</Eyebrow>
+        </div>
+
+        {/* Desktop: Three-zone layout (LEFT rail / CENTER image / RIGHT content) */}
+        <div className="hidden md:grid md:grid-cols-[120px_1fr_1fr] md:gap-16 lg:gap-24 md:items-start">
+          {/* LEFT: Year rail */}
+          <div className="relative">
+            {/* Vertical line */}
+            <div
+              className="absolute left-6 top-0 bottom-0 w-px"
+              style={{ background: 'rgba(28,32,25,0.15)' }}
+              aria-hidden="true"
+            />
+
+            {/* Years */}
+            <div className="space-y-8">
+              {stops.map((s, idx) => {
+                const isActive = idx === activeIdx
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => handleYearClick(idx)}
+                    className="relative text-left group focus-ring"
+                    style={{ fontFamily: MONO }}
+                    aria-current={isActive ? 'true' : undefined}
+                  >
+                    {/* Dot */}
+                    <div
+                      className="absolute left-2 top-1 w-2 h-2 rounded-full transition-all duration-300"
+                      style={{
+                        background: isActive ? GOLD_TEXT : 'rgba(28,32,25,0.3)',
+                        boxShadow: isActive ? `0 0 0 8px rgba(157, 111, 20, 0.1)` : 'none',
+                      }}
+                      aria-hidden="true"
+                    />
+
+                    {/* Year label */}
+                    <span
+                      className="block pl-6 transition-all duration-300"
+                      style={{
+                        fontSize: isActive ? '14px' : '12px',
+                        fontWeight: isActive ? 600 : 400,
+                        color: isActive ? GOLD_TEXT : 'rgba(28,32,25,0.45)',
+                        letterSpacing: '0.1em',
+                      }}
+                    >
+                      {s.year}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* CENTER: Image slot */}
+          <div
+            className="w-full"
+            style={{
+              aspectRatio: '4/3',
+              background: BEIGE,
+              borderRadius: '8px',
+              border: '1px solid rgba(155, 116, 32, 0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            data-slot={`timeline-${activeIdx}`}
+          >
+            <span style={{ fontFamily: MONO, fontSize: '13px', color: 'rgba(28,32,25,0.35)', letterSpacing: '0.2em' }}>IMAGE</span>
+          </div>
+
+          {/* RIGHT: Content */}
+          <div style={transitionStyle}>
+            {/* Year huge */}
+            <div
+              className="mb-4"
+              style={{
+                fontFamily: TIGHT,
+                fontSize: 'clamp(56px, 10vw, 96px)',
+                fontWeight: 800,
+                color: HERO_NAVY,
+                lineHeight: 0.9,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {stop.year}
+            </div>
+
+            {/* Title */}
+            <h3 className="mb-6" style={{ fontFamily: TIGHT, fontSize: '24px', fontWeight: 700, color: INK }}>
+              {stop.title}
+            </h3>
+
+            {/* Description */}
+            <p className="mb-12" style={{ fontFamily: INTER, fontSize: '15px', lineHeight: 1.6, maxWidth: '46ch', color: 'rgba(28,32,25,0.75)' }}>
+              {stop.desc}
+            </p>
+
+            {/* Navigation arrows */}
+            <div className="flex items-center gap-4">
+              <button
+                onClick={handlePrev}
+                disabled={activeIdx === 0}
+                aria-label="Previous entry"
+                className="focus-ring"
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  border: `1.5px solid ${activeIdx === 0 ? 'rgba(14,27,70,0.3)' : HERO_NAVY}`,
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: activeIdx === 0 ? 'not-allowed' : 'pointer',
+                  transition: 'all 200ms ease',
+                }}
+                onMouseEnter={(e) => {
+                  if (activeIdx !== 0) {
+                    e.currentTarget.style.background = HERO_NAVY
+                    e.currentTarget.style.color = CREAM
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.color = 'inherit'
+                }}
+              >
+                <span style={{ fontSize: '18px', color: 'inherit' }}>←</span>
+              </button>
+
+              <button
+                onClick={handleNext}
+                disabled={activeIdx === stops.length - 1}
+                aria-label="Next entry"
+                className="focus-ring"
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  border: `1.5px solid ${activeIdx === stops.length - 1 ? 'rgba(14,27,70,0.3)' : HERO_NAVY}`,
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: activeIdx === stops.length - 1 ? 'not-allowed' : 'pointer',
+                  transition: 'all 200ms ease',
+                }}
+                onMouseEnter={(e) => {
+                  if (activeIdx !== stops.length - 1) {
+                    e.currentTarget.style.background = HERO_NAVY
+                    e.currentTarget.style.color = CREAM
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.color = 'inherit'
+                }}
+              >
+                <span style={{ fontSize: '18px', color: 'inherit' }}>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile: Stacked layout */}
+        <div className="md:hidden space-y-8">
+          {/* Year strip */}
+          <div className="overflow-x-auto -mx-6 px-6 pb-4">
+            <div className="flex gap-3 w-max">
+              {stops.map((s, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleYearClick(idx)}
+                  className="px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-300 focus-ring whitespace-nowrap"
+                  style={{
+                    fontFamily: MONO,
+                    background: idx === activeIdx ? GOLD_TEXT : 'rgba(155,116,32,0.1)',
+                    color: idx === activeIdx ? CREAM : INK,
+                  }}
+                  aria-current={idx === activeIdx ? 'true' : undefined}
+                >
+                  {s.year}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Image */}
+          <div
+            className="w-full"
+            style={{
+              aspectRatio: '4/3',
+              background: BEIGE,
+              borderRadius: '8px',
+              border: '1px solid rgba(155, 116, 32, 0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            data-slot={`timeline-${activeIdx}`}
+          >
+            <span style={{ fontFamily: MONO, fontSize: '13px', color: 'rgba(28,32,25,0.35)', letterSpacing: '0.2em' }}>IMAGE</span>
+          </div>
+
+          {/* Content */}
+          <div style={transitionStyle}>
+            {/* Year */}
+            <div
+              className="mb-4"
+              style={{
+                fontFamily: TIGHT,
+                fontSize: 'clamp(48px, 8vw, 72px)',
+                fontWeight: 800,
+                color: HERO_NAVY,
+                lineHeight: 0.9,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {stop.year}
+            </div>
+
+            {/* Title */}
+            <h3 className="mb-4" style={{ fontFamily: TIGHT, fontSize: '20px', fontWeight: 700, color: INK }}>
+              {stop.title}
+            </h3>
+
+            {/* Description */}
+            <p className="mb-8" style={{ fontFamily: INTER, fontSize: '15px', lineHeight: 1.6, color: 'rgba(28,32,25,0.75)' }}>
+              {stop.desc}
+            </p>
+
+            {/* Navigation arrows */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handlePrev}
+                disabled={activeIdx === 0}
+                aria-label="Previous entry"
+                className="focus-ring"
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  border: `1.5px solid ${activeIdx === 0 ? 'rgba(14,27,70,0.3)' : HERO_NAVY}`,
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: activeIdx === 0 ? 'not-allowed' : 'pointer',
+                  transition: 'all 200ms ease',
+                }}
+                onMouseEnter={(e) => {
+                  if (activeIdx !== 0) {
+                    e.currentTarget.style.background = HERO_NAVY
+                    e.currentTarget.style.color = CREAM
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.color = 'inherit'
+                }}
+              >
+                <span style={{ fontSize: '18px', color: 'inherit' }}>←</span>
+              </button>
+
+              <button
+                onClick={handleNext}
+                disabled={activeIdx === stops.length - 1}
+                aria-label="Next entry"
+                className="focus-ring"
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  border: `1.5px solid ${activeIdx === stops.length - 1 ? 'rgba(14,27,70,0.3)' : HERO_NAVY}`,
+                  borderRadius: '50%',
+                  background: 'transparent',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: activeIdx === stops.length - 1 ? 'not-allowed' : 'pointer',
+                  transition: 'all 200ms ease',
+                }}
+                onMouseEnter={(e) => {
+                  if (activeIdx !== stops.length - 1) {
+                    e.currentTarget.style.background = HERO_NAVY
+                    e.currentTarget.style.color = CREAM
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.color = 'inherit'
+                }}
+              >
+                <span style={{ fontSize: '18px', color: 'inherit' }}>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
