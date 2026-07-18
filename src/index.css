@@ -11,12 +11,14 @@
      Every colour below is lifted 1:1 from her vibe-coded homepage. Navy →
      gold → cream → olive, in that priority. Gold is the single prestige accent;
      olive is the quiet eco note. See recon/EKTA-DESIGN-DNA.md. */
-  /* Navy & gold are split into RGB-channel tokens so the HOMEPAGE can repaint to
-     Ekta's baked hero navy/gold (see .home-palette below) while every inner page
-     keeps these root values untouched. Solid fills use var(--navy); alpha uses take
-     rgb(var(--navy-rgb) / a). Default channels resolve to the exact same colours as
-     before, so nothing shifts off the homepage. */
-  --navy-rgb: 15 36 68;
+  /* Navy & gold are split into RGB-channel tokens. The base navy is Ekta's baked
+     hero sky #0e1b46 (14 27 70) — the SAME value the homepage's .home-palette pins,
+     and the PageHero navy every inner page's hero uses. Client rule: every inner-page
+     dark section is this one flat navy (no lighter #0f2444, no tinted variants), so
+     the token resolves to #0e1b46 everywhere. Solid fills use var(--navy); alpha uses
+     take rgb(var(--navy-rgb) / a). The homepage repaints via .home-palette below to
+     the same value, so it is unaffected. */
+  --navy-rgb: 14 27 70;
   --navy: rgb(var(--navy-rgb));
   --navy-2-rgb: 27 58 107;
   --navy-2: rgb(var(--navy-2-rgb));
