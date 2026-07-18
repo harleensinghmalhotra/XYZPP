@@ -409,7 +409,7 @@ export default function PrintOnDemand() {
                   </li>
                 ))}
               </ul>
-              <Link to={contactHref} className="pod-request">
+              <Link to={contactHref} className="u-btn u-btn--gold w-full justify-center">
                 {t('summary.request')}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
@@ -483,7 +483,7 @@ export default function PrintOnDemand() {
           <p className="pod-cta-sub" data-reveal>
             {t('cta.sub')}
           </p>
-          <Link to="/contact?intent=print-on-demand-sample" className="pod-cta-btn" data-reveal>
+          <Link to="/contact?intent=print-on-demand-sample" className="u-btn u-btn--solid" data-reveal>
             {t('cta.btn')}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />

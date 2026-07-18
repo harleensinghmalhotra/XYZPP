@@ -435,7 +435,7 @@ export default function Contact() {
               <p className="ctc-success-sub">
                 {t('success.sub')}
               </p>
-              <a className="ctc-btn focus-ring" href={mailtoUrl || `mailto:${EMAIL_ENQ}`}>
+              <a className="u-btn u-btn--solid" href={mailtoUrl || `mailto:${EMAIL_ENQ}`}>
                 {t('success.button')}
               </a>
             </div>
@@ -525,7 +525,7 @@ export default function Contact() {
               </div>
               {err('consent')}
 
-              <button type="submit" className="ctc-submit focus-ring">
+              <button type="submit" className="u-btn u-btn--solid">
                 {t('form.submit')}
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m11 5 7 7-7 7" /></svg>
               </button>

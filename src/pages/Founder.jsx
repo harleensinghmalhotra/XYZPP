@@ -128,7 +128,7 @@ export default function Founder() {
           <p className="mx-auto max-w-2xl text-[18px] leading-relaxed mb-8" style={{ fontFamily: INTER, color: 'rgba(28,32,25,0.78)' }}>
             {t('cta.text')}
           </p>
-          <Link to="/contact" className="u-btn u-btn--gold">{t('cta.button')}</Link>
+          <Link to="/contact" className="u-btn u-btn--solid">{t('cta.button')}</Link>
         </div>
       </section>
     </main>

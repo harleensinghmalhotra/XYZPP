@@ -542,7 +542,7 @@ export default function InfrastructurePage() {
           <p className="inf-cta-sub">
             {t('cta.sub')}
           </p>
-          <Link to="/contact" className="inf-btn inf-btn--gold inf-btn--lg">{t('cta.button')}</Link>
+          <Link to="/contact" className="u-btn u-btn--solid">{t('cta.button')}</Link>
         </div>
       </section>
 
