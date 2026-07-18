@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useTranslation, Trans } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
@@ -8,6 +8,7 @@ import CountUp from '@/components/CountUp'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import FacilityBook from '@/components/FacilityBook'
+import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
 import './InfrastructurePage.css'
@@ -211,8 +212,7 @@ export default function InfrastructurePage() {
         })
       }
 
-      reveal('.inf-hero-eyebrow, .inf-hero-title, .inf-hero-sub, .inf-hero-ctas', { trigger: '.inf-hero', start: 'top 90%', stagger: 0.08 })
-      reveal('.inf-hero-stat', { trigger: '.inf-hero', start: 'top 88%' })
+      // (hero reveals now handled by PageHero via alive.js data-reveal/textreveal)
       reveal('.inf-strip-item', { trigger: '.inf-strip', stagger: 0.07 })
       reveal('.inf-acc-row', { trigger: '.inf-acc', stagger: 0.1 })
       reveal('.inf-acc-visual', { trigger: '.inf-acc' })
@@ -251,33 +251,11 @@ export default function InfrastructurePage() {
         jsonLd={jsonLd}
       />
 
-      {/* ── 1 · ABOUT-STYLE HERO (navy) ─────────────────────────────────── */}
-      <section data-theme="dark" className="relative overflow-hidden px-6 sm:px-10" style={{ background: '#0e1b46', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }} aria-labelledby="inf-h1">
-        <div className="relative z-10 mx-auto max-w-[1280px] w-full px-[clamp(20px,5vw,56px)]">
-          {/* Eyebrow */}
-          <div className="mb-12">
-            <p className="text-[12px] font-medium uppercase" style={{ fontFamily: "'DM Mono', monospace", letterSpacing: '0.28em', color: 'var(--gold-2)' }}>
-              {t('hero.eyebrow')}
-            </p>
-          </div>
-
-          {/* Massive display text — Infrastructure */}
-          <div className="mb-24">
-            <p
-              className="text-[clamp(100px,20vw,200px)] font-extrabold leading-[0.88] tracking-tight"
-              style={{ fontFamily: "'Inter Tight', sans-serif", letterSpacing: '-0.02em', color: '#FDFAF4' }}
-              aria-hidden="true"
-            >
-              {t('hero.eyebrow')}
-            </p>
-          </div>
-
-          {/* H1 — the title line */}
-          <h1 id="inf-h1" className="text-[clamp(28px,3.5vw,44px)] font-semibold leading-tight" style={{ fontFamily: "'Inter', sans-serif", color: '#FDFAF4', maxWidth: '52ch' }}>
-            <Trans t={t} i18nKey="hero.title" components={{ strong: <span style={{ color: 'var(--gold-2)' }} /> }} />
-          </h1>
-        </div>
-      </section>
+      {/* ── 1 · TWO-LINE HERO (navy) — replaces the giant display band ────── */}
+      {(() => {
+        const [l1, l2] = splitTitle(t('hero.title'))
+        return <PageHero id="inf-h1" eyebrow={t('hero.eyebrow')} line1={l1} line2={l2} minVh={60} />
+      })()}
 
       {/* ── 1B · FACILITY BOOK — interactive page-turner ────────────────── */}
       <FacilityBook />
