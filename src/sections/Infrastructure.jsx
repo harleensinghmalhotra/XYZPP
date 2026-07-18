@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
-import InfraBooks from './InfraBooks'
+import FacilityBook from '@/components/FacilityBook'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -161,7 +161,7 @@ export default function Infrastructure() {
         {/* ── THE BOOK STACK — the three facility cards, rebuilt as a stack of
              hardcover books you open and flip through (Lane 15, Cases mechanics).
              Books 4–5 are reserved placeholder slots awaiting content. ── */}
-        <InfraBooks />
+        <FacilityBook />
 
         {/* ── VIDEO — walkthrough placeholder, sits between the facility cards and the
              People block (client request). Gated by VIDEO_READY (false): the click opens

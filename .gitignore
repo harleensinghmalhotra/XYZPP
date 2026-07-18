@@ -24,6 +24,8 @@ sound/
 
 # Dev/scratch scripts
 scripts/_*.mjs
+scripts/task*-verify.mjs
+scripts/task*-*.mjs
 calibrate.mjs
 build_out.txt
 

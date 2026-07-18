@@ -7,6 +7,7 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 import CountUp from '@/components/CountUp'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
+import FacilityBook from '@/components/FacilityBook'
 import { DotField, PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
 import './InfrastructurePage.css'
@@ -250,35 +251,36 @@ export default function InfrastructurePage() {
         jsonLd={jsonLd}
       />
 
-      {/* ── 1 · HERO (navy) ─────────────────────────────────────────────── */}
-      <section data-theme="dark" className="u-hero" aria-labelledby="inf-h1">
-        <div className="u-hero-inner">
-          <div className="u-hero-copy">
-            <p className="u-eyebrow">{t('hero.eyebrow')}</p>
-            <h1 id="inf-h1" className="u-h1">
-              <Trans t={t} i18nKey="hero.title" components={{ strong: <span className="u-h1-accent" /> }} />
-            </h1>
-            <p className="u-hero-sub">
-              {t('hero.sub')}
+      {/* ── 1 · ABOUT-STYLE HERO (navy) ─────────────────────────────────── */}
+      <section data-theme="dark" className="relative overflow-hidden px-6 sm:px-10" style={{ background: '#0e1b46', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }} aria-labelledby="inf-h1">
+        <div className="relative z-10 mx-auto max-w-[1280px] w-full px-[clamp(20px,5vw,56px)]">
+          {/* Eyebrow */}
+          <div className="mb-12">
+            <p className="text-[12px] font-medium uppercase" style={{ fontFamily: "'DM Mono', monospace", letterSpacing: '0.28em', color: 'var(--gold-2)' }}>
+              {t('hero.eyebrow')}
             </p>
-            <div className="u-hero-ctas">
-              <Link to="/contact" className="u-btn u-btn--gold">{t('hero.ctaQuote')}</Link>
-              <a href="/#process" className="u-btn u-btn--ghost">
-                {t('hero.ctaProcess')}
-                <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-              </a>
-            </div>
           </div>
 
-          {/* single big number on the page — the flagship stat */}
-          <div className="u-hero-stat" aria-label={t('hero.statAriaLabel')}>
-            <span className="u-stat-num" aria-hidden="true">300,000</span>
-            <span className="u-stat-unit">{t('hero.statUnit')}</span>
-            <span className="u-stat-foot">{t('hero.statFoot')}</span>
+          {/* Massive display text — Infrastructure */}
+          <div className="mb-24">
+            <p
+              className="text-[clamp(100px,20vw,200px)] font-extrabold leading-[0.88] tracking-tight"
+              style={{ fontFamily: "'Inter Tight', sans-serif", letterSpacing: '-0.02em', color: '#FDFAF4' }}
+              aria-hidden="true"
+            >
+              {t('hero.eyebrow')}
+            </p>
           </div>
+
+          {/* H1 — the title line */}
+          <h1 id="inf-h1" className="text-[clamp(28px,3.5vw,44px)] font-semibold leading-tight" style={{ fontFamily: "'Inter', sans-serif", color: '#FDFAF4', maxWidth: '52ch' }}>
+            <Trans t={t} i18nKey="hero.title" components={{ strong: <span style={{ color: 'var(--gold-2)' }} /> }} />
+          </h1>
         </div>
-        <SectionCurve position="bottom" fill="#fdfaf4" inward />
       </section>
+
+      {/* ── 1B · FACILITY BOOK — interactive page-turner ────────────────── */}
+      <FacilityBook />
 
       {/* ── 2 · TRUST STRIP — certifications (cream) ─────────────────────── */}
       <section data-theme="light" className="inf-strip" aria-labelledby="inf-strip-h">
