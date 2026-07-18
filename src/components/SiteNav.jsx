@@ -2,9 +2,34 @@ import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageToggle from '@/components/LanguageToggle'
+import { prefersReduced } from '@/lib/useReducedMotion'
 
 const TIGHT = "'Inter Tight', sans-serif"
 const INTER = "'Inter', sans-serif"
+const NAV_H = 86 // sticky header height — a section is "landed" when its top sits here
+
+// Retry-scroll to a homepage section as it mounts. Home.jsx already scrolls on a
+// hash change, but its single early attempt can fire before a cross-route mount of
+// the heavy homepage has laid out (and when we navigate FROM another page the target
+// isn't in the DOM yet at all). So we poll: once the section exists and hasn't landed
+// under the nav, scrollIntoView it (Lenis cooperates with native scrollIntoView once
+// the page has settled), and stop the moment it's in place. Bounded so it never fights
+// the user for long.
+function landOnSection(id) {
+  const reduced = prefersReduced()
+  let tries = 0
+  const tick = () => {
+    tries += 1
+    const el = document.getElementById(id)
+    if (el) {
+      const top = Math.round(el.getBoundingClientRect().top)
+      if (top <= NAV_H + 8 && top >= -8) return // landed — stop retrying
+      el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })
+    }
+    if (tries < 8) setTimeout(tick, reduced ? 60 : 220)
+  }
+  setTimeout(tick, reduced ? 0 : 120)
+}
 
 // 9-item What We Print dropdown: all anchor to homepage WWP section.
 const PRODUCTS = [
@@ -41,11 +66,34 @@ export default function SiteNav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(-1)
   const menuRef = useRef(null)
+  const triggerRef = useRef(null)
+  const itemsRef = useRef([])
+  // true only when activeItem moved by keyboard → the effect below pulls real DOM
+  // focus onto that item. Mouse hover leaves it false so hovering never steals focus.
+  const focusIntent = useRef(false)
 
   useEffect(() => {
     setMenuOpen(false)
     setActiveItem(-1)
   }, [pathname])
+
+  // Keyboard roving focus: when arrow keys move the highlight, move real focus too,
+  // so a focused item's native Enter/Space selects it. Mouse hover is highlight-only.
+  useEffect(() => {
+    if (menuOpen && activeItem >= 0 && focusIntent.current) {
+      itemsRef.current[activeItem]?.focus()
+    }
+    focusIntent.current = false
+  }, [menuOpen, activeItem])
+
+  // The WWP LABEL itself navigates to the homepage WWP section (from any page) —
+  // Home.jsx's hash-scroll effect scrolls #what-we-print into view on arrival.
+  const goToWWP = () => {
+    navigate('/#what-we-print')
+    setMenuOpen(false)
+    setActiveItem(-1)
+    landOnSection('what-we-print')
+  }
 
   const handleProductClick = (product) => {
     navigate(`/#wwp-${product.cardKey}`)
@@ -53,31 +101,51 @@ export default function SiteNav() {
     setActiveItem(-1)
   }
 
-  const handleKeyDown = (e) => {
-    if (!menuOpen) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault()
-        setMenuOpen(true)
-        setActiveItem(0)
-      }
-      return
-    }
-
-    if (e.key === 'ArrowDown') {
+  // TRIGGER keys: Enter/Space navigate (same as a click); ArrowDown/Up open the menu
+  // and drop focus onto the first/last item; Escape closes.
+  const onTriggerKey = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
-      setActiveItem((prev) => (prev < PRODUCTS.length - 1 ? prev + 1 : 0))
+      goToWWP()
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      focusIntent.current = true
+      setMenuOpen(true)
+      setActiveItem(0)
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
-      setActiveItem((prev) => (prev > 0 ? prev - 1 : PRODUCTS.length - 1))
-    } else if (e.key === 'Enter' || e.key === ' ') {
+      focusIntent.current = true
+      setMenuOpen(true)
+      setActiveItem(PRODUCTS.length - 1)
+    } else if (e.key === 'Escape') {
       e.preventDefault()
-      if (activeItem >= 0) {
-        handleProductClick(PRODUCTS[activeItem])
+      setMenuOpen(false)
+      setActiveItem(-1)
+    }
+  }
+
+  // ITEM keys: arrows rove (Up from the first returns to the trigger); Escape closes
+  // and restores focus to the trigger. Enter/Space fall through to the native onClick.
+  const onItemKey = (e, idx) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      focusIntent.current = true
+      setActiveItem(idx < PRODUCTS.length - 1 ? idx + 1 : 0)
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (idx > 0) {
+        focusIntent.current = true
+        setActiveItem(idx - 1)
+      } else {
+        setMenuOpen(false)
+        setActiveItem(-1)
+        triggerRef.current?.focus()
       }
     } else if (e.key === 'Escape') {
       e.preventDefault()
       setMenuOpen(false)
       setActiveItem(-1)
+      triggerRef.current?.focus()
     }
   }
 
@@ -120,13 +188,14 @@ export default function SiteNav() {
             }}
           >
             <button
+              ref={triggerRef}
               type="button"
               className="qnav-link inline-flex items-center gap-1.5"
               aria-haspopup="true"
               aria-expanded={menuOpen}
               aria-controls="wwp-dropdown"
-              onClick={() => setMenuOpen((v) => !v)}
-              onKeyDown={handleKeyDown}
+              onClick={goToWWP}
+              onKeyDown={onTriggerKey}
             >
               {t('whatWePrint')}
               <svg
@@ -159,9 +228,10 @@ export default function SiteNav() {
                   {PRODUCTS.map((p, idx) => (
                     <button
                       key={p.key}
+                      ref={(el) => (itemsRef.current[idx] = el)}
                       type="button"
                       onClick={() => handleProductClick(p)}
-                      onKeyDown={handleKeyDown}
+                      onKeyDown={(e) => onItemKey(e, idx)}
                       onMouseEnter={() => setActiveItem(idx)}
                       className="focus-ring w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F14]/[0.08] hover:pl-6 hover:text-[#9d6f14]"
                       style={{
