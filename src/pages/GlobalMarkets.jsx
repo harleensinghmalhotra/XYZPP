@@ -51,6 +51,11 @@ export default function GlobalMarkets() {
       <section data-theme="dark" className="u-hero" aria-labelledby="globalmarkets-h1">
         <div className="u-hero-inner">
           <div className="u-hero-copy">
+            {/* Eyebrow brings the hero to parity with its sentence-hero siblings
+                (Contact/POD/Fulfilment). Sourced from the existing nav string —
+                no new copy. Right-column stat intentionally omitted: no clean
+                standalone stat key exists on this page (see audit report). */}
+            <p className="u-eyebrow" data-reveal>{t('globalMarkets', { ns: 'nav' })}</p>
             <h1 id="globalmarkets-h1" className="u-h1" data-textreveal>{t('hero.title')}</h1>
             <p className="u-hero-sub" data-reveal>{t('hero.subhead')}</p>
           </div>
