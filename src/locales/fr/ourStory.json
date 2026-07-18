@@ -8,55 +8,59 @@
     }
   },
   "hero": {
-    "eyebrow": "Quarterfold Printabilities",
+    "eyebrow": "NOTRE HISTOIRE",
+    "display": "À PROPOS DE NOUS",
     "title": "Alimenter l'éducation mondiale grâce à l'excellence de l'impression",
-    "lede": "En 2014, Quarterfold Printabilities a commencé par une seule commande de 50 000 exemplaires pour un éditeur africain. Aujourd'hui, l'entreprise imprime et livre des livres éducatifs pour des ministères, des programmes de donateurs et des éditeurs dans plus de 25 pays. L'échelle a changé. La promesse derrière chaque livre n'a pas changé.",
-    "cta": "Demander un devis",
-    "statNum": "50 000",
-    "statUnit": "La première commande",
-    "statFoot": "Livres imprimés en 2014 qui ont fixé la direction de tout ce que nous avons construit depuis."
+    "lede": "En 2014, Quarterfold Printabilities a commencé par une seule commande de 50 000 exemplaires pour un éditeur africain. Aujourd'hui, l'entreprise imprime et livre des livres éducatifs pour des ministères, des programmes de donateurs et des éditeurs dans plus de 25 pays. L'échelle a changé. La promesse derrière chaque livre n'a pas changé."
   },
   "timeline": {
-    "eyebrow": "Notre parcours",
-    "title": "D'une seule commande à une opération mondiale",
+    "eyebrow": "PARCOURS CHRONOLOGIQUE",
     "stops": [
       {
         "year": "2014",
-        "label": "La première commande",
+        "title": "La première commande",
         "desc": "Fondée à Navi Mumbai en tant que société de gestion d'impression. Une seule commande de 50 000 livres pour un éditeur africain fixe la direction."
       },
       {
         "year": "2015 à 2017",
-        "label": "Découvrir le continent",
+        "title": "Découvrir le continent",
         "desc": "La production annuelle passe à 15 à 18 millions de livres pour les marchés internationaux."
       },
       {
         "year": "2018",
-        "label": "Notre première installation",
+        "title": "Notre première installation",
         "desc": "Première installation d'impression mise en place à Navi Mumbai, plaçant la qualité de la production sous contrôle direct."
       },
       {
         "year": "2021 à 2023",
-        "label": "Croissance avec des systèmes",
+        "title": "Croissance avec des systèmes",
         "desc": "Trois installations avancées couvrant 300 000 pieds carrés, avec un investissement supplémentaire dans toute nouvelle machinerie, y compris un centre d'accomplissement dédié. Plus de 75 millions de livres livrés à divers éditeurs et programmes du ministère de l'Éducation."
       },
       {
         "year": "2024 à 2025",
-        "label": "Une opération mondiale",
+        "title": "Une opération mondiale",
         "desc": "Plus de 800 conteneurs expédiés dans 25 pays en un seul an. PrintWeek nomme Quarterfold Printabilities la meilleure entreprise de livres éducatifs de l'année."
       }
     ]
   },
   "mission": {
-    "title": "Notre mission",
+    "label": "MISSION",
     "desc": "Fournir des matériels éducatifs de haute qualité et rentables grâce à l'impression responsable, en autonomisant les apprenants dans plus de 25 pays tout en dépassant les attentes de chaque éditeur, ministère et institution que nous servons."
   },
   "vision": {
-    "title": "Notre vision",
+    "label": "VISION",
     "desc": "Être leader de l'industrie mondiale de l'impression avec des solutions innovantes, responsables et abordables qui soutiennent l'éducation, promeuvent la culture de la lecture et défendent la responsabilité environnementale et sociale."
   },
   "values": {
-    "title": "Nos valeurs",
+    "label": "VALEURS",
     "desc": "Qualité, fiabilité et soin dans chaque projet, qu'il s'agisse d'un millier de copies ou d'un million."
+  },
+  "founder": {
+    "eyebrow": "De designer à l'un des imprimeurs de livres les plus célèbres de l'Inde",
+    "name": "Nilesh Dhankani",
+    "role": "Fondateur et PDG",
+    "bio": "Nilesh Dhankani a commencé comme designer graphique en 2000, s'est orienté vers le marketing et a trouvé son travail définitif dans l'impression. En 2014, une commande de 50 000 livres pour un éditeur africain l'a amené à fonder Quarterfold Printabilities. Ce qui a commencé comme une opération à deux personnes s'est transformé en l'une des entreprises d'impression de livres les plus avancées de l'Inde.",
+    "quote": "Peu importe la difficulté du travail, nous ne nous dérobons jamais à soutenir nos amis éditeurs.",
+    "attribution": "Nilesh Dhankani, Fondateur et PDG"
   }
 }

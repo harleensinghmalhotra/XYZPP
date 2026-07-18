@@ -8,55 +8,59 @@
     }
   },
   "hero": {
-    "eyebrow": "Quarterfold Printabilities",
+    "eyebrow": "OUR STORY",
+    "display": "ABOUT US",
     "title": "Powering Global Education Through Print Excellence",
-    "lede": "In 2014, Quarterfold Printabilities began with a single order of 50,000 copies for an African publisher. Today, the company prints and delivers educational books for ministries, donor programmes, and publishers across 25+ countries. The scale changed. The promise behind every book did not.",
-    "cta": "Request a Quote",
-    "statNum": "50,000",
-    "statUnit": "The First Order",
-    "statFoot": "Books printed in 2014 that set the direction for everything we've built since."
+    "lede": "In 2014, Quarterfold Printabilities began with a single order of 50,000 copies for an African publisher. Today, the company prints and delivers educational books for ministries, donor programmes, and publishers across 25+ countries. The scale changed. The promise behind every book did not."
   },
   "timeline": {
-    "eyebrow": "Our Journey",
-    "title": "From One Order to a Global Operation",
+    "eyebrow": "JOURNEY TIMELINE",
     "stops": [
       {
         "year": "2014",
-        "label": "The First Order",
+        "title": "The First Order",
         "desc": "Founded in Navi Mumbai as a print management company. A single order of 50,000 books for an African publisher sets the direction."
       },
       {
         "year": "2015 to 2017",
-        "label": "Learning the Continent",
+        "title": "Learning the Continent",
         "desc": "Annual production grows to 15 to 18 million books for international markets."
       },
       {
         "year": "2018",
-        "label": "Our First Facility",
+        "title": "Our First Facility",
         "desc": "First printing facility set up in Navi Mumbai, bringing production quality under direct control."
       },
       {
         "year": "2021 to 2023",
-        "label": "Scale With Systems",
+        "title": "Scale With Systems",
         "desc": "Three advanced facilities spanning 300,000 sq ft, with further investment in all new machinery, including a dedicated fulfilment centre. Over 75 million books delivered to various publishers and Ministry of Education programmes."
       },
       {
         "year": "2024 to 2025",
-        "label": "A Global Operation",
+        "title": "A Global Operation",
         "desc": "800+ containers shipped across 25 countries in a single year. PrintWeek names Quarterfold Printabilities the Book Education Company of the Year."
       }
     ]
   },
   "mission": {
-    "title": "Our Mission",
-    "desc": "Deliver high quality, cost effective educational materials through responsible printing, empowering learners across 25+ countries while exceeding the expectations of every publisher, ministry, and institution served."
+    "label": "MISSION",
+    "desc": "Deliver high-quality, cost-effective educational materials through responsible printing, empowering learners across 25+ countries while exceeding the expectations of every publisher, ministry, and institution served."
   },
   "vision": {
-    "title": "Our Vision",
+    "label": "VISION",
     "desc": "To lead the global printing industry with innovative, responsible, and affordable solutions that support education, promote a reading culture, and uphold environmental and social accountability."
   },
   "values": {
-    "title": "Our Values",
+    "label": "VALUES",
     "desc": "Quality, reliability, and care in every project, whether one thousand copies or one million."
+  },
+  "founder": {
+    "eyebrow": "From designer to one of India's most celebrated book printers",
+    "name": "Nilesh Dhankani",
+    "role": "Founder and CEO",
+    "bio": "Nilesh Dhankani began as a graphic designer in 2000, moved into marketing, and found his defining work in print. In 2014, an order of 50,000 books for an African publisher led him to found Quarterfold Printabilities. What started as a two-person operation grew into one of India's most advanced book printing companies.",
+    "quote": "No matter how challenging the job, we never shy away from supporting our publisher friends.",
+    "attribution": "Nilesh Dhankani, Founder and CEO"
   }
 }
