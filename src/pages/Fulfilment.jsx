@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Seo from '@/components/Seo'
 import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
+import PageHero from '@/components/PageHero'
 import { DotField, PaperGrain } from '@/components/atmosphere'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
@@ -139,31 +140,21 @@ const STAGES = [{ n: '01' }, { n: '02' }, { n: '03' }]
 // ── components ────────────────────────────────────────────────────────────────
 function Hero() {
   const { t } = useTranslation('fulfilment')
+  // Title is stored as word parts; compose the two lines from the existing keys
+  // (line 1 = "One System," / line 2 = "Start to Finish.") — zero word changes.
+  const line1 = `${t('hero.title.one')} ${t('hero.title.system')}`
+  const line2 = `${t('hero.title.start')} ${t('hero.title.to')} ${t('hero.title.finish')}`
   return (
-    <section data-theme="dark" className="u-hero" aria-labelledby="ff-h1">
-      <div className="u-hero-inner">
-        <div className="u-hero-copy">
-          <p className="u-eyebrow ff-reveal">{t('hero.eyebrow')}</p>
-          <h1 id="ff-h1" className="u-h1 ff-reveal">
-            {t('hero.title.one')} {t('hero.title.system')}<br />
-            {t('hero.title.start')} {t('hero.title.to')} <span className="u-h1-accent">{t('hero.title.finish')}</span>
-          </h1>
-          <p className="u-hero-sub ff-reveal">
-            {t('hero.sub')}
-          </p>
-          <div className="u-hero-ctas ff-reveal">
-            <Link to="/contact" className="u-btn u-btn--gold">{t('hero.cta')}</Link>
-          </div>
-        </div>
-
-        {/* single big number — Ekta-style flat gold numeral */}
-        <div className="u-hero-stat" aria-label={t('hero.statAria')}>
-          <span className="u-stat-num" aria-hidden="true">{t('hero.statNum')}</span>
-          <span className="u-stat-unit">{t('hero.statUnit')}</span>
-          <span className="u-stat-foot">{t('hero.statFoot')}</span>
-        </div>
+    <PageHero id="ff-h1" eyebrow={t('hero.eyebrow')} line1={line1} line2={line2} subline={t('hero.sub')} minVh={62}>
+      <div className="ph-stat" aria-label={t('hero.statAria')}>
+        <span className="ph-stat-num" aria-hidden="true">{t('hero.statNum')}</span>
+        <span className="ph-stat-label">{t('hero.statUnit')}</span>
+        <span className="ph-stat-foot">{t('hero.statFoot')}</span>
       </div>
-    </section>
+      <div className="ph-ctas" style={{ marginTop: 'clamp(24px, 4vh, 36px)' }}>
+        <Link to="/contact" className="u-btn u-btn--gold">{t('hero.cta')}</Link>
+      </div>
+    </PageHero>
   )
 }
 
