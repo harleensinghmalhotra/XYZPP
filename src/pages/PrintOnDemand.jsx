@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation, Trans } from 'react-i18next'
 import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
+import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 import './PrintOnDemand.css'
 
@@ -198,28 +199,24 @@ export default function PrintOnDemand() {
   return (
     <main id="main" className="pod">
       {/* 1 · HERO */}
-      <section className="u-hero" data-theme="dark" aria-labelledby="pod-h1">
-        <div className="u-hero-inner">
-          <div className="u-hero-copy">
-            <p className="u-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
-            <h1 id="pod-h1" className="u-h1" data-textreveal>
-              <Trans t={t} i18nKey="hero.title" components={{ em: <span className="u-h1-accent" /> }} />
-            </h1>
-            <p className="u-hero-sub" data-reveal>{t('hero.sub')}</p>
-            <div className="u-hero-ctas" data-reveal>
+      {(() => {
+        const [l1, l2] = splitTitle(t('hero.title'))
+        return (
+          <PageHero id="pod-h1" eyebrow={t('hero.eyebrow')} line1={l1} line2={l2} subline={t('hero.sub')} minVh={62}>
+            <div className="ph-stat" aria-label={t('hero.statAria')}>
+              <span className="ph-stat-num" aria-hidden="true">{t('hero.statNum')}</span>
+              <span className="ph-stat-label">{t('hero.statUnit')}</span>
+              <span className="ph-stat-foot">{t('hero.statFoot')}</span>
+            </div>
+            <div className="ph-ctas" style={{ marginTop: 'clamp(24px, 4vh, 36px)' }}>
               <a href="#build" className="u-btn u-btn--gold">
                 {t('hero.cta')}
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="m6 13 6 6 6-6" /></svg>
               </a>
             </div>
-          </div>
-          <div className="u-hero-stat" aria-label={t('hero.statAria')}>
-            <span className="u-stat-num" aria-hidden="true">{t('hero.statNum')}</span>
-            <span className="u-stat-unit">{t('hero.statUnit')}</span>
-            <span className="u-stat-foot">{t('hero.statFoot')}</span>
-          </div>
-        </div>
-      </section>
+          </PageHero>
+        )
+      })()}
 
       {/* 2 · BUILD YOUR BOOK */}
       <section className="pod-build" id="build" data-theme="light" aria-labelledby="pod-build-title">
