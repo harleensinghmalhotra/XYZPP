@@ -3733,7 +3733,7 @@ body {
 .ctc-tile {
   display: flex; flex-direction: column;
   min-height: 214px; padding: 26px 22px 26px;
-  border-radius: 0; background: #ffffff;
+  border-radius: var(--r-card); background: #ffffff;
   border: 1px solid rgb(var(--navy-rgb) / 0.08);
   box-shadow: 0 2px 16px rgb(var(--navy-rgb) / 0.05);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -3758,7 +3758,7 @@ body {
   font-family: 'Inter', sans-serif; font-size: 13.5px; line-height: 1.45; color: #4a4436;
 }
 /* olive WhatsApp tile — cream text on darker olive (≥5.6:1) */
-.ctc-tile-olive { background: #5c6b1e; border-color: transparent; }
+.ctc-tile-olive { background: var(--olive-deep); border-color: transparent; }
 .ctc-tile-olive .ctc-tile-icon svg .ctc-draw { stroke: #fdfaf4; }
 .ctc-tile-olive .ctc-tile-kicker { color: #f0f2df; }
 .ctc-tile-olive .ctc-tile-line { color: #fdfaf4; }
@@ -3794,7 +3794,7 @@ body {
 }
 .ctc-addr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .ctc-addr-card {
-  padding: 32px 30px 30px; border-radius: 0;
+  padding: 32px 30px 30px; border-radius: var(--r-card);
   background: linear-gradient(180deg, #163156, #12294c);
   border: 1px solid rgb(var(--gold-2-rgb) / 0.16);
 }
@@ -3842,7 +3842,7 @@ body {
   font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; color: #4a4436;
 }
 .ctc-form {
-  padding: 36px 34px 34px; border-radius: 0; background: #fdfaf4;
+  padding: 36px 34px 34px; border-radius: var(--r-card); background: #fdfaf4;
   border: 1px solid rgb(var(--navy-rgb) / 0.08); box-shadow: 0 10px 40px rgb(var(--navy-rgb) / 0.07);
 }
 .ctc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
@@ -3854,7 +3854,7 @@ body {
 }
 .ctc-req { color: var(--gold); }
 .ctc-field input, .ctc-field select, .ctc-field textarea {
-  width: 100%; padding: 13px 15px; border-radius: 0;
+  width: 100%; padding: 13px 15px; border-radius: var(--r-chip);
   background: #fffdf9; border: 1px solid rgb(var(--navy-rgb) / 0.18);
   font-family: 'Inter', sans-serif; font-size: 15px; color: #1c2019;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -3878,7 +3878,7 @@ body {
 /* consent — checkbox unticked by default (React initial state), on-palette accent */
 .ctc-consent {
   display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start;
-  margin: 22px 0 6px; padding: 16px 18px; border-radius: 0;
+  margin: 22px 0 6px; padding: 16px 18px; border-radius: var(--r-chip);
   background: rgb(var(--navy-rgb) / 0.03); border: 1px solid rgb(var(--navy-rgb) / 0.1);
 }
 .ctc-consent.has-err { border-color: #5e4610; background: rgba(94, 70, 16, 0.05); }
@@ -3894,7 +3894,7 @@ body {
 .ctc-submit {
   display: inline-flex; align-items: center; gap: 10px; margin-top: 22px;
   height: 56px; padding: 0 30px; border: none; cursor: pointer;
-  border-radius: 0; background: var(--gold-2); color: var(--navy);
+  border-radius: var(--r-btn); background: var(--gold-2); color: var(--navy);
   font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.01em;
   transition: background 0.25s ease, transform 0.25s ease;
 }
@@ -3906,12 +3906,12 @@ body {
 .ctc-dpa a { color: #9d6f14; text-decoration: underline; text-underline-offset: 2px; }
 /* success state */
 .ctc-success {
-  padding: 44px 40px; border-radius: 0; background: #fdfaf4; text-align: center;
+  padding: 44px 40px; border-radius: var(--r-card); background: #fdfaf4; text-align: center;
   border: 1px solid rgb(var(--gold-rgb) / 0.28); box-shadow: 0 10px 40px rgb(var(--navy-rgb) / 0.07);
 }
 .ctc-success-mark {
   display: inline-grid; place-items: center; width: 62px; height: 62px; margin-bottom: 22px;
-  border-radius: 0; background: rgba(107, 122, 42, 0.12); color: #4f5c17;
+  border-radius: var(--r-round); background: rgba(107, 122, 42, 0.12); color: #4f5c17;
 }
 .ctc-success-title {
   margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700;
@@ -3923,7 +3923,7 @@ body {
 }
 .ctc-btn {
   display: inline-flex; align-items: center; height: 52px; padding: 0 28px;
-  border-radius: 0; background: var(--navy); color: #fdfaf4;
+  border-radius: var(--r-btn); background: var(--navy); color: #fdfaf4;
   font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px;
   transition: background 0.25s ease, transform 0.25s ease;
 }
