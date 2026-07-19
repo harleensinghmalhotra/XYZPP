@@ -1,5 +1,23 @@
 {
-  "eyebrow": "Newsroom",
+  "eyebrow": "Quarterfold Printabilities",
   "title": "Newsroom",
-  "coming": "Coming soon"
+  "sub": "News, awards and announcements from Quarterfold Printabilities.",
+  "readArticle": "Read article",
+  "related": "Related news",
+  "back": "Back to Newsroom",
+  "backShort": "All news",
+  "pageOf": "Page {{current}} of {{total}}",
+  "prev": "Previous",
+  "next": "Next",
+  "empty": "No articles yet.",
+  "categories": {
+    "Awards": "Awards",
+    "Press": "Press",
+    "Announcements": "Announcements"
+  },
+  "seo": {
+    "indexTitle": "Newsroom — Quarterfold Printabilities",
+    "indexDesc": "News, awards and announcements from Quarterfold Printabilities — milestones, certifications and industry recognition.",
+    "articleSuffix": "Newsroom · Quarterfold Printabilities"
+  }
 }

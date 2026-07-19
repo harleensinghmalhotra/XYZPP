@@ -1,0 +1,127 @@
+/* ── /newsroom — editorial card index ────────────────────────────────────────
+   Flat-navy canvas continuing straight out of the PageHero band. Two-up card
+   grid, generous gaps, hairline borders that warm to gold on hover with a small
+   lift. DM Mono meta, Inter Tight headlines, Inter body — the site's System-B
+   type voice. Motion is transform/opacity only and gated behind (hover:hover);
+   reduced-motion drops every transition. Entrance cascade rides the shared
+   [data-reveal] runtime (src/lib/alive.js). */
+
+.nr-index {
+  background: var(--navy);
+  padding: clamp(52px, 8vh, 92px) var(--page-gutter) clamp(88px, 12vh, 132px);
+}
+.nr-index-inner { max-width: 1120px; margin: 0 auto; }
+
+.nr-empty {
+  text-align: center;
+  font-family: 'DM Mono', monospace; font-size: 13px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(253, 250, 244, 0.55);
+}
+
+.nr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 3.2vw, 44px);
+}
+
+/* ── Card ── */
+.nr-card { min-width: 0; }
+
+.nr-card-link {
+  display: flex; flex-direction: column; height: 100%;
+  text-decoration: none; color: inherit;
+  background: rgba(255, 255, 255, 0.018);
+  border: 1px solid rgba(253, 250, 244, 0.12);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  transition:
+    transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.42s ease,
+    box-shadow 0.42s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nr-card-link:hover {
+    transform: translateY(-4px);
+    border-color: rgb(var(--gold-2-rgb) / 0.42);
+    box-shadow: 0 20px 44px -26px rgba(0, 0, 0, 0.72);
+  }
+}
+.nr-card-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.nr-card-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #0a1530;
+}
+.nr-card-media img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .nr-card-link:hover .nr-card-media img { transform: scale(1.045); }
+}
+
+.nr-chip {
+  position: absolute; top: 14px; right: 14px;
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold-2);
+  background: rgb(var(--navy-rgb) / 0.82);
+  border: 1px solid rgb(var(--gold-2-rgb) / 0.5);
+  border-radius: 999px; padding: 6px 12px;
+  backdrop-filter: blur(4px);
+}
+
+.nr-card-body {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 13px;
+  padding: clamp(24px, 2.4vw, 32px);
+}
+.nr-date {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(253, 250, 244, 0.55);
+}
+.nr-card-title {
+  margin: 0;
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(20px, 1.5vw, 22px); line-height: 1.18; letter-spacing: -0.01em;
+  color: var(--gold-2);
+  transition: color 0.3s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nr-card-link:hover .nr-card-title { color: var(--cream); }
+}
+.nr-card-excerpt {
+  margin: 0;
+  font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.65;
+  color: rgba(253, 250, 244, 0.75);
+}
+.nr-card-more {
+  margin-top: auto; padding-top: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold-2);
+}
+.nr-arrow { transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .nr-card-link:hover .nr-arrow { transform: translateX(4px); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .nr-grid { grid-template-columns: 1fr; gap: 26px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nr-card-link,
+  .nr-card-media img,
+  .nr-card-title,
+  .nr-arrow { transition: none; }
+  .nr-card-link:hover { transform: none; }
+  .nr-card-link:hover .nr-card-media img { transform: none; }
+  .nr-card-link:hover .nr-arrow { transform: none; }
+}

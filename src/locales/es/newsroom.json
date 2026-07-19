@@ -1,5 +1,23 @@
 {
-  "eyebrow": "Sala de prensa",
+  "eyebrow": "Quarterfold Printabilities",
   "title": "Sala de prensa",
-  "coming": "Próximamente"
+  "sub": "Noticias, premios y anuncios de Quarterfold Printabilities.",
+  "readArticle": "Leer artículo",
+  "related": "Noticias relacionadas",
+  "back": "Volver a la sala de prensa",
+  "backShort": "Todas las noticias",
+  "pageOf": "Página {{current}} de {{total}}",
+  "prev": "Anterior",
+  "next": "Siguiente",
+  "empty": "Aún no hay artículos.",
+  "categories": {
+    "Awards": "Premios",
+    "Press": "Prensa",
+    "Announcements": "Anuncios"
+  },
+  "seo": {
+    "indexTitle": "Sala de prensa — Quarterfold Printabilities",
+    "indexDesc": "Noticias, premios y anuncios de Quarterfold Printabilities: hitos, certificaciones y reconocimientos del sector.",
+    "articleSuffix": "Sala de prensa · Quarterfold Printabilities"
+  }
 }

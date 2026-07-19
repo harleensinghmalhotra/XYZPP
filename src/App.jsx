@@ -10,6 +10,7 @@ import GlobalMarkets from '@/pages/GlobalMarkets'
 import PrintOnDemand from '@/pages/PrintOnDemand'
 import InfrastructurePage from '@/pages/InfrastructurePage'
 import Newsroom from '@/pages/Newsroom'
+import NewsroomArticle from '@/pages/NewsroomArticle'
 import CSR from '@/pages/CSR'
 import Fulfilment from '@/pages/Fulfilment'
 import Contact from '@/pages/Contact'
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/print-on-demand" element={<PrintOnDemand />} />
         <Route path="/infrastructure" element={<InfrastructurePage />} />
         <Route path="/newsroom" element={<Newsroom />} />
+        <Route path="/newsroom/:slug" element={<NewsroomArticle />} />
         <Route path="/csr" element={<CSR />} />
         <Route path="/fulfilment" element={<Fulfilment />} />
         <Route path="/contact" element={<Contact />} />

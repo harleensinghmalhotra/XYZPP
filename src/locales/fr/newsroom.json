@@ -1,5 +1,23 @@
 {
-  "eyebrow": "Salle de presse",
-  "title": "Salle de presse",
-  "coming": "Bientôt disponible"
+  "eyebrow": "Quarterfold Printabilities",
+  "title": "Actualités",
+  "sub": "Actualités, distinctions et annonces de Quarterfold Printabilities.",
+  "readArticle": "Lire l’article",
+  "related": "Actualités liées",
+  "back": "Retour aux actualités",
+  "backShort": "Toutes les actualités",
+  "pageOf": "Page {{current}} sur {{total}}",
+  "prev": "Précédent",
+  "next": "Suivant",
+  "empty": "Aucun article pour le moment.",
+  "categories": {
+    "Awards": "Distinctions",
+    "Press": "Presse",
+    "Announcements": "Annonces"
+  },
+  "seo": {
+    "indexTitle": "Actualités — Quarterfold Printabilities",
+    "indexDesc": "Actualités, distinctions et annonces de Quarterfold Printabilities — jalons, certifications et reconnaissances du secteur.",
+    "articleSuffix": "Actualités · Quarterfold Printabilities"
+  }
 }
