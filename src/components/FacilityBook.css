@@ -124,7 +124,8 @@
    box is the hit-area (padding may exceed the text; the text stays inside the zone). */
 .ib-imglabel {
   position: absolute;
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(var(--rot, 0deg));
+  transform-origin: center;
   display: grid;
   place-items: center;
   padding: 11px 0;                   /* vertical hit-area only; width = the zone */

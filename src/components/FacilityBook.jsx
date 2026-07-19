@@ -18,12 +18,15 @@ const USE_IMAGE_STACK = true
 // near straight-on → labels horizontal, single line, uniform size (see CSS). All-%
 // so the zones + centring hold at every container width. Kept within the front face
 // (cream fore-edge is on the right) so nothing bleeds onto the page-block.
+// The top book is seen at a steeper top-cover perspective than the rest, so its
+// label sits higher and follows that cover's up-to-the-right tilt (~-4°); books 2–5
+// read near head-on → horizontal.
 const SPINE_POS = [
-  { top: 10, left: 13, width: 57 },     // Web Machines
-  { top: 26, left: 10.8, width: 59.8 }, // Sheetfed Machines
-  { top: 44, left: 8.6, width: 56.5 },  // Binding and Finishing
-  { top: 62, left: 8, width: 55.9 },    // Warehousing
-  { top: 82, left: 7.3, width: 61 },    // Head Office
+  { top: 6.5, left: 13, width: 57, rot: -4 }, // Web Machines (on the tilted top cover)
+  { top: 26, left: 10.8, width: 59.8, rot: 0 }, // Sheetfed Machines
+  { top: 44, left: 8.6, width: 56.5, rot: 0 },  // Binding and Finishing
+  { top: 62, left: 8, width: 55.9, rot: 0 },    // Warehousing
+  { top: 82, left: 7.3, width: 61, rot: 0 },    // Head Office
 ]
 
 // ── Facility Book — shared component for Infrastructure section & /infrastructure page ──
@@ -422,7 +425,7 @@ export default function FacilityBook() {
                     key={b.id}
                     type="button"
                     className={`ib-imglabel${isActive ? ' is-active' : ''}`}
-                    style={{ top: `${pos.top}%`, left: `${pos.left}%`, width: `${pos.width}%` }}
+                    style={{ top: `${pos.top}%`, left: `${pos.left}%`, width: `${pos.width}%`, '--rot': `${pos.rot}deg` }}
                     onClick={() => openBook(bi)}
                     aria-label={t('books.ui.open', { title: `${titleFull} (${num(bi + 1)} / ${num(BOOKS.length)})` })}
                     aria-current={isActive ? 'page' : undefined}
