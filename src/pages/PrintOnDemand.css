@@ -155,7 +155,11 @@
   top: 50%;
   left: 50%;
 }
-/* front cover — the placeholder art, treated by finish */
+/* front cover — CSS-drawn minimal QFP textbook (geometry/dimensions untouched,
+   only the surface artwork changed): cream base · flat navy title-band upper
+   third · centred gold hairline title/subtitle rules · a small navy edition
+   mark low-right. Flat colours, crisp edges — the QFP mark sits in the band via
+   ::before, the finish sheen/matte spans still overlay it. */
 .pod-front {
   width: var(--bw);
   height: var(--bh);
@@ -163,13 +167,44 @@
   margin-top: calc(var(--bh) / -2);
   transform: translateZ(calc(var(--thick) / 2));
   border-radius: 3px 8px 8px 3px;
-  background-image: url('/qfp/pod/preview-base.webp');
-  background-size: cover;
-  background-position: center;
+  background-color: #fdfaf4;
+  background-image:
+    linear-gradient(#b06f14, #b06f14),   /* title rule (widest) */
+    linear-gradient(#b06f14, #b06f14),   /* subtitle rule */
+    linear-gradient(#b06f14, #b06f14),   /* byline rule (narrowest) */
+    linear-gradient(#0e1b46, #0e1b46),   /* edition mark, low-right */
+    linear-gradient(#0e1b46, #0e1b46);   /* navy title band, upper third */
+  background-repeat: no-repeat;
+  background-size:
+    58% 2px,
+    40% 2px,
+    26% 2px,
+    18% 5.5%,
+    100% 24%;
+  background-position:
+    50% 47%,
+    50% 53%,
+    50% 58.5%,
+    86% 87%,
+    50% 12%;
   box-shadow:
     inset 0 0 0 1px rgba(131, 96, 19, 0.25),
     inset 22px 0 34px -22px rgba(15, 36, 68, 0.5); /* gutter shade near spine */
   overflow: hidden;
+}
+/* the small foil QFP mark, centred in the navy title band */
+.pod-front::before {
+  content: '';
+  position: absolute;
+  top: 21%;
+  left: 50%;
+  width: 17%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: #d7a94b; /* gold on navy */
+  -webkit-mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
+  mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
+  pointer-events: none;
 }
 /* finish sheen — gloss shows a hard specular sweep, lay-flat a soft one */
 .pod-sheen {
@@ -231,7 +266,8 @@
   background:
     repeating-linear-gradient(90deg, var(--edge) 0 1.5px, var(--edge-line) 1.5px 2px);
 }
-/* spine (left) — the binding treatment lives here */
+/* spine (left) — navy with a thin gold stripe + tiny cream tick marks (abstract
+   spine text). Recolour only — the binding treatment still lives here. */
 .pod-spine {
   width: var(--thick);
   height: var(--bh);
@@ -239,14 +275,23 @@
   margin-top: calc(var(--bh) / -2);
   transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2));
   border-radius: 2px 0 0 2px;
-  background: linear-gradient(90deg, #6f5416, #B06F14 45%, #b98a2e 78%, #7a5b18);
-  box-shadow: inset 0 0 0 1px rgba(60, 43, 8, 0.5);
+  background-color: #0e1b46;
+  background-image:
+    linear-gradient(#fdfaf4, #fdfaf4),   /* tick 1 */
+    linear-gradient(#fdfaf4, #fdfaf4),   /* tick 2 */
+    linear-gradient(#fdfaf4, #fdfaf4),   /* tick 3 */
+    linear-gradient(#b06f14, #b06f14);   /* gold stripe near top */
+  background-repeat: no-repeat;
+  background-size: 52% 2px, 52% 2px, 52% 2px, 68% 3px;
+  background-position: 50% 45%, 50% 50%, 50% 55%, 50% 15%;
+  box-shadow: inset 0 0 0 1px rgba(4, 8, 22, 0.55);
 }
 /* perfect binding = clean flat spine (default, above) */
-/* section-sewn = rounded spine + a coloured headband cap top & bottom */
+/* section-sewn = rounded spine + a coloured headband cap top & bottom.
+   Recoloured to on-brand navy (inherits the base stripe/ticks); the headband
+   caps remain the visible sewn signal. */
 .pod-book[data-binding='sewn'] .pod-spine {
   border-radius: 8px 0 0 8px;
-  background: linear-gradient(90deg, #5f4813, #93701f 30%, #c2933a 55%, #8c691c 80%, #5f4813);
 }
 .pod-headband {
   position: absolute;
