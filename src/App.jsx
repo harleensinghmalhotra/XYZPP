@@ -3,6 +3,8 @@ import SiteLayout from '@/components/SiteLayout'
 import Home from '@/pages/Home'
 import ShellPage from '@/pages/ShellPage'
 import OurStory from '@/pages/OurStory'
+import AboutUs2 from '@/pages/AboutUs2'
+import YooAbout from '@/pages/YooAbout'
 import Founder from '@/pages/Founder'
 import GlobalMarkets from '@/pages/GlobalMarkets'
 import PrintOnDemand from '@/pages/PrintOnDemand'
@@ -23,6 +25,7 @@ export default function App() {
         <Route index element={<Home />} />
 
         <Route path="/about" element={<OurStory />} />
+        <Route path="/about-2" element={<AboutUs2 />} />
         <Route path="/founder" element={<Founder />} />
         <Route path="/global-markets" element={<GlobalMarkets />} />
         <Route path="/educational-books" element={<Navigate to="/#wwp-educational" replace />} />
@@ -41,6 +44,7 @@ export default function App() {
 
         <Route path="*" element={<NotFound />} />
       </Route>
+      <Route path="/yoo" element={<YooAbout />} />
     </Routes>
   )
 }

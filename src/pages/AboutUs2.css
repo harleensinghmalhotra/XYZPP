@@ -1,0 +1,185 @@
+/* Fraunces — italic-serif accent face (open-source), used for accent words only. */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap');
+
+/* ── About Us 2 — an editorial, scroll-driven /about-2 ────────────────────────
+   A ground-up rebuild of a high-end studio "about" layout + interactions using
+   Quarterfold's own copy and PLACEHOLDER image slots (drop real photos in later).
+   Patterns: full-bleed photo-slot hero · offset italic-serif statement · scroll-
+   drift image/text columns · team portrait gallery with a "rest of us" reveal ·
+   client logo strip · manifesto band. Palette/tokens from index.css; navy #0e1b46.
+   Motion is transform/opacity only and honours prefers-reduced-motion. */
+
+.a2 {
+  --a2-e: cubic-bezier(0.22, 1, 0.36, 1);
+  --a2-accent: #b04a2c;                       /* warm rust for serif accents */
+  --a2-max: 1632px;
+  --a2-gut: clamp(24px, 5.392vw, 48px);
+  --a2-sec: clamp(96px, 12vh, 140px);
+  color: #0e1b46;
+}
+.a2-wrap { position: relative; z-index: 1; max-width: var(--a2-max); margin: 0 auto; }
+
+/* italic-serif accent word */
+.a2-accent {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic; font-weight: 400;
+  font-variation-settings: 'SOFT' 0, 'WONK' 1;
+  letter-spacing: -0.01em; color: var(--a2-accent);
+}
+
+/* placeholder image slot — obvious "drop a photo here" box */
+.a2-slot {
+  display: grid; place-items: center;
+  background: var(--cream-2); border: 1px solid rgb(var(--gold-rgb) / 0.16);
+  border-radius: 8px; overflow: hidden;
+}
+.a2-slot span {
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgb(var(--navy-rgb) / 0.34); text-align: center; padding: 12px;
+}
+.a2-slot--dark { background: #14213f; border-color: rgb(var(--gold-rgb) / 0.22); }
+.a2-slot--dark span { color: rgba(253, 250, 244, 0.4); }
+
+/* ── HERO — full-bleed photo slot + navy overlay + giant word ──────────────── */
+.a2-hero {
+  position: relative; height: 100svh; min-height: 720px;
+  background: #0e1b46; overflow: hidden;
+}
+.a2-hero-media { position: absolute; inset: 0; border: 0; border-radius: 0; }
+.a2-hero-media.a2-slot { background: #0c1738; }
+.a2-hero::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgb(14 27 70 / 0.5), rgb(14 27 70 / 0.72));
+}
+.a2-hero-inner {
+  position: absolute; z-index: 2; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(100% - 96px, 1632px); text-align: center;
+}
+.a2-eyebrow {
+  margin: 0 0 clamp(20px, 3.2vh, 34px);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-2);
+}
+.a2-hero-word {
+  margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: 112px; line-height: 0.82; letter-spacing: -0.05em;
+  text-transform: uppercase; color: var(--cream); text-wrap: balance;
+}
+.a2-scroll {
+  position: absolute; z-index: 2; bottom: 33px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.a2-scroll span {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(253, 250, 244, 0.7);
+}
+.a2-scroll i {
+  position: relative; width: 2px; height: 42px; border-radius: 999px;
+  background: rgb(var(--gold-rgb) / 0.34); overflow: hidden;
+}
+.a2-scroll i::after {
+  content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 12px;
+  border-radius: 999px; background: var(--gold-2);
+  animation: a2-cue 1.7s ease-in-out infinite;
+}
+@keyframes a2-cue {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; } 80% { opacity: 1; }
+  100% { transform: translateY(30px); opacity: 0; }
+}
+
+/* ── STATEMENT — offset two-column, big light heading + italic accent ──────── */
+.a2-statement { position: relative; background: var(--cream); padding: var(--a2-sec) var(--a2-gut); overflow: hidden; }
+.a2-statement-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(40px, 5vw, 112px); align-items: end; }
+.a2-h1 {
+  margin: 0; max-width: 16ch; font-family: 'Inter Tight', sans-serif; font-weight: 400;
+  font-size: clamp(40px, 4.6vw, 88px); line-height: 1.08; letter-spacing: -0.07em; color: #0e1b46;
+}
+.a2-side { max-width: 460px; }
+.a2-rule { width: 100%; height: 1px; border: 0; background: rgb(var(--gold-rgb) / 0.34); margin: 0 0 clamp(24px, 4vh, 36px); }
+.a2-lede {
+  margin: 0; font-family: 'Inter', sans-serif; font-size: 20px; line-height: 1.55;
+  letter-spacing: -0.02em; color: rgb(var(--navy-rgb) / 0.78);
+}
+
+/* ── STORY — scroll-drift image/text columns ──────────────────────────────── */
+.a2-story { position: relative; background: var(--cream); padding: var(--a2-sec) var(--a2-gut); overflow: hidden; }
+.a2-story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 120px); align-items: center; }
+.a2-story-copy { max-width: 560px; }
+.a2-eyebrow--warm { margin: 0 0 22px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-text); }
+.a2-story-h {
+  margin: 0 0 clamp(24px, 3vh, 36px); font-family: 'Inter Tight', sans-serif; font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 52px); line-height: 1.12; letter-spacing: -0.05em; color: #0e1b46;
+}
+.a2-story-p { margin: 0 0 18px; font-family: 'Inter', sans-serif; font-size: 18px; line-height: 1.6; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.74); }
+.a2-story-media { display: grid; gap: clamp(18px, 2vw, 28px); }
+.a2-story-media .a2-slot { aspect-ratio: 4 / 5; }
+.a2-story-media .a2-slot:nth-child(2) { aspect-ratio: 3 / 2; margin-top: clamp(12px, 4vh, 40px); }
+.a2-drift { will-change: transform; }
+
+/* ── MANIFESTO — navy band, curves ────────────────────────────────────────── */
+.a2-mvv { position: relative; background: #0e1b46; padding: var(--a2-sec) var(--a2-gut); }
+.a2-mvv-inner { position: relative; z-index: 1; max-width: 1078px; margin: 0 auto; }
+.a2-beat { padding: clamp(48px, 7vh, 76px) 0; }
+.a2-beat + .a2-beat { border-top: 1px solid rgb(var(--gold-rgb) / 0.25); }
+.a2-beat-label { margin: 0 0 clamp(18px, 2.6vh, 26px); font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-2); }
+.a2-beat-text { margin: 0; max-width: 26ch; font-family: 'Inter Tight', sans-serif; font-weight: 400; font-size: clamp(26px, 3vw, 40px); line-height: 1.16; letter-spacing: -0.05em; color: var(--cream); }
+
+/* ── TEAM — gallery grid + "rest of us" reveal ────────────────────────────── */
+.a2-team { position: relative; background: var(--cream); padding: var(--a2-sec) var(--a2-gut); overflow: hidden; }
+.a2-team-head { max-width: 900px; margin: 0 0 clamp(48px, 7vh, 88px); }
+.a2-team-title { margin: 0 0 18px; font-family: 'Inter Tight', sans-serif; font-weight: 400; font-size: clamp(56px, 8vw, 108px); line-height: 0.98; letter-spacing: -0.05em; color: #0e1b46; }
+.a2-team-sub { margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 400; font-size: clamp(22px, 2.4vw, 34px); line-height: 1.2; letter-spacing: -0.03em; color: rgb(var(--navy-rgb) / 0.82); }
+.a2-team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2vw, 32px); }
+.a2-card { position: relative; }
+.a2-card .a2-slot { aspect-ratio: 528 / 704; transition: border-radius 260ms var(--a2-e); }
+.a2-card:hover .a2-slot { border-radius: 8px 8px 8px 48px; }
+.a2-card-name { margin: 16px 0 6px; font-family: 'Inter Tight', sans-serif; font-weight: 400; font-size: 20px; letter-spacing: -0.05em; text-transform: uppercase; color: var(--ink); }
+.a2-card-role { margin: 0; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-text); }
+/* the collapsible "rest of us" rows */
+.a2-team-more { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2vw, 32px); margin-top: clamp(18px, 2vw, 32px); }
+.a2-team-more[hidden] { display: none; }
+.a2-reveal-wrap { display: flex; justify-content: center; margin-top: clamp(40px, 6vh, 72px); }
+.a2-reveal {
+  display: inline-flex; align-items: center; gap: 12px; cursor: pointer;
+  padding: 14px 28px; border-radius: 999px; border: 0; background: #0e1b46; color: var(--cream);
+  font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+  transition: background 220ms var(--a2-e), transform 220ms var(--a2-e);
+}
+.a2-reveal:hover { transform: translateY(-2px); }
+.a2-reveal i { font-style: normal; transition: transform 300ms var(--a2-e); }
+.a2-reveal[aria-expanded="true"] i { transform: rotate(180deg); }
+
+/* ── CLIENTS — logo strip (slots) ─────────────────────────────────────────── */
+.a2-clients { position: relative; background: var(--cream); padding: var(--a2-sec) var(--a2-gut) calc(var(--a2-sec) + 20px); overflow: hidden; }
+.a2-clients-head { margin: 0 0 clamp(40px, 6vh, 72px); }
+.a2-clients-title { margin: 0 0 14px; font-family: 'Inter Tight', sans-serif; font-weight: 400; font-size: clamp(44px, 6vw, 88px); line-height: 1; letter-spacing: -0.05em; color: #0e1b46; }
+.a2-clients-sub { margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 400; font-size: clamp(20px, 2.2vw, 30px); letter-spacing: -0.03em; color: rgb(var(--navy-rgb) / 0.7); }
+.a2-logos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgb(var(--navy-rgb) / 0.1); border: 1px solid rgb(var(--navy-rgb) / 0.1); border-radius: 8px; overflow: hidden; }
+.a2-logo { aspect-ratio: 2 / 1; display: grid; place-items: center; background: var(--cream); }
+.a2-logo span { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(var(--navy-rgb) / 0.3); }
+
+/* ── responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .a2-hero { min-height: 640px; }
+  .a2-hero-word { font-size: 56px; }
+  .a2-scroll { bottom: 24px; }
+  .a2-statement-grid { grid-template-columns: 1fr; gap: clamp(28px, 7vw, 44px); align-items: start; }
+  .a2-side { max-width: 640px; }
+  .a2-story-grid { grid-template-columns: 1fr; gap: clamp(32px, 8vw, 48px); }
+  .a2-story-media { order: -1; }
+  .a2-team-grid, .a2-team-more { grid-template-columns: repeat(2, 1fr); }
+  .a2-logos { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .a2-team-grid, .a2-team-more { grid-template-columns: 1fr; }
+}
+
+/* ── reduced motion — no cue travel, no drift, no hover morph ──────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .a2-scroll i::after { animation: none; opacity: 0; }
+  .a2-drift { transform: none !important; }
+  .a2-card .a2-slot, .a2-reveal, .a2-reveal i { transition: none; }
+}
