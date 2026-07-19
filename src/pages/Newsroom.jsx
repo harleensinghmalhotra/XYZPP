@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Seo from '@/components/Seo'
 import PageHero from '@/components/PageHero'
+import { PaperGrain } from '@/components/atmosphere'
 import { newsroomPosts, formatPostDate } from '@/data/newsroomPosts'
 import './Newsroom.css'
 
@@ -65,7 +66,8 @@ export default function Newsroom() {
         minVh={52}
       />
 
-      <section className="nr-index" data-theme="dark" aria-label={t('title')}>
+      <section className="nr-index" data-theme="light" aria-label={t('title')}>
+        <PaperGrain />
         <div className="nr-index-inner">
           {newsroomPosts.length === 0 ? (
             <p className="nr-empty">{t('empty')}</p>

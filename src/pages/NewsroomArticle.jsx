@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Seo from '@/components/Seo'
+import { PaperGrain } from '@/components/atmosphere'
 import { getPostBySlug, getRelatedPosts, formatPostDate } from '@/data/newsroomPosts'
 import './NewsroomArticle.css'
 
@@ -116,9 +117,9 @@ export default function NewsroomArticle() {
         jsonLd={jsonLd}
       />
 
-      <article className="nra" data-theme="dark">
-        {/* Masthead */}
-        <header className="nra-head">
+      <article className="nra">
+        {/* Masthead — the one navy band (site law) */}
+        <header className="nra-head" data-theme="dark">
           <div className="nra-head-inner">
             <div className="nra-meta">
               {post.category && (
@@ -129,6 +130,10 @@ export default function NewsroomArticle() {
             <h1 className="nra-title" data-textreveal>{post.title}</h1>
           </div>
         </header>
+
+        {/* Everything below the band runs on cream (site law) */}
+        <div className="nra-light">
+        <PaperGrain />
 
         {/* Hero */}
         <div className="nra-hero" data-reveal>
@@ -164,6 +169,7 @@ export default function NewsroomArticle() {
             </Link>
           </div>
         </footer>
+        </div>
       </article>
     </main>
   )

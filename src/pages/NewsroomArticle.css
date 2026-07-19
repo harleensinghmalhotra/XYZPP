@@ -5,12 +5,19 @@
    and disabled under reduced-motion. Headline rises word-by-word via the shared
    [data-textreveal] runtime; body blocks fade up via [data-reveal]. */
 
-.nra { background: var(--navy); }
+.nra { background: var(--cream); }
 
-/* ── Masthead ── */
+/* ── Masthead — the one navy band ── */
 .nra-head {
-  padding: clamp(120px, 15vh, 172px) var(--page-gutter) clamp(24px, 4vh, 40px);
+  background: var(--navy);
+  padding: clamp(120px, 15vh, 172px) var(--page-gutter) clamp(40px, 6vh, 64px);
 }
+
+/* ── Everything below the band on cream + PaperGrain ── */
+.nra-light { position: relative; overflow: hidden; background: var(--cream); }
+.nra-light > .nra-hero,
+.nra-light > .nra-body,
+.nra-light > .nra-foot { position: relative; z-index: 1; }
 .nra-head-inner { max-width: 760px; margin: 0 auto; }
 
 .nra-meta {
@@ -42,7 +49,8 @@
 .nra-hero-inner {
   max-width: 1040px; margin: 0 auto;
   aspect-ratio: 16 / 9; overflow: hidden;
-  border-radius: var(--r-media); background: #0a1530;
+  border-radius: var(--r-media); background: var(--cream-2);
+  box-shadow: var(--elev-1);
 }
 .nra-hero-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -54,7 +62,7 @@
 .nra-p {
   margin: 0 0 1.4em;
   font-family: 'Inter', sans-serif; font-size: clamp(17px, 1.15vw, 18px);
-  line-height: 1.75; color: rgba(253, 250, 244, 0.9);
+  line-height: 1.75; color: rgb(28 32 25 / 0.9);
 }
 .nra-p:last-child { margin-bottom: 0; }
 
@@ -65,13 +73,14 @@
 .nra-figure video {
   width: 100%; display: block;
   border-radius: var(--r-media);
-  background: #0a1530;
+  background: var(--cream-2);
+  box-shadow: var(--elev-1);
 }
 .nra-figure--video video { aspect-ratio: 16 / 9; object-fit: cover; }
 .nra-caption {
   margin: 12px 0 0;
   font-family: 'DM Mono', monospace; font-size: 12px; line-height: 1.55;
-  letter-spacing: 0.03em; color: rgba(253, 250, 244, 0.52);
+  letter-spacing: 0.03em; color: var(--gold-text);
 }
 
 /* ── Footer: hairline · related · back ── */
@@ -81,14 +90,14 @@
 .nra-foot-inner { max-width: 1040px; margin: 0 auto; }
 .nra-rule {
   border: none; height: 1px;
-  background: rgb(var(--gold-2-rgb) / 0.38);
+  background: rgb(var(--gold-rgb) / 0.45);
   margin: 0 0 clamp(40px, 6vh, 64px);
 }
 .nra-rel-h2 {
   margin: 0 0 clamp(24px, 3.4vh, 36px);
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
   font-size: clamp(20px, 2vw, 26px); letter-spacing: 0.01em;
-  color: var(--cream);
+  color: var(--navy);
 }
 
 .nra-rel-grid {
@@ -100,22 +109,23 @@
 .nra-rel-link {
   display: flex; flex-direction: column; height: 100%;
   text-decoration: none; color: inherit;
-  background: rgba(255, 255, 255, 0.018);
-  border: 1px solid rgba(253, 250, 244, 0.12);
+  background: var(--cream);
+  border: 1px solid rgb(var(--navy-rgb) / 0.1);
   border-radius: var(--r-card); overflow: hidden;
+  box-shadow: var(--elev-1);
   transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
     border-color 0.42s ease, box-shadow 0.42s ease;
 }
 @media (hover: hover) and (pointer: fine) {
   .nra-rel-link:hover {
     transform: translateY(-4px);
-    border-color: rgb(var(--gold-2-rgb) / 0.42);
-    box-shadow: 0 18px 40px -26px rgba(0, 0, 0, 0.72);
+    border-color: rgb(var(--gold-rgb) / 0.5);
+    box-shadow: var(--elev-2);
   }
 }
 .nra-rel-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-.nra-rel-media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #0a1530; }
+.nra-rel-media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--cream-2); }
 .nra-rel-media img {
   width: 100%; height: 100%; object-fit: cover; display: block;
   transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -123,21 +133,27 @@
 @media (hover: hover) and (pointer: fine) {
   .nra-rel-link:hover .nra-rel-media img { transform: scale(1.045); }
 }
-.nra-chip--sm { position: absolute; top: 12px; right: 12px; font-size: 10px; padding: 5px 10px; }
+.nra-chip--sm {
+  position: absolute; top: 12px; right: 12px; font-size: 10px; padding: 5px 10px;
+  color: var(--cream-3);
+  background: rgb(var(--navy-rgb) / 0.86);
+  border-color: rgb(245 240 232 / 0.32);
+  backdrop-filter: blur(4px);
+}
 
 .nra-rel-body { padding: clamp(18px, 1.6vw, 22px); display: flex; flex-direction: column; gap: 10px; }
 .nra-rel-date {
   font-family: 'DM Mono', monospace; font-size: 11px;
-  letter-spacing: 0.22em; text-transform: uppercase; color: rgba(253, 250, 244, 0.55);
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-text);
 }
 .nra-rel-title {
   margin: 0;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
   font-size: clamp(16px, 1.2vw, 18px); line-height: 1.22; letter-spacing: -0.005em;
-  color: var(--gold-2); transition: color 0.3s ease;
+  color: var(--ink); transition: color 0.3s ease;
 }
 @media (hover: hover) and (pointer: fine) {
-  .nra-rel-link:hover .nra-rel-title { color: var(--cream); }
+  .nra-rel-link:hover .nra-rel-title { color: var(--gold-text); }
 }
 
 /* ── Back link ── */
@@ -145,12 +161,12 @@
   display: inline-flex; align-items: center; gap: 10px;
   font-family: 'DM Mono', monospace; font-size: 12px;
   letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--gold-2); text-decoration: none;
+  color: var(--gold-text); text-decoration: none;
   transition: color 0.3s ease;
 }
 .nra-backarrow { transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1); }
 @media (hover: hover) and (pointer: fine) {
-  .nra-back:hover { color: var(--cream); }
+  .nra-back:hover { color: var(--navy); }
   .nra-back:hover .nra-backarrow { transform: translateX(-4px); }
 }
 .nra-back:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }

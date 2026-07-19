@@ -1,22 +1,24 @@
 /* ── /newsroom — editorial card index ────────────────────────────────────────
-   Flat-navy canvas continuing straight out of the PageHero band. Two-up card
-   grid, generous gaps, hairline borders that warm to gold on hover with a small
-   lift. DM Mono meta, Inter Tight headlines, Inter body — the site's System-B
-   type voice. Motion is transform/opacity only and gated behind (hover:hover);
-   reduced-motion drops every transition. Entrance cascade rides the shared
-   [data-reveal] runtime (src/lib/alive.js). */
+   Site law: navy is the PageHero band ONLY; the body runs on cream #FDFAF4 with
+   the PaperGrain print texture, matching the About page's rhythm. Two-up card
+   grid on the light ground — cream card surface, hairline navy border, soft
+   elevation, ink headlines that warm to gold on hover with a small lift. DM Mono
+   meta in gold, Inter Tight headlines, Inter body. Motion is transform/opacity
+   only and gated behind (hover:hover); reduced-motion drops every transition.
+   Entrance cascade rides the shared [data-reveal] runtime (src/lib/alive.js). */
 
 .nr-index {
-  background: var(--navy);
+  position: relative; overflow: hidden;
+  background: var(--cream);
   padding: clamp(52px, 8vh, 92px) var(--page-gutter) clamp(88px, 12vh, 132px);
 }
-.nr-index-inner { max-width: 1120px; margin: 0 auto; }
+.nr-index-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; }
 
 .nr-empty {
   text-align: center;
   font-family: 'DM Mono', monospace; font-size: 13px;
   letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(253, 250, 244, 0.55);
+  color: var(--gold-text);
 }
 
 .nr-grid {
@@ -31,9 +33,10 @@
 .nr-card-link {
   display: flex; flex-direction: column; height: 100%;
   text-decoration: none; color: inherit;
-  background: rgba(255, 255, 255, 0.018);
-  border: 1px solid rgba(253, 250, 244, 0.12);
+  background: var(--cream);
+  border: 1px solid rgb(var(--navy-rgb) / 0.1);
   border-radius: var(--r-card);
+  box-shadow: var(--elev-1);
   overflow: hidden;
   transition:
     transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1),
@@ -43,8 +46,8 @@
 @media (hover: hover) and (pointer: fine) {
   .nr-card-link:hover {
     transform: translateY(-4px);
-    border-color: rgb(var(--gold-2-rgb) / 0.42);
-    box-shadow: 0 20px 44px -26px rgba(0, 0, 0, 0.72);
+    border-color: rgb(var(--gold-rgb) / 0.5);
+    box-shadow: var(--elev-2);
   }
 }
 .nr-card-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
@@ -53,7 +56,7 @@
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #0a1530;
+  background: var(--cream-2);
 }
 .nr-card-media img {
   width: 100%; height: 100%; object-fit: cover; display: block;
@@ -67,9 +70,9 @@
   position: absolute; top: 14px; right: 14px;
   font-family: 'DM Mono', monospace; font-size: 11px;
   letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--gold-2);
-  background: rgb(var(--navy-rgb) / 0.82);
-  border: 1px solid rgb(var(--gold-2-rgb) / 0.5);
+  color: var(--cream-3);
+  background: rgb(var(--navy-rgb) / 0.86);
+  border: 1px solid rgb(245 240 232 / 0.32);
   border-radius: 999px; padding: 6px 12px;
   backdrop-filter: blur(4px);
 }
@@ -82,29 +85,29 @@
 .nr-date {
   font-family: 'DM Mono', monospace; font-size: 11px;
   letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(253, 250, 244, 0.55);
+  color: var(--gold-text);
 }
 .nr-card-title {
   margin: 0;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
   font-size: clamp(20px, 1.5vw, 22px); line-height: 1.18; letter-spacing: -0.01em;
-  color: var(--gold-2);
+  color: var(--ink);
   transition: color 0.3s ease;
 }
 @media (hover: hover) and (pointer: fine) {
-  .nr-card-link:hover .nr-card-title { color: var(--cream); }
+  .nr-card-link:hover .nr-card-title { color: var(--gold-text); }
 }
 .nr-card-excerpt {
   margin: 0;
   font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.65;
-  color: rgba(253, 250, 244, 0.75);
+  color: rgb(28 32 25 / 0.72);
 }
 .nr-card-more {
   margin-top: auto; padding-top: 8px;
   display: inline-flex; align-items: center; gap: 8px;
   font-family: 'DM Mono', monospace; font-size: 12px;
   letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--gold-2);
+  color: var(--gold-text);
 }
 .nr-arrow { transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1); }
 @media (hover: hover) and (pointer: fine) {
