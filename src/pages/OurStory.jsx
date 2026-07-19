@@ -6,15 +6,13 @@ import { PaperGrain } from '@/components/atmosphere'
 import './OurStory.css'
 
 // ── /about — "Our Story", signature sections pass ────────────────────────────
-// Hero band → THE PRESS RUN (horizontal scroll-pinned timeline) → INK SPREADS
+// Hero band → THE JOURNEY (Union-Properties three-zone timeline) → INK SPREADS
 // (MVV, three navy panels with a drawing thread) → THE FOUNDER (editorial spread
 // + scroll ink-in quote) → THE TEAM (homepage-scale shells).
 //
-// Scroll driver: a hand-rolled rAF + passive-scroll loop (no library) writes
-// transforms straight to the DOM via refs — React never re-renders per frame, so
-// the pin glides. Content reveals ride IntersectionObserver; both fully degrade
-// under prefers-reduced-motion (everything static + visible) and below 900px
-// (the press run unpins to a vertical stack). transform/opacity only throughout.
+// The timeline is state-driven (year rail / media / content+arrows); era swaps
+// animate transform+opacity only and degrade to instant under reduced-motion.
+// MVV/founder/team keep their hand-rolled rAF + IntersectionObserver mechanics.
 // Every user-facing string resolves from ourStory.json verbatim.
 
 function useReducedMotion() {
@@ -64,8 +62,8 @@ export default function OurStory() {
         </div>
       </section>
 
-      {/* SECTION 2 ── THE PRESS RUN — horizontal scroll-pinned timeline ───────── */}
-      <PressRun stops={timelineStops} />
+      {/* SECTION 2 ── THE JOURNEY — Union-Properties three-zone timeline ──────── */}
+      <Timeline stops={timelineStops} />
 
       {/* SECTION 3 ── INK SPREADS — MVV, three navy panels + drawing thread ───── */}
       <InkSpreads />
@@ -79,160 +77,100 @@ export default function OurStory() {
   )
 }
 
-// ── THE PRESS RUN ─────────────────────────────────────────────────────────────
-// The section is a tall scroll container; a sticky viewport pins while the inner
-// rail translateX-es the five eras through, like a sheet feeding through a press.
-function PressRun({ stops }) {
+// ── THE JOURNEY — Union-Properties three-zone timeline ────────────────────────
+// LEFT year rail (vertical, dotted connector) · CENTER media card · RIGHT big
+// year + title + body + prev/next arrows. Year click / arrows / keyboard ← →
+// switch eras; the swap plays a transform+opacity out→in (instant under reduced-
+// motion). Below 900px the rail becomes a horizontal scrollable strip on top.
+function Timeline({ stops }) {
   const { t } = useTranslation('ourStory')
   const reduced = useReducedMotion()
   const n = stops.length
-
+  const [active, setActive] = useState(0)   // selected era (rail highlight is immediate)
+  const [shown, setShown] = useState(0)     // era currently rendered in media/content
+  const [phase, setPhase] = useState('in')  // 'in' | 'out'
   const sectionRef = useRef(null)
-  const trackRef = useRef(null)
-  const stickyRef = useRef(null)
-  const railRef = useRef(null)
-  const fillRef = useRef(null)
-  const [active, setActive] = useState(0)
-  const activeRef = useRef(0)
+  const timer = useRef(0)
 
-  const isStatic = () =>
-    reduced || (typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches)
-
-  // Horizontal transform driven by scroll — rAF + passive, written straight to DOM.
-  useEffect(() => {
-    const track = trackRef.current
-    const rail = railRef.current
-    const sticky = stickyRef.current
-    const fill = fillRef.current
-    const section = sectionRef.current
-    if (!track || !rail) return
-
-    // Content reveals: IO tracks each slide through the (transformed) viewport.
-    const slides = Array.from(section.querySelectorAll('.pr-slide-inner'))
-    if (reduced) {
-      slides.forEach((s) => s.classList.add('is-live'))
-      rail.style.transform = ''
-      if (fill) fill.style.transform = 'scaleX(1)'
-      return
-    }
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('is-live'); io.unobserve(e.target) }
-      }),
-      { threshold: 0.55 },
-    )
-    slides.forEach((s) => io.observe(s))
-
-    let raf = 0
-    const update = () => {
-      raf = 0
-      if (isStatic()) {
-        rail.style.transform = ''
-        if (fill) fill.style.transform = 'scaleX(1)'
-        return
-      }
-      const vh = window.innerHeight
-      const scrollable = track.offsetHeight - vh
-      const passed = clamp(-track.getBoundingClientRect().top, 0, Math.max(scrollable, 1))
-      const p = scrollable > 0 ? passed / scrollable : 0
-      const maxX = Math.max(rail.scrollWidth - (sticky?.clientWidth || window.innerWidth), 0)
-      rail.style.transform = `translate3d(${-(p * maxX).toFixed(2)}px,0,0)`
-      if (fill) fill.style.transform = `scaleX(${p.toFixed(4)})`
-      const idx = clamp(Math.round(p * (n - 1)), 0, n - 1)
-      if (idx !== activeRef.current) { activeRef.current = idx; setActive(idx) }
-    }
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
-    update()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      io.disconnect()
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-      if (raf) cancelAnimationFrame(raf)
-    }
-  }, [reduced, n])
-
-  // Jump-scroll to an era (progress-rule label click, keyboard ← →).
-  const jumpTo = (i) => {
-    const track = trackRef.current
-    if (!track) return
-    if (isStatic()) {
-      document.getElementById(`pr-slide-${i}`)?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' })
-      return
-    }
-    const scrollable = track.offsetHeight - window.innerHeight
-    const top = track.offsetTop + (n > 1 ? i / (n - 1) : 0) * scrollable
-    window.scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' })
+  const go = (next) => {
+    const idx = clamp(next, 0, n - 1)
+    if (idx === active) return
+    setActive(idx)
+    if (reduced) { setShown(idx); setPhase('in'); return }
+    setPhase('out')                                   // fade current up + out
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => { setShown(idx); setPhase('in') }, 180)   // then fade new up from below
   }
+  useEffect(() => () => clearTimeout(timer.current), [])
 
   // Keyboard ← → when focus sits inside the section.
   useEffect(() => {
     const onKey = (e) => {
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
-      const section = sectionRef.current
-      if (!section || !section.contains(document.activeElement)) return
+      const s = sectionRef.current
+      if (!s || !s.contains(document.activeElement)) return
       const a = document.activeElement
       if (a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA' || a.isContentEditable)) return
       e.preventDefault()
-      const next = clamp(activeRef.current + (e.key === 'ArrowLeft' ? -1 : 1), 0, n - 1)
-      jumpTo(next)
+      go(active + (e.key === 'ArrowLeft' ? -1 : 1))
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [n, reduced])
+  }, [active, reduced, n])
+
+  const stop = stops[shown]
+  const atStart = active === 0
+  const atEnd = active === n - 1
 
   return (
-    <section
-      ref={sectionRef}
-      data-theme="light"
-      className="pr"
-      aria-label={t('timeline.eyebrow')}
-      style={{ '--pr-n': n }}
-    >
-      <div ref={trackRef} className="pr-track" style={{ height: `calc(${n} * var(--pr-slide-scroll))` }}>
-        <div ref={stickyRef} className="pr-sticky">
-          {/* Progress rule + clickable era labels */}
-          <div className="pr-progress">
-            <p className="ab-eyebrow--cream pr-kicker">{t('timeline.eyebrow')}</p>
-            <div className="pr-rule" aria-hidden="true">
-              <span className="pr-rule-track" />
-              <span ref={fillRef} className="pr-rule-fill" />
-            </div>
-            <div className="pr-marks" role="tablist" aria-label={t('timeline.eyebrow')}>
-              {stops.map((s, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  role="tab"
-                  aria-selected={i === active}
-                  className={`pr-mark focus-ring${i <= active ? ' is-lit' : ''}${i === active ? ' is-active' : ''}`}
-                  style={{ left: `${n > 1 ? (i / (n - 1)) * 100 : 0}%` }}
-                  onClick={() => jumpTo(i)}
-                >
-                  {s.year}
-                </button>
-              ))}
-            </div>
+    <section ref={sectionRef} data-theme="light" className="tl" aria-label={t('timeline.eyebrow')}>
+      <PaperGrain />
+      <div className="ab-wrap">
+        <p className="ab-eyebrow--cream tl-eyebrow" data-reveal>{t('timeline.eyebrow')}</p>
+
+        <div className="tl-grid">
+          {/* LEFT — year rail */}
+          <div className="tl-rail" role="tablist" aria-label={t('timeline.eyebrow')}>
+            <span className="tl-spine" aria-hidden="true" />
+            {stops.map((s, i) => (
+              <button
+                key={i}
+                type="button"
+                role="tab"
+                aria-selected={i === active}
+                className={`tl-year focus-ring${i === active ? ' is-active' : ''}`}
+                onClick={() => go(i)}
+              >
+                <span className="tl-dot" aria-hidden="true" />
+                <span className="tl-year-label">{s.year}</span>
+              </button>
+            ))}
           </div>
 
-          {/* The rail of full-width era slides */}
-          <div ref={railRef} className="pr-rail">
-            {stops.map((s, i) => (
-              <article key={i} id={`pr-slide-${i}`} className="pr-slide">
-                <span className="pr-watermark" aria-hidden="true">{s.year}</span>
-                <div className="pr-slide-inner">
-                  <div className="pr-copy">
-                    <p className="pr-era-num" aria-hidden="true">
-                      {String(i + 1).padStart(2, '0')} <span>/</span> {String(n).padStart(2, '0')}
-                    </p>
-                    <h3 className="pr-era-title">{s.title}</h3>
-                    <p className="pr-era-body">{s.desc}</p>
-                  </div>
-                  <div className="ab-frame pr-frame" data-slot={`timeline-${i}`} aria-hidden="true" />
-                </div>
-              </article>
-            ))}
+          {/* CENTER — media card (empty frame, awaiting asset) */}
+          <div className="tl-media-zone">
+            <div key={shown} className={`ab-frame tl-media tl-anim-${phase}`} data-slot={`timeline-${shown}`} aria-hidden="true" />
+          </div>
+
+          {/* RIGHT — content + arrows */}
+          <div className="tl-content-zone">
+            <div key={shown} className={`tl-content tl-anim-${phase}`}>
+              <p className="tl-year-big">{stop.year}</p>
+              <h3 className="tl-title">{stop.title}</h3>
+              <p className="tl-body">{stop.desc}</p>
+            </div>
+            <div className="tl-arrows">
+              <button
+                type="button" className="tl-arrow focus-ring"
+                onClick={() => go(active - 1)} disabled={atStart}
+                aria-label={stops[Math.max(0, active - 1)].year}
+              >←</button>
+              <button
+                type="button" className="tl-arrow focus-ring"
+                onClick={() => go(active + 1)} disabled={atEnd}
+                aria-label={stops[Math.min(n - 1, active + 1)].year}
+              >→</button>
+            </div>
           </div>
         </div>
       </div>
