@@ -7,6 +7,9 @@ studio/.env.*
 studio/dist/
 studio/.sanity/
 .sanity/
+# Never commit a plaintext token file (the token belongs only in studio/.env)
+*API Key*.txt
+*api key*.txt
 
 # Exceeds GitHub 100MB file limit
 ALTERNATIVINC.COM Walkthrough.mp4
