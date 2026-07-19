@@ -119,8 +119,10 @@
 .tl-media::before, .tl-media::after { content: none; }   /* clean hairline frame — no ticks */
 .tl-media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* RIGHT — content + arrows (all left-aligned), vertically centred against card */
-.tl-content-zone { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+/* RIGHT — content top, arrows anchored to the card's bottom edge. The column
+   stretches to the card height and space-between pushes the arrow row down, so
+   the baseline holds across all 5 eras regardless of body length. */
+.tl-content-zone { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
 .tl-year-big {
   margin: 0 0 clamp(14px, 1.8vh, 20px);
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
@@ -137,11 +139,11 @@
   font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(15px, 1.2vw, 18px);
   line-height: 1.62; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.72);
 }
-.tl-arrows { display: flex; gap: 14px; margin-top: clamp(30px, 4.4vh, 44px); }
+.tl-arrows { display: flex; gap: 14px; margin-top: clamp(30px, 4.4vh, 44px); flex: 0 0 auto; }
 .tl-arrow {
-  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
-  border: 1.5px solid var(--navy); background: transparent; color: var(--navy);
-  font-size: 18px; line-height: 1; cursor: pointer;
+  width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
+  border: 2px solid var(--navy); background: transparent; color: var(--navy);
+  font-size: 20px; font-weight: 600; line-height: 1; cursor: pointer;
   transition: background 0.24s var(--tl-e), color 0.24s var(--tl-e), border-color 0.24s var(--tl-e), transform 0.14s var(--tl-e);
 }
 .tl-arrow:hover:not(:disabled) { background: var(--navy); color: var(--cream); }
@@ -164,33 +166,86 @@
 }
 .masktext.is-in .mask-w { transform: none; }
 
-/* ── SECTION 3 — INK SPREADS (MVV) ─────────────────────────────────────────── */
+/* ── SECTION 3 — MVV ONE-SCREEN TRIPTYCH ────────────────────────────────────
+   One flat navy band, folded into three columns like book spines. Two gold
+   hairlines split it; each column carries an index, label, 32px rule, statement
+   and a huge clipped ghost numeral. Whole section fits ONE viewport (~84vh). */
 .mvv { position: relative; background: var(--navy); overflow: hidden; }
-.mvv-thread {
-  position: absolute; top: 0; height: 100%; width: 2px;
-  left: max(var(--page-gutter), calc((100% - var(--content-max)) / 2));
-  background: var(--gold); transform-origin: top center; transform: scaleY(0);
-  z-index: 1; will-change: transform;
+.mvv-inner {
+  position: relative; z-index: 2;
+  max-width: var(--content-max); margin: 0 auto;
+  min-height: clamp(560px, 84vh, 720px);
+  display: flex; align-items: center;
+  padding: clamp(76px, 13vh, 132px) var(--page-gutter);
 }
-.mvv-inner { position: relative; z-index: 2; max-width: var(--content-max); margin: 0 auto; padding: 0 var(--page-gutter); }
-.mvv-beat { position: relative; min-height: 80vh; display: flex; align-items: center; padding: clamp(40px, 8vh, 88px) 0; }
+.mvv-triptych { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); }
+
+/* column shell — clips the ghost numeral; content top-aligned so the three
+   indices/labels line up across the band (Values' short text leaves intentional
+   whitespace below, keeping equal optical weight). */
+.mvv-col { position: relative; overflow: hidden; padding: 0 clamp(24px, 3.2vw, 56px); }
+.mvv-col:first-child { padding-left: 0; }
+.mvv-col:last-child { padding-right: 0; }
+
+/* the two gold hairlines — a leading separator on columns 2 & 3, drawn top→down
+   on reveal, staggered by column. */
+.mvv-col:not(:first-child)::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 1px; height: 100%;
+  background: rgb(var(--gold-2-rgb) / 0.25);
+  transform-origin: top center; transform: scaleY(0);
+  transition: transform 0.4s var(--e-out);
+  transition-delay: calc(var(--col-i) * 0.12s);
+  will-change: transform;
+}
+.mvv.is-in .mvv-col::before { transform: scaleY(1); }
+
+/* HUGE ghost numeral echo — clipped by the column, bottom-right, faint cream;
+   warms toward gold on hover. */
 .mvv-ghost {
-  position: absolute; left: -0.06em; top: 50%;
-  transform: translateY(-50%) rotate(-90deg); transform-origin: left center;
+  position: absolute; right: clamp(-8px, 0.4vw, 6px); bottom: -0.2em;
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
-  font-size: clamp(64px, 8vw, 132px); letter-spacing: 0.06em; text-transform: uppercase;
-  color: rgb(var(--gold-2-rgb) / 0.18);      /* ghosted foil-on-spine */
-  white-space: nowrap; pointer-events: none; user-select: none; z-index: 0;
+  font-size: clamp(120px, 12.5vw, 180px); line-height: 0.8; letter-spacing: -0.04em;
+  color: rgb(253 250 244 / 0.04);
+  pointer-events: none; user-select: none; z-index: 0;
+  transition: color 0.35s var(--e-out);
 }
-.mvv-beat-copy { position: relative; z-index: 2; margin-left: clamp(44px, 12vw, 200px); max-width: 34ch; }
+
+/* column content — fades up 12px on reveal, staggered after the hairline draw. */
+.mvv-col-body {
+  position: relative; z-index: 1; max-width: 34ch;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.6s var(--e-out), transform 0.6s var(--e-out);
+  transition-delay: calc(var(--col-i) * 0.12s + 0.18s);
+}
+.mvv.is-in .mvv-col-body { opacity: 1; transform: none; }
+
+.mvv-index {
+  display: block; margin: 0 0 clamp(16px, 2.4vh, 26px);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px;
+  letter-spacing: 0.28em; color: var(--gold-2);
+}
 .mvv-label {
-  margin: 0 0 clamp(20px, 3vh, 32px);
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-2);
+  margin: 0 0 clamp(12px, 1.9vh, 18px);
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(20px, 1.9vw, 26px); line-height: 1.06;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream);
+}
+.mvv-rule {
+  display: block; width: 32px; height: 2px; margin: 0 0 clamp(20px, 3vh, 30px);
+  background: var(--gold-2);
+  transition: width 0.35s var(--e-out);   /* extends to full column width on hover */
 }
 .mvv-text {
-  font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(24px, 2.7vw, 32px); line-height: 1.32; letter-spacing: -0.02em; color: var(--cream);
+  margin: 0;
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(15px, 1.05vw, 17px); line-height: 1.7; letter-spacing: -0.005em;
+  color: rgb(253 250 244 / 0.92);
+}
+
+/* quiet per-column hover (desktop) — rule extends, ghost warms cream→gold. */
+@media (hover: hover) and (pointer: fine) {
+  .mvv-col:hover .mvv-rule { width: 100%; }
+  .mvv-col:hover .mvv-ghost { color: rgb(var(--gold-2-rgb) / 0.06); }
 }
 
 /* ── SECTION 4 — THE FOUNDER ───────────────────────────────────────────────── */
@@ -285,12 +340,25 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .tl-media { height: auto; width: 100%; aspect-ratio: 3 / 4; }   /* tall card, full column width */
 }
 
+/* ── MVV triptych mobile (<900px) — columns stack, hairlines lie horizontal,
+   ghost numerals shrink; the band relaxes to natural height ────────────────── */
+@media (max-width: 900px) {
+  .mvv-inner { min-height: auto; display: block; padding: var(--section-pad-y) var(--page-gutter); }
+  .mvv-triptych { grid-template-columns: 1fr; }
+  .mvv-col { padding: clamp(30px, 7vw, 44px) 0 0; }
+  .mvv-col:first-child { padding-top: 0; }
+  .mvv-col-body { max-width: 52ch; }
+  .mvv-col:not(:first-child)::before {   /* separator now horizontal, draws L→R */
+    width: 100%; height: 1px; top: 0; left: 0;
+    transform-origin: left center; transform: scaleX(0);
+  }
+  .mvv.is-in .mvv-col::before { transform: scaleX(1); }
+  .mvv-ghost { font-size: 80px; }
+}
+
 /* mobile grid + spread reflow */
 @media (max-width: 860px) {
   .ab-hero { min-height: clamp(420px, 64vh, 560px); }
-  .mvv-beat { min-height: 72vh; }
-  .mvv-ghost { font-size: clamp(56px, 15vw, 96px); }
-  .mvv-beat-copy { margin-left: clamp(36px, 14vw, 120px); }
   .fnd-spread { grid-template-columns: 1fr; gap: clamp(32px, 8vw, 48px); }
   .fnd-portrait-wrap { max-width: 340px; }
   .tm-grid { grid-template-columns: repeat(2, 1fr); }
@@ -305,7 +373,9 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .tl-anim-out { transition: none !important; opacity: 1 !important; transform: none !important; }
   .tl-dot { transition: none !important; }
   .mask-w { transform: none !important; transition: none !important; }
-  .mvv-thread { transform: scaleY(1) !important; }
+  .mvv-col::before { transform: none !important; transition: none !important; }
+  .mvv-col-body { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .mvv-rule, .mvv-ghost { transition: none !important; }
   .fq-w { opacity: 1 !important; }
   .tm-frame { transition: none !important; }
 }

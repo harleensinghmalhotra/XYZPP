@@ -195,56 +195,60 @@ function Timeline({ stops }) {
   )
 }
 
-// ── INK SPREADS (MVV) ─────────────────────────────────────────────────────────
-// One continuous navy band; each beat a near-full-viewport moment with a ghosted
-// spine label. A single gold thread draws (scaleY) down the section as you scroll.
+// ── MVV — ONE-SCREEN TRIPTYCH ─────────────────────────────────────────────────
+// One continuous flat navy band (curves top/bottom per bible), folded into three
+// vertical columns — MISSION | VISION | VALUES — like three book spines side by
+// side, split by two gold hairlines. Each column: DM Mono gold index, Inter Tight
+// cream label, a 32px gold rule, then the statement; a HUGE ghost numeral sits
+// clipped bottom-right for depth. The whole section is budgeted to ONE viewport.
+// On scroll into view the columns reveal in stagger (hairline draws down, then
+// content fades up); under reduced-motion everything rests visible.
 function InkSpreads() {
   const { t } = useTranslation('ourStory')
   const reduced = useReducedMotion()
   const sectionRef = useRef(null)
-  const threadRef = useRef(null)
-  const beats = ['mission', 'vision', 'values']
+  // index / i18n key per column; the ghost numeral echoes the index.
+  const beats = [
+    { key: 'mission', idx: '01' },
+    { key: 'vision', idx: '02' },
+    { key: 'values', idx: '03' },
+  ]
 
+  // reveal once, when the band crosses into view — CSS carries the stagger.
   useEffect(() => {
-    const section = sectionRef.current
-    const thread = threadRef.current
-    if (!section || !thread) return
-    if (reduced) { thread.style.transform = 'scaleY(1)'; return }
-    let raf = 0
-    const update = () => {
-      raf = 0
-      const vh = window.innerHeight
-      const rect = section.getBoundingClientRect()
-      // 0 as the band's top reaches mid-viewport, 1 as its bottom passes mid-viewport.
-      const span = rect.height + vh
-      const p = clamp((vh * 0.5 - rect.top) / (span - vh * 0.5), 0, 1)
-      thread.style.transform = `scaleY(${p.toFixed(4)})`
-    }
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
-    update()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-      if (raf) cancelAnimationFrame(raf)
-    }
+    if (reduced) return
+    const el = sectionRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { el.classList.add('is-in'); io.disconnect() } },
+      { threshold: 0.35 },
+    )
+    io.observe(el)
+    return () => io.disconnect()
   }, [reduced])
 
   return (
-    <section ref={sectionRef} data-theme="dark" className="mvv" aria-label={t('mission.label')}>
+    <section
+      ref={sectionRef}
+      data-theme="dark"
+      className={`mvv${reduced ? ' is-in' : ''}`}
+      aria-label={t('mission.label')}
+    >
       <SectionCurve position="top" fill="var(--cream)" inward />
-      <span ref={threadRef} className="mvv-thread" aria-hidden="true" />
       <div className="mvv-inner">
-        {beats.map((k) => (
-          <div className="mvv-beat" key={k}>
-            <span className="mvv-ghost" aria-hidden="true">{t(`${k}.label`)}</span>
-            <div className="mvv-beat-copy">
-              <p className="mvv-label">{t(`${k}.label`)}</p>
-              <MaskText as="p" className="mvv-text" text={t(`${k}.desc`)} />
+        <div className="mvv-triptych">
+          {beats.map((b, i) => (
+            <div className="mvv-col" key={b.key} style={{ '--col-i': i }}>
+              <span className="mvv-ghost" aria-hidden="true">{b.idx}</span>
+              <div className="mvv-col-body">
+                <span className="mvv-index">{b.idx}</span>
+                <p className="mvv-label">{t(`${b.key}.label`)}</p>
+                <span className="mvv-rule" aria-hidden="true" />
+                <p className="mvv-text">{t(`${b.key}.desc`)}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       <SectionCurve position="bottom" fill="var(--cream)" inward />
     </section>
