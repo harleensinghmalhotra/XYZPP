@@ -77,6 +77,123 @@
   pointer-events: none;
 }
 
+/* ── IMAGE STACK — the FLOW photo + HTML label overlay (primary) ────────────────
+   The photo already IS a grounded 10-book pile, so no CSS pile/shadow here. The
+   container matches the render's aspect so % label positions map straight onto the
+   spines; height is capped to the open book's height (never taller). */
+.ib-stack--img { padding: 0; perspective: none; }
+.ib-stack--img > :last-child::after { display: none; } /* photo is self-grounded */
+.ib-imgstack {
+  position: relative;
+  flex: 0 0 auto;
+  aspect-ratio: 900 / 1205;          /* the optimised render's ratio */
+  height: clamp(392px, 44vh, 440px); /* = the open-book spread height (cap) */
+  max-width: 100%;
+}
+.ib-imgstack-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                 /* aspect matches → no crop, no distortion */
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+/* feather — paint #0e1b46 inward on TOP + LEFT/RIGHT so the photo's darker navy
+   dissolves into the flat section navy. Bottom is left untouched → the wooden base
+   stays (its left/right corners still feather via the horizontal gradient). */
+.ib-imgstack-feather {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, #0e1b46 0%, rgba(14,27,70,0) 16%, rgba(14,27,70,0) 84%, #0e1b46 100%),
+    linear-gradient(to bottom, #0e1b46 0%, rgba(14,27,70,0) 15%),
+    /* faint corner blooms so the top corners (pure background navy) fully dissolve */
+    radial-gradient(60% 42% at 50% 0%, #0e1b46 0%, rgba(14,27,70,0) 70%);
+}
+
+/* label buttons — each sits over one navy spine; the whole box is the hit-area.
+   top comes from SPINE_POS (inline); the box is vertically centred on the spine. */
+.ib-imglabel {
+  position: absolute;
+  left: 12%;
+  width: 50%;                        /* spans the navy spine face */
+  transform: translateY(-50%) rotate(var(--rot, 0deg));
+  transform-origin: center;
+  display: grid;
+  place-items: center;
+  padding: 11px 6px;                 /* generous vertical hit-area over the spine */
+  background: none;
+  border: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.ib-imglabel-text {
+  position: relative;
+  z-index: 1;
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(11px, 0.86vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  text-align: center;
+  color: #FDFAF4;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);  /* legibility on the cloth spine */
+  transition: color 0.28s ease, text-shadow 0.28s ease;
+}
+/* soft gold glow bloom behind the label, revealed on hover/focus */
+.ib-imglabel-glow {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 116%; height: 190%;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(240, 200, 122, 0.42) 0%, rgba(240, 200, 122, 0.14) 42%, transparent 72%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+.ib-imglabel:hover .ib-imglabel-glow,
+.ib-imglabel:focus-visible .ib-imglabel-glow { opacity: 1; }
+.ib-imglabel:hover .ib-imglabel-text,
+.ib-imglabel:focus-visible .ib-imglabel-text {
+  color: #fffdf8;
+  text-shadow: 0 0 14px rgba(240, 200, 122, 0.75), 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+.ib-imglabel:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; border-radius: 4px; }
+
+/* ACTIVE book — the photo can't slide a book out, so the active read is colour +
+   glow + a small gold bookmark dot at the label's leading edge. */
+.ib-imglabel.is-active .ib-imglabel-text {
+  color: var(--gold-2);
+  text-shadow: 0 0 14px rgba(240, 200, 122, 0.55), 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+.ib-imglabel.is-active .ib-imglabel-glow { opacity: 0.85; }
+.ib-imglabel-mark {
+  position: absolute;
+  left: -2px; top: 50%;
+  width: 7px; height: 7px; margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--gold-2);
+  box-shadow: 0 0 0 4px rgb(var(--gold-2-rgb) / 0.2);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.ib-imglabel.is-active .ib-imglabel-mark { opacity: 1; transform: scale(1); }
+
+/* reduced motion — no glow/mark transitions; states resolve instantly */
+@media (prefers-reduced-motion: reduce) {
+  .ib-imglabel-text,
+  .ib-imglabel-glow,
+  .ib-imglabel-mark { transition: none; }
+}
+
 /* the book — a positioned COLUMN (top face + spine face); carries the pile lean
    and all interaction. Colourway + per-book variance set below via position. */
 .ib-spine {
@@ -630,6 +747,13 @@
      drop them and flatten the pile overlap. */
   .ib-filler { display: none; }
   .ib-stack > * + * { margin-top: 0; }
+  /* image stack on mobile — keep the photo centred (not the chip row); scale height
+     down and pin labels to the 11px floor with tighter tracking so the longest
+     ("BINDING AND FINISHING") still fits the narrower spine. */
+  .ib-stack--img { flex-direction: column; flex-wrap: nowrap; }
+  .ib-imgstack { height: min(58vh, 440px); margin: 0 auto; }
+  .ib-imglabel { left: 11%; width: 54%; padding: 8px 4px; }
+  .ib-imglabel-text { font-size: 11px; letter-spacing: 0.04em; }
   .ib-spine {
     width: auto;
     flex: 0 1 auto;
@@ -664,6 +788,9 @@
      sized so the whole pile stays UNDER that height — facility books ~50px spines,
      fillers ~34px, capped so nothing overflows the open book at 1536×743. */
   .ib-stack { min-height: 560px; justify-content: center; }
+  /* image stack — cap its height at the open book's 560px (photo scales within) */
+  .ib-stack--img { min-height: 0; }
+  .ib-imgstack { height: 560px; }
   .ib-stack > :nth-child(1)  { --book-w: 286px; --spine-h: 50px; }
   .ib-stack > :nth-child(2)  { --book-w: 258px; --spine-h: 33px; }
   .ib-stack > :nth-child(3)  { --book-w: 282px; --spine-h: 52px; }
