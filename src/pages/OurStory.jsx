@@ -68,10 +68,11 @@ export default function OurStory() {
       {/* One continuous gold thread down the page spine — scaleY by scroll. */}
       <Spine />
 
-      {/* SECTION 1 ── HERO BAND — flat navy, ~74vh, left-aligned column with air
-          above the eyebrow and below the lede. "ABOUT US" is decorative
-          (aria-hidden, word-stagger); hero.title is the page's single H1. The
-          accent word carries a gold underline that draws on reveal. */}
+      {/* SECTION 1 ── HERO BAND — MDailey blog-header style: one heading, one line,
+          nothing else. Tiny DM Mono gold eyebrow → decorative "ABOUT US" display
+          (aria-hidden, word-stagger) → ONE subtext line (hero.title, the page's
+          single H1, plain cream, sized to a single line at 1536). The lede has
+          moved down to lead the JOURNEY section. Band shrinks to ~50vh, centred. */}
       <section data-theme="dark" className="ab-hero" aria-labelledby="about-h1">
         <div className="ab-wrap ab-hero-inner">
           <p className="ab-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
@@ -79,7 +80,6 @@ export default function OurStory() {
           <h1 id="about-h1" className="ab-hero-title" data-reveal>
             <Trans t={t} i18nKey="hero.title" components={{ em: <em className="ab-accent" /> }} />
           </h1>
-          <p className="ab-hero-lede" data-reveal>{t('hero.lede')}</p>
         </div>
       </section>
 
@@ -186,6 +186,10 @@ function Timeline({ stops }) {
     <section ref={sectionRef} data-theme="light" className="tl" aria-label={t('timeline.eyebrow')}>
       <PaperGrain />
       <div className="ab-wrap">
+        {/* Relocated intro — the former hero lede now leads the chapter. The
+            hero.lede key is kept (shared with the /about-2 page); only the render
+            moves here, verbatim. */}
+        <p className="tl-intro" data-reveal>{t('hero.lede')}</p>
         <p className="ab-eyebrow--cream tl-eyebrow" data-reveal>{t('timeline.eyebrow')}</p>
 
         <div className="tl-grid">

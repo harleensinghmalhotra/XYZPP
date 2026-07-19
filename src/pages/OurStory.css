@@ -54,41 +54,31 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   pointer-events: none; will-change: transform;
 }
 
-/* ── SECTION 1 — HERO BAND ─────────────────────────────────────────────────── */
+/* ── SECTION 1 — HERO BAND (blog-header style: one heading, one line) ───────── */
 .ab-hero {
   position: relative; background: var(--navy);
-  min-height: clamp(560px, 74vh, 780px);
+  min-height: clamp(340px, 50vh, 520px);
   display: flex; align-items: center;
-  padding: clamp(88px, 12vh, 152px) var(--page-gutter);
+  padding: clamp(56px, 8vh, 104px) var(--page-gutter);
   overflow: hidden;
 }
 .ab-hero-inner { text-align: left; }
 .ab-hero-display {
-  margin: 0 0 clamp(18px, 2.6vh, 28px);
+  margin: 0 0 clamp(16px, 2.2vh, 24px);
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(56px, 7.5vw, 92px);       /* ≤ homepage H1 cap (92) */
   line-height: 0.92; letter-spacing: -0.035em; text-transform: uppercase;
   color: var(--cream);
 }
+/* the single subtext line — the page's H1; plain cream, one line at 1536. */
 .ab-hero-title {
-  margin: 0 0 clamp(18px, 2.6vh, 28px); max-width: 24ch;
+  margin: 0; max-width: none;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(24px, 3.2vw, 34px); line-height: 1.18; letter-spacing: -0.02em;
+  font-size: clamp(22px, 2.4vw, 30px); line-height: 1.2; letter-spacing: -0.02em;
   color: var(--cream);
 }
-/* accent word — on-brand gold, with an underline that draws on hero reveal. */
-.ab-accent { position: relative; font-style: normal; color: var(--gold-2); }
-.ab-accent::after {
-  content: ''; position: absolute; left: 0; right: 0; bottom: -0.1em; height: 2px;
-  background: var(--gold-2); transform: scaleX(0); transform-origin: left center;
-  transition: transform 0.7s var(--e-out) 0.35s; will-change: transform;
-}
-html.alive-ready .ab-hero-title.is-in .ab-accent::after { transform: scaleX(1); }
-.ab-hero-lede {
-  margin: 0; max-width: 58ch;
-  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.15vw, 18px);
-  line-height: 1.6; letter-spacing: -0.01em; color: rgb(253 250 244 / 0.8);
-}
+/* accent word neutralised — the subtext line reads as one plain cream sentence. */
+.ab-accent { font-style: normal; color: inherit; }
 
 /* ── SECTION 2 — THE JOURNEY (Union-Properties three-zone timeline) ────────── */
 .tl {
@@ -96,6 +86,12 @@ html.alive-ready .ab-hero-title.is-in .ab-accent::after { transform: scaleX(1); 
   position: relative; background: var(--cream); overflow: hidden;
   min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
   padding: clamp(52px, 6.5vh, 84px) var(--page-gutter);
+}
+/* relocated intro — the former hero lede, leading the chapter above the eyebrow. */
+.tl-intro {
+  flex: 0 0 auto; margin: 0 0 clamp(24px, 3.4vh, 40px); max-width: 58ch;
+  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.15vw, 18px);
+  line-height: 1.65; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.76);
 }
 .tl-eyebrow { flex: 0 0 auto; margin: 0 0 clamp(22px, 3vh, 38px); }
 
@@ -467,7 +463,7 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 
 /* mobile grid + spread reflow */
 @media (max-width: 860px) {
-  .ab-hero { min-height: clamp(460px, 70vh, 620px); }
+  .ab-hero { min-height: clamp(320px, 46vh, 460px); }
   .fnd-spread { grid-template-columns: 1fr; gap: clamp(30px, 8vw, 44px); }
   .fnd-portrait-wrap { max-width: 320px; }
   .tm-grid { grid-template-columns: repeat(2, 1fr); }
@@ -479,7 +475,6 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 /* ── reduced-motion — explicit resting states for every custom mechanic ────── */
 @media (prefers-reduced-motion: reduce) {
   .ab-spine { transform: scaleY(1) !important; }
-  .ab-accent::after { transform: scaleX(1) !important; transition: none !important; }
   .tl-anim-in { animation: none !important; }
   .tl-anim-out { transition: none !important; opacity: 1 !important; transform: none !important; }
   .tl-dot { transition: none !important; }
