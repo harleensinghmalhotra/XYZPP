@@ -348,6 +348,52 @@
   .inf-gallery-strip { grid-template-columns: repeat(2, 1fr); }
   .inf-stats { grid-template-columns: 1fr 1fr; }
 }
+/* ── 4B · PREMIUM FINISHING — value-added services grid (cream) ────────────── */
+/* A gold top-hairline sets it apart from the machine ledger above (both cream),
+   per the bible's gold rule. The list renders as a hairline-celled grid: each
+   capability a cell with a gold DM-Mono index + Inter Tight name, echoing the
+   ledger's cream + gold vocabulary without inventing per-item counts. */
+.inf-finish-sec {
+  position: relative; overflow: hidden;
+  background: #fdfaf4;
+  border-top: 3px solid rgba(176, 111, 20, 0.55);
+  padding: clamp(72px, 11vh, 130px) 0;
+}
+.inf-finish-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(14, 27, 70, 0.12);
+  border-left: 1px solid rgba(14, 27, 70, 0.12);
+}
+.inf-finish-cell {
+  display: flex; align-items: baseline; gap: clamp(12px, 1.4vw, 18px);
+  padding: clamp(22px, 3vh, 30px) clamp(20px, 2.2vw, 30px);
+  border-right: 1px solid rgba(14, 27, 70, 0.12);
+  border-bottom: 1px solid rgba(14, 27, 70, 0.12);
+}
+.inf-finish-mark {
+  flex: none;
+  font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
+  letter-spacing: 1px; color: #9d6f14; line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+.inf-finish-name {
+  font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: clamp(16px, 1.35vw, 20px); line-height: 1.25; letter-spacing: -0.2px;
+  color: #0f2444;
+}
+.inf-finish-note {
+  margin: clamp(30px, 4vh, 44px) 0 0; max-width: 60ch;
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(14px, 1.05vw, 16px); line-height: 1.65; color: #40453b;
+}
+@media (max-width: 900px) {
+  .inf-finish-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .inf-finish-grid { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .inf-video-thumb:hover .inf-play-ring { animation: none; }
   .inf-video-thumb:hover { transform: none; }

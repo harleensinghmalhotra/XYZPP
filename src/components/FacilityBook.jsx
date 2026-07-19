@@ -524,7 +524,11 @@ export default function FacilityBook() {
               )}
             </div>
 
-            {!isIntro && (
+            {/* Page arrows only when the book has more than one leaf. Placeholder
+                books (Warehousing / Head Office) are single-page, so two permanently
+                disabled arrows would just sit in the corners overlapping their longer
+                facility copy — hide them there. */}
+            {!isIntro && total > 1 && (
               <>
                 <button
                   type="button"

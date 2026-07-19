@@ -34,17 +34,17 @@
     "capabilities": {
       "print": {
         "label": "Capacidad de impresión",
-        "body": "Veinte torres web junto a cinco prensas de pliego y tres líneas Lineomatic, diseñadas para tiradas de libros de texto de gran volumen.",
+        "body": "22 torres offset web junto a 6 prensas de pliego, diseñadas para impresión educativa y comercial de gran volumen.",
         "photoNote": "FOTO · SALA DE PRENSAS, TORRES DE IMPRESIÓN"
       },
       "bind": {
         "label": "Encuadernación y acabado",
-        "body": "Diecisiete plegadoras y seis máquinas automáticas de cosido con hilo dan el acabado a cada libro según especificación.",
+        "body": "Encuadernación perfecta, cosido al centro, cosido por secciones y confección de tapas dan el acabado a cada libro según especificación.",
         "photoNote": "FOTO · TALLER DE ENCUADERNACIÓN Y ACABADO"
       },
       "ware": {
         "label": "Almacenamiento y expedición",
-        "body": "Dos centros de logística realizan intercalado, preparación de kits y retractilado automatizados, hasta 10,000 kits procesados cada día.",
+        "body": "Almacenamiento de alta capacidad, gestión segura de stock, consolidación de pedidos, preparación de kits y expedición lista para exportar.",
         "photoNote": "FOTO · ALMACÉN Y EXPEDICIÓN"
       }
     }
@@ -54,22 +54,34 @@
     "title": "Las máquinas detrás del volumen.",
     "items": {
       "tower": {
-        "name": "20 torres offset web",
-        "spec": "Veinte torres offset web producen formas largas de libros de texto a plena velocidad, con el registro mantenido con precisión en cada pliego."
+        "name": "Impresión offset web",
+        "spec": "22 torres offset web de alta capacidad diseñadas para impresión educativa y comercial de gran volumen. Capaces de producir millones de formas impresas cada día, ofreciendo una velocidad, consistencia y precisión de color excepcionales. Múltiples configuraciones de corte brindan flexibilidad para libros de texto, libros comerciales, cuadernos de trabajo, periódicos y otras publicaciones."
       },
       "press": {
-        "name": "Flota de pliego, 5 prensas",
-        "spec": "Cinco prensas de pliego se encargan de las cubiertas, las tiradas cortas y los trabajos críticos de color donde el acabado y la fidelidad importan más."
+        "name": "Impresión de pliego",
+        "spec": "6 prensas de pliego de última generación: 1 × prensa de retiración de ocho colores, 5 × prensas de cuatro colores. Con tecnología premium de Komori y Ryobi, que permite una calidad de impresión excepcional para cubiertas, libros de mesa, libros infantiles, embalajes, agendas, informes anuales e impresión comercial premium."
       },
       "book": {
-        "name": "3 líneas Lineomatic de cuadernos",
-        "spec": "Tres líneas Lineomatic rayan, pliegan y cosen cuadernos de principio a fin y a gran volumen."
-      },
-      "carton": {
-        "name": "Cajas de cartón corrugado y microcanal de producción propia",
-        "spec": "Las cajas se fabrican internamente, así cada envío sale en un embalaje pensado para su carga."
+        "name": "Encuadernación y acabado del libro",
+        "spec": "Una configuración de posprensa integrada diseñada para velocidad, durabilidad y precisión. 3 líneas de encuadernación perfecta en línea de Bindwell. 7 máquinas de seis pinzas. 3 líneas de cosido al centro Müller Martini (grapado central). 8 máquinas automáticas de cosido por secciones, y 17 máquinas de cosido manuales. 1 línea de cuerpo de libro, HXCP. Confección de tapas, Kolbus DA 260. Línea de encasado, HXCP. Junto con diversas máquinas de encuadernación en espiral y de laminado. En conjunto, estos sistemas permiten la producción de millones de libros de alta calidad al año, garantizando una solidez de encuadernación constante y entregas puntuales."
       }
     }
+  },
+  "finish": {
+    "eyebrow": "Acabado premium",
+    "title": "Acabado de valor añadido, bajo un mismo techo.",
+    "items": {
+      "foiling": "Estampación metálica",
+      "embossing": "Grabado en relieve y bajorrelieve",
+      "spotuv": "Barniz UV localizado",
+      "dripuv": "Barniz UV goteado",
+      "lamination": "Laminado (brillante y mate)",
+      "diecutting": "Troquelado",
+      "windowpatching": "Aplicación de ventanas film",
+      "coatings": "Recubrimientos especiales",
+      "decorative": "Efectos decorativos premium"
+    },
+    "note": "Estas capacidades realzan el atractivo visual y la durabilidad de cada publicación."
   },
   "results": {
     "eyebrow": "Capacidad real",

@@ -34,17 +34,17 @@
     "capabilities": {
       "print": {
         "label": "Print Capacity",
-        "body": "Twenty web towers alongside five sheet-fed presses and three Lineomatic lines, engineered for large-volume textbook runs.",
+        "body": "22 web offset towers alongside 6 sheetfed presses, engineered for large-volume education and commercial printing.",
         "photoNote": "PHOTO · PRESS HALL, PRINTING TOWERS"
       },
       "bind": {
         "label": "Binding & Finishing",
-        "body": "Seventeen folders and six automatic thread-sewing machines finish every book to spec.",
+        "body": "Perfect binding, saddle stitching, section sewing and case making finish every book to spec.",
         "photoNote": "PHOTO · BINDERY & FINISHING LINES"
       },
       "ware": {
         "label": "Warehousing & Dispatch",
-        "body": "Two fulfilment centres run automated collating, kitting and shrink-wrapping, up to 10,000 kits processed every single day.",
+        "body": "High-capacity storage, secure stock management, order consolidation, kitting and export-ready dispatch.",
         "photoNote": "PHOTO · WAREHOUSE & DISPATCH"
       }
     }
@@ -54,22 +54,34 @@
     "title": "The machines behind the volume.",
     "items": {
       "tower": {
-        "name": "20-Web Offset Towers",
-        "spec": "Twenty web-offset towers run long textbook forms at full speed, register held tight across every signature."
+        "name": "Web Offset Printing",
+        "spec": "22 high-capacity web offset towers engineered for large-volume education and commercial printing. Capable of producing millions of printed forms every day, delivering exceptional speed, consistency, and colour accuracy. Multiple cut-off configurations provide flexibility for textbooks, trade books, workbooks, newspapers, and other publications."
       },
       "press": {
-        "name": "Sheet-Fed Fleet, 5 Presses",
-        "spec": "Five sheet-fed presses handle covers, short runs and colour-critical work where finish and fidelity matter most."
+        "name": "Sheetfed Printing",
+        "spec": "6 state-of-the-art sheetfed presses: 1 × Eight-colour perfecting press, 5 × Four-colour presses. Featuring premium technology from Komori and Ryobi, enabling outstanding print quality for covers, coffee table books, children's books, packaging, diaries, annual reports, and premium commercial printing."
       },
       "book": {
-        "name": "3 Lineomatic Exercise-Book Lines",
-        "spec": "Three Lineomatic lines rule, fold and stitch exercise books end to end at volume."
-      },
-      "carton": {
-        "name": "In-house Corrugated & E-flute Cartons",
-        "spec": "Cartons are made in-house, so every shipment leaves in packaging built for its load."
+        "name": "Binding & Book Finishing",
+        "spec": "An integrated post-press setup designed for speed, durability, and precision. 3 Online Perfect Binding Lines from Bindwell. 7 six-clamp machines. 3 Müller Martini Saddle Stitching (Centre Pinning) Lines. 8 automatic Section Sewing Machines, and 17 manual sewing machines. 1 book block line, HXCP. Case maker, Kolbus DA 260. Case-in line, HXCP. Along with various spiral wire and lamination machines. Together, these systems enable the production of millions of high-quality books annually while ensuring consistent binding strength and timely deliveries."
       }
     }
+  },
+  "finish": {
+    "eyebrow": "Premium Finishing",
+    "title": "Value-added finishing, under one roof.",
+    "items": {
+      "foiling": "Foiling",
+      "embossing": "Embossing & Debossing",
+      "spotuv": "Spot UV",
+      "dripuv": "Drip UV",
+      "lamination": "Lamination (Gloss & Matt)",
+      "diecutting": "Die Cutting",
+      "windowpatching": "Window Patching",
+      "coatings": "Specialty Coatings",
+      "decorative": "Premium Decorative Effects"
+    },
+    "note": "These capabilities enhance the visual appeal and durability of every publication."
   },
   "results": {
     "eyebrow": "Real capacity",

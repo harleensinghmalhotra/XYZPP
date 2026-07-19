@@ -11,7 +11,7 @@ import FacilityBook from '@/components/FacilityBook'
 import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
-import { Package } from '@phosphor-icons/react'
+import { Books } from '@phosphor-icons/react'
 import './InfrastructurePage.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -52,16 +52,22 @@ const CAPABILITIES = [
   { k: 'ware' },
 ]
 
-// The ledger's defining mark per machine — a numeral derived straight from the
-// existing copy (non-translatable, like a code): "20-Web…" → 20, "…5 Presses" → 5,
-// "3 Lineomatic…" → 3. The cartons entry names no count, so it carries a Phosphor
-// Package glyph instead (pkg:true) rather than an invented number.
+// The ledger's defining mark per machine — a numeral pulled straight from the client
+// copy (non-translatable, like a code): "22 … web offset towers" → 22, "6 … sheetfed
+// presses" → 6. Binding & Book Finishing is a whole equipment line with no single
+// headline count, so it carries a Phosphor Books glyph (bind:true) rather than picking
+// one number out of many and reading as if that were the whole story.
 const MACHINES = [
-  { k: 'tower', mark: '20' },
-  { k: 'press', mark: '5' },
-  { k: 'book', mark: '3' },
-  { k: 'carton', pkg: true },
+  { k: 'tower', mark: '22' },
+  { k: 'press', mark: '6' },
+  { k: 'book', bind: true },
 ]
+
+// Premium finishing services — the client's list, in her order. No counts attach to
+// these (they're capabilities, not machine tallies), so each renders as a hairline
+// cell with a gold DM-Mono index in the ledger's cream+gold vocabulary. Names resolve
+// via t(`finish.items.<k>`); the index is decorative sequencing, not a client number.
+const FINISH = ['foiling', 'embossing', 'spotuv', 'dripuv', 'lamination', 'diecutting', 'windowpatching', 'coatings', 'decorative']
 
 const STATS = [
   { k: 'sqft', value: 300000, suffix: '' },
@@ -279,6 +285,7 @@ export default function InfrastructurePage() {
       reveal('.inf-strip-item', { trigger: '.inf-strip', stagger: 0.07 })
       // §3 capability triptych reveals via CSS `.is-in` (IntersectionObserver above).
       reveal('.inf-ledger-row', { trigger: '.inf-ledger', stagger: 0.1, start: 'top 80%' })
+      reveal('.inf-finish-cell', { trigger: '.inf-finish-grid', stagger: 0.05, start: 'top 82%' })
       reveal('.inf-results-head, .inf-stat', { trigger: '.inf-results', stagger: 0.08 })
       reveal('.inf-video', { trigger: '.inf-results', start: 'top 72%' })
       reveal('.inf-recognition .aw-head', { trigger: '.inf-recognition', start: 'top 80%' })
@@ -409,8 +416,8 @@ export default function InfrastructurePage() {
               <article key={m.k} className="inf-ledger-row">
                 <span className="inf-ledger-rule" aria-hidden="true" />
                 <div className="inf-ledger-mark" aria-hidden="true">
-                  {m.pkg
-                    ? <Package size={56} weight="light" />
+                  {m.bind
+                    ? <Books size={56} weight="light" />
                     : <span className="inf-ledger-num">{m.mark}</span>}
                 </div>
                 <h3 className="inf-ledger-name">{t(`machines.items.${m.k}.name`)}</h3>
@@ -418,6 +425,31 @@ export default function InfrastructurePage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── 4B · PREMIUM FINISHING — value-added services grid (cream) ──────
+          The client's finishing list carries no per-item counts, so a numeral
+          ledger would force invented numbers; instead each capability is a
+          hairline cell with a gold DM-Mono index — the ledger's cream + gold
+          vocabulary laid out as a clean grid. A gold top-hairline separates it
+          from the machine ledger above (both cream), per the bible's gold rule. */}
+      <section data-theme="light" className="inf-finish-sec" aria-labelledby="inf-fin-h">
+        <PaperGrain />
+        <div className="inf-wrap inf-z">
+          <div className="inf-sec-head">
+            <p className="inf-eyebrow">{t('finish.eyebrow')}</p>
+            <h2 id="inf-fin-h" className="inf-h2">{t('finish.title')}</h2>
+          </div>
+          <ul className="inf-finish-grid">
+            {FINISH.map((k, i) => (
+              <li key={k} className="inf-finish-cell">
+                <span className="inf-finish-mark" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span className="inf-finish-name">{t(`finish.items.${k}`)}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="inf-finish-note">{t('finish.note')}</p>
         </div>
       </section>
 

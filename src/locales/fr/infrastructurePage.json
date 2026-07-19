@@ -34,17 +34,17 @@
     "capabilities": {
       "print": {
         "label": "Capacité d’impression",
-        "body": "Vingt tours web, cinq presses feuille à feuille et trois lignes Lineomatic, conçues pour les tirages de manuels en grand volume.",
+        "body": "22 tours offset web et 6 presses feuille à feuille, conçues pour l’impression éducative et commerciale en grand volume.",
         "photoNote": "PHOTO · HALL DES PRESSES, TOURS D’IMPRESSION"
       },
       "bind": {
         "label": "Reliure et finition",
-        "body": "Dix-sept plieuses et six machines automatiques de couture au fil finissent chaque livre selon le cahier des charges.",
+        "body": "Dos carré collé, piqûre à cheval, couture par cahiers et façonnage de couvertures cartonnées finissent chaque livre selon le cahier des charges.",
         "photoNote": "PHOTO · LIGNES DE RELIURE ET DE FINITION"
       },
       "ware": {
         "label": "Entreposage et expédition",
-        "body": "Deux centres de logistique assurent l’assemblage, le collationnement et le filmage automatisés, jusqu’à 10 000 kits traités chaque jour.",
+        "body": "Stockage haute capacité, gestion sécurisée des stocks, consolidation des commandes, mise en kit et expédition prête à l’export.",
         "photoNote": "PHOTO · ENTREPÔT ET EXPÉDITION"
       }
     }
@@ -54,22 +54,34 @@
     "title": "Les machines derrière le volume.",
     "items": {
       "tower": {
-        "name": "20 tours offset web",
-        "spec": "Vingt tours offset web impriment les grands cahiers de manuels à pleine vitesse, avec un repérage maintenu au plus juste sur chaque signature."
+        "name": "Impression offset web",
+        "spec": "22 tours offset web haute capacité conçues pour l’impression éducative et commerciale en grand volume. Capables de produire des millions de formes imprimées chaque jour, offrant une vitesse, une régularité et une précision des couleurs exceptionnelles. De multiples configurations de coupe offrent une flexibilité pour les manuels, les livres grand public, les cahiers d’exercices, les journaux et d’autres publications."
       },
       "press": {
-        "name": "Parc feuille à feuille, 5 presses",
-        "spec": "Cinq presses feuille à feuille gèrent les couvertures, les petits tirages et les travaux exigeants en couleur, là où la finition et la fidélité comptent le plus."
+        "name": "Impression feuille à feuille",
+        "spec": "6 presses feuille à feuille de pointe : 1 × presse à retiration huit couleurs, 5 × presses quatre couleurs. Dotées de technologies haut de gamme Komori et Ryobi, permettant une qualité d’impression exceptionnelle pour les couvertures, les beaux livres, les livres pour enfants, les emballages, les agendas, les rapports annuels et l’impression commerciale haut de gamme."
       },
       "book": {
-        "name": "3 lignes de cahiers Lineomatic",
-        "spec": "Trois lignes Lineomatic règlent, plient et piquent les cahiers d’un bout à l’autre, à grand volume."
-      },
-      "carton": {
-        "name": "Cartons ondulés et micro-cannelure en interne",
-        "spec": "Les cartons sont fabriqués en interne, si bien que chaque expédition part dans un emballage conçu pour sa charge."
+        "name": "Reliure et façonnage du livre",
+        "spec": "Un atelier de façonnage intégré conçu pour la vitesse, la durabilité et la précision. 3 lignes de dos carré collé en ligne de Bindwell. 7 machines à six pinces. 3 lignes de piqûre à cheval Müller Martini (agrafage au centre). 8 machines de couture de cahiers automatiques, et 17 machines à coudre manuelles. 1 ligne de corps d’ouvrage, HXCP. Fabrication de couvertures cartonnées, Kolbus DA 260. Ligne d’emboîtage, HXCP. Ainsi que diverses machines de reliure spirale et de pelliculage. Ensemble, ces systèmes permettent la production de millions de livres de haute qualité chaque année, tout en garantissant une solidité de reliure constante et des livraisons dans les délais."
       }
     }
+  },
+  "finish": {
+    "eyebrow": "Façonnage haut de gamme",
+    "title": "Façonnage à valeur ajoutée, sous un même toit.",
+    "items": {
+      "foiling": "Dorure",
+      "embossing": "Gaufrage et débossage",
+      "spotuv": "Vernis UV sélectif",
+      "dripuv": "Vernis UV goutte à goutte",
+      "lamination": "Pelliculage (brillant et mat)",
+      "diecutting": "Découpe à l’emporte-pièce",
+      "windowpatching": "Pose de fenêtres film",
+      "coatings": "Vernis spéciaux",
+      "decorative": "Effets décoratifs haut de gamme"
+    },
+    "note": "Ces capacités renforcent l’attrait visuel et la durabilité de chaque publication."
   },
   "results": {
     "eyebrow": "Capacité réelle",
