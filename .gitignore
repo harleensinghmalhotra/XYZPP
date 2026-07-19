@@ -16,6 +16,8 @@ recon/
 
 # Root-level screenshots (temporary verification artifacts)
 *.png
+# ...but src/assets media are real bundler assets that must ship (Vercel imports them)
+!src/assets/**
 
 # Local asset-handoff & scratch folders (not part of the app)
 FLOW assets/

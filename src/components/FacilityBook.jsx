@@ -2,24 +2,26 @@ import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import { typingSound } from '@/lib/typingSound'
-import stackImg from '@/assets/facility-book-stack.jpg'
+import stackImg from '@/assets/facility-book-stack.png'
 import './FacilityBook.css'
 
-// FLOW book-stack photo drives the pile. Flip to false (or an image 404 → onError)
-// to fall back to the CSS-built pile below — cheap insurance for a missing asset.
+// FLOW book-stack render (v2 — transparent PNG, strict alternating navy-spine /
+// cream-page-block, blank spines) drives the pile. Flip to false (or an image
+// 404 → onError) to fall back to the CSS-built pile below — cheap insurance.
 const USE_IMAGE_STACK = true
 
-// Percentage placement of the 5 facility labels over the 5 NAVY spines in the photo
-// (top→bottom = BOOKS order). `top` is the spine's vertical centre as a % of the
-// image container height; `rot` matches that spine's slight tilt in the render
-// (books lean a hair up-to-the-right → small negative degrees). Derived by eye off a
-// percentage grid overlaid on the render; tracks responsively since it's all %.
+// Percentage placement of the 5 facility labels over the 5 NAVY spines (top→bottom
+// = BOOKS order). `top` is the spine's vertical centre as a % of the fixed-aspect
+// image container; the render is near straight-on so labels are horizontal (rot 0).
+// Derived by eye off a percentage grid overlaid on the transparent render; all-% so
+// they track responsively. Labels are kept within the LEFT front-face width (the
+// cream fore-edge sits on the right) so nothing bleeds onto the page-block.
 const SPINE_POS = [
-  { top: 16.5, rot: -2 },   // Web Machines
-  { top: 32, rot: -1.5 },   // Sheetfed Machines
-  { top: 54, rot: -1 },     // Binding and Finishing
-  { top: 62, rot: -1.5 },   // Warehousing
-  { top: 79, rot: -1 },     // Head Office
+  { top: 10, rot: 0 },   // Web Machines
+  { top: 26, rot: 0 },   // Sheetfed Machines
+  { top: 45, rot: 0 },   // Binding and Finishing
+  { top: 63, rot: 0 },   // Warehousing
+  { top: 84, rot: 0 },   // Head Office
 ]
 
 // ── Facility Book — shared component for Infrastructure section & /infrastructure page ──
@@ -404,12 +406,10 @@ export default function FacilityBook() {
                 draggable="false"
                 onError={() => setImgOk(false)}
               />
-              {/* feather: paints #0e1b46 inward on top + left/right edges so the
-                  photo's darker navy dissolves into the flat section navy — no
-                  rectangle seam. The wooden base stays (bottom not faded). */}
-              <span className="ib-imgstack-feather" aria-hidden="true" />
-              {/* 5 facility labels, positioned over the 5 navy spines. Each label IS
-                  the button (generous hit-area across the spine). */}
+              {/* The render is transparent, so it sits straight on the section navy —
+                  no feather needed. A soft CSS contact shadow (::after) grounds the
+                  bottom book. 5 facility labels are positioned over the navy spines;
+                  each label IS the button (generous hit-area across the spine). */}
               {BOOKS.map((b, bi) => {
                 const label = b.placeholder ? t(`books.${b.id}.eyebrow`) : t(`facilities.${b.src}.title`)
                 const titleFull = b.placeholder ? t(`books.${b.id}.title`) : t(`facilities.${b.src}.title`)

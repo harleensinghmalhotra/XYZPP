@@ -86,41 +86,43 @@
 .ib-imgstack {
   position: relative;
   flex: 0 0 auto;
-  aspect-ratio: 900 / 1205;          /* the optimised render's ratio */
+  aspect-ratio: 900 / 1276;          /* the transparent render's ratio */
   height: clamp(392px, 44vh, 440px); /* = the open-book spread height (cap) */
   max-width: 100%;
 }
 .ib-imgstack-photo {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
-  object-fit: cover;                 /* aspect matches → no crop, no distortion */
+  object-fit: contain;               /* transparent PNG — never crop/distort */
   display: block;
   user-select: none;
   -webkit-user-drag: none;
 }
-/* feather — paint #0e1b46 inward on TOP + LEFT/RIGHT so the photo's darker navy
-   dissolves into the flat section navy. Bottom is left untouched → the wooden base
-   stays (its left/right corners still feather via the horizontal gradient). */
-.ib-imgstack-feather {
+/* CONTACT SHADOW — the render has no ground surface, so ground the bottom book with
+   a soft CSS ellipse: densest right at its lower edge, fading down and out (no float,
+   per the grounding rule). Sits behind the image so the opaque book overlaps it. */
+.ib-imgstack::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  z-index: 1;
+  left: 7%;
+  right: 7%;
+  top: 97.5%;                        /* dense edge at the bottom book's base, fading down */
+  height: 9%;
+  z-index: 0;
   pointer-events: none;
-  background:
-    linear-gradient(to right, #0e1b46 0%, rgba(14,27,70,0) 16%, rgba(14,27,70,0) 84%, #0e1b46 100%),
-    linear-gradient(to bottom, #0e1b46 0%, rgba(14,27,70,0) 15%),
-    /* faint corner blooms so the top corners (pure background navy) fully dissolve */
-    radial-gradient(60% 42% at 50% 0%, #0e1b46 0%, rgba(14,27,70,0) 70%);
+  background: radial-gradient(58% 100% at 50% 18%, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.36) 30%, rgba(0, 0, 0, 0.15) 54%, transparent 76%);
+  filter: blur(7px);
 }
 
-/* label buttons — each sits over one navy spine; the whole box is the hit-area.
-   top comes from SPINE_POS (inline); the box is vertically centred on the spine. */
+/* label buttons — each sits over one navy spine's LEFT front face; the whole box is
+   the hit-area. top comes from SPINE_POS (inline); box centred on the spine. */
 .ib-imglabel {
   position: absolute;
-  left: 12%;
-  width: 50%;                        /* spans the navy spine face */
+  left: 5%;
+  width: 53%;                        /* the navy front face (cream fore-edge is right) */
   transform: translateY(-50%) rotate(var(--rot, 0deg));
   transform-origin: center;
   display: grid;
@@ -752,7 +754,7 @@
      ("BINDING AND FINISHING") still fits the narrower spine. */
   .ib-stack--img { flex-direction: column; flex-wrap: nowrap; }
   .ib-imgstack { height: min(58vh, 440px); margin: 0 auto; }
-  .ib-imglabel { left: 11%; width: 54%; padding: 8px 4px; }
+  .ib-imglabel { left: 4%; width: 56%; padding: 8px 4px; }
   .ib-imglabel-text { font-size: 11px; letter-spacing: 0.04em; }
   .ib-spine {
     width: auto;
