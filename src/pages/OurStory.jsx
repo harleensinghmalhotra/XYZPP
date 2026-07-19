@@ -3,6 +3,11 @@ import { useState, useEffect, useRef, useMemo } from 'react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import { PaperGrain } from '@/components/atmosphere'
+// Company-wide credentials — imported verbatim from the homepage sections so the
+// content, markup, CSS (global, in index.css) and behaviour stay in exact sync.
+// No homepage files are modified; tokens resolve to the inner-page palette.
+import Awards from '@/sections/Awards'
+import Certifications from '@/sections/Certifications'
 import './OurStory.css'
 
 // MOCK — replace with client photography. Raw Pexels photos (free license), one
@@ -90,8 +95,14 @@ export default function OurStory() {
       {/* Ribbon between the founder and the people who keep his promise. */}
       <AboutMarquee />
 
-      {/* SECTION 5 ── THE TEAM — homepage-scale shells, awaiting assets ───────── */}
+      {/* SECTION 5 ── THE TEAM — full roster, one grid, everyone shown ────────── */}
       <Team />
+
+      {/* SECTION 6 & 7 ── AWARDS + CERTIFICATES — company-wide credentials,
+          imported from the homepage sections (Awards navy → Certs cream dome).
+          The closing CTA is appended by the site layout after <main>. */}
+      <Awards />
+      <Certifications />
     </main>
   )
 }
@@ -346,24 +357,53 @@ function AboutMarquee() {
   )
 }
 
-// ── THE TEAM ──────────────────────────────────────────────────────────────────
-// Seven quiet shells at homepage card scale (r-card / soft shadow), awaiting
-// client portraits, in a 4+3 grid that cascades in on enter (60ms). Hover warms
-// the frame's hairline + corner ticks to gold and lifts it -4px. No worded
-// heading: no ourStory key denotes a team/people section and inventing copy is
-// forbidden, so a drawn gold hairline opens the section instead.
+// ── THE TEAM — full roster, one grid, everyone shown ──────────────────────────
+// One unified grid of 8 identical YOO cards: a fitted 3:4 portrait frame, a name
+// line, a thin hairline divider, then a DM Mono 11px "ROLE" / value micro-label
+// pair. Card 1 is Nilesh's team presence (real name + role from existing strings);
+// cards 2-8 are shells (skeleton name, "ROLE" + empty value) awaiting client
+// portraits — no tiering, no expand, no "rest of us" button. 4×2 at 1536, homepage
+// card scale, tight gaps. Cascade in at 60ms; hover warms the divider gold, lifts
+// the card -4px, and scale-ins the future photo (inert while the frame is empty).
+//
+// Header: no ourStory key names a team/people section, so the section's YOO-style
+// statement reuses the only existing purpose-built team heading in the locale set,
+// globalMarkets.teamSection.heading ("Our Global Team"), verbatim. Its companion
+// `placeholder` string is a global-markets-specific stub, so there is no suitable
+// supporting line — the drawn gold hairline + statement open the section.
 function Team() {
+  const { t } = useTranslation('ourStory')
+  const { t: tg } = useTranslation('globalMarkets')
+  // roster: card 1 real (existing strings), 2-8 shells.
+  const roster = [
+    { name: t('founder.name'), role: t('founder.role') },
+    ...Array.from({ length: 7 }, () => null),
+  ]
   return (
-    <section data-theme="light" className="tm" aria-label="Team">
+    <section data-theme="light" className="tm" aria-labelledby="tm-title">
       <PaperGrain />
       <div className="ab-wrap">
         <hr className="tm-rule" data-reveal aria-hidden="true" />
+        <h2 id="tm-title" className="tm-title" data-reveal>{tg('teamSection.heading')}</h2>
         <div className="tm-grid">
-          {Array.from({ length: 7 }).map((_, i) => (
-            <article className="tm-card" data-reveal key={i} aria-hidden="true" style={{ '--reveal-delay': `${i * 60}ms` }}>
+          {roster.map((m, i) => (
+            <article
+              className={`tm-card${m ? '' : ' tm-card--shell'}`}
+              data-reveal key={i}
+              style={{ '--reveal-delay': `${i * 60}ms` }}
+              {...(m ? {} : { 'aria-hidden': true })}
+            >
               <div className="ab-frame tm-frame" data-slot={`team-${i + 1}`} />
-              <span className="tm-skel tm-skel--name" />
-              <span className="tm-skel tm-skel--role" />
+              {m
+                ? <p className="tm-name">{m.name}</p>
+                : <span className="tm-nameskel" aria-hidden="true" />}
+              <span className="tm-divider" aria-hidden="true" />
+              <div className="tm-meta">
+                <span className="tm-meta-k">ROLE</span>
+                {m
+                  ? <span className="tm-meta-v">{m.role}</span>
+                  : <span className="tm-skel tm-skel--role" aria-hidden="true" />}
+              </div>
             </article>
           ))}
         </div>
