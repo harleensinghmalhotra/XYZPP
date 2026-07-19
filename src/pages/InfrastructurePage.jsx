@@ -11,6 +11,7 @@ import FacilityBook from '@/components/FacilityBook'
 import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
+import { Package } from '@phosphor-icons/react'
 import './InfrastructurePage.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -18,8 +19,9 @@ gsap.registerPlugin(ScrollTrigger)
 // ── /infrastructure — "Built for Scale. Engineered for Trust." ───────────────
 // Structure + rhythm reskinned from dispel.com into QFP brand System B:
 //   1 statement hero (navy) + dual CTA · 2 certification trust strip (cream)
-//   3 capability accordion + tall side image + embedded quote (beige)
-//   4 machine cards, 2 large + 2 small (cream) · 5 measurable-results band + video (navy)
+//   3 capability TRIPTYCH — three gold-hairline spines + 98% stat + press-hall frame (navy)
+//   4 machine LEDGER — four hairline rows, big gold numeral / mark (cream)
+//   5 measurable-results band + video (navy)
 //   6 recognition plaques (beige) · 7 facility gallery, photos only (cream) · 8 CTA (beige)
 // Every image + the walkthrough video are PENDING from the client: each surface is
 // a premium navy placeholder that a delivered asset drops into with zero code change.
@@ -50,11 +52,15 @@ const CAPABILITIES = [
   { k: 'ware' },
 ]
 
+// The ledger's defining mark per machine — a numeral derived straight from the
+// existing copy (non-translatable, like a code): "20-Web…" → 20, "…5 Presses" → 5,
+// "3 Lineomatic…" → 3. The cartons entry names no count, so it carries a Phosphor
+// Package glyph instead (pkg:true) rather than an invented number.
 const MACHINES = [
-  { k: 'tower', size: 'large', icon: 'tower' },
-  { k: 'press', size: 'large', icon: 'press' },
-  { k: 'book', size: 'small', icon: 'book' },
-  { k: 'carton', size: 'small', icon: 'carton' },
+  { k: 'tower', mark: '20' },
+  { k: 'press', mark: '5' },
+  { k: 'book', mark: '3' },
+  { k: 'carton', pkg: true },
 ]
 
 const STATS = [
@@ -80,42 +86,6 @@ const GALLERY = [
   { n: '03', k: 'warehouse' },
   { n: '04', k: 'dispatch' },
 ]
-
-// Stroke-draw icons — pathLength="1" normalises every path so one dash rule draws
-// them all. Icons render fully under reduced motion (see CSS).
-function MachineIcon({ name }) {
-  const common = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.4, strokeLinecap: 'round', strokeLinejoin: 'round', pathLength: 1 }
-  return (
-    <svg className="inf-mi-icon" viewBox="0 0 48 48" width="42" height="42" aria-hidden="true">
-      {name === 'tower' && (
-        <>
-          <rect x="10" y="6" width="28" height="36" rx="2" {...common} />
-          <path d="M17 14h14M17 22h14M17 30h14" {...common} />
-          <circle cx="24" cy="24" r="6" {...common} />
-        </>
-      )}
-      {name === 'press' && (
-        <>
-          <path d="M8 30h32M8 30V16a2 2 0 0 1 2-2h28a2 2 0 0 1 2 2v14" {...common} />
-          <path d="M14 30v8h20v-8M20 14v-4h8v4" {...common} />
-          <path d="M18 22h12" {...common} />
-        </>
-      )}
-      {name === 'book' && (
-        <>
-          <path d="M24 12v26" {...common} />
-          <path d="M24 12C20 9 14 9 9 10v25c5-1 11-1 15 2 4-3 10-3 15-2V10c-5-1-11-1-15 2Z" {...common} />
-        </>
-      )}
-      {name === 'carton' && (
-        <>
-          <path d="M24 6 8 14v20l16 8 16-8V14L24 6Z" {...common} />
-          <path d="M8 14l16 8 16-8M24 22v20M24 22 16 10M32 10l-8 4" {...common} />
-        </>
-      )}
-    </svg>
-  )
-}
 
 // Silent drop-in photo surface: navy duotone placeholder under the real image, so a
 // delivered .webp covers it with zero code change (a missing file just reveals it).
@@ -258,8 +228,8 @@ function RecognitionRail({ t }) {
 export default function InfrastructurePage() {
   const { t } = useTranslation('infrastructurePage')
   const root = useRef(null)
+  const triRef = useRef(null) // capability triptych — CSS reveal container
   const [reduced] = useState(prefersReduced)
-  const [active, setActive] = useState(0) // capability accordion
   const [videoOpen, setVideoOpen] = useState(false)
   const closeRef = useRef(null)
 
@@ -276,6 +246,19 @@ export default function InfrastructurePage() {
       document.body.style.overflow = prev
     }
   }, [videoOpen])
+
+  // §3 capability triptych — hairlines draw + columns fade-stagger via the CSS
+  // `.is-in` gate (About-MVV mechanism). Reduced motion mounts already-in (see JSX).
+  useEffect(() => {
+    if (reduced) return
+    const el = triRef.current
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { el.classList.add('is-in'); io.disconnect() }
+    }, { threshold: 0.15 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [reduced])
 
   useLayoutEffect(() => {
     if (reduced) return
@@ -294,21 +277,14 @@ export default function InfrastructurePage() {
 
       // (hero reveals now handled by PageHero via alive.js data-reveal/textreveal)
       reveal('.inf-strip-item', { trigger: '.inf-strip', stagger: 0.07 })
-      reveal('.inf-acc-row', { trigger: '.inf-acc', stagger: 0.1 })
-      reveal('.inf-acc-visual', { trigger: '.inf-acc' })
-      reveal('.inf-machine', { trigger: '.inf-machines', stagger: 0.12, start: 'top 78%' })
+      // §3 capability triptych reveals via CSS `.is-in` (IntersectionObserver above).
+      reveal('.inf-ledger-row', { trigger: '.inf-ledger', stagger: 0.1, start: 'top 80%' })
       reveal('.inf-results-head, .inf-stat', { trigger: '.inf-results', stagger: 0.08 })
       reveal('.inf-video', { trigger: '.inf-results', start: 'top 72%' })
       reveal('.inf-recognition .aw-head', { trigger: '.inf-recognition', start: 'top 80%' })
       reveal('.inf-recognition .plq', { trigger: '.inf-recognition', stagger: 0.12, start: 'top 74%' })
       reveal('.inf-gallery-item', { trigger: '.inf-gallery', stagger: 0.08 })
       reveal('.inf-cta-inner', { trigger: '.inf-cta', start: 'top 84%' })
-
-      // stroke-draw the machine icons once the grid enters
-      ScrollTrigger.create({
-        trigger: '.inf-machines', start: 'top 78%', once: true,
-        onEnter: () => q('.inf-machine').forEach((el) => el.classList.add('is-in')),
-      })
     }, root)
     return () => ctx.revert()
   }, [reduced])
@@ -368,74 +344,77 @@ export default function InfrastructurePage() {
         </div>
       </section>
 
-      {/* ── 3 · CAPABILITY ACCORDION (beige) ────────────────────────────── */}
-      <section data-theme="light" className="inf-acc" aria-labelledby="inf-acc-h">
-        <PaperGrain />
-        <DotField tone="warm" />
-        <div className="inf-wrap inf-acc-grid inf-z">
-          <div className="inf-acc-copy">
-            <p className="inf-eyebrow">{t('acc.eyebrow')}</p>
-            <h2 id="inf-acc-h" className="inf-h2">{t('acc.title')}</h2>
-            <div className="inf-acc-rows">
-              {CAPABILITIES.map((cap, i) => {
-                const open = active === i
-                const label = t(`acc.capabilities.${cap.k}.label`)
-                return (
-                  <div key={cap.k} className={`inf-acc-row${open ? ' is-open' : ''}`}>
-                    <button
-                      type="button"
-                      className="inf-acc-head"
-                      aria-expanded={open}
-                      aria-controls={`inf-acc-panel-${cap.k}`}
-                      onClick={() => setActive(i)}
-                    >
-                      <span className="inf-acc-num">{String(i + 1).padStart(2, '0')}</span>
-                      <span className="inf-acc-label">{label}</span>
-                      <span className="inf-acc-chev" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6" /></svg>
-                      </span>
-                    </button>
-                    <div id={`inf-acc-panel-${cap.k}`} className="inf-acc-panel" role="region" aria-label={label} hidden={!open}>
-                      <p>{t(`acc.capabilities.${cap.k}.body`)}</p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+      {/* ── 3 · CAPABILITY TRIPTYCH (navy) — About-MVV vocabulary ───────────
+          One flat #0e1b46 band folded into three spines split by two drawn gold
+          hairlines. NO 01/02/03 indices, NO ghost numerals (MVV site law). Each
+          column: DM Mono gold capability name → Inter cream statement, equal
+          optical weight. The 98% stat punctuates below (homepage stat anatomy),
+          then a full-width press-hall frame closes the band. Curves inward per
+          bible so the cream neighbours dip in, never a navy sliver. ─────────── */}
+      <section
+        ref={triRef}
+        data-theme="dark"
+        className={`inf-tri${reduced ? ' is-in' : ''}`}
+        aria-labelledby="inf-tri-h"
+      >
+        <SectionCurve position="top" fill="#fdfaf4" inward />
+        <div className="inf-wrap inf-z">
+          <div className="inf-tri-head">
+            <p className="inf-eyebrow inf-eyebrow--ondark">{t('acc.eyebrow')}</p>
+            <h2 id="inf-tri-h" className="inf-h2 inf-h2--ondark">{t('acc.title')}</h2>
           </div>
 
-          <div className="inf-acc-visual">
-            <InfraPhoto
-              src={`/qfp/infra/facility-0${active + 1}.webp`}
-              note={t(`acc.capabilities.${CAPABILITIES[active].k}.photoNote`)}
-              className="inf-acc-photo"
-            />
-            {/* embedded stat quote card — echoes dispel's overlaid quote */}
-            <div className="inf-acc-quote">
-              <span className="inf-acc-quote-num"><CountUp value={98} suffix="%" /></span>
-              <span className="inf-acc-quote-text">{t('acc.quoteText')}</span>
-            </div>
+          <div className="inf-tri-cols">
+            {CAPABILITIES.map((cap, i) => (
+              <div className="inf-tri-col" key={cap.k} style={{ '--col-i': i }}>
+                <div className="inf-tri-col-body">
+                  <p className="inf-tri-label">{t(`acc.capabilities.${cap.k}.label`)}</p>
+                  <p className="inf-tri-text">{t(`acc.capabilities.${cap.k}.body`)}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 98% stat — centred punctuation row, homepage stat anatomy (big flat
+              gold numeral + DM Mono label). 98 is a fixed brand figure. */}
+          <div className="inf-tri-stat">
+            <span className="inf-tri-stat-num"><CountUp value={98} suffix="%" /></span>
+            <span className="inf-tri-stat-label">{t('acc.quoteText')}</span>
+          </div>
+
+          {/* full-width press-hall frame — hairline, no label; silent drop-in for
+              facility-01.webp (a delivered asset covers the navy base, zero code
+              change; a 404 simply leaves the framed navy placeholder). */}
+          <div className="inf-tri-frame" aria-hidden="true">
+            <div className="inf-tri-frame-img" style={{ backgroundImage: 'url(/qfp/infra/facility-01.webp)' }} />
           </div>
         </div>
-        <SectionCurve position="bottom" fill="#f0ebe0" />
+        <SectionCurve position="bottom" fill="#fdfaf4" inward />
       </section>
 
-      {/* ── 4 · MACHINE CARDS — 2 large + 2 small (cream) ───────────────── */}
-      <section data-theme="light" className="inf-mach-sec" aria-labelledby="inf-mach-h">
+      {/* ── 4 · MACHINE LEDGER — full-width hairline rows (cream) ───────────
+          Editorial, About-chapter anatomy. Each machine is one ledger row split
+          into three locked zones: the defining numeral / mark BIG in gold ·
+          machine name · spec (max 44ch). Rows reveal in stagger; on hover the
+          row's top hairline warms gold, drawn scaleX from the left. ────────── */}
+      <section data-theme="light" className="inf-ledger-sec" aria-labelledby="inf-mach-h">
         <PaperGrain />
         <div className="inf-wrap inf-z">
           <div className="inf-sec-head">
             <p className="inf-eyebrow">{t('machines.eyebrow')}</p>
             <h2 id="inf-mach-h" className="inf-h2">{t('machines.title')}</h2>
           </div>
-          <div className="inf-machines">
+          <div className="inf-ledger">
             {MACHINES.map((m) => (
-              <article key={m.k} className={`inf-machine inf-machine--${m.size}`}>
-                <span className="inf-mi">
-                  <MachineIcon name={m.icon} />
-                </span>
-                <h3 className="inf-machine-name">{t(`machines.items.${m.k}.name`)}</h3>
-                <p className="inf-machine-spec">{t(`machines.items.${m.k}.spec`)}</p>
+              <article key={m.k} className="inf-ledger-row">
+                <span className="inf-ledger-rule" aria-hidden="true" />
+                <div className="inf-ledger-mark" aria-hidden="true">
+                  {m.pkg
+                    ? <Package size={56} weight="light" />
+                    : <span className="inf-ledger-num">{m.mark}</span>}
+                </div>
+                <h3 className="inf-ledger-name">{t(`machines.items.${m.k}.name`)}</h3>
+                <p className="inf-ledger-spec">{t(`machines.items.${m.k}.spec`)}</p>
               </article>
             ))}
           </div>

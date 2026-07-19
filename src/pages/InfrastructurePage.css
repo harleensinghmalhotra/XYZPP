@@ -69,62 +69,138 @@
 .inf-strip-sub { margin: 4px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.4; color: #55504a; }
 .inf-strip-code { margin: 8px 0 0; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.5px; color: #9d6f14; }
 
-/* ── 3 · CAPABILITY ACCORDION (beige) ─────────────────────────────────────── */
-.inf-acc { position: relative; overflow: hidden; background: #f0ebe0; padding: clamp(72px, 11vh, 130px) 0; }
-.inf-acc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 76px); align-items: start; }
-.inf-acc-rows { margin-top: clamp(10px, 2vh, 20px); border-top: 1px solid rgba(28,32,25,0.14); }
-.inf-acc-row { border-bottom: 1px solid rgba(28,32,25,0.14); }
-.inf-acc-head {
-  width: 100%; display: flex; align-items: center; gap: 16px; padding: 22px 0;
-  background: none; border: 0; cursor: pointer; text-align: left;
-}
-.inf-acc-num { font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 1px; color: #9d6f14; min-width: 2ch; }
-.inf-acc-label { flex: 1; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: clamp(18px, 1.6vw, 22px); color: #0f2444; transition: color 0.3s ease; }
-.inf-acc-row.is-open .inf-acc-label { color: #9d6f14; }
-.inf-acc-chev { color: #9d6f14; display: grid; place-items: center; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); }
-.inf-acc-row.is-open .inf-acc-chev { transform: rotate(180deg); }
-.inf-acc-panel { padding: 0 0 24px 34px; }
-.inf-acc-panel p { margin: 0; max-width: 46ch; font-family: 'Inter', sans-serif; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.7; color: #40453b; }
+/* ── 3 · CAPABILITY TRIPTYCH (navy) — About-MVV vocabulary ─────────────────── */
+.inf-tri { position: relative; overflow: hidden; background: #0e1b46; color: #fdfaf4; padding: clamp(84px, 12vh, 148px) 0; }
 
-.inf-acc-visual { position: relative; }
-.inf-acc-photo { aspect-ratio: 4 / 5; border-radius: 0; }
-.inf-acc-quote {
-  position: absolute; left: clamp(14px, 2vw, 24px); bottom: clamp(14px, 2vw, 24px);
-  display: flex; align-items: baseline; gap: 12px;
-  padding: 16px 20px; border-radius: 0; background: #fdfaf4;
-  box-shadow: 0 2px 6px rgba(15,36,68,0.14), 0 20px 44px -18px rgba(15,36,68,0.5);
-  max-width: 82%;
+/* header — left-aligned eyebrow + heading, fades up with the band */
+.inf-tri-head {
+  margin-bottom: clamp(46px, 6.5vh, 82px);
+  opacity: 0; transform: translateY(14px);
+  transition: opacity 0.6s cubic-bezier(0.23,1,0.32,1), transform 0.6s cubic-bezier(0.23,1,0.32,1);
 }
-.inf-acc-quote-num { font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: 32px; line-height: 1; color: #B06F14; font-variant-numeric: tabular-nums; }
-.inf-acc-quote-text { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 14px; line-height: 1.4; color: #1c2019; }
+.inf-tri.is-in .inf-tri-head { opacity: 1; transform: none; }
 
-/* ── 4 · MACHINE CARDS — 2 large + 2 small (cream) ────────────────────────── */
-.inf-mach-sec { position: relative; overflow: hidden; background: #fdfaf4; padding: clamp(72px, 11vh, 130px) 0; }
-.inf-machines { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2vw, 28px); }
-.inf-machine {
-  display: flex; flex-direction: column;
-  border-radius: 0; background: #fdfaf4; border: 1px solid rgba(28,32,25,0.10);
-  box-shadow: 0 1px 2px rgba(28,32,25,0.05), 0 12px 34px -18px rgba(15,36,68,0.28);
-  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
+/* the triptych — one flat panel folded into three spines by two gold hairlines */
+.inf-tri-cols { display: grid; grid-template-columns: repeat(3, 1fr); }
+.inf-tri-col { position: relative; padding: 0 clamp(26px, 3.2vw, 56px); }
+.inf-tri-col:first-child { padding-left: 0; }
+.inf-tri-col:last-child { padding-right: 0; }
+
+/* the two gold hairlines — a leading separator on columns 2 & 3, drawn top→down
+   on reveal, staggered by column (the About-MVV mechanism, 20-25% gold). */
+.inf-tri-col:not(:first-child)::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 1px; height: 100%;
+  background: rgba(217, 150, 55, 0.22);
+  transform-origin: top center; transform: scaleY(0);
+  transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+  transition-delay: calc(var(--col-i) * 0.12s);
 }
-.inf-machine:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(28,32,25,0.07), 0 24px 54px -18px rgba(15,36,68,0.36); }
-.inf-machine--large { min-height: 296px; padding: clamp(28px, 3vw, 40px); background: linear-gradient(158deg, #fdfaf4 0%, #f6f1e6 100%); }
-.inf-machine--small { min-height: 224px; padding: clamp(24px, 2.4vw, 34px); }
-.inf-mi { display: inline-flex; color: #B06F14; margin-bottom: clamp(18px, 2.4vh, 30px); }
-.inf-machine-name {
-  margin: 0 0 12px; min-height: 2.1em;
-  font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(19px, 1.6vw, 24px);
-  line-height: 1.12; letter-spacing: -0.3px; color: #0f2444;
+.inf-tri.is-in .inf-tri-col::before { transform: scaleY(1); }
+
+/* column content — fades up on reveal, staggered after the hairline draw;
+   equal optical weight despite differing statement lengths (top-aligned, capped). */
+.inf-tri-col-body {
+  max-width: 32ch;
+  opacity: 0; transform: translateY(14px);
+  transition: opacity 0.6s cubic-bezier(0.23,1,0.32,1), transform 0.6s cubic-bezier(0.23,1,0.32,1);
+  transition-delay: calc(var(--col-i) * 0.12s + 0.16s);
 }
-.inf-machine--small .inf-machine-name { min-height: 0; font-size: clamp(17px, 1.35vw, 20px); }
-.inf-machine-spec {
-  margin: auto 0 0; font-family: 'Inter', sans-serif; font-size: clamp(14px, 1vw, 15.5px);
-  line-height: 1.6; color: #40453b;
+.inf-tri.is-in .inf-tri-col-body { opacity: 1; transform: none; }
+
+/* capability name — DM Mono gold label treatment */
+.inf-tri-label {
+  margin: 0 0 clamp(16px, 2.2vh, 22px);
+  font-family: 'DM Mono', monospace; font-weight: 500;
+  font-size: clamp(13.5px, 1.1vw, 15.5px); letter-spacing: 2px; text-transform: uppercase;
+  line-height: 1.4; color: #D99637;
 }
-/* stroke-draw icons (pathLength=1 normalises every shape) */
-.inf-mi-icon :is(path, rect, circle) { stroke-dasharray: 1; stroke-dashoffset: 1; }
-.inf-machine.is-in .inf-mi-icon :is(path, rect, circle) { animation: inf-draw 1s ease forwards; }
-@keyframes inf-draw { to { stroke-dashoffset: 0; } }
+/* statement — Inter, cream 90%, comfortable size */
+.inf-tri-text {
+  margin: 0;
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(15px, 1.1vw, 17px); line-height: 1.7; color: rgba(253,250,244,0.9);
+}
+
+/* 98% stat — homepage stat anatomy, a centred punctuation row below the triptych */
+.inf-tri-stat {
+  margin: clamp(56px, 8.5vh, 100px) auto 0;
+  /* center-align so the mono label stays balanced against the numeral whether it
+     wraps to 2 lines (EN) or 3 (FR) — never tailing below the baseline. */
+  display: flex; align-items: center; justify-content: center; gap: clamp(14px, 1.6vw, 22px);
+  opacity: 0; transform: translateY(14px);
+  transition: opacity 0.6s cubic-bezier(0.23,1,0.32,1) 0.36s, transform 0.6s cubic-bezier(0.23,1,0.32,1) 0.36s;
+}
+.inf-tri.is-in .inf-tri-stat { opacity: 1; transform: none; }
+.inf-tri-stat-num {
+  font-family: 'Inter Tight', sans-serif; font-weight: 800;
+  font-size: clamp(46px, 6vw, 76px); line-height: 1; letter-spacing: -0.02em;
+  color: #D99637; font-variant-numeric: tabular-nums;
+}
+.inf-tri-stat-label {
+  max-width: 24ch;
+  font-family: 'DM Mono', monospace; font-weight: 500;
+  font-size: clamp(12px, 1vw, 13.5px); letter-spacing: 1.5px; text-transform: uppercase;
+  line-height: 1.5; color: rgba(253,250,244,0.72);
+}
+
+/* full-width press-hall frame — hairline, no label; silent drop-in for facility-01.webp */
+.inf-tri-frame {
+  position: relative; margin-top: clamp(44px, 6.5vh, 80px);
+  aspect-ratio: 21 / 9; overflow: hidden;
+  border: 1px solid rgba(230, 189, 106, 0.5); /* visible gold hairline vs both photo + navy */
+  background: linear-gradient(150deg, #14294c 0%, #0f2246 58%, #0c1c3e 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.22), 0 22px 54px -26px rgba(0,0,0,0.55);
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1) 0.46s, transform 0.7s cubic-bezier(0.23,1,0.32,1) 0.46s;
+}
+.inf-tri.is-in .inf-tri-frame { opacity: 1; transform: none; }
+.inf-tri-frame::after {
+  content: ''; position: absolute; inset: 0; z-index: 0; opacity: 0.4; pointer-events: none;
+  background-image: radial-gradient(rgba(200,154,60,0.12) 1px, transparent 1.4px); background-size: 20px 20px;
+}
+.inf-tri-frame-img { position: absolute; z-index: 1; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; }
+
+/* ── 4 · MACHINE LEDGER — full-width hairline rows (cream) ─────────────────── */
+.inf-ledger-sec { position: relative; overflow: hidden; background: #fdfaf4; padding: clamp(72px, 11vh, 130px) 0; }
+.inf-ledger { border-bottom: 1px solid rgba(14, 27, 70, 0.12); }
+.inf-ledger-row {
+  position: relative;
+  display: grid; grid-template-columns: clamp(84px, 11vw, 150px) minmax(0, 0.82fr) minmax(0, 1.5fr);
+  gap: clamp(18px, 3vw, 48px); align-items: start;
+  padding: clamp(38px, 6vh, 56px) 0;
+  border-top: 1px solid rgba(14, 27, 70, 0.12);
+}
+/* hover: the row's top hairline warms gold, drawn scaleX from the left */
+.inf-ledger-rule {
+  position: absolute; top: -1px; left: 0; right: 0; height: 2px;
+  background: #9d6f14; transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .inf-ledger-row:hover .inf-ledger-rule { transform: scaleX(1); }
+}
+/* left zone — the defining numeral / mark BIG in gold, top-aligned with the name */
+.inf-ledger-mark { display: flex; align-items: flex-start; color: #9d6f14; }
+/* the Package icon carries internal top padding the tight-leading numerals don't —
+   lift it so its optical top sits on the same locked axis as 20 / 5 / 3. */
+.inf-ledger-mark svg { margin-top: -5px; }
+.inf-ledger-num {
+  font-family: 'Inter Tight', sans-serif; font-weight: 800;
+  font-size: clamp(40px, 5vw, 64px); line-height: 0.86; letter-spacing: -0.02em;
+  color: #9d6f14; font-variant-numeric: tabular-nums;
+}
+/* centre zone — machine name */
+.inf-ledger-name {
+  margin: 0;
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(19px, 1.7vw, 23px); line-height: 1.2; letter-spacing: -0.2px; color: #0f2444;
+}
+/* right zone — spec, max 44ch */
+.inf-ledger-spec {
+  margin: 0; max-width: 44ch;
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(14px, 1.05vw, 16px); line-height: 1.65; color: #40453b;
+}
 
 /* ── 5 · MEASURABLE RESULTS + video (navy) ────────────────────────────────── */
 .inf-results { position: relative; overflow: hidden; background: #0e1b46; color: #fdfaf4; padding: clamp(80px, 12vh, 140px) 0; }
@@ -243,29 +319,41 @@
 .inf-dialog-close:focus-visible { outline: 2px solid #D99637; outline-offset: 2px; }
 @keyframes inf-dialog-in { from { opacity: 0; } to { opacity: 1; } }
 
-.inf-acc-head:focus-visible { outline: 2px solid #D99637; outline-offset: 2px; border-radius: 0; }
-
 /* ── responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 960px) {
-  .inf-hero-grid { grid-template-columns: 1fr; gap: clamp(32px, 6vh, 48px); }
-  .inf-acc-grid { grid-template-columns: 1fr; }
-  .inf-acc-visual { max-width: 460px; }
   .inf-results-grid { grid-template-columns: 1fr; }
-  .inf-machines { grid-template-columns: 1fr 1fr; }
+}
+/* triptych — below 900px the three spines stack; the gold hairlines lie
+   horizontal (leading top rule on cols 2 & 3, drawn left→right on reveal). */
+@media (max-width: 900px) {
+  .inf-tri-cols { grid-template-columns: 1fr; }
+  .inf-tri-col { padding: 0; }
+  .inf-tri-col:not(:first-child) { margin-top: clamp(30px, 4.5vh, 44px); padding-top: clamp(30px, 4.5vh, 44px); }
+  .inf-tri-col:not(:first-child)::before {
+    top: 0; left: 0; width: 100%; height: 1px;
+    transform: scaleX(0); transform-origin: left center;
+  }
+  .inf-tri.is-in .inf-tri-col::before { transform: scaleX(1); }
+  .inf-tri-col-body { max-width: 54ch; }
+  .inf-tri-frame { aspect-ratio: 16 / 9; }
 }
 @media (max-width: 720px) {
   .inf-strip-row { grid-template-columns: repeat(2, 1fr); gap: 8px 0; }
   .inf-strip-item { border-left: 0; padding: 14px 10px; }
-  .inf-machines { grid-template-columns: 1fr; }
-  .inf-machine--large, .inf-machine--small { min-height: 0; }
-  .inf-machine-name { min-height: 0; }
+  /* ledger rows stack: numeral → name → body */
+  .inf-ledger-row { grid-template-columns: 1fr; gap: clamp(8px, 2vw, 14px); padding: clamp(30px, 5vh, 42px) 0; }
+  .inf-ledger-spec { max-width: none; }
+  .inf-tri-stat { flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+  .inf-tri-stat-label { text-align: center; }
   .inf-gallery-strip { grid-template-columns: repeat(2, 1fr); }
   .inf-stats { grid-template-columns: 1fr 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .inf-mi-icon :is(path, rect, circle) { stroke-dashoffset: 0 !important; animation: none !important; }
   .inf-video-thumb:hover .inf-play-ring { animation: none; }
-  .inf-video-thumb:hover, .inf-machine:hover { transform: none; }
+  .inf-video-thumb:hover { transform: none; }
   .inf-dialog { animation: none; }
   .inf-gallery-item:hover .inf-photo-img { transform: none; }
+  .inf-ledger-row:hover .inf-ledger-rule { transition: none; }
+  .inf-tri-head, .inf-tri-col-body, .inf-tri-stat, .inf-tri-frame,
+  .inf-tri-col::before { transition: none; }
 }
