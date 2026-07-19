@@ -5,6 +5,7 @@ import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
 import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import bookImg from '@/assets/pod-book.webp'
 import './PrintOnDemand.css'
 
 /* /print-on-demand — replaces the ShellPage. A "Build Your Book" configurator
@@ -28,29 +29,11 @@ const QUANTITIES = [{ id: '1' }, { id: '10' }, { id: '50' }, { id: '250' }, { id
    summary row, the qty badge and the /contact params — this is chip display only). */
 const QTY_HERO = { 1: '1', 10: '10', 50: '50', 250: '250', 500: '500+' }
 
-/* ── preview geometry ────────────────────────────────────────────────────────── */
-const SIZE_RATIO = { '5x8': 0.625, '6x9': 0.667, '8x10': 0.8, a4: 0.707 }
+/* ── paper swatch tints (drive the .pod-chip-sw swatches in the Paper step) ───── */
 const PAPER_EDGE = {
   cream: { edge: '#f3ead4', line: 'rgba(15,36,68,0.16)' },
   white: { edge: '#fbfaf6', line: 'rgba(15,36,68,0.12)' },
   art: { edge: '#eef0ea', line: 'rgba(15,36,68,0.14)' },
-}
-function bookDims(format, size) {
-  const r = SIZE_RATIO[size] ?? 0.66
-  if (format === 'landscape') {
-    const bw = 350
-    return { bw, bh: Math.round(bw * r), thick: 30 }
-  }
-  const bh = format === 'hardcover' ? 338 : 328
-  const thick = format === 'hardcover' ? 44 : 30
-  return { bw: Math.round(bh * r), bh, thick }
-}
-function ghostCount(q) {
-  const n = Number(q)
-  if (n <= 1) return 0
-  if (n <= 10) return 2
-  if (n <= 50) return 3
-  return 4
 }
 
 /* ── icons (stroke-draw, System-B) ───────────────────────────────────────────── */
@@ -164,12 +147,20 @@ export default function PrintOnDemand() {
   })
   const set = (k) => (v) => setCfg((c) => ({ ...c, [k]: v }))
 
-  const dims = bookDims(cfg.format, cfg.size)
-  const edge = PAPER_EDGE[cfg.paper]
-  const ghosts = ghostCount(cfg.quantity)
   // resolve an option's display label via the printOnDemand namespace
   const optLabel = (group, id) => t(`options.${group}.${id}.label`)
-  const qtyLabel = optLabel('quantity', cfg.quantity)
+
+  // ── spec-panel change feedback ──────────────────────────────────────────────
+  // The static book no longer morphs, so feedback lives in the spec panel: when
+  // a builder option changes we note which key changed and bump a nonce. The
+  // matching row is remounted (keyed by the nonce) so its one-shot flash replays.
+  const prevCfg = useRef(cfg)
+  const [flash, setFlash] = useState({ key: null, n: 0 })
+  useEffect(() => {
+    const changed = Object.keys(cfg).find((k) => cfg[k] !== prevCfg.current[k])
+    prevCfg.current = cfg
+    if (changed) setFlash((f) => ({ key: changed, n: f.n + 1 }))
+  }, [cfg])
 
   // carry the full spec to /contact as readable (translated) URL params
   const params = new URLSearchParams({
@@ -304,77 +295,15 @@ export default function PrintOnDemand() {
           </div>
 
           <div className="pod-config">
-            {/* LEFT — live preview */}
+            {/* LEFT — live preview: a single premium brand photo (feathered to
+                melt into the panel cream). It no longer morphs — the spec panel
+                gives the change feedback now. */}
             <div className="pod-preview" aria-hidden="true">
               <span className="pod-preview-tag">{t('build.previewTag')}</span>
               <div className="pod-stage">
-                <div style={{ position: 'relative' }}>
-                  {Array.from({ length: ghosts }).map((_, i) => (
-                    <span
-                      key={i}
-                      className="pod-stack-ghost"
-                      style={{
-                        width: dims.bw,
-                        height: dims.bh,
-                        transform: `translate(${(i + 1) * 10}px, ${(i + 1) * 12}px)`,
-                        zIndex: -1 - i,
-                        opacity: 0.9 - i * 0.14,
-                      }}
-                    />
-                  ))}
-                  <div
-                    className="pod-book"
-                    data-format={cfg.format}
-                    data-binding={cfg.binding}
-                    data-finish={cfg.finish}
-                    style={{
-                      '--bw': `${dims.bw}px`,
-                      '--bh': `${dims.bh}px`,
-                      '--thick': `${dims.thick}px`,
-                      '--edge': edge.edge,
-                      '--edge-line': edge.line,
-                    }}
-                  >
-                    <div className="pod-face pod-back" />
-                    <div className="pod-face pod-fore" />
-                    <div className="pod-face pod-top" />
-                    <div className="pod-face pod-spine">
-                      <span className="pod-headband top" />
-                      <span className="pod-headband bottom" />
-                      <span className="pod-coil">
-                        <svg viewBox="0 0 20 320" preserveAspectRatio="none">
-                          {Array.from({ length: 13 }).map((_, i) => {
-                            const y = 16 + i * 23
-                            return (
-                              <g key={i} stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round">
-                                <circle cx="11" cy={y} r="2.4" />
-                                <path d={`M4 ${y - 6} C 15 ${y - 6}, 15 ${y + 6}, 4 ${y + 6}`} />
-                              </g>
-                            )
-                          })}
-                        </svg>
-                      </span>
-                    </div>
-                    <div className="pod-face pod-front">
-                      <span className="pod-cover-weave" />
-                      <span className="pod-cover-frame" />
-                      <span className="pod-cover-rule" />
-                      <span className="pod-cover-mark" />
-                      <span className="pod-sheen" />
-                      <span className="pod-matte" />
-                    </div>
-                  </div>
-                </div>
+                <img className="pod-book-img" src={bookImg} alt="" width="700" height="1085" draggable="false" />
               </div>
-              {Number(cfg.quantity) > 1 && (
-                <span className="pod-qty-badge">
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 7h13v11H4zM8 7V4h13v11h-3" />
-                  </svg>
-                  {qtyLabel}
-                </span>
-              )}
-              <p className="pod-preview-caption">
+              <p className="pod-preview-caption" key={`${cfg.format}|${cfg.size}|${cfg.finish}`}>
                 {optLabel('format', cfg.format)}{t('build.previewCaptionSep')}
                 {optLabel('size', cfg.size)}{t('build.previewCaptionSep')}
                 {optLabel('finish', cfg.finish)}
@@ -477,15 +406,20 @@ export default function PrintOnDemand() {
               <p className="pod-summary-eyebrow">{t('summary.eyebrow')}</p>
               <h3 className="pod-summary-title">{t('summary.title')}</h3>
               <ul className="pod-summary-list">
-                {summaryRows.map(([k, v, sub]) => (
-                  <li className="pod-summary-row" key={k}>
-                    <span className="pod-summary-key">{t(`summary.keys.${k}`)}</span>
-                    <span className="pod-summary-val">
-                      {v}
-                      {sub && <span className="sub">{sub}</span>}
-                    </span>
-                  </li>
-                ))}
+                {summaryRows.map(([k, v, sub]) => {
+                  const isFlash = flash.key === k
+                  return (
+                    // remount on flash (keyed by nonce) so the one-shot pulse/pop/ping replays
+                    <li className="pod-summary-row" key={isFlash ? `${k}-${flash.n}` : k} data-flash={isFlash ? '' : undefined}>
+                      <span className="pod-summary-key">{t(`summary.keys.${k}`)}</span>
+                      <span className="pod-summary-val">
+                        <span className="pod-flash-dot" aria-hidden="true" />
+                        {v}
+                        {sub && <span className="sub">{sub}</span>}
+                      </span>
+                    </li>
+                  )
+                })}
               </ul>
               {reqStatus === 'success' ? (
                 <div className="pod-req-done" role="status" aria-live="polite">

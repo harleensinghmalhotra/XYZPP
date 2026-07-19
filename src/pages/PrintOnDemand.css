@@ -80,8 +80,9 @@
   position: sticky;
   top: 84px;
   border-radius: var(--r-card);
-  background:
-    radial-gradient(120% 90% at 50% 12%, #fffdf8 0%, var(--beige) 62%, #e7ddca 100%);
+  /* flat cream matched to the book photo's own background (#f9f2e2) so the
+     feathered image edges dissolve into the panel with no visible seam */
+  background: #f9f2e2;
   border: 1px solid var(--hair);
   box-shadow: 0 2px 14px rgba(15, 36, 68, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   padding: clamp(28px, 4vh, 46px) 24px;
@@ -103,295 +104,43 @@
   color: var(--gold-3);
 }
 
-/* the CSS book — true 3D cuboid, faces built with the centred-face recipe */
+/* — the book preview is a single optimised brand photo (navy hardcover on a
+   cream field), feathered at its edges so the cream melts into the panel. The
+   book carries its OWN soft grounding shadow, so the stage adds none — no
+   double shadow. The book no longer morphs; change feedback lives in the spec
+   panel (.pod-summary-row[data-flash]). — */
 .pod-stage {
   position: relative;
-  perspective: 1900px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 0 42px;
+  padding: 6px 0 8px;
 }
-/* grounded contact shadow beneath the book */
-.pod-stage::after {
-  content: '';
-  position: absolute;
-  bottom: 14px;
-  left: 50%;
-  width: 62%;
-  height: 26px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(15, 36, 68, 0.28), rgba(15, 36, 68, 0));
-  filter: blur(3px);
-  z-index: 0;
-}
-.pod-book {
-  --bw: 210px;
-  --bh: 320px;
-  --thick: 34px;
-  --edge: #f3ead4;
-  --edge-line: rgba(15, 36, 68, 0.16);
-  position: relative;
-  width: var(--bw);
-  height: var(--bh);
-  transform-style: preserve-3d;
-  /* positive rotateY reveals the SPINE (left face) so the binding choice —
-     perfect / sewn headband / wiro coil — visibly responds; the top edge still
-     shows the paper stock. */
-  transform: rotateX(6deg) rotateY(30deg);
-  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+.pod-book-img {
+  display: block;
+  width: min(320px, 82%);
+  height: auto;
+  animation: pod-bookfloat 6s ease-in-out infinite;
   will-change: transform;
-  animation: pod-float 6s ease-in-out infinite;
-  z-index: 1;
 }
-/* idle showcase life — a gentle ±2deg oscillation with a soft rise */
-@keyframes pod-float {
-  0%, 100% { transform: rotateX(6deg) rotateY(30deg) translateY(0); }
-  50% { transform: rotateX(6deg) rotateY(32deg) translateY(-6px); }
-}
-.pod-face {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.4s ease;
-}
-/* front cover — a premium blank-canvas QFP brand object, NOT a product shot.
-   Deep-navy cloth board: layered gradients read as bookbinding buckram, a gold
-   foil frame inset ~8%, a small foil-stamped QFP monogram, restrained gold
-   hairlines near the spine. No title, no lorem — it is the brand's book. */
-.pod-front {
-  width: var(--bw);
-  height: var(--bh);
-  margin-left: calc(var(--bw) / -2);
-  margin-top: calc(var(--bh) / -2);
-  transform: translateZ(calc(var(--thick) / 2));
-  border-radius: 3px 8px 8px 3px;
-  background:
-    /* top-light sheen + spine-side gutter shade */
-    radial-gradient(130% 100% at 26% 8%, rgba(255, 255, 255, 0.12), transparent 46%),
-    linear-gradient(90deg, rgba(4, 10, 30, 0.55) 0%, transparent 16%),
-    /* corner vignette to seat the cloth */
-    radial-gradient(140% 120% at 50% 46%, transparent 58%, rgba(3, 8, 26, 0.55) 100%),
-    /* cloth base — two navies for a bound-board depth */
-    linear-gradient(150deg, #14245a 0%, #0e1b46 52%, #0a1436 100%);
-  box-shadow:
-    inset 0 0 0 1px rgba(131, 96, 19, 0.28),
-    inset 22px 0 34px -22px rgba(3, 8, 26, 0.7); /* gutter shade near spine */
-  overflow: hidden;
-}
-/* buckram weave — a fine cross-hatch, barely there, gives the cloth its tooth */
-.pod-cover-weave {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.42;
-  mix-blend-mode: soft-light;
-  background-image:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 3px);
-}
-/* gold foil frame — inset ~8%, a hairline outer rule + a faint inner echo */
-.pod-cover-frame {
-  position: absolute;
-  inset: 8%;
-  pointer-events: none;
-  border: 1px solid transparent;
-  border-image: linear-gradient(150deg, #f4dc96, #b98a2e 45%, #8a6414 70%, #e7c877) 1;
-  box-shadow:
-    inset 0 0 0 3px rgba(10, 18, 48, 0),   /* spacer so the echo sits inboard */
-    inset 0 0 0 4px rgba(216, 176, 90, 0.22);
-}
-/* restrained gold hairlines near the spine edge — two thin foil rules */
-.pod-cover-rule {
-  position: absolute;
-  top: 8%;
-  bottom: 8%;
-  left: 4.5%;
-  width: 3px;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, transparent, rgba(216, 176, 90, 0.75) 12%, rgba(216, 176, 90, 0.75) 88%, transparent),
-    linear-gradient(180deg, transparent, rgba(216, 176, 90, 0.35) 12%, rgba(216, 176, 90, 0.35) 88%, transparent);
-  background-size: 1px 100%, 1px 100%;
-  background-position: 0 0, 3px 0;
-  background-repeat: no-repeat;
-}
-/* foil-stamped QFP monogram — brand mark driven through a gold gradient via mask.
-   drop-shadow gives the stamped emboss; small + centred = brand object, not a logo dump. */
-.pod-cover-mark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 33%;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  background: linear-gradient(150deg, #f6e0a2 0%, #d9a94a 34%, #a5771f 62%, #eccb7c 100%);
-  -webkit-mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
-  mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
-  filter: drop-shadow(0 1px 0.5px rgba(4, 8, 22, 0.6));
-}
-/* finish sheen — gloss shows a hard specular sweep, lay-flat a soft one */
-.pod-sheen {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  background: linear-gradient(
-    118deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.55) 46%,
-    rgba(255, 255, 255, 0.12) 52%,
-    transparent 66%
-  );
-  transition: opacity 0.4s ease;
-}
-.pod-book[data-finish='gloss'] .pod-sheen { opacity: 1; }
-.pod-book[data-finish='layflat'] .pod-sheen { opacity: 0.45; }
-/* matte = a faint tooth wash instead of shine */
-.pod-matte {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  mix-blend-mode: multiply;
-  background: radial-gradient(120% 120% at 30% 20%, transparent 55%, rgba(15, 36, 68, 0.1) 100%);
-  transition: opacity 0.4s ease;
-}
-.pod-book[data-finish='matte'] .pod-matte { opacity: 1; }
-
-/* back cover */
-.pod-back {
-  width: var(--bw);
-  height: var(--bh);
-  margin-left: calc(var(--bw) / -2);
-  margin-top: calc(var(--bh) / -2);
-  transform: rotateY(180deg) translateZ(calc(var(--thick) / 2));
-  border-radius: 8px 3px 3px 8px;
-  background: linear-gradient(135deg, #ece3d1, #ddd0b6);
-}
-/* fore-edge (right) — the page block, coloured by paper choice */
-.pod-fore {
-  width: var(--thick);
-  height: var(--bh);
-  margin-left: calc(var(--thick) / -2);
-  margin-top: calc(var(--bh) / -2);
-  transform: rotateY(90deg) translateZ(calc(var(--bw) / 2));
-  background:
-    repeating-linear-gradient(180deg, var(--edge) 0 1.5px, var(--edge-line) 1.5px 2px);
-  border-radius: 0 2px 2px 0;
-}
-/* top edge — same paper stock */
-.pod-top {
-  width: var(--bw);
-  height: var(--thick);
-  margin-left: calc(var(--bw) / -2);
-  margin-top: calc(var(--thick) / -2);
-  transform: rotateX(90deg) translateZ(calc(var(--bh) / 2));
-  background:
-    repeating-linear-gradient(90deg, var(--edge) 0 1.5px, var(--edge-line) 1.5px 2px);
-}
-/* spine (left) — navy cloth to match the cover, with twin gold foil rules;
-   the binding treatment (headband / coil) overlays on top. */
-.pod-spine {
-  width: var(--thick);
-  height: var(--bh);
-  margin-left: calc(var(--thick) / -2);
-  margin-top: calc(var(--bh) / -2);
-  transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2));
-  border-radius: 2px 0 0 2px;
-  background:
-    /* twin gold foil stripes down the spine */
-    linear-gradient(90deg, transparent 20%, rgba(216, 176, 90, 0.9) 20% 26%, transparent 26% 74%, rgba(216, 176, 90, 0.9) 74% 80%, transparent 80%),
-    /* cylindrical light so the navy reads as a rounded bound edge */
-    linear-gradient(90deg, rgba(3, 8, 26, 0.75) 0%, rgba(30, 46, 96, 0.4) 46%, rgba(3, 8, 26, 0.7) 100%),
-    linear-gradient(90deg, #10204e, #0e1b46);
-  box-shadow: inset 0 0 0 1px rgba(4, 8, 22, 0.7);
-}
-/* perfect binding = clean flat spine (default, above) */
-/* section-sewn = rounded spine + a coloured headband cap top & bottom */
-.pod-book[data-binding='sewn'] .pod-spine {
-  border-radius: 8px 0 0 8px;
-}
-.pod-headband {
-  position: absolute;
-  left: 1px;
-  right: 1px;
-  height: 6px;
-  background: repeating-linear-gradient(90deg, var(--gold-2) 0 2px, var(--navy) 2px 4px);
-  opacity: 0;
-  border-radius: 2px;
-}
-.pod-headband.top { top: 2px; }
-.pod-headband.bottom { bottom: 2px; }
-.pod-book[data-binding='sewn'] .pod-headband { opacity: 1; }
-/* wiro = a drawn twin-loop coil overlaying the spine */
-.pod-coil {
-  position: absolute;
-  inset: 0;
-  display: none;
-  color: #8a8069;
-}
-.pod-book[data-binding='wiro'] .pod-coil { display: block; }
-.pod-book[data-binding='wiro'] .pod-spine {
-  background: #efe9dc;
-  box-shadow: inset 0 0 0 1px rgba(15, 36, 68, 0.12);
-}
-.pod-coil svg { width: 100%; height: 100%; }
-
-/* paperback = limp cover, softly rounded corners, flush with the page block */
-.pod-book[data-format='paperback'] .pod-front { border-radius: 3px 11px 11px 3px; }
-.pod-book[data-format='paperback'] .pod-back { border-radius: 11px 3px 3px 11px; }
-
-/* hardcover = rigid case boards, near-square corners that overhang the block */
-.pod-book[data-format='hardcover'] .pod-front,
-.pod-book[data-format='hardcover'] .pod-back {
-  border-radius: 2px 4px 4px 2px;
-}
-.pod-book[data-format='hardcover'] .pod-front {
-  box-shadow:
-    inset 0 0 0 1px rgba(131, 96, 19, 0.32),
-    inset 22px 0 34px -22px rgba(3, 8, 26, 0.7),
-    0 3px 0 1px rgba(3, 8, 26, 0.22),   /* board overhang lip along the fore-edge */
-    0 0 0 2px rgba(3, 8, 26, 0.14);      /* case-board rim */
-}
-.pod-book[data-format='hardcover'] .pod-back {
-  box-shadow:
-    0 0 0 2px rgba(3, 8, 26, 0.14);
-}
-
-/* stacked copies behind, for quantity > 1 */
-.pod-stack-ghost {
-  position: absolute;
-  inset: 0;
-  border-radius: 3px 8px 8px 3px;
-  background: linear-gradient(135deg, #efe6d4, #ddd0b6);
-  box-shadow: 0 1px 2px rgba(15, 36, 68, 0.14);
-}
-.pod-qty-badge {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 13px;
-  border-radius: var(--r-chip);
-  background: var(--navy);
-  color: var(--cream);
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 6px 18px rgba(15, 36, 68, 0.22);
+/* gentle idle life — a ±4px vertical drift, no rotation */
+@keyframes pod-bookfloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 .pod-preview-caption {
-  margin: 8px 0 0;
+  margin: 14px 0 0;
   font-size: 12.5px;
   letter-spacing: 0.2px;
   color: rgba(28, 32, 25, 0.55);
   text-align: center;
+  animation: pod-capfade 400ms ease;
+}
+/* quick crossfade whenever the caption text changes (remounted via React key) */
+@keyframes pod-capfade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* — CENTRE · the six step groups (scroll) — */
@@ -751,6 +500,57 @@
   color: rgba(253, 250, 244, 0.55);
   margin-top: 2px;
 }
+
+/* ── spec-panel change feedback ──────────────────────────────────────────────
+   When a builder option changes, its matching spec row flashes. React remounts
+   the row via a keyed nonce (see PrintOnDemand.jsx), so each of these one-shot
+   animations fires exactly once per change. */
+.pod-summary-val {
+  position: relative;
+  transform-origin: right center;
+}
+.pod-summary-row[data-flash] {
+  border-radius: 6px;
+  animation: pod-rowpulse 600ms ease-out;
+}
+@keyframes pod-rowpulse {
+  0% { background-color: rgba(216, 176, 90, 0.15); }
+  100% { background-color: rgba(216, 176, 90, 0); }
+}
+.pod-summary-row[data-flash] .pod-summary-val {
+  animation: pod-valpop 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes pod-valpop {
+  0% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+/* a small gold dot pings in just left of the changed value */
+.pod-flash-dot {
+  position: absolute;
+  left: -15px;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold-2);
+  opacity: 0;
+  pointer-events: none;
+}
+.pod-summary-row[data-flash] .pod-flash-dot {
+  animation: pod-dotping 600ms ease-out;
+}
+@keyframes pod-dotping {
+  0% { opacity: 1; transform: scale(0.4); }
+  45% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.3); }
+}
+/* reduced-motion swaps the pulse/pop/ping for a brief gold underline sweep */
+@keyframes pod-flash-underline {
+  0% { opacity: 0; transform: scaleX(0); }
+  25% { opacity: 1; transform: scaleX(1); }
+  70% { opacity: 1; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(1); }
+}
 .pod-request {
   position: relative;
   display: flex;
@@ -1063,11 +863,23 @@
   .pod-opts.chips.qty { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* reduced motion — no idle float, and every state change snaps instantly */
+/* reduced motion — the book sits still, and spec changes swap instantly. The
+   pulse/pop/ping are replaced by a brief gold underline sweep under the value. */
 @media (prefers-reduced-motion: reduce) {
-  .pod-book { animation: none; }
-  .pod-book,
-  .pod-face,
-  .pod-sheen,
-  .pod-matte { transition: none; }
+  .pod-book-img { animation: none; }
+  .pod-preview-caption { animation: none; }
+  .pod-summary-row[data-flash],
+  .pod-summary-row[data-flash] .pod-summary-val,
+  .pod-summary-row[data-flash] .pod-flash-dot { animation: none; }
+  .pod-summary-row[data-flash] .pod-summary-val::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 2px;
+    background: var(--gold-2);
+    transform-origin: right center;
+    animation: pod-flash-underline 600ms ease-out;
+  }
 }
