@@ -1,222 +1,155 @@
-/* Fraunces — YOO's italic-serif accent face (open-source; our copy, not YOO's).
-   Loaded here so it stays within /about territory (index.html is out of lane). */
+/* Fraunces — italic-serif accent face (open-source; our copy). Loaded here so it
+   stays within /about territory (index.html is out of lane). */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap');
 
-/* ── /about — "Our Story" v5, YOO DELTA APPLIED WHOLESALE ─────────────────────
-   Every value here is the measured YOO (yoointerior.com/about) figure from the
-   D:\tmp\yoo-about-mirror study, mapped 1:1 onto our fonts + palette + copy.
-   Font-driven substitutions (documented, unavoidable):
-     • YOO heading weight 300 → 400 (our Inter Tight ships 400/500/600/700/800; 400
-       is the lightest loaded — index.html is out of territory).
-     • YOO's Fraunces-italic serif accent word → omitted (our stack is Inter Tight /
-       Inter / DM Mono only; keep our fonts per brief).
-     • YOO's Maison Neue micro-labels → DM Mono; a mono cap face needs minimal em
-       tracking, so labels hold ~0.22em rather than YOO's ~0 proportional tracking.
-   Motion: YOO's exact captured curve cubic-bezier(.22,1,.36,1) + durations, scoped
-   to /about only. transform/opacity for scroll motion; the hover corner-morph uses
-   border-radius (YOO's own technique, hover-only). Reduced motion: instant. */
+/* ── /about — "Our Story", DEFINITIVE COMPACT REBUILD ────────────────────────
+   Anatomy from YOO Interior's about page (serif accent, offset statement,
+   team-card grid), but every display size comes DOWN per the client's "too big"
+   note: a page-opening navy BAND (~58vh) not a full-viewport takeover; statement
+   caps ≤ clamp(36–56px); section paddings 96–120px. Premium = restraint.
 
-/* YOO-measured local tokens + exact captured easing, scoped to the five sections.
-   Redefining --e-out here re-points the shared reveal transitions (index.css) to
-   YOO's exact curve for every [data-reveal]/[data-textreveal] inside /about. */
+   Signature — the empty asset frames wear opposite-corner registration brackets
+   (gold hairline crop marks). A book printer's own vernacular: it reads the empty
+   frames as intentional printer's plates awaiting impression, not broken images.
+
+   Motion: YOO's captured curve cubic-bezier(.22,1,.36,1) + durations, scoped to
+   /about. transform/opacity only; reduced-motion → instant. */
+
 .ab-hero,
-.ab-statement,
 .ab-journey,
 .ab-mvv,
-.ab-founder {
-  --e-out: cubic-bezier(0.22, 1, 0.36, 1);   /* YOO exact (was 0.23,1,0.32,1) */
+.ab-team {
+  --e-out: cubic-bezier(0.22, 1, 0.36, 1);   /* YOO exact — re-points shared reveals */
   --ab-e:  cubic-bezier(0.22, 1, 0.36, 1);
-  --ab-max: 1632px;                          /* YOO --about-content-max-width */
-  --ab-gut: clamp(24px, 5.392vw, 48px);      /* YOO gutter 24 → 48 */
-  --ab-sec: clamp(96px, 12vh, 120px);        /* per-section block → ≥192px boundary */
-  --ab-accent: #b04a2c;                      /* YOO-style warm rust for serif accents */
+  --ab-max: 1440px;                          /* content max — tightened from 1632 */
+  --ab-gut: clamp(24px, 5vw, 48px);
+  --ab-sec: clamp(96px, 11vh, 120px);        /* per-section block padding */
 }
 
-/* YOO's italic-serif accent word — swaps the sans run for Fraunces italic in warm
-   rust, optical settings echoing YOO's SOFT/WONK. Applied to accent words only. */
-.ab-accent {
+.ab-wrap { position: relative; z-index: 1; max-width: var(--ab-max); margin: 0 auto; }
+
+/* italic-serif accent word inside the H1 — Fraunces italic in CREAM (not gold:
+   gold is reserved for the crop-mark signature, and the brief calls the H1 cream).
+   A quiet style shift that carries editorial texture without a second accent hue. */
+.ab-serif {
   font-family: 'Fraunces', Georgia, serif;
   font-style: italic;
   font-weight: 400;
   font-variation-settings: 'SOFT' 0, 'WONK' 1;
-  letter-spacing: -0.01em;
-  color: var(--ab-accent);
+  letter-spacing: 0;
+  color: inherit;
 }
 
-/* ── SECTION 1 — GIANT HERO (flat #0e1b46; YOO hero geometry) ────────────────
-   YOO: full-viewport hero, the word absolutely centered, scroll cue pinned to
-   the bottom. Title is a FIXED 112px (mobile 56px) — measured, not viewport-
-   scaled — capped at min(100% - 96px, 1632px). We keep navy (no photo asset). */
+/* ── SIGNATURE — the empty asset frame + registration brackets ───────────────
+   Shared by the timeline media slot and all 8 team portrait slots. Cream fill,
+   1px hairline, and two opposite-corner gold brackets (⌐ … ⌟). data-slot stays
+   for later asset drops; a dropped image simply fills the frame. */
+.ab-frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: var(--cream-2);
+  border: 1px solid rgb(var(--gold-rgb) / 0.18);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 260ms var(--ab-e), border-radius 260ms var(--ab-e);
+}
+.ab-frame::before,
+.ab-frame::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 0 solid rgb(var(--gold-rgb) / 0.72);
+  pointer-events: none;
+}
+.ab-frame::before { top: 10px;    left: 10px;  border-top-width: 1.5px;    border-left-width: 1.5px; }
+.ab-frame::after  { bottom: 10px; right: 10px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+/* ── SECTION 1 — HERO BAND (flat #0e1b46, ~58vh, left-aligned column) ────────
+   NOT the full-viewport monster: a strong opening band. Content left-aligned in
+   the content column: gold eyebrow → giant decorative "ABOUT US" → H1 → lede. */
 .ab-hero {
   position: relative;
   background: #0e1b46;
-  height: 100svh;
-  min-height: 720px;              /* YOO .about-hero min-height */
+  min-height: clamp(430px, 56vh, 590px);
+  display: flex;
+  align-items: center;
+  padding: clamp(48px, 6vh, 84px) var(--ab-gut);
   overflow: hidden;
 }
-/* Photo-ready hero, YOO-style: drop a Quarterfold-owned image in by setting
-   --ab-hero-photo: url('/your-photo.webp') and --ab-hero-overlay: .55 on .ab-hero.
-   With no photo the overlay is fully opaque navy — visually identical to a flat band. */
-.ab-hero::before {
-  content: ''; position: absolute; inset: 0; z-index: 0;
-  background-image: var(--ab-hero-photo, none);
-  background-size: cover; background-position: center;
-}
-.ab-hero::after {
-  content: ''; position: absolute; inset: 0; z-index: 0;
-  background: rgb(14 27 70 / var(--ab-hero-overlay, 1));
-}
-.ab-hero-inner, .ab-hero .ab-scroll { z-index: 1; }
-
-/* the centered block owns YOO's title geometry (top/left 50% + translate, width cap) */
-.ab-hero-inner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(100% - 96px, 1632px);   /* YOO .about-hero-title width */
-  text-align: center;
-}
+.ab-hero-inner { width: 100%; text-align: left; }
 
 .ab-eyebrow {
-  margin: 0 0 clamp(20px, 3.2vh, 34px);
+  margin: 0 0 clamp(14px, 1.9vh, 20px);
   font-family: 'DM Mono', monospace;
   font-weight: 500;
   font-size: 12px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--gold-2);
 }
 
-/* the giant word — YOO fixed 112px / w700 / -0.05em / lh 0.814 (mobile 56px) */
+/* the decorative display word — strong-but-sane clamp (NOT viewport-monster) */
 .ab-hero-display {
-  margin: 0;
+  margin: 0 0 clamp(16px, 2.2vh, 24px);
   font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;                 /* YOO .about-hero-title weight */
-  font-size: 112px;                 /* YOO fixed — NOT viewport-scaled */
-  line-height: 0.814;               /* YOO */
-  letter-spacing: -0.05em;          /* YOO -5.6px */
+  font-weight: 800;
+  font-size: clamp(60px, 8.5vw, 100px);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
   text-transform: uppercase;
   color: var(--cream);
-  text-wrap: balance;
 }
 
-/* bottom-center scroll cue — YOO bottom:33px, gap:10px */
-.ab-scroll {
-  position: absolute;
-  bottom: 33px;                     /* YOO .about-hero-scroll bottom */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;                        /* YOO */
-}
-.ab-scroll span {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;                  /* YOO 11px */
-  font-weight: 500;
-  letter-spacing: 0.1em;            /* YOO near-zero (-.11px); mono legibility floor */
-  text-transform: uppercase;
-  color: rgba(253, 250, 244, 0.7);
-}
-/* YOO scroll line — 2px × 42px rounded faint track + a 12px travelling highlight */
-.ab-scroll i {
-  position: relative;
-  width: 2px;                       /* YOO .about-scroll-line width */
-  height: 42px;                     /* YOO 42px */
-  border-radius: 999px;
-  background: rgb(var(--gold-rgb) / 0.34);   /* YOO #ffffff57 → our gold */
-  overflow: hidden;
-}
-.ab-scroll i::after {
-  content: '';
-  position: absolute;
-  left: 0; top: 0;
-  width: 2px;
-  height: 12px;                     /* YOO highlight height */
-  border-radius: 999px;
-  background: var(--gold-2);
-  animation: ab-scroll-line 1.7s ease-in-out infinite;   /* YOO 1.7s */
-}
-@keyframes ab-scroll-line {
-  0%   { transform: translateY(0);    opacity: 0; }
-  20%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { transform: translateY(30px); opacity: 0; }
-}
-
-/* ── SECTION 2 — CHAPTER 1: THE STATEMENT (cream) ────────────────────────────
-   YOO intro-heading proportions: ~4.6vw → 88px cap, weight 300→400, -0.07em,
-   full-width 1px divider, 22px lede at their 816px column. Single H1. */
-.ab-statement {
-  position: relative;
-  background: var(--cream);
-  padding: var(--ab-sec) var(--ab-gut);
-  overflow: hidden;
-}
-/* YOO offset layout — big heading left, small text block dropped to the right */
-.ab-statement-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: clamp(40px, 5vw, 112px);
-  align-items: end;
-}
-.ab-statement-side { max-width: 460px; }
-.ab-statement-h1 {
-  margin: 0;
-  max-width: 16ch;                  /* YOO heading-row measure */
+/* the single H1 — supporting line, cream, restrained */
+.ab-hero-title {
+  margin: 0 0 clamp(16px, 2.2vh, 24px);
+  max-width: 22ch;
   font-family: 'Inter Tight', sans-serif;
-  font-weight: 400;                 /* YOO 300 → lightest loaded */
-  font-size: clamp(40px, 4.6vw, 88px);   /* YOO ~4.6vw statement, 88px cap */
-  line-height: 1.16;                /* YOO .about-intro-heading */
-  letter-spacing: -0.07em;          /* YOO -6.16px */
-  color: #0e1b46;
+  font-weight: 600;
+  font-size: clamp(24px, 3.2vw, 34px);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--cream);
 }
-.ab-statement-rule {
-  width: 100%; height: 1px; border: 0;     /* YOO team-lead-divider 1px × 100% */
-  background: rgb(var(--gold-rgb) / 0.34);
-  margin: clamp(28px, 4vh, 40px) 0;
-}
-.ab-statement-lede {
+.ab-hero-lede {
   margin: 0;
-  max-width: 816px;                 /* YOO body column */
+  max-width: 58ch;
   font-family: 'Inter', sans-serif;
-  font-size: 22px;                  /* YOO body 22px */
-  line-height: 1.5;
-  letter-spacing: -0.03em;          /* YOO -1.54px, eased for Inter body */
-  color: rgb(var(--navy-rgb) / 0.78);
+  font-size: clamp(16px, 1.15vw, 18px);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: rgb(253 250 244 / 0.8);
 }
 
-/* ── SECTIONS 3+4 — JOURNEY intro + interactive timeline (cream) ──────────── */
+/* ── SECTION 2 — JOURNEY intro + interactive timeline (cream) ──────────────── */
 .ab-journey {
   position: relative;
   background: var(--cream);
   padding: var(--ab-sec) var(--ab-gut);
   overflow: hidden;
 }
-.ab-wrap { position: relative; z-index: 1; max-width: var(--ab-max); margin: 0 auto; }
 
 .ab-eyebrow--cream {
   margin: 0;
   font-family: 'DM Mono', monospace;
   font-weight: 500;
-  font-size: 11px;                  /* YOO label 11px */
-  letter-spacing: 0.22em;
+  font-size: 11px;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--gold-text);
 }
 .ab-rule {
-  width: 100%; height: 1px; border: 0;     /* YOO full-width divider */
-  background: rgb(var(--gold-rgb) / 0.34);
-  margin: 16px 0 clamp(48px, 7vh, 72px);
+  width: 100%; height: 1px; border: 0;
+  background: rgb(var(--gold-rgb) / 0.3);
+  margin: 16px 0 clamp(40px, 6vh, 60px);
 }
 
-/* three-zone: rail / media / content — YOO 96px gap */
+/* three-zone: rail / media / content */
 .ab-tl {
   display: grid;
-  grid-template-columns: 128px 1fr 1fr;
-  gap: clamp(48px, 6vw, 96px);
+  grid-template-columns: 120px 1fr 1fr;
+  gap: clamp(40px, 5vw, 80px);
   align-items: start;
 }
 .ab-tl-rail { position: relative; }
@@ -224,7 +157,7 @@
   position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px;
   background: rgb(var(--navy-rgb) / 0.15);
 }
-.ab-tl-years { display: flex; flex-direction: column; gap: clamp(22px, 3vh, 34px); }
+.ab-tl-years { display: flex; flex-direction: column; gap: clamp(20px, 2.6vh, 30px); }
 .ab-tl-year {
   position: relative; padding-left: 26px; text-align: left;
   background: none; border: 0; cursor: pointer;
@@ -244,47 +177,37 @@
   box-shadow: 0 0 0 7px rgb(157 111 20 / 0.12);
 }
 
-.ab-tl-media {
-  aspect-ratio: 16 / 9;             /* YOO story media ≈ 816/458 */
-  background: var(--cream-2);
-  border-radius: 8px;               /* YOO card radius */
-  border: 1px solid rgb(var(--gold-rgb) / 0.15);
-  display: grid; place-items: center;
-}
-.ab-slot {
-  font-family: 'DM Mono', monospace; font-size: 11px;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgb(var(--navy-rgb) / 0.32);
-}
+/* media frame — 16:9 override of the shared 3:4 .ab-frame */
+.ab-tl-media { aspect-ratio: 16 / 9; }
 
-/* eased crossfade on year change — YOO transform .52s, keyed on activeIdx */
-.ab-tl-content { animation: ab-fade 520ms var(--ab-e); }
+/* eased crossfade on year change — keyed on activeIdx */
+.ab-tl-content { animation: ab-fade 460ms var(--ab-e); }
 @keyframes ab-fade {
   from { opacity: 0.25; transform: translateY(6px); }
   to   { opacity: 1;    transform: none; }
 }
 .ab-tl-yearbig {
-  margin: 0 0 clamp(14px, 2vh, 22px);
-  font-family: 'Inter Tight', sans-serif; font-weight: 400;   /* YOO light */
-  font-size: clamp(56px, 5.5vw, 88px);      /* YOO big-heading 88px */
-  line-height: 1; letter-spacing: -0.07em;
+  margin: 0 0 clamp(12px, 1.8vh, 18px);
+  font-family: 'Inter Tight', sans-serif; font-weight: 500;
+  font-size: clamp(44px, 5vw, 72px);        /* tightened — not the monster scale */
+  line-height: 1; letter-spacing: -0.04em;
   color: #0e1b46;
 }
 .ab-tl-title {
-  margin: 0 0 clamp(14px, 2vh, 20px);
-  font-family: 'Inter Tight', sans-serif; font-weight: 400;   /* YOO story-heading 300→400 */
-  font-size: clamp(28px, 2.8vw, 40px);      /* YOO story-heading 40px */
-  line-height: 1.14; letter-spacing: -0.07em;
+  margin: 0 0 clamp(12px, 1.8vh, 18px);
+  font-family: 'Inter Tight', sans-serif; font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.16; letter-spacing: -0.03em;
   color: var(--ink);
 }
 .ab-tl-desc {
-  margin: 0 0 clamp(30px, 4vh, 44px); max-width: 640px;   /* YOO narrow column */
-  font-family: 'Inter', sans-serif; font-size: 18px;
-  line-height: 1.55; letter-spacing: -0.02em;
+  margin: 0 0 clamp(28px, 4vh, 40px); max-width: 560px;
+  font-family: 'Inter', sans-serif; font-size: 17px;
+  line-height: 1.6; letter-spacing: -0.01em;
   color: rgb(var(--navy-rgb) / 0.72);
 }
 
-/* arrows — YOO transition .22s; bible 44px circle */
+/* arrows — 44px bible circle */
 .ab-arrows { display: flex; gap: 14px; }
 .ab-arrow {
   width: 44px; height: 44px; border-radius: 50%;
@@ -311,120 +234,122 @@
 @media (max-width: 860px) {
   .ab-tl { display: none; }
   .ab-tl-m { display: block; }
-  .ab-tl-m .ab-tl-media { margin: 22px 0; }
-  .ab-tl-yearbig { font-size: clamp(48px, 14vw, 72px); }
+  .ab-tl-m .ab-tl-media { margin: 20px 0; }
+  .ab-tl-yearbig { font-size: clamp(44px, 13vw, 64px); }
 }
 
-/* ── SECTION 4 — MVV manifesto (flat #0e1b46, curves top+bottom) ──────────── */
+/* ── SECTION 3 — MVV manifesto (flat #0e1b46, curves top+bottom) ───────────── */
 .ab-mvv {
   position: relative;
   background: #0e1b46;
   padding: var(--ab-sec) var(--ab-gut);
 }
-.ab-mvv-inner { position: relative; z-index: 1; max-width: 1078px; margin: 0 auto; }
-.ab-beat { padding: clamp(56px, 8vh, 84px) 0; }
+.ab-mvv-inner { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; }
+.ab-beat { padding: clamp(48px, 7vh, 68px) 0; }
 .ab-beat + .ab-beat { border-top: 1px solid rgb(var(--gold-rgb) / 0.25); }
 .ab-beat-label {
-  margin: 0 0 clamp(20px, 2.8vh, 28px);
+  margin: 0 0 clamp(18px, 2.4vh, 24px);
   font-family: 'DM Mono', monospace; font-weight: 500;
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
   color: var(--gold-2);
 }
 .ab-beat-text {
-  margin: 0; max-width: 24ch;               /* YOO manifesto column */
-  font-family: 'Inter Tight', sans-serif; font-weight: 400;   /* YOO section-main 300→400 */
-  font-size: clamp(28px, 3vw, 40px);        /* YOO section-main 40px */
-  line-height: 1.14; letter-spacing: -0.07em;
+  margin: 0; max-width: 34ch;
+  font-family: 'Inter Tight', sans-serif; font-weight: 500;
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.3; letter-spacing: -0.02em;
   color: var(--cream);
 }
 
-/* ── SECTION 5 — FOUNDER (cream, YOO team-card anatomy) ───────────────────── */
-.ab-founder {
+/* ── SECTION 4 — TEAM (cream): 8-card grid + founder editorial block ───────── */
+.ab-team {
   position: relative;
   background: var(--cream);
   padding: var(--ab-sec) var(--ab-gut);
   overflow: hidden;
 }
-.ab-founder-grid {
-  display: grid; grid-template-columns: 1fr 1.5fr;
-  gap: clamp(72px, 6vw, 96px); align-items: start;   /* YOO group gap 72→96 */
+.ab-team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(30px, 3.4vh, 46px) clamp(20px, 2vw, 30px);
+  margin-top: clamp(40px, 5vh, 58px);
 }
-.ab-portrait {
-  aspect-ratio: 528 / 704;          /* YOO team-lead-card 3:4 */
-  max-width: 420px; margin-bottom: clamp(30px, 4vh, 44px);
-  background: var(--cream-2);
-  border-radius: 8px;               /* YOO card radius */
-  border: 1px solid rgb(var(--gold-rgb) / 0.15);
-  display: grid; place-items: center;
-  transition: border-radius 260ms var(--ab-e);   /* YOO .26s corner morph */
-}
-.ab-portrait:hover { border-radius: 8px 8px 8px 48px; }   /* YOO hover corner bloom */
-.ab-name {
-  margin: 0 0 14px;
-  font-family: 'Inter Tight', sans-serif; font-weight: 400;   /* YOO team-lead-name w400 */
-  font-size: 20px;                  /* YOO 20px */
-  line-height: 1.1; letter-spacing: -0.05em;   /* YOO -1px */
-  text-transform: uppercase;        /* YOO */
+.ab-card { min-width: 0; }
+.ab-card .ab-frame:hover { border-color: rgb(var(--gold-rgb) / 0.4); border-radius: 6px 6px 6px 26px; }
+
+.ab-card-name {
+  margin: clamp(16px, 2vh, 20px) 0 0;
+  font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: clamp(15px, 1.05vw, 17px); line-height: 1.2;
+  letter-spacing: -0.02em; text-transform: uppercase;
   color: var(--ink);
 }
-.ab-founder-hair { width: 100%; height: 1px; border: 0; background: rgb(var(--gold-rgb) / 0.34); margin: 0 0 16px; }
-.ab-microlabel {
-  margin: 0; display: flex; align-items: center; gap: 10px;   /* YOO gap 10px */
-  font-family: 'DM Mono', monospace; font-size: 11px;
-  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-text);
+.ab-card-hair { width: 100%; height: 1px; border: 0; background: rgb(var(--gold-rgb) / 0.28); margin: 12px 0; }
+.ab-card-role {
+  margin: 0; display: flex; align-items: center; gap: 8px;
+  font-family: 'DM Mono', monospace; font-size: 10.5px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-text);
 }
-.ab-microlabel b { color: rgb(var(--navy-rgb) / 0.42); font-weight: 500; }
-.ab-microlabel i { width: 12px; height: 1px; background: rgb(var(--navy-rgb) / 0.25); font-style: normal; }
+.ab-card-role b { color: rgb(var(--navy-rgb) / 0.42); font-weight: 500; }
+.ab-card-role i { width: 10px; height: 1px; background: rgb(var(--navy-rgb) / 0.25); font-style: normal; }
 
-.ab-founder-eyebrow {
-  margin: 0 0 clamp(28px, 4vh, 40px);
-  font-family: 'DM Mono', monospace; font-weight: 500;
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-text);
-}
-.ab-founder-bio {
-  margin: 0; max-width: 816px;      /* YOO body column */
-  font-family: 'Inter', sans-serif; font-size: 22px;   /* YOO body 22px */
-  line-height: 1.5; letter-spacing: -0.03em;
-  color: rgb(var(--navy-rgb) / 0.78);
+/* empty shells — visually quiet skeleton rules, NO copy */
+.ab-card--empty { opacity: 0.82; }
+.ab-skel { display: block; border-radius: 2px; background: rgb(var(--navy-rgb) / 0.1); }
+.ab-skel--name { height: 11px; width: 62%; margin: clamp(16px, 2vh, 20px) 0 0; }
+.ab-skel--role { height: 9px;  width: 34%; }
+.ab-card--empty .ab-card-hair { background: rgb(var(--navy-rgb) / 0.1); }
+
+/* founder editorial block — quote left, bio right, restrained scale */
+.ab-founder-note {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: clamp(40px, 5vw, 88px); align-items: start;
+  margin-top: clamp(60px, 9vh, 100px);
+  padding-top: clamp(40px, 6vh, 58px);
+  border-top: 1px solid rgb(var(--gold-rgb) / 0.28);
 }
 .ab-quote {
-  margin: clamp(40px, 6vh, 60px) 0 clamp(20px, 2.6vh, 28px);
-  padding-top: clamp(36px, 5vh, 52px);
-  border-top: 1px solid rgb(var(--gold-rgb) / 0.34); max-width: 24ch;
-  font-family: 'Inter Tight', sans-serif; font-weight: 400;   /* YOO manifesto 300→400 */
-  font-size: clamp(24px, 2.6vw, 40px);      /* YOO section-subtitle 40px */
-  line-height: 1.2; letter-spacing: -0.07em; color: var(--ink);
+  margin: 0;
+  font-family: 'Inter Tight', sans-serif; font-weight: 500;
+  font-size: clamp(20px, 2vw, 26px); line-height: 1.32;
+  letter-spacing: -0.02em; color: var(--ink);
 }
 .ab-attr {
-  margin: 0;
-  font-family: 'DM Mono', monospace; font-size: 11px;
-  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-text);
+  display: block; margin-top: clamp(18px, 2.6vh, 24px);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-style: normal;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-text);
+}
+.ab-bio {
+  margin: 0; max-width: 56ch;
+  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.1vw, 17px);
+  line-height: 1.62; letter-spacing: -0.01em;
+  color: rgb(var(--navy-rgb) / 0.76);
 }
 
+/* The page closes on SiteLayout's global "Request a Quote" CTA band — no
+   page-local closing section is added (it would only duplicate the site CTA). */
+
+/* ── responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 860px) {
-  .ab-hero { min-height: 640px; }             /* YOO mobile hero floor */
-  .ab-hero-display { font-size: 56px; }       /* YOO mobile title */
-  .ab-scroll { bottom: 24px; }                /* YOO mobile scroll cue */
-  .ab-statement-grid { grid-template-columns: 1fr; gap: clamp(28px, 7vw, 44px); align-items: start; }
-  .ab-statement-side { max-width: 640px; }
-  .ab-statement-lede, .ab-founder-bio { font-size: 19px; }
-  .ab-founder-grid { grid-template-columns: 1fr; gap: clamp(36px, 8vw, 56px); }
-  .ab-portrait { max-width: 360px; }
+  .ab-hero { min-height: clamp(440px, 66vh, 560px); }
+  .ab-team-grid { grid-template-columns: repeat(2, 1fr); }
+  .ab-founder-note { grid-template-columns: 1fr; gap: clamp(28px, 8vw, 40px); }
+}
+@media (max-width: 520px) {
+  .ab-hero-display { font-size: clamp(56px, 17vw, 72px); }
+  .ab-card-name { font-size: 14px; }
 }
 
-/* ── YOO motion — exact captured curve + durations, scoped to /about ─────────
-   --e-out is re-pointed above, so the shared reveals already ride YOO's curve;
-   here we align their durations (transform .52s reveals, .56s word cascade). */
-html.alive-ready :is(.ab-hero, .ab-statement, .ab-journey, .ab-mvv, .ab-founder) [data-reveal] {
+/* ── YOO motion — captured curve + durations, scoped to /about ─────────────── */
+html.alive-ready :is(.ab-hero, .ab-journey, .ab-mvv, .ab-team) [data-reveal] {
   transition-duration: 520ms;
 }
-html.alive-ready :is(.ab-hero, .ab-statement, .ab-journey, .ab-mvv, .ab-founder) [data-textreveal] .aw-word {
+html.alive-ready :is(.ab-hero, .ab-journey, .ab-mvv, .ab-team) [data-textreveal] .aw-word {
   transition-duration: 560ms;
 }
 
-/* ── reduced motion — cue holds, crossfade + corner morph instant ─────────── */
+/* ── reduced motion — crossfade + corner morph instant ────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .ab-scroll i::after { animation: none; opacity: 0; }
   .ab-tl-content { animation: none; }
-  .ab-portrait { transition: none; }
+  .ab-frame { transition: none; }
 }
