@@ -1,355 +1,297 @@
-/* Fraunces — italic-serif accent face (open-source; our copy). Loaded here so it
-   stays within /about territory (index.html is out of lane). */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap');
+/* ── /about — "Our Story", signature sections pass ───────────────────────────
+   Conforms to DESIGN-BIBLE.md: Inter Tight / Inter / DM Mono only (no Fraunces),
+   palette via tokens (var(--navy) resolves to #0e1b46, cream, gold), --content-max 1280,
+   --section-pad-y rhythm, --page-gutter, --e-out easing. Every animation is
+   transform/opacity only and has a prefers-reduced-motion fallback. Label floor
+   11px. No element exceeds a homepage equivalent (H1 92 / H2 68 / stat 132 caps).
+   Signature energy lives in the SCROLL MECHANICS, built in OurStory.jsx. */
 
-/* ── /about — "Our Story", DEFINITIVE COMPACT REBUILD ────────────────────────
-   Anatomy from YOO Interior's about page (serif accent, offset statement,
-   team-card grid), but every display size comes DOWN per the client's "too big"
-   note: a page-opening navy BAND (~58vh) not a full-viewport takeover; statement
-   caps ≤ clamp(36–56px); section paddings 96–120px. Premium = restraint.
-
-   Signature — the empty asset frames wear opposite-corner registration brackets
-   (gold hairline crop marks). A book printer's own vernacular: it reads the empty
-   frames as intentional printer's plates awaiting impression, not broken images.
-
-   Motion: YOO's captured curve cubic-bezier(.22,1,.36,1) + durations, scoped to
-   /about. transform/opacity only; reduced-motion → instant. */
-
-.ab-hero,
-.ab-journey,
-.ab-mvv,
-.ab-team {
-  --e-out: cubic-bezier(0.22, 1, 0.36, 1);   /* YOO exact — re-points shared reveals */
-  --ab-e:  cubic-bezier(0.22, 1, 0.36, 1);
-  --ab-max: 1440px;                          /* content max — tightened from 1632 */
-  --ab-gut: clamp(24px, 5vw, 48px);
-  --ab-sec: clamp(96px, 11vh, 120px);        /* per-section block padding */
-}
-
-.ab-wrap { position: relative; z-index: 1; max-width: var(--ab-max); margin: 0 auto; }
-
-/* italic-serif accent word inside the H1 — Fraunces italic in CREAM (not gold:
-   gold is reserved for the crop-mark signature, and the brief calls the H1 cream).
-   A quiet style shift that carries editorial texture without a second accent hue. */
-.ab-serif {
-  font-family: 'Fraunces', Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  font-variation-settings: 'SOFT' 0, 'WONK' 1;
-  letter-spacing: 0;
-  color: inherit;
-}
-
-/* ── SIGNATURE — the empty asset frame + registration brackets ───────────────
-   Shared by the timeline media slot and all 8 team portrait slots. Cream fill,
-   1px hairline, and two opposite-corner gold brackets (⌐ … ⌟). data-slot stays
-   for later asset drops; a dropped image simply fills the frame. */
-.ab-frame {
-  position: relative;
-  aspect-ratio: 3 / 4;
-  background: var(--cream-2);
-  border: 1px solid rgb(var(--gold-rgb) / 0.18);
-  border-radius: 6px;
-  overflow: hidden;
-  transition: border-color 260ms var(--ab-e), border-radius 260ms var(--ab-e);
-}
-.ab-frame::before,
-.ab-frame::after {
-  content: '';
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border: 0 solid rgb(var(--gold-rgb) / 0.72);
-  pointer-events: none;
-}
-.ab-frame::before { top: 10px;    left: 10px;  border-top-width: 1.5px;    border-left-width: 1.5px; }
-.ab-frame::after  { bottom: 10px; right: 10px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
-
-/* ── SECTION 1 — HERO BAND (flat #0e1b46, ~58vh, left-aligned column) ────────
-   NOT the full-viewport monster: a strong opening band. Content left-aligned in
-   the content column: gold eyebrow → giant decorative "ABOUT US" → H1 → lede. */
-.ab-hero {
-  position: relative;
-  background: #0e1b46;
-  min-height: clamp(430px, 56vh, 590px);
-  display: flex;
-  align-items: center;
-  padding: clamp(48px, 6vh, 84px) var(--ab-gut);
-  overflow: hidden;
-}
-.ab-hero-inner { width: 100%; text-align: left; }
+/* ── shared ─────────────────────────────────────────────────────────────── */
+.ab-wrap { position: relative; z-index: 1; width: 100%; max-width: var(--content-max); margin: 0 auto; }
 
 .ab-eyebrow {
   margin: 0 0 clamp(14px, 1.9vh, 20px);
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--gold-2);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
+  letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-2);
 }
-
-/* the decorative display word — strong-but-sane clamp (NOT viewport-monster) */
-.ab-hero-display {
-  margin: 0 0 clamp(16px, 2.2vh, 24px);
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 800;
-  font-size: clamp(60px, 8.5vw, 100px);
-  line-height: 0.9;
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
-  color: var(--cream);
-}
-
-/* the single H1 — supporting line, cream, restrained */
-.ab-hero-title {
-  margin: 0 0 clamp(16px, 2.2vh, 24px);
-  max-width: 22ch;
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 600;
-  font-size: clamp(24px, 3.2vw, 34px);
-  line-height: 1.18;
-  letter-spacing: -0.02em;
-  color: var(--cream);
-}
-.ab-hero-lede {
-  margin: 0;
-  max-width: 58ch;
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(16px, 1.15vw, 18px);
-  line-height: 1.6;
-  letter-spacing: -0.01em;
-  color: rgb(253 250 244 / 0.8);
-}
-
-/* ── SECTION 2 — JOURNEY intro + interactive timeline (cream) ──────────────── */
-.ab-journey {
-  position: relative;
-  background: var(--cream);
-  padding: var(--ab-sec) var(--ab-gut);
-  overflow: hidden;
-}
-
 .ab-eyebrow--cream {
   margin: 0;
-  font-family: 'DM Mono', monospace;
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--gold-text);
-}
-.ab-rule {
-  width: 100%; height: 1px; border: 0;
-  background: rgb(var(--gold-rgb) / 0.3);
-  margin: 16px 0 clamp(40px, 6vh, 60px);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
+  letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-text);
 }
 
-/* three-zone: rail / media / content */
-.ab-tl {
-  display: grid;
-  grid-template-columns: 120px 1fr 1fr;
-  gap: clamp(40px, 5vw, 80px);
-  align-items: start;
-}
-.ab-tl-rail { position: relative; }
-.ab-tl-spine {
-  position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px;
-  background: rgb(var(--navy-rgb) / 0.15);
-}
-.ab-tl-years { display: flex; flex-direction: column; gap: clamp(20px, 2.6vh, 30px); }
-.ab-tl-year {
-  position: relative; padding-left: 26px; text-align: left;
-  background: none; border: 0; cursor: pointer;
-  font-family: 'DM Mono', monospace; letter-spacing: 0.1em;
-  font-size: 11px; font-weight: 400; color: rgb(var(--navy-rgb) / 0.45);
-  transition: color 300ms var(--ab-e);
-}
-.ab-tl-year::before {
-  content: ''; position: absolute; left: 1px; top: 0.3em;
-  width: 9px; height: 9px; border-radius: 50%;
-  background: rgb(var(--navy-rgb) / 0.28);
-  transition: background 300ms var(--ab-e), box-shadow 300ms var(--ab-e);
-}
-.ab-tl-year[aria-current="true"] { color: var(--gold-text); font-weight: 600; font-size: 13px; }
-.ab-tl-year[aria-current="true"]::before {
-  background: var(--gold-text);
-  box-shadow: 0 0 0 7px rgb(157 111 20 / 0.12);
-}
-
-/* media frame — 16:9 override of the shared 3:4 .ab-frame */
-.ab-tl-media { aspect-ratio: 16 / 9; }
-
-/* eased crossfade on year change — keyed on activeIdx */
-.ab-tl-content { animation: ab-fade 460ms var(--ab-e); }
-@keyframes ab-fade {
-  from { opacity: 0.25; transform: translateY(6px); }
-  to   { opacity: 1;    transform: none; }
-}
-.ab-tl-yearbig {
-  margin: 0 0 clamp(12px, 1.8vh, 18px);
-  font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(44px, 5vw, 72px);        /* tightened — not the monster scale */
-  line-height: 1; letter-spacing: -0.04em;
-  color: #0e1b46;
-}
-.ab-tl-title {
-  margin: 0 0 clamp(12px, 1.8vh, 18px);
-  font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(24px, 2.4vw, 34px);
-  line-height: 1.16; letter-spacing: -0.03em;
-  color: var(--ink);
-}
-.ab-tl-desc {
-  margin: 0 0 clamp(28px, 4vh, 40px); max-width: 560px;
-  font-family: 'Inter', sans-serif; font-size: 17px;
-  line-height: 1.6; letter-spacing: -0.01em;
-  color: rgb(var(--navy-rgb) / 0.72);
-}
-
-/* arrows — 44px bible circle */
-.ab-arrows { display: flex; gap: 14px; }
-.ab-arrow {
-  width: 44px; height: 44px; border-radius: 50%;
-  display: grid; place-items: center;
-  border: 1.5px solid #0e1b46; background: transparent; color: #0e1b46;
-  font-size: 18px; line-height: 1; cursor: pointer;
-  transition: background 220ms var(--ab-e), color 220ms var(--ab-e), border-color 220ms var(--ab-e);
-}
-.ab-arrow:hover:not(:disabled) { background: #0e1b46; color: var(--cream); }
-.ab-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
-
-/* mobile timeline — horizontal year strip, stacked media + content */
-.ab-tl-m { display: none; }
-.ab-tl-strip { display: flex; gap: 12px; overflow-x: auto; margin: 0 calc(-1 * var(--ab-gut)); padding: 0 var(--ab-gut) 8px; }
-.ab-tl-chip {
-  flex: 0 0 auto; white-space: nowrap;
-  padding: 8px 16px; border-radius: var(--radius-pill);
-  font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
-  background: rgb(var(--gold-rgb) / 0.1); color: var(--ink); border: 0; cursor: pointer;
-  transition: background 250ms var(--ab-e), color 250ms var(--ab-e);
-}
-.ab-tl-chip[aria-current="true"] { background: var(--gold-text); color: var(--cream); }
-
-@media (max-width: 860px) {
-  .ab-tl { display: none; }
-  .ab-tl-m { display: block; }
-  .ab-tl-m .ab-tl-media { margin: 20px 0; }
-  .ab-tl-yearbig { font-size: clamp(44px, 13vw, 64px); }
-}
-
-/* ── SECTION 3 — MVV manifesto (flat #0e1b46, curves top+bottom) ───────────── */
-.ab-mvv {
-  position: relative;
-  background: #0e1b46;
-  padding: var(--ab-sec) var(--ab-gut);
-}
-.ab-mvv-inner { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; }
-.ab-beat { padding: clamp(48px, 7vh, 68px) 0; }
-.ab-beat + .ab-beat { border-top: 1px solid rgb(var(--gold-rgb) / 0.25); }
-.ab-beat-label {
-  margin: 0 0 clamp(18px, 2.4vh, 24px);
-  font-family: 'DM Mono', monospace; font-weight: 500;
-  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--gold-2);
-}
-.ab-beat-text {
-  margin: 0; max-width: 34ch;
-  font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(22px, 2.4vw, 32px);
-  line-height: 1.3; letter-spacing: -0.02em;
-  color: var(--cream);
-}
-
-/* ── SECTION 4 — TEAM (cream): 8-card grid + founder editorial block ───────── */
-.ab-team {
-  position: relative;
-  background: var(--cream);
-  padding: var(--ab-sec) var(--ab-gut);
+/* the quiet empty frame — cream-2, hairline, faint corner registration ticks
+   (a printer's-plate cue so an assetless frame reads intentional, not broken;
+   ticks are hairline detail, not a label). data-slot stays for asset drops. */
+.ab-frame {
+  position: relative; aspect-ratio: 3 / 4;
+  background: var(--cream-2);
+  border: 1px solid rgb(var(--navy-rgb) / 0.1);
+  border-radius: var(--radius-lg);
   overflow: hidden;
 }
-.ab-team-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(30px, 3.4vh, 46px) clamp(20px, 2vw, 30px);
-  margin-top: clamp(40px, 5vh, 58px);
+.ab-frame::before, .ab-frame::after {
+  content: ''; position: absolute; width: 16px; height: 16px;
+  border: 0 solid rgb(var(--gold-rgb) / 0.5); pointer-events: none;
 }
-.ab-card { min-width: 0; }
-.ab-card .ab-frame:hover { border-color: rgb(var(--gold-rgb) / 0.4); border-radius: 6px 6px 6px 26px; }
+.ab-frame::before { top: 11px; left: 11px; border-top-width: 1.5px; border-left-width: 1.5px; }
+.ab-frame::after  { bottom: 11px; right: 11px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
 
-.ab-card-name {
-  margin: clamp(16px, 2vh, 20px) 0 0;
+/* ── SECTION 1 — HERO BAND ─────────────────────────────────────────────────── */
+.ab-hero {
+  position: relative; background: var(--navy);
+  min-height: clamp(430px, 56vh, 590px);
+  display: flex; align-items: center;
+  padding: clamp(48px, 6vh, 84px) var(--page-gutter);
+  overflow: hidden;
+}
+.ab-hero-inner { text-align: left; }
+.ab-hero-display {
+  margin: 0 0 clamp(16px, 2.2vh, 24px);
+  font-family: 'Inter Tight', sans-serif; font-weight: 800;
+  font-size: clamp(56px, 7.5vw, 92px);       /* ≤ homepage H1 cap (92) */
+  line-height: 0.92; letter-spacing: -0.035em; text-transform: uppercase;
+  color: var(--cream);
+}
+.ab-hero-title {
+  margin: 0 0 clamp(16px, 2.2vh, 24px); max-width: 24ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(15px, 1.05vw, 17px); line-height: 1.2;
-  letter-spacing: -0.02em; text-transform: uppercase;
-  color: var(--ink);
+  font-size: clamp(24px, 3.2vw, 34px); line-height: 1.18; letter-spacing: -0.02em;
+  color: var(--cream);
 }
-.ab-card-hair { width: 100%; height: 1px; border: 0; background: rgb(var(--gold-rgb) / 0.28); margin: 12px 0; }
-.ab-card-role {
-  margin: 0; display: flex; align-items: center; gap: 8px;
-  font-family: 'DM Mono', monospace; font-size: 10.5px;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-text);
+.ab-accent { font-style: normal; color: var(--gold-2); }   /* accent word, on-brand gold */
+.ab-hero-lede {
+  margin: 0; max-width: 58ch;
+  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.15vw, 18px);
+  line-height: 1.6; letter-spacing: -0.01em; color: rgb(253 250 244 / 0.8);
 }
-.ab-card-role b { color: rgb(var(--navy-rgb) / 0.42); font-weight: 500; }
-.ab-card-role i { width: 10px; height: 1px; background: rgb(var(--navy-rgb) / 0.25); font-style: normal; }
 
-/* empty shells — visually quiet skeleton rules, NO copy */
-.ab-card--empty { opacity: 0.82; }
-.ab-skel { display: block; border-radius: 2px; background: rgb(var(--navy-rgb) / 0.1); }
-.ab-skel--name { height: 11px; width: 62%; margin: clamp(16px, 2vh, 20px) 0 0; }
-.ab-skel--role { height: 9px;  width: 34%; }
-.ab-card--empty .ab-card-hair { background: rgb(var(--navy-rgb) / 0.1); }
-
-/* founder editorial block — quote left, bio right, restrained scale */
-.ab-founder-note {
-  display: grid; grid-template-columns: 1fr 1.2fr;
-  gap: clamp(40px, 5vw, 88px); align-items: start;
-  margin-top: clamp(60px, 9vh, 100px);
-  padding-top: clamp(40px, 6vh, 58px);
-  border-top: 1px solid rgb(var(--gold-rgb) / 0.28);
+/* ── SECTION 2 — THE PRESS RUN (horizontal scroll-pinned timeline) ─────────── */
+.pr { --pr-slide-scroll: 90vh; position: relative; background: var(--cream); }
+.pr-track { position: relative; }                 /* height set inline: n × slide-scroll */
+.pr-sticky {
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
+  display: flex; flex-direction: column;
 }
-.ab-quote {
-  margin: 0;
+
+/* progress rule + clickable era labels */
+.pr-progress {
+  position: relative; z-index: 3; width: 100%; max-width: var(--content-max);
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + clamp(20px, 3vh, 34px)) var(--page-gutter) 0;   /* clear the sticky nav */
+}
+.pr-kicker { margin: 0 0 clamp(16px, 2.4vh, 26px); }
+.pr-rule { position: relative; height: 2px; }
+.pr-rule-track { position: absolute; inset: 0; background: rgb(var(--navy-rgb) / 0.12); }
+.pr-rule-fill {
+  position: absolute; inset: 0; background: var(--gold);
+  transform-origin: left center; transform: scaleX(0); will-change: transform;
+}
+.pr-marks { display: flex; justify-content: space-between; margin-top: 12px; }
+.pr-mark {
+  background: none; border: 0; cursor: pointer; padding: 4px 0; white-space: nowrap;
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em;
+  color: rgb(var(--navy-rgb) / 0.4); transition: color 0.3s var(--e-out);
+}
+.pr-mark.is-lit { color: rgb(var(--navy-rgb) / 0.68); }
+.pr-mark.is-active { color: var(--gold-text); font-weight: 500; }
+
+/* the rail of full-viewport-width era slides */
+.pr-rail { flex: 1; display: flex; will-change: transform; }
+.pr-slide { position: relative; flex: 0 0 100vw; height: 100%; display: grid; place-items: center; overflow: hidden; }
+.pr-watermark {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  font-family: 'Inter Tight', sans-serif; font-weight: 800;
+  font-size: clamp(120px, 16vw, 210px); line-height: 0.8; letter-spacing: -0.04em;
+  color: rgb(var(--navy-rgb) / 0.06);        /* 6% — decorative texture, not shouting */
+  white-space: nowrap; pointer-events: none; user-select: none; z-index: 0;
+}
+.pr-slide-inner {
+  position: relative; z-index: 1; width: 100%; max-width: var(--content-max);
+  margin: 0 auto; padding: 0 var(--page-gutter);
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.pr-copy { min-width: 0; }
+.pr-era-num {
+  margin: 0 0 clamp(16px, 2vh, 22px);
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: var(--gold-text);
+}
+.pr-era-num span { opacity: 0.5; }
+.pr-era-title {
+  margin: 0 0 clamp(16px, 2.2vh, 24px);
+  font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: clamp(30px, 3.4vw, 48px);       /* ≤ homepage H2 cap (68) */
+  line-height: 1.08; letter-spacing: -0.03em; color: var(--ink);
+}
+.pr-era-body {
+  margin: 0; max-width: 46ch;
+  font-family: 'Inter', sans-serif; font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.62; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.72);
+}
+.pr-frame { aspect-ratio: 4 / 5; width: 100%; max-width: 380px; justify-self: end; }
+
+/* slide content reveal — rise from rest as the slide centres (IO-driven) */
+.pr-copy > *, .pr-slide-inner .pr-frame {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s var(--e-out), transform 0.7s var(--e-out);
+}
+.pr-slide-inner.is-live .pr-copy > *,
+.pr-slide-inner.is-live .pr-frame { opacity: 1; transform: none; }
+.pr-slide-inner.is-live .pr-copy > *:nth-child(1) { transition-delay: 0.05s; }
+.pr-slide-inner.is-live .pr-copy > *:nth-child(2) { transition-delay: 0.12s; }
+.pr-slide-inner.is-live .pr-copy > *:nth-child(3) { transition-delay: 0.19s; }
+.pr-slide-inner.is-live .pr-frame { transition-delay: 0.14s; }
+
+/* ── MaskText — per-word rise from behind an overflow mask ─────────────────── */
+.masktext { margin: 0; }
+.mask { display: inline-block; overflow: hidden; vertical-align: top; }
+.mask-w {
+  display: inline-block; transform: translateY(112%);
+  transition: transform 0.72s var(--e-out); will-change: transform;
+}
+.masktext.is-in .mask-w { transform: none; }
+
+/* ── SECTION 3 — INK SPREADS (MVV) ─────────────────────────────────────────── */
+.mvv { position: relative; background: var(--navy); overflow: hidden; }
+.mvv-thread {
+  position: absolute; top: 0; height: 100%; width: 2px;
+  left: max(var(--page-gutter), calc((100% - var(--content-max)) / 2));
+  background: var(--gold); transform-origin: top center; transform: scaleY(0);
+  z-index: 1; will-change: transform;
+}
+.mvv-inner { position: relative; z-index: 2; max-width: var(--content-max); margin: 0 auto; padding: 0 var(--page-gutter); }
+.mvv-beat { position: relative; min-height: 80vh; display: flex; align-items: center; padding: clamp(40px, 8vh, 88px) 0; }
+.mvv-ghost {
+  position: absolute; left: -0.06em; top: 50%;
+  transform: translateY(-50%) rotate(-90deg); transform-origin: left center;
+  font-family: 'Inter Tight', sans-serif; font-weight: 800;
+  font-size: clamp(64px, 8vw, 132px); letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgb(var(--gold-2-rgb) / 0.18);      /* ghosted foil-on-spine */
+  white-space: nowrap; pointer-events: none; user-select: none; z-index: 0;
+}
+.mvv-beat-copy { position: relative; z-index: 2; margin-left: clamp(44px, 12vw, 200px); max-width: 34ch; }
+.mvv-label {
+  margin: 0 0 clamp(20px, 3vh, 32px);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
+  letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-2);
+}
+.mvv-text {
   font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(20px, 2vw, 26px); line-height: 1.32;
-  letter-spacing: -0.02em; color: var(--ink);
-}
-.ab-attr {
-  display: block; margin-top: clamp(18px, 2.6vh, 24px);
-  font-family: 'DM Mono', monospace; font-weight: 500; font-style: normal;
-  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-text);
-}
-.ab-bio {
-  margin: 0; max-width: 56ch;
-  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.1vw, 17px);
-  line-height: 1.62; letter-spacing: -0.01em;
-  color: rgb(var(--navy-rgb) / 0.76);
+  font-size: clamp(24px, 2.7vw, 32px); line-height: 1.32; letter-spacing: -0.02em; color: var(--cream);
 }
 
-/* The page closes on SiteLayout's global "Request a Quote" CTA band — no
-   page-local closing section is added (it would only duplicate the site CTA). */
+/* ── SECTION 4 — THE FOUNDER ───────────────────────────────────────────────── */
+.fnd { position: relative; background: var(--cream); padding: var(--section-pad-y) var(--page-gutter); overflow: hidden; }
+.fnd-kicker { margin: 0 0 clamp(40px, 6vh, 64px); }
+.fnd-spread { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(40px, 6vw, 96px); align-items: start; }
+.fnd-portrait-wrap { position: relative; max-width: 420px; }
+.fnd-offset {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  transform: translate(clamp(14px, 2vw, 22px), clamp(14px, 2vw, 22px));
+  border: 1.5px solid rgb(var(--gold-rgb) / 0.5); border-radius: var(--radius-lg);
+}
+.fnd-portrait { position: relative; z-index: 1; }
+.fnd-portrait::before, .fnd-portrait::after { content: none; }   /* offset-rule is this frame's detail */
+.fnd-copy { min-width: 0; }
+.fnd-name {
+  margin: 0 0 clamp(16px, 2vh, 20px);
+  font-family: 'Inter Tight', sans-serif; font-weight: 800;
+  font-size: clamp(40px, 5vw, 64px);         /* ≤ homepage H2 cap (68) */
+  line-height: 1.02; letter-spacing: -0.03em; text-transform: uppercase; color: var(--ink);
+}
+.fnd-role {
+  margin: 0 0 clamp(24px, 3.4vh, 36px); display: flex; align-items: center; gap: 10px;
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold-text);
+}
+.fnd-role b { color: rgb(var(--navy-rgb) / 0.42); font-weight: 500; }
+.fnd-role i { width: 14px; height: 1px; background: rgb(var(--navy-rgb) / 0.25); }
+.fnd-bio {
+  margin: 0; max-width: 60ch;
+  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.15vw, 18px);
+  line-height: 1.65; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.76);
+}
 
-/* ── responsive ─────────────────────────────────────────────────────────── */
+/* pull quote — words fill from ghost to full ink as the block crosses centre */
+.fq-fig {
+  margin: clamp(56px, 9vh, 104px) 0 0; padding-top: clamp(40px, 6vh, 56px);
+  border-top: 1px solid rgb(var(--gold-rgb) / 0.3); max-width: 52ch;
+}
+.fq {
+  margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 500;
+  font-size: clamp(24px, 3vw, 34px); line-height: 1.32; letter-spacing: -0.02em; color: var(--ink);
+}
+.fq-w { opacity: 0.16; transition: opacity 0.2s linear; will-change: opacity; }
+.fq.is-in .fq-w { opacity: 1; }
+.fq-cite {
+  display: block; margin-top: clamp(24px, 3.4vh, 32px);
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold-text);
+}
+
+/* ── SECTION 5 — THE TEAM (homepage-scale shells) ──────────────────────────── */
+.tm { position: relative; background: var(--cream); padding: clamp(60px, 7vh, 88px) var(--page-gutter) var(--section-pad-y); overflow: hidden; }
+.tm-rule { width: 100%; height: 1px; border: 0; background: rgb(var(--gold-rgb) / 0.3); margin: 0 0 clamp(40px, 6vh, 64px); }
+.tm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(28px, 3vw, 40px) clamp(20px, 2vw, 32px); }
+.tm-card { min-width: 0; }
+.tm-frame {
+  aspect-ratio: 3 / 4; border-radius: var(--r-card);   /* homepage card radius (22) */
+  box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.06);
+  transition: transform 0.28s var(--e-out), border-color 0.28s var(--e-out), box-shadow 0.28s var(--e-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tm-card:hover .tm-frame {
+    transform: translateY(-4px); border-color: rgb(var(--gold-rgb) / 0.55);
+    box-shadow: 0 10px 24px rgb(var(--navy-rgb) / 0.1);
+  }
+}
+.tm-skel { display: block; border-radius: 3px; background: rgb(var(--navy-rgb) / 0.1); }
+.tm-skel--name { height: 12px; width: 60%; margin: clamp(16px, 2vh, 20px) 0 10px; }
+.tm-skel--role { height: 9px; width: 34%; }
+
+/* ── shared reveal durations (alive.js [data-reveal]/[data-textreveal]) ─────── */
+html.alive-ready :is(.ab-hero, .fnd, .tm) [data-reveal] { transition-duration: 0.6s; }
+html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56s; }
+
+/* ── STATIC LAYOUT — mobile (<900px) OR reduced-motion: press run unpins to a
+   vertical stack; every mechanic resolves to its visible resting state ─────── */
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .pr-track { height: auto !important; }
+  .pr-sticky { position: static; height: auto; overflow: visible; display: block; }
+  .pr-progress { position: static; padding: clamp(24px, 6vw, 40px) var(--page-gutter) clamp(8px, 3vw, 20px); }
+  .pr-rule, .pr-marks { display: none; }
+  .pr-rail { transform: none !important; flex-direction: column; }
+  .pr-slide { flex: 0 0 auto; width: 100%; height: auto; padding: clamp(52px, 11vw, 84px) 0; place-items: stretch; }
+  .pr-slide-inner { grid-template-columns: 1fr; gap: clamp(24px, 6vw, 40px); }
+  .pr-frame { justify-self: stretch; max-width: none; aspect-ratio: 16 / 10; }
+  .pr-watermark {
+    left: var(--page-gutter); top: clamp(20px, 7vw, 48px); transform: none;
+    font-size: clamp(72px, 22vw, 150px);
+  }
+  .pr-copy > *, .pr-slide-inner .pr-frame { opacity: 1; transform: none; }   /* mobile uses data-reveal instead */
+}
+
+/* mobile grid + spread reflow */
 @media (max-width: 860px) {
-  .ab-hero { min-height: clamp(440px, 66vh, 560px); }
-  .ab-team-grid { grid-template-columns: repeat(2, 1fr); }
-  .ab-founder-note { grid-template-columns: 1fr; gap: clamp(28px, 8vw, 40px); }
+  .ab-hero { min-height: clamp(420px, 64vh, 560px); }
+  .mvv-beat { min-height: 72vh; }
+  .mvv-ghost { font-size: clamp(56px, 15vw, 96px); }
+  .mvv-beat-copy { margin-left: clamp(36px, 14vw, 120px); }
+  .fnd-spread { grid-template-columns: 1fr; gap: clamp(32px, 8vw, 48px); }
+  .fnd-portrait-wrap { max-width: 340px; }
+  .tm-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 520px) {
-  .ab-hero-display { font-size: clamp(56px, 17vw, 72px); }
-  .ab-card-name { font-size: 14px; }
+  .ab-hero-display { font-size: clamp(52px, 15vw, 72px); }
 }
 
-/* ── YOO motion — captured curve + durations, scoped to /about ─────────────── */
-html.alive-ready :is(.ab-hero, .ab-journey, .ab-mvv, .ab-team) [data-reveal] {
-  transition-duration: 520ms;
-}
-html.alive-ready :is(.ab-hero, .ab-journey, .ab-mvv, .ab-team) [data-textreveal] .aw-word {
-  transition-duration: 560ms;
-}
-
-/* ── reduced motion — crossfade + corner morph instant ────────────────────── */
+/* ── reduced-motion — explicit resting states for every custom mechanic ────── */
 @media (prefers-reduced-motion: reduce) {
-  .ab-tl-content { animation: none; }
-  .ab-frame { transition: none; }
+  .pr-copy > *, .pr-slide-inner .pr-frame { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .pr-rule-fill { transform: scaleX(1) !important; }
+  .mask-w { transform: none !important; transition: none !important; }
+  .mvv-thread { transform: scaleY(1) !important; }
+  .fq-w { opacity: 1 !important; }
+  .tm-frame { transition: none !important; }
 }
