@@ -1,0 +1,24 @@
+{
+  "name": "qfp-newsroom-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "QFP Newsroom — Sanity Studio (content engine for the Quarterfold newsroom)",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "seed": "node --env-file=.env seed.mjs"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.29.1",
+    "@sanity/icons": "^3.8.0",
+    "@sanity/vision": "^3.99.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sanity": "^3.99.0",
+    "sanity-plugin-media": "^2.4.2",
+    "styled-components": "^6.4.4"
+  }
+}

@@ -1,0 +1,7 @@
+# Sanity studio — never commit
+node_modules/
+dist/
+.env
+.env.*
+.sanity/
+*.log

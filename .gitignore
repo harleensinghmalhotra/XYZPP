@@ -1,6 +1,13 @@
 # Dependencies
 node_modules/
 
+# Sanity studio — secrets & build/runtime artifacts (studio/ is its own package)
+studio/.env
+studio/.env.*
+studio/dist/
+studio/.sanity/
+.sanity/
+
 # Exceeds GitHub 100MB file limit
 ALTERNATIVINC.COM Walkthrough.mp4
 
