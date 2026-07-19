@@ -5,7 +5,6 @@ import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
 import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
-import bookImg from '@/assets/pod-book.webp'
 import './PrintOnDemand.css'
 
 /* /print-on-demand — replaces the ShellPage. A "Build Your Book" configurator
@@ -29,11 +28,34 @@ const QUANTITIES = [{ id: '1' }, { id: '10' }, { id: '50' }, { id: '250' }, { id
    summary row, the qty badge and the /contact params — this is chip display only). */
 const QTY_HERO = { 1: '1', 10: '10', 50: '50', 250: '250', 500: '500+' }
 
-/* ── paper swatch tints (drive the .pod-chip-sw swatches in the Paper step) ───── */
+/* ── paper edge tints — drive both the .pod-chip-sw swatches (Paper step) AND the
+   book's page-block faces. Exaggerated warm→cool→bright so the recolor reads. ── */
 const PAPER_EDGE = {
-  cream: { edge: '#f3ead4', line: 'rgba(15,36,68,0.16)' },
-  white: { edge: '#fbfaf6', line: 'rgba(15,36,68,0.12)' },
-  art: { edge: '#eef0ea', line: 'rgba(15,36,68,0.14)' },
+  cream: { edge: '#f2e6c8', line: 'rgba(120,92,20,0.28)' },   // warm
+  white: { edge: '#fcfdff', line: 'rgba(15,36,68,0.14)' },    // cool-bright
+  art: { edge: '#ffffff', line: 'rgba(15,36,68,0.10)' },      // brightest (+ thinner block)
+}
+
+/* ── preview geometry — proportions are EXAGGERATED past true ratios so each
+   Size / Format reads unmistakably on screen (the client's core ask). ──────── */
+const SIZE_DIMS = {
+  '5x8': { w: 150, h: 342 },   // visibly slim + tall
+  '6x9': { w: 212, h: 322 },   // baseline
+  '8x10': { w: 284, h: 316 },  // clearly wider
+  a4: { w: 250, h: 384 },      // tallest / largest
+}
+const FMT_THICK = { paperback: 18, hardcover: 46, landscape: 30 } // hardcover ≈ 2.5× paperback
+function bookDims(format, size, paper) {
+  let thick = FMT_THICK[format] ?? 22
+  if (paper === 'art') thick = Math.round(thick * 0.68) // art stock = a thinner block
+  if (format === 'landscape') {
+    // reflow to a dramatic wide orientation; size nudges the overall scale
+    const s = SIZE_DIMS[size] ?? SIZE_DIMS['6x9']
+    const scale = s.h / 322
+    return { bw: Math.round(330 * scale), bh: Math.round(224 * scale), thick }
+  }
+  const s = SIZE_DIMS[size] ?? SIZE_DIMS['6x9']
+  return { bw: s.w, bh: s.h, thick }
 }
 
 /* ── icons (stroke-draw, System-B) ───────────────────────────────────────────── */
@@ -149,6 +171,10 @@ export default function PrintOnDemand() {
 
   // resolve an option's display label via the printOnDemand namespace
   const optLabel = (group, id) => t(`options.${group}.${id}.label`)
+
+  // book geometry + page-block tint, recomputed on every config change
+  const dims = bookDims(cfg.format, cfg.size, cfg.paper)
+  const edge = PAPER_EDGE[cfg.paper]
 
   // ── spec-panel change feedback ──────────────────────────────────────────────
   // The static book no longer morphs, so feedback lives in the spec panel: when
@@ -295,13 +321,45 @@ export default function PrintOnDemand() {
           </div>
 
           <div className="pod-config">
-            {/* LEFT — live preview: a single premium brand photo (feathered to
-                melt into the panel cream). It no longer morphs — the spec panel
-                gives the change feedback now. */}
+            {/* LEFT — live reactive CSS book. Every selection visibly transforms
+                it (~450ms); paper/finish add a one-shot sweep replayed via the
+                flash nonce. Idle float lives on the wrapper so it never fights
+                the reshape transitions. */}
             <div className="pod-preview" aria-hidden="true">
               <span className="pod-preview-tag">{t('build.previewTag')}</span>
               <div className="pod-stage">
-                <img className="pod-book-img" src={bookImg} alt="" width="700" height="1085" draggable="false" />
+                <div className="pod-book-float">
+                  <div
+                    className="pod-book"
+                    data-format={cfg.format}
+                    data-finish={cfg.finish}
+                    data-paper={cfg.paper}
+                    style={{
+                      '--bw': `${dims.bw}px`,
+                      '--bh': `${dims.bh}px`,
+                      '--thick': `${dims.thick}px`,
+                      '--edge': edge.edge,
+                      '--edge-line': edge.line,
+                    }}
+                  >
+                    <div className="pod-face pod-back" />
+                    <div className="pod-face pod-fore">
+                      {flash.key === 'paper' && <span className="pod-edge-shimmer" key={`fs${flash.n}`} />}
+                    </div>
+                    <div className="pod-face pod-top">
+                      {flash.key === 'paper' && <span className="pod-edge-shimmer" key={`ts${flash.n}`} />}
+                    </div>
+                    <div className="pod-face pod-spine" />
+                    <div className="pod-face pod-front">
+                      <span className="pod-cover-frame" />
+                      <span className="pod-cover-mark" />
+                      <span className="pod-cover-gloss" />
+                      {flash.key === 'finish' && cfg.finish !== 'matte' && (
+                        <span className="pod-cover-sweep" key={`cs${flash.n}`} />
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
               <p className="pod-preview-caption" key={`${cfg.format}|${cfg.size}|${cfg.finish}`}>
                 {optLabel('format', cfg.format)}{t('build.previewCaptionSep')}
