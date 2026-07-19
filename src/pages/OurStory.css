@@ -67,76 +67,91 @@
 }
 
 /* ── SECTION 2 — THE JOURNEY (Union-Properties three-zone timeline) ────────── */
-.tl { position: relative; background: var(--cream); padding: var(--section-pad-y) var(--page-gutter); overflow: hidden; }
-.tl-eyebrow { margin: 0 0 clamp(40px, 6vh, 64px); }
+/* Full-height chapter: the section fills ~90vh and the tall portrait media card
+   is its centrepiece; rail + content sit vertically centred against it. */
+.tl {
+  --tl-e: cubic-bezier(0.22, 1, 0.36, 1);   /* the reference's liquid ease */
+  position: relative; background: var(--cream); overflow: hidden;
+  min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(60px, 7.5vh, 92px) var(--page-gutter);
+}
+.tl-eyebrow { margin: 0 0 clamp(28px, 4vh, 44px); }
 
 /* three zones: year rail ~18% / media ~42% / content ~40% */
 .tl-grid {
   display: grid;
   grid-template-columns: 0.85fr 2.1fr 1.95fr;
-  gap: clamp(28px, 4vw, 64px);
+  gap: clamp(28px, 4vw, 72px);
   align-items: center;
 }
 
-/* LEFT — year rail (vertical, dotted connector) */
-.tl-rail { position: relative; display: flex; flex-direction: column; gap: clamp(30px, 4.4vh, 56px); }
-.tl-spine { position: absolute; left: 5px; top: 14px; bottom: 14px; width: 1px; background: rgb(var(--navy-rgb) / 0.16); }
+/* LEFT — year rail (vertical, thin connector through small dots) */
+.tl-rail { position: relative; display: flex; flex-direction: column; gap: clamp(36px, 5vh, 64px); }
+.tl-spine { position: absolute; left: 5px; top: 16px; bottom: 16px; width: 1px; background: rgb(var(--navy-rgb) / 0.16); }
 .tl-year {
-  position: relative; z-index: 1; min-height: 34px;
-  display: flex; align-items: center; gap: 20px;
+  position: relative; z-index: 1; min-height: 36px;
+  display: flex; align-items: center; gap: 22px;
   background: none; border: 0; padding: 0; cursor: pointer; text-align: left;
   font-family: 'Inter Tight', sans-serif; font-weight: 500;
   font-size: 20px; line-height: 1; letter-spacing: -0.01em;
   color: rgb(var(--navy-rgb) / 0.4);
-  transition: color 0.3s var(--e-out);
+  transition: color 0.35s var(--tl-e);
 }
 .tl-dot {
   flex: 0 0 auto; width: 11px; height: 11px; border-radius: 50%;
   border: 1.5px solid rgb(var(--navy-rgb) / 0.35); background: var(--cream);
-  transition: background 0.3s var(--e-out), border-color 0.3s var(--e-out), transform 0.3s var(--e-out);
+  transition: background 0.4s var(--tl-e), border-color 0.4s var(--tl-e), transform 0.4s var(--tl-e);
 }
 .tl-year.is-active { color: var(--gold-text); font-weight: 600; font-size: 28px; }
-.tl-year.is-active .tl-dot { background: var(--gold-text); border-color: var(--gold-text); transform: scale(1.1); }
+.tl-year.is-active .tl-dot { background: var(--gold-text); border-color: var(--gold-text); transform: scale(1.15); }
 @media (hover: hover) and (pointer: fine) {
   .tl-year:hover:not(.is-active) { color: rgb(var(--navy-rgb) / 0.7); }
 }
 
-/* CENTER — media card (landscape empty frame, vertically centred) */
+/* CENTER — tall portrait media card (raw photo, vertically centred) */
 .tl-media-zone { display: flex; align-items: center; justify-content: center; }
-.tl-media { width: 100%; aspect-ratio: 4 / 3; border-radius: var(--radius-lg); }
-.tl-media::before, .tl-media::after { content: none; }   /* clean hairline frame — no ticks, no label */
+.tl-media {
+  position: relative; height: clamp(440px, 68vh, 660px); aspect-ratio: 4 / 5; width: auto;
+  border-radius: var(--radius-lg); background: var(--cream-2);
+}
+.tl-media::before, .tl-media::after { content: none; }   /* clean hairline frame — no ticks */
+.tl-media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* RIGHT — content + arrows (all left-aligned) */
 .tl-content-zone { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
 .tl-year-big {
-  margin: 0 0 clamp(12px, 1.6vh, 18px);
+  margin: 0 0 clamp(14px, 1.8vh, 20px);
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(48px, 5vw, 72px); line-height: 1; letter-spacing: -0.03em; color: var(--navy);
 }
+.tl-underline { display: block; width: 60px; height: 2px; background: var(--gold); margin: 0 0 clamp(20px, 2.8vh, 30px); }
 .tl-title {
-  margin: 0 0 clamp(14px, 2vh, 20px);
+  margin: 0 0 clamp(16px, 2.2vh, 22px);
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(22px, 2.4vw, 30px); line-height: 1.16; letter-spacing: -0.02em; color: var(--ink);
+  font-size: clamp(22px, 2.4vw, 30px); line-height: 1.18; letter-spacing: 0.015em; color: var(--ink);
 }
 .tl-body {
   margin: 0; max-width: 46ch;
   font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(15px, 1.2vw, 18px);
   line-height: 1.62; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.72);
 }
-.tl-arrows { display: flex; gap: 14px; margin-top: clamp(28px, 4vh, 40px); }
+.tl-arrows { display: flex; gap: 14px; margin-top: clamp(30px, 4.4vh, 44px); }
 .tl-arrow {
   width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
   border: 1.5px solid var(--navy); background: transparent; color: var(--navy);
   font-size: 18px; line-height: 1; cursor: pointer;
-  transition: background 0.22s var(--e-out), color 0.22s var(--e-out), border-color 0.22s var(--e-out);
+  transition: background 0.24s var(--tl-e), color 0.24s var(--tl-e), border-color 0.24s var(--tl-e), transform 0.14s var(--tl-e);
 }
 .tl-arrow:hover:not(:disabled) { background: var(--navy); color: var(--cream); }
+.tl-arrow:active:not(:disabled) { transform: scale(0.96); }
 .tl-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
 
-/* era swap — outgoing fades up, incoming rises from below (transform/opacity) */
-.tl-anim-out { opacity: 0; transform: translateY(-12px); transition: opacity 0.18s var(--e-out), transform 0.18s var(--e-out); }
-.tl-anim-in { animation: tl-enter 0.32s var(--e-out) both; }
-@keyframes tl-enter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+/* era swap — outgoing fades up, incoming rises from below; media crossfade
+   trails the text by ~80ms. transform/opacity only. */
+.tl-anim-out { opacity: 0; transform: translateY(-12px); transition: opacity 0.16s var(--tl-e), transform 0.16s var(--tl-e); }
+.tl-anim-in { animation: tl-enter 0.38s var(--tl-e) both; }
+.tl-media.tl-anim-in { animation-delay: 0.08s; }
+@keyframes tl-enter { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
 /* ── MaskText — per-word rise from behind an overflow mask ─────────────────── */
 .masktext { margin: 0; }
@@ -252,6 +267,7 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 /* ── TIMELINE mobile (<900px) — rail becomes a horizontal scrollable strip on
    top, then media, then content; arrows stay ─────────────────────────────── */
 @media (max-width: 900px) {
+  .tl { min-height: auto; display: block; padding: var(--section-pad-y) var(--page-gutter); }
   .tl-grid { grid-template-columns: 1fr; gap: clamp(28px, 6vw, 40px); align-items: stretch; }
   .tl-rail {
     flex-direction: row; gap: clamp(18px, 5vw, 30px); overflow-x: auto;
@@ -261,7 +277,7 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .tl-spine { display: none; }
   .tl-year { flex: 0 0 auto; min-height: 0; white-space: nowrap; scroll-snap-align: start; }
   .tl-year.is-active { font-size: 22px; }
-  .tl-media { aspect-ratio: 16 / 10; }
+  .tl-media { height: auto; width: 100%; aspect-ratio: 3 / 4; }   /* tall card, full column width */
 }
 
 /* mobile grid + spread reflow */

@@ -5,6 +5,15 @@ import SectionCurve from '@/components/SectionCurve'
 import { PaperGrain } from '@/components/atmosphere'
 import './OurStory.css'
 
+// MOCK — replace with client photography. Raw Pexels photos (free license), one
+// per era, object-fit cover in the timeline media frame. No filters/overlays/tints.
+import mock1 from '@/assets/mock/timeline-mock-1.jpg'
+import mock2 from '@/assets/mock/timeline-mock-2.jpg'
+import mock3 from '@/assets/mock/timeline-mock-3.jpg'
+import mock4 from '@/assets/mock/timeline-mock-4.jpg'
+import mock5 from '@/assets/mock/timeline-mock-5.jpg'
+const TIMELINE_MOCKS = [mock1, mock2, mock3, mock4, mock5]   // MOCK — replace with client photography
+
 // ── /about — "Our Story", signature sections pass ────────────────────────────
 // Hero band → THE JOURNEY (Union-Properties three-zone timeline) → INK SPREADS
 // (MVV, three navy panels with a drawing thread) → THE FOUNDER (editorial spread
@@ -97,9 +106,9 @@ function Timeline({ stops }) {
     if (idx === active) return
     setActive(idx)
     if (reduced) { setShown(idx); setPhase('in'); return }
-    setPhase('out')                                   // fade current up + out
+    setPhase('out')                                   // fade current up + out (~160ms)
     clearTimeout(timer.current)
-    timer.current = setTimeout(() => { setShown(idx); setPhase('in') }, 180)   // then fade new up from below
+    timer.current = setTimeout(() => { setShown(idx); setPhase('in') }, 160)   // then rise new from below
   }
   useEffect(() => () => clearTimeout(timer.current), [])
 
@@ -133,29 +142,37 @@ function Timeline({ stops }) {
           <div className="tl-rail" role="tablist" aria-label={t('timeline.eyebrow')}>
             <span className="tl-spine" aria-hidden="true" />
             {stops.map((s, i) => (
+              // Rail shows the START year only (display transform — locale strings
+              // untouched); aria-label keeps the full era text for screen readers.
               <button
                 key={i}
                 type="button"
                 role="tab"
                 aria-selected={i === active}
+                aria-label={s.year}
                 className={`tl-year focus-ring${i === active ? ' is-active' : ''}`}
                 onClick={() => go(i)}
               >
                 <span className="tl-dot" aria-hidden="true" />
-                <span className="tl-year-label">{s.year}</span>
+                <span className="tl-year-label" aria-hidden="true">{s.year.split(' ')[0]}</span>
               </button>
             ))}
           </div>
 
-          {/* CENTER — media card (empty frame, awaiting asset) */}
+          {/* CENTER — media card (raw mock photo, awaiting client asset) */}
           <div className="tl-media-zone">
-            <div key={shown} className={`ab-frame tl-media tl-anim-${phase}`} data-slot={`timeline-${shown}`} aria-hidden="true" />
+            <div key={shown} className={`ab-frame tl-media tl-anim-${phase}`} data-slot={`timeline-${shown}`} aria-hidden="true">
+              {TIMELINE_MOCKS[shown] && (
+                <img className="tl-media-img" src={TIMELINE_MOCKS[shown]} alt="" loading="lazy" decoding="async" />
+              )}
+            </div>
           </div>
 
           {/* RIGHT — content + arrows */}
           <div className="tl-content-zone">
             <div key={shown} className={`tl-content tl-anim-${phase}`}>
               <p className="tl-year-big">{stop.year}</p>
+              <span className="tl-underline" aria-hidden="true" />
               <h3 className="tl-title">{stop.title}</h3>
               <p className="tl-body">{stop.desc}</p>
             </div>
