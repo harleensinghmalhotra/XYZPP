@@ -128,3 +128,43 @@
   .nr-card-link:hover .nr-card-media img { transform: none; }
   .nr-card-link:hover .nr-arrow { transform: none; }
 }
+
+/* ── Loading skeleton — same card silhouette, subtle opacity pulse (no shimmer) ─ */
+.nr-skeleton .nr-card-link { pointer-events: none; }
+.nr-skeleton .nr-card-media,
+.nr-sk-line {
+  background: rgb(var(--navy-rgb) / 0.07);
+  animation: nr-pulse 1.5s ease-in-out infinite;
+}
+.nr-sk-line { height: 13px; border-radius: 5px; }
+.nr-sk-date { width: 34%; height: 10px; }
+.nr-sk-title { height: 19px; width: 90%; }
+.nr-sk-text { height: 12px; }
+.nr-sk-short { width: 52%; }
+@keyframes nr-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.85; } }
+
+/* ── Error state — quiet inline message + retry, in site vocabulary ── */
+.nr-state { text-align: center; padding: clamp(32px, 6vh, 64px) 0; }
+.nr-state-msg {
+  margin: 0 0 20px;
+  font-family: 'DM Mono', monospace; font-size: 13px;
+  letter-spacing: 0.08em; color: var(--ink);
+}
+.nr-retry {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold-text); background: transparent;
+  border: 1px solid rgb(var(--gold-rgb) / 0.5);
+  border-radius: 999px; padding: 10px 22px; cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nr-retry:hover { border-color: var(--gold); background: rgb(var(--gold-rgb) / 0.08); }
+}
+.nr-retry:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nr-skeleton .nr-card-media,
+  .nr-sk-line { animation: none; opacity: 0.7; }
+  .nr-retry { transition: none; }
+}

@@ -1,22 +1,26 @@
+import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Seo from '@/components/Seo'
 import PageHero from '@/components/PageHero'
 import { PaperGrain } from '@/components/atmosphere'
-import { newsroomPosts, formatPostDate } from '@/data/newsroomPosts'
+import { client, urlFor, formatDate, revealDynamic } from '@/lib/sanity'
 import './Newsroom.css'
 
-// ── /newsroom — editorial card index ─────────────────────────────────────────
-// Flat-navy PageHero band (site law) → a two-column card grid of the 12 mock
-// posts. Card anatomy mirrors ofskinandsouls.com/blog, reskinned to QFP System B:
-// 16:10 cover, optional DM-Mono category chip, mono date, Inter Tight gold
-// headline, cream excerpt, a "Read article" footer with a nudging arrow. Reveals
-// cascade via the site-wide [data-reveal] runtime (alive.js); reduced-motion is
-// instant. All 12 render in one continuous grid — no pagination: a two-up
-// editorial scroll reads more premium than splitting twelve cards across pages.
+// ── /newsroom — editorial card index (live Sanity) ───────────────────────────
+// Flat-navy PageHero band (site law) → a two-column card grid. Card anatomy and
+// classes are unchanged from the mock build — only the data source moved to
+// Sanity. Reveals ride the shared [data-reveal] runtime; because posts arrive
+// async, revealDynamic() re-observes them (see src/lib/sanity.js).
 //
-// Content is MOCK (see src/data/newsroomPosts.js). Posts are EN-only by design;
-// only chrome (hero, chips, "Read article") is translated via the newsroom ns.
+// The GROQ below IS the whole hide/unhide + scheduling logic: `published == true`
+// is the instant toggle, `publishedAt <= now()` reveals future-dated posts the
+// moment their time arrives — no cron. Chrome stays translated (newsroom ns);
+// post copy is EN, authored in the studio.
+const INDEX_QUERY = `*[_type == "post" && published == true && publishedAt <= now()]
+  | order(publishedAt desc){
+    title, "slug": slug.current, publishedAt, category, excerpt, coverImage
+  }`
 
 function Arrow() {
   return (
@@ -28,19 +32,20 @@ function Arrow() {
 
 function NewsCard({ post }) {
   const { t, i18n } = useTranslation('newsroom')
+  const cover = post.coverImage ? urlFor(post.coverImage).width(800).auto('format').url() : null
   return (
     <article className="nr-card" data-reveal>
       <Link className="nr-card-link" to={`/newsroom/${post.slug}`}>
         <div className="nr-card-media">
-          <img src={post.heroImage} alt="" loading="lazy" decoding="async" />
+          {cover && <img src={cover} alt="" loading="lazy" decoding="async" />}
           {post.category && (
             <span className="nr-chip">{t(`categories.${post.category}`, post.category)}</span>
           )}
         </div>
         <div className="nr-card-body">
-          <time className="nr-date" dateTime={post.date}>{formatPostDate(post.date, i18n.language)}</time>
+          <time className="nr-date" dateTime={post.publishedAt}>{formatDate(post.publishedAt, i18n.language)}</time>
           <h3 className="nr-card-title">{post.title}</h3>
-          <p className="nr-card-excerpt">{post.excerpt}</p>
+          {post.excerpt && <p className="nr-card-excerpt">{post.excerpt}</p>}
           <span className="nr-card-more">
             {t('readArticle')}
             <Arrow />
@@ -51,8 +56,48 @@ function NewsCard({ post }) {
   )
 }
 
+// Same card silhouette, placeholder bars pulsing softly (no shimmer; static under
+// reduced motion via CSS). Not [data-reveal] — skeletons show instantly.
+function SkeletonCard() {
+  return (
+    <article className="nr-card nr-skeleton" aria-hidden="true">
+      <div className="nr-card-link">
+        <div className="nr-card-media" />
+        <div className="nr-card-body">
+          <div className="nr-sk-line nr-sk-date" />
+          <div className="nr-sk-line nr-sk-title" />
+          <div className="nr-sk-line nr-sk-title nr-sk-short" />
+          <div className="nr-sk-line nr-sk-text" />
+          <div className="nr-sk-line nr-sk-text nr-sk-short" />
+        </div>
+      </div>
+    </article>
+  )
+}
+
 export default function Newsroom() {
   const { t } = useTranslation('newsroom')
+  const [status, setStatus] = useState('loading') // loading | ready | error
+  const [posts, setPosts] = useState([])
+
+  const load = useCallback(() => {
+    setStatus('loading')
+    client
+      .fetch(INDEX_QUERY)
+      .then((data) => {
+        setPosts(data || [])
+        setStatus('ready')
+      })
+      .catch(() => setStatus('error'))
+  }, [])
+
+  useEffect(() => { load() }, [load])
+
+  // Reveal the async cards the one-time alive.js init missed.
+  useEffect(() => {
+    if (status !== 'ready') return
+    return revealDynamic(document.querySelector('.nr-index'))
+  }, [status, posts])
 
   return (
     <main id="main">
@@ -69,13 +114,28 @@ export default function Newsroom() {
       <section className="nr-index" data-theme="light" aria-label={t('title')}>
         <PaperGrain />
         <div className="nr-index-inner">
-          {newsroomPosts.length === 0 ? (
+          {status === 'loading' && (
+            <div className="nr-grid" aria-busy="true">
+              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+            </div>
+          )}
+
+          {status === 'error' && (
+            <div className="nr-state" role="alert">
+              <p className="nr-state-msg">{t('error.message', 'Couldn’t load the newsroom just now.')}</p>
+              <button type="button" className="nr-retry" onClick={load}>
+                {t('error.retry', 'Try again')}
+              </button>
+            </div>
+          )}
+
+          {status === 'ready' && posts.length === 0 && (
             <p className="nr-empty">{t('empty')}</p>
-          ) : (
+          )}
+
+          {status === 'ready' && posts.length > 0 && (
             <div className="nr-grid">
-              {newsroomPosts.map((post) => (
-                <NewsCard key={post.slug} post={post} />
-              ))}
+              {posts.map((post) => <NewsCard key={post.slug} post={post} />)}
             </div>
           )}
         </div>

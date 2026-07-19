@@ -199,3 +199,67 @@
   .nra-rel-link:hover .nra-rel-media img { transform: none; }
   .nra-back:hover .nra-backarrow { transform: none; }
 }
+
+/* ── Portable Text extras — headings / quote / link in the article's type voice.
+   (Seed content is paragraphs + images + one video; these cover future editor
+   copy so headings/links land on-brand.) ── */
+.nra-h2 {
+  margin: clamp(30px, 4.5vh, 44px) 0 0.5em;
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(22px, 2vw, 26px); line-height: 1.22; letter-spacing: -0.01em;
+  color: var(--navy);
+}
+.nra-h3 {
+  margin: clamp(24px, 3.4vh, 34px) 0 0.5em;
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(19px, 1.5vw, 21px); line-height: 1.25;
+  color: var(--navy);
+}
+.nra-quote {
+  margin: clamp(30px, 4.5vh, 44px) 0;
+  padding-left: clamp(18px, 2vw, 26px);
+  border-left: 2px solid rgb(var(--gold-rgb) / 0.5);
+  font-family: 'Inter Tight', sans-serif; font-style: italic;
+  font-size: clamp(19px, 1.4vw, 22px); line-height: 1.5;
+  color: rgb(28 32 25 / 0.82);
+}
+.nra-link {
+  color: var(--gold-text); text-decoration: underline; text-underline-offset: 2px;
+}
+
+/* ── Loading / error state — navy panel, matches the masthead ── */
+.nra-state {
+  background: var(--navy); min-height: 60vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(120px, 18vh, 180px) var(--page-gutter);
+}
+.nra-state-inner {
+  text-align: center; max-width: 520px;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+}
+.nra-state-eyebrow {
+  margin: 0; font-family: 'DM Mono', monospace; font-size: 13px;
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-2);
+}
+.nra-state-msg {
+  margin: 0; font-family: 'DM Mono', monospace; font-size: 13px;
+  letter-spacing: 0.08em; color: rgba(253, 250, 244, 0.8);
+}
+.nra-pulse { animation: nra-pulse 1.4s ease-in-out infinite; }
+@keyframes nra-pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+.nra-retry {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold-2); background: transparent;
+  border: 1px solid rgb(var(--gold-2-rgb) / 0.5);
+  border-radius: 999px; padding: 10px 22px; cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nra-retry:hover { border-color: var(--gold-2); background: rgb(var(--gold-2-rgb) / 0.1); }
+}
+.nra-retry:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .nra-pulse { animation: none; opacity: 1; }
+  .nra-retry { transition: none; }
+}

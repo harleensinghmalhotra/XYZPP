@@ -1,18 +1,26 @@
+import { useState, useEffect, useCallback } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { PortableText } from '@portabletext/react'
 import Seo from '@/components/Seo'
 import { PaperGrain } from '@/components/atmosphere'
-import { getPostBySlug, getRelatedPosts, formatPostDate } from '@/data/newsroomPosts'
+import { client, urlFor, formatDate, revealDynamic } from '@/lib/sanity'
 import './NewsroomArticle.css'
 
-// ── /newsroom/:slug — reading-first article view ─────────────────────────────
-// Navy throughout. Compact masthead (chip + mono date + line-mask headline),
-// full-width 16:9 hero, then a single 68ch reading column of body blocks
-// (paragraph | image | video — the block set is data-driven, so the mock's one
-// video post proves the video branch). A gold hairline closes the read, followed
-// by "Related news" (same category first, else most recent) and a back link.
-// No author, per brief. Content is MOCK (src/data/newsroomPosts.js), EN-only;
-// chrome is translated via the newsroom namespace.
+// ── /newsroom/:slug — reading-first article (live Sanity) ────────────────────
+// Navy masthead → 16:9 hero → single reading column of Portable Text → gold
+// hairline → related → back link. Structure/classes unchanged from the mock; the
+// body now renders via @portabletext/react. The slug fetch carries the same
+// published + publishedAt<=now() guard as the index, so a direct URL to a hidden
+// or future post resolves to null → the existing 404 view.
+const ARTICLE_QUERY = `{
+  "post": *[_type == "post" && slug.current == $slug && published == true && publishedAt <= now()][0]{
+    title, "slug": slug.current, publishedAt, category, excerpt, coverImage,
+    body[]{ ..., _type == "videoFile" => { "url": asset->url } }
+  },
+  "candidates": *[_type == "post" && published == true && publishedAt <= now() && slug.current != $slug]
+    | order(publishedAt desc){ title, "slug": slug.current, publishedAt, category, coverImage }
+}`
 
 function Arrow() {
   return (
@@ -30,44 +38,62 @@ function BackArrow() {
   )
 }
 
-function Block({ block }) {
-  if (block.type === 'paragraph') {
-    return <p className="nra-p" data-reveal>{block.text}</p>
-  }
-  if (block.type === 'image') {
-    return (
+// Portable Text → the article's existing typography. Blocks reuse .nra-p; inline
+// images become .nra-figure via image-url (full column width, DM-Mono caption);
+// videoFile blocks become a native <video controls> with the site's media radius.
+const ptComponents = {
+  block: {
+    normal: ({ children }) => <p className="nra-p" data-reveal>{children}</p>,
+    h2: ({ children }) => <h2 className="nra-h2" data-reveal>{children}</h2>,
+    h3: ({ children }) => <h3 className="nra-h3" data-reveal>{children}</h3>,
+    blockquote: ({ children }) => <blockquote className="nra-quote" data-reveal>{children}</blockquote>,
+  },
+  types: {
+    image: ({ value }) => (
       <figure className="nra-figure" data-reveal>
-        <img src={block.src} alt={block.alt || ''} loading="lazy" decoding="async" />
-        {block.caption && <figcaption className="nra-caption">{block.caption}</figcaption>}
+        <img
+          src={urlFor(value).width(1600).auto('format').url()}
+          alt={value.alt || ''}
+          loading="lazy"
+          decoding="async"
+        />
+        {value.caption && <figcaption className="nra-caption">{value.caption}</figcaption>}
       </figure>
-    )
-  }
-  if (block.type === 'video') {
-    return (
+    ),
+    videoFile: ({ value }) => (
       <figure className="nra-figure nra-figure--video" data-reveal>
-        <video controls preload="metadata" poster={block.poster} playsInline>
-          <source src={block.src} type="video/mp4" />
-        </video>
-        {block.caption && <figcaption className="nra-caption">{block.caption}</figcaption>}
+        {value.url && (
+          <video controls preload="metadata" playsInline>
+            <source src={value.url} />
+          </video>
+        )}
+        {value.caption && <figcaption className="nra-caption">{value.caption}</figcaption>}
       </figure>
-    )
-  }
-  return null
+    ),
+  },
+  marks: {
+    strong: ({ children }) => <strong>{children}</strong>,
+    em: ({ children }) => <em>{children}</em>,
+    link: ({ children, value }) => (
+      <a className="nra-link" href={value?.href} target="_blank" rel="noopener noreferrer">{children}</a>
+    ),
+  },
 }
 
 function RelatedCard({ post }) {
   const { t, i18n } = useTranslation('newsroom')
+  const cover = post.coverImage ? urlFor(post.coverImage).width(800).auto('format').url() : null
   return (
     <article className="nra-rel-card" data-reveal>
       <Link className="nra-rel-link" to={`/newsroom/${post.slug}`}>
         <div className="nra-rel-media">
-          <img src={post.heroImage} alt="" loading="lazy" decoding="async" />
+          {cover && <img src={cover} alt="" loading="lazy" decoding="async" />}
           {post.category && (
             <span className="nra-chip nra-chip--sm">{t(`categories.${post.category}`, post.category)}</span>
           )}
         </div>
         <div className="nra-rel-body">
-          <time className="nra-rel-date" dateTime={post.date}>{formatPostDate(post.date, i18n.language)}</time>
+          <time className="nra-rel-date" dateTime={post.publishedAt}>{formatDate(post.publishedAt, i18n.language)}</time>
           <h3 className="nra-rel-title">{post.title}</h3>
         </div>
       </Link>
@@ -75,12 +101,73 @@ function RelatedCard({ post }) {
   )
 }
 
+// Same-category first, then most-recent fill, capped at 3 (mirrors the mock's
+// getRelatedPosts; candidates already arrive newest-first from GROQ).
+function relatedFor(current, candidates) {
+  const sameCat = current.category ? candidates.filter((c) => c.category === current.category) : []
+  const rest = candidates.filter((c) => !sameCat.includes(c))
+  return [...sameCat, ...rest].slice(0, 3)
+}
+
 export default function NewsroomArticle() {
   const { slug } = useParams()
   const { t, i18n } = useTranslation('newsroom')
-  const post = getPostBySlug(slug)
+  const [status, setStatus] = useState('loading') // loading | ready | error | missing
+  const [post, setPost] = useState(null)
+  const [related, setRelated] = useState([])
 
-  if (!post) {
+  const load = useCallback(() => {
+    setStatus('loading')
+    client
+      .fetch(ARTICLE_QUERY, { slug })
+      .then((data) => {
+        if (!data || !data.post) {
+          setStatus('missing')
+          return
+        }
+        setPost(data.post)
+        setRelated(relatedFor(data.post, data.candidates || []))
+        setStatus('ready')
+      })
+      .catch(() => setStatus('error'))
+  }, [slug])
+
+  useEffect(() => { load() }, [load])
+
+  // Reveal the async body blocks + related cards the one-time alive.js init missed.
+  useEffect(() => {
+    if (status !== 'ready') return
+    return revealDynamic(document.querySelector('.nra'))
+  }, [status, post])
+
+  if (status === 'loading') {
+    return (
+      <main id="main">
+        <section className="nra-state" data-theme="dark" aria-busy="true">
+          <div className="nra-state-inner">
+            <p className="nra-state-eyebrow nra-pulse">{t('loading', 'Loading')}</p>
+          </div>
+        </section>
+      </main>
+    )
+  }
+
+  if (status === 'error') {
+    return (
+      <main id="main">
+        <section className="nra-state" data-theme="dark" role="alert">
+          <div className="nra-state-inner">
+            <p className="nra-state-msg">{t('error.message', 'Couldn’t load this article just now.')}</p>
+            <button type="button" className="nra-retry" onClick={load}>{t('error.retry', 'Try again')}</button>
+            <Link className="nra-back" to="/newsroom"><BackArrow />{t('back')}</Link>
+          </div>
+        </section>
+      </main>
+    )
+  }
+
+  // Hidden / future / unknown slug → the existing 404 view (site law: navy panel).
+  if (status === 'missing' || !post) {
     return (
       <main id="main">
         <Seo title={t('seo.indexTitle')} description={t('seo.indexDesc')} />
@@ -98,13 +185,13 @@ export default function NewsroomArticle() {
     )
   }
 
-  const related = getRelatedPosts(slug, 3)
+  const coverUrl = post.coverImage ? urlFor(post.coverImage).width(2000).auto('format').url() : null
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: post.title,
-    datePublished: post.date,
-    image: [post.heroImage],
+    datePublished: post.publishedAt,
+    image: coverUrl ? [coverUrl] : undefined,
     articleSection: post.category || undefined,
     publisher: { '@type': 'Organization', name: 'Quarterfold Printabilities' },
   }
@@ -125,7 +212,7 @@ export default function NewsroomArticle() {
               {post.category && (
                 <span className="nra-chip">{t(`categories.${post.category}`, post.category)}</span>
               )}
-              <time className="nra-date" dateTime={post.date}>{formatPostDate(post.date, i18n.language)}</time>
+              <time className="nra-date" dateTime={post.publishedAt}>{formatDate(post.publishedAt, i18n.language)}</time>
             </div>
             <h1 className="nra-title" data-textreveal>{post.title}</h1>
           </div>
@@ -133,42 +220,41 @@ export default function NewsroomArticle() {
 
         {/* Everything below the band runs on cream (site law) */}
         <div className="nra-light">
-        <PaperGrain />
+          <PaperGrain />
 
-        {/* Hero */}
-        <div className="nra-hero" data-reveal>
-          <div className="nra-hero-inner">
-            <img src={post.heroImage} alt="" decoding="async" />
+          {coverUrl && (
+            <div className="nra-hero" data-reveal>
+              <div className="nra-hero-inner">
+                <img src={coverUrl} alt="" decoding="async" />
+              </div>
+            </div>
+          )}
+
+          {/* Body — single reading column, Portable Text */}
+          <div className="nra-body">
+            <PortableText value={post.body || []} components={ptComponents} />
           </div>
-        </div>
 
-        {/* Body — single reading column */}
-        <div className="nra-body">
-          {post.body.map((block, i) => (
-            <Block key={i} block={block} />
-          ))}
-        </div>
-
-        {/* Related */}
-        <footer className="nra-foot">
-          <div className="nra-foot-inner">
-            <hr className="nra-rule" />
-            {related.length > 0 && (
-              <>
-                <h2 className="nra-rel-h2" data-reveal>{t('related')}</h2>
-                <div className="nra-rel-grid">
-                  {related.map((p) => (
-                    <RelatedCard key={p.slug} post={p} />
-                  ))}
-                </div>
-              </>
-            )}
-            <Link className="nra-back" to="/newsroom">
-              <BackArrow />
-              {t('back')}
-            </Link>
-          </div>
-        </footer>
+          {/* Related */}
+          <footer className="nra-foot">
+            <div className="nra-foot-inner">
+              <hr className="nra-rule" />
+              {related.length > 0 && (
+                <>
+                  <h2 className="nra-rel-h2" data-reveal>{t('related')}</h2>
+                  <div className="nra-rel-grid">
+                    {related.map((p) => (
+                      <RelatedCard key={p.slug} post={p} />
+                    ))}
+                  </div>
+                </>
+              )}
+              <Link className="nra-back" to="/newsroom">
+                <BackArrow />
+                {t('back')}
+              </Link>
+            </div>
+          </footer>
         </div>
       </article>
     </main>

@@ -1,4 +1,9 @@
 // ─────────────────────────────────────────────────────────────────────────────
+// RETIRED: content now lives in Sanity, file kept for reference until handoff.
+// Nothing imports this module anymore — the /newsroom index + article read live
+// from the QFP Newsroom studio via src/lib/sanity.js. Left in place as the
+// authored-copy reference (and the body-block shape the seed converted).
+// ─────────────────────────────────────────────────────────────────────────────
 // MOCK CONTENT — pending client copy replacement.
 //
 // Images are placeholders too: licence-free, book-themed Pexels stock only —
