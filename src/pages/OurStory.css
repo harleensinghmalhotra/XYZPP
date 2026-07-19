@@ -1,10 +1,10 @@
-/* ── /about — "Our Story", signature sections pass ───────────────────────────
-   Conforms to DESIGN-BIBLE.md: Inter Tight / Inter / DM Mono only (no Fraunces),
-   palette via tokens (var(--navy) resolves to #0e1b46, cream, gold), --content-max 1280,
-   --section-pad-y rhythm, --page-gutter, --e-out easing. Every animation is
-   transform/opacity only and has a prefers-reduced-motion fallback. Label floor
-   11px. No element exceeds a homepage equivalent (H1 92 / H2 68 / stat 132 caps).
-   Signature energy lives in the SCROLL MECHANICS, built in OurStory.jsx. */
+/* ── /about — "Our Story", the definitive craft pass ─────────────────────────
+   Conforms to DESIGN-BIBLE.md: Inter Tight / Inter / DM Mono only, palette via
+   tokens, --content-max 1280, --section-pad-y rhythm, --page-gutter, --e-out.
+   Motion is transform/opacity only, with two sanctioned exceptions the brief
+   mandates — the eyebrow letter-spacing settle and the MVV rule extend — each
+   cheap, one-shot, and guarded by prefers-reduced-motion. Label floor 11px. No
+   element exceeds a homepage equivalent (H1 92 / H2 68 / stat 132 caps). */
 
 /* ── shared ─────────────────────────────────────────────────────────────── */
 .ab-wrap { position: relative; z-index: 1; width: 100%; max-width: var(--content-max); margin: 0 auto; }
@@ -12,17 +12,26 @@
 .ab-eyebrow {
   margin: 0 0 clamp(14px, 1.9vh, 20px);
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-2);
+  letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-2);
 }
 .ab-eyebrow--cream {
   margin: 0;
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-text);
+  letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-text);
 }
+/* Eyebrow settle — tracking eases 0.35em → 0.25em on reveal (mandated detail).
+   Only when JS reveals are live; no-JS rests at the settled 0.25em. */
+html.alive-ready .ab-eyebrow[data-reveal],
+html.alive-ready .ab-eyebrow--cream[data-reveal] {
+  letter-spacing: 0.35em;
+  transition: opacity 620ms var(--e-out), transform 620ms var(--e-out), letter-spacing 720ms var(--e-out);
+}
+html.alive-ready .ab-eyebrow[data-reveal].is-in,
+html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em; }
 
 /* the quiet empty frame — cream-2, hairline, faint corner registration ticks
-   (a printer's-plate cue so an assetless frame reads intentional, not broken;
-   ticks are hairline detail, not a label). data-slot stays for asset drops. */
+   (a printer's-plate cue so an assetless frame reads intentional, not broken).
+   data-slot stays for asset drops; a dropped photo scale-ins via .ab-frame-img. */
 .ab-frame {
   position: relative; aspect-ratio: 3 / 4;
   background: var(--cream-2);
@@ -37,29 +46,44 @@
 .ab-frame::before { top: 11px; left: 11px; border-top-width: 1.5px; border-left-width: 1.5px; }
 .ab-frame::after  { bottom: 11px; right: 11px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
 
+/* ── SPINE — gold scroll thread pinned to the page's left edge ─────────────── */
+.ab-spine {
+  position: fixed; left: 0; top: 0; bottom: 0; width: 2px; z-index: 4;
+  background: linear-gradient(180deg, var(--gold-2), var(--gold));
+  transform: scaleY(0); transform-origin: top center;
+  pointer-events: none; will-change: transform;
+}
+
 /* ── SECTION 1 — HERO BAND ─────────────────────────────────────────────────── */
 .ab-hero {
   position: relative; background: var(--navy);
-  min-height: clamp(430px, 56vh, 590px);
+  min-height: clamp(560px, 74vh, 780px);
   display: flex; align-items: center;
-  padding: clamp(48px, 6vh, 84px) var(--page-gutter);
+  padding: clamp(88px, 12vh, 152px) var(--page-gutter);
   overflow: hidden;
 }
 .ab-hero-inner { text-align: left; }
 .ab-hero-display {
-  margin: 0 0 clamp(16px, 2.2vh, 24px);
+  margin: 0 0 clamp(18px, 2.6vh, 28px);
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(56px, 7.5vw, 92px);       /* ≤ homepage H1 cap (92) */
   line-height: 0.92; letter-spacing: -0.035em; text-transform: uppercase;
   color: var(--cream);
 }
 .ab-hero-title {
-  margin: 0 0 clamp(16px, 2.2vh, 24px); max-width: 24ch;
+  margin: 0 0 clamp(18px, 2.6vh, 28px); max-width: 24ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
   font-size: clamp(24px, 3.2vw, 34px); line-height: 1.18; letter-spacing: -0.02em;
   color: var(--cream);
 }
-.ab-accent { font-style: normal; color: var(--gold-2); }   /* accent word, on-brand gold */
+/* accent word — on-brand gold, with an underline that draws on hero reveal. */
+.ab-accent { position: relative; font-style: normal; color: var(--gold-2); }
+.ab-accent::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -0.1em; height: 2px;
+  background: var(--gold-2); transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.7s var(--e-out) 0.35s; will-change: transform;
+}
+html.alive-ready .ab-hero-title.is-in .ab-accent::after { transform: scaleX(1); }
 .ab-hero-lede {
   margin: 0; max-width: 58ch;
   font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.15vw, 18px);
@@ -67,8 +91,6 @@
 }
 
 /* ── SECTION 2 — THE JOURNEY (Union-Properties three-zone timeline) ────────── */
-/* Full-height chapter: the section fills ~90vh and the tall portrait media card
-   is its centrepiece; rail + content sit vertically centred against it. */
 .tl {
   --tl-e: cubic-bezier(0.22, 1, 0.36, 1);   /* the reference's liquid ease */
   position: relative; background: var(--cream); overflow: hidden;
@@ -80,13 +102,12 @@
 /* one composed unit filling the width: narrow rail / FAT card / tight text */
 .tl-grid {
   display: grid;
-  grid-template-columns: auto minmax(0, 1.45fr) minmax(0, 1fr);   /* rail ~8% / card ~50% / text ~35% */
+  grid-template-columns: auto minmax(0, 1.45fr) minmax(0, 1fr);
   gap: clamp(28px, 3.4vw, 52px);
   align-items: center;
 }
 
-/* LEFT — narrow year rail; years right-aligned tight against the card, dots +
-   thin connector on the card side */
+/* LEFT — narrow year rail */
 .tl-rail { position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: clamp(34px, 4.6vh, 60px); }
 .tl-spine { position: absolute; right: 5px; left: auto; top: 16px; bottom: 16px; width: 1px; background: rgb(var(--navy-rgb) / 0.16); }
 .tl-year {
@@ -99,18 +120,25 @@
   transition: color 0.35s var(--tl-e);
 }
 .tl-dot {
+  position: relative;
   flex: 0 0 auto; width: 11px; height: 11px; border-radius: 50%;
   border: 1.5px solid rgb(var(--navy-rgb) / 0.35); background: var(--cream);
   transition: background 0.4s var(--tl-e), border-color 0.4s var(--tl-e), transform 0.4s var(--tl-e);
 }
 .tl-year.is-active { color: var(--gold-text); font-weight: 600; font-size: 28px; }
 .tl-year.is-active .tl-dot { background: var(--gold-text); border-color: var(--gold-text); transform: scale(1.15); }
+/* ring pulse — a single gold ring expands out of the dot when the era is chosen */
+.tl-year.is-active .tl-dot::after {
+  content: ''; position: absolute; inset: -6px; border-radius: 50%;
+  border: 1.5px solid var(--gold-text); pointer-events: none;
+  animation: tl-ring 0.72s var(--tl-e) 1;
+}
+@keyframes tl-ring { from { transform: scale(0.5); opacity: 0.75; } to { transform: scale(1.7); opacity: 0; } }
 @media (hover: hover) and (pointer: fine) {
   .tl-year:hover:not(.is-active) { color: rgb(var(--navy-rgb) / 0.7); }
 }
 
-/* CENTER — FAT landscape media card: fills its column width, near-full section
-   height (from just under the eyebrow to the section bottom). Raw photo covers. */
+/* CENTER — FAT landscape media card; raw photo covers and scale-ins on swap. */
 .tl-media-zone { min-width: 0; }
 .tl-media {
   position: relative; width: 100%; height: clamp(440px, 70vh, 680px);
@@ -118,17 +146,19 @@
 }
 .tl-media::before, .tl-media::after { content: none; }   /* clean hairline frame — no ticks */
 .tl-media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.tl-media.tl-anim-in .tl-media-img { animation: tl-imgscale 0.9s var(--tl-e) both; }
+@keyframes tl-imgscale { from { transform: scale(1.05); } to { transform: none; } }
 
-/* RIGHT — content top, arrows anchored to the card's bottom edge. The column
-   stretches to the card height and space-between pushes the arrow row down, so
-   the baseline holds across all 5 eras regardless of body length. */
+/* RIGHT — content top, arrows anchored to the card's bottom edge. */
 .tl-content-zone { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
 .tl-year-big {
   margin: 0 0 clamp(14px, 1.8vh, 20px);
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(48px, 5vw, 72px); line-height: 1; letter-spacing: -0.03em; color: var(--navy);
 }
-.tl-underline { display: block; width: 60px; height: 2px; background: var(--gold); margin: 0 0 clamp(20px, 2.8vh, 30px); }
+.tl-underline { display: block; width: 60px; height: 2px; background: var(--gold); margin: 0 0 clamp(20px, 2.8vh, 30px); transform-origin: left center; }
+.tl-content.tl-anim-in .tl-underline { animation: tl-rule 0.5s var(--tl-e) 0.12s both; }
+@keyframes tl-rule { from { transform: scaleX(0); } to { transform: none; } }
 .tl-title {
   margin: 0 0 clamp(16px, 2.2vh, 22px);
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
@@ -146,7 +176,10 @@
   font-size: 20px; font-weight: 600; line-height: 1; cursor: pointer;
   transition: background 0.24s var(--tl-e), color 0.24s var(--tl-e), border-color 0.24s var(--tl-e), transform 0.14s var(--tl-e);
 }
+.tl-arrow-g { display: block; transition: transform 0.18s var(--tl-e); }
 .tl-arrow:hover:not(:disabled) { background: var(--navy); color: var(--cream); }
+.tl-arrow--prev:hover:not(:disabled) .tl-arrow-g { transform: translateX(-2px); }
+.tl-arrow--next:hover:not(:disabled) .tl-arrow-g { transform: translateX(2px); }
 .tl-arrow:active:not(:disabled) { transform: scale(0.96); }
 .tl-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
 
@@ -167,23 +200,21 @@
 .masktext.is-in .mask-w { transform: none; }
 
 /* ── SECTION 3 — MVV ONE-SCREEN TRIPTYCH ────────────────────────────────────
-   One flat navy band, folded into three columns like book spines. Two gold
-   hairlines split it; each column carries an index, label, 32px rule, statement
-   and a huge clipped ghost numeral. Whole section fits ONE viewport (~84vh). */
+   One flat navy band folded into three spines split by two drawn gold hairlines.
+   Indices AND ghost numerals removed; a gold chapter-tick draws above each label
+   to hold the rhythm. Whole section fits one viewport (~66vh). */
 .mvv { position: relative; background: var(--navy); overflow: hidden; }
 .mvv-inner {
   position: relative; z-index: 2;
   max-width: var(--content-max); margin: 0 auto;
-  min-height: clamp(560px, 84vh, 720px);
+  min-height: clamp(400px, 56vh, 540px);
   display: flex; align-items: center;
-  padding: clamp(76px, 13vh, 132px) var(--page-gutter);
+  padding: clamp(64px, 10vh, 112px) var(--page-gutter);
 }
 .mvv-triptych { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); }
 
-/* column shell — clips the ghost numeral; content top-aligned so the three
-   indices/labels line up across the band (Values' short text leaves intentional
-   whitespace below, keeping equal optical weight). */
-.mvv-col { position: relative; overflow: hidden; padding: 0 clamp(24px, 3.2vw, 56px); }
+/* column shell — content top-aligned so the three ticks/labels line up. */
+.mvv-col { position: relative; padding: 0 clamp(24px, 3.2vw, 56px); }
 .mvv-col:first-child { padding-left: 0; }
 .mvv-col:last-child { padding-right: 0; }
 
@@ -199,17 +230,6 @@
 }
 .mvv.is-in .mvv-col::before { transform: scaleY(1); }
 
-/* HUGE ghost numeral echo — clipped by the column, bottom-right, faint cream;
-   warms toward gold on hover. */
-.mvv-ghost {
-  position: absolute; right: clamp(-8px, 0.4vw, 6px); bottom: -0.2em;
-  font-family: 'Inter Tight', sans-serif; font-weight: 800;
-  font-size: clamp(120px, 12.5vw, 180px); line-height: 0.8; letter-spacing: -0.04em;
-  color: rgb(253 250 244 / 0.04);
-  pointer-events: none; user-select: none; z-index: 0;
-  transition: color 0.35s var(--e-out);
-}
-
 /* column content — fades up 12px on reveal, staggered after the hairline draw. */
 .mvv-col-body {
   position: relative; z-index: 1; max-width: 34ch;
@@ -219,22 +239,29 @@
 }
 .mvv.is-in .mvv-col-body { opacity: 1; transform: none; }
 
-.mvv-index {
-  display: block; margin: 0 0 clamp(16px, 2.4vh, 26px);
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px;
-  letter-spacing: 0.28em; color: var(--gold-2);
+/* chapter-tick — the small gold mark that replaces the deleted numeral index. */
+.mvv-tick {
+  display: block; width: 26px; height: 2px; margin: 0 0 clamp(18px, 2.6vh, 28px);
+  background: var(--gold-2); transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.5s var(--e-out);
 }
+.mvv.is-in .mvv-tick { transform: scaleX(1); transition-delay: calc(var(--col-i) * 0.12s + 0.26s); }
+
 .mvv-label {
-  margin: 0 0 clamp(12px, 1.9vh, 18px);
+  margin: 0 0 clamp(14px, 2.1vh, 20px);
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(20px, 1.9vw, 26px); line-height: 1.06;
+  font-size: clamp(22px, 2vw, 28px); line-height: 1.06;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream);
 }
+/* rule — draws on reveal (scaleX), extends toward full column on hover; the
+   200px track is the "extended" length, scaled to ~34px at rest (transform-only,
+   the sanctioned exception to width animation). */
 .mvv-rule {
-  display: block; width: 32px; height: 2px; margin: 0 0 clamp(20px, 3vh, 30px);
-  background: var(--gold-2);
-  transition: width 0.35s var(--e-out);   /* extends to full column width on hover */
+  display: block; width: 200px; height: 2px; margin: 0 0 clamp(20px, 3vh, 30px);
+  background: var(--gold-2); transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.45s var(--e-out);
 }
+.mvv.is-in .mvv-rule { transform: scaleX(0.17); transition-delay: calc(var(--col-i) * 0.12s + 0.32s); }
 .mvv-text {
   margin: 0;
   font-family: 'Inter', sans-serif; font-weight: 400;
@@ -242,17 +269,17 @@
   color: rgb(253 250 244 / 0.92);
 }
 
-/* quiet per-column hover (desktop) — rule extends, ghost warms cream→gold. */
+/* quiet per-column hover (desktop) — the rule extends toward the column edge.
+   No transition-delay here, so the shrink-back on pointer-leave is immediate. */
 @media (hover: hover) and (pointer: fine) {
-  .mvv-col:hover .mvv-rule { width: 100%; }
-  .mvv-col:hover .mvv-ghost { color: rgb(var(--gold-2-rgb) / 0.06); }
+  .mvv-col:hover .mvv-rule { transform: scaleX(1); transition-delay: 0s; }
 }
 
-/* ── SECTION 4 — THE FOUNDER ───────────────────────────────────────────────── */
+/* ── SECTION 4 — THE FOUNDER (Tequila editorial spread) ─────────────────────── */
 .fnd { position: relative; background: var(--cream); padding: var(--section-pad-y) var(--page-gutter); overflow: hidden; }
-.fnd-kicker { margin: 0 0 clamp(40px, 6vh, 64px); }
-.fnd-spread { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(40px, 6vw, 96px); align-items: start; }
-.fnd-portrait-wrap { position: relative; max-width: 420px; }
+.fnd-spread { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(40px, 6vw, 96px); align-items: start; }
+/* fitted 3:4 portrait — a fixed ratio that always holds the full photo. */
+.fnd-portrait-wrap { position: relative; width: 100%; max-width: 400px; }
 .fnd-offset {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   transform: translate(clamp(14px, 2vw, 22px), clamp(14px, 2vw, 22px));
@@ -260,7 +287,10 @@
 }
 .fnd-portrait { position: relative; z-index: 1; }
 .fnd-portrait::before, .fnd-portrait::after { content: none; }   /* offset-rule is this frame's detail */
+
+/* RIGHT column — kicker, name, role, bio, then the pull quote, all stacked. */
 .fnd-copy { min-width: 0; }
+.fnd-kicker { margin: 0 0 clamp(20px, 2.8vh, 30px); max-width: 52ch; }
 .fnd-name {
   margin: 0 0 clamp(16px, 2vh, 20px);
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
@@ -280,25 +310,67 @@
   line-height: 1.65; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.76);
 }
 
-/* pull quote — words fill from ghost to full ink as the block crosses centre */
+/* pull quote — words fill from a 45% ghost to full ink; sits under the bio in
+   the right column, opened by a gold hairline. */
 .fq-fig {
-  margin: clamp(56px, 9vh, 104px) 0 0; padding-top: clamp(40px, 6vh, 56px);
-  border-top: 1px solid rgb(var(--gold-rgb) / 0.3); max-width: 52ch;
+  margin: clamp(40px, 6vh, 64px) 0 0; padding-top: clamp(32px, 4.6vh, 48px);
+  border-top: 1px solid rgb(var(--gold-rgb) / 0.3); max-width: 46ch;
 }
 .fq {
   margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(24px, 3vw, 34px); line-height: 1.32; letter-spacing: -0.02em; color: var(--ink);
+  font-size: clamp(23px, 2.7vw, 32px); line-height: 1.34; letter-spacing: -0.02em; color: var(--ink);
 }
-.fq-w { opacity: 0.16; transition: opacity 0.2s linear; will-change: opacity; }
+.fq-w { opacity: 0.45; transition: opacity 0.2s linear; will-change: opacity; }
 .fq.is-in .fq-w { opacity: 1; }
 .fq-cite {
-  display: block; margin-top: clamp(24px, 3.4vh, 32px);
+  display: flex; align-items: center; gap: 12px;
+  margin-top: clamp(22px, 3.2vh, 30px);
   font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em;
   text-transform: uppercase; color: var(--gold-text);
 }
+/* gold em-dash drawn before the attribution (scaleX reveal). */
+.fq-dash {
+  flex: 0 0 auto; width: 1.7em; height: 2px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.6s var(--e-out) 0.1s;
+}
+.fq-fig.is-seen .fq-dash { transform: scaleX(1); }
+
+/* ── SECTION — MARQUEE RIBBON ───────────────────────────────────────────────
+   Thin navy band, gold DM Mono word repeating on a translateX loop, edge-faded
+   both ends. Static under reduced-motion (kill switch in the JSX + the media
+   query below). */
+.ab-marquee {
+  position: relative; background: var(--navy); overflow: hidden;
+  padding: clamp(18px, 2.6vh, 26px) 0;
+  border-top: 1px solid rgb(var(--gold-2-rgb) / 0.22);
+  border-bottom: 1px solid rgb(var(--gold-2-rgb) / 0.22);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+.ab-marquee-track { display: flex; width: max-content; animation: ab-mq 34s linear infinite; will-change: transform; }
+.ab-marquee-track.is-static { animation: none; }
+.ab-marquee-run { display: flex; }
+.ab-marquee-item { display: flex; align-items: center; }
+.ab-marquee-word {
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: clamp(13px, 1.15vw, 15px);
+  letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold-2);
+  padding: 0 clamp(20px, 2.4vw, 34px);
+}
+/* gold diamond separator (rotated square — no font glyph, per bible). */
+.ab-marquee-sep { flex: 0 0 auto; width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+@keyframes ab-mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ── SECTION 5 — THE TEAM (homepage-scale shells) ──────────────────────────── */
 .tm { position: relative; background: var(--cream); padding: clamp(60px, 7vh, 88px) var(--page-gutter) var(--section-pad-y); overflow: hidden; }
+/* the gold hairline that opens the section — draws left→right (scaleX). */
+html.alive-ready .tm-rule[data-reveal] {
+  width: 100%; height: 1px; border: 0; background: rgb(var(--gold-rgb) / 0.3);
+  margin: 0 0 clamp(40px, 6vh, 64px);
+  opacity: 1; transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.75s var(--e-out);
+}
+html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 .tm-rule { width: 100%; height: 1px; border: 0; background: rgb(var(--gold-rgb) / 0.3); margin: 0 0 clamp(40px, 6vh, 64px); }
 .tm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(28px, 3vw, 40px) clamp(20px, 2vw, 32px); }
 .tm-card { min-width: 0; }
@@ -307,10 +379,15 @@
   box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.06);
   transition: transform 0.28s var(--e-out), border-color 0.28s var(--e-out), box-shadow 0.28s var(--e-out);
 }
+/* corner ticks warm + scale toward gold on hover (invention). */
+.tm-frame::before, .tm-frame::after { transition: border-color 0.28s var(--e-out), transform 0.28s var(--e-out); transform-origin: center; }
 @media (hover: hover) and (pointer: fine) {
   .tm-card:hover .tm-frame {
     transform: translateY(-4px); border-color: rgb(var(--gold-rgb) / 0.55);
     box-shadow: 0 10px 24px rgb(var(--navy-rgb) / 0.1);
+  }
+  .tm-card:hover .tm-frame::before, .tm-card:hover .tm-frame::after {
+    border-color: rgb(var(--gold-rgb)); transform: scale(1.18);
   }
 }
 .tm-skel { display: block; border-radius: 3px; background: rgb(var(--navy-rgb) / 0.1); }
@@ -321,8 +398,7 @@
 html.alive-ready :is(.ab-hero, .fnd, .tm) [data-reveal] { transition-duration: 0.6s; }
 html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56s; }
 
-/* ── TIMELINE mobile (<900px) — rail becomes a horizontal scrollable strip on
-   top, then media, then content; arrows stay ─────────────────────────────── */
+/* ── TIMELINE mobile (<900px) — rail becomes a horizontal scrollable strip ──── */
 @media (max-width: 900px) {
   .tl { min-height: auto; display: block; padding: var(--section-pad-y) var(--page-gutter); }
   .tl-grid { grid-template-columns: 1fr; grid-template-rows: auto; gap: clamp(28px, 6vw, 40px); align-items: stretch; }
@@ -337,11 +413,10 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .tl-year.is-active { font-size: 22px; }
   .tl-content-zone { align-self: stretch; }
   .tl-media-zone { align-self: stretch; }
-  .tl-media { height: auto; width: 100%; aspect-ratio: 3 / 4; }   /* tall card, full column width */
+  .tl-media { height: auto; width: 100%; aspect-ratio: 3 / 4; }
 }
 
-/* ── MVV triptych mobile (<900px) — columns stack, hairlines lie horizontal,
-   ghost numerals shrink; the band relaxes to natural height ────────────────── */
+/* ── MVV triptych mobile (<900px) — columns stack, hairlines lie horizontal ──── */
 @media (max-width: 900px) {
   .mvv-inner { min-height: auto; display: block; padding: var(--section-pad-y) var(--page-gutter); }
   .mvv-triptych { grid-template-columns: 1fr; }
@@ -353,14 +428,13 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
     transform-origin: left center; transform: scaleX(0);
   }
   .mvv.is-in .mvv-col::before { transform: scaleX(1); }
-  .mvv-ghost { font-size: 80px; }
 }
 
 /* mobile grid + spread reflow */
 @media (max-width: 860px) {
-  .ab-hero { min-height: clamp(420px, 64vh, 560px); }
-  .fnd-spread { grid-template-columns: 1fr; gap: clamp(32px, 8vw, 48px); }
-  .fnd-portrait-wrap { max-width: 340px; }
+  .ab-hero { min-height: clamp(460px, 70vh, 620px); }
+  .fnd-spread { grid-template-columns: 1fr; gap: clamp(30px, 8vw, 44px); }
+  .fnd-portrait-wrap { max-width: 320px; }
   .tm-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 520px) {
@@ -369,13 +443,23 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 
 /* ── reduced-motion — explicit resting states for every custom mechanic ────── */
 @media (prefers-reduced-motion: reduce) {
+  .ab-spine { transform: scaleY(1) !important; }
+  .ab-accent::after { transform: scaleX(1) !important; transition: none !important; }
   .tl-anim-in { animation: none !important; }
   .tl-anim-out { transition: none !important; opacity: 1 !important; transform: none !important; }
   .tl-dot { transition: none !important; }
+  .tl-year.is-active .tl-dot::after { animation: none !important; display: none; }
+  .tl-media-img { animation: none !important; }
+  .tl-underline { animation: none !important; transform: none !important; }
+  .tl-arrow-g { transition: none !important; }
   .mask-w { transform: none !important; transition: none !important; }
   .mvv-col::before { transform: none !important; transition: none !important; }
   .mvv-col-body { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .mvv-rule, .mvv-ghost { transition: none !important; }
+  .mvv-tick { transform: scaleX(1) !important; transition: none !important; }
+  .mvv-rule { transform: scaleX(0.17) !important; transition: none !important; }
+  .ab-marquee-track { animation: none !important; }
   .fq-w { opacity: 1 !important; }
+  .fq-dash { transform: scaleX(1) !important; transition: none !important; }
   .tm-frame { transition: none !important; }
+  html.alive-ready .tm-rule[data-reveal] { transform: scaleX(1) !important; transition: none !important; }
 }

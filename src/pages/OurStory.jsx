@@ -14,15 +14,18 @@ import mock4 from '@/assets/mock/timeline-mock-4.jpg'
 import mock5 from '@/assets/mock/timeline-mock-5.jpg'
 const TIMELINE_MOCKS = [mock1, mock2, mock3, mock4, mock5]   // MOCK — replace with client photography
 
-// ── /about — "Our Story", signature sections pass ────────────────────────────
-// Hero band → THE JOURNEY (Union-Properties three-zone timeline) → INK SPREADS
-// (MVV, three navy panels with a drawing thread) → THE FOUNDER (editorial spread
-// + scroll ink-in quote) → THE TEAM (homepage-scale shells).
+// ── /about — "Our Story", the definitive craft pass ──────────────────────────
+// Hero band (~74vh) → THE JOURNEY (Union-Properties three-zone timeline) → INK
+// SPREADS (MVV, three navy spines split by drawn gold hairlines — indices AND
+// ghost numerals removed) → THE FOUNDER (Tequila editorial spread: fitted 3:4
+// portrait LEFT, all copy + ink-in pull quote in the RIGHT column) → MARQUEE
+// ribbon → THE TEAM (homepage-scale shells). One continuous gold spine thread
+// draws down the page by scroll progress.
 //
-// The timeline is state-driven (year rail / media / content+arrows); era swaps
-// animate transform+opacity only and degrade to instant under reduced-motion.
-// MVV/founder/team keep their hand-rolled rAF + IntersectionObserver mechanics.
-// Every user-facing string resolves from ourStory.json verbatim.
+// Every user-facing string resolves from ourStory.json verbatim (zero invented
+// copy). Every motion is transform/opacity (plus two sanctioned exceptions: the
+// eyebrow letter-spacing settle and the MVV rule extend) and every mechanic has
+// an explicit prefers-reduced-motion resting state.
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(
@@ -57,9 +60,13 @@ export default function OurStory() {
     <main id="main">
       <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={breadcrumb} />
 
-      {/* SECTION 1 ── HERO BAND — flat navy, ~58vh, left-aligned column.
-          "ABOUT US" is decorative (aria-hidden, word-stagger); hero.title is the
-          page's single H1. Accent word kept in Inter Tight (font law) as gold-2. */}
+      {/* One continuous gold thread down the page spine — scaleY by scroll. */}
+      <Spine />
+
+      {/* SECTION 1 ── HERO BAND — flat navy, ~74vh, left-aligned column with air
+          above the eyebrow and below the lede. "ABOUT US" is decorative
+          (aria-hidden, word-stagger); hero.title is the page's single H1. The
+          accent word carries a gold underline that draws on reveal. */}
       <section data-theme="dark" className="ab-hero" aria-labelledby="about-h1">
         <div className="ab-wrap ab-hero-inner">
           <p className="ab-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
@@ -74,11 +81,14 @@ export default function OurStory() {
       {/* SECTION 2 ── THE JOURNEY — Union-Properties three-zone timeline ──────── */}
       <Timeline stops={timelineStops} />
 
-      {/* SECTION 3 ── INK SPREADS — MVV, three navy panels + drawing thread ───── */}
+      {/* SECTION 3 ── INK SPREADS — MVV, three navy spines + drawn gold hairlines */}
       <InkSpreads />
 
-      {/* SECTION 4 ── THE FOUNDER — editorial spread + ink-in pull quote ──────── */}
+      {/* SECTION 4 ── THE FOUNDER — Tequila spread + ink-in pull quote ────────── */}
       <Founder />
+
+      {/* Ribbon between the founder and the people who keep his promise. */}
+      <AboutMarquee />
 
       {/* SECTION 5 ── THE TEAM — homepage-scale shells, awaiting assets ───────── */}
       <Team />
@@ -86,11 +96,41 @@ export default function OurStory() {
   )
 }
 
+// ── Spine — one gold thread pinned to the page's left edge, drawn top→down by
+// scroll progress (scaleY). Reduced-motion: full-height, static. ───────────────
+function Spine() {
+  const reduced = useReducedMotion()
+  const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    if (reduced) { el.style.transform = 'scaleY(1)'; return }
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      const p = max > 0 ? clamp(window.scrollY / max, 0, 1) : 1
+      el.style.transform = `scaleY(${p.toFixed(4)})`
+    }
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    update()
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [reduced])
+  return <span ref={ref} className="ab-spine" aria-hidden="true" />
+}
+
 // ── THE JOURNEY — Union-Properties three-zone timeline ────────────────────────
-// LEFT year rail (vertical, dotted connector) · CENTER media card · RIGHT big
-// year + title + body + prev/next arrows. Year click / arrows / keyboard ← →
-// switch eras; the swap plays a transform+opacity out→in (instant under reduced-
-// motion). Below 900px the rail becomes a horizontal scrollable strip on top.
+// LEFT year rail (vertical, dotted connector, ring-pulse on select) · CENTER
+// media card (scale-in on swap) · RIGHT big year + drawn gold rule + title +
+// body + prev/next arrows (press 0.96, glyph nudges 2px on hover). Year click /
+// arrows / keyboard ← → switch eras; the swap plays transform+opacity out→in,
+// instant under reduced-motion. Below 900px the rail becomes a horizontal strip.
 function Timeline({ stops }) {
   const { t } = useTranslation('ourStory')
   const reduced = useReducedMotion()
@@ -178,15 +218,15 @@ function Timeline({ stops }) {
             </div>
             <div className="tl-arrows">
               <button
-                type="button" className="tl-arrow focus-ring"
+                type="button" className="tl-arrow tl-arrow--prev focus-ring"
                 onClick={() => go(active - 1)} disabled={atStart}
                 aria-label={stops[Math.max(0, active - 1)].year}
-              >←</button>
+              ><span className="tl-arrow-g" aria-hidden="true">←</span></button>
               <button
-                type="button" className="tl-arrow focus-ring"
+                type="button" className="tl-arrow tl-arrow--next focus-ring"
                 onClick={() => go(active + 1)} disabled={atEnd}
                 aria-label={stops[Math.min(n - 1, active + 1)].year}
-              >→</button>
+              ><span className="tl-arrow-g" aria-hidden="true">→</span></button>
             </div>
           </div>
         </div>
@@ -197,22 +237,17 @@ function Timeline({ stops }) {
 
 // ── MVV — ONE-SCREEN TRIPTYCH ─────────────────────────────────────────────────
 // One continuous flat navy band (curves top/bottom per bible), folded into three
-// vertical columns — MISSION | VISION | VALUES — like three book spines side by
-// side, split by two gold hairlines. Each column: DM Mono gold index, Inter Tight
-// cream label, a 32px gold rule, then the statement; a HUGE ghost numeral sits
-// clipped bottom-right for depth. The whole section is budgeted to ONE viewport.
-// On scroll into view the columns reveal in stagger (hairline draws down, then
-// content fades up); under reduced-motion everything rests visible.
+// vertical spines — MISSION | VISION | VALUES — split by two drawn gold hairlines.
+// The 01/02/03 indices and the huge ghost numerals are BOTH removed; a small gold
+// chapter-tick draws above each label to hold the vertical rhythm. Each column:
+// tick → Inter-Tight cream label → a gold rule (draws on reveal, extends on hover)
+// → the statement. On scroll-in the columns reveal in stagger (hairline draws
+// down, then content fades up); under reduced-motion everything rests visible.
 function InkSpreads() {
   const { t } = useTranslation('ourStory')
   const reduced = useReducedMotion()
   const sectionRef = useRef(null)
-  // index / i18n key per column; the ghost numeral echoes the index.
-  const beats = [
-    { key: 'mission', idx: '01' },
-    { key: 'vision', idx: '02' },
-    { key: 'values', idx: '03' },
-  ]
+  const beats = ['mission', 'vision', 'values']
 
   // reveal once, when the band crosses into view — CSS carries the stagger.
   useEffect(() => {
@@ -237,14 +272,13 @@ function InkSpreads() {
       <SectionCurve position="top" fill="var(--cream)" inward />
       <div className="mvv-inner">
         <div className="mvv-triptych">
-          {beats.map((b, i) => (
-            <div className="mvv-col" key={b.key} style={{ '--col-i': i }}>
-              <span className="mvv-ghost" aria-hidden="true">{b.idx}</span>
+          {beats.map((key, i) => (
+            <div className="mvv-col" key={key} style={{ '--col-i': i }}>
               <div className="mvv-col-body">
-                <span className="mvv-index">{b.idx}</span>
-                <p className="mvv-label">{t(`${b.key}.label`)}</p>
+                <span className="mvv-tick" aria-hidden="true" />
+                <p className="mvv-label">{t(`${key}.label`)}</p>
                 <span className="mvv-rule" aria-hidden="true" />
-                <p className="mvv-text">{t(`${b.key}.desc`)}</p>
+                <p className="mvv-text">{t(`${key}.desc`)}</p>
               </div>
             </div>
           ))}
@@ -255,36 +289,69 @@ function InkSpreads() {
   )
 }
 
-// ── THE FOUNDER ───────────────────────────────────────────────────────────────
+// ── THE FOUNDER — Tequila editorial spread ────────────────────────────────────
+// Fitted 3:4 portrait frame LEFT (gold offset-rule behind it), and EVERYTHING
+// else in the RIGHT column: eyebrow kicker, name (word-mask rise), role micro-
+// label, bio, then the ink-in pull quote + attribution stacked under the bio.
 function Founder() {
   const { t } = useTranslation('ourStory')
   return (
     <section data-theme="light" className="fnd" aria-labelledby="fnd-name">
       <PaperGrain />
       <div className="ab-wrap">
-        <p className="ab-eyebrow--cream fnd-kicker" data-reveal>{t('founder.eyebrow')}</p>
         <div className="fnd-spread">
           <div className="fnd-portrait-wrap" data-reveal>
             <span className="fnd-offset" aria-hidden="true" />
             <div className="ab-frame fnd-portrait" data-slot="founder-portrait" aria-hidden="true" />
           </div>
           <div className="fnd-copy">
-            <h2 id="fnd-name" className="fnd-name" data-reveal>{t('founder.name')}</h2>
+            <p className="ab-eyebrow--cream fnd-kicker" data-reveal>{t('founder.eyebrow')}</p>
+            <MaskText as="h2" id="fnd-name" className="fnd-name" text={t('founder.name')} />
             <p className="fnd-role" data-reveal><b>Role</b><i aria-hidden="true" />{t('founder.role')}</p>
             <p className="fnd-bio" data-reveal>{t('founder.bio')}</p>
+            <InkQuote text={t('founder.quote')} attribution={t('founder.attribution')} />
           </div>
         </div>
-        <InkQuote text={t('founder.quote')} attribution={t('founder.attribution')} />
       </div>
     </section>
   )
 }
 
+// ── MARQUEE — a slow gold ribbon of the page's own eyebrow, "OUR STORY",
+// repeating on a thin navy band between the founder and the team. Chosen because
+// it is the shortest brand-owned string in the locale and it frames the whole
+// chapter without repeating the pull quote directly above it. translateX loop,
+// edge-faded; paused + static under reduced-motion. ────────────────────────────
+function AboutMarquee() {
+  const { t } = useTranslation('ourStory')
+  const reduced = useReducedMotion()
+  const word = t('hero.eyebrow')
+  const run = (key) => (
+    <div className="ab-marquee-run" key={key}>
+      {Array.from({ length: 8 }).map((_, i) => (
+        <span className="ab-marquee-item" key={i}>
+          <span className="ab-marquee-word">{word}</span>
+          <span className="ab-marquee-sep" aria-hidden="true" />
+        </span>
+      ))}
+    </div>
+  )
+  return (
+    <div className="ab-marquee" data-theme="dark" aria-hidden="true">
+      <div className={`ab-marquee-track${reduced ? ' is-static' : ''}`}>
+        {run('a')}
+        {run('b')}
+      </div>
+    </div>
+  )
+}
+
 // ── THE TEAM ──────────────────────────────────────────────────────────────────
-// Seven quiet shells at homepage card scale (300px / r-card / soft shadow),
-// awaiting client portraits. No worded heading: no ourStory key denotes a team/
-// people section, and inventing copy is forbidden — per DESIGN-BIBLE's "skip when
-// no suitable key exists" rule, a gold hairline provides the section's entry.
+// Seven quiet shells at homepage card scale (r-card / soft shadow), awaiting
+// client portraits, in a 4+3 grid that cascades in on enter (60ms). Hover warms
+// the frame's hairline + corner ticks to gold and lifts it -4px. No worded
+// heading: no ourStory key denotes a team/people section and inventing copy is
+// forbidden, so a drawn gold hairline opens the section instead.
 function Team() {
   return (
     <section data-theme="light" className="tm" aria-label="Team">
@@ -293,7 +360,7 @@ function Team() {
         <hr className="tm-rule" data-reveal aria-hidden="true" />
         <div className="tm-grid">
           {Array.from({ length: 7 }).map((_, i) => (
-            <article className="tm-card" data-reveal key={i} aria-hidden="true">
+            <article className="tm-card" data-reveal key={i} aria-hidden="true" style={{ '--reveal-delay': `${i * 60}ms` }}>
               <div className="ab-frame tm-frame" data-slot={`team-${i + 1}`} />
               <span className="tm-skel tm-skel--name" />
               <span className="tm-skel tm-skel--role" />
@@ -306,7 +373,7 @@ function Team() {
 }
 
 // ── MaskText — per-word rise from behind a mask (overflow-hidden + translateY) ──
-function MaskText({ text, className = '', as: Tag = 'p' }) {
+function MaskText({ text, className = '', as: Tag = 'p', id }) {
   const reduced = useReducedMotion()
   const ref = useRef(null)
   const tokens = useMemo(() => text.split(/(\s+)/), [text])
@@ -325,7 +392,7 @@ function MaskText({ text, className = '', as: Tag = 'p' }) {
 
   let w = -1
   return (
-    <Tag ref={ref} className={`masktext ${className}${reduced ? ' is-in' : ''}`}>
+    <Tag ref={ref} id={id} className={`masktext ${className}${reduced ? ' is-in' : ''}`}>
       {tokens.map((tok, i) => {
         if (/^\s+$/.test(tok)) return tok
         w += 1
@@ -339,16 +406,23 @@ function MaskText({ text, className = '', as: Tag = 'p' }) {
   )
 }
 
-// ── InkQuote — words fill from ghost to full ink as the quote crosses centre ────
+// ── InkQuote — words fill from a 45% ghost to full ink as the quote crosses the
+// viewport centre; the attribution rides in behind a drawn gold em-dash. Reduced-
+// motion: full ink, dash drawn, no scroll listener. ────────────────────────────
 function InkQuote({ text, attribution }) {
   const reduced = useReducedMotion()
   const ref = useRef(null)
+  const figRef = useRef(null)
   const words = useRef([])
   const tokens = useMemo(() => text.split(/(\s+)/), [text])
 
   useEffect(() => {
     const list = words.current.filter(Boolean)
-    if (reduced) { list.forEach((el) => { el.style.opacity = '1' }); return }
+    if (reduced) {
+      list.forEach((el) => { el.style.opacity = '1' })
+      figRef.current?.classList.add('is-seen')
+      return
+    }
     const el = ref.current
     if (!el) return
     let raf = 0
@@ -361,13 +435,16 @@ function InkQuote({ text, attribution }) {
       const nW = list.length
       list.forEach((word, i) => {
         const wp = clamp(p * nW - i, 0, 1)
-        word.style.opacity = (0.16 + 0.84 * wp).toFixed(3)
+        word.style.opacity = (0.45 + 0.55 * wp).toFixed(3)   // 45% ghost floor → full ink
       })
     }
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
     const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { window.addEventListener('scroll', onScroll, { passive: true }); update() }
-      else window.removeEventListener('scroll', onScroll)
+      if (e.isIntersecting) {
+        figRef.current?.classList.add('is-seen')
+        window.addEventListener('scroll', onScroll, { passive: true })
+        update()
+      } else window.removeEventListener('scroll', onScroll)
     }, { threshold: 0 })
     io.observe(el)
     return () => {
@@ -379,7 +456,7 @@ function InkQuote({ text, attribution }) {
 
   let w = -1
   return (
-    <figure className="fq-fig">
+    <figure ref={figRef} className="fq-fig">
       <blockquote ref={ref} className={`fq${reduced ? ' is-in' : ''}`}>
         {tokens.map((tok, i) => {
           if (/^\s+$/.test(tok)) return tok
@@ -390,7 +467,7 @@ function InkQuote({ text, attribution }) {
           )
         })}
       </blockquote>
-      <figcaption className="fq-cite">— {attribution}</figcaption>
+      <figcaption className="fq-cite"><span className="fq-dash" aria-hidden="true" />{attribution}</figcaption>
     </figure>
   )
 }
