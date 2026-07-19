@@ -3,32 +3,22 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageToggle from '@/components/LanguageToggle'
 import { prefersReduced } from '@/lib/useReducedMotion'
+import { scrollToWwp } from '@/pages/Home'
 
 const TIGHT = "'Inter Tight', sans-serif"
 const INTER = "'Inter', sans-serif"
-const NAV_H = 86 // sticky header height — a section is "landed" when its top sits here
 
-// Retry-scroll to a homepage section as it mounts. Home.jsx already scrolls on a
-// hash change, but its single early attempt can fire before a cross-route mount of
-// the heavy homepage has laid out (and when we navigate FROM another page the target
-// isn't in the DOM yet at all). So we poll: once the section exists and hasn't landed
-// under the nav, scrollIntoView it (Lenis cooperates with native scrollIntoView once
-// the page has settled), and stop the moment it's in place. Bounded so it never fights
-// the user for long.
-function landOnSection(id) {
+// Home.jsx owns the hash → scroll effect and fires whenever the hash CHANGES
+// (cross-route mount, or same-page navigation to a new hash) — landing the WWP
+// heading flush under the nav via scrollToWwp(). The one case its effect can't
+// see is a re-click of the anchor we're ALREADY on (hash unchanged → the effect
+// doesn't refire), so we run the IDENTICAL scroll routine here for exactly that
+// case, with one settle-recheck after images/fonts.
+function reScrollWwp(cardId) {
   const reduced = prefersReduced()
-  let tries = 0
-  const tick = () => {
-    tries += 1
-    const el = document.getElementById(id)
-    if (el) {
-      const top = Math.round(el.getBoundingClientRect().top)
-      if (top <= NAV_H + 8 && top >= -8) return // landed — stop retrying
-      el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })
-    }
-    if (tries < 8) setTimeout(tick, reduced ? 60 : 220)
-  }
-  setTimeout(tick, reduced ? 0 : 120)
+  const run = () => scrollToWwp(cardId, reduced)
+  run()
+  if (!reduced) setTimeout(run, 320)
 }
 
 // 9-item What We Print dropdown: all anchor to homepage WWP section.
@@ -89,16 +79,20 @@ export default function SiteNav() {
   // The WWP LABEL itself navigates to the homepage WWP section (from any page) —
   // Home.jsx's hash-scroll effect scrolls #what-we-print into view on arrival.
   const goToWWP = () => {
+    const alreadyThere = pathname === '/' && window.location.hash === '#what-we-print'
     navigate('/#what-we-print')
     setMenuOpen(false)
     setActiveItem(-1)
-    landOnSection('what-we-print')
+    if (alreadyThere) reScrollWwp(null)
   }
 
   const handleProductClick = (product) => {
-    navigate(`/#wwp-${product.cardKey}`)
+    const id = `wwp-${product.cardKey}`
+    const alreadyThere = pathname === '/' && window.location.hash === `#${id}`
+    navigate(`/#${id}`)
     setMenuOpen(false)
     setActiveItem(-1)
+    if (alreadyThere) reScrollWwp(id)
   }
 
   // TRIGGER keys: Enter/Space navigate (same as a click); ArrowDown/Up open the menu

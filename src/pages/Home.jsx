@@ -19,6 +19,65 @@ import Awards from '@/sections/Awards'
 import Cases from '@/sections/Cases'
 import { SHOW_CASE_STUDIES } from '@/lib/compliance'
 
+// ── What We Print anchor scroll ──────────────────────────────────────────────
+// The client's exact target: the "Formats and Categories" heading sits flush
+// under the sticky nav — section top pinned to the nav's bottom edge, no overshoot
+// past the heading, no undershoot showing the section above. The math below is the
+// single source of truth; SiteNav uses the IDENTICAL routine for its own re-click
+// path so a label click and a cross-route hash always land in the same place.
+
+// Live nav height — measured, not hardcoded (locale/zoom/wrap-proof). Falls back
+// to the 86px design height if the header isn't in the DOM yet.
+export function wwpNavHeight() {
+  const header = document.querySelector('header[role="banner"]')
+  return header ? header.getBoundingClientRect().height : 86
+}
+
+// Scroll so #what-we-print's top sits exactly under the nav. For a per-card anchor
+// (cardId = "wwp-<key>") the VERTICAL position is identical to the label target —
+// only the horizontal row is scrolled to bring the card into view (no vertical
+// drift, which scrollIntoView(block:'nearest') would introduce). Returns false if
+// the section isn't in the DOM yet, so callers can retry.
+export function scrollToWwp(cardId, reduced) {
+  const section = document.getElementById('what-we-print')
+  if (!section) return false
+
+  const behavior = reduced ? 'auto' : 'smooth'
+  const navH = wwpNavHeight()
+  const y = Math.max(0, window.scrollY + section.getBoundingClientRect().top - navH)
+
+  // Use the page's own Lenis instance when it's running so we cooperate with the
+  // smooth-scroll engine; fall back to native scrollTo (reduced-motion / no Lenis).
+  const lenis = typeof window !== 'undefined' ? window.__lenis : null
+  if (lenis) lenis.scrollTo(y, { immediate: reduced, force: true })
+  else window.scrollTo({ top: y, behavior })
+
+  // Horizontal: center the target card in the row without touching page scroll.
+  if (cardId) {
+    const card = document.getElementById(cardId)
+    const vp = document.querySelector('.wwp-viewport')
+    if (card && vp) {
+      const cardRect = card.getBoundingClientRect()
+      const vpRect = vp.getBoundingClientRect()
+      const left = Math.max(
+        0,
+        vp.scrollLeft + cardRect.left - vpRect.left - (vp.clientWidth - cardRect.width) / 2,
+      )
+      vp.scrollTo({ left, behavior })
+    }
+  }
+  return true
+}
+
+// True once the section top has actually settled under the nav (within 2px).
+function wwpLanded() {
+  const section = document.getElementById('what-we-print')
+  if (!section) return false
+  const top = section.getBoundingClientRect().top
+  const navH = wwpNavHeight()
+  return top <= navH + 2 && top >= navH - 2
+}
+
 // The homepage owns the entire scroll engine. SmoothScrollProvider (Lenis + GSAP
 // ScrollTrigger) lives INSIDE this route only: it boots when "/" mounts and fully
 // tears down (Lenis destroy + ScrollTrigger.killAll) when navigating away, so no
@@ -46,37 +105,48 @@ export default function Home() {
     if (!hash) return
 
     const scrollTarget = hash.replace('#', '')
-    const delay = prefersReduced() ? 0 : 100
+    const reduced = prefersReduced()
+    const isWwp = scrollTarget === 'what-we-print' || scrollTarget.startsWith('wwp-')
 
-    const scrollHandler = () => {
-      const element = document.getElementById(scrollTarget)
-      if (!element) return
-
-      element.scrollIntoView({
-        behavior: prefersReduced() ? 'auto' : 'smooth',
+    // Non-WWP anchors keep their plain scrollIntoView (scroll-margin-top on each
+    // section clears the nav for those).
+    if (!isWwp) {
+      const run = () => document.getElementById(scrollTarget)?.scrollIntoView({
+        behavior: reduced ? 'auto' : 'smooth',
         block: 'start',
       })
-
-      // If this is a card anchor, also scroll the row to center the card
-      if (scrollTarget.startsWith('wwp-') && scrollTarget !== 'what-we-print') {
-        setTimeout(() => {
-          const card = document.getElementById(scrollTarget)
-          const viewport = document.querySelector('.wwp-viewport')
-          if (card && viewport) {
-            card.scrollIntoView({
-              behavior: prefersReduced() ? 'auto' : 'smooth',
-              block: 'nearest',
-              inline: 'center',
-            })
-          }
-        }, prefersReduced() ? 0 : 500)
-      }
+      if (reduced) requestAnimationFrame(run)
+      else setTimeout(run, 100)
+      return
     }
 
-    if (delay > 0) {
-      setTimeout(scrollHandler, delay)
-    } else {
-      requestAnimationFrame(scrollHandler)
+    // WWP anchor: land the heading flush under the nav with exact math. The heavy
+    // homepage may not have laid out (cross-route) and images load beneath us, so
+    // poll and re-correct until the section top actually settles under the nav,
+    // then do one final settle-recheck (~300ms) after fonts/images finish.
+    const cardId = scrollTarget === 'what-we-print' ? null : scrollTarget
+    let cancelled = false
+    let tries = 0
+    const timers = []
+    const recheck = () => timers.push(setTimeout(() => {
+      if (!cancelled) scrollToWwp(cardId, reduced)
+    }, reduced ? 0 : 300))
+
+    const step = () => {
+      if (cancelled) return
+      tries += 1
+      if (scrollToWwp(cardId, reduced) && wwpLanded()) {
+        recheck()
+        return
+      }
+      if (tries < 12) timers.push(setTimeout(step, reduced ? 40 : 200))
+      else recheck()
+    }
+    timers.push(setTimeout(step, reduced ? 0 : 100))
+
+    return () => {
+      cancelled = true
+      timers.forEach(clearTimeout)
     }
   }, [hash])
 
