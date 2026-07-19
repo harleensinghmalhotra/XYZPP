@@ -85,6 +85,14 @@ const initialForm = {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+// Lenient international phone check — allowed chars only, 7–15 digits after stripping.
+const PHONE_CHARS_RE = /^[0-9+\-()\s]+$/
+const isValidPhone = (v) => {
+  const s = (v || '').trim()
+  if (!PHONE_CHARS_RE.test(s)) return false
+  const d = s.replace(/\D/g, '')
+  return d.length >= 7 && d.length <= 15
+}
 
 export default function Contact() {
   const { t, i18n } = useTranslation('contact')
@@ -250,6 +258,8 @@ export default function Contact() {
     if (!form.last.trim()) e.last = t('errors.last')
     if (!form.email.trim()) e.email = t('errors.emailRequired')
     else if (!EMAIL_RE.test(form.email.trim())) e.email = t('errors.emailInvalid')
+    if (!form.phone.trim()) e.phone = t('errors.phoneRequired')
+    else if (!isValidPhone(form.phone)) e.phone = t('errors.phoneInvalid')
     if (!form.country) e.country = t('errors.country')
     if (!form.enquiry) e.enquiry = t('errors.enquiry')
     if (!form.message.trim()) e.message = t('errors.message')
@@ -265,7 +275,7 @@ export default function Contact() {
     setErrors(e)
     if (Object.keys(e).length) {
       // move focus to the first field in error so the error is announced
-      const order = ['first', 'last', 'email', 'country', 'enquiry', 'message', 'consent']
+      const order = ['first', 'last', 'email', 'phone', 'country', 'enquiry', 'message', 'consent']
       const firstBad = order.find((k) => e[k])
       root.current?.querySelector(`[name="${firstBad}"]`)?.focus()
       return
@@ -558,9 +568,10 @@ export default function Contact() {
                   {err('email')}
                 </div>
                 <div className="ctc-field">
-                  <label htmlFor="f-phone">{t('form.phone')}</label>
+                  <label htmlFor="f-phone">{t('form.phone')} <span className="ctc-req" aria-hidden="true">*</span></label>
                   <input id="f-phone" name="phone" type="tel" autoComplete="tel"
-                    value={form.phone} onChange={(e) => setField('phone', e.target.value)} />
+                    value={form.phone} onChange={(e) => setField('phone', e.target.value)} {...aria('phone')} />
+                  {err('phone')}
                 </div>
               </div>
 
@@ -622,7 +633,10 @@ export default function Contact() {
                 </div>
               )}
 
-              <button type="submit" className="u-btn u-btn--solid" disabled={status === 'submitting'} aria-busy={status === 'submitting'}>
+              <button type="submit" className="u-btn u-btn--solid"
+                disabled={status === 'submitting' || !form.consent}
+                aria-disabled={status === 'submitting' || !form.consent ? 'true' : undefined}
+                aria-busy={status === 'submitting'}>
                 {status === 'submitting' ? (
                   <><span className="ctc-spin" aria-hidden="true" />{t('form.submitting')}</>
                 ) : (

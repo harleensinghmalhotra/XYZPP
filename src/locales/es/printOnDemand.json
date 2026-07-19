@@ -88,6 +88,7 @@
     "reqTitle": "Sus datos",
     "reqName": "Su nombre",
     "reqEmail": "Correo electrónico",
+    "reqPhone": "Teléfono",
     "reqNotes": "Notas (opcional)",
     "reqNotesPlaceholder": "Cualquier cosa que debamos saber: plazo, archivos de portada, preguntas.",
     "reqSend": "Enviar solicitud",
@@ -98,6 +99,10 @@
     "reqErrName": "Introduzca su nombre.",
     "reqErrEmail": "Introduzca su correo electrónico.",
     "reqErrEmailInvalid": "Introduzca un correo electrónico válido.",
+    "reqErrPhone": "Introduzca su número de teléfono.",
+    "reqErrPhoneInvalid": "Introduzca un número de teléfono válido.",
+    "reqConsent": "Acepto que Quarterfold utilice estos datos para responder a mi solicitud y preparar un presupuesto, conforme a la <1>Política de privacidad</1>.",
+    "reqConsentErr": "Acepte la política de privacidad para que podamos responder.",
     "reqSuccessTitle": "Solicitud enviada.",
     "reqSuccess": "Hemos recibido su configuración y sus datos; le enviaremos un presupuesto a medida en un día laborable.",
     "note": "Sin precios, sin obligación. Le enviaremos un presupuesto a medida y una prueba gratuita. ¿Prefiere hablarlo? <1>Hable con nosotros.</1>"

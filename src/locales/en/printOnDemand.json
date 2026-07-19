@@ -88,6 +88,7 @@
     "reqTitle": "Your details",
     "reqName": "Your name",
     "reqEmail": "Email",
+    "reqPhone": "Phone",
     "reqNotes": "Notes (optional)",
     "reqNotesPlaceholder": "Anything we should know — deadline, cover files, questions.",
     "reqSend": "Send request",
@@ -98,6 +99,10 @@
     "reqErrName": "Enter your name.",
     "reqErrEmail": "Enter your email address.",
     "reqErrEmailInvalid": "Enter a valid email address.",
+    "reqErrPhone": "Enter your phone number.",
+    "reqErrPhoneInvalid": "Enter a valid phone number.",
+    "reqConsent": "I agree that Quarterfold may use these details to respond to my request and prepare a quotation, in line with the <1>Privacy Policy</1>.",
+    "reqConsentErr": "Please agree to the privacy policy so we can reply.",
     "reqSuccessTitle": "Request sent.",
     "reqSuccess": "We’ve got your spec and details, and we’ll send a tailored quote within one business day.",
     "note": "No prices, no obligation. We’ll send a tailored quote and a free proof. Prefer to talk it through? <1>Speak to us.</1>"

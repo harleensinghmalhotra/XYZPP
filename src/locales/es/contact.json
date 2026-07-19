@@ -82,6 +82,8 @@
     "last": "Introduzca sus apellidos.",
     "emailRequired": "Introduzca su correo electrónico.",
     "emailInvalid": "Introduzca un correo electrónico válido.",
+    "phoneRequired": "Introduzca su número de teléfono.",
+    "phoneInvalid": "Introduzca un número de teléfono válido.",
     "country": "Seleccione su país.",
     "enquiry": "Elija sobre qué es su consulta.",
     "message": "Cuéntenos un poco sobre lo que necesita.",

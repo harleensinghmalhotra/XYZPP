@@ -811,6 +811,14 @@
 .pod-req-err { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #E8B45F; }
 .pod-req-error { margin: 2px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: #E8B45F; }
 .pod-req-error a { color: #E8B45F; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
+.pod-req-star { color: var(--gold-2); }
+/* consent gate — hard-controls the submit button; checkbox on the navy card */
+.pod-req-consent { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; }
+.pod-req-consent input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--gold-2); cursor: pointer; }
+.pod-req-consent input:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; }
+.pod-req-consent label { font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: rgba(253, 250, 244, 0.82); cursor: pointer; }
+.pod-req-consent a { color: var(--gold-2); text-decoration: underline; text-underline-offset: 2px; }
+.pod-req-consent.has-err input { outline: 2px solid #E8B45F; outline-offset: 2px; }
 .pod-req .u-btn { margin-top: 2px; }
 .pod-req-cancel {
   align-self: center; background: none; border: none; cursor: pointer; padding: 4px;

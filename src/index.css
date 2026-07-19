@@ -230,7 +230,7 @@
   padding: 13px 26px; border-radius: var(--r-btn); border: 1.5px solid transparent;
   font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; letter-spacing: 0.3px;
   text-decoration: none; cursor: pointer; white-space: nowrap;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.25s ease, transform 0.25s ease;
 }
 .u-btn svg { width: 16px; height: 16px; }
 .u-btn--solid  { background: var(--navy); color: var(--cream); }
@@ -3936,8 +3936,13 @@ body {
   animation: ctc-spin 0.7s linear infinite;
 }
 @keyframes ctc-spin { to { transform: rotate(360deg); } }
+/* consent-gated / busy submit states — genuinely disabled, no hover, ~40% opacity */
+.u-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+.u-btn--solid:disabled:hover { background: var(--navy); color: var(--cream); }
+.u-btn--gold:disabled:hover { background: var(--gold-2); color: var(--navy); }
+.u-btn--outline:disabled:hover { background: transparent; color: var(--navy); }
+/* busy (submitting) wins over the gate opacity so the spinner stays legible */
 .u-btn[aria-busy='true'] { opacity: 0.85; cursor: progress; }
-.u-btn:disabled { cursor: not-allowed; }
 /* inline error banner — retry, data preserved (amber-ink, not red; on-palette) */
 .ctc-formerr {
   display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start;

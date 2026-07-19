@@ -82,6 +82,8 @@
     "last": "Saisissez votre nom.",
     "emailRequired": "Saisissez votre adresse e-mail.",
     "emailInvalid": "Saisissez une adresse e-mail valide.",
+    "phoneRequired": "Saisissez votre numéro de téléphone.",
+    "phoneInvalid": "Saisissez un numéro de téléphone valide.",
     "country": "Sélectionnez votre pays.",
     "enquiry": "Indiquez l'objet de votre demande.",
     "message": "Décrivez brièvement votre besoin.",

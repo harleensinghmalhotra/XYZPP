@@ -137,13 +137,21 @@ const WEB3FORMS_KEY = '4f37deec-ff06-4475-ba51-8fe9df9b46b4'
 const WEB3FORMS_URL = 'https://api.web3forms.com/submit'
 const EMAIL_ENQ = 'enquiry@quarterfoldltd.com'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+// Lenient international phone check — allowed chars only, 7–15 digits after stripping.
+const PHONE_CHARS_RE = /^[0-9+\-()\s]+$/
+const isValidPhone = (v) => {
+  const s = (v || '').trim()
+  if (!PHONE_CHARS_RE.test(s)) return false
+  const d = s.replace(/\D/g, '')
+  return d.length >= 7 && d.length <= 15
+}
 
 export default function PrintOnDemand() {
   const { t } = useTranslation('printOnDemand')
   // "Request This Book" — reveal a minimal contact step, then post spec to Web3Forms.
   const [reqOpen, setReqOpen] = useState(false)
   const [reqStatus, setReqStatus] = useState('idle') // idle | submitting | success | error
-  const [req, setReq] = useState({ name: '', email: '', notes: '' })
+  const [req, setReq] = useState({ name: '', email: '', phone: '', notes: '', consent: false })
   const [reqErr, setReqErr] = useState({})
   const reqRef = useRef(null)
   const [cfg, setCfg] = useState({
@@ -221,6 +229,9 @@ export default function PrintOnDemand() {
     if (!req.name.trim()) e.name = t('summary.reqErrName')
     if (!req.email.trim()) e.email = t('summary.reqErrEmail')
     else if (!EMAIL_RE.test(req.email.trim())) e.email = t('summary.reqErrEmailInvalid')
+    if (!req.phone.trim()) e.phone = t('summary.reqErrPhone')
+    else if (!isValidPhone(req.phone)) e.phone = t('summary.reqErrPhoneInvalid')
+    if (!req.consent) e.consent = t('summary.reqConsentErr')
     setReqErr(e)
     if (Object.keys(e).length) {
       reqRef.current?.querySelector('[aria-invalid="true"]')?.focus()
@@ -240,6 +251,7 @@ export default function PrintOnDemand() {
           botcheck: '',
           name: req.name,
           email: req.email,
+          phone: req.phone,
           notes: req.notes,
           format: optLabel('format', cfg.format),
           size: optLabel('size', cfg.size),
@@ -488,7 +500,7 @@ export default function PrintOnDemand() {
                   <p className="pod-req-title">{t('summary.reqTitle')}</p>
                   <input type="text" name="botcheck" className="pod-hp" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                   <div className="pod-req-field">
-                    <label htmlFor="pod-req-name">{t('summary.reqName')}</label>
+                    <label htmlFor="pod-req-name">{t('summary.reqName')} <span className="pod-req-star" aria-hidden="true">*</span></label>
                     <input id="pod-req-name" name="name" type="text" autoComplete="name"
                       value={req.name} onChange={(e) => setReqField('name', e.target.value)}
                       aria-invalid={reqErr.name ? 'true' : undefined}
@@ -496,7 +508,7 @@ export default function PrintOnDemand() {
                     {reqErr.name && <span className="pod-req-err" id="pod-req-name-e">{reqErr.name}</span>}
                   </div>
                   <div className="pod-req-field">
-                    <label htmlFor="pod-req-email">{t('summary.reqEmail')}</label>
+                    <label htmlFor="pod-req-email">{t('summary.reqEmail')} <span className="pod-req-star" aria-hidden="true">*</span></label>
                     <input id="pod-req-email" name="email" type="email" autoComplete="email"
                       value={req.email} onChange={(e) => setReqField('email', e.target.value)}
                       aria-invalid={reqErr.email ? 'true' : undefined}
@@ -504,18 +516,38 @@ export default function PrintOnDemand() {
                     {reqErr.email && <span className="pod-req-err" id="pod-req-email-e">{reqErr.email}</span>}
                   </div>
                   <div className="pod-req-field">
+                    <label htmlFor="pod-req-phone">{t('summary.reqPhone')} <span className="pod-req-star" aria-hidden="true">*</span></label>
+                    <input id="pod-req-phone" name="phone" type="tel" autoComplete="tel"
+                      value={req.phone} onChange={(e) => setReqField('phone', e.target.value)}
+                      aria-invalid={reqErr.phone ? 'true' : undefined}
+                      aria-describedby={reqErr.phone ? 'pod-req-phone-e' : undefined} />
+                    {reqErr.phone && <span className="pod-req-err" id="pod-req-phone-e">{reqErr.phone}</span>}
+                  </div>
+                  <div className="pod-req-field">
                     <label htmlFor="pod-req-notes">{t('summary.reqNotes')}</label>
                     <textarea id="pod-req-notes" name="notes" rows={3}
                       value={req.notes} onChange={(e) => setReqField('notes', e.target.value)}
                       placeholder={t('summary.reqNotesPlaceholder')} />
                   </div>
+                  <div className={`pod-req-consent${reqErr.consent ? ' has-err' : ''}`}>
+                    <input id="pod-req-consent" name="consent" type="checkbox"
+                      checked={req.consent} onChange={(e) => setReqField('consent', e.target.checked)}
+                      aria-invalid={reqErr.consent ? 'true' : undefined}
+                      aria-describedby={reqErr.consent ? 'pod-req-consent-e' : undefined} />
+                    <label htmlFor="pod-req-consent">
+                      <Trans t={t} i18nKey="summary.reqConsent" components={{ 1: <Link to="/legal/privacy" /> }} /> <span className="pod-req-star" aria-hidden="true">*</span>
+                    </label>
+                  </div>
+                  {reqErr.consent && <span className="pod-req-err" id="pod-req-consent-e">{reqErr.consent}</span>}
                   {reqStatus === 'error' && (
                     <p className="pod-req-error" role="alert" aria-live="assertive">
                       <Trans t={t} i18nKey="summary.reqError" components={{ 1: <a href={`mailto:${EMAIL_ENQ}`} /> }} />
                     </p>
                   )}
                   <button type="submit" className="u-btn u-btn--gold w-full justify-center"
-                    disabled={reqStatus === 'submitting'} aria-busy={reqStatus === 'submitting'}>
+                    disabled={reqStatus === 'submitting' || !req.consent}
+                    aria-disabled={reqStatus === 'submitting' || !req.consent ? 'true' : undefined}
+                    aria-busy={reqStatus === 'submitting'}>
                     {reqStatus === 'submitting' ? (
                       <><span className="pod-spin" aria-hidden="true" />{t('summary.reqSending')}</>
                     ) : (
