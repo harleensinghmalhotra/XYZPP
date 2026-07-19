@@ -141,21 +141,26 @@
      perfect / sewn headband / wiro coil — visibly responds; the top edge still
      shows the paper stock. */
   transform: rotateX(6deg) rotateY(30deg);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
-  animation: pod-float 9s ease-in-out infinite;
+  animation: pod-float 6s ease-in-out infinite;
   z-index: 1;
 }
+/* idle showcase life — a gentle ±2deg oscillation with a soft rise */
 @keyframes pod-float {
   0%, 100% { transform: rotateX(6deg) rotateY(30deg) translateY(0); }
-  50% { transform: rotateX(5deg) rotateY(26deg) translateY(-8px); }
+  50% { transform: rotateX(6deg) rotateY(32deg) translateY(-6px); }
 }
 .pod-face {
   position: absolute;
   top: 50%;
   left: 50%;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.4s ease;
 }
-/* front cover — the placeholder art, treated by finish */
+/* front cover — a premium blank-canvas QFP brand object, NOT a product shot.
+   Deep-navy cloth board: layered gradients read as bookbinding buckram, a gold
+   foil frame inset ~8%, a small foil-stamped QFP monogram, restrained gold
+   hairlines near the spine. No title, no lorem — it is the brand's book. */
 .pod-front {
   width: var(--bw);
   height: var(--bh);
@@ -163,13 +168,70 @@
   margin-top: calc(var(--bh) / -2);
   transform: translateZ(calc(var(--thick) / 2));
   border-radius: 3px 8px 8px 3px;
-  background-image: url('/qfp/pod/preview-base.webp');
-  background-size: cover;
-  background-position: center;
+  background:
+    /* top-light sheen + spine-side gutter shade */
+    radial-gradient(130% 100% at 26% 8%, rgba(255, 255, 255, 0.12), transparent 46%),
+    linear-gradient(90deg, rgba(4, 10, 30, 0.55) 0%, transparent 16%),
+    /* corner vignette to seat the cloth */
+    radial-gradient(140% 120% at 50% 46%, transparent 58%, rgba(3, 8, 26, 0.55) 100%),
+    /* cloth base — two navies for a bound-board depth */
+    linear-gradient(150deg, #14245a 0%, #0e1b46 52%, #0a1436 100%);
   box-shadow:
-    inset 0 0 0 1px rgba(131, 96, 19, 0.25),
-    inset 22px 0 34px -22px rgba(15, 36, 68, 0.5); /* gutter shade near spine */
+    inset 0 0 0 1px rgba(131, 96, 19, 0.28),
+    inset 22px 0 34px -22px rgba(3, 8, 26, 0.7); /* gutter shade near spine */
   overflow: hidden;
+}
+/* buckram weave — a fine cross-hatch, barely there, gives the cloth its tooth */
+.pod-cover-weave {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  mix-blend-mode: soft-light;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 3px);
+}
+/* gold foil frame — inset ~8%, a hairline outer rule + a faint inner echo */
+.pod-cover-frame {
+  position: absolute;
+  inset: 8%;
+  pointer-events: none;
+  border: 1px solid transparent;
+  border-image: linear-gradient(150deg, #f4dc96, #b98a2e 45%, #8a6414 70%, #e7c877) 1;
+  box-shadow:
+    inset 0 0 0 3px rgba(10, 18, 48, 0),   /* spacer so the echo sits inboard */
+    inset 0 0 0 4px rgba(216, 176, 90, 0.22);
+}
+/* restrained gold hairlines near the spine edge — two thin foil rules */
+.pod-cover-rule {
+  position: absolute;
+  top: 8%;
+  bottom: 8%;
+  left: 4.5%;
+  width: 3px;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent, rgba(216, 176, 90, 0.75) 12%, rgba(216, 176, 90, 0.75) 88%, transparent),
+    linear-gradient(180deg, transparent, rgba(216, 176, 90, 0.35) 12%, rgba(216, 176, 90, 0.35) 88%, transparent);
+  background-size: 1px 100%, 1px 100%;
+  background-position: 0 0, 3px 0;
+  background-repeat: no-repeat;
+}
+/* foil-stamped QFP monogram — brand mark driven through a gold gradient via mask.
+   drop-shadow gives the stamped emboss; small + centred = brand object, not a logo dump. */
+.pod-cover-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 33%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: linear-gradient(150deg, #f6e0a2 0%, #d9a94a 34%, #a5771f 62%, #eccb7c 100%);
+  -webkit-mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
+  mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
+  filter: drop-shadow(0 1px 0.5px rgba(4, 8, 22, 0.6));
 }
 /* finish sheen — gloss shows a hard specular sweep, lay-flat a soft one */
 .pod-sheen {
@@ -231,7 +293,8 @@
   background:
     repeating-linear-gradient(90deg, var(--edge) 0 1.5px, var(--edge-line) 1.5px 2px);
 }
-/* spine (left) — the binding treatment lives here */
+/* spine (left) — navy cloth to match the cover, with twin gold foil rules;
+   the binding treatment (headband / coil) overlays on top. */
 .pod-spine {
   width: var(--thick);
   height: var(--bh);
@@ -239,14 +302,18 @@
   margin-top: calc(var(--bh) / -2);
   transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2));
   border-radius: 2px 0 0 2px;
-  background: linear-gradient(90deg, #6f5416, #B06F14 45%, #b98a2e 78%, #7a5b18);
-  box-shadow: inset 0 0 0 1px rgba(60, 43, 8, 0.5);
+  background:
+    /* twin gold foil stripes down the spine */
+    linear-gradient(90deg, transparent 20%, rgba(216, 176, 90, 0.9) 20% 26%, transparent 26% 74%, rgba(216, 176, 90, 0.9) 74% 80%, transparent 80%),
+    /* cylindrical light so the navy reads as a rounded bound edge */
+    linear-gradient(90deg, rgba(3, 8, 26, 0.75) 0%, rgba(30, 46, 96, 0.4) 46%, rgba(3, 8, 26, 0.7) 100%),
+    linear-gradient(90deg, #10204e, #0e1b46);
+  box-shadow: inset 0 0 0 1px rgba(4, 8, 22, 0.7);
 }
 /* perfect binding = clean flat spine (default, above) */
 /* section-sewn = rounded spine + a coloured headband cap top & bottom */
 .pod-book[data-binding='sewn'] .pod-spine {
   border-radius: 8px 0 0 8px;
-  background: linear-gradient(90deg, #5f4813, #93701f 30%, #c2933a 55%, #8c691c 80%, #5f4813);
 }
 .pod-headband {
   position: absolute;
@@ -274,14 +341,25 @@
 }
 .pod-coil svg { width: 100%; height: 100%; }
 
-/* hardcover = thicker boards that overhang the page block */
+/* paperback = limp cover, softly rounded corners, flush with the page block */
+.pod-book[data-format='paperback'] .pod-front { border-radius: 3px 11px 11px 3px; }
+.pod-book[data-format='paperback'] .pod-back { border-radius: 11px 3px 3px 11px; }
+
+/* hardcover = rigid case boards, near-square corners that overhang the block */
 .pod-book[data-format='hardcover'] .pod-front,
 .pod-book[data-format='hardcover'] .pod-back {
+  border-radius: 2px 4px 4px 2px;
+}
+.pod-book[data-format='hardcover'] .pod-front {
   box-shadow:
-    inset 0 0 0 1px rgba(131, 96, 19, 0.3),
-    inset 22px 0 34px -22px rgba(15, 36, 68, 0.5),
-    0 0 0 3px rgba(15, 36, 68, 0.06); /* board rim */
-  border-radius: 2px 6px 6px 2px;
+    inset 0 0 0 1px rgba(131, 96, 19, 0.32),
+    inset 22px 0 34px -22px rgba(3, 8, 26, 0.7),
+    0 3px 0 1px rgba(3, 8, 26, 0.22),   /* board overhang lip along the fore-edge */
+    0 0 0 2px rgba(3, 8, 26, 0.14);      /* case-board rim */
+}
+.pod-book[data-format='hardcover'] .pod-back {
+  box-shadow:
+    0 0 0 2px rgba(3, 8, 26, 0.14);
 }
 
 /* stacked copies behind, for quantity > 1 */
@@ -925,7 +1003,11 @@
   .pod-opts.chips.qty { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* reduced motion — the book stops floating; selections already swap instantly */
+/* reduced motion — no idle float, and every state change snaps instantly */
 @media (prefers-reduced-motion: reduce) {
   .pod-book { animation: none; }
+  .pod-book,
+  .pod-face,
+  .pod-sheen,
+  .pod-matte { transition: none; }
 }

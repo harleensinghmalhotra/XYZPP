@@ -282,6 +282,10 @@ export default function PrintOnDemand() {
                       </span>
                     </div>
                     <div className="pod-face pod-front">
+                      <span className="pod-cover-weave" />
+                      <span className="pod-cover-frame" />
+                      <span className="pod-cover-rule" />
+                      <span className="pod-cover-mark" />
                       <span className="pod-sheen" />
                       <span className="pod-matte" />
                     </div>
