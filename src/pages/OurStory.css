@@ -1,111 +1,153 @@
-/* ── /about — "Our Story" v4, YOO-faithful rebuild ───────────────────────────
-   Territory: this file + OurStory.jsx + ourStory.json. Palette/spacing tokens from
-   index.css; the dark bands use Ekta's #0e1b46 sky (approved hero hex) per spec.
-   Whitespace law: section rhythm at the bible top-end, disciplined max-widths,
-   empty cream between chapters is intentional. Reveal/split-text via alive.js
-   (data-reveal / data-textreveal) so everything degrades and honours reduced motion. */
+/* ── /about — "Our Story" v5, YOO DELTA APPLIED WHOLESALE ─────────────────────
+   Every value here is the measured YOO (yoointerior.com/about) figure from the
+   D:\tmp\yoo-about-mirror study, mapped 1:1 onto our fonts + palette + copy.
+   Font-driven substitutions (documented, unavoidable):
+     • YOO heading weight 300 → 400 (our Inter Tight ships 400/500/600/700/800; 400
+       is the lightest loaded — index.html is out of territory).
+     • YOO's Fraunces-italic serif accent word → omitted (our stack is Inter Tight /
+       Inter / DM Mono only; keep our fonts per brief).
+     • YOO's Maison Neue micro-labels → DM Mono; a mono cap face needs minimal em
+       tracking, so labels hold ~0.22em rather than YOO's ~0 proportional tracking.
+   Motion: YOO's exact captured curve cubic-bezier(.22,1,.36,1) + durations, scoped
+   to /about only. transform/opacity for scroll motion; the hover corner-morph uses
+   border-radius (YOO's own technique, hover-only). Reduced motion: instant. */
 
-/* ── SECTION 1 — GIANT HERO (flat #0e1b46, full viewport minus nav) ──────────
-   YOO-exact: ONE giant word fills the frame. A small gold DM Mono eyebrow sits
-   above it, a scroll cue + animated hairline anchors the bottom. Nothing else. */
+/* YOO-measured local tokens + exact captured easing, scoped to the five sections.
+   Redefining --e-out here re-points the shared reveal transitions (index.css) to
+   YOO's exact curve for every [data-reveal]/[data-textreveal] inside /about. */
+.ab-hero,
+.ab-statement,
+.ab-journey,
+.ab-mvv,
+.ab-founder {
+  --e-out: cubic-bezier(0.22, 1, 0.36, 1);   /* YOO exact (was 0.23,1,0.32,1) */
+  --ab-e:  cubic-bezier(0.22, 1, 0.36, 1);
+  --ab-max: 1632px;                          /* YOO --about-content-max-width */
+  --ab-gut: clamp(24px, 5.392vw, 48px);      /* YOO gutter 24 → 48 */
+  --ab-sec: clamp(96px, 12vh, 120px);        /* per-section block → ≥192px boundary */
+}
+
+/* ── SECTION 1 — GIANT HERO (flat #0e1b46; YOO hero geometry) ────────────────
+   YOO: full-viewport hero, the word absolutely centered, scroll cue pinned to
+   the bottom. Title is a FIXED 112px (mobile 56px) — measured, not viewport-
+   scaled — capped at min(100% - 96px, 1632px). We keep navy (no photo asset). */
 .ab-hero {
   position: relative;
   background: #0e1b46;
-  min-height: calc(100svh - var(--nav-h));
-  display: grid;
-  grid-template-rows: 1fr auto;   /* word centers in row 1, cue owns row 2 */
-  text-align: center;
-  padding: clamp(40px, 7vh, 84px) var(--page-gutter) clamp(24px, 4vh, 44px);
+  height: 100svh;
+  min-height: 720px;              /* YOO .about-hero min-height */
   overflow: hidden;
 }
-.ab-hero-inner { place-self: center; width: 100%; }
+
+/* the centered block owns YOO's title geometry (top/left 50% + translate, width cap) */
+.ab-hero-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(100% - 96px, 1632px);   /* YOO .about-hero-title width */
+  text-align: center;
+}
 
 .ab-eyebrow {
   margin: 0 0 clamp(20px, 3.2vh, 34px);
   font-family: 'DM Mono', monospace;
   font-weight: 500;
   font-size: 12px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold-2);
 }
 
-/* the giant word — decorative display, sized in vw so it fills ~90% of the frame
-   width and tracks the viewport. Inter Tight 800, uppercase, tight tracking, cream.
-   Words wrap on narrow viewports (the split .aw-word spans are inline-block). */
+/* the giant word — YOO fixed 112px / w700 / -0.05em / lh 0.814 (mobile 56px) */
 .ab-hero-display {
   margin: 0;
   font-family: 'Inter Tight', sans-serif;
-  font-weight: 800;
-  /* 18vw fills ~87% of the frame width; EN "ABOUT US" holds one line, longer
-     locales (FR "À PROPOS DE NOUS", ES "ACERCA DE NOSOTROS") wrap and balance. */
-  font-size: clamp(56px, 18vw, 280px);
-  line-height: 0.92;
-  letter-spacing: -0.02em;
+  font-weight: 700;                 /* YOO .about-hero-title weight */
+  font-size: 112px;                 /* YOO fixed — NOT viewport-scaled */
+  line-height: 0.814;               /* YOO */
+  letter-spacing: -0.05em;          /* YOO -5.6px */
   text-transform: uppercase;
   color: var(--cream);
   text-wrap: balance;
 }
 
-/* bottom-center scroll cue — its own grid row, so it can never overlap the word */
+/* bottom-center scroll cue — YOO bottom:33px, gap:10px */
 .ab-scroll {
-  justify-self: center;
-  align-self: end;
+  position: absolute;
+  bottom: 33px;                     /* YOO .about-hero-scroll bottom */
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;                        /* YOO */
 }
 .ab-scroll span {
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.3em;
+  font-size: 11px;                  /* YOO 11px */
+  font-weight: 500;
+  letter-spacing: 0.1em;            /* YOO near-zero (-.11px); mono legibility floor */
   text-transform: uppercase;
-  color: rgba(253, 250, 244, 0.55);
+  color: rgba(253, 250, 244, 0.7);
 }
+/* YOO scroll line — 2px × 42px rounded faint track + a 12px travelling highlight */
 .ab-scroll i {
-  width: 1px;
-  height: 40px;
+  position: relative;
+  width: 2px;                       /* YOO .about-scroll-line width */
+  height: 42px;                     /* YOO 42px */
+  border-radius: 999px;
+  background: rgb(var(--gold-rgb) / 0.34);   /* YOO #ffffff57 → our gold */
+  overflow: hidden;
+}
+.ab-scroll i::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 2px;
+  height: 12px;                     /* YOO highlight height */
+  border-radius: 999px;
   background: var(--gold-2);
-  transform-origin: top center;
-  animation: ab-scroll-line 1.8s ease-in-out infinite;
+  animation: ab-scroll-line 1.7s ease-in-out infinite;   /* YOO 1.7s */
 }
 @keyframes ab-scroll-line {
-  0%, 100% { transform: scaleY(0.3); opacity: 0.45; }
-  50%      { transform: scaleY(1);   opacity: 1; }
+  0%   { transform: translateY(0);    opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(30px); opacity: 0; }
 }
 
 /* ── SECTION 2 — CHAPTER 1: THE STATEMENT (cream) ────────────────────────────
-   The editorial payoff after the giant word: the page's single H1 as a big
-   Inter Tight statement (~18ch), a 40px gold rule, then the lede (~58ch). Left-
-   aligned, generous top/bottom air so it reads as its own chapter. */
+   YOO intro-heading proportions: ~4.6vw → 88px cap, weight 300→400, -0.07em,
+   full-width 1px divider, 22px lede at their 816px column. Single H1. */
 .ab-statement {
   position: relative;
   background: var(--cream);
-  padding: clamp(88px, 14vh, 168px) var(--page-gutter) clamp(72px, 11vh, 132px);
+  padding: var(--ab-sec) var(--ab-gut);
   overflow: hidden;
 }
 .ab-statement-h1 {
   margin: 0;
-  max-width: 18ch;
+  max-width: 1078px;                /* YOO heading-row max-width */
   font-family: 'Inter Tight', sans-serif;
-  font-weight: 600;
-  font-size: clamp(40px, 5vw, 64px);
-  line-height: 1.06;
-  letter-spacing: -0.015em;
+  font-weight: 400;                 /* YOO 300 → lightest loaded */
+  font-size: clamp(40px, 4.6vw, 88px);   /* YOO ~4.6vw statement, 88px cap */
+  line-height: 1.16;                /* YOO .about-intro-heading */
+  letter-spacing: -0.07em;          /* YOO -6.16px */
   color: #0e1b46;
 }
 .ab-statement-rule {
-  width: 40px; height: 2px; border: 0;
-  background: var(--gold-text);
-  margin: clamp(30px, 4.5vh, 44px) 0 clamp(30px, 4.5vh, 44px);
+  width: 100%; height: 1px; border: 0;     /* YOO team-lead-divider 1px × 100% */
+  background: rgb(var(--gold-rgb) / 0.34);
+  margin: clamp(28px, 4vh, 40px) 0;
 }
 .ab-statement-lede {
   margin: 0;
-  max-width: 58ch;
+  max-width: 816px;                 /* YOO body column */
   font-family: 'Inter', sans-serif;
-  font-size: clamp(16px, 1.2vw, 18px);
-  line-height: 1.75;
+  font-size: 22px;                  /* YOO body 22px */
+  line-height: 1.5;
+  letter-spacing: -0.03em;          /* YOO -1.54px, eased for Inter body */
   color: rgb(var(--navy-rgb) / 0.78);
 }
 
@@ -113,31 +155,31 @@
 .ab-journey {
   position: relative;
   background: var(--cream);
-  padding: var(--section-pad-y) var(--page-gutter);
+  padding: var(--ab-sec) var(--ab-gut);
   overflow: hidden;
 }
-.ab-wrap { position: relative; z-index: 1; max-width: var(--content-max); margin: 0 auto; }
+.ab-wrap { position: relative; z-index: 1; max-width: var(--ab-max); margin: 0 auto; }
 
 .ab-eyebrow--cream {
   margin: 0;
   font-family: 'DM Mono', monospace;
   font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.3em;
+  font-size: 11px;                  /* YOO label 11px */
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold-text);
 }
 .ab-rule {
-  width: 40px; height: 2px; border: 0;
-  background: var(--gold-text);
+  width: 100%; height: 1px; border: 0;     /* YOO full-width divider */
+  background: rgb(var(--gold-rgb) / 0.34);
   margin: 16px 0 clamp(48px, 7vh, 72px);
 }
 
-/* three-zone: rail / media / content */
+/* three-zone: rail / media / content — YOO 96px gap */
 .ab-tl {
   display: grid;
   grid-template-columns: 128px 1fr 1fr;
-  gap: clamp(36px, 5vw, 96px);
+  gap: clamp(48px, 6vw, 96px);
   align-items: start;
 }
 .ab-tl-rail { position: relative; }
@@ -150,79 +192,82 @@
   position: relative; padding-left: 26px; text-align: left;
   background: none; border: 0; cursor: pointer;
   font-family: 'DM Mono', monospace; letter-spacing: 0.1em;
-  font-size: 12px; font-weight: 400; color: rgb(var(--navy-rgb) / 0.45);
-  transition: color 300ms var(--e-out);
+  font-size: 11px; font-weight: 400; color: rgb(var(--navy-rgb) / 0.45);
+  transition: color 300ms var(--ab-e);
 }
 .ab-tl-year::before {
   content: ''; position: absolute; left: 1px; top: 0.3em;
   width: 9px; height: 9px; border-radius: 50%;
   background: rgb(var(--navy-rgb) / 0.28);
-  transition: background 300ms var(--e-out), box-shadow 300ms var(--e-out);
+  transition: background 300ms var(--ab-e), box-shadow 300ms var(--ab-e);
 }
-.ab-tl-year[aria-current="true"] { color: var(--gold-text); font-weight: 600; font-size: 14px; }
+.ab-tl-year[aria-current="true"] { color: var(--gold-text); font-weight: 600; font-size: 13px; }
 .ab-tl-year[aria-current="true"]::before {
   background: var(--gold-text);
   box-shadow: 0 0 0 7px rgb(157 111 20 / 0.12);
 }
 
 .ab-tl-media {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;             /* YOO story media ≈ 816/458 */
   background: var(--cream-2);
-  border-radius: var(--radius-md);
+  border-radius: 8px;               /* YOO card radius */
   border: 1px solid rgb(var(--gold-rgb) / 0.15);
   display: grid; place-items: center;
 }
 .ab-slot {
-  font-family: 'DM Mono', monospace; font-size: 12px;
+  font-family: 'DM Mono', monospace; font-size: 11px;
   letter-spacing: 0.22em; text-transform: uppercase;
   color: rgb(var(--navy-rgb) / 0.32);
 }
 
-/* eased crossfade on year change — the content block is keyed on activeIdx so it
-   remounts and replays this fade each switch (reduced-motion: instant, below). */
-.ab-tl-content { animation: ab-fade 300ms var(--e-out); }
+/* eased crossfade on year change — YOO transform .52s, keyed on activeIdx */
+.ab-tl-content { animation: ab-fade 520ms var(--ab-e); }
 @keyframes ab-fade {
   from { opacity: 0.25; transform: translateY(6px); }
   to   { opacity: 1;    transform: none; }
 }
 .ab-tl-yearbig {
   margin: 0 0 clamp(14px, 2vh, 22px);
-  font-family: 'Inter Tight', sans-serif; font-weight: 800;
-  font-size: clamp(64px, 8vw, 110px); line-height: 0.9; letter-spacing: -0.02em;
+  font-family: 'Inter Tight', sans-serif; font-weight: 400;   /* YOO light */
+  font-size: clamp(56px, 5.5vw, 88px);      /* YOO big-heading 88px */
+  line-height: 1; letter-spacing: -0.07em;
   color: #0e1b46;
 }
 .ab-tl-title {
   margin: 0 0 clamp(14px, 2vh, 20px);
-  font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(20px, 1.8vw, 26px); color: var(--ink);
+  font-family: 'Inter Tight', sans-serif; font-weight: 400;   /* YOO story-heading 300→400 */
+  font-size: clamp(28px, 2.8vw, 40px);      /* YOO story-heading 40px */
+  line-height: 1.14; letter-spacing: -0.07em;
+  color: var(--ink);
 }
 .ab-tl-desc {
-  margin: 0 0 clamp(30px, 4vh, 44px); max-width: 46ch;
-  font-family: 'Inter', sans-serif; font-size: clamp(15px, 1vw, 16px);
-  line-height: 1.7; color: rgb(var(--navy-rgb) / 0.72);
+  margin: 0 0 clamp(30px, 4vh, 44px); max-width: 640px;   /* YOO narrow column */
+  font-family: 'Inter', sans-serif; font-size: 18px;
+  line-height: 1.55; letter-spacing: -0.02em;
+  color: rgb(var(--navy-rgb) / 0.72);
 }
 
-/* arrows — bible: 44px circle, navy border, hover fills navy/cream */
+/* arrows — YOO transition .22s; bible 44px circle */
 .ab-arrows { display: flex; gap: 14px; }
 .ab-arrow {
   width: 44px; height: 44px; border-radius: 50%;
   display: grid; place-items: center;
   border: 1.5px solid #0e1b46; background: transparent; color: #0e1b46;
   font-size: 18px; line-height: 1; cursor: pointer;
-  transition: background 200ms var(--e-out), color 200ms var(--e-out), border-color 200ms var(--e-out);
+  transition: background 220ms var(--ab-e), color 220ms var(--ab-e), border-color 220ms var(--ab-e);
 }
 .ab-arrow:hover:not(:disabled) { background: #0e1b46; color: var(--cream); }
 .ab-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
 
 /* mobile timeline — horizontal year strip, stacked media + content */
 .ab-tl-m { display: none; }
-.ab-tl-strip { display: flex; gap: 12px; overflow-x: auto; margin: 0 calc(-1 * var(--page-gutter)); padding: 0 var(--page-gutter) 8px; }
+.ab-tl-strip { display: flex; gap: 12px; overflow-x: auto; margin: 0 calc(-1 * var(--ab-gut)); padding: 0 var(--ab-gut) 8px; }
 .ab-tl-chip {
   flex: 0 0 auto; white-space: nowrap;
   padding: 8px 16px; border-radius: var(--radius-pill);
   font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
   background: rgb(var(--gold-rgb) / 0.1); color: var(--ink); border: 0; cursor: pointer;
-  transition: background 250ms var(--e-out), color 250ms var(--e-out);
+  transition: background 250ms var(--ab-e), color 250ms var(--ab-e);
 }
 .ab-tl-chip[aria-current="true"] { background: var(--gold-text); color: var(--cream); }
 
@@ -237,21 +282,22 @@
 .ab-mvv {
   position: relative;
   background: #0e1b46;
-  padding: clamp(88px, 11vh, 132px) var(--page-gutter);
+  padding: var(--ab-sec) var(--ab-gut);
 }
-.ab-mvv-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; }
+.ab-mvv-inner { position: relative; z-index: 1; max-width: 1078px; margin: 0 auto; }
 .ab-beat { padding: clamp(56px, 8vh, 84px) 0; }
 .ab-beat + .ab-beat { border-top: 1px solid rgb(var(--gold-rgb) / 0.25); }
 .ab-beat-label {
   margin: 0 0 clamp(20px, 2.8vh, 28px);
   font-family: 'DM Mono', monospace; font-weight: 500;
-  font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--gold-2);
 }
 .ab-beat-text {
-  margin: 0; max-width: 30ch;
-  font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(24px, 3vw, 38px); line-height: 1.3; letter-spacing: -0.005em;
+  margin: 0; max-width: 24ch;               /* YOO manifesto column */
+  font-family: 'Inter Tight', sans-serif; font-weight: 400;   /* YOO section-main 300→400 */
+  font-size: clamp(28px, 3vw, 40px);        /* YOO section-main 40px */
+  line-height: 1.14; letter-spacing: -0.07em;
   color: var(--cream);
 }
 
@@ -259,29 +305,36 @@
 .ab-founder {
   position: relative;
   background: var(--cream);
-  padding: var(--section-pad-y) var(--page-gutter);
+  padding: var(--ab-sec) var(--ab-gut);
   overflow: hidden;
 }
 .ab-founder-grid {
   display: grid; grid-template-columns: 1fr 1.5fr;
-  gap: clamp(44px, 6vw, 104px); align-items: start;
+  gap: clamp(72px, 6vw, 96px); align-items: start;   /* YOO group gap 72→96 */
 }
 .ab-portrait {
-  aspect-ratio: 3 / 4; max-width: 420px; margin-bottom: clamp(30px, 4vh, 44px);
-  background: var(--cream-2); border-radius: var(--radius-lg);
+  aspect-ratio: 528 / 704;          /* YOO team-lead-card 3:4 */
+  max-width: 420px; margin-bottom: clamp(30px, 4vh, 44px);
+  background: var(--cream-2);
+  border-radius: 8px;               /* YOO card radius */
   border: 1px solid rgb(var(--gold-rgb) / 0.15);
   display: grid; place-items: center;
+  transition: border-radius 260ms var(--ab-e);   /* YOO .26s corner morph */
 }
+.ab-portrait:hover { border-radius: 8px 8px 8px 48px; }   /* YOO hover corner bloom */
 .ab-name {
   margin: 0 0 14px;
-  font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(24px, 2.4vw, 32px); color: var(--ink);
+  font-family: 'Inter Tight', sans-serif; font-weight: 400;   /* YOO team-lead-name w400 */
+  font-size: 20px;                  /* YOO 20px */
+  line-height: 1.1; letter-spacing: -0.05em;   /* YOO -1px */
+  text-transform: uppercase;        /* YOO */
+  color: var(--ink);
 }
-.ab-founder-hair { width: 40px; height: 1px; border: 0; background: var(--gold-text); margin: 0 0 16px; }
+.ab-founder-hair { width: 100%; height: 1px; border: 0; background: rgb(var(--gold-rgb) / 0.34); margin: 0 0 16px; }
 .ab-microlabel {
-  margin: 0; display: flex; align-items: center; gap: 10px;
+  margin: 0; display: flex; align-items: center; gap: 10px;   /* YOO gap 10px */
   font-family: 'DM Mono', monospace; font-size: 11px;
-  letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-text);
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-text);
 }
 .ab-microlabel b { color: rgb(var(--navy-rgb) / 0.42); font-weight: 500; }
 .ab-microlabel i { width: 12px; height: 1px; background: rgb(var(--navy-rgb) / 0.25); font-style: normal; }
@@ -289,33 +342,50 @@
 .ab-founder-eyebrow {
   margin: 0 0 clamp(28px, 4vh, 40px);
   font-family: 'DM Mono', monospace; font-weight: 500;
-  font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-text);
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-text);
 }
 .ab-founder-bio {
-  margin: 0; max-width: 58ch;
-  font-family: 'Inter', sans-serif; font-size: clamp(15px, 1.1vw, 17px);
-  line-height: 1.75; color: rgb(var(--navy-rgb) / 0.78);
+  margin: 0; max-width: 816px;      /* YOO body column */
+  font-family: 'Inter', sans-serif; font-size: 22px;   /* YOO body 22px */
+  line-height: 1.5; letter-spacing: -0.03em;
+  color: rgb(var(--navy-rgb) / 0.78);
 }
 .ab-quote {
   margin: clamp(40px, 6vh, 60px) 0 clamp(20px, 2.6vh, 28px);
   padding-top: clamp(36px, 5vh, 52px);
-  border-top: 1px solid var(--gold-text); max-width: 30ch;
-  font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(22px, 2.4vw, 30px); line-height: 1.32; color: var(--ink);
+  border-top: 1px solid rgb(var(--gold-rgb) / 0.34); max-width: 24ch;
+  font-family: 'Inter Tight', sans-serif; font-weight: 400;   /* YOO manifesto 300→400 */
+  font-size: clamp(24px, 2.6vw, 40px);      /* YOO section-subtitle 40px */
+  line-height: 1.2; letter-spacing: -0.07em; color: var(--ink);
 }
 .ab-attr {
   margin: 0;
   font-family: 'DM Mono', monospace; font-size: 11px;
-  letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-text);
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-text);
 }
 
 @media (max-width: 860px) {
+  .ab-hero { min-height: 640px; }             /* YOO mobile hero floor */
+  .ab-hero-display { font-size: 56px; }       /* YOO mobile title */
+  .ab-scroll { bottom: 24px; }                /* YOO mobile scroll cue */
+  .ab-statement-lede, .ab-founder-bio { font-size: 19px; }
   .ab-founder-grid { grid-template-columns: 1fr; gap: clamp(36px, 8vw, 56px); }
   .ab-portrait { max-width: 360px; }
 }
 
-/* ── reduced motion — the scroll cue holds still, year crossfade is instant ── */
+/* ── YOO motion — exact captured curve + durations, scoped to /about ─────────
+   --e-out is re-pointed above, so the shared reveals already ride YOO's curve;
+   here we align their durations (transform .52s reveals, .56s word cascade). */
+html.alive-ready :is(.ab-hero, .ab-statement, .ab-journey, .ab-mvv, .ab-founder) [data-reveal] {
+  transition-duration: 520ms;
+}
+html.alive-ready :is(.ab-hero, .ab-statement, .ab-journey, .ab-mvv, .ab-founder) [data-textreveal] .aw-word {
+  transition-duration: 560ms;
+}
+
+/* ── reduced motion — cue holds, crossfade + corner morph instant ─────────── */
 @media (prefers-reduced-motion: reduce) {
-  .ab-scroll i { animation: none; transform: scaleY(1); }
+  .ab-scroll i::after { animation: none; opacity: 0; }
   .ab-tl-content { animation: none; }
+  .ab-portrait { transition: none; }
 }
