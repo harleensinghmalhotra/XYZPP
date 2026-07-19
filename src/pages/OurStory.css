@@ -73,25 +73,26 @@
   --tl-e: cubic-bezier(0.22, 1, 0.36, 1);   /* the reference's liquid ease */
   position: relative; background: var(--cream); overflow: hidden;
   min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
-  padding: clamp(60px, 7.5vh, 92px) var(--page-gutter);
+  padding: clamp(52px, 6.5vh, 84px) var(--page-gutter);
 }
-.tl-eyebrow { margin: 0 0 clamp(28px, 4vh, 44px); }
+.tl-eyebrow { flex: 0 0 auto; margin: 0 0 clamp(22px, 3vh, 38px); }
 
-/* three zones: year rail ~18% / media ~42% / content ~40% */
+/* one composed unit filling the width: narrow rail / FAT card / tight text */
 .tl-grid {
   display: grid;
-  grid-template-columns: 0.85fr 2.1fr 1.95fr;
-  gap: clamp(28px, 4vw, 72px);
+  grid-template-columns: auto minmax(0, 1.45fr) minmax(0, 1fr);   /* rail ~8% / card ~50% / text ~35% */
+  gap: clamp(28px, 3.4vw, 52px);
   align-items: center;
 }
 
-/* LEFT — year rail (vertical, thin connector through small dots) */
-.tl-rail { position: relative; display: flex; flex-direction: column; gap: clamp(36px, 5vh, 64px); }
-.tl-spine { position: absolute; left: 5px; top: 16px; bottom: 16px; width: 1px; background: rgb(var(--navy-rgb) / 0.16); }
+/* LEFT — narrow year rail; years right-aligned tight against the card, dots +
+   thin connector on the card side */
+.tl-rail { position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: clamp(34px, 4.6vh, 60px); }
+.tl-spine { position: absolute; right: 5px; left: auto; top: 16px; bottom: 16px; width: 1px; background: rgb(var(--navy-rgb) / 0.16); }
 .tl-year {
   position: relative; z-index: 1; min-height: 36px;
-  display: flex; align-items: center; gap: 22px;
-  background: none; border: 0; padding: 0; cursor: pointer; text-align: left;
+  display: flex; align-items: center; justify-content: flex-end; gap: 14px;
+  background: none; border: 0; padding: 0; cursor: pointer; text-align: right;
   font-family: 'Inter Tight', sans-serif; font-weight: 500;
   font-size: 20px; line-height: 1; letter-spacing: -0.01em;
   color: rgb(var(--navy-rgb) / 0.4);
@@ -108,16 +109,17 @@
   .tl-year:hover:not(.is-active) { color: rgb(var(--navy-rgb) / 0.7); }
 }
 
-/* CENTER — tall portrait media card (raw photo, vertically centred) */
-.tl-media-zone { display: flex; align-items: center; justify-content: center; }
+/* CENTER — FAT landscape media card: fills its column width, near-full section
+   height (from just under the eyebrow to the section bottom). Raw photo covers. */
+.tl-media-zone { min-width: 0; }
 .tl-media {
-  position: relative; height: clamp(440px, 68vh, 660px); aspect-ratio: 4 / 5; width: auto;
+  position: relative; width: 100%; height: clamp(440px, 70vh, 680px);
   border-radius: var(--radius-lg); background: var(--cream-2);
 }
 .tl-media::before, .tl-media::after { content: none; }   /* clean hairline frame — no ticks */
 .tl-media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* RIGHT — content + arrows (all left-aligned) */
+/* RIGHT — content + arrows (all left-aligned), vertically centred against card */
 .tl-content-zone { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
 .tl-year-big {
   margin: 0 0 clamp(14px, 1.8vh, 20px);
@@ -131,7 +133,7 @@
   font-size: clamp(22px, 2.4vw, 30px); line-height: 1.18; letter-spacing: 0.015em; color: var(--ink);
 }
 .tl-body {
-  margin: 0; max-width: 46ch;
+  margin: 0; max-width: 42ch;
   font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(15px, 1.2vw, 18px);
   line-height: 1.62; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.72);
 }
@@ -268,15 +270,18 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
    top, then media, then content; arrows stay ─────────────────────────────── */
 @media (max-width: 900px) {
   .tl { min-height: auto; display: block; padding: var(--section-pad-y) var(--page-gutter); }
-  .tl-grid { grid-template-columns: 1fr; gap: clamp(28px, 6vw, 40px); align-items: stretch; }
+  .tl-grid { grid-template-columns: 1fr; grid-template-rows: auto; gap: clamp(28px, 6vw, 40px); align-items: stretch; }
   .tl-rail {
+    align-self: stretch; align-items: center;
     flex-direction: row; gap: clamp(18px, 5vw, 30px); overflow-x: auto;
     scroll-snap-type: x proximity;
     margin: 0 calc(-1 * var(--page-gutter)); padding: 2px var(--page-gutter) 14px;
   }
   .tl-spine { display: none; }
-  .tl-year { flex: 0 0 auto; min-height: 0; white-space: nowrap; scroll-snap-align: start; }
+  .tl-year { flex: 0 0 auto; min-height: 0; justify-content: flex-start; white-space: nowrap; scroll-snap-align: start; }
   .tl-year.is-active { font-size: 22px; }
+  .tl-content-zone { align-self: stretch; }
+  .tl-media-zone { align-self: stretch; }
   .tl-media { height: auto; width: 100%; aspect-ratio: 3 / 4; }   /* tall card, full column width */
 }
 

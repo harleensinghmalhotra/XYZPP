@@ -153,8 +153,8 @@ function Timeline({ stops }) {
                 className={`tl-year focus-ring${i === active ? ' is-active' : ''}`}
                 onClick={() => go(i)}
               >
-                <span className="tl-dot" aria-hidden="true" />
                 <span className="tl-year-label" aria-hidden="true">{s.year.split(' ')[0]}</span>
+                <span className="tl-dot" aria-hidden="true" />
               </button>
             ))}
           </div>
