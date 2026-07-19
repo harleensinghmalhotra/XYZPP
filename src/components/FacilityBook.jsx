@@ -10,18 +10,20 @@ import './FacilityBook.css'
 // 404 → onError) to fall back to the CSS-built pile below — cheap insurance.
 const USE_IMAGE_STACK = true
 
-// Percentage placement of the 5 facility labels over the 5 NAVY spines (top→bottom
-// = BOOKS order). `top` is the spine's vertical centre as a % of the fixed-aspect
-// image container; the render is near straight-on so labels are horizontal (rot 0).
-// Derived by eye off a percentage grid overlaid on the transparent render; all-% so
-// they track responsively. Labels are kept within the LEFT front-face width (the
-// cream fore-edge sits on the right) so nothing bleeds onto the page-block.
+// One UNIFORM label zone per navy spine, each dead-centred on ITS OWN spine's
+// visible front face (the spines sit at slightly different widths/offsets, so each
+// zone's left/width differs — measured off a percentage grid on the transparent
+// render, with ~9% side margins of that spine's front-face width). `top` = the navy
+// band's vertical centre; the box is centred on it (translateY(-50%)). The render is
+// near straight-on → labels horizontal, single line, uniform size (see CSS). All-%
+// so the zones + centring hold at every container width. Kept within the front face
+// (cream fore-edge is on the right) so nothing bleeds onto the page-block.
 const SPINE_POS = [
-  { top: 10, rot: 0 },   // Web Machines
-  { top: 26, rot: 0 },   // Sheetfed Machines
-  { top: 45, rot: 0 },   // Binding and Finishing
-  { top: 63, rot: 0 },   // Warehousing
-  { top: 84, rot: 0 },   // Head Office
+  { top: 10, left: 13, width: 57 },     // Web Machines
+  { top: 26, left: 10.8, width: 59.8 }, // Sheetfed Machines
+  { top: 44, left: 8.6, width: 56.5 },  // Binding and Finishing
+  { top: 62, left: 8, width: 55.9 },    // Warehousing
+  { top: 82, left: 7.3, width: 61 },    // Head Office
 ]
 
 // ── Facility Book — shared component for Infrastructure section & /infrastructure page ──
@@ -420,7 +422,7 @@ export default function FacilityBook() {
                     key={b.id}
                     type="button"
                     className={`ib-imglabel${isActive ? ' is-active' : ''}`}
-                    style={{ top: `${pos.top}%`, '--rot': `${pos.rot}deg` }}
+                    style={{ top: `${pos.top}%`, left: `${pos.left}%`, width: `${pos.width}%` }}
                     onClick={() => openBook(bi)}
                     aria-label={t('books.ui.open', { title: `${titleFull} (${num(bi + 1)} / ${num(BOOKS.length)})` })}
                     aria-current={isActive ? 'page' : undefined}

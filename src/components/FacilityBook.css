@@ -89,6 +89,7 @@
   aspect-ratio: 900 / 1276;          /* the transparent render's ratio */
   height: clamp(392px, 44vh, 440px); /* = the open-book spread height (cap) */
   max-width: 100%;
+  container-type: inline-size;       /* label font scales with the stack via cqw */
 }
 .ib-imgstack-photo {
   position: absolute;
@@ -117,17 +118,16 @@
   filter: blur(7px);
 }
 
-/* label buttons — each sits over one navy spine's LEFT front face; the whole box is
-   the hit-area. top comes from SPINE_POS (inline); box centred on the spine. */
+/* label buttons — one uniform zone per navy spine. left/width/top come from
+   SPINE_POS (inline), each centred on that spine's front face; the box is centred on
+   the navy band (translateY(-50%)) and the text is centred in the zone. The whole
+   box is the hit-area (padding may exceed the text; the text stays inside the zone). */
 .ib-imglabel {
   position: absolute;
-  left: 5%;
-  width: 53%;                        /* the navy front face (cream fore-edge is right) */
-  transform: translateY(-50%) rotate(var(--rot, 0deg));
-  transform-origin: center;
+  transform: translateY(-50%);
   display: grid;
   place-items: center;
-  padding: 11px 6px;                 /* generous vertical hit-area over the spine */
+  padding: 11px 0;                   /* vertical hit-area only; width = the zone */
   background: none;
   border: 0;
   cursor: pointer;
@@ -136,10 +136,13 @@
 .ib-imglabel-text {
   position: relative;
   z-index: 1;
+  max-width: 100%;
   font-family: 'DM Mono', monospace;
-  font-size: clamp(11px, 0.86vw, 13px);
+  /* UNIFORM across all 5; scales with the stack (cqw) so the longest label
+     ("BINDING AND FINISHING") clears its zone at 1536 and 1280, 11px floor on mobile. */
+  font-size: clamp(11px, 3.3cqw, 14px);
   font-weight: 600;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.1em;
   line-height: 1.15;
   text-transform: uppercase;
   text-align: center;
@@ -754,8 +757,9 @@
      ("BINDING AND FINISHING") still fits the narrower spine. */
   .ib-stack--img { flex-direction: column; flex-wrap: nowrap; }
   .ib-imgstack { height: min(58vh, 440px); margin: 0 auto; }
-  .ib-imglabel { left: 4%; width: 56%; padding: 8px 4px; }
-  .ib-imglabel-text { font-size: 11px; letter-spacing: 0.04em; }
+  /* per-spine left/width (inline) and the clamp() font floor carry mobile; just
+     trim the hit-area padding a touch on the shorter stack. */
+  .ib-imglabel { padding: 8px 0; }
   .ib-spine {
     width: auto;
     flex: 0 1 auto;
