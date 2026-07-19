@@ -28,34 +28,29 @@ const QUANTITIES = [{ id: '1' }, { id: '10' }, { id: '50' }, { id: '250' }, { id
    summary row, the qty badge and the /contact params — this is chip display only). */
 const QTY_HERO = { 1: '1', 10: '10', 50: '50', 250: '250', 500: '500+' }
 
-/* ── paper edge tints — drive both the .pod-chip-sw swatches (Paper step) AND the
-   book's page-block faces. Exaggerated warm→cool→bright so the recolor reads. ── */
+/* ── preview geometry ────────────────────────────────────────────────────────── */
+const SIZE_RATIO = { '5x8': 0.625, '6x9': 0.667, '8x10': 0.8, a4: 0.707 }
 const PAPER_EDGE = {
-  cream: { edge: '#f2e6c8', line: 'rgba(120,92,20,0.28)' },   // warm
-  white: { edge: '#fcfdff', line: 'rgba(15,36,68,0.14)' },    // cool-bright
-  art: { edge: '#ffffff', line: 'rgba(15,36,68,0.10)' },      // brightest (+ thinner block)
+  cream: { edge: '#f3ead4', line: 'rgba(15,36,68,0.16)' },
+  white: { edge: '#fbfaf6', line: 'rgba(15,36,68,0.12)' },
+  art: { edge: '#eef0ea', line: 'rgba(15,36,68,0.14)' },
 }
-
-/* ── preview geometry — proportions are EXAGGERATED past true ratios so each
-   Size / Format reads unmistakably on screen (the client's core ask). ──────── */
-const SIZE_DIMS = {
-  '5x8': { w: 150, h: 342 },   // visibly slim + tall
-  '6x9': { w: 212, h: 322 },   // baseline
-  '8x10': { w: 284, h: 316 },  // clearly wider
-  a4: { w: 250, h: 384 },      // tallest / largest
-}
-const FMT_THICK = { paperback: 18, hardcover: 46, landscape: 30 } // hardcover ≈ 2.5× paperback
-function bookDims(format, size, paper) {
-  let thick = FMT_THICK[format] ?? 22
-  if (paper === 'art') thick = Math.round(thick * 0.68) // art stock = a thinner block
+function bookDims(format, size) {
+  const r = SIZE_RATIO[size] ?? 0.66
   if (format === 'landscape') {
-    // reflow to a dramatic wide orientation; size nudges the overall scale
-    const s = SIZE_DIMS[size] ?? SIZE_DIMS['6x9']
-    const scale = s.h / 322
-    return { bw: Math.round(330 * scale), bh: Math.round(224 * scale), thick }
+    const bw = 350
+    return { bw, bh: Math.round(bw * r), thick: 30 }
   }
-  const s = SIZE_DIMS[size] ?? SIZE_DIMS['6x9']
-  return { bw: s.w, bh: s.h, thick }
+  const bh = format === 'hardcover' ? 338 : 328
+  const thick = format === 'hardcover' ? 44 : 30
+  return { bw: Math.round(bh * r), bh, thick }
+}
+function ghostCount(q) {
+  const n = Number(q)
+  if (n <= 1) return 0
+  if (n <= 10) return 2
+  if (n <= 50) return 3
+  return 4
 }
 
 /* ── icons (stroke-draw, System-B) ───────────────────────────────────────────── */
@@ -172,9 +167,11 @@ export default function PrintOnDemand() {
   // resolve an option's display label via the printOnDemand namespace
   const optLabel = (group, id) => t(`options.${group}.${id}.label`)
 
-  // book geometry + page-block tint, recomputed on every config change
-  const dims = bookDims(cfg.format, cfg.size, cfg.paper)
+  // book geometry + page-block tint + copy count, recomputed on every config change
+  const dims = bookDims(cfg.format, cfg.size)
   const edge = PAPER_EDGE[cfg.paper]
+  const ghosts = ghostCount(cfg.quantity)
+  const qtyLabel = optLabel('quantity', cfg.quantity)
 
   // ── spec-panel change feedback ──────────────────────────────────────────────
   // The static book no longer morphs, so feedback lives in the spec panel: when
@@ -321,19 +318,29 @@ export default function PrintOnDemand() {
           </div>
 
           <div className="pod-config">
-            {/* LEFT — live reactive CSS book. Every selection visibly transforms
-                it (~450ms); paper/finish add a one-shot sweep replayed via the
-                flash nonce. Idle float lives on the wrapper so it never fights
-                the reshape transitions. */}
+            {/* LEFT — live preview */}
             <div className="pod-preview" aria-hidden="true">
               <span className="pod-preview-tag">{t('build.previewTag')}</span>
               <div className="pod-stage">
-                <div className="pod-book-float">
+                <div style={{ position: 'relative' }}>
+                  {Array.from({ length: ghosts }).map((_, i) => (
+                    <span
+                      key={i}
+                      className="pod-stack-ghost"
+                      style={{
+                        width: dims.bw,
+                        height: dims.bh,
+                        transform: `translate(${(i + 1) * 10}px, ${(i + 1) * 12}px)`,
+                        zIndex: -1 - i,
+                        opacity: 0.9 - i * 0.14,
+                      }}
+                    />
+                  ))}
                   <div
                     className="pod-book"
                     data-format={cfg.format}
+                    data-binding={cfg.binding}
                     data-finish={cfg.finish}
-                    data-paper={cfg.paper}
                     style={{
                       '--bw': `${dims.bw}px`,
                       '--bh': `${dims.bh}px`,
@@ -343,25 +350,41 @@ export default function PrintOnDemand() {
                     }}
                   >
                     <div className="pod-face pod-back" />
-                    <div className="pod-face pod-fore">
-                      {flash.key === 'paper' && <span className="pod-edge-shimmer" key={`fs${flash.n}`} />}
+                    <div className="pod-face pod-fore" />
+                    <div className="pod-face pod-top" />
+                    <div className="pod-face pod-spine">
+                      <span className="pod-headband top" />
+                      <span className="pod-headband bottom" />
+                      <span className="pod-coil">
+                        <svg viewBox="0 0 20 320" preserveAspectRatio="none">
+                          {Array.from({ length: 13 }).map((_, i) => {
+                            const y = 16 + i * 23
+                            return (
+                              <g key={i} stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round">
+                                <circle cx="11" cy={y} r="2.4" />
+                                <path d={`M4 ${y - 6} C 15 ${y - 6}, 15 ${y + 6}, 4 ${y + 6}`} />
+                              </g>
+                            )
+                          })}
+                        </svg>
+                      </span>
                     </div>
-                    <div className="pod-face pod-top">
-                      {flash.key === 'paper' && <span className="pod-edge-shimmer" key={`ts${flash.n}`} />}
-                    </div>
-                    <div className="pod-face pod-spine" />
                     <div className="pod-face pod-front">
-                      <span className="pod-cover-frame" />
-                      <span className="pod-cover-mark" />
-                      <span className="pod-cover-gloss" />
-                      {flash.key === 'finish' && cfg.finish !== 'matte' && (
-                        <span className="pod-cover-sweep" key={`cs${flash.n}`} />
-                      )}
+                      <span className="pod-sheen" />
+                      <span className="pod-matte" />
                     </div>
                   </div>
                 </div>
               </div>
-              <p className="pod-preview-caption" key={`${cfg.format}|${cfg.size}|${cfg.finish}`}>
+              {Number(cfg.quantity) > 1 && (
+                <span className="pod-qty-badge">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 7h13v11H4zM8 7V4h13v11h-3" />
+                  </svg>
+                  {qtyLabel}
+                </span>
+              )}
+              <p className="pod-preview-caption">
                 {optLabel('format', cfg.format)}{t('build.previewCaptionSep')}
                 {optLabel('size', cfg.size)}{t('build.previewCaptionSep')}
                 {optLabel('finish', cfg.finish)}

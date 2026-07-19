@@ -81,7 +81,7 @@
   top: 84px;
   border-radius: var(--r-card);
   background:
-    radial-gradient(120% 92% at 50% 10%, #fdf8ec 0%, #f2ebdc 62%, #e9dfca 100%);
+    radial-gradient(120% 90% at 50% 12%, #fffdf8 0%, var(--beige) 62%, #e7ddca 100%);
   border: 1px solid var(--hair);
   box-shadow: 0 2px 14px rgba(15, 36, 68, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   padding: clamp(28px, 4vh, 46px) 24px;
@@ -103,180 +103,125 @@
   color: var(--gold-3);
 }
 
-/* ── the reactive CSS 3D book ─────────────────────────────────────────────────
-   Cover quality bar = the Flow render (flat deep navy, whisper of cloth, crisp
-   edges). Built from clean, non-overlapping faces: front cover · left spine ·
-   right fore-edge · top page-block · back. Geometry (--bw/--bh/--thick, cover
-   overhang, paper edge tint) is driven from PrintOnDemand.jsx; format/finish/
-   paper treatments hang off data-attributes. Every reshape eases in ~450ms so
-   each selection visibly transforms the book. */
+/* the CSS book — true 3D cuboid, faces built with the centred-face recipe */
 .pod-stage {
   position: relative;
+  perspective: 1900px;
   width: 100%;
-  perspective: 1500px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 0 4px;
+  padding: 40px 0 42px;
 }
-/* grounded contact shadow — tracks the book width, sits under it */
+/* grounded contact shadow beneath the book */
 .pod-stage::after {
   content: '';
   position: absolute;
-  bottom: 6px;
+  bottom: 14px;
   left: 50%;
-  width: 58%;
-  height: 24px;
+  width: 62%;
+  height: 26px;
   transform: translateX(-50%);
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(12, 22, 55, 0.32), rgba(12, 22, 55, 0));
-  filter: blur(4px);
+  background: radial-gradient(closest-side, rgba(15, 36, 68, 0.28), rgba(15, 36, 68, 0));
+  filter: blur(3px);
   z-index: 0;
-}
-/* idle-float wrapper — kept separate from the 3D transform so the gentle drift
-   never fights the reshape transitions on .pod-book */
-.pod-book-float {
-  position: relative;
-  z-index: 1;
-  animation: pod-bookfloat 6s ease-in-out infinite;
-  will-change: transform;
-}
-@keyframes pod-bookfloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
 }
 .pod-book {
   --bw: 210px;
-  --bh: 322px;
-  --thick: 22px;
+  --bh: 320px;
+  --thick: 34px;
   --edge: #f3ead4;
   --edge-line: rgba(15, 36, 68, 0.16);
-  /* cover size = page-block size (paperback); hardcover overrides to overhang */
-  --covw: var(--bw);
-  --covh: var(--bh);
-  --navy: #0e1b46;
   position: relative;
   width: var(--bw);
   height: var(--bh);
   transform-style: preserve-3d;
-  /* three-quarter: look down enough that the TOP page-block reads as a clear
-     band (so the paper recolor is obvious) + turn so the spine reveals on the
-     left, like the Flow render */
-  transform: rotateX(15deg) rotateY(26deg);
-  transition:
-    width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  /* positive rotateY reveals the SPINE (left face) so the binding choice —
+     perfect / sewn headband / wiro coil — visibly responds; the top edge still
+     shows the paper stock. */
+  transform: rotateX(6deg) rotateY(30deg);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+  animation: pod-float 9s ease-in-out infinite;
+  z-index: 1;
+}
+@keyframes pod-float {
+  0%, 100% { transform: rotateX(6deg) rotateY(30deg) translateY(0); }
+  50% { transform: rotateX(5deg) rotateY(26deg) translateY(-8px); }
 }
 .pod-face {
   position: absolute;
   top: 50%;
   left: 50%;
-  transition:
-    width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    border-radius 0.45s ease, background 0.3s ease;
 }
-
-/* front cover — flat navy + whisper of cloth, ONE crisp gold frame, small mark */
+/* front cover — the placeholder art, treated by finish */
 .pod-front {
-  width: var(--covw);
-  height: var(--covh);
-  margin-left: calc(var(--covw) / -2);
-  margin-top: calc(var(--covh) / -2);
+  width: var(--bw);
+  height: var(--bh);
+  margin-left: calc(var(--bw) / -2);
+  margin-top: calc(var(--bh) / -2);
   transform: translateZ(calc(var(--thick) / 2));
-  border-radius: 2px 8px 8px 2px;
+  border-radius: 3px 8px 8px 3px;
+  background-image: url('/qfp/pod/preview-base.webp');
+  background-size: cover;
+  background-position: center;
+  box-shadow:
+    inset 0 0 0 1px rgba(131, 96, 19, 0.25),
+    inset 22px 0 34px -22px rgba(15, 36, 68, 0.5); /* gutter shade near spine */
   overflow: hidden;
-  background:
-    radial-gradient(140% 120% at 22% 6%, rgba(255, 255, 255, 0.08), transparent 42%),
-    linear-gradient(145deg, #12224f 0%, #0e1b46 55%, #0b1638 100%);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
 }
-/* subtlest cloth tooth */
-.pod-front::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.28;
-  mix-blend-mode: soft-light;
-  background-image:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 3px);
-}
-/* ONE thin gold frame, single 1px line inset ~7% (no doubled/muddy echo) */
-.pod-cover-frame {
-  position: absolute;
-  inset: 7%;
-  pointer-events: none;
-  border: 1px solid rgba(202, 158, 74, 0.85);
-  border-radius: 1px;
-}
-/* small centred foil QFP mark, driven through a gold gradient via mask */
-.pod-cover-mark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 30%;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  background: linear-gradient(150deg, #f2d894 0%, #d1a044 40%, #a5771f 68%, #e6c574 100%);
-  -webkit-mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
-  mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
-  filter: drop-shadow(0 1px 0.5px rgba(4, 8, 22, 0.55));
-}
-/* persistent laminate sheen (gloss / lay-flat) — matte shows none */
-.pod-cover-gloss {
+/* finish sheen — gloss shows a hard specular sweep, lay-flat a soft one */
+.pod-sheen {
   position: absolute;
   inset: 0;
   pointer-events: none;
   opacity: 0;
-  background: linear-gradient(122deg, transparent 34%, rgba(255, 255, 255, 0.16) 50%, transparent 60%);
+  background: linear-gradient(
+    118deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.55) 46%,
+    rgba(255, 255, 255, 0.12) 52%,
+    transparent 66%
+  );
   transition: opacity 0.4s ease;
 }
-.pod-book[data-finish='gloss'] .pod-cover-gloss,
-.pod-book[data-finish='layflat'] .pod-cover-gloss { opacity: 1; }
-/* one-shot specular sweep on selecting a laminate finish (remounted by key) */
-.pod-cover-sweep {
+.pod-book[data-finish='gloss'] .pod-sheen { opacity: 1; }
+.pod-book[data-finish='layflat'] .pod-sheen { opacity: 0.45; }
+/* matte = a faint tooth wash instead of shine */
+.pod-matte {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(118deg, transparent 30%, rgba(255, 255, 255, 0.7) 47%, rgba(255,255,255,0.15) 55%, transparent 70%);
-  transform: translateX(-120%);
-  animation: pod-cover-sweep 650ms ease-out;
+  opacity: 0;
+  mix-blend-mode: multiply;
+  background: radial-gradient(120% 120% at 30% 20%, transparent 55%, rgba(15, 36, 68, 0.1) 100%);
+  transition: opacity 0.4s ease;
 }
-@keyframes pod-cover-sweep {
-  from { transform: translateX(-120%); }
-  to { transform: translateX(120%); }
-}
+.pod-book[data-finish='matte'] .pod-matte { opacity: 1; }
 
-/* back cover — plain navy board */
+/* back cover */
 .pod-back {
-  width: var(--covw);
-  height: var(--covh);
-  margin-left: calc(var(--covw) / -2);
-  margin-top: calc(var(--covh) / -2);
+  width: var(--bw);
+  height: var(--bh);
+  margin-left: calc(var(--bw) / -2);
+  margin-top: calc(var(--bh) / -2);
   transform: rotateY(180deg) translateZ(calc(var(--thick) / 2));
-  border-radius: 8px 2px 2px 8px;
-  background: linear-gradient(145deg, #0d1940, #0a1330);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+  border-radius: 8px 3px 3px 8px;
+  background: linear-gradient(135deg, #ece3d1, #ddd0b6);
 }
-/* right fore-edge — the page block, tinted by paper choice */
+/* fore-edge (right) — the page block, coloured by paper choice */
 .pod-fore {
   width: var(--thick);
   height: var(--bh);
   margin-left: calc(var(--thick) / -2);
   margin-top: calc(var(--bh) / -2);
   transform: rotateY(90deg) translateZ(calc(var(--bw) / 2));
-  border-radius: 0 2px 2px 0;
   background:
-    repeating-linear-gradient(180deg, var(--edge) 0 1.6px, var(--edge-line) 1.6px 2.2px);
-  overflow: hidden;
+    repeating-linear-gradient(180deg, var(--edge) 0 1.5px, var(--edge-line) 1.5px 2px);
+  border-radius: 0 2px 2px 0;
 }
-/* top page-block — same paper stock, this is the edge you look down onto. A
-   front-lit highlight keeps the paper colour bright so the recolor is obvious. */
+/* top edge — same paper stock */
 .pod-top {
   width: var(--bw);
   height: var(--thick);
@@ -284,70 +229,91 @@
   margin-top: calc(var(--thick) / -2);
   transform: rotateX(90deg) translateZ(calc(var(--bh) / 2));
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 70%),
-    repeating-linear-gradient(90deg, var(--edge) 0 1.7px, var(--edge-line) 1.7px 2.3px);
-  overflow: hidden;
+    repeating-linear-gradient(90deg, var(--edge) 0 1.5px, var(--edge-line) 1.5px 2px);
 }
-/* quick shimmer that sweeps the page block when paper changes (remounted by key) */
-.pod-edge-shimmer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(90deg, transparent 30%, rgba(255, 255, 255, 0.85) 50%, transparent 70%);
-  transform: translateX(-120%);
-  animation: pod-edge-shimmer 550ms ease-out;
-}
-@keyframes pod-edge-shimmer {
-  from { transform: translateX(-120%); }
-  to { transform: translateX(120%); }
-}
-
-/* left spine — ONE clean navy face, ONE gold stripe near the top */
+/* spine (left) — the binding treatment lives here */
 .pod-spine {
   width: var(--thick);
-  height: var(--covh);
+  height: var(--bh);
   margin-left: calc(var(--thick) / -2);
-  margin-top: calc(var(--covh) / -2);
+  margin-top: calc(var(--bh) / -2);
   transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2));
   border-radius: 2px 0 0 2px;
-  background:
-    /* single gold stripe near the top */
-    linear-gradient(180deg, transparent 12%, rgba(202, 158, 74, 0.92) 12% 15%, transparent 15%),
-    /* soft cylindrical shading so the navy reads round, no hard seams */
-    linear-gradient(90deg, rgba(0, 0, 0, 0.34), rgba(255, 255, 255, 0.05) 55%, rgba(0, 0, 0, 0.3)),
-    linear-gradient(90deg, #0f1e48, #0d1940);
+  background: linear-gradient(90deg, #6f5416, #B06F14 45%, #b98a2e 78%, #7a5b18);
+  box-shadow: inset 0 0 0 1px rgba(60, 43, 8, 0.5);
+}
+/* perfect binding = clean flat spine (default, above) */
+/* section-sewn = rounded spine + a coloured headband cap top & bottom */
+.pod-book[data-binding='sewn'] .pod-spine {
+  border-radius: 8px 0 0 8px;
+  background: linear-gradient(90deg, #5f4813, #93701f 30%, #c2933a 55%, #8c691c 80%, #5f4813);
+}
+.pod-headband {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, var(--gold-2) 0 2px, var(--navy) 2px 4px);
+  opacity: 0;
+  border-radius: 2px;
+}
+.pod-headband.top { top: 2px; }
+.pod-headband.bottom { bottom: 2px; }
+.pod-book[data-binding='sewn'] .pod-headband { opacity: 1; }
+/* wiro = a drawn twin-loop coil overlaying the spine */
+.pod-coil {
+  position: absolute;
+  inset: 0;
+  display: none;
+  color: #8a8069;
+}
+.pod-book[data-binding='wiro'] .pod-coil { display: block; }
+.pod-book[data-binding='wiro'] .pod-spine {
+  background: #efe9dc;
+  box-shadow: inset 0 0 0 1px rgba(15, 36, 68, 0.12);
+}
+.pod-coil svg { width: 100%; height: 100%; }
+
+/* hardcover = thicker boards that overhang the page block */
+.pod-book[data-format='hardcover'] .pod-front,
+.pod-book[data-format='hardcover'] .pod-back {
+  box-shadow:
+    inset 0 0 0 1px rgba(131, 96, 19, 0.3),
+    inset 22px 0 34px -22px rgba(15, 36, 68, 0.5),
+    0 0 0 3px rgba(15, 36, 68, 0.06); /* board rim */
+  border-radius: 2px 6px 6px 2px;
 }
 
-/* ── format treatments ──────────────────────────────────────────────────────── */
-/* paperback = softly rounded cover corners, flush block (default thickness) */
-.pod-book[data-format='paperback'] .pod-front { border-radius: 2px 12px 12px 2px; }
-.pod-book[data-format='paperback'] .pod-back { border-radius: 12px 2px 2px 12px; }
-/* hardcover = square case corners, boards overhang the block on every edge */
-.pod-book[data-format='hardcover'] {
-  --covw: calc(var(--bw) + 11px);
-  --covh: calc(var(--bh) + 16px);
+/* stacked copies behind, for quantity > 1 */
+.pod-stack-ghost {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px 8px 8px 3px;
+  background: linear-gradient(135deg, #efe6d4, #ddd0b6);
+  box-shadow: 0 1px 2px rgba(15, 36, 68, 0.14);
 }
-.pod-book[data-format='hardcover'] .pod-front,
-.pod-book[data-format='hardcover'] .pod-back { border-radius: 2px 4px 4px 2px; }
-/* a crisp lip where the overhanging board casts onto the fore-edge */
-.pod-book[data-format='hardcover'] .pod-front {
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.3),
-    2px 0 0 0 rgba(0, 0, 0, 0.28),
-    0 2px 0 0 rgba(0, 0, 0, 0.18);
+.pod-qty-badge {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: var(--r-chip);
+  background: var(--navy);
+  color: var(--cream);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 18px rgba(15, 36, 68, 0.22);
 }
 .pod-preview-caption {
-  margin: 14px 0 0;
+  margin: 8px 0 0;
   font-size: 12.5px;
   letter-spacing: 0.2px;
   color: rgba(28, 32, 25, 0.55);
   text-align: center;
-  animation: pod-capfade 400ms ease;
-}
-/* quick crossfade whenever the caption text changes (remounted via React key) */
-@keyframes pod-capfade {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 /* — CENTRE · the six step groups (scroll) — */
@@ -1070,17 +1036,10 @@
   .pod-opts.chips.qty { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* reduced motion — the book sits still and states JUMP instantly (still visibly
-   distinct, since geometry changes without transition); no sweeps or shimmer.
-   Spec pulse/pop/ping become a brief gold underline sweep under the value. */
+/* reduced motion — the book stops floating; selections already swap instantly.
+   The spec-row pulse/pop/ping become a brief gold underline under the value. */
 @media (prefers-reduced-motion: reduce) {
-  .pod-book-float { animation: none; }
-  .pod-book,
-  .pod-face { transition: none; }
-  .pod-cover-gloss { transition: none; }
-  .pod-cover-sweep,
-  .pod-edge-shimmer { display: none; }
-  .pod-preview-caption { animation: none; }
+  .pod-book { animation: none; }
   .pod-summary-row[data-flash],
   .pod-summary-row[data-flash] .pod-summary-val,
   .pod-summary-row[data-flash] .pod-flash-dot { animation: none; }
