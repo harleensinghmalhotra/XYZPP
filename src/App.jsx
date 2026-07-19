@@ -4,7 +4,6 @@ import Home from '@/pages/Home'
 import ShellPage from '@/pages/ShellPage'
 import OurStory from '@/pages/OurStory'
 import AboutUs2 from '@/pages/AboutUs2'
-import YooAbout from '@/pages/YooAbout'
 import Founder from '@/pages/Founder'
 import GlobalMarkets from '@/pages/GlobalMarkets'
 import PrintOnDemand from '@/pages/PrintOnDemand'
@@ -46,7 +45,6 @@ export default function App() {
 
         <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="/yoo" element={<YooAbout />} />
     </Routes>
   )
 }
