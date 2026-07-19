@@ -64,6 +64,10 @@
     "messagePlaceholder": "Format, nombre de pages, papier, reliure, quantité, pays de livraison, toutes les informations dont vous disposez.",
     "consent": "J'accepte que Quarterfold utilise ces informations pour répondre à ma demande et préparer un devis, conformément à la <1>politique de confidentialité</1>.",
     "submit": "Envoyer la demande",
+    "submitting": "Envoi…",
+    "retry": "Réessayer",
+    "errorTitle": "L'envoi a échoué.",
+    "errorText": "Une erreur s'est produite lors de l'envoi de votre demande. Veuillez réessayer ou écrivez-nous à <1>enquiry@quarterfoldltd.com</1>.",
     "dpa": "Nous utilisons uniquement les informations que vous envoyez ici pour répondre à votre demande et préparer votre devis. Nous ne vendons jamais vos données. Consultez notre <1>politique de confidentialité</1> pour savoir comment nous traitons vos données."
   },
   "enquiryTypes": {
@@ -86,9 +90,9 @@
     "summaryMany": "Le formulaire comporte {{count}} erreurs. Veuillez vérifier les champs signalés."
   },
   "success": {
-    "title": "Merci, votre demande est prête à être envoyée.",
-    "sub": "Votre application de messagerie devrait s'être ouverte avec tout le contenu pré-rempli. Si ce n'est pas le cas, utilisez le bouton ci-dessous et nous vous répondrons sous un jour ouvré.",
-    "button": "Ouvrir votre application de messagerie"
+    "title": "Merci — votre demande est en route.",
+    "sub": "Nous avons bien reçu votre message et vous répondrons sous un jour ouvré. Surveillez votre boîte de réception, ainsi que vos spams par précaution.",
+    "again": "Envoyer une autre demande"
   },
   "mailto": {
     "name": "Nom",

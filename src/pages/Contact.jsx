@@ -28,6 +28,12 @@ const WA_URL = `https://wa.me/${PHONE_TEL.replace('+', '')}`
 const MAPS_HEAD = 'https://www.google.com/maps/search/?api=1&query=Cyber+One+IT+Park+Sector+30A+Vashi+Navi+Mumbai+400703'
 const MAPS_FACTORY = 'https://www.google.com/maps/search/?api=1&query=Taloja+MIDC+Navi+Mumbai+410208'
 
+// Web3Forms — public-safe access key (delivery endpoint for the live enquiry form).
+// NOTE(WhatsApp): WA_URL points at the canonical business number above; no separate
+// WhatsApp Business line has been confirmed. If a dedicated WA number lands, swap it.
+const WEB3FORMS_KEY = '4f37deec-ff06-4475-ba51-8fe9df9b46b4'
+const WEB3FORMS_URL = 'https://api.web3forms.com/submit'
+
 // small stroke-draw line icons (24×24, authored so getTotalLength() can drive draw-on)
 let _k = 0
 const P = (d) => <path key={`p${_k++}`} className="ctc-draw" d={d} />
@@ -40,16 +46,18 @@ const ICONS = {
   quote: [P('M8 4h8a1.5 1.5 0 0 1 1.5 1.5V20l-2.5-1.6L12.5 20 10 18.4 7.5 20V5.5A1.5 1.5 0 0 1 8 4Z'), P('M9.5 8.5h5'), P('M9.5 12h5')],
 }
 
-// ── Quick-action tiles (GRB's action cards, reskinned) ──
-// `line` here holds only the hardcoded values (phone / emails); the human-readable
-// tiles (WhatsApp, quote) resolve their line via t(`tiles.<key>.line`). Kicker and
-// sub always come from the namespace.
-const TILES = [
-  { key: 'call', icon: 'phone', line: PHONE_DISPLAY, href: `tel:${PHONE_TEL}` },
-  { key: 'info', icon: 'mail', line: EMAIL_INFO, href: `mailto:${EMAIL_INFO}` },
-  { key: 'enq', icon: 'send', line: EMAIL_ENQ, href: `mailto:${EMAIL_ENQ}` },
-  { key: 'wa', icon: 'whatsapp', href: WA_URL, tone: 'olive', external: true },
-  { key: 'quote', icon: 'quote', href: '#enquiry', tone: 'gold' },
+// ── "The Desk" — one composed navy panel split by gold hairlines into channel
+// cells. Top row: three direct-reach cells (CALL / GENERAL / ENQUIRIES) whose value
+// is a hardcoded phone/email. Bottom row: two wider action cells (WHATSAPP / QUOTE)
+// whose value + note resolve via t(`tiles.<key>.line|sub`); label = t(`tiles.<key>.kicker`).
+const DESK_TOP = [
+  { key: 'call', icon: 'phone', value: PHONE_DISPLAY, href: `tel:${PHONE_TEL}` },
+  { key: 'info', icon: 'mail', value: EMAIL_INFO, href: `mailto:${EMAIL_INFO}` },
+  { key: 'enq', icon: 'send', value: EMAIL_ENQ, href: `mailto:${EMAIL_ENQ}` },
+]
+const DESK_BOTTOM = [
+  { key: 'wa', icon: 'whatsapp', href: WA_URL, external: true, action: true },
+  { key: 'quote', icon: 'quote', href: '#enquiry', action: true },
 ]
 
 // Enquiry-type option keys — the machine value (stored in form.enquiry / mailto) is
@@ -86,10 +94,17 @@ export default function Contact() {
 
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
-  const [submitted, setSubmitted] = useState(false)
-  const [mailtoUrl, setMailtoUrl] = useState('')
+  // 'idle' | 'submitting' | 'success' | 'error'
+  const [status, setStatus] = useState('idle')
   const [tab, setTab] = useState(0)
   const [openQ, setOpenQ] = useState('publishers-0')
+
+  // Desk seam geometry — the horizontal hairline sits at the boundary between the
+  // top (3-cell) and bottom (2-cell) rows; measured so the drawn SVG lines land on
+  // the real cell edges at any width / language.
+  const deskRef = useRef(null)
+  const deskTopRef = useRef(null)
+  const [seamY, setSeamY] = useState(50)
 
   // ── Prefill from /print-on-demand hand-off (URL ?spec= or router state.spec) ──
   useEffect(() => {
@@ -159,7 +174,22 @@ export default function Contact() {
     }
   }, [t, i18n.language])
 
-  // ── GSAP: tile-icon stroke-draw + light fade-up reveals (reduced-motion off) ──
+  // ── Desk seam geometry — keep the SVG horizontal hairline on the real row
+  // boundary at any width / language (native scroll, no ScrollTrigger needed). ──
+  useLayoutEffect(() => {
+    const measure = () => {
+      const d = deskRef.current, tr = deskTopRef.current
+      if (!d || !tr) return
+      const dh = d.getBoundingClientRect().height
+      const th = tr.getBoundingClientRect().height
+      if (dh > 0) setSeamY(Math.min(99, Math.max(1, (th / dh) * 100)))
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [i18n.language])
+
+  // ── GSAP: icon stroke-draw + desk hairline draw + light fade-up reveals ──
   useLayoutEffect(() => {
     const el = root.current
     if (!el) return
@@ -170,11 +200,33 @@ export default function Contact() {
         if (reduced) { gsap.set(p, { strokeDasharray: 'none', strokeDashoffset: 0 }); return }
         gsap.set(p, { strokeDasharray: L, strokeDashoffset: L })
       })
+      // desk hairlines — draw perimeter + interior seams on scroll-in
+      const desk = el.querySelector('.ctc-desk')
+      if (desk) {
+        const seams = desk.querySelectorAll('.ctc-seam')
+        seams.forEach((p) => {
+          const L = p.getTotalLength?.() || 0
+          if (!L) return
+          if (reduced) { gsap.set(p, { strokeDasharray: 'none', strokeDashoffset: 0 }); return }
+          gsap.set(p, { strokeDasharray: L, strokeDashoffset: L })
+        })
+        if (!reduced) {
+          gsap.to(seams, {
+            strokeDashoffset: 0, duration: 0.9, ease: 'power2.out', stagger: 0.08,
+            scrollTrigger: { trigger: desk, start: 'top 84%', once: true },
+          })
+          gsap.from(desk.querySelectorAll('.ctc-cell'), {
+            y: 22, autoAlpha: 0, duration: 0.7, ease: 'power2.out', stagger: 0.07, delay: 0.15,
+            scrollTrigger: { trigger: desk, start: 'top 84%', once: true },
+          })
+        }
+      }
       if (reduced) return
-      el.querySelectorAll('.ctc-tile').forEach((tile) => {
-        gsap.to(tile.querySelectorAll('.ctc-draw'), {
+      // channel-cell icons draw with the cells
+      el.querySelectorAll('.ctc-cell').forEach((cell) => {
+        gsap.to(cell.querySelectorAll('.ctc-draw'), {
           strokeDashoffset: 0, duration: 0.7, ease: 'power2.out', stagger: 0.06,
-          scrollTrigger: { trigger: tile, start: 'top 88%', once: true },
+          scrollTrigger: { trigger: cell, start: 'top 92%', once: true },
         })
       })
       gsap.utils.toArray('.ctc-reveal').forEach((node) => {
@@ -205,24 +257,10 @@ export default function Contact() {
     return e
   }
 
-  const buildMailto = () => {
-    const enquiryLabel = form.enquiry ? t(`enquiryTypes.${form.enquiry}`) : ''
-    const lines = [
-      `${t('mailto.name')}: ${form.first} ${form.last}`.trim(),
-      `${t('mailto.email')}: ${form.email}`,
-      form.phone && `${t('mailto.phone')}: ${form.phone}`,
-      form.company && `${t('mailto.company')}: ${form.company}`,
-      `${t('mailto.country')}: ${form.country}`,
-      `${t('mailto.enquiryType')}: ${enquiryLabel}`,
-      '',
-      form.message,
-    ].filter((l) => l !== false && l != null)
-    const subject = `${t('mailto.subject')}: ${enquiryLabel}, ${form.first} ${form.last}`.trim()
-    return `mailto:${EMAIL_ENQ}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`
-  }
-
-  const onSubmit = (ev) => {
+  const onSubmit = async (ev) => {
     ev.preventDefault()
+    // honeypot — a real user never fills this; if it's filled, feign success and drop.
+    const hp = ev.currentTarget?.elements?.botcheck?.value
     const e = validate()
     setErrors(e)
     if (Object.keys(e).length) {
@@ -232,13 +270,65 @@ export default function Contact() {
       root.current?.querySelector(`[name="${firstBad}"]`)?.focus()
       return
     }
-    // TODO(backend): POST this payload to the real enquiry endpoint once it exists
-    // (e.g. /api/enquiry). Until then we validate client-side, show the success
-    // state, and hand off to a prefilled mailto so nothing is lost.
-    const url = buildMailto()
-    setMailtoUrl(url)
-    setSubmitted(true)
-    window.location.href = url
+    if (hp) { setForm(initialForm); setStatus('success'); return }
+
+    setStatus('submitting')
+    const enquiryLabel = t(`enquiryTypes.${form.enquiry}`)
+    try {
+      const res = await fetch(WEB3FORMS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'Website Enquiry — Contact Form',
+          from_name: 'QFP Website',
+          botcheck: '',
+          name: `${form.first} ${form.last}`.trim(),
+          email: form.email,
+          phone: form.phone,
+          company: form.company,
+          country: form.country,
+          enquiry_type: enquiryLabel,
+          message: form.message,
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (res.ok && data.success) {
+        setForm(initialForm)
+        setErrors({})
+        setStatus('success')
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const renderCell = (cell) => {
+    const value = cell.value ?? t(`tiles.${cell.key}.line`)
+    const props = cell.external
+      ? { href: cell.href, target: '_blank', rel: 'noreferrer' }
+      : { href: cell.href }
+    return (
+      <a key={cell.key} className={`ctc-cell focus-ring${cell.action ? ' ctc-cell--action' : ''}`} {...props}>
+        <span className="ctc-cell-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">{ICONS[cell.icon]}</svg>
+        </span>
+        <span className="ctc-cell-label">{t(`tiles.${cell.key}.kicker`)}</span>
+        <span className="ctc-cell-value">
+          {value.includes('@')
+            ? (() => { const [u, d] = value.split('@'); return <>{u}@<wbr />{d}</> })()
+            : value}
+        </span>
+        <span className="ctc-cell-note">{t(`tiles.${cell.key}.sub`)}</span>
+        {cell.action && (
+          <span className="ctc-cell-arrow" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+          </span>
+        )}
+      </a>
+    )
   }
 
   const err = (name) =>
@@ -323,35 +413,28 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ── 4. QUICK-ACTION TILES ── */}
-      <section data-theme="light" className="ctc-tiles-sec relative overflow-hidden" aria-label={t('tiles.regionLabel')}>
+      {/* ── 4. THE DESK — one composed navy panel, gold hairlines, channel cells ── */}
+      <section data-theme="light" className="ctc-desk-sec relative overflow-hidden" aria-label={t('tiles.regionLabel')}>
         <PaperGrain />
-        <div className="ctc-tiles relative z-10">
-          {TILES.map((tile) => {
-            const props = tile.external
-              ? { href: tile.href, target: '_blank', rel: 'noreferrer' }
-              : { href: tile.href }
-            // Hardcoded (phone / email) line stays as-is; otherwise resolve via t().
-            const line = tile.line ?? t(`tiles.${tile.key}.line`)
-            return (
-              <a
-                key={tile.key}
-                className={`ctc-tile focus-ring${tile.tone ? ` ctc-tile-${tile.tone}` : ''}`}
-                {...props}
-              >
-                <span className="ctc-tile-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">{ICONS[tile.icon]}</svg>
-                </span>
-                <span className="ctc-tile-kicker">{t(`tiles.${tile.key}.kicker`)}</span>
-                <span className="ctc-tile-line">
-                  {line.includes('@')
-                    ? (() => { const [u, d] = line.split('@'); return <>{u}@<wbr />{d}</> })()
-                    : line}
-                </span>
-                <span className="ctc-tile-sub">{t(`tiles.${tile.key}.sub`)}</span>
-              </a>
-            )
-          })}
+        <div className="ctc-desk-wrap relative z-10">
+          <p className="ctc-eyebrow ctc-reveal">{t('tiles.regionLabel')}</p>
+          <div className="ctc-desk" ref={deskRef}>
+            {/* drawn hairlines — perimeter + interior seams land on the real cell edges */}
+            <svg className="ctc-desk-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <rect className="ctc-seam" x="0.4" y="0.4" width="99.2" height="99.2" />
+              <path className="ctc-seam" d={`M0 ${seamY} H100`} />
+              <path className="ctc-seam" d={`M33.333 0 V${seamY}`} />
+              <path className="ctc-seam" d={`M66.666 0 V${seamY}`} />
+              <path className="ctc-seam" d={`M50 ${seamY} V100`} />
+            </svg>
+
+            <div className="ctc-desk-row ctc-desk-row--top" ref={deskTopRef}>
+              {DESK_TOP.map((cell) => renderCell(cell))}
+            </div>
+            <div className="ctc-desk-row ctc-desk-row--bottom">
+              {DESK_BOTTOM.map((cell) => renderCell(cell))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -426,7 +509,7 @@ export default function Contact() {
             </p>
           </div>
 
-          {submitted ? (
+          {status === 'success' ? (
             <div className="ctc-success" role="status" aria-live="polite">
               <span className="ctc-success-mark" aria-hidden="true">
                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 4.5 4.5L19 7" /></svg>
@@ -435,12 +518,14 @@ export default function Contact() {
               <p className="ctc-success-sub">
                 {t('success.sub')}
               </p>
-              <a className="u-btn u-btn--solid" href={mailtoUrl || `mailto:${EMAIL_ENQ}`}>
-                {t('success.button')}
-              </a>
+              <button type="button" className="u-btn u-btn--outline" onClick={() => setStatus('idle')}>
+                {t('success.again')}
+              </button>
             </div>
           ) : (
             <form className="ctc-form" onSubmit={onSubmit} noValidate>
+              {/* honeypot — kept off-screen; a filled value means a bot */}
+              <input type="text" name="botcheck" className="ctc-hp" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               {/* aria-live summary so screen readers hear when a submit fails */}
               <div className="sr-only" role="alert" aria-live="assertive">
                 {Object.keys(errors).length
@@ -525,9 +610,27 @@ export default function Contact() {
               </div>
               {err('consent')}
 
-              <button type="submit" className="u-btn u-btn--solid">
-                {t('form.submit')}
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m11 5 7 7-7 7" /></svg>
+              {status === 'error' && (
+                <div className="ctc-formerr" role="alert" aria-live="assertive">
+                  <span className="ctc-formerr-mark" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 8v5" /><path d="M12 16h0" /><circle cx="12" cy="12" r="9" /></svg>
+                  </span>
+                  <span>
+                    <strong>{t('form.errorTitle')}</strong>
+                    <Trans t={t} i18nKey="form.errorText" components={{ 1: <a href={`mailto:${EMAIL_ENQ}`} /> }} />
+                  </span>
+                </div>
+              )}
+
+              <button type="submit" className="u-btn u-btn--solid" disabled={status === 'submitting'} aria-busy={status === 'submitting'}>
+                {status === 'submitting' ? (
+                  <><span className="ctc-spin" aria-hidden="true" />{t('form.submitting')}</>
+                ) : (
+                  <>
+                    {status === 'error' ? t('form.retry') : t('form.submit')}
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m11 5 7 7-7 7" /></svg>
+                  </>
+                )}
               </button>
 
               <p className="ctc-dpa">

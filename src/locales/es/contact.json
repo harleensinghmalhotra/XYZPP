@@ -64,6 +64,10 @@
     "messagePlaceholder": "Formato, número de páginas, papel, encuadernación, cantidad, país de entrega, lo que tenga.",
     "consent": "Acepto que Quarterfold utilice estos datos para responder a mi consulta y preparar un presupuesto, conforme a la <1>Política de privacidad</1>.",
     "submit": "Enviar consulta",
+    "submitting": "Enviando…",
+    "retry": "Reintentar",
+    "errorTitle": "No se pudo enviar.",
+    "errorText": "Algo salió mal al enviar su consulta. Vuelva a intentarlo o escríbanos a <1>enquiry@quarterfoldltd.com</1>.",
     "dpa": "Solo utilizamos lo que envía aquí para responder a su consulta y preparar su presupuesto. Nunca vendemos sus datos. Consulte nuestra <1>Política de privacidad</1> para saber cómo tratamos su información."
   },
   "enquiryTypes": {
@@ -86,9 +90,9 @@
     "summaryMany": "Hay {{count}} problemas con el formulario. Revise los campos resaltados."
   },
   "success": {
-    "title": "Gracias, su consulta está lista para enviar.",
-    "sub": "Su aplicación de correo debería haberse abierto con todo cumplimentado. Si no fue así, use el botón de abajo y le responderemos en un día laborable.",
-    "button": "Abrir su aplicación de correo"
+    "title": "Gracias — su consulta está en camino.",
+    "sub": "Hemos recibido su mensaje y le responderemos en un día laborable. Esté atento a su bandeja de entrada, y a la carpeta de spam por si acaso.",
+    "again": "Enviar otra consulta"
   },
   "mailto": {
     "name": "Nombre",

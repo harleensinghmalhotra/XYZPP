@@ -64,6 +64,10 @@
     "messagePlaceholder": "Trim size, page count, paper, binding, quantity, delivery country, whatever you have.",
     "consent": "I agree that Quarterfold may use these details to respond to my enquiry and prepare a quotation, in line with the <1>Privacy Policy</1>.",
     "submit": "Send enquiry",
+    "submitting": "Sending…",
+    "retry": "Try again",
+    "errorTitle": "That didn't send.",
+    "errorText": "Something went wrong sending your enquiry. Please try again, or email us at <1>enquiry@quarterfoldltd.com</1>.",
     "dpa": "We only use what you send here to reply to your enquiry and prepare your quotation. We never sell your details. See our <1>Privacy Policy</1> for how we handle your data."
   },
   "enquiryTypes": {
@@ -86,9 +90,9 @@
     "summaryMany": "There are {{count}} problems with the form. Please review the highlighted fields."
   },
   "success": {
-    "title": "Thank you, your enquiry is ready to send.",
-    "sub": "Your email app should have opened with everything filled in. If it didn't, use the button below and we'll reply within one business day.",
-    "button": "Open your email app"
+    "title": "Thank you — your enquiry is on its way.",
+    "sub": "We've received your message and will reply within one business day. Keep an eye on your inbox, and your spam folder just in case.",
+    "again": "Send another enquiry"
   },
   "mailto": {
     "name": "Name",

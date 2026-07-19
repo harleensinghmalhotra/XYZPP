@@ -781,6 +781,58 @@
 }
 .pod-summary-note a { color: var(--gold-2); text-decoration: underline; text-underline-offset: 2px; }
 
+/* Request-this-book — minimal contact step inside the navy summary card, then a
+   direct Web3Forms submit. Light fields on navy for legibility; on-palette states. */
+.pod-hp {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.pod-req { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; text-align: left; }
+.pod-req-title {
+  margin: 0 0 2px; font-family: 'DM Mono', monospace; font-size: 11px;
+  letter-spacing: 1px; text-transform: uppercase; color: var(--gold-2);
+}
+.pod-req-field { display: flex; flex-direction: column; gap: 6px; }
+.pod-req-field label {
+  font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 500; color: rgba(253, 250, 244, 0.82);
+}
+.pod-req-field input, .pod-req-field textarea {
+  width: 100%; padding: 10px 12px; border-radius: var(--r-chip);
+  background: #fdfaf4; border: 1px solid rgba(253, 250, 244, 0.22);
+  font-family: 'Inter', sans-serif; font-size: 14px; color: #1c2019;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.pod-req-field textarea { resize: vertical; min-height: 64px; line-height: 1.5; }
+.pod-req-field input::placeholder, .pod-req-field textarea::placeholder { color: #9a927f; }
+.pod-req-field input:focus-visible, .pod-req-field textarea:focus-visible {
+  outline: none; border-color: var(--gold-2); box-shadow: 0 0 0 3px rgb(var(--gold-2-rgb) / 0.3);
+}
+.pod-req-field input[aria-invalid="true"] { border-color: #E8B45F; box-shadow: 0 0 0 3px rgba(232, 180, 95, 0.22); }
+.pod-req-err { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #E8B45F; }
+.pod-req-error { margin: 2px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: #E8B45F; }
+.pod-req-error a { color: #E8B45F; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
+.pod-req .u-btn { margin-top: 2px; }
+.pod-req-cancel {
+  align-self: center; background: none; border: none; cursor: pointer; padding: 4px;
+  font-family: 'Inter', sans-serif; font-size: 12.5px; color: rgba(253, 250, 244, 0.6);
+  text-decoration: underline; text-underline-offset: 2px;
+}
+.pod-req-cancel:hover { color: rgba(253, 250, 244, 0.9); }
+.pod-spin {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid rgba(14, 27, 70, 0.3); border-top-color: var(--navy);
+  animation: pod-spin 0.7s linear infinite;
+}
+@keyframes pod-spin { to { transform: rotate(360deg); } }
+.pod-req-done { text-align: center; padding: 6px 4px; }
+.pod-req-check {
+  display: inline-grid; place-items: center; width: 46px; height: 46px; margin-bottom: 12px;
+  border-radius: 50%; background: rgb(var(--gold-2-rgb) / 0.18); color: var(--gold-2);
+}
+.pod-req-done-title { margin: 0 0 6px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; color: #fdfaf4; }
+.pod-req-done-sub { margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.55; color: rgba(253, 250, 244, 0.72); }
+@media (prefers-reduced-motion: reduce) { .pod-spin { animation: none; } }
+
 /* ── 3 · HOW IT WORKS ────────────────────────────────────────────────────────── */
 .pod-how {
   position: relative;

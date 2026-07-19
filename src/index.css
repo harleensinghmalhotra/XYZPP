@@ -3726,51 +3726,69 @@ body {
   font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.6; color: #4a4436;
 }
 
-/* ── 4. QUICK-ACTION TILES ── */
-.ctc-tiles-sec { background: #fdfaf4; padding: 40px 24px 104px; }
-.ctc-tiles {
-  max-width: 1280px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
+/* ── 4. THE DESK — one composed navy panel, split by gold hairlines into channel
+   cells. Top row: 3 direct-reach cells; bottom row: 2 wider action cells. Hairlines
+   are drawn (SVG, non-scaling-stroke) so they land on real edges at any width. ── */
+.ctc-desk-sec { background: #fdfaf4; padding: 40px 24px 104px; }
+.ctc-desk-wrap { max-width: 1180px; margin: 0 auto; }
+.ctc-desk-wrap .ctc-eyebrow { text-align: center; }
+.ctc-desk {
+  position: relative;
+  border-radius: var(--r-card); overflow: hidden;
+  background: var(--navy);
+  box-shadow: 0 30px 70px -34px rgb(var(--navy-rgb) / 0.55);
 }
-.ctc-tile {
-  display: flex; flex-direction: column;
-  min-height: 214px; padding: 26px 22px 26px;
-  border-radius: var(--r-card); background: #fffffc;
-  border: 1px solid rgb(var(--navy-rgb) / 0.08);
-  box-shadow: 0 2px 16px rgb(var(--navy-rgb) / 0.05);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* drawn hairlines overlay — border + interior seams */
+.ctc-desk-lines {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: 3; pointer-events: none; overflow: visible;
 }
-.ctc-tile:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgb(var(--navy-rgb) / 0.13); }
-.ctc-tile-icon { margin-bottom: 16px; }
-.ctc-tile-icon svg { width: 40px; height: 40px; display: block; }
-.ctc-tile-icon svg .ctc-draw {
-  fill: none; stroke: var(--gold); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+.ctc-seam {
+  fill: none; stroke: rgb(var(--gold-2-rgb) / 0.25); stroke-width: 1;
+  vector-effect: non-scaling-stroke;
 }
-.ctc-tile-kicker {
-  margin-bottom: 8px;
-  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.16em;
-  text-transform: uppercase; color: #9d6f14;
+.ctc-desk-row { display: grid; position: relative; z-index: 1; }
+.ctc-desk-row--top { grid-template-columns: repeat(3, 1fr); }
+.ctc-desk-row--bottom { grid-template-columns: repeat(2, 1fr); }
+.ctc-cell {
+  position: relative; display: flex; flex-direction: column;
+  min-height: 200px; padding: clamp(26px, 3vw, 40px);
+  background: var(--navy); color: #fdfaf4;
+  transition: background 0.35s ease;
 }
-.ctc-tile-line {
-  font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16.5px;
-  line-height: 1.24; letter-spacing: -0.015em; color: var(--navy); overflow-wrap: anywhere;
+.ctc-cell::after { content: none; }
+.ctc-cell:hover, .ctc-cell:focus-visible { background: rgb(253 250 244 / 0.04); }
+.ctc-cell-icon { margin-bottom: 18px; }
+.ctc-cell-icon svg { width: 28px; height: 28px; display: block; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+.ctc-cell-icon svg .ctc-draw {
+  fill: none; stroke: var(--gold-2); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
 }
-.ctc-tile-sub {
-  margin-top: auto; padding-top: 10px;
-  font-family: 'Inter', sans-serif; font-size: 13.5px; line-height: 1.45; color: #4a4436;
+.ctc-cell:hover .ctc-cell-icon svg, .ctc-cell:focus-visible .ctc-cell-icon svg { transform: translateY(-3px); }
+.ctc-cell-label {
+  margin-bottom: 12px;
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold-2);
 }
-/* olive WhatsApp tile — cream text on darker olive (≥5.6:1) */
-.ctc-tile-olive { background: var(--olive-deep); border-color: transparent; }
-.ctc-tile-olive .ctc-tile-icon svg .ctc-draw { stroke: #fdfaf4; }
-.ctc-tile-olive .ctc-tile-kicker { color: #f0f2df; }
-.ctc-tile-olive .ctc-tile-line { color: #fdfaf4; }
-.ctc-tile-olive .ctc-tile-sub { color: rgba(253, 250, 244, 0.9); }
-/* gold "Request a Quote" tile — navy text on gold-2 */
-.ctc-tile-gold { background: var(--gold-2); border-color: transparent; }
-.ctc-tile-gold .ctc-tile-icon svg .ctc-draw { stroke: var(--navy); }
-.ctc-tile-gold .ctc-tile-kicker { color: var(--navy); }
-.ctc-tile-gold .ctc-tile-line { color: var(--navy); }
-.ctc-tile-gold .ctc-tile-sub { color: rgb(var(--navy-rgb) / 0.82); }
+.ctc-cell-value {
+  font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: clamp(18px, 1.6vw, 21px); line-height: 1.2; letter-spacing: -0.015em;
+  color: #fdfaf4; overflow-wrap: anywhere; transition: color 0.3s ease;
+}
+.ctc-cell:hover .ctc-cell-value, .ctc-cell:focus-visible .ctc-cell-value { color: var(--gold-2); }
+.ctc-cell-note {
+  margin-top: 10px; max-width: 30ch;
+  font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.5;
+  color: rgb(253 250 244 / 0.65);
+}
+/* action cells (WhatsApp / Quote) — arrow that nudges on hover */
+.ctc-cell--action .ctc-cell-note { margin-bottom: 34px; }
+.ctc-cell-arrow {
+  position: absolute; right: clamp(26px, 3vw, 40px); bottom: clamp(26px, 3vw, 40px);
+  display: inline-flex; color: var(--gold-2);
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.ctc-cell--action:hover .ctc-cell-arrow, .ctc-cell--action:focus-visible .ctc-cell-arrow { transform: translateX(6px); }
+.ctc-cell:focus-visible { outline: 2px solid var(--gold-2); outline-offset: -3px; border-radius: 2px; }
 
 /* ── 5. ADDRESSES & HOURS (navy) ── */
 .ctc-addr {
@@ -3906,6 +3924,35 @@ body {
   font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.55; color: #6b6455;
 }
 .ctc-dpa a { color: #9d6f14; text-decoration: underline; text-underline-offset: 2px; }
+/* honeypot — visually and AT-hidden, but present in the DOM for bots to trip on */
+.ctc-hp {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+/* submitting spinner (System-B, navy button → cream ring) */
+.ctc-spin {
+  width: 17px; height: 17px; border-radius: 50%;
+  border: 2px solid rgb(253 250 244 / 0.35); border-top-color: #fdfaf4;
+  animation: ctc-spin 0.7s linear infinite;
+}
+@keyframes ctc-spin { to { transform: rotate(360deg); } }
+.u-btn[aria-busy='true'] { opacity: 0.85; cursor: progress; }
+.u-btn:disabled { cursor: not-allowed; }
+/* inline error banner — retry, data preserved (amber-ink, not red; on-palette) */
+.ctc-formerr {
+  display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start;
+  margin: 22px 0 4px; padding: 16px 18px; border-radius: var(--r-chip);
+  background: rgba(94, 70, 16, 0.06); border: 1px solid rgba(94, 70, 16, 0.34);
+}
+.ctc-formerr-mark { color: #5e4610; margin-top: 1px; display: inline-flex; }
+.ctc-formerr strong {
+  display: block; margin-bottom: 3px;
+  font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 14.5px; color: #4a3708;
+}
+.ctc-formerr span:last-child, .ctc-formerr span:last-child {
+  font-family: 'Inter', sans-serif; font-size: 13.5px; line-height: 1.5; color: #5e4610;
+}
+.ctc-formerr a { color: #5e4610; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
 /* success state */
 .ctc-success {
   padding: 44px 40px; border-radius: var(--r-card); background: #fdfaf4; text-align: center;
@@ -3990,7 +4037,6 @@ body {
 
 /* ── Responsive ── */
 @media (max-width: 1080px) {
-  .ctc-tiles { grid-template-columns: repeat(3, 1fr); }
   .ctc-form-inner { grid-template-columns: 1fr; gap: 36px; }
   .ctc-form-intro { position: static; }
   .ctc-addr-grid { grid-template-columns: 1fr; }
@@ -4002,13 +4048,21 @@ body {
   .ctc-hero { padding-top: 120px; }
   .ctc-loc-grid { grid-template-columns: 1fr; gap: 26px; }
   .ctc-loc-item + .ctc-loc-item { padding-left: 0; border-left: 0; padding-top: 24px; border-top: 1px solid rgba(253, 250, 244, 0.12); }
-  .ctc-tiles { grid-template-columns: 1fr; }
+  /* Desk stacks to a single column — drawn SVG seams (33/66/50% verticals) no longer
+     map to the layout, so hide them and seam the stacked cells with CSS borders. */
+  .ctc-desk-row--top, .ctc-desk-row--bottom { grid-template-columns: 1fr; }
+  .ctc-desk-lines { display: none; }
+  .ctc-desk { border: 1px solid rgb(var(--gold-2-rgb) / 0.25); }
+  .ctc-cell + .ctc-cell,
+  .ctc-desk-row--bottom .ctc-cell:first-child { border-top: 1px solid rgb(var(--gold-2-rgb) / 0.25); }
   .ctc-row { grid-template-columns: 1fr; gap: 0; }
   .ctc-row .ctc-field { margin-bottom: 18px; }
   .ctc-tab + .ctc-tab { margin-left: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ctc-tile, .ctc-map-btn, .ctc-submit, .ctc-btn, .ctc-addr-link { transition: none; }
+  .ctc-cell, .ctc-cell-icon svg, .ctc-cell-value, .ctc-cell-arrow,
+  .ctc-map-btn, .ctc-submit, .ctc-btn, .ctc-addr-link { transition: none; }
+  .ctc-spin { animation: none; }
 }
 
 /* ════════════════════════════════════════════════════════════════════════════

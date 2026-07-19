@@ -131,8 +131,21 @@ function OptionGroup({ groupId, labelId, options, value, onChange, className, ch
   )
 }
 
+/* Web3Forms — public-safe access key (same live endpoint as the Contact form). The
+   "Request This Book" step posts the full builder spec + a minimal name/email/notes. */
+const WEB3FORMS_KEY = '4f37deec-ff06-4475-ba51-8fe9df9b46b4'
+const WEB3FORMS_URL = 'https://api.web3forms.com/submit'
+const EMAIL_ENQ = 'enquiry@quarterfoldltd.com'
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export default function PrintOnDemand() {
   const { t } = useTranslation('printOnDemand')
+  // "Request This Book" — reveal a minimal contact step, then post spec to Web3Forms.
+  const [reqOpen, setReqOpen] = useState(false)
+  const [reqStatus, setReqStatus] = useState('idle') // idle | submitting | success | error
+  const [req, setReq] = useState({ name: '', email: '', notes: '' })
+  const [reqErr, setReqErr] = useState({})
+  const reqRef = useRef(null)
   const [cfg, setCfg] = useState({
     format: 'paperback',
     size: '6x9',
@@ -195,6 +208,55 @@ export default function PrintOnDemand() {
     ['finish', optLabel('finish', cfg.finish), t(`options.finish.${cfg.finish}.sub`)],
     ['quantity', optLabel('quantity', cfg.quantity), t(`options.quantity.${cfg.quantity}.sub`)],
   ]
+
+  const setReqField = (k, v) => {
+    setReq((r) => ({ ...r, [k]: v }))
+    if (reqErr[k]) setReqErr((e) => { const n = { ...e }; delete n[k]; return n })
+  }
+
+  const submitReq = async (ev) => {
+    ev.preventDefault()
+    const hp = ev.currentTarget?.elements?.botcheck?.value
+    const e = {}
+    if (!req.name.trim()) e.name = t('summary.reqErrName')
+    if (!req.email.trim()) e.email = t('summary.reqErrEmail')
+    else if (!EMAIL_RE.test(req.email.trim())) e.email = t('summary.reqErrEmailInvalid')
+    setReqErr(e)
+    if (Object.keys(e).length) {
+      reqRef.current?.querySelector('[aria-invalid="true"]')?.focus()
+      return
+    }
+    if (hp) { setReqStatus('success'); return }
+    setReqStatus('submitting')
+    const spec = summaryRows.map(([k, v]) => `${t(`summary.keys.${k}`)}: ${v}`).join('\n')
+    try {
+      const res = await fetch(WEB3FORMS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'Print on Demand Request',
+          from_name: 'QFP Website',
+          botcheck: '',
+          name: req.name,
+          email: req.email,
+          notes: req.notes,
+          format: optLabel('format', cfg.format),
+          size: optLabel('size', cfg.size),
+          paper: optLabel('paper', cfg.paper),
+          binding: optLabel('binding', cfg.binding),
+          finish: optLabel('finish', cfg.finish),
+          quantity: optLabel('quantity', cfg.quantity),
+          message: `Print on Demand — book specification\n${spec}\n\nNotes: ${req.notes || '—'}`,
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (res.ok && data.success) setReqStatus('success')
+      else setReqStatus('error')
+    } catch {
+      setReqStatus('error')
+    }
+  }
 
   return (
     <main id="main" className="pod">
@@ -413,14 +475,70 @@ export default function PrintOnDemand() {
                   </li>
                 ))}
               </ul>
-              <Link to={contactHref} className="u-btn u-btn--gold w-full justify-center">
-                {t('summary.request')}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                </svg>
-              </Link>
+              {reqStatus === 'success' ? (
+                <div className="pod-req-done" role="status" aria-live="polite">
+                  <span className="pod-req-check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 4.5 4.5L19 7" /></svg>
+                  </span>
+                  <p className="pod-req-done-title">{t('summary.reqSuccessTitle')}</p>
+                  <p className="pod-req-done-sub">{t('summary.reqSuccess')}</p>
+                </div>
+              ) : reqOpen ? (
+                <form className="pod-req" ref={reqRef} onSubmit={submitReq} noValidate>
+                  <p className="pod-req-title">{t('summary.reqTitle')}</p>
+                  <input type="text" name="botcheck" className="pod-hp" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+                  <div className="pod-req-field">
+                    <label htmlFor="pod-req-name">{t('summary.reqName')}</label>
+                    <input id="pod-req-name" name="name" type="text" autoComplete="name"
+                      value={req.name} onChange={(e) => setReqField('name', e.target.value)}
+                      aria-invalid={reqErr.name ? 'true' : undefined}
+                      aria-describedby={reqErr.name ? 'pod-req-name-e' : undefined} />
+                    {reqErr.name && <span className="pod-req-err" id="pod-req-name-e">{reqErr.name}</span>}
+                  </div>
+                  <div className="pod-req-field">
+                    <label htmlFor="pod-req-email">{t('summary.reqEmail')}</label>
+                    <input id="pod-req-email" name="email" type="email" autoComplete="email"
+                      value={req.email} onChange={(e) => setReqField('email', e.target.value)}
+                      aria-invalid={reqErr.email ? 'true' : undefined}
+                      aria-describedby={reqErr.email ? 'pod-req-email-e' : undefined} />
+                    {reqErr.email && <span className="pod-req-err" id="pod-req-email-e">{reqErr.email}</span>}
+                  </div>
+                  <div className="pod-req-field">
+                    <label htmlFor="pod-req-notes">{t('summary.reqNotes')}</label>
+                    <textarea id="pod-req-notes" name="notes" rows={3}
+                      value={req.notes} onChange={(e) => setReqField('notes', e.target.value)}
+                      placeholder={t('summary.reqNotesPlaceholder')} />
+                  </div>
+                  {reqStatus === 'error' && (
+                    <p className="pod-req-error" role="alert" aria-live="assertive">
+                      <Trans t={t} i18nKey="summary.reqError" components={{ 1: <a href={`mailto:${EMAIL_ENQ}`} /> }} />
+                    </p>
+                  )}
+                  <button type="submit" className="u-btn u-btn--gold w-full justify-center"
+                    disabled={reqStatus === 'submitting'} aria-busy={reqStatus === 'submitting'}>
+                    {reqStatus === 'submitting' ? (
+                      <><span className="pod-spin" aria-hidden="true" />{t('summary.reqSending')}</>
+                    ) : (
+                      <>
+                        {reqStatus === 'error' ? t('summary.reqRetry') : t('summary.reqSend')}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                      </>
+                    )}
+                  </button>
+                  <button type="button" className="pod-req-cancel" onClick={() => setReqOpen(false)}>
+                    {t('summary.reqCancel')}
+                  </button>
+                </form>
+              ) : (
+                <button type="button" className="u-btn u-btn--gold w-full justify-center" onClick={() => setReqOpen(true)}>
+                  {t('summary.request')}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                  </svg>
+                </button>
+              )}
               <p className="pod-summary-note">
-                <Trans t={t} i18nKey="summary.note" components={{ 1: <Link to="/contact" /> }} />
+                <Trans t={t} i18nKey="summary.note" components={{ 1: <Link to={contactHref} /> }} />
               </p>
             </aside>
           </div>
