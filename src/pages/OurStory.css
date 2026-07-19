@@ -1,3 +1,7 @@
+/* Fraunces — YOO's italic-serif accent face (open-source; our copy, not YOO's).
+   Loaded here so it stays within /about territory (index.html is out of lane). */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap');
+
 /* ── /about — "Our Story" v5, YOO DELTA APPLIED WHOLESALE ─────────────────────
    Every value here is the measured YOO (yoointerior.com/about) figure from the
    D:\tmp\yoo-about-mirror study, mapped 1:1 onto our fonts + palette + copy.
@@ -25,6 +29,18 @@
   --ab-max: 1632px;                          /* YOO --about-content-max-width */
   --ab-gut: clamp(24px, 5.392vw, 48px);      /* YOO gutter 24 → 48 */
   --ab-sec: clamp(96px, 12vh, 120px);        /* per-section block → ≥192px boundary */
+  --ab-accent: #b04a2c;                      /* YOO-style warm rust for serif accents */
+}
+
+/* YOO's italic-serif accent word — swaps the sans run for Fraunces italic in warm
+   rust, optical settings echoing YOO's SOFT/WONK. Applied to accent words only. */
+.ab-accent {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: 'SOFT' 0, 'WONK' 1;
+  letter-spacing: -0.01em;
+  color: var(--ab-accent);
 }
 
 /* ── SECTION 1 — GIANT HERO (flat #0e1b46; YOO hero geometry) ────────────────
@@ -38,6 +54,19 @@
   min-height: 720px;              /* YOO .about-hero min-height */
   overflow: hidden;
 }
+/* Photo-ready hero, YOO-style: drop a Quarterfold-owned image in by setting
+   --ab-hero-photo: url('/your-photo.webp') and --ab-hero-overlay: .55 on .ab-hero.
+   With no photo the overlay is fully opaque navy — visually identical to a flat band. */
+.ab-hero::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background-image: var(--ab-hero-photo, none);
+  background-size: cover; background-position: center;
+}
+.ab-hero::after {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background: rgb(14 27 70 / var(--ab-hero-overlay, 1));
+}
+.ab-hero-inner, .ab-hero .ab-scroll { z-index: 1; }
 
 /* the centered block owns YOO's title geometry (top/left 50% + translate, width cap) */
 .ab-hero-inner {
@@ -126,9 +155,17 @@
   padding: var(--ab-sec) var(--ab-gut);
   overflow: hidden;
 }
+/* YOO offset layout — big heading left, small text block dropped to the right */
+.ab-statement-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: clamp(40px, 5vw, 112px);
+  align-items: end;
+}
+.ab-statement-side { max-width: 460px; }
 .ab-statement-h1 {
   margin: 0;
-  max-width: 1078px;                /* YOO heading-row max-width */
+  max-width: 16ch;                  /* YOO heading-row measure */
   font-family: 'Inter Tight', sans-serif;
   font-weight: 400;                 /* YOO 300 → lightest loaded */
   font-size: clamp(40px, 4.6vw, 88px);   /* YOO ~4.6vw statement, 88px cap */
@@ -368,6 +405,8 @@
   .ab-hero { min-height: 640px; }             /* YOO mobile hero floor */
   .ab-hero-display { font-size: 56px; }       /* YOO mobile title */
   .ab-scroll { bottom: 24px; }                /* YOO mobile scroll cue */
+  .ab-statement-grid { grid-template-columns: 1fr; gap: clamp(28px, 7vw, 44px); align-items: start; }
+  .ab-statement-side { max-width: 640px; }
   .ab-statement-lede, .ab-founder-bio { font-size: 19px; }
   .ab-founder-grid { grid-template-columns: 1fr; gap: clamp(36px, 8vw, 56px); }
   .ab-portrait { max-width: 360px; }

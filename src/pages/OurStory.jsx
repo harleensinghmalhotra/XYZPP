@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { useTranslation, Trans } from 'react-i18next'
 import { useState, useEffect, useRef } from 'react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
@@ -50,10 +50,18 @@ export default function OurStory() {
           rule + lede. YOO's "a great team finds a way to win" beat. ───────────── */}
       <section data-theme="light" className="ab-statement" aria-labelledby="about-h1">
         <PaperGrain />
-        <div className="ab-wrap">
-          <h1 id="about-h1" className="ab-statement-h1" data-textreveal>{t('hero.title')}</h1>
-          <hr className="ab-statement-rule" data-reveal aria-hidden="true" />
-          <p className="ab-statement-lede" data-reveal>{t('hero.lede')}</p>
+        <div className="ab-wrap ab-statement-grid">
+          {/* data-reveal (whole-element fade), NOT data-textreveal: alive.js word-
+              splitting mutates the DOM and fights React's re-render on language
+              switch, which garbled the accent. Fading the whole H1 keeps React in
+              sole control of the children so <Trans> swaps locales cleanly. */}
+          <h1 id="about-h1" className="ab-statement-h1" data-reveal>
+            <Trans t={t} i18nKey="hero.title" components={{ em: <em className="ab-accent" /> }} />
+          </h1>
+          <div className="ab-statement-side">
+            <hr className="ab-statement-rule" data-reveal aria-hidden="true" />
+            <p className="ab-statement-lede" data-reveal>{t('hero.lede')}</p>
+          </div>
         </div>
       </section>
 
