@@ -29,17 +29,17 @@
       "name": "Todo cubierto",
       "desc": "Nos encargamos de todo para que usted no tenga que hacerlo. Usted se centra en su misión y nosotros nos ocupamos del resto."
     },
-    "partner": {
-      "name": "Un solo socio",
-      "desc": "Cero complicaciones, un único punto de contacto."
+    "delivered": {
+      "name": "Entregado",
+      "desc": "Prueba de entrega en cada pedido, desde nuestra planta hasta las manos de sus lectores."
     }
   },
   "badges": [
-    "Un solo socio. Cero complicaciones.",
-    "Un único punto de contacto en todo momento.",
-    "Actualizaciones en tiempo real en cada etapa.",
-    "Plazos cumplidos. Siempre.",
-    "Calidad en la que confiar, siempre.",
-    "Preparados para escalar, respaldados por la experiencia."
+    { "lead": "Un solo socio.", "sub": "Cero complicaciones." },
+    { "lead": "Un único punto de contacto", "sub": "en todo momento." },
+    { "lead": "Actualizaciones en tiempo real", "sub": "en cada etapa." },
+    { "lead": "Plazos cumplidos.", "sub": "Siempre." },
+    { "lead": "Calidad en la que confiar,", "sub": "siempre." },
+    { "lead": "Preparados para escalar,", "sub": "respaldados por la experiencia." }
   ]
 }

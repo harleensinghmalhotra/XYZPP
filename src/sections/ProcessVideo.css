@@ -37,32 +37,35 @@
   background: #000;          /* black letterbox behind the poster/frame */
 }
 
-/* ── THE PROCESS FLOW — seven nodes strung on ONE continuous hairline (no cards).
-   The line IS the section's thesis ("One Continuous Process"); everything around it
-   stays quiet so the line + ghost numerals carry the composition. Navy ink on cream,
-   a single orange accent locked to the drawn fill and the node cores. Cards were
-   rejected here twice — this is a full-width flow, not a container grid. ── */
+/* ── THE PROCESS FLOW — seven nodes on ONE orange baseline (no cards). Each node is
+   tied to its read by a short vertical connector, so the line and the text read as a
+   single diagram, not two strangers. A large DM-Mono ghost numeral sits BEHIND each
+   icon+title cluster (the order is real information — the number is earned). Steps are
+   left-aligned with generous fixed gutters; navy ink on cream, one orange accent
+   locked to the drawn baseline + node cores. Cards were rejected here twice. ── */
+.pv-flow-wrap { margin-top: clamp(48px, 7vh, 92px); }
+
 .pv-flow {
+  --pv-gap: clamp(20px, 2vw, 40px);
   position: relative;
   max-width: var(--content-max);
   width: calc(100% - 2 * var(--page-gutter));
-  margin: clamp(48px, 7vh, 92px) auto 0;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  column-gap: clamp(10px, 1.4vw, 26px);
-  padding-top: 7px;                        /* clearance so the top node isn't clipped */
+  column-gap: var(--pv-gap);
+  padding-top: 6px;                        /* clearance so the top node isn't clipped */
 }
 
-/* THE LINE — a hairline running from node-1 centre to node-7 centre (each node sits
-   at its column centre, so the inset is exactly half a column each end). The faint
-   base is the track; the orange fill draws through it on scroll. */
+/* THE BASELINE — a hairline from node-1 centre to node-7 centre. Each node sits at
+   its column's LEFT (content-left), 5px in, so the inset is one column-width − 5px on
+   the right. The faint base is the track; the orange fill draws through it on scroll. */
 .pv-flow-rail {
   position: absolute;
-  top: 12px;                               /* node centre: 7px pad + 5px node radius */
-  left: calc(100% / 14);
-  right: calc(100% / 14);
+  top: 10px;                               /* node centre: 6px pad + 5px node radius = 11px */
+  left: 5px;
+  right: calc((100% - 6 * var(--pv-gap)) / 7 - 5px);
   height: 2px;
-  transform: translateY(-50%);
   background: rgb(var(--navy-rgb) / 0.14);
   border-radius: 2px;
   overflow: hidden;
@@ -75,13 +78,13 @@
   /* default state = fully drawn, so reduced-motion / no-JS shows the whole line */
 }
 
-/* each step — a centred column: the node sits on the line, the read stacks below. */
+/* each step — LEFT-aligned: node on the baseline, a short connector down to the read. */
 .pv-step {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   min-width: 0;
 }
 .pv-step-node {
@@ -99,72 +102,111 @@
   border-radius: 50%;
   background: #F37031;
 }
+/* the connector — a short vertical hairline dropping from the node to the read,
+   binding line and text into one diagram. Drawn (scaleY) on entrance. */
+.pv-step-stem {
+  width: 2px; height: 14px;
+  margin-left: 4px;                        /* centre under the node (node centre = 5px) */
+  background: rgb(var(--navy-rgb) / 0.2);
+  transform-origin: top center;
+}
 .pv-step-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 clamp(2px, 0.4vw, 10px);
+  position: relative;
+  padding-top: 6px;                        /* room for the ghost numeral to peek above */
 }
-/* the ghost numeral — the order is real information, so the number is earned; kept
-   as a large, quiet navy figure so it structures without shouting. */
+/* the ghost numeral — DM Mono, quiet navy, sitting BEHIND the icon+title cluster
+   (overlapping its top-left), never floating in a row of its own. */
 .pv-step-num {
-  font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(38px, 3.9vw, 60px); line-height: 1; letter-spacing: -0.02em;
-  color: rgb(var(--navy-rgb) / 0.14);
-  margin-top: clamp(15px, 2.1vh, 24px);
+  position: absolute;
+  top: -6px; left: -3px;
+  z-index: 0;
+  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
+  font-size: clamp(36px, 3vw, 44px); line-height: 1; letter-spacing: -0.02em;
+  color: rgb(var(--navy-rgb) / 0.1);
 }
-.pv-step-icon {
-  display: inline-flex; color: #0e1b46;
-  margin: clamp(8px, 1.1vh, 13px) 0 clamp(9px, 1.2vh, 14px);
+/* icon + title on ONE baseline row, over the numeral */
+.pv-step-head {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 5px;
 }
+.pv-step-icon { display: inline-flex; color: #0e1b46; flex: none; }
 .pv-step-name {
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(15px, 1.15vw, 18px); line-height: 1.18; letter-spacing: -0.01em;
-  color: #0e1b46; margin: 0 0 6px;
+  font-size: clamp(15px, 1.1vw, 17px); line-height: 1.15; letter-spacing: -0.01em;
+  color: #0e1b46; margin: 0;
 }
 .pv-step-desc {
+  position: relative; z-index: 1;
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: clamp(12px, 0.92vw, 13.5px); line-height: 1.5;
-  color: rgba(28, 32, 25, 0.72);
-  margin: 0; max-width: 22ch;
+  font-size: clamp(12px, 0.9vw, 13px); line-height: 1.5;
+  color: rgba(28, 32, 25, 0.7);
+  margin: 0; max-width: 24ch;
 }
 
-/* ── UNDER 1100px — the line STANDS UP: a vertical spine on the left, the seven
-   steps stacked as rows, node on the spine, the read to its right. Same vocabulary,
-   rotated 90° — the responsive vertical form the brief asks for. ── */
+/* ── THE PROMISE BAND — a quiet, dense certifications-style row: the six guarantees
+   of a single partner. Thin top hairline off the steps; vertical hairlines between
+   badges; two-line reads (bold lead + muted sub). ── */
+.pv-badges {
+  list-style: none;
+  max-width: var(--content-max);
+  width: calc(100% - 2 * var(--page-gutter));
+  margin: clamp(38px, 5.2vh, 62px) auto 0;
+  padding-top: clamp(20px, 2.6vh, 30px);
+  border-top: 1px solid rgb(var(--navy-rgb) / 0.16);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+.pv-badge {
+  display: flex; align-items: center; gap: 10px;
+  padding: 2px clamp(12px, 1.3vw, 22px);
+  border-left: 1px solid rgb(var(--navy-rgb) / 0.12);
+}
+.pv-badge:first-child { border-left: 0; padding-left: 0; }
+.pv-badge-icon { flex: none; color: #0e1b46; display: inline-flex; }
+.pv-badge-text { display: flex; flex-direction: column; min-width: 0; }
+.pv-badge-lead {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: 12px; line-height: 1.25; letter-spacing: -0.01em; color: #0e1b46;
+}
+.pv-badge-sub {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: 11.5px; line-height: 1.3; color: rgba(28, 32, 25, 0.65);
+}
+
+/* ── UNDER 1100px — the baseline STANDS UP: a vertical spine on the left, the seven
+   steps stacked as rows (node on the spine, read to its right); the promise band
+   reflows to a denser stack. The responsive vertical form the brief asks for. ── */
 @media (max-width: 1100px) {
   .pv-flow {
     grid-template-columns: 1fr;
-    row-gap: clamp(24px, 4.2vw, 40px);
+    row-gap: clamp(22px, 4vw, 36px);
     column-gap: 0;
-    padding-top: 4px;
-    padding-left: 34px;                    /* room for the spine + nodes */
+    padding-top: 2px;
+    padding-left: 40px;                    /* room for the spine + nodes */
   }
   .pv-flow-rail {
-    top: 10px; bottom: 10px; left: 6px; right: auto;
+    top: 8px; bottom: 8px; left: 7px; right: auto;
     width: 2px; height: auto;
-    transform: none;
   }
   .pv-flow-rail-fill { transform-origin: center top; }
-  .pv-step { text-align: left; align-items: stretch; }
-  .pv-step-node { position: absolute; left: -33px; top: 6px; }
-  .pv-step-body {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas: 'num icon' 'num name' 'num desc';
-    column-gap: clamp(14px, 3vw, 22px);
-    align-items: center;
-    padding: 0;
-  }
-  .pv-step-num {
-    grid-area: num; align-self: center; margin: 0;
-    font-size: clamp(34px, 9vw, 52px);
-    min-width: 1.6ch; text-align: center;
-  }
-  .pv-step-icon { grid-area: icon; margin: 0 0 3px; align-self: end; }
-  .pv-step-name { grid-area: name; margin: 0 0 3px; text-align: left; align-self: center; }
-  .pv-step-desc { grid-area: desc; max-width: 52ch; text-align: left; align-self: start; }
+  .pv-step-node { position: absolute; left: -33px; top: 4px; }
+  .pv-step-stem { display: none; }         /* the spine + indent already connect the row */
+  .pv-step-num { font-size: clamp(34px, 8vw, 46px); top: -5px; }
+
+  .pv-badges { grid-template-columns: repeat(3, 1fr); row-gap: clamp(16px, 2.4vh, 22px); }
+  .pv-badge:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
+}
+@media (max-width: 680px) {
+  .pv-badges { grid-template-columns: repeat(2, 1fr); }
+  .pv-badge { padding-left: clamp(12px, 3vw, 18px); border-left: 1px solid rgb(var(--navy-rgb) / 0.12); }
+  .pv-badge:nth-child(2n + 1) { border-left: 0; padding-left: 0; }
+}
+@media (max-width: 440px) {
+  .pv-badges { grid-template-columns: 1fr; row-gap: 14px; }
+  .pv-badge { border-left: 0 !important; padding-left: 0 !important; }
 }
 
-/* reduced motion — GSAP is skipped (useReducedMotion), so the line is already drawn
-   and the steps are already in place; nothing here to suppress beyond that. */
+/* reduced motion — GSAP is skipped (useReducedMotion), so the line is already drawn,
+   the connectors and steps are in place, and the promise band is visible; nothing to
+   suppress beyond that. */

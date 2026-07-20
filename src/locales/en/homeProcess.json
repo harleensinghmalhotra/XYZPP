@@ -29,17 +29,17 @@
       "name": "You're Covered",
       "desc": "We take care of everything so you don't have to. You focus on your mission, we'll handle the rest."
     },
-    "partner": {
-      "name": "One Partner",
-      "desc": "Zero runaround, single point of contact."
+    "delivered": {
+      "name": "Delivered",
+      "desc": "Proof of delivery on every order, from our floor to your readers' hands."
     }
   },
   "badges": [
-    "One partner. Zero runaround.",
-    "Single point of contact throughout.",
-    "Real-time updates at every stage.",
-    "Timelines met. Every time.",
-    "Quality you can trust, every time.",
-    "Built for scale, backed by experience."
+    { "lead": "One partner.", "sub": "Zero runaround." },
+    { "lead": "Single point of contact", "sub": "throughout." },
+    { "lead": "Real-time updates", "sub": "at every stage." },
+    { "lead": "Timelines met.", "sub": "Every time." },
+    { "lead": "Quality you can trust,", "sub": "every time." },
+    { "lead": "Built for scale.", "sub": "Backed by experience." }
   ]
 }

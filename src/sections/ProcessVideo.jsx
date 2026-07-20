@@ -2,26 +2,30 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Printer, SealCheck, Package, Warehouse, Truck, Umbrella, Handshake } from '@phosphor-icons/react'
+import {
+  Printer, SealCheck, Package, Warehouse, Truck, Umbrella, MapPinLine,
+  Handshake, Headset, Broadcast, Clock, ShieldCheck, TrendUp,
+} from '@phosphor-icons/react'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import './ProcessVideo.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ── HOMEPAGE "How We Work" — process video + the 7-point PROCESS FLOW. ──────────
-// Replaces the retired 3D conveyor (src/sections/process3d) and the rejected card
-// grid before it. Same slot before Projects, same id="process". The video shows its
-// WHOLE frame (object-fit: contain) on a black letterbox — never cropped. Below it,
-// the seven steps are NOT cards: they are seven nodes strung on ONE continuous
-// hairline that literally draws the section's own title — "One Continuous Process".
-// Each node carries a large ghost numeral (the order is real information, so the
-// number is earned), a light icon, a name and a one-line read. On scroll the line
-// draws through the nodes left→right (a single motivated gesture, not scattered
-// effects); under 1100px the line stands up as a vertical spine and the steps stack.
+// ── HOMEPAGE "How We Work" — process video + the 7-step PROCESS FLOW + promise band.
+// Replaces the retired 3D conveyor and the rejected card grid. Same slot before
+// Projects, same id="process". The video shows its WHOLE frame (contain) on a black
+// letterbox. Below it the seven steps are NOT cards: seven nodes on ONE orange base-
+// line, each tied to its read by a short vertical connector so line + text read as a
+// single diagram. A large ghost numeral sits BEHIND each icon+title cluster (the order
+// is real information — the number is earned). Under the steps, a quiet certifications-
+// style promise band restates the six things a single partner guarantees. The line
+// draws through the nodes on scroll (one motivated gesture); under 1100px it stands up.
 
 const VIDEO = '/qfp/video/how-we-work.mp4'
 const POSTER = '/qfp/video/how-we-work-poster.jpg'
 
+// Seven steps, in workflow order. "delivered" closes the sequence (the outcome); the
+// old "One Partner" moved to the promise band below so it isn't said twice.
 const POINTS = [
   { key: 'print', Icon: Printer },
   { key: 'quality', Icon: SealCheck },
@@ -29,14 +33,21 @@ const POINTS = [
   { key: 'warehouse', Icon: Warehouse },
   { key: 'ship', Icon: Truck },
   { key: 'covered', Icon: Umbrella },
-  { key: 'partner', Icon: Handshake },
+  { key: 'delivered', Icon: MapPinLine },
 ]
+
+// The promise band — six guarantees of a single partner. Text (lead + sub) is
+// localised via badges.<i>.{lead,sub}; the icon is the non-translatable mark per row.
+const BADGE_ICONS = [Handshake, Headset, Broadcast, Clock, ShieldCheck, TrendUp]
 
 export default function ProcessVideo() {
   const { t } = useTranslation('homeProcess')
   const reduced = useReducedMotion()
   const videoRef = useRef(null)
   const bandRef = useRef(null)
+
+  const rawBadges = t('badges', { returnObjects: true })
+  const badges = Array.isArray(rawBadges) ? rawBadges : []
 
   useEffect(() => {
     const v = videoRef.current
@@ -52,10 +63,10 @@ export default function ProcessVideo() {
     return () => io.disconnect()
   }, [])
 
-  // THE ENTRANCE — the through-line draws through the nodes, then each step's
-  // content fade-rises just behind the draw (stagger). One motivated gesture: the
-  // line "flowing" is the section's thesis. Horizontal above 1100px, vertical spine
-  // below. Reduced motion → the line is already drawn and nothing moves.
+  // THE ENTRANCE — the baseline draws through the nodes; each connector drops, then
+  // the read fade-rises just behind it; the promise band settles in last. One
+  // motivated gesture (the "flow"). Horizontal above 1100px, vertical spine below.
+  // Reduced motion → the line is already drawn and nothing moves.
   useLayoutEffect(() => {
     if (reduced || !bandRef.current) return
     const ctx = gsap.context(() => {
@@ -66,8 +77,10 @@ export default function ProcessVideo() {
         tl.fromTo('.pv-flow-rail-fill',
           { scaleX: axis === 'x' ? 0 : 1, scaleY: axis === 'y' ? 0 : 1 },
           { scaleX: 1, scaleY: 1, duration: 0.85, ease: 'power2.inOut' })
-        tl.fromTo('.pv-step-node', { scale: 0 }, { scale: 1, duration: 0.32, ease: 'back.out(2)', stagger: 0.09 }, 0.12)
-        tl.fromTo('.pv-step-body', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.09, clearProps: 'transform,opacity,visibility' }, 0.2)
+        tl.fromTo('.pv-step-node', { scale: 0 }, { scale: 1, duration: 0.3, ease: 'back.out(2)', stagger: 0.08 }, 0.12)
+        tl.fromTo('.pv-step-stem', { scaleY: 0 }, { scaleY: 1, duration: 0.26, ease: 'power2.out', stagger: 0.08 }, 0.2)
+        tl.fromTo('.pv-step-body', { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.08, clearProps: 'transform,opacity,visibility' }, 0.26)
+        tl.fromTo('.pv-badge', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.05, clearProps: 'transform,opacity,visibility' }, 0.55)
       }
       mm.add('(min-width: 1101px)', build('x'))
       mm.add('(max-width: 1100px)', build('y'))
@@ -99,23 +112,46 @@ export default function ProcessVideo() {
         </video>
       </div>
 
-      <div className="pv-flow" role="list" aria-label={t('detailsAria')} ref={bandRef}>
-        {/* the continuous line — one rule threading all seven nodes. The faint base
-            is the track; the coloured fill draws through it on scroll. */}
-        <span className="pv-flow-rail" aria-hidden="true">
-          <span className="pv-flow-rail-fill" />
-        </span>
-        {POINTS.map(({ key, Icon }, i) => (
-          <div className="pv-step" role="listitem" key={key} style={{ '--i': i }}>
-            <span className="pv-step-node" aria-hidden="true" />
-            <div className="pv-step-body">
-              <span className="pv-step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              <span className="pv-step-icon" aria-hidden="true"><Icon weight="light" size={24} /></span>
-              <h3 className="pv-step-name">{t(`stages.${key}.name`)}</h3>
-              <p className="pv-step-desc">{t(`stages.${key}.desc`)}</p>
+      <div className="pv-flow-wrap" ref={bandRef}>
+        {/* THE STEPS — seven nodes on one orange baseline, each tied to its read by a
+            short vertical connector so the diagram reads as one piece. */}
+        <div className="pv-flow" role="list" aria-label={t('detailsAria')}>
+          <span className="pv-flow-rail" aria-hidden="true">
+            <span className="pv-flow-rail-fill" />
+          </span>
+          {POINTS.map(({ key, Icon }, i) => (
+            <div className="pv-step" role="listitem" key={key} style={{ '--i': i }}>
+              <span className="pv-step-node" aria-hidden="true" />
+              <span className="pv-step-stem" aria-hidden="true" />
+              <div className="pv-step-body">
+                <span className="pv-step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <div className="pv-step-head">
+                  <span className="pv-step-icon" aria-hidden="true"><Icon weight="light" size={20} /></span>
+                  <h3 className="pv-step-name">{t(`stages.${key}.name`)}</h3>
+                </div>
+                <p className="pv-step-desc">{t(`stages.${key}.desc`)}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* THE PROMISE BAND — a quiet, dense certifications-style row: the six things a
+            single partner guarantees. Thin top hairline off the steps; vertical
+            hairlines between badges. */}
+        <ul className="pv-badges" aria-label={t('sub')}>
+          {badges.map((b, i) => {
+            const BIcon = BADGE_ICONS[i]
+            return (
+              <li className="pv-badge" key={i}>
+                <span className="pv-badge-icon" aria-hidden="true">{BIcon && <BIcon weight="regular" size={18} />}</span>
+                <span className="pv-badge-text">
+                  <span className="pv-badge-lead">{b.lead}</span>
+                  <span className="pv-badge-sub">{b.sub}</span>
+                </span>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </section>
   )
