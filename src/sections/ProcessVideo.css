@@ -53,7 +53,7 @@
 .pv-point-icon { display: inline-flex; color: var(--gold-2); margin-bottom: 16px; }
 .pv-point-num {
   font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
-  font-size: 11px; letter-spacing: 0.28em; color: var(--gold-2);
+  font-size: 11px; letter-spacing: 0.28em; color: var(--gold-text);   /* small text on cream → darkened orange */
   margin-bottom: 10px;
 }
 /* name = the reference caption head, scaled down for the strip (0,2,0 beats .ref-cap-head) */

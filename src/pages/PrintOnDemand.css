@@ -1,5 +1,5 @@
 /* ── /print-on-demand — "Build Your Book" configurator ───────────────────────
-   Brand System B ONLY: navy #0F2444, gold #9B7420 / #C89A3C / #9d6f14,
+   Brand System B ONLY: navy #0F2444, gold #F37031 / #C89A3C / #F37031,
    cream #FDFAF4, beige #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter / DM Mono.
    Warmest page on the site — it talks to one author. Anti-slop: uniform card
    heights, no thin light rules (hairlines are navy at low alpha), grounded
@@ -7,9 +7,9 @@
 
 .pod {
   --navy: #0e1b46;
-  --gold: #B06F14;
-  --gold-2: #D99637;
-  --gold-3: #9d6f14;
+  --gold: #F37031;
+  --gold-2: #F37031;
+  --gold-3: #F37031;
   --cream: #fdfaf4;
   --beige: #f0ebe0;
   --ink: #1c2019;
@@ -169,9 +169,9 @@
   border-radius: 3px 8px 8px 3px;
   background-color: #fdfaf4;
   background-image:
-    linear-gradient(#b06f14, #b06f14),   /* title rule (widest) */
-    linear-gradient(#b06f14, #b06f14),   /* subtitle rule */
-    linear-gradient(#b06f14, #b06f14),   /* byline rule (narrowest) */
+    linear-gradient(#F37031, #F37031),   /* title rule (widest) */
+    linear-gradient(#F37031, #F37031),   /* subtitle rule */
+    linear-gradient(#F37031, #F37031),   /* byline rule (narrowest) */
     linear-gradient(#0e1b46, #0e1b46),   /* edition mark, low-right */
     linear-gradient(#0e1b46, #0e1b46);   /* navy title band, upper third */
   background-repeat: no-repeat;
@@ -280,7 +280,7 @@
     linear-gradient(#fdfaf4, #fdfaf4),   /* tick 1 */
     linear-gradient(#fdfaf4, #fdfaf4),   /* tick 2 */
     linear-gradient(#fdfaf4, #fdfaf4),   /* tick 3 */
-    linear-gradient(#b06f14, #b06f14);   /* gold stripe near top */
+    linear-gradient(#F37031, #F37031);   /* gold stripe near top */
   background-repeat: no-repeat;
   background-size: 52% 2px, 52% 2px, 52% 2px, 68% 3px;
   background-position: 50% 45%, 50% 50%, 50% 55%, 50% 15%;
@@ -787,7 +787,7 @@
   text-decoration: none;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
 }
-.pod-request:hover { background: #E8B45F; transform: translateY(-2px); }
+.pod-request:hover { background: #F37031; transform: translateY(-2px); }
 .pod-request svg { width: 17px; height: 17px; }
 .pod-summary-note {
   position: relative;
@@ -825,10 +825,10 @@
 .pod-req-field input:focus-visible, .pod-req-field textarea:focus-visible {
   outline: none; border-color: var(--gold-2); box-shadow: 0 0 0 3px rgb(var(--gold-2-rgb) / 0.3);
 }
-.pod-req-field input[aria-invalid="true"] { border-color: #E8B45F; box-shadow: 0 0 0 3px rgba(232, 180, 95, 0.22); }
-.pod-req-err { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #E8B45F; }
-.pod-req-error { margin: 2px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: #E8B45F; }
-.pod-req-error a { color: #E8B45F; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
+.pod-req-field input[aria-invalid="true"] { border-color: #F37031; box-shadow: 0 0 0 3px rgba(232, 180, 95, 0.22); }
+.pod-req-err { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #C2551B; }
+.pod-req-error { margin: 2px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: #C2551B; }
+.pod-req-error a { color: #C2551B; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
 .pod-req-star { color: var(--gold-2); }
 /* consent gate — hard-controls the submit button; checkbox on the navy card */
 .pod-req-consent { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; }
@@ -836,7 +836,7 @@
 .pod-req-consent input:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; }
 .pod-req-consent label { font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: rgba(253, 250, 244, 0.82); cursor: pointer; }
 .pod-req-consent a { color: var(--gold-2); text-decoration: underline; text-underline-offset: 2px; }
-.pod-req-consent.has-err input { outline: 2px solid #E8B45F; outline-offset: 2px; }
+.pod-req-consent.has-err input { outline: 2px solid #F37031; outline-offset: 2px; }
 .pod-req .u-btn { margin-top: 2px; }
 .pod-req-cancel {
   align-self: center; background: none; border: none; cursor: pointer; padding: 4px;

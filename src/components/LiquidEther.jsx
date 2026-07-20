@@ -10,7 +10,7 @@ import './LiquidEther.css'
 //
 // QFP recolour: the ONLY change from the upstream default is the palette — the
 // default purples (#5227FF / #FF9FFC / #B497CF) are replaced at the call site with
-// our system trio [#1B3A6B navy-blue, #9B7420 gold, #0F2444 deep-navy]. The colour
+// our system trio [#1B3A6B navy-blue, #F37031 gold, #0F2444 deep-navy]. The colour
 // is data-driven through a 1×N palette DataTexture sampled by velocity magnitude,
 // so idle (near-zero velocity) → fully transparent (bgColor alpha 0) → aurora
 // shows through; swirl → the navy→gold→deep-navy ramp lights up along the flow.
@@ -30,7 +30,7 @@ export default function LiquidEther({
   BFECC = true,
   resolution = 0.5,
   isBounce = false,
-  colors = ['#1B3A6B', '#9B7420', '#0F2444'],
+  colors = ['#1B3A6B', '#F37031', '#0F2444'],
   // Fixed per-frame cost governors (added for the QFP hero's iGPU budget): the
   // fluid is soft + blurred, so MSAA buys nothing, and the sim FBOs are sized off
   // CSS pixels (not device px) — so capping the canvas pixelRatio only shrinks the

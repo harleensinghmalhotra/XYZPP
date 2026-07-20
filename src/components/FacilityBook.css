@@ -2,7 +2,7 @@
    Mechanics recycled from Cases.css (the open book) — copied, not shared, so the
    gated Case Studies styling stays untouched. Same tokens: navy var(--navy),
    navy2 var(--navy-2), deep-navy #0B1C38, gold var(--gold-2), gold-bright #E6BD6A,
-   gold-text #9d6f14, cream #FDFAF4. No reds, no pure black/white. Square-ish
+   gold-text #F37031, cream #FDFAF4. No reds, no pure black/white. Square-ish
    corners via the shared radius tokens. Depth from soft radial/edge shadows only.
    NEW: Book stack design with physical spine appearance, CSS 3D depth, page edges. */
 
@@ -271,7 +271,7 @@
   --board: #FDFAF4;
   --ink: #16223f;
   --foil-a: #e7bd6a;
-  --foil-b: #9d6f14;
+  --foil-b: #F37031;
 }
 
 /* TOP FACE — page block seen slightly from above (skewed parallelogram):
@@ -423,7 +423,7 @@
   width: 18px;
   height: 56px;
   z-index: 6;
-  background: linear-gradient(180deg, #E8B45F 0%, var(--gold-2) 46%, var(--gold) 100%);
+  background: linear-gradient(180deg, #F37031 0%, var(--gold-2) 46%, var(--gold) 100%);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 74%, 0 100%);
 }
@@ -558,7 +558,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #9d6f14; /* gold-text — AA on cream */
+  color: #C2551B; /* gold-text — AA on cream */
   margin-bottom: 18px;
 }
 .ib-title {
@@ -636,7 +636,7 @@
 
 .ib-intro-arrow {
   font-size: 20px;
-  color: #9d6f14;
+  color: #C2551B;
   display: inline-block;
 }
 
@@ -750,11 +750,11 @@
 .ib-arrow--next { right: 8px; }
 .ib-arrow:hover:not(:disabled) {
   background: rgb(var(--gold-2-rgb) / 0.16);
-  color: #E8B45F;
+  color: #F37031;
   border-color: rgb(var(--gold-2-rgb) / 0.85);
 }
 .ib-arrow:focus-visible {
-  outline: 2px solid #E8B45F;
+  outline: 2px solid #F37031;
   outline-offset: 2px;
 }
 .ib-arrow:disabled {

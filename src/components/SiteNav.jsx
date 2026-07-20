@@ -228,13 +228,13 @@ export default function SiteNav() {
                       onClick={() => handleProductClick(p)}
                       onKeyDown={(e) => onItemKey(e, idx)}
                       onMouseEnter={() => setActiveItem(idx)}
-                      className="focus-ring w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F14]/[0.08] hover:pl-6 hover:text-[#9d6f14]"
+                      className="focus-ring w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#F37031]/[0.08] hover:pl-6 hover:text-[#C2551B]"
                       style={{
                         fontFamily: INTER,
                         backgroundColor:
-                          activeItem === idx ? '#B06F14/[0.08]' : 'transparent',
+                          activeItem === idx ? '#F37031/[0.08]' : 'transparent',
                         paddingLeft: activeItem === idx ? '1.5rem' : '1rem',
-                        color: activeItem === idx ? '#9d6f14' : '#1c2019/85',
+                        color: activeItem === idx ? '#C2551B' : '#1c2019/85',
                       }}
                       role="menuitem"
                       aria-current={activeItem === idx ? 'true' : undefined}

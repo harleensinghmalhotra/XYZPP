@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger)
 // One gold butterfly with an olive body drifts the airy middle space, its wings
 // clearly spread (rotateY flap capped low so they never collapse edge-on — the
 // R1 "snail" bug). A pressed FSC certification plate holds the bottom-left corner.
-// LAWS: strokes in olive #6B7A2A / gold #9B7420 / navy #0F2444 on cream only; no
+// LAWS: strokes in olive #6B7A2A / gold #F37031 / navy #0F2444 on cream only; no
 // photo; no long straight light lines (sun rays are short ticks); reduced-motion →
 // everything static, wings open. GPU-only (CSS transforms), 60fps, no JS rAF.
 

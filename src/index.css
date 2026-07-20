@@ -31,11 +31,15 @@
      the night descends monotonically with no local step. (The 3D conveyor was
      retired for a full-bleed video section; Projects keeps this seam value.) */
   --section-melt: #0a1524;   /* rgb(10,21,36) — process↔globe boundary */
-  --gold-rgb: 176 111 20;
+  /* ORANGE SWEEP — brand accent is #F37031 site-wide (was the gold family). --gold /
+     --gold-2 stay the BRIGHT accent (graphics, rules, icons, on-navy text, large
+     text). --gold-text is the DARKENED orange #C2551B for small text on cream, where
+     #F37031 fails 4.5:1. Names kept as --gold* so the whole token graph sweeps at once. */
+  --gold-rgb: 243 112 49;                 /* #F37031 */
   --gold: rgb(var(--gold-rgb));           /* THE accent — hairlines, top-borders, links */
-  --gold-2-rgb: 215 141 38;
-  --gold-2: rgb(var(--gold-2-rgb));       /* brighter gold — on-navy eyebrows / numbers */
-  --gold-text: #9d6f14;      /* AA-safe gold text on cream (≥4.5:1 contrast) */
+  --gold-2-rgb: 245 130 74;               /* #F5824A — brighter orange (on-navy eyebrows / foils) */
+  --gold-2: rgb(var(--gold-2-rgb));       /* brighter orange — on-navy eyebrows / numbers */
+  --gold-text: #C2551B;      /* darkened orange for small text on cream (contrast pass) */
   --olive: #6b7a2a;
   --olive-light: #8fa05a;
   --olive-deep: #5a6623;
@@ -128,7 +132,7 @@
    HOMEPAGE PALETTE — Ekta's baked hero navy/gold (sampled from
    public/qfp/hero/hero-composed.webp). Harry flagged that the hero (baked navy
    #0e1b46 / gold #A0661A) didn't match the rest of the homepage (site navy
-   #0f2444 / golds #B06F14 + #D99637). This override lives ONLY on the homepage
+   #0f2444 / golds #F37031 + #F37031). This override lives ONLY on the homepage
    wrapper (<main class="home-palette"> in Home.jsx), so every homepage section —
    which reads navy/gold through var(--navy)/var(--gold)/var(--gold-2) and the
    rgb(var(--*-rgb) / a) alpha forms — repaints to the hero's exact values, while
@@ -137,23 +141,22 @@
             gold rgb(170 111 29) = #A0661A (interior of the bubble accent words
             "Oh yes!", "What?", 2nd bubble — avg #a96f1d).
    --gold and --gold-2 UNIFY onto the one hero gold. --gold-text stays the darker
-   AA-safe #9d6f14 for informational gold text on cream (see contrast note). Navy-2
+   AA-safe #F37031 for informational gold text on cream (see contrast note). Navy-2
    is nudged along the same hue so gradients stay cohesive. ─────────────────────── */
 .home-palette {
   /* Channel tokens — drive the alpha forms rgb(var(--*-rgb) / a). */
   --navy-rgb: 14 27 70;      /* #0e1b46 — Ekta's baked sky */
   --navy-2-rgb: 26 49 109;   /* lighter indigo, same delta off the base as before */
-  --gold-rgb: 170 111 29;    /* #A0661A — Ekta's baked bubble gold */
-  --gold-2-rgb: 187 122 32;  /* #B06F14 — Ekta gold nudged +10% brighter so small
-                                on-navy eyebrows clear WCAG AA 4.5:1 (4.69 on the
-                                new navy); same amber family, reads as one gold */
+  --gold-rgb: 243 112 49;    /* #F37031 — orange sweep (was the baked bubble gold) */
+  --gold-2-rgb: 245 130 74;  /* #F5824A — brighter orange, on-navy eyebrows/numbers
+                                (5.6:1 on the hero navy) */
   /* Solid tokens must be overridden DIRECTLY too: --navy = rgb(var(--navy-rgb)) is
      resolved at :root and inherits its resolved value, so re-pointing only the
      channel would not re-resolve var(--navy). */
   --navy: rgb(14 27 70);
   --navy-2: rgb(26 49 109);
-  --gold: rgb(170 111 29);         /* exact Ekta sample — decorative + large text */
-  --gold-2: rgb(187 122 32);       /* AA-safe on-navy variant (eyebrows/numbers) */
+  --gold: rgb(243 112 49);         /* #F37031 — decorative + large text */
+  --gold-2: rgb(245 130 74);       /* #F5824A — brighter orange on-navy (eyebrows/numbers) */
   --video-tone: #0e1b46;     /* dark video sections melt into the hero navy */
 }
 
@@ -190,6 +193,9 @@
   font-size: var(--eyebrow-size); letter-spacing: var(--track-eyebrow);
   text-transform: uppercase; color: var(--gold-2);
 }
+/* Contrast pass (orange sweep): on LIGHT/cream sections the bright orange eyebrow
+   fails 4.5:1, so use the darkened orange there. On dark sections it stays bright. */
+[data-theme="light"] .u-eyebrow { color: var(--gold-text); }
 .u-h1 {
   margin: 0; max-width: 17ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
@@ -1024,7 +1030,7 @@ body {
 }
 
 /* ── What We Print (scroll-jacked horizontal card row) ───────────────────────
-   Palette law: navy var(--navy), gold-text #9d6f14, olive #6B7A2A, cream #FDFAF4,
+   Palette law: navy var(--navy), gold-text #F37031, olive #6B7A2A, cream #FDFAF4,
    cream2 #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter. Section bg = her
    cream2; cards ride a warmer cream and pop above their own top edge. */
 .wwp-section {
@@ -1060,7 +1066,7 @@ body {
   font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #9d6f14; /* dash removed — eyebrow text stands alone */
+  color: #C2551B; /* dash removed — eyebrow text stands alone */
 }
 /* Short heading — wraps naturally if a locale ever needs it (no JS fit now that
    the section is normal-flow; nothing measures against a pinned panel width). */
@@ -1140,7 +1146,7 @@ body {
   transition: text-decoration-color 0.25s ease, opacity 0.25s ease;
 }
 .wwp-more:hover {
-  text-decoration-color: #9d6f14;
+  text-decoration-color: #C2551B;
   opacity: 0.85;
 }
 
@@ -1821,7 +1827,7 @@ body {
 
 /* ── DESTINATION DESCRIPTION — text below each region card ──────────────────
    Each region has a detailed description mounted below its card, using the
-   brand gold accent (#B06F14) for emphasis and cream background. Reduced-motion
+   brand gold accent (#F37031) for emphasis and cream background. Reduced-motion
    safe fade-in on scroll trigger. */
 .proj-dest-wrapper {
   display: flex;
@@ -1938,7 +1944,7 @@ body {
    scale / tilt), its shadow deepening; neighbours lean away ~2deg. Reduced-motion
    → glow lift only, no transforms. Square corners (Ekta's law). Soft navy-tinted
    painted shadows, never pure black. Palette: navy var(--navy), cream #FDFAF4/#F0EBE0,
-   gold var(--gold) / var(--gold-2) / #9d6f14. */
+   gold var(--gold) / var(--gold-2) / #F37031. */
 .proj-books { margin-top: clamp(48px, 6.5vh, 84px); }
 .proj-books-eyebrow {
   margin: 0 0 30px;
@@ -2122,7 +2128,7 @@ body {
   border-radius: var(--radius-xs);
   background: linear-gradient(90deg, var(--gold), var(--gold-2));
 }
-.proj-book--cream .proj-book-rule { background: linear-gradient(90deg, #9d6f14, var(--gold)); }
+.proj-book--cream .proj-book-rule { background: linear-gradient(90deg, #F37031, var(--gold)); }
 
 /* the one human line, small type — 11px floor; line-height tightened (not the
    font) to keep it from crowding on the narrower cover. */
@@ -2272,7 +2278,7 @@ body {
 }
 
 /* ── Infrastructure — "Built for Scale. Engineered for Trust." ────────────────
-   Palette law: navy var(--navy), ink #1C2019, gold-text #9d6f14, gold var(--gold)/var(--gold-2),
+   Palette law: navy var(--navy), ink #1C2019, gold-text #F37031, gold var(--gold)/var(--gold-2),
    cream #FDFAF4, cream2 #F0EBE0. Fonts: Inter Tight (title), Inter (body),
    DM Mono (eyebrow/numbers/captions ≥11px). Light section, GPU-only motion. */
 .infra {
@@ -2295,7 +2301,7 @@ body {
   font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #9d6f14; /* gold-text — no dash/hairline after it */
+  color: #C2551B; /* gold-text — no dash/hairline after it */
 }
 .infra-title {
   margin: 0;
@@ -2385,7 +2391,7 @@ body {
   font-size: 12px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #9d6f14;
+  color: #C2551B;
 }
 
 /* silent drop-in photo surface (16:10) — navy placeholder under the real image */
@@ -2483,7 +2489,7 @@ body {
   letter-spacing: 2px;
   line-height: 1.5;
   text-transform: uppercase;
-  color: #E8B45F; /* light gold — AA on the deep-navy ground */
+  color: #F37031; /* light gold — AA on the deep-navy ground */
 }
 
 /* video — Hero Video Dialog thumbnail card (16:9) */
@@ -2620,7 +2626,7 @@ body {
   font-weight: 500;
   font-size: 12px;
   letter-spacing: 1.5px;
-  color: #9d6f14;
+  color: #C2551B;
 }
 
 /* video dialog — backdrop blur + navy scrim */
@@ -2698,7 +2704,7 @@ body {
    Signature dome curve (cream sweeps over the section above, dark section arcs in
    below), functional filter pills, slow rotating seal, flat hairline-card
    carousel. Palette: cream #FDFAF4, cream2 #F0EBE0, navy var(--navy), gold var(--gold-2),
-   gold-text #9d6f14, olive #6B7A2A, tone #2D2926. Fonts: Inter Tight/Inter/DM Mono.
+   gold-text #F37031, olive #6B7A2A, tone #2D2926. Fonts: Inter Tight/Inter/DM Mono.
    Labels ≥11px. GPU-only motion. */
 .certs {
   position: relative;
@@ -2775,7 +2781,7 @@ body {
   font-size: 12.5px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  fill: #9d6f14;
+  fill: #F37031;
 }
 .certs-seal-core {
   position: absolute;
@@ -2893,7 +2899,7 @@ body {
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.4px;
-  color: #9d6f14;
+  color: #C2551B;
   line-height: 1.3;
 }
 .cert-star { display: flex; flex-direction: column; align-items: center; gap: 6px; }
@@ -3001,7 +3007,7 @@ body {
   position: absolute;
   inset: 0 0 auto 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold) 18%, #D99637 50%, var(--gold) 82%, transparent);
+  background: linear-gradient(90deg, transparent, var(--gold) 18%, #F37031 50%, var(--gold) 82%, transparent);
   opacity: 0.75;
   pointer-events: none;
   z-index: 4;
@@ -3481,7 +3487,7 @@ body {
 
 /* ═══════════════════════════════════════════════════════════════════════════
    EDUCATIONAL BOOKS PAGE — /educational-books (System B, marimba reskin)
-   Navy var(--navy) · gold var(--gold)/var(--gold-2)/#9d6f14 (accents only) · cream #FDFAF4
+   Navy var(--navy) · gold var(--gold)/var(--gold-2)/#F37031 (accents only) · cream #FDFAF4
    · beige #F0EBE0 · ink #1C2019. Inter Tight / Inter / DM Mono.
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -3505,7 +3511,7 @@ body {
 .edu-proc-inner { max-width: 1280px; margin: 0 auto; }
 .edu-proc-eyebrow {
   font-family: 'DM Mono', monospace;
-  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #9d6f14;
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #C2551B;
   margin: 0 0 16px;
 }
 .edu-proc-title {
@@ -3542,7 +3548,7 @@ body {
 .edu-proc-step {
   grid-row: 2; align-self: end;
   font-family: 'DM Mono', monospace;
-  font-size: 12px; letter-spacing: 0.14em; color: #9d6f14;   /* AA-safe gold on cream */
+  font-size: 12px; letter-spacing: 0.14em; color: #C2551B;   /* AA-safe gold on cream */
 }
 .edu-proc-name {
   margin: 0;
@@ -3647,7 +3653,7 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
   transition: transform 0.25s ease, background 0.25s ease;
 }
-.edu-cta-pill:hover { background: #E8B45F; transform: translateY(-2px); }
+.edu-cta-pill:hover { background: #F37031; transform: translateY(-2px); }
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 960px) {
@@ -3676,7 +3682,7 @@ body {
 .ctc-eyebrow {
   margin: 0 0 16px;
   font-family: 'DM Mono', monospace;
-  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #9d6f14;
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #C2551B;
 }
 .ctc-eyebrow.gold { color: var(--gold-2); }
 
@@ -3728,7 +3734,7 @@ body {
   text-transform: uppercase; color: var(--gold-2); text-decoration: none;
   transition: color 0.25s ease;
 }
-.ctc-loc-link:hover { color: #E8B45F; text-decoration: underline; text-underline-offset: 3px; }
+.ctc-loc-link:hover { color: #F37031; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ── 3. WELCOME STATEMENT ── */
 .ctc-welcome { background: #fdfaf4; padding: 96px 24px 40px; }
@@ -3851,7 +3857,7 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; color: var(--gold-2);
 }
 .ctc-addr-link::after { content: '↗'; font-size: 13px; }
-.ctc-addr-link:hover { color: #E8B45F; }
+.ctc-addr-link:hover { color: #F37031; }
 .ctc-addr-flag {
   margin: 14px 0 0;
   font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
@@ -3927,7 +3933,7 @@ body {
 .ctc-consent label {
   font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.55; color: #3c382e;
 }
-.ctc-consent a { color: #9d6f14; text-decoration: underline; text-underline-offset: 2px; }
+.ctc-consent a { color: #C2551B; text-decoration: underline; text-underline-offset: 2px; }
 .ctc-consent a:hover { color: #5e4610; }
 .ctc-submit {
   display: inline-flex; align-items: center; gap: 10px; margin-top: 22px;
@@ -3936,12 +3942,12 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.01em;
   transition: background 0.25s ease, transform 0.25s ease;
 }
-.ctc-submit:hover { background: #E8B45F; transform: translateY(-2px); }
+.ctc-submit:hover { background: #F37031; transform: translateY(-2px); }
 .ctc-dpa {
   margin: 20px 0 0;
   font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.55; color: #6b6455;
 }
-.ctc-dpa a { color: #9d6f14; text-decoration: underline; text-underline-offset: 2px; }
+.ctc-dpa a { color: #C2551B; text-decoration: underline; text-underline-offset: 2px; }
 /* honeypot — visually and AT-hidden, but present in the DOM for bots to trip on */
 .ctc-hp {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -4052,7 +4058,7 @@ body {
 }
 .ctc-closer-mail {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(22px, 3vw, 36px); letter-spacing: -0.02em; color: #9d6f14;
+  font-size: clamp(22px, 3vw, 36px); letter-spacing: -0.02em; color: #C2551B;
   text-decoration: underline; text-decoration-color: rgb(var(--gold-rgb) / 0.4);
   text-underline-offset: 4px; transition: color 0.25s ease, text-decoration-color 0.25s ease;
 }
@@ -4091,10 +4097,10 @@ body {
 /* ════════════════════════════════════════════════════════════════════════════
    /fulfilment — "One System, Start to Finish."  (structure reskinned from
    flexis-mobility.com into QFP System B). Palette law: navy var(--navy),
-   navy2 var(--navy-2), gold var(--gold) / var(--gold-2) / #E6BD6A, gold-text #9d6f14,
+   navy2 var(--navy-2), gold var(--gold) / var(--gold-2) / #E6BD6A, gold-text #F37031,
    cream #FDFAF4, beige #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter / DM Mono.
    Beige↔navy rhythm. All labels ≥11px. Contrast held ≥4.5:1 (gold on cream uses
-   the dark #9d6f14; gold on navy uses var(--gold-2)/#E6BD6A). ════════════════════════ */
+   the dark #F37031; gold on navy uses var(--gold-2)/#E6BD6A). ════════════════════════ */
 
 .ff-shared-eyebrow {
   margin: 0;
@@ -4109,7 +4115,7 @@ body {
 /* ── 2. TRUST MARQUEE ("They trust us", permission-safe) ───────────────────── */
 .ff-trust { background: #f0ebe0; padding: clamp(56px, 8vh, 92px) 0 clamp(60px, 8vh, 96px); }
 .ff-trust-head { max-width: 1280px; margin: 0 auto clamp(30px, 4vh, 44px); padding: 0 56px; }
-.ff-trust-eyebrow { color: #9d6f14; margin-bottom: 12px; }
+.ff-trust-eyebrow { color: #C2551B; margin-bottom: 12px; }
 .ff-trust-title {
   margin: 0; font-family: 'Inter Tight', sans-serif;
   font-weight: 500; font-size: clamp(24px, 3vw, 40px); letter-spacing: -0.02em; color: var(--navy);
@@ -4136,7 +4142,7 @@ body {
 /* ── 3. CONVICTION + 3 TALL PHOTO CARDS ────────────────────────────────────── */
 .ff-conv { background: #fdfaf4; padding: clamp(84px, 12vh, 148px) 56px clamp(72px, 10vh, 120px); }
 .ff-conv-inner { max-width: 1280px; margin: 0 auto; }
-.ff-conv-eyebrow { color: #9d6f14; margin-bottom: 26px; }
+.ff-conv-eyebrow { color: #C2551B; margin-bottom: 26px; }
 .ff-conv-quote {
   margin: 0; max-width: 24ch;
   font-family: 'Inter Tight', sans-serif;
@@ -4176,7 +4182,7 @@ body {
   padding: 28px 26px 30px;
   display: flex; flex-direction: column;
 }
-.ff-card-index { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #E8B45F; margin-bottom: 12px; }
+.ff-card-index { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #C2551B; margin-bottom: 12px; }
 .ff-card-name {
   margin: 0 0 10px; font-family: 'Inter Tight', sans-serif;
   font-weight: 600; font-size: clamp(20px, 1.7vw, 25px); letter-spacing: -0.02em; line-height: 1.14; color: #fdfaf4;
@@ -4232,9 +4238,9 @@ body {
 }
 .ff-feat-index {
   position: absolute; top: 18px; left: 20px; z-index: 2;
-  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #E8B45F;
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #C2551B;
 }
-.ff-feat-eyebrow { color: #9d6f14; margin-bottom: 14px; }
+.ff-feat-eyebrow { color: #C2551B; margin-bottom: 14px; }
 .ff-feat-title {
   margin: 0 0 16px; font-family: 'Inter Tight', sans-serif; font-weight: 600;
   font-size: clamp(26px, 3vw, 42px); line-height: 1.08; letter-spacing: -0.025em; color: var(--navy);
@@ -4246,9 +4252,9 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.2px;
   color: var(--navy); background: none; border: none; cursor: pointer; padding: 0;
 }
-.ff-feat-more svg { width: 16px; height: 16px; stroke: #9d6f14; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s ease; }
+.ff-feat-more svg { width: 16px; height: 16px; stroke: #F37031; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s ease; }
 .ff-feat-more[aria-expanded='true'] svg { transform: rotate(45deg); }
-.ff-feat-more:hover { color: #9d6f14; }
+.ff-feat-more:hover { color: #C2551B; }
 .ff-feat-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.42s cubic-bezier(0.22,1,0.36,1); }
 .ff-feat-panel.is-open { grid-template-rows: 1fr; }
 .ff-feat-panel > div { overflow: hidden; }
@@ -4267,7 +4273,7 @@ body {
     radial-gradient(1200px 700px at 50% 30%, rgb(var(--navy-rgb) / 0.2), rgba(10,18,32,0.7) 78%);
 }
 .ff-journey-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; text-align: center; }
-.ff-journey-eyebrow { color: #E8B45F; margin-bottom: 18px; }
+.ff-journey-eyebrow { color: #F37031; margin-bottom: 18px; }
 .ff-journey-title {
   margin: 0 auto clamp(52px, 7vh, 82px); max-width: 18ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
@@ -4282,7 +4288,7 @@ body {
 }
 .ff-stage-word {
   margin: 12px 0 0; font-family: 'DM Mono', monospace; font-weight: 500;
-  font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #E8B45F;
+  font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #F37031;
 }
 .ff-stage-line {
   margin: 20px auto 0; max-width: 22ch;
@@ -4300,7 +4306,7 @@ body {
   background: radial-gradient(900px 560px at 50% 0%, rgb(var(--gold-2-rgb) / 0.1), transparent 60%), #f0ebe0;
   padding: clamp(96px, 14vh, 148px) 24px clamp(104px, 15vh, 156px); text-align: center;
 }
-.ff-cta-eyebrow { color: #9d6f14; margin-bottom: 22px; }
+.ff-cta-eyebrow { color: #C2551B; margin-bottom: 22px; }
 .ff-cta-title {
   margin: 0 auto; max-width: 16ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(34px, 5.4vw, 74px);
@@ -4313,7 +4319,7 @@ body {
   transition: transform 0.25s ease, background 0.25s ease;
 }
 .ff-cta-pill svg { width: 18px; height: 18px; stroke: var(--navy); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.ff-cta-pill:hover { background: #E8B45F; transform: translateY(-2px); }
+.ff-cta-pill:hover { background: #F37031; transform: translateY(-2px); }
 
 /* ── Phase 2.5 atmosphere enabling — host sections become the positioning context
    for SectionCurve / PaperGrain / DotField (absolutely-positioned, aria-hidden
@@ -4348,7 +4354,7 @@ body {
 
 /* ═══════════════════════════════════════════════════════════════════════════
    TRADE BOOKS PAGE — /trade-books (System B, fctry product-page reskin)
-   Navy var(--navy) · gold var(--gold)/var(--gold-2)/#9d6f14 (accents only) · cream #FDFAF4
+   Navy var(--navy) · gold var(--gold)/var(--gold-2)/#F37031 (accents only) · cream #FDFAF4
    · beige #F0EBE0 · ink #1C2019. Inter Tight / Inter / DM Mono. ≥11px labels.
    fctry anatomy: sticky gallery + product panel, colourway swatches become the
    CATEGORY SWITCHER, accordions, full-bleed lifestyle break, range strip, CTA.
@@ -4396,11 +4402,11 @@ body {
 .tb-eyebrow {
   display: flex; align-items: center; gap: 14px; margin: 0 0 18px;
   font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em;
-  text-transform: uppercase; color: #9d6f14;
+  text-transform: uppercase; color: #C2551B;
 }
 .tb-badge {
   font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
-  text-transform: uppercase; color: #9d6f14; border: 1px solid rgb(var(--gold-rgb) / 0.42);
+  text-transform: uppercase; color: #C2551B; border: 1px solid rgb(var(--gold-rgb) / 0.42);
   border-radius: 0; padding: 3px 11px;
 }
 .tb-h1 {
@@ -4461,7 +4467,7 @@ body {
   background: var(--gold-2); color: var(--navy); font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px;
   text-decoration: none; transition: background 0.25s ease, transform 0.25s ease;
 }
-.tb-quote:hover { background: #E8B45F; transform: translateY(-2px); }
+.tb-quote:hover { background: #F37031; transform: translateY(-2px); }
 .tb-spec {
   display: inline-flex; align-items: center; height: 52px; padding: 0 22px; border-radius: 0;
   border: 1px solid rgb(var(--navy-rgb) / 0.25); color: var(--navy); font-family: 'Inter Tight', sans-serif;
@@ -4495,7 +4501,7 @@ body {
 /* ── 4. RANGE BAR ── */
 .tb-range { background: #fdfaf4; border-top: 1px solid rgb(var(--navy-rgb) / 0.08); padding: clamp(56px, 8vh, 96px) clamp(20px, 4vw, 56px); }
 .tb-range-inner { max-width: 1240px; margin: 0 auto; }
-.tb-range-eyebrow { margin: 0 0 8px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #9d6f14; }
+.tb-range-eyebrow { margin: 0 0 8px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #C2551B; }
 .tb-range-sub { margin: 0; font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(28, 32, 25, 0.72); }
 .tb-range-cats { margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .tb-range-cat {
@@ -4526,7 +4532,7 @@ body {
 /* ── 5. CTA BAND ── */
 .tb-close { background: #f0ebe0; padding: clamp(52px, 8vh, 92px) clamp(20px, 4vw, 56px) clamp(64px, 9vh, 108px); }
 .tb-close-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
-.tb-close-eyebrow { margin: 0 0 10px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #9d6f14; }
+.tb-close-eyebrow { margin: 0 0 10px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #C2551B; }
 .tb-close-h { margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(30px, 4.2vw, 54px); letter-spacing: -0.8px; color: var(--navy); }
 .tb-close-pill {
   display: inline-flex; align-items: center; gap: 10px; height: 58px; padding: 0 32px; border-radius: 0;
@@ -4534,7 +4540,7 @@ body {
   text-decoration: none; transition: background 0.25s ease, transform 0.25s ease;
   box-shadow: 0 12px 30px -14px rgb(var(--gold-2-rgb) / 0.65);
 }
-.tb-close-pill:hover { background: #E8B45F; transform: translateY(-2px); }
+.tb-close-pill:hover { background: #F37031; transform: translateY(-2px); }
 
 /* ── responsive ── */
 @media (max-width: 980px) {

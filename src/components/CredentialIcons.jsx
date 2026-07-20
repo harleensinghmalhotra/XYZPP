@@ -1,6 +1,6 @@
 // 4 bespoke credential icons with thin strokes, gold color, consistent optical weight
 
-const GOLD = '#B06F14'
+const GOLD = '#F37031'
 const GOLD_HOVER = '#D4931F'
 const STROKE_WIDTH = 1.5
 

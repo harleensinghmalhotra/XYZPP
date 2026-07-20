@@ -2,8 +2,8 @@
    /infrastructure — "Built for Scale. Engineered for Trust."
    Structure + rhythm reskinned from dispel.com into brand System B. Navy anchors
    the hero + the measured-results band; cream/beige carry the light beats between.
-   Palette: navy #0F2444 · navy2 #1B3A6B · gold #9B7420 · gold2 #C89A3C ·
-   gold-text #9d6f14 · deep-gold #5E4610 · cream #FDFAF4 · beige #F0EBE0 ·
+   Palette: navy #0F2444 · navy2 #1B3A6B · gold #F37031 · gold2 #C89A3C ·
+   gold-text #F37031 · deep-gold #5E4610 · cream #FDFAF4 · beige #F0EBE0 ·
    ink #1C2019 · warm-ink #40453B. Fonts: Inter Tight / Inter / DM Mono. Labels ≥11px.
    ═══════════════════════════════════════════════════════════════════════════ */
 .inf { color: #1c2019; background: #fdfaf4; }
@@ -13,9 +13,9 @@
 .inf-eyebrow {
   margin: 0 0 14px;
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 3px; text-transform: uppercase; color: #9d6f14;
+  letter-spacing: 3px; text-transform: uppercase; color: #C2551B;
 }
-.inf-eyebrow--ondark { color: #D99637; }
+.inf-eyebrow--ondark { color: #F37031; }
 .inf-h2 {
   margin: 0; max-width: 20ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
@@ -32,12 +32,12 @@
   text-decoration: none; cursor: pointer; border: 0;
   transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
-.inf-btn--gold { background: #D99637; color: #0f2444; }
-.inf-btn--gold:hover { background: #E8B45F; transform: translateY(-2px); }
+.inf-btn--gold { background: #F37031; color: #0f2444; }
+.inf-btn--gold:hover { background: #F37031; transform: translateY(-2px); }
 .inf-btn--ghost { color: #fdfaf4; border: 1px solid rgba(253,250,244,0.35); background: transparent; }
-.inf-btn--ghost:hover { border-color: #D99637; color: #f0cd82; }
+.inf-btn--ghost:hover { border-color: #F37031; color: #f0cd82; }
 .inf-btn--lg { height: 54px; padding: 0 34px; font-size: 16px; }
-.inf-btn:focus-visible { outline: 2px solid #D99637; outline-offset: 3px; }
+.inf-btn:focus-visible { outline: 2px solid #F37031; outline-offset: 3px; }
 
 /* ── 1 · HERO — now the shared `.u-hero` skeleton (Phase 3.3). The forked
    `.inf-hero*` shell (incl. its gold-foil-gradient stat) was deleted; the shared
@@ -50,7 +50,7 @@
 .inf-strip-eyebrow {
   margin: 0 0 clamp(28px, 4vh, 44px); text-align: center;
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 2.5px; text-transform: uppercase; color: #9d6f14;
+  letter-spacing: 2.5px; text-transform: uppercase; color: #C2551B;
 }
 .inf-strip-row {
   list-style: none; margin: 0; padding: 0;
@@ -64,10 +64,10 @@
 .inf-strip-item:first-child { border-left: 0; }
 .inf-strip-mark { height: 48px; display: grid; place-items: center; }
 .inf-strip-mark img { max-height: 44px; max-width: 92%; object-fit: contain; }
-.inf-strip-star { font-size: 32px; line-height: 1; color: #B06F14; }
+.inf-strip-star { font-size: 32px; line-height: 1; color: #C2551B; }
 .inf-strip-name { margin: 12px 0 0; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px; color: #0f2444; }
 .inf-strip-sub { margin: 4px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.4; color: #55504a; }
-.inf-strip-code { margin: 8px 0 0; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.5px; color: #9d6f14; }
+.inf-strip-code { margin: 8px 0 0; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.5px; color: #C2551B; }
 
 /* ── 3 · CAPABILITY TRIPTYCH (navy) — About-MVV vocabulary ─────────────────── */
 .inf-tri { position: relative; overflow: hidden; background: #0e1b46; color: #fdfaf4; padding: clamp(84px, 12vh, 148px) 0; }
@@ -112,7 +112,7 @@
   margin: 0 0 clamp(16px, 2.2vh, 22px);
   font-family: 'DM Mono', monospace; font-weight: 500;
   font-size: clamp(13.5px, 1.1vw, 15.5px); letter-spacing: 2px; text-transform: uppercase;
-  line-height: 1.4; color: #D99637;
+  line-height: 1.4; color: #F37031;
 }
 /* statement — Inter, cream 90%, comfortable size */
 .inf-tri-text {
@@ -134,7 +134,7 @@
 .inf-tri-stat-num {
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(46px, 6vw, 76px); line-height: 1; letter-spacing: -0.02em;
-  color: #D99637; font-variant-numeric: tabular-nums;
+  color: #F37031; font-variant-numeric: tabular-nums;
 }
 .inf-tri-stat-label {
   max-width: 24ch;
@@ -173,21 +173,21 @@
 /* hover: the row's top hairline warms gold, drawn scaleX from the left */
 .inf-ledger-rule {
   position: absolute; top: -1px; left: 0; right: 0; height: 2px;
-  background: #9d6f14; transform: scaleX(0); transform-origin: left center;
+  background: #F37031; transform: scaleX(0); transform-origin: left center;
   transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
 }
 @media (hover: hover) and (pointer: fine) {
   .inf-ledger-row:hover .inf-ledger-rule { transform: scaleX(1); }
 }
 /* left zone — the defining numeral / mark BIG in gold, top-aligned with the name */
-.inf-ledger-mark { display: flex; align-items: flex-start; color: #9d6f14; }
+.inf-ledger-mark { display: flex; align-items: flex-start; color: #C2551B; }
 /* the Package icon carries internal top padding the tight-leading numerals don't —
    lift it so its optical top sits on the same locked axis as 20 / 5 / 3. */
 .inf-ledger-mark svg { margin-top: -5px; }
 .inf-ledger-num {
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(40px, 5vw, 64px); line-height: 0.86; letter-spacing: -0.02em;
-  color: #9d6f14; font-variant-numeric: tabular-nums;
+  color: #C2551B; font-variant-numeric: tabular-nums;
 }
 /* centre zone — machine name */
 .inf-ledger-name {
@@ -221,7 +221,7 @@
 .inf-stat { border-top: 1px solid rgba(253,250,244,0.18); padding-top: 16px; }
 .inf-stat-num {
   display: block; font-family: 'Inter Tight', sans-serif; font-weight: 800;
-  font-size: clamp(34px, 4vw, 52px); line-height: 1; letter-spacing: -1px; color: #D99637;
+  font-size: clamp(34px, 4vw, 52px); line-height: 1; letter-spacing: -1px; color: #F37031;
   font-variant-numeric: tabular-nums;
 }
 .inf-stat-label { display: block; margin-top: 10px; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px; color: #fdfaf4; }
@@ -244,7 +244,7 @@
 .inf-video-thumb:hover .inf-video-img { transform: scale(1.04); }
 .inf-video-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(155deg, rgba(15,36,68,0.42) 0%, rgba(11,28,56,0.62) 100%); }
 .inf-video-thumb:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(0,0,0,0.34), 0 28px 60px -20px rgba(0,0,0,0.66); }
-.inf-video-thumb:focus-visible { outline: 2px solid #D99637; outline-offset: 3px; }
+.inf-video-thumb:focus-visible { outline: 2px solid #F37031; outline-offset: 3px; }
 .inf-video-note {
   position: absolute; z-index: 2; left: 50%; bottom: 24px; transform: translateX(-50%);
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 2.5px;
@@ -253,7 +253,7 @@
 .inf-play {
   position: absolute; z-index: 3; left: 50%; top: 50%; transform: translate(-50%, -50%);
   display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%;
-  color: #12294c; background: linear-gradient(180deg, #f0cd82 0%, #D99637 100%);
+  color: #12294c; background: linear-gradient(180deg, #f0cd82 0%, #F37031 100%);
   box-shadow: 0 8px 22px rgba(200,154,60,0.4); padding-left: 3px;
 }
 .inf-play-ring { position: absolute; inset: -10px; border-radius: 50%; border: 2px solid rgba(200,154,60,0.55); opacity: 0; }
@@ -288,7 +288,7 @@
 .inf-gallery-item { margin: 0; }
 .inf-gallery-photo { aspect-ratio: 4 / 5; border-radius: 0; }
 .inf-gallery-item:hover .inf-photo-img { transform: scale(1.04); }
-.inf-gallery-cap { margin-top: 12px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #9d6f14; }
+.inf-gallery-cap { margin-top: 12px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #C2551B; }
 
 /* ── 8 · CTA (beige) ──────────────────────────────────────────────────────── */
 .inf-cta { position: relative; overflow: hidden; background: #f0ebe0; padding: clamp(80px, 12vh, 150px) 0; text-align: center; }
@@ -316,7 +316,7 @@
 .inf-dialog-soon { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 14px; letter-spacing: 0.3px; color: rgba(253,250,244,0.7); }
 .inf-dialog-close { position: absolute; z-index: 2; top: 14px; right: 14px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer; color: #fdfaf4; background: rgba(15,36,68,0.55); transition: background 0.2s ease; }
 .inf-dialog-close:hover { background: rgba(15,36,68,0.85); }
-.inf-dialog-close:focus-visible { outline: 2px solid #D99637; outline-offset: 2px; }
+.inf-dialog-close:focus-visible { outline: 2px solid #F37031; outline-offset: 2px; }
 @keyframes inf-dialog-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* ── responsive ───────────────────────────────────────────────────────────── */
@@ -374,7 +374,7 @@
 .inf-finish-mark {
   flex: none;
   font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
-  letter-spacing: 1px; color: #9d6f14; line-height: 1.4;
+  letter-spacing: 1px; color: #C2551B; line-height: 1.4;
   font-variant-numeric: tabular-nums;
 }
 .inf-finish-name {

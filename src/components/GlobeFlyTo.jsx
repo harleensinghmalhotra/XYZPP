@@ -26,7 +26,7 @@ const NAVY = '#0F2444'
 const CREAM = '#F0EBE0'
 const CREAM_WARM = '#E6DDC8'
 const GOLD = '#C89A3C'
-const GOLD_DEEP = '#9B7420'
+const GOLD_DEEP = '#F37031'
 
 // OpenFreeMap "positron" — the cleaner, lighter of the two free bases, easiest
 // to restyle into a cream-land planet. Free vector tiles, no key. (See
