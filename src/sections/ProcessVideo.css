@@ -1,7 +1,4 @@
-/* ── HOMEPAGE "How We Work" — full-bleed process video + 7-point strip. ────────
-   Replaces the retired 3D conveyor (src/sections/process3d). Header reuses the
-   shared .u-* type; the video band goes edge-to-edge; the strip below rebuilds the
-   old detail grid + badge row as one refined, generously spaced 7-point row. */
+/* ── HOMEPAGE "How We Work" — process video + flagship 7-point numbered band. ──── */
 .pv-section {
   background: var(--cream);
   padding: var(--section-pad-y) 0;
@@ -23,58 +20,90 @@
   color: var(--ink-2);
 }
 
-/* full-bleed cinematic band — the press video, cover-cropped to a wide strip */
+/* video band — the WHOLE frame is always visible (contain), centred on a navy
+   #0e1b46 letterbox; never cropped, stretched, or upscaled past the section width. */
 .pv-video-wrap {
   margin-top: clamp(40px, 6vh, 72px);
   width: 100%;
-  background: var(--navy);
+  background: #0e1b46;
   line-height: 0;
 }
 .pv-video {
   display: block;
   width: 100%;
-  height: clamp(320px, 52vw, 680px);
-  object-fit: cover;
+  height: clamp(300px, 46vw, 620px);
+  object-fit: contain;      /* full frame, no crop */
+  object-position: center;
+  background: #0e1b46;       /* letterbox fill behind the poster/frame */
 }
 
-/* 7-point strip — a SINGLE row of seven across desktop; wraps to 2 rows on tablet,
-   stacks on mobile. Sized to fit seven abreast within the 1280 content at 1280px. */
-.pv-points {
-  list-style: none;
+/* ── THE BAND — one continuous instrument panel. Cream cells on a navy-hairline
+   grid: a top+bottom rule, plus 1px vertical hairlines between cells (rendered by a
+   1px flex gap over the band's hairline-coloured background). ──────────────────── */
+.pv-band {
+  list-style: none; padding: 0;
+  margin: clamp(46px, 6.5vh, 84px) auto 0;
   max-width: var(--content-max);
-  margin: clamp(52px, 7vh, 96px) auto 0;
-  padding: 0 var(--page-gutter);
-  display: flex; flex-wrap: nowrap; justify-content: center;
-  gap: clamp(14px, 1.6vw, 26px);
+  width: calc(100% - 2 * var(--page-gutter));
+  display: flex; flex-wrap: nowrap;
+  gap: 1px;                                     /* the vertical hairlines */
+  background: rgb(var(--navy-rgb) / 0.12);      /* shows through the 1px gaps */
+  border-top: 1px solid rgb(var(--navy-rgb) / 0.12);
+  border-bottom: 1px solid rgb(var(--navy-rgb) / 0.12);
 }
-.pv-point {
+.pv-cell {
   flex: 1 1 0; min-width: 0;
-  display: flex; flex-direction: column; align-items: flex-start;
+  position: relative;
+  background: var(--cream);
+  padding: clamp(28px, 2.4vw, 34px) clamp(16px, 1.5vw, 22px);
+  display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+  border-left: 3px solid transparent;           /* becomes an accent on mobile */
+  transition: box-shadow 0.2s ease;
 }
-.pv-point-icon { display: inline-flex; color: var(--gold-2); margin-bottom: 13px; }
-.pv-point-num {
-  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
-  font-size: 11px; letter-spacing: 0.24em; color: var(--gold-text);   /* small text on cream → darkened orange */
-  margin-bottom: 8px;
-}
-/* name = the reference caption head, scaled down for a 7-across row (0,2,0 beats .ref-cap-head) */
-.pv-point-name.ref-cap-head {
-  font-size: 15.5px; line-height: 1.16; margin: 0 0 7px;
-}
-.pv-point-desc { margin: 0; max-width: 20ch; }
-.pv-point-desc.ref-cap-body { font-size: 12.5px; line-height: 1.45; }
+/* hover — a whisper of navy over the cream (0.03), no movement */
+.pv-cell:hover { box-shadow: inset 0 0 0 200px rgb(var(--navy-rgb) / 0.03); }
 
-/* tablet — two rows (4 + 3), a little more air and slightly larger type */
+/* the mark — a large faint ghost numeral with the light icon in front, both left-set
+   and vertically aligned across every cell (fixed mark height keeps names on a baseline) */
+.pv-cell-mark { position: relative; display: block; height: 44px; margin-bottom: clamp(14px, 1.5vw, 18px); }
+.pv-cell-num {
+  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
+  font-size: 44px; line-height: 1; letter-spacing: -0.02em;
+  color: #F37031; opacity: 0.18; transition: opacity 0.2s ease;
+  display: block;
+}
+.pv-cell:hover .pv-cell-num { opacity: 0.3; }
+.pv-cell-icon {
+  position: absolute; left: 2px; bottom: -2px;
+  display: inline-flex; color: #F37031;         /* icon graphic → bright orange */
+}
+.pv-cell-name {
+  font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: 15px; line-height: 1.2; letter-spacing: -0.01em;
+  color: var(--navy); margin: 0 0 8px;
+}
+.pv-cell-desc {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: 12.5px; line-height: 1.5; color: rgba(28, 32, 25, 0.72);
+  margin: 0; max-width: 22ch;
+}
+
+/* tablet — two rows, hairline grid intact (the 1px flex gaps become the row + column
+   rules; cells grow to fill the shorter last row so there is no dead slot) */
 @media (max-width: 1100px) {
-  .pv-points { flex-wrap: wrap; gap: 34px 26px; }
-  .pv-point { flex: 0 1 21%; }
-  .pv-point-name.ref-cap-head { font-size: 17px; }
-  .pv-point-desc.ref-cap-body { font-size: 13px; }
+  .pv-band { flex-wrap: wrap; }
+  .pv-cell { flex: 1 1 22%; }
+  .pv-cell-name { font-size: 16px; }
+  .pv-cell-desc { font-size: 13px; max-width: 26ch; }
 }
-@media (max-width: 720px) {
-  .pv-points { gap: 32px 26px; }
-  .pv-point { flex: 0 1 44%; }
+
+/* mobile — stack; each cell keeps the row hairline and gains an orange left accent */
+@media (max-width: 620px) {
+  .pv-cell { flex: 1 1 100%; border-left: 3px solid #F37031; padding: 22px 20px; }
+  .pv-cell-mark { height: 40px; }
+  .pv-cell-num { font-size: 40px; }
 }
-@media (max-width: 460px) {
-  .pv-point { flex: 0 1 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-cell { transition: none; }
 }

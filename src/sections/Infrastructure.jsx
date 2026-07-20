@@ -21,8 +21,8 @@ gsap.registerPlugin(ScrollTrigger)
 // play button then goes live. COMPLIANCE: the final video must ship with closed
 // captions + a text transcript (accessibility / same client-permission bar as the
 // trust strips) BEFORE VIDEO_READY is flipped on.
-const VIDEO_READY = false
-const VIDEO_SRC = '/qfp/infra/facility-walkthrough.mp4'
+const VIDEO_READY = true
+const VIDEO_SRC = '/qfp/video/facilities.mp4'
 
 // "Our People" grid ("600+ Hands Behind Every Shipment" — Press Floor Team /
 // Quality Check / Kitting & Packing / Leadership Team). Hidden, not deleted:
@@ -229,8 +229,8 @@ export default function Infrastructure() {
               // Caption-ready: the <track> ships with the element so a <video> is never
               // shipped without captions. Drop facility-walkthrough.vtt beside the mp4
               // (+ a linked transcript) before flipping VIDEO_READY on.
-              <video className="infra-dialog-video" src={VIDEO_SRC} controls autoPlay playsInline crossOrigin="anonymous">
-                <track kind="captions" srcLang="en" src="/qfp/infra/facility-walkthrough.vtt" label={t('video.captionsLabel')} default />
+              <video className="infra-dialog-video" src={VIDEO_SRC} poster="/qfp/video/facilities-poster.jpg" controls autoPlay playsInline>
+                <track kind="captions" srcLang="en" src="/qfp/video/facilities.vtt" label={t('video.captionsLabel')} default />
               </video>
             ) : (
               <div className="infra-dialog-ph" aria-hidden="true">

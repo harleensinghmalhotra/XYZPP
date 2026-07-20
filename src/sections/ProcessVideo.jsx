@@ -1,23 +1,24 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Printer, SealCheck, Package, Warehouse, Truck, Umbrella, Handshake } from '@phosphor-icons/react'
+import { useReducedMotion } from '@/lib/useReducedMotion'
 import './ProcessVideo.css'
 
-// ── HOMEPAGE "How We Work" — full-bleed process video + 7-point strip. ─────────
+gsap.registerPlugin(ScrollTrigger)
+
+// ── HOMEPAGE "How We Work" — process video + a flagship 7-point numbered band. ──
 // Replaces the retired 3D conveyor (src/sections/process3d). Same slot before
-// Projects, same id="process" so every "See our process" link still lands here,
-// same header copy (homeProcess.json eyebrow/title/sub). The video is a muted,
-// looping, playsInline autoplay loop (poster = its own first frame); an
-// IntersectionObserver plays it only while on screen and pauses it off-screen so
-// nothing decodes for nothing. Below it, the seven process points rebuild the old
-// six-column detail grid + badge row as one refined strip.
+// Projects, same id="process". The video shows its WHOLE frame (object-fit: contain)
+// centred on a navy letterbox — never cropped or stretched. Below it, the seven
+// process points read as ONE continuous instrument panel: a cream band bounded by
+// navy hairlines, seven equal cells split by vertical hairlines, each with a large
+// ghost numeral + light icon, name and description.
 
 const VIDEO = '/qfp/video/how-we-work.mp4'
 const POSTER = '/qfp/video/how-we-work-poster.jpg'
 
-// Six process stages + the closing "One Partner" point — which absorbs the retired
-// badge line "One partner. Zero runaround." Icons are Phosphor LIGHT, matching the
-// credentials-row treatment (weight="light", gold-2 via currentColor).
 const POINTS = [
   { key: 'print', Icon: Printer },
   { key: 'quality', Icon: SealCheck },
@@ -30,7 +31,9 @@ const POINTS = [
 
 export default function ProcessVideo() {
   const { t } = useTranslation('homeProcess')
+  const reduced = useReducedMotion()
   const videoRef = useRef(null)
+  const bandRef = useRef(null)
 
   useEffect(() => {
     const v = videoRef.current
@@ -45,6 +48,20 @@ export default function ProcessVideo() {
     io.observe(v)
     return () => io.disconnect()
   }, [])
+
+  // Cells fade-rise in sequence on scroll (stagger 60ms); reduced-motion → static.
+  useLayoutEffect(() => {
+    if (reduced || !bandRef.current) return
+    const ctx = gsap.context(() => {
+      gsap.set('.pv-cell', { autoAlpha: 0, y: 18 })
+      gsap.to('.pv-cell', {
+        autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.06,
+        clearProps: 'transform,opacity,visibility',
+        scrollTrigger: { trigger: bandRef.current, start: 'top 82%', once: true },
+      })
+    }, bandRef)
+    return () => ctx.revert()
+  }, [reduced])
 
   return (
     <section id="process" data-theme="light" className="pv-section">
@@ -70,15 +87,15 @@ export default function ProcessVideo() {
         </video>
       </div>
 
-      <ol className="pv-points" aria-label={t('detailsAria')}>
+      <ol className="pv-band" aria-label={t('detailsAria')} ref={bandRef}>
         {POINTS.map(({ key, Icon }, i) => (
-          <li key={key} className="pv-point">
-            <span className="pv-point-icon" aria-hidden="true">
-              <Icon weight="light" size={27} />
+          <li key={key} className="pv-cell">
+            <span className="pv-cell-mark" aria-hidden="true">
+              <span className="pv-cell-num">{String(i + 1).padStart(2, '0')}</span>
+              <span className="pv-cell-icon"><Icon weight="light" size={24} /></span>
             </span>
-            <span className="pv-point-num">{String(i + 1).padStart(2, '0')}</span>
-            <h3 className="pv-point-name ref-cap-head">{t(`stages.${key}.name`)}</h3>
-            <p className="pv-point-desc ref-cap-body">{t(`stages.${key}.desc`)}</p>
+            <h3 className="pv-cell-name">{t(`stages.${key}.name`)}</h3>
+            <p className="pv-cell-desc">{t(`stages.${key}.desc`)}</p>
           </li>
         ))}
       </ol>
