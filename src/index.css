@@ -28,8 +28,9 @@
      Projects section's top background starts AT it, so the two sections meet on one
      value — the horizontal line is mathematically impossible. Sits between the
      conveyor's arrival navy (#0c192e) and Projects' deep-space core (#070c18), so
-     the night descends monotonically with no local step. See process3d.css. */
-  --section-melt: #0a1524;   /* rgb(10,21,36) — conveyor↔globe boundary */
+     the night descends monotonically with no local step. (The 3D conveyor was
+     retired for a full-bleed video section; Projects keeps this seam value.) */
+  --section-melt: #0a1524;   /* rgb(10,21,36) — process↔globe boundary */
   --gold-rgb: 176 111 20;
   --gold: rgb(var(--gold-rgb));           /* THE accent — hairlines, top-borders, links */
   --gold-2-rgb: 215 141 38;
@@ -345,6 +346,23 @@
   font-size: var(--h2); line-height: 1.08; letter-spacing: -0.02em; color: var(--navy);
 }
 .u-h2--light { color: var(--cream-3); }
+
+/* ── REFERENCE CAPTION TYPOGRAPHY — `.ref-cap-*` ──────────────────────────────
+   Lifted verbatim from the (retired) 3D conveyor museum-label captions. This is
+   now the SITE typography reference for a "caption head + supporting body" pair:
+   an Inter-Tight-600 fluid head over an Inter-400 14.5px body. Reused by the
+   ProcessVideo 7-point strip and available site-wide. Scale the head down where a
+   smaller instance is needed (e.g. `font-size` override on the consuming class). */
+.ref-cap-head {
+  font-family: 'Inter Tight', Inter, system-ui, sans-serif; font-weight: 600;
+  font-size: clamp(30px, 2.7vw, 40px); line-height: 1.0; letter-spacing: -0.015em;
+  color: var(--navy, #0f2444);
+}
+.ref-cap-body {
+  font-family: 'Inter', system-ui, sans-serif; font-weight: 400;
+  font-size: 14.5px; line-height: 1.5;
+  color: rgba(28, 32, 25, 0.78);
+}
 
 /* mobile: heroes collapse to a single column, the big number tucks under the copy */
 @media (max-width: 860px) {

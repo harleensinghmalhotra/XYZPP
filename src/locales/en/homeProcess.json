@@ -3,7 +3,7 @@
   "title": "One Continuous Process",
   "sub": "One partner. One workflow. We take care of everything so you can focus on your mission.",
   "legs": ["Paper", "Paper to Book", "Book to Package", "Packed & Sealed", "Shipped", "Delivered"],
-  "detailsAria": "Our six-stage process, from print to delivery",
+  "detailsAria": "Our process, from print to delivery",
   "stages": {
     "print": {
       "name": "Print",
@@ -28,6 +28,10 @@
     "covered": {
       "name": "You're Covered",
       "desc": "We take care of everything so you don't have to. You focus on your mission, we'll handle the rest."
+    },
+    "partner": {
+      "name": "One Partner",
+      "desc": "Zero runaround, single point of contact."
     }
   },
   "badges": [

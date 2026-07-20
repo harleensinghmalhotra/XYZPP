@@ -10,7 +10,7 @@ import GlobeReach from '@/sections/GlobeReach'
 import WhatWePrint from '@/sections/WhatWePrint'
 import Marquee from '@/sections/Marquee'
 import Promise from '@/sections/Promise'
-import Process3D from '@/sections/process3d/Process3D'
+import ProcessVideo from '@/sections/ProcessVideo'
 import Projects from '@/sections/Projects'
 import Infrastructure from '@/sections/Infrastructure'
 import Certifications from '@/sections/Certifications'
@@ -95,9 +95,9 @@ function wwpLanded() {
 //   • 7e (Harry): the four-stat bar lives INSIDE TrustStrips as its third strip
 //     (countries ticker → institutions ticker → stats = one welded unit under the
 //     hero). No standalone stats block here.
-// HARD CONSTRAINT preserved: Process3D stays immediately before Projects — the
-// conveyor's exit melt is tuned to Projects' navy top. Everything else keeps its
-// prior relative order.
+// HARD CONSTRAINT preserved: the process section stays immediately before Projects
+// (the 3D conveyor was retired for a full-bleed video + 7-point strip — ProcessVideo
+// — taking the exact same slot). Everything else keeps its prior relative order.
 export default function Home() {
   const { t } = useTranslation('home')
   const { hash } = useLocation()
@@ -161,7 +161,7 @@ export default function Home() {
         <WhatWePrint />
         <GlobeReach />
         <Promise />
-        <Process3D />
+        <ProcessVideo />
         <Projects />
         <Infrastructure />
         <Certifications />

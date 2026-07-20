@@ -3,7 +3,7 @@
   "title": "Un seul processus continu",
   "sub": "Un seul partenaire. Un seul flux de travail. Nous prenons tout en charge pour que vous puissiez vous consacrer à votre mission.",
   "legs": ["Papier", "Du papier au livre", "Du livre au colis", "Emballé et scellé", "Expédié", "Livré"],
-  "detailsAria": "Notre processus en six étapes, de l'impression à la livraison",
+  "detailsAria": "Notre processus, de l'impression à la livraison",
   "stages": {
     "print": {
       "name": "Impression",
@@ -28,6 +28,10 @@
     "covered": {
       "name": "Tout est couvert",
       "desc": "Nous nous occupons de tout pour que vous n'ayez pas à le faire. Vous vous concentrez sur votre mission, nous gérons le reste."
+    },
+    "partner": {
+      "name": "Un seul partenaire",
+      "desc": "Aucun va-et-vient, un seul interlocuteur."
     }
   },
   "badges": [

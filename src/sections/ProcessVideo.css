@@ -1,0 +1,71 @@
+/* ── HOMEPAGE "How We Work" — full-bleed process video + 7-point strip. ────────
+   Replaces the retired 3D conveyor (src/sections/process3d). Header reuses the
+   shared .u-* type; the video band goes edge-to-edge; the strip below rebuilds the
+   old detail grid + badge row as one refined, generously spaced 7-point row. */
+.pv-section {
+  background: var(--cream);
+  padding: var(--section-pad-y) 0;
+  overflow: clip;
+}
+
+.pv-head {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--page-gutter);
+  text-align: center;
+}
+.pv-head .u-h2 { margin-top: var(--section-gap-head); }
+.pv-sub {
+  margin: var(--section-gap-head) auto 0;
+  max-width: 62ch;
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: var(--body); line-height: 1.65;
+  color: var(--ink-2);
+}
+
+/* full-bleed cinematic band — the press video, cover-cropped to a wide strip */
+.pv-video-wrap {
+  margin-top: clamp(40px, 6vh, 72px);
+  width: 100%;
+  background: var(--navy);
+  line-height: 0;
+}
+.pv-video {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 52vw, 680px);
+  object-fit: cover;
+}
+
+/* 7-point strip — flex wrap, centered so the trailing row centers under the first */
+.pv-points {
+  list-style: none;
+  max-width: var(--content-max);
+  margin: clamp(52px, 7vh, 96px) auto 0;
+  padding: 0 var(--page-gutter);
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: clamp(36px, 4vh, 56px) clamp(28px, 3vw, 48px);
+}
+.pv-point {
+  flex: 0 1 208px;
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.pv-point-icon { display: inline-flex; color: var(--gold-2); margin-bottom: 16px; }
+.pv-point-num {
+  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
+  font-size: 11px; letter-spacing: 0.28em; color: var(--gold-2);
+  margin-bottom: 10px;
+}
+/* name = the reference caption head, scaled down for the strip (0,2,0 beats .ref-cap-head) */
+.pv-point-name.ref-cap-head {
+  font-size: 19px; line-height: 1.14; margin: 0 0 9px;
+}
+.pv-point-desc { margin: 0; max-width: 24ch; }
+
+@media (max-width: 720px) {
+  .pv-points { gap: 34px 28px; }
+  .pv-point { flex: 0 1 44%; }
+}
+@media (max-width: 460px) {
+  .pv-point { flex: 0 1 100%; }
+}
