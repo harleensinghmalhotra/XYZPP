@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { Target, Eye, Handshake } from '@phosphor-icons/react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import { PaperGrain } from '@/components/atmosphere'
@@ -203,7 +204,13 @@ function InkSpreads() {
   const { t } = useTranslation('ourStory')
   const reduced = useReducedMotion()
   const sectionRef = useRef(null)
-  const beats = ['mission', 'vision', 'values']
+  // One Phosphor LIGHT glyph per card (44px, matching the site credentials row):
+  // Target → mission, Eye → vision, Handshake → values.
+  const beats = [
+    { key: 'mission', Icon: Target },
+    { key: 'vision', Icon: Eye },
+    { key: 'values', Icon: Handshake },
+  ]
 
   // reveal once, when the band crosses into view — CSS carries the stagger.
   useEffect(() => {
@@ -228,10 +235,10 @@ function InkSpreads() {
       <SectionCurve position="top" fill="var(--cream)" inward />
       <div className="mvv-inner">
         <div className="mvv-triptych">
-          {beats.map((key, i) => (
+          {beats.map(({ key, Icon }, i) => (
             <div className="mvv-col" key={key} style={{ '--col-i': i }}>
               <div className="mvv-col-body">
-                <span className="mvv-tick" aria-hidden="true" />
+                <span className="mvv-icon" aria-hidden="true"><Icon weight="light" size={44} /></span>
                 <p className="mvv-label">{t(`${key}.label`)}</p>
                 <span className="mvv-rule" aria-hidden="true" />
                 <p className="mvv-text">{t(`${key}.desc`)}</p>
@@ -245,10 +252,12 @@ function InkSpreads() {
   )
 }
 
-// ── THE FOUNDER — Tequila editorial spread ────────────────────────────────────
-// Fitted 3:4 portrait frame LEFT (gold offset-rule behind it), and EVERYTHING
-// else in the RIGHT column: eyebrow kicker, name (word-mask rise), role micro-
-// label, bio, then the ink-in pull quote + attribution stacked under the bio.
+// ── THE FOUNDER — corporate boardroom profile ─────────────────────────────────
+// A clean institutional grid: a fitted portrait LEFT, structured text RIGHT
+// (descriptor kicker, name, role, narrative, then the quote in a bordered pull-
+// quote block). The editorial drama is gone — no gold offset-rule behind the
+// portrait, no word-mask name rise, no scroll-driven ink-fill quote. Everything
+// rests plainly and reveals once: restrained, boardroom-flat, attribution kept.
 function Founder() {
   const { t } = useTranslation('ourStory')
   return (
@@ -257,15 +266,17 @@ function Founder() {
       <div className="ab-wrap">
         <div className="fnd-spread">
           <div className="fnd-portrait-wrap" data-reveal>
-            <span className="fnd-offset" aria-hidden="true" />
             <div className="ab-frame fnd-portrait" data-slot="founder-portrait" aria-hidden="true" />
           </div>
           <div className="fnd-copy">
-            <p className="ab-eyebrow--cream fnd-kicker" data-reveal>{t('founder.eyebrow')}</p>
-            <MaskText as="h2" id="fnd-name" className="fnd-name" text={t('founder.name')} />
-            <p className="fnd-role" data-reveal><b>Role</b><i aria-hidden="true" />{t('founder.role')}</p>
+            <p className="ab-eyebrow fnd-kicker" data-reveal>{t('founder.eyebrow')}</p>
+            <h2 id="fnd-name" className="fnd-name" data-reveal>{t('founder.name')}</h2>
+            <p className="fnd-role" data-reveal>{t('founder.role')}</p>
             <p className="fnd-bio" data-reveal>{t('founder.bio')}</p>
-            <InkQuote text={t('founder.quote')} attribution={t('founder.attribution')} />
+            <figure className="fnd-quote" data-reveal>
+              <blockquote className="fnd-quote-text">{t('founder.quote')}</blockquote>
+              <figcaption className="fnd-quote-cite">{t('founder.attribution')}</figcaption>
+            </figure>
           </div>
         </div>
       </div>
@@ -357,102 +368,3 @@ function Team() {
   )
 }
 
-// ── MaskText — per-word rise from behind a mask (overflow-hidden + translateY) ──
-function MaskText({ text, className = '', as: Tag = 'p', id }) {
-  const reduced = useReducedMotion()
-  const ref = useRef(null)
-  const tokens = useMemo(() => text.split(/(\s+)/), [text])
-
-  useEffect(() => {
-    if (reduced) return
-    const el = ref.current
-    if (!el) return
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { el.classList.add('is-in'); io.disconnect() } },
-      { threshold: 0.3 },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [reduced, text])
-
-  let w = -1
-  return (
-    <Tag ref={ref} id={id} className={`masktext ${className}${reduced ? ' is-in' : ''}`}>
-      {tokens.map((tok, i) => {
-        if (/^\s+$/.test(tok)) return tok
-        w += 1
-        return (
-          <span className="mask" key={i}>
-            <span className="mask-w" style={{ transitionDelay: `${Math.min(w, 16) * 42}ms` }}>{tok}</span>
-          </span>
-        )
-      })}
-    </Tag>
-  )
-}
-
-// ── InkQuote — words fill from a 45% ghost to full ink as the quote crosses the
-// viewport centre; the attribution rides in behind a drawn gold em-dash. Reduced-
-// motion: full ink, dash drawn, no scroll listener. ────────────────────────────
-function InkQuote({ text, attribution }) {
-  const reduced = useReducedMotion()
-  const ref = useRef(null)
-  const figRef = useRef(null)
-  const words = useRef([])
-  const tokens = useMemo(() => text.split(/(\s+)/), [text])
-
-  useEffect(() => {
-    const list = words.current.filter(Boolean)
-    if (reduced) {
-      list.forEach((el) => { el.style.opacity = '1' })
-      figRef.current?.classList.add('is-seen')
-      return
-    }
-    const el = ref.current
-    if (!el) return
-    let raf = 0
-    const update = () => {
-      raf = 0
-      const vh = window.innerHeight
-      const r = el.getBoundingClientRect()
-      // fill sweeps as the block travels from 80%→35% of the viewport height
-      const p = clamp((vh * 0.8 - r.top) / (vh * 0.45), 0, 1)
-      const nW = list.length
-      list.forEach((word, i) => {
-        const wp = clamp(p * nW - i, 0, 1)
-        word.style.opacity = (0.45 + 0.55 * wp).toFixed(3)   // 45% ghost floor → full ink
-      })
-    }
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        figRef.current?.classList.add('is-seen')
-        window.addEventListener('scroll', onScroll, { passive: true })
-        update()
-      } else window.removeEventListener('scroll', onScroll)
-    }, { threshold: 0 })
-    io.observe(el)
-    return () => {
-      io.disconnect()
-      window.removeEventListener('scroll', onScroll)
-      if (raf) cancelAnimationFrame(raf)
-    }
-  }, [reduced, text])
-
-  let w = -1
-  return (
-    <figure ref={figRef} className="fq-fig">
-      <blockquote ref={ref} className={`fq${reduced ? ' is-in' : ''}`}>
-        {tokens.map((tok, i) => {
-          if (/^\s+$/.test(tok)) return tok
-          w += 1
-          const wi = w
-          return (
-            <span key={i} ref={(el) => { words.current[wi] = el }} className="fq-w">{tok}</span>
-          )
-        })}
-      </blockquote>
-      <figcaption className="fq-cite"><span className="fq-dash" aria-hidden="true" />{attribution}</figcaption>
-    </figure>
-  )
-}
