@@ -1,4 +1,4 @@
-import { useTranslation, Trans } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { useState, useEffect, useRef, useMemo } from 'react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
@@ -68,17 +68,18 @@ export default function OurStory() {
       {/* One continuous gold thread down the page spine — scaleY by scroll. */}
       <Spine />
 
-      {/* SECTION 1 ── HERO BAND — MDailey blog-header style: one heading, one line,
-          nothing else. Tiny DM Mono gold eyebrow → decorative "ABOUT US" display
-          (aria-hidden, word-stagger) → ONE subtext line (hero.title, the page's
-          single H1, plain cream, sized to a single line at 1536). The lede has
-          moved down to lead the JOURNEY section. Band shrinks to ~50vh, centred. */}
+      {/* SECTION 1 ── HERO BAND — the ORIGINAL homepage display headline, recreated.
+          A full-width navy top containing ONLY the staggered two-line hero text:
+          "Powering Global Education" (line 1, big bold cream) over "Through Print
+          Excellence" (line 2, smaller, wide-tracked gold) — the exact type treatment
+          from the git-history homepage hero (commit ba7b134). No eyebrow, no "ABOUT
+          US" display, no subline. The two visible lines carry the page's single H1;
+          the lede has moved down to lead the JOURNEY section. */}
       <section data-theme="dark" className="ab-hero" aria-labelledby="about-h1">
         <div className="ab-wrap ab-hero-inner">
-          <p className="ab-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
-          <p className="ab-hero-display" data-textreveal aria-hidden="true">{t('hero.display')}</p>
-          <h1 id="about-h1" className="ab-hero-title" data-reveal>
-            <Trans t={t} i18nKey="hero.title" components={{ em: <em className="ab-accent" /> }} />
+          <h1 id="about-h1" className="ab-hero-headline" data-reveal>
+            <span className="ab-hl-1">{t('hero.titleLine1')}</span>
+            <span className="ab-hl-2">{t('hero.titleLine2')}</span>
           </h1>
         </div>
       </section>
