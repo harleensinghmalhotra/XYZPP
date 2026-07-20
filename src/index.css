@@ -574,7 +574,7 @@ body {
   font-weight: 800;
   text-transform: uppercase;
   line-height: 1;
-  font-size: 8vw;
+  font-size: 4.5vw;
   color: var(--paper);
 }
 .mq-star {
@@ -585,7 +585,7 @@ body {
   fill: var(--gold-2);
 }
 @media (min-width: 768px) {
-  .mq-word { font-size: 5.6vw; }
+  .mq-word { font-size: 3.4vw; }
   .mq-star { width: 2.2vw; height: 2.2vw; }
 }
 

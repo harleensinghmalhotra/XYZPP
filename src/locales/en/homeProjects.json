@@ -37,7 +37,7 @@
       "name": "Africa",
       "descriptor": "Est. Export Market",
       "alt": "Two African children reading an illustrated storybook together",
-      "stat": "10+",
+      "stat": "19",
       "statLabel": "Countries served",
       "body": "Ministries of Education and government institutions across Nigeria, Ghana, Kenya, Uganda, Tanzania, Zambia, Côte d'Ivoire, Cameroon, Congo, Senegal, Benin, Ethiopia, Rwanda, Mozambique, Madagascar, Mauritius, South Africa, Gabon and Zimbabwe, for World Bank, USAID and UN funded projects."
     },
@@ -46,7 +46,7 @@
       "name": "Asia",
       "descriptor": "End-to-End Delivery",
       "alt": "Asian schoolgirl in uniform reading a book in a classroom",
-      "stat": "2+",
+      "stat": "2",
       "statLabel": "Countries served",
       "body": "State textbook bureaus across India and the UAE receive complete end-to-end solutions: print, kit, pack and direct delivery to schools for national banks and leading education companies."
     },
@@ -55,7 +55,7 @@
       "name": "USA, Europe & Latin America",
       "descriptor": "Expansion Markets",
       "alt": "Smiling schoolboy holding a book in a library",
-      "stat": "5",
+      "stat": "6",
       "statLabel": "Countries served",
       "body": "Activity books, trade books, colouring books and stationery for leading publishers and major retail chains across the US, Mexico, Puerto Rico, Germany, the United Kingdom and Spain."
     }

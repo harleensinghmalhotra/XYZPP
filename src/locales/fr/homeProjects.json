@@ -37,7 +37,7 @@
       "name": "Afrique",
       "descriptor": "Marché d'export établi",
       "alt": "Deux enfants africains lisant ensemble un livre d'images illustré",
-      "stat": "10+",
+      "stat": "19",
       "statLabel": "Pays desservis",
       "body": "Ministères de l'Éducation et institutions gouvernementales au Nigéria, Ghana, Kenya, Ouganda, Tanzanie, Zambie, Côte d'Ivoire, Cameroun, Congo, Sénégal, Bénin, Éthiopie, Rwanda, Mozambique, Madagascar, Maurice, Afrique du Sud, Gabon et Zimbabwe, pour les projets financés par la Banque mondiale, l'USAID et l'ONU."
     },
@@ -46,7 +46,7 @@
       "name": "Asie",
       "descriptor": "Livraison de bout en bout",
       "alt": "Écolière asiatique en uniforme lisant un livre dans une salle de classe",
-      "stat": "2+",
+      "stat": "2",
       "statLabel": "Pays desservis",
       "body": "Les bureaux des manuels scolaires en Inde et aux Émirats arabes unis reçoivent des solutions complètes de bout en bout : impression, assemblage, emballage et livraison directe aux écoles pour les banques nationales et les principales sociétés d'éducation."
     },
@@ -55,7 +55,7 @@
       "name": "États-Unis, Europe et Amérique latine",
       "descriptor": "Marchés en expansion",
       "alt": "Écolier souriant tenant un livre dans une bibliothèque",
-      "stat": "5",
+      "stat": "6",
       "statLabel": "Pays desservis",
       "body": "Livres d'activités, livres commerciaux, livres à colorier et articles de papeterie pour les principaux éditeurs et les grandes chaînes de distribution aux États-Unis, au Mexique, Porto Rico, en Allemagne, au Royaume-Uni et en Espagne."
     }
