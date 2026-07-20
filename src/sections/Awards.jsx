@@ -13,41 +13,22 @@ gsap.registerPlugin(ScrollTrigger)
 // eyebrow LOSES its gold dash/hairline. Only motion added: a subtle stagger reveal
 // on the four cards (the export is static); reduced-motion → static.
 
+// Ten real awards, newest first (title + year + issuer are verbatim in the locale;
+// the mock photos at site-assets/homepage/awards/award-01..10.webp are overwrite-ready
+// for the real award photography). The row scrolls; "See More" routes to /newsroom.
 const CARDS = [
-  { key: 'pw24', img: 'award-01.webp', labelKey: 'industry' },
-  { key: 'pw23', img: 'award-02.webp', labelKey: 'industry' },
-  { key: 'forbes', forbes: true, labelKey: 'press' },
-  { key: 'capexil', img: 'award-04.webp', labelKey: 'export' },
+  { key: 'power100', img: 'award-01.webp', labelKey: 'industry' },
+  { key: 'forbes', img: 'award-02.webp', labelKey: 'press' },
+  { key: 'bookedu', img: 'award-03.webp', labelKey: 'industry' },
+  { key: 'assocham', img: 'award-04.webp', labelKey: 'industry' },
+  { key: 'export23', img: 'award-05.webp', labelKey: 'export' },
+  { key: 'trusted', img: 'award-06.webp', labelKey: 'industry' },
+  { key: 'twostar', img: 'award-07.webp', labelKey: 'export' },
+  { key: 'capexil', img: 'award-08.webp', labelKey: 'export' },
+  { key: 'youngest', img: 'award-09.webp', labelKey: 'industry' },
+  { key: 'dnb', img: 'award-10.webp', labelKey: 'industry' },
 ]
-
-// Reserved slots for awards the client says are coming. Add an entry here (drop the
-// webp at the path below + its locale keys cards.<key>.name/body/ph + labels.<key>)
-// and the plaque appears — using the same graceful AwardPhoto frame until the photo
-// lands, so a missing file is never a broken image. Empty by default → NO dead space
-// while unfilled. Next expected paths, in order:
-//   public/qfp/awards/award-05.webp · award-06.webp · award-07.webp · award-08.webp
-const RESERVED = [] // e.g. { key: 'pw25', img: 'award-05.webp', labelKey: 'industry' }
-const SLOTS = [...CARDS, ...RESERVED]
-
-// The Forbes card's photo zone IS a designed press clipping (no photo needed).
-function ForbesClipping({ t }) {
-  return (
-    <div className="aw-clip">
-      <div className="aw-clip-head">
-        <span className="aw-clip-masthead">{t('forbes.masthead')}</span>
-        <span className="aw-clip-date">{t('forbes.date')}</span>
-      </div>
-      <div className="aw-clip-rule" />
-      <div className="aw-clip-headline">{t('forbes.headline')}</div>
-      <div className="aw-clip-lines">
-        <span style={{ width: '100%' }} />
-        <span style={{ width: '93%' }} />
-        <span style={{ width: '98%' }} />
-        <span style={{ width: '58%' }} />
-      </div>
-    </div>
-  )
-}
+const SLOTS = CARDS
 
 // Silent drop-in photo: real webp reveals on load and hides the elegant frame
 // placeholder; a 404 keeps the placeholder (zero code change when the file lands).
@@ -57,7 +38,7 @@ function AwardPhoto({ img, ph }) {
     <>
       <img
         className="aw-photo-img"
-        src={`/qfp/awards/${img}`}
+        src={`/site-assets/homepage/awards/${img}`}
         alt=""
         loading="lazy"
         decoding="async"
@@ -127,13 +108,14 @@ export default function Awards() {
               {SLOTS.map((c) => (
                 <article className="plq" key={c.key}>
                   <div className="aw-photo">
-                    {c.forbes ? <ForbesClipping t={t} /> : <AwardPhoto img={c.img} ph={t(`cards.${c.key}.ph`)} />}
+                    <AwardPhoto img={c.img} ph={t(`cards.${c.key}.ph`)} />
                     <div className="plq-tint" aria-hidden="true" />
                     <div className="plq-sheen" aria-hidden="true" />
                   </div>
                   <div className="aw-body">
                     <div className="aw-label">{t(`labels.${c.labelKey}`)}</div>
                     <h3 className="aw-name">{t(`cards.${c.key}.name`)}</h3>
+                    <p className="aw-meta">{t(`cards.${c.key}.meta`)}</p>
                     <p className="aw-desc">{t(`cards.${c.key}.body`)}</p>
                   </div>
                 </article>

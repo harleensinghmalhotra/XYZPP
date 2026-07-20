@@ -7,24 +7,65 @@
     "export": "EXPORT HONOR"
   },
   "cards": {
-    "pw24": {
-      "name": "PrintWeek 2024",
-      "body": "Book Education Company of the Year",
-      "ph": "PrintWeek 2024 ceremony photo"
-    },
-    "pw23": {
-      "name": "PrintWeek 2023",
-      "body": "Export Company of the Year",
-      "ph": "PrintWeek 2023 ceremony photo"
+    "power100": {
+      "name": "PrintWeek Power 100",
+      "meta": "2026 · PrintWeek India",
+      "body": "Among the printing industry's most influential leaders.",
+      "ph": "PrintWeek Power 100"
     },
     "forbes": {
-      "name": "Forbes India",
-      "body": "D.Gems 2024"
+      "name": "Forbes India D.Gems",
+      "meta": "2024 · Forbes India",
+      "body": "One of the country's most promising high-growth businesses.",
+      "ph": "Forbes India D.Gems"
+    },
+    "bookedu": {
+      "name": "Book Education Company of the Year",
+      "meta": "2024 · PrintWeek India",
+      "body": "Honouring leadership in educational book printing.",
+      "ph": "Book Education Company of the Year"
+    },
+    "assocham": {
+      "name": "Excellence in the Field of Education, Runner-Up",
+      "meta": "2024 · ASSOCHAM",
+      "body": "Runner-up for excellence in the field of education.",
+      "ph": "Excellence in the Field of Education, Runner-Up"
+    },
+    "export23": {
+      "name": "Export Company of the Year",
+      "meta": "2023 · PrintWeek India",
+      "body": "Recognising outstanding performance in printed-book exports.",
+      "ph": "Export Company of the Year"
+    },
+    "trusted": {
+      "name": "Most Trusted Brand of the Year, Print & Publishing",
+      "meta": "2023 · MSME & Startup Innovation Summit & Awards",
+      "body": "A most-trusted name in print and publishing.",
+      "ph": "Most Trusted Brand of the Year, Print & Publishing"
+    },
+    "twostar": {
+      "name": "Two Star Export House",
+      "meta": "2022 · Government of India, Foreign Trade Policy",
+      "body": "Awarded under the Government of India's Foreign Trade Policy.",
+      "ph": "Two Star Export House"
     },
     "capexil": {
-      "name": "CAPEXIL",
-      "body": "Highest Exporter, 3 Consecutive Years",
-      "ph": "CAPEXIL ceremony photo"
+      "name": "Highest Exporter of Printed Books",
+      "meta": "Three Consecutive Years · CAPEXIL, Government of India",
+      "body": "India's highest exporter of printed books, three years running.",
+      "ph": "Highest Exporter of Printed Books"
+    },
+    "youngest": {
+      "name": "One of the Youngest and Most Enterprising Book Presses in India",
+      "meta": "2019 · PrintWeek India",
+      "body": "Among India's youngest and most enterprising book presses.",
+      "ph": "One of the Youngest and Most Enterprising Book Presses in India"
+    },
+    "dnb": {
+      "name": "Most Emerging SME, Indian Company",
+      "meta": "2016 · Dun & Bradstreet India",
+      "body": "Recognised as a most emerging Indian SME.",
+      "ph": "Most Emerging SME, Indian Company"
     }
   },
   "forbes": {

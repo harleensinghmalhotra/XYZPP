@@ -3456,14 +3456,20 @@ body {
 .aw-name {
   margin: 0;
   font-family: 'Inter Tight', sans-serif;
-  font-weight: 800;
-  font-size: 26px;
-  line-height: 1.12;
+  font-weight: 700;
+  font-size: clamp(17px, 1.5vw, 20px);   /* sized to carry the real (longer) titles */
+  line-height: 1.16;
   letter-spacing: -0.01em;
-  /* RELAXED: flat solid gold-2 on navy (was a 4-stop foil gradient). */
-  color: var(--gold-2);
+  color: var(--gold-2);   /* flat solid orange on navy */
 }
-.aw-desc { margin: 0; font-family: 'Inter', sans-serif; font-weight: 300; font-size: 15px; line-height: 1.55; color: rgba(253, 250, 244, 0.78); }
+/* year · issuer (verbatim) */
+.aw-meta {
+  margin: 7px 0 0;
+  font-family: 'DM Mono', monospace; font-weight: 500;
+  font-size: 11px; letter-spacing: 0.04em; line-height: 1.4;
+  color: rgba(253, 250, 244, 0.58);
+}
+.aw-desc { margin: 9px 0 0; font-family: 'Inter', sans-serif; font-weight: 300; font-size: 13.5px; line-height: 1.5; color: rgba(253, 250, 244, 0.78); }
 
 /* explore link */
 .aw-more { display: flex; justify-content: flex-end; margin-top: 76px; }

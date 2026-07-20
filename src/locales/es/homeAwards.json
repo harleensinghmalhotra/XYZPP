@@ -7,24 +7,65 @@
     "export": "DISTINCIÓN A LA EXPORTACIÓN"
   },
   "cards": {
-    "pw24": {
-      "name": "PrintWeek 2024",
-      "body": "Empresa del año en edición educativa",
-      "ph": "Foto de la ceremonia PrintWeek 2024"
-    },
-    "pw23": {
-      "name": "PrintWeek 2023",
-      "body": "Empresa exportadora del año",
-      "ph": "Foto de la ceremonia PrintWeek 2023"
+    "power100": {
+      "name": "PrintWeek Power 100",
+      "meta": "2026 · PrintWeek India",
+      "body": "Entre los líderes más influyentes de la industria de la impresión.",
+      "ph": "PrintWeek Power 100"
     },
     "forbes": {
-      "name": "Forbes India",
-      "body": "D.Gems 2024"
+      "name": "Forbes India D.Gems",
+      "meta": "2024 · Forbes India",
+      "body": "Una de las empresas de alto crecimiento más prometedoras del país.",
+      "ph": "Forbes India D.Gems"
+    },
+    "bookedu": {
+      "name": "Book Education Company of the Year",
+      "meta": "2024 · PrintWeek India",
+      "body": "Distinguida por su liderazgo en la impresión de libros educativos.",
+      "ph": "Book Education Company of the Year"
+    },
+    "assocham": {
+      "name": "Excellence in the Field of Education, Runner-Up",
+      "meta": "2024 · ASSOCHAM",
+      "body": "Finalista a la excelencia en el campo de la educación.",
+      "ph": "Excellence in the Field of Education, Runner-Up"
+    },
+    "export23": {
+      "name": "Export Company of the Year",
+      "meta": "2023 · PrintWeek India",
+      "body": "Reconocida por su desempeño excepcional en la exportación de libros.",
+      "ph": "Export Company of the Year"
+    },
+    "trusted": {
+      "name": "Most Trusted Brand of the Year, Print & Publishing",
+      "meta": "2023 · MSME & Startup Innovation Summit & Awards",
+      "body": "Una de las marcas más confiables de impresión y publicación.",
+      "ph": "Most Trusted Brand of the Year, Print & Publishing"
+    },
+    "twostar": {
+      "name": "Two Star Export House",
+      "meta": "2022 · Government of India, Foreign Trade Policy",
+      "body": "Otorgada bajo la Política de Comercio Exterior del Gobierno de la India.",
+      "ph": "Two Star Export House"
     },
     "capexil": {
-      "name": "CAPEXIL",
-      "body": "Mayor exportador, 3 años consecutivos",
-      "ph": "Foto de la ceremonia CAPEXIL"
+      "name": "Highest Exporter of Printed Books",
+      "meta": "Three Consecutive Years · CAPEXIL, Government of India",
+      "body": "El mayor exportador indio de libros impresos, tres años seguidos.",
+      "ph": "Highest Exporter of Printed Books"
+    },
+    "youngest": {
+      "name": "One of the Youngest and Most Enterprising Book Presses in India",
+      "meta": "2019 · PrintWeek India",
+      "body": "Entre las imprentas de libros más jóvenes y dinámicas de la India.",
+      "ph": "One of the Youngest and Most Enterprising Book Presses in India"
+    },
+    "dnb": {
+      "name": "Most Emerging SME, Indian Company",
+      "meta": "2016 · Dun & Bradstreet India",
+      "body": "Reconocida como una de las pymes indias más emergentes.",
+      "ph": "Most Emerging SME, Indian Company"
     }
   },
   "forbes": {
