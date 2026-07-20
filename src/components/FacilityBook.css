@@ -86,7 +86,7 @@
 .ib-imgstack {
   position: relative;
   flex: 0 0 auto;
-  aspect-ratio: 1000 / 1263;         /* the colour-spine stack art ratio */
+  aspect-ratio: 2232 / 2820;         /* the wordless colour-spine stack art ratio */
   height: clamp(392px, 44vh, 440px); /* = the open-book spread height (cap) */
   max-width: 100%;
   container-type: inline-size;       /* label font scales with the stack via cqw */
@@ -108,13 +108,13 @@
 .ib-imgstack::after {
   content: '';
   position: absolute;
-  left: 7%;
-  right: 7%;
-  top: 97.5%;                        /* dense edge at the bottom book's base, fading down */
-  height: 9%;
+  left: 12%;
+  right: 12%;
+  top: 94%;                          /* dense edge at the slate book's base, fading down */
+  height: 8%;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(58% 100% at 50% 18%, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.36) 30%, rgba(0, 0, 0, 0.15) 54%, transparent 76%);
+  background: radial-gradient(58% 100% at 50% 12%, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.26) 32%, rgba(0, 0, 0, 0.1) 56%, transparent 78%);
   filter: blur(7px);
 }
 
@@ -124,11 +124,10 @@
    box is the hit-area (padding may exceed the text; the text stays inside the zone). */
 .ib-imglabel {
   position: absolute;
-  transform: translateY(-50%) rotate(var(--rot, 0deg));
-  transform-origin: center;
+  transform: translateY(-50%);       /* inline top = the spine face's vertical centre */
   display: grid;
   place-items: center;
-  padding: 11px 0;                   /* vertical hit-area only; width = the zone */
+  padding: 0;                        /* whole box (inline height) is the hit-area */
   background: none;
   border: 0;
   cursor: pointer;
@@ -139,11 +138,12 @@
   z-index: 1;
   max-width: 100%;
   font-family: 'DM Mono', monospace;
-  /* UNIFORM across all 5; scales with the stack (cqw) so the longest label
-     ("BINDING AND FINISHING") clears its zone at 1536 and 1280, 11px floor on mobile. */
-  font-size: clamp(11px, 3.3cqw, 14px);
+  /* UNIFORM across all 5; scales with the stack (cqw) so the longest labels
+     ("BINDING AND FINISHING" / "CORPORATE HEADQUARTERS") clear the ticks at 1536
+     and 1280, 11px floor on mobile. */
+  font-size: clamp(11px, 3.0cqw, 13px);
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   line-height: 1.15;
   text-transform: uppercase;
   text-align: center;
@@ -546,44 +546,103 @@
   color: rgba(28, 32, 25, 0.72);
 }
 
-/* ── STACK HIT ZONES — invisible buttons over the art's five colour spines ─────── */
-.ib-hit {
-  position: absolute; z-index: 2;
-  padding: 0; margin: 0; border: 0; background: none; cursor: pointer;
-  border-radius: 6px;
+/* ── INTRO SPREAD — the resting (no-click) state: a full TEXT takeover across both
+   cream pages, no photo. LEFT = Infrastructure overview + four capability pillars;
+   RIGHT = the dated "As of July 2026…" spec list + closing line. Print-tight type,
+   11px floor on the reading copy. ──────────────────────────────────────────────── */
+
+/* LEFT PAGE — heading, orange subtitle + rule, two paragraphs, pillar row */
+.ib-intro-left {
+  top: 7.5%; left: 6.5%; width: 39%; height: 86%;
+  justify-content: flex-start; overflow: hidden;
 }
-.ib-hit-glow {
-  position: absolute; inset: 6% 3%;
-  border-radius: 6px;
-  background: radial-gradient(60% 70% at 50% 50%, rgb(var(--gold-rgb) / 0.28) 0%, transparent 72%);
-  opacity: 0; transition: opacity 0.25s ease;
-  pointer-events: none;
-}
-.ib-hit:hover .ib-hit-glow,
-.ib-hit:focus-visible .ib-hit-glow,
-.ib-hit.is-active .ib-hit-glow { opacity: 1; }
-.ib-hit:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; }
-.ib-hit.is-active { box-shadow: inset 0 0 0 2px rgb(var(--gold-2-rgb) / 0.9); }
-/* INTRO (resting) spread — centred both pages, over the same art (pre-restructure look) */
-.ib-textpage--intro {
-  justify-content: center; align-items: center; text-align: center; overflow: visible;
-}
-.ib-textpage--intro .ib-intro-heading {
+.ib-intro-title {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(22px, 2.6vw, 34px); line-height: 1.04; letter-spacing: -0.02em;
-  color: var(--navy); margin: 0; text-align: center; overflow-wrap: break-word;
+  font-size: clamp(22px, 2.7vw, 34px); line-height: 1.0; letter-spacing: -0.02em;
+  color: var(--navy); margin: 0; overflow-wrap: break-word;
 }
-.ib-intropage {
-  position: absolute; top: 6%; left: 53.5%; width: 40.5%; height: 88%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 0 6%;
+.ib-intro-sub {
+  font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: clamp(11px, 1.15vw, 15px); line-height: 1.2; letter-spacing: -0.1px;
+  color: #C2551B;                    /* AA-safe orange on cream */
+  margin: clamp(4px, 0.8vh, 8px) 0 0;
 }
-.ib-intropage .ib-intro-body {
+.ib-intro-rule {
+  display: block; width: clamp(28px, 3vw, 40px); height: 3px;
+  background: var(--gold-2); border-radius: 2px;
+  margin: clamp(7px, 1.1vh, 11px) 0 clamp(9px, 1.4vh, 13px);
+}
+.ib-intro-para {
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: 14px; line-height: 1.55; color: rgba(28, 32, 25, 0.82);
-  margin: 0 0 14px; max-width: 26ch;
+  font-size: clamp(10px, 0.82vw, 11.5px); line-height: 1.42;
+  color: rgba(28, 32, 25, 0.82);
+  margin: 0 0 clamp(7px, 1.1vh, 11px); max-width: 44ch;
 }
-.ib-intropage .ib-intro-arrow { font-size: 20px; line-height: 1; color: var(--gold-text); }
+.ib-intro-para:last-of-type { margin-bottom: 0; }
+
+/* four capability pillars — icon + short label, pinned to the page foot */
+.ib-pillars {
+  list-style: none; margin: auto 0 0; padding: clamp(10px, 1.6vh, 16px) 0 0;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(4px, 0.8vw, 10px);
+  border-top: 1px solid rgb(var(--navy-rgb) / 0.12);
+}
+.ib-pillar { display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; }
+.ib-pillar-icon { color: var(--navy); line-height: 0; }
+.ib-pillar:nth-child(even) .ib-pillar-icon { color: var(--gold-2); }
+.ib-pillar-label {
+  font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: clamp(8.5px, 0.7vw, 10px); line-height: 1.12; letter-spacing: 0.01em;
+  color: rgba(14, 27, 70, 0.86);
+}
+
+/* RIGHT PAGE — dated heading, spec list, closing note */
+.ib-intro-right {
+  position: absolute; top: 6.5%; left: 53.5%; width: 40.5%; height: 87%;
+  display: flex; flex-direction: column;
+}
+.ib-intro-rhead {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(11px, 1.05vw, 14px); line-height: 1.15; letter-spacing: -0.1px;
+  color: var(--navy); margin: 0 0 clamp(8px, 1.3vh, 13px);
+  padding-left: 10px; border-left: 3px solid var(--gold-2);
+}
+.ib-speclist {
+  list-style: none; margin: 0; padding: 0; flex: 1 1 auto;
+  display: flex; flex-direction: column; justify-content: space-between; gap: clamp(4px, 0.7vh, 8px);
+}
+.ib-spec {
+  display: grid; grid-template-columns: auto 1.5em 1fr; align-items: center;
+  column-gap: clamp(6px, 0.7vw, 9px);
+}
+.ib-spec-chip {
+  display: grid; place-items: center;
+  width: clamp(19px, 1.9vw, 24px); aspect-ratio: 1; border-radius: 50%;
+  background: var(--navy); color: #fdfaf4; line-height: 0;
+}
+.ib-spec:nth-child(even) .ib-spec-chip { background: var(--gold-2); color: var(--navy); }
+.ib-spec-num {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(15px, 1.5vw, 20px); line-height: 1; letter-spacing: -0.5px;
+  color: var(--gold-text); text-align: right;
+}
+.ib-spec-text { display: flex; flex-direction: column; min-width: 0; }
+.ib-spec-title {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(10px, 0.85vw, 11.5px); line-height: 1.14; letter-spacing: -0.1px;
+  color: var(--navy);
+}
+.ib-spec-sub {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(9px, 0.72vw, 10px); line-height: 1.18;
+  color: rgba(28, 32, 25, 0.66); margin-top: 1px;
+}
+.ib-intro-closing {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(9.5px, 0.78vw, 11px); line-height: 1.38;
+  color: rgba(28, 32, 25, 0.8);
+  margin: clamp(9px, 1.4vh, 14px) 0 0; padding-top: clamp(8px, 1.2vh, 12px);
+  border-top: 1px solid rgb(var(--navy-rgb) / 0.12);
+}
 
 /* RIGHT PAGE — full-bleed facility photo, cover-cropped into the page */
 .ib-imgpage {
@@ -952,9 +1011,6 @@
   .ib-spine-shadow { width: 38px; }
   .ib-curl { width: 84px; height: 84px; }
 
-  .ib-intro-heading { font-size: clamp(30px, 2.6vw, 42px); }
-  .ib-intro-body { font-size: 16px; max-width: 32ch; }
-
   .ib-book-wrap { padding-top: 28px; }
   .ib-ribbon { width: 24px; height: 76px; top: -22px; }
   .ib-counter { font-size: 14px; top: -28px; letter-spacing: 2.4px; }
@@ -982,6 +1038,13 @@
   }
   .ib-imgpage { position: static; width: 100%; height: 240px; order: -1; }
   .ib-img-frame { border-radius: 12px; }
-  /* intro (resting) on mobile — heading card then the location line + arrow */
-  .ib-intropage { position: static; width: 100%; height: auto; padding: 6px 20px 18px; }
+  /* intro (resting) on mobile — the two text pages become stacked cream cards */
+  .ib-intro-left, .ib-intro-right {
+    position: static; width: 100%; height: auto; overflow: visible;
+  }
+  .ib-intro-right {
+    background: #fdfaf4; border: 1px solid rgb(var(--navy-rgb) / 0.1);
+    border-radius: 12px; padding: 22px 20px;
+  }
+  .ib-speclist { gap: 12px; }
 }

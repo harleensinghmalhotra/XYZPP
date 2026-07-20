@@ -12,23 +12,23 @@
         "22 torres offset web de alta capacidad",
         "millones de formas impresas cada día"
       ],
-      "intro": "22 torres offset web de alta capacidad diseñadas para impresión educativa y comercial de gran volumen.",
+      "intro": "22 torres de impresión offset web con una gama de configuraciones de corte, equipadas para fabricar libros en múltiples formatos con la máxima eficiencia y un mínimo desperdicio de papel.",
       "points": [
         {
-          "title": "Gran volumen",
-          "desc": "Millones de formas impresas cada día."
+          "title": "22 torres de impresión",
+          "desc": "Veintidós torres de impresión offset web."
         },
         {
-          "title": "Velocidad y consistencia",
-          "desc": "Velocidad y consistencia excepcionales."
+          "title": "Configuraciones de corte",
+          "desc": "Una gama de configuraciones de corte."
         },
         {
-          "title": "Precisión de color",
-          "desc": "Calibradas para una precisión de color exacta."
+          "title": "Múltiples formatos",
+          "desc": "Libros fabricados en múltiples formatos."
         },
         {
-          "title": "Flexibilidad de formatos",
-          "desc": "Múltiples cortes para libros de texto y más."
+          "title": "Mínimo desperdicio",
+          "desc": "Máxima eficiencia y mínimo desperdicio de papel."
         }
       ]
     },
@@ -41,23 +41,23 @@
         "6 prensas de pliego de última generación",
         "Komori y Ryobi"
       ],
-      "intro": "Seis prensas de pliego de última generación: una de retiración de ocho colores y cinco de cuatro colores.",
+      "intro": "Seis prensas offset de pliego nuevas de Komori y Ryobi, incluida la última perfectora de ocho colores Komori GL-837P Advance, diseñadas para una calidad de impresión excepcional.",
       "points": [
         {
-          "title": "Tecnología premium",
-          "desc": "Tecnología de prensa Komori y Ryobi."
+          "title": "6 prensas Komori y Ryobi",
+          "desc": "Seis prensas offset de pliego nuevas."
         },
         {
-          "title": "Calidad excepcional",
-          "desc": "Calidad de impresión excepcional en cada tirada."
+          "title": "Perfectora de ocho colores",
+          "desc": "La última Komori GL-837P Advance de ocho colores."
         },
         {
-          "title": "Retiración ocho colores",
-          "desc": "Una prensa de retiración de ocho colores dedicada."
+          "title": "Cubiertas y tiradas cortas",
+          "desc": "Cubiertas, impresión comercial premium y tiradas cortas."
         },
         {
-          "title": "Aplicaciones premium",
-          "desc": "Cubiertas, libros de mesa, embalajes e informes."
+          "title": "Precisión de color",
+          "desc": "Precisión de color, detalle nítido y flexibilidad."
         }
       ]
     },
@@ -70,23 +70,23 @@
         "encuadernación perfecta, cosido al centro, cosido por secciones y confección de tapas",
         "millones de libros de alta calidad cada año"
       ],
-      "intro": "Una línea de posprensa integrada, diseñada para velocidad, durabilidad y precisión.",
+      "intro": "Una división de encuadernación y acabado totalmente integrada, capaz de manejar una amplia gama de formatos de libros con rapidez y precisión.",
       "points": [
         {
           "title": "Encuadernación perfecta",
-          "desc": "Encuadernación perfecta precisa y duradera."
+          "desc": "3 líneas Bindwel y 7 máquinas de seis pinzas de encuadernación perfecta."
         },
         {
           "title": "Cosido al centro",
-          "desc": "Cosido al centro rápido y limpio."
+          "desc": "3 líneas de cosido al centro Müller Martini."
         },
         {
-          "title": "Cosido y confección",
-          "desc": "Cosido por secciones y confección de tapas."
+          "title": "Cosido por secciones",
+          "desc": "8 máquinas de cosido automáticas y 17 estaciones manuales."
         },
         {
-          "title": "Millones al año",
-          "desc": "Millones de libros de alta calidad cada año."
+          "title": "Producción de tapa dura",
+          "desc": "Línea de cuerpo del libro HXCP, armadora de tapas Kolbus DA 260 y encaje."
         }
       ]
     }
@@ -104,7 +104,26 @@
     },
     "intro": {
       "heading": "Infraestructura",
-      "body": "Distribuido en 300,000 pies cuadrados en Navi Mumbai, India."
+      "subtitle": "Diseñada para ofrecer calidad a gran escala",
+      "para1": "Estratégicamente ubicada cerca del JNPT (Puerto Jawaharlal Nehru), en Navi Mumbai, Quarterfold Printabilities opera tres instalaciones de fabricación integradas y un centro dedicado de almacenamiento y preparación de pedidos, que abarca más de 300,000 pies cuadrados.",
+      "para2": "Nuestra plataforma de fabricación está diseñada para producir una amplia gama de productos, incluidos libros educativos, libros comerciales, libros infantiles, libros de cartón y publicaciones de tapa blanda y dura, respaldada por capacidades avanzadas de preprensa, impresión, encuadernación, acabado, almacenamiento y despacho global.",
+      "pillars": [
+        { "label": "Fabricación integrada" },
+        { "label": "Tecnología avanzada" },
+        { "label": "Alcance global" },
+        { "label": "Garantía de calidad" }
+      ],
+      "rightHeading": "En julio de 2026, nuestra infraestructura incluye:",
+      "list": [
+        { "num": "22", "title": "Torres de impresión offset web" },
+        { "num": "6", "title": "Prensas offset de pliego nuevas", "sub": "incluida una perfectora de ocho colores" },
+        { "num": "10", "title": "Líneas de encuadernación perfecta" },
+        { "num": "3", "title": "Líneas de cosido al centro" },
+        { "num": "8", "title": "Máquinas de cosido por secciones" },
+        { "title": "Armadora de tapas, encaje y líneas de cuerpo del libro automatizadas", "sub": "para la producción de libros de tapa dura" },
+        { "title": "Departamento de acabado integral", "sub": "laminado, Spot UV, gofrado, estampación de lámina, troquelado y acabados especiales" }
+      ],
+      "closing": "Combinada con nuestra ubicación portuaria estratégica, nuestro almacenamiento integrado y un equipo experimentado, esta infraestructura nos permite entregar libros de alta calidad de forma eficiente y fiable a editoriales e instituciones educativas en más de 25 países."
     },
     "04": {
       "eyebrow": "Almacén",
@@ -115,23 +134,23 @@
         "almacenamiento de alta capacidad",
         "Empaque listo para exportar"
       ],
-      "intro": "Infraestructura moderna de almacenamiento y logística para una gestión eficiente del inventario y distribución global.",
+      "intro": "Un centro integrado de almacenamiento y preparación de pedidos que ofrece preparación de kits de libros, gestión de inventario, almacenamiento, cumplimiento de pedidos y entrega de última milla.",
       "points": [
         {
-          "title": "Almacenamiento de alta capacidad",
-          "desc": "Para papel, productos terminados e inventario de clientes."
+          "title": "Kits y ensamblaje",
+          "desc": "Preparación de kits de libros y ensamblaje de kits educativos."
         },
         {
-          "title": "Gestión segura",
-          "desc": "Gestión de stock segura y organizada."
+          "title": "Inventario y almacenamiento",
+          "desc": "Gestión de inventario y almacenamiento seguro."
         },
         {
-          "title": "Consolidación y kits",
-          "desc": "Consolidación, preparación de kits y empaque para exportar."
+          "title": "Cumplimiento de pedidos",
+          "desc": "Cumplimiento de pedidos y entrega de última milla."
         },
         {
-          "title": "Expedición eficiente",
-          "desc": "Expedición y coordinación de última milla."
+          "title": "Diseñado para escalar",
+          "desc": "Al servicio de editoriales, instituciones y distribución a gran escala."
         }
       ]
     },
@@ -143,23 +162,23 @@
       "highlights": [
         "200+ profesionales"
       ],
-      "intro": "Dirección, atención al cliente, diseño, finanzas, compras y gestión de proyectos bajo un mismo techo en Navi Mumbai.",
+      "intro": "Ubicada en el corazón de Navi Mumbai, nuestra sede corporativa de 15,000 pies cuadrados es el centro neurálgico de atención al cliente, planificación estratégica, finanzas, diseño y operaciones.",
       "points": [
         {
-          "title": "200+ profesionales",
-          "desc": "Un equipo de más de 200 personas bajo un mismo techo."
+          "title": "Diseño y preprensa internos",
+          "desc": "Equipos dedicados a los retoques de última hora."
         },
         {
-          "title": "Espacios colaborativos",
-          "desc": "Espacios de trabajo colaborativos contemporáneos."
+          "title": "Atención al cliente",
+          "desc": "Profesionales de atención al cliente con experiencia."
         },
         {
-          "title": "Salas de cliente dedicadas",
-          "desc": "Salas de reunión dedicadas para clientes."
+          "title": "Liderazgo colaborativo",
+          "desc": "Un equipo de liderazgo colaborativo."
         },
         {
-          "title": "Conectividad global",
-          "desc": "Oficinas tecnológicas al servicio de todo el mundo."
+          "title": "Centro de operaciones",
+          "desc": "Atención, planificación, finanzas, diseño y operaciones reunidos."
         }
       ]
     }

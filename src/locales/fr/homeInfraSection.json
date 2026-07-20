@@ -12,23 +12,23 @@
         "22 tours offset web haute capacité",
         "millions de formes imprimées chaque jour"
       ],
-      "intro": "22 tours offset web haute capacité conçues pour l'impression éducative et commerciale en grand volume.",
+      "intro": "22 tours d'impression offset web avec une gamme de configurations de coupe, permettant de fabriquer des livres dans de multiples formats de rognage avec une efficacité maximale et un gaspillage minimal de papier.",
       "points": [
         {
-          "title": "Volume élevé",
-          "desc": "Des millions de formes imprimées chaque jour."
+          "title": "22 tours d'impression",
+          "desc": "Vingt-deux tours d'impression offset web."
         },
         {
-          "title": "Vitesse et régularité",
-          "desc": "Une vitesse et une régularité exceptionnelles."
+          "title": "Configurations de coupe",
+          "desc": "Une gamme de configurations de coupe."
         },
         {
-          "title": "Précision des couleurs",
-          "desc": "Calibrées pour une précision des couleurs."
+          "title": "Multiples formats",
+          "desc": "Des livres fabriqués dans de multiples formats de rognage."
         },
         {
-          "title": "Flexibilité des formats",
-          "desc": "Multiples coupes pour manuels, livres et plus."
+          "title": "Gaspillage minimal",
+          "desc": "Efficacité maximale et gaspillage minimal de papier."
         }
       ]
     },
@@ -41,23 +41,23 @@
         "6 presses feuille à feuille de pointe",
         "Komori et Ryobi"
       ],
-      "intro": "Six presses feuille à feuille de pointe — une presse à retiration huit couleurs et cinq presses quatre couleurs.",
+      "intro": "Six presses offset feuille à feuille neuves de Komori et Ryobi, dont la toute dernière perfectrice huit couleurs Komori GL-837P Advance, conçues pour une qualité d'impression exceptionnelle.",
       "points": [
         {
-          "title": "Technologie de pointe",
-          "desc": "Technologie de presse Komori et Ryobi."
+          "title": "6 presses Komori et Ryobi",
+          "desc": "Six presses offset feuille à feuille neuves."
         },
         {
-          "title": "Qualité exceptionnelle",
-          "desc": "Une qualité d'impression exceptionnelle à chaque tirage."
+          "title": "Perfectrice huit couleurs",
+          "desc": "La toute dernière Komori GL-837P Advance huit couleurs."
         },
         {
-          "title": "Retiration huit couleurs",
-          "desc": "Une presse à retiration huit couleurs dédiée."
+          "title": "Couvertures et courts tirages",
+          "desc": "Couvertures, impression commerciale premium et courts tirages."
         },
         {
-          "title": "Applications premium",
-          "desc": "Couvertures, beaux livres, emballages et rapports."
+          "title": "Précision des couleurs",
+          "desc": "Précision des couleurs, netteté des détails et flexibilité."
         }
       ]
     },
@@ -70,23 +70,23 @@
         "dos carré collé, piqûre à cheval, couture par cahiers et façonnage de couvertures cartonnées",
         "millions de livres de haute qualité chaque année"
       ],
-      "intro": "Un atelier de façonnage intégré, conçu pour la vitesse, la durabilité et la précision.",
+      "intro": "Une division reliure et façonnage entièrement intégrée, capable de traiter une large gamme de formats de livres avec rapidité et précision.",
       "points": [
         {
           "title": "Dos carré collé",
-          "desc": "Un dos carré collé précis et durable."
+          "desc": "3 lignes Bindwel et 7 machines à six pinces de dos carré collé."
         },
         {
           "title": "Piqûre à cheval",
-          "desc": "Une piqûre à cheval rapide et nette."
+          "desc": "3 lignes de piqûre à cheval (centre) Müller Martini."
         },
         {
-          "title": "Couture et cartonnage",
-          "desc": "Couture par cahiers et façonnage de couvertures."
+          "title": "Couture par cahiers",
+          "desc": "8 machines de couture automatiques et 17 postes manuels."
         },
         {
-          "title": "Des millions par an",
-          "desc": "Des millions de livres de haute qualité chaque année."
+          "title": "Production cartonnée",
+          "desc": "Ligne de corps d'ouvrage HXCP, confectionneuse Kolbus DA 260 et emboîtage."
         }
       ]
     }
@@ -104,7 +104,26 @@
     },
     "intro": {
       "heading": "Infrastructure",
-      "body": "Réparti sur 300 000 pi² à Navi Mumbai, Inde."
+      "subtitle": "Conçue pour offrir la qualité à grande échelle",
+      "para1": "Idéalement située à proximité du JNPT (port Jawaharlal Nehru), à Navi Mumbai, Quarterfold Printabilities exploite trois sites de production intégrés et un centre dédié d'entreposage et de traitement des commandes, s'étendant sur plus de 300 000 pi².",
+      "para2": "Notre plateforme de production est conçue pour fabriquer une large gamme de produits, notamment des livres éducatifs, des livres grand public, des livres pour enfants, des livres cartonnés et des publications à couverture souple et rigide, soutenue par des capacités avancées de prépresse, d'impression, de reliure, de façonnage, d'entreposage et d'expédition mondiale.",
+      "pillars": [
+        { "label": "Fabrication intégrée" },
+        { "label": "Technologie de pointe" },
+        { "label": "Portée mondiale" },
+        { "label": "Assurance qualité" }
+      ],
+      "rightHeading": "En juillet 2026, notre infrastructure comprend :",
+      "list": [
+        { "num": "22", "title": "Tours d'impression offset web" },
+        { "num": "6", "title": "Presses offset feuille à feuille neuves", "sub": "dont une perfectrice huit couleurs" },
+        { "num": "10", "title": "Lignes de dos carré collé" },
+        { "num": "3", "title": "Lignes de piqûre à cheval" },
+        { "num": "8", "title": "Machines de couture par cahiers" },
+        { "title": "Confectionneuse de couvertures, emboîtage et lignes de corps d'ouvrage automatisés", "sub": "pour la production de livres cartonnés" },
+        { "title": "Département de façonnage complet", "sub": "pelliculage, Spot UV, gaufrage, dorure à chaud, découpe et finitions spéciales" }
+      ],
+      "closing": "Associée à notre emplacement portuaire stratégique, à notre entreposage intégré et à une équipe expérimentée, cette infrastructure nous permet de livrer des livres de haute qualité de manière efficace et fiable aux éditeurs et aux établissements d'enseignement dans plus de 25 pays."
     },
     "04": {
       "eyebrow": "Entrepôt",
@@ -115,23 +134,23 @@
         "stockage haute capacité",
         "Emballage prêt à l'export"
       ],
-      "intro": "Infrastructure moderne d'entreposage et de logistique pour une gestion des stocks efficace et une distribution mondiale.",
+      "intro": "Un centre d'entreposage et de traitement des commandes intégré offrant la mise en kit de livres, la gestion des stocks, le stockage, le traitement des commandes et la livraison du dernier kilomètre.",
       "points": [
         {
-          "title": "Stockage haute capacité",
-          "desc": "Pour le papier, les produits finis et les stocks clients."
+          "title": "Mise en kit et assemblage",
+          "desc": "Mise en kit de livres et assemblage de kits éducatifs."
         },
         {
-          "title": "Gestion sécurisée",
-          "desc": "Une gestion des stocks sécurisée et organisée."
+          "title": "Stocks et stockage",
+          "desc": "Gestion des stocks et stockage sécurisé."
         },
         {
-          "title": "Consolidation et mise en kit",
-          "desc": "Consolidation, mise en kit et emballage export."
+          "title": "Traitement des commandes",
+          "desc": "Traitement des commandes et livraison du dernier kilomètre."
         },
         {
-          "title": "Expédition efficace",
-          "desc": "Expédition et coordination du dernier kilomètre."
+          "title": "Conçu pour l'échelle",
+          "desc": "Au service des éditeurs, institutions et distributions à grande échelle."
         }
       ]
     },
@@ -143,23 +162,23 @@
       "highlights": [
         "200+ professionnels"
       ],
-      "intro": "Direction, service client, design, finance, achats et gestion de projet sous un même toit à Navi Mumbai.",
+      "intro": "Situé au cœur de Navi Mumbai, notre siège social de 15 000 pi² est le centre névralgique du service client, de la planification stratégique, des finances, du design et des opérations.",
       "points": [
         {
-          "title": "200+ professionnels",
-          "desc": "Une équipe de plus de 200 personnes sous un même toit."
+          "title": "Design et prépresse internes",
+          "desc": "Des équipes dédiées aux retouches de dernière minute."
         },
         {
-          "title": "Espaces collaboratifs",
-          "desc": "Des espaces de travail collaboratifs contemporains."
+          "title": "Service client",
+          "desc": "Des professionnels du service client expérimentés."
         },
         {
-          "title": "Salles client dédiées",
-          "desc": "Des salles de réunion client dédiées."
+          "title": "Direction collaborative",
+          "desc": "Une équipe de direction collaborative."
         },
         {
-          "title": "Connectivité mondiale",
-          "desc": "Des bureaux technologiques au service du monde entier."
+          "title": "Centre névralgique",
+          "desc": "Service, planification, finances, design et opérations réunis."
         }
       ]
     }

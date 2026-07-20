@@ -12,23 +12,23 @@
         "22 high-capacity web offset towers",
         "millions of printed forms every day"
       ],
-      "intro": "22 high-capacity web offset towers engineered for large-volume education and commercial printing.",
+      "intro": "22 web offset printing towers with a range of cut-off configurations, equipped to manufacture books in multiple trim sizes with maximum efficiency and minimal paper wastage.",
       "points": [
         {
-          "title": "High-Volume Output",
-          "desc": "Millions of printed forms every day."
+          "title": "22 Printing Towers",
+          "desc": "Twenty-two web offset printing towers."
         },
         {
-          "title": "Speed & Consistency",
-          "desc": "Exceptional speed and consistency at scale."
+          "title": "Cut-off Configurations",
+          "desc": "A range of cut-off configurations."
         },
         {
-          "title": "Colour Accuracy",
-          "desc": "Calibrated for precise colour accuracy."
+          "title": "Multiple Trim Sizes",
+          "desc": "Books manufactured in multiple trim sizes."
         },
         {
-          "title": "Format Flexibility",
-          "desc": "Multiple cut-offs for textbooks, trade books and more."
+          "title": "Minimal Wastage",
+          "desc": "Maximum efficiency with minimal paper wastage."
         }
       ]
     },
@@ -41,23 +41,23 @@
         "6 state-of-the-art sheetfed presses",
         "Komori and Ryobi"
       ],
-      "intro": "Six state-of-the-art sheetfed presses — one eight-colour perfecting press and five four-colour presses.",
+      "intro": "Six brand-new sheet-fed offset presses from Komori and Ryobi, including the latest 8-colour Komori GL-837P Advance Perfector, built to deliver exceptional print quality.",
       "points": [
         {
-          "title": "Premium Technology",
-          "desc": "Komori and Ryobi press technology."
+          "title": "6 Komori & Ryobi Presses",
+          "desc": "Six brand-new sheet-fed offset presses."
         },
         {
-          "title": "Outstanding Quality",
-          "desc": "Outstanding print quality on every run."
+          "title": "8-Colour Perfector",
+          "desc": "The latest 8-colour Komori GL-837P Advance Perfector."
         },
         {
-          "title": "Eight-Colour Perfecting",
-          "desc": "A dedicated eight-colour perfecting press."
+          "title": "Covers & Short Runs",
+          "desc": "Book covers, premium commercial and short-run production."
         },
         {
-          "title": "Premium Applications",
-          "desc": "Covers, coffee-table books, packaging and reports."
+          "title": "Colour Accuracy",
+          "desc": "Outstanding colour accuracy, sharp detail and flexibility."
         }
       ]
     },
@@ -70,23 +70,23 @@
         "perfect binding, saddle stitching, section sewing and case making",
         "millions of high-quality books every year"
       ],
-      "intro": "An integrated post-press line built for speed, durability and precision.",
+      "intro": "A fully integrated binding and finishing division equipped to handle a wide range of book formats with speed and precision.",
       "points": [
         {
           "title": "Perfect Binding",
-          "desc": "Precise, durable perfect binding."
+          "desc": "3 Bindwel lines and 7 six-clamp perfect binding machines."
         },
         {
           "title": "Saddle Stitching",
-          "desc": "Fast, clean saddle stitching."
+          "desc": "3 Müller Martini saddle stitching (centre pinning) lines."
         },
         {
-          "title": "Sewing & Case Making",
-          "desc": "Section sewing and case making."
+          "title": "Section Sewing",
+          "desc": "8 automatic section sewing machines and 17 manual stations."
         },
         {
-          "title": "Millions Bound Yearly",
-          "desc": "Millions of high-quality books every year."
+          "title": "Hardcover Production",
+          "desc": "HXCP book block line, Kolbus DA 260 case maker and case-in line."
         }
       ]
     }
@@ -104,7 +104,26 @@
     },
     "intro": {
       "heading": "Infrastructure",
-      "body": "Spread across 300,000 sq ft in Navi Mumbai, India."
+      "subtitle": "Built to deliver quality at scale",
+      "para1": "Strategically located near JNPT (Jawaharlal Nehru Port), Navi Mumbai, Quarterfold Printabilities operates three integrated manufacturing facilities and one dedicated warehousing and fulfilment centre, spanning over 300,000 sq. ft.",
+      "para2": "Our manufacturing platform is designed to produce a wide range of products, including educational books, trade books, children's books, board books, softcover and hardcover publications, supported by advanced pre-press, printing, binding, finishing, warehousing, and global dispatch capabilities.",
+      "pillars": [
+        { "label": "Integrated Manufacturing" },
+        { "label": "Advanced Technology" },
+        { "label": "Global Reach" },
+        { "label": "Quality Assurance" }
+      ],
+      "rightHeading": "As of July 2026, our infrastructure includes:",
+      "list": [
+        { "num": "22", "title": "Web Offset Printing Towers" },
+        { "num": "6", "title": "Brand-New Sheet-fed Offset Presses", "sub": "including an 8-Colour Perfector" },
+        { "num": "10", "title": "Perfect Binding Lines" },
+        { "num": "3", "title": "Saddle Stitching Lines" },
+        { "num": "8", "title": "Section Sewing Machines" },
+        { "title": "Automated Case Maker, Case-In & Book Block Lines", "sub": "for hardcover book production" },
+        { "title": "Comprehensive Finishing Department", "sub": "featuring lamination, Spot UV, embossing, foil stamping, die-cutting and specialty finishing" }
+      ],
+      "closing": "Combined with our strategic port location, integrated warehousing, and experienced team, this infrastructure enables us to deliver high-quality books efficiently and reliably to publishers and educational institutions across more than 25 countries."
     },
     "04": {
       "eyebrow": "Warehouse",
@@ -115,23 +134,23 @@
         "High-capacity storage",
         "Export-ready packing"
       ],
-      "intro": "Modern warehousing and logistics infrastructure supporting efficient inventory management and global distribution.",
+      "intro": "An integrated warehousing and fulfilment centre offering comprehensive book kitting, inventory management, storage, order fulfilment and last-mile delivery.",
       "points": [
         {
-          "title": "High-Capacity Storage",
-          "desc": "For paper, finished goods and customer inventory."
+          "title": "Kitting & Assembly",
+          "desc": "Book kitting and educational kit assembly."
         },
         {
-          "title": "Secure Stock Management",
-          "desc": "Secure, organised stock management."
+          "title": "Inventory & Storage",
+          "desc": "Inventory management and secure storage."
         },
         {
-          "title": "Consolidation & Kitting",
-          "desc": "Order consolidation, kitting and export-ready packing."
+          "title": "Order Fulfilment",
+          "desc": "Order fulfilment and last-mile delivery services."
         },
         {
-          "title": "Efficient Dispatch",
-          "desc": "Dispatch and last-mile distribution coordination."
+          "title": "Built for Scale",
+          "desc": "Supporting publishers, institutions and large-scale distribution."
         }
       ]
     },
@@ -143,23 +162,23 @@
       "highlights": [
         "200+ professionals"
       ],
-      "intro": "Leadership, service, design, finance, procurement and project management under one roof in Navi Mumbai.",
+      "intro": "Located in the heart of Navi Mumbai, our 15,000 sq. ft. corporate headquarters is the central hub for customer support, strategic planning, finance, design, and business operations.",
       "points": [
         {
-          "title": "200+ Professionals",
-          "desc": "A 200+ strong team under one roof."
+          "title": "In-House Design & Pre-Press",
+          "desc": "Dedicated teams for last-minute artwork updates."
         },
         {
-          "title": "Collaborative Spaces",
-          "desc": "Contemporary collaborative workspaces."
+          "title": "Customer Support",
+          "desc": "Experienced customer service professionals."
         },
         {
-          "title": "Dedicated Client Rooms",
-          "desc": "Dedicated client meeting rooms and lounges."
+          "title": "Collaborative Leadership",
+          "desc": "A collaborative leadership team."
         },
         {
-          "title": "Global Connectivity",
-          "desc": "Technology-enabled offices serving customers worldwide."
+          "title": "Central Operations Hub",
+          "desc": "Support, planning, finance, design and operations under one roof."
         }
       ]
     }
