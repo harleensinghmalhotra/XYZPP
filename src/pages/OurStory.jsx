@@ -9,6 +9,7 @@ import { PaperGrain } from '@/components/atmosphere'
 // No homepage files are modified; tokens resolve to the inner-page palette.
 import Awards from '@/sections/Awards'
 import Certifications from '@/sections/Certifications'
+import { GALLERY } from '@/assets/gallery/manifest'
 import './OurStory.css'
 
 // MOCK — replace with client photography. Raw Pexels photos (free license), one
@@ -101,16 +102,16 @@ export default function OurStory() {
       {/* SECTION 3 ── INK SPREADS — MVV, three navy spines + drawn gold hairlines */}
       <InkSpreads />
 
-      {/* SECTION 4 ── THE FOUNDER — Tequila spread + ink-in pull quote ────────── */}
+      {/* SECTION 5 ── THE FOUNDER — corporate boardroom profile ──────────────── */}
       <Founder />
 
-      {/* Ribbon between the founder and the people who keep his promise. */}
-      <AboutMarquee />
-
-      {/* SECTION 5 ── THE TEAM — full roster, one grid, everyone shown ────────── */}
+      {/* SECTION 6 ── OUR TEAM — full roster, one grid, everyone shown ────────── */}
       <Team />
 
-      {/* SECTION 6 & 7 ── AWARDS + CERTIFICATES — company-wide credentials,
+      {/* SECTION 7 ── GALLERY — print-industry mock imagery, trivially swappable */}
+      <Gallery />
+
+      {/* SECTION 8 & 9 ── AWARDS + CERTIFICATES — company-wide credentials,
           imported from the homepage sections (Awards navy → Certs cream dome).
           The closing CTA is appended by the site layout after <main>. */}
       <Awards />
@@ -284,32 +285,29 @@ function Founder() {
   )
 }
 
-// ── MARQUEE — a slow gold ribbon of the page's own eyebrow, "OUR STORY",
-// repeating on a thin navy band between the founder and the team. Chosen because
-// it is the shortest brand-owned string in the locale and it frames the whole
-// chapter without repeating the pull quote directly above it. translateX loop,
-// edge-faded; paused + static under reduced-motion. ────────────────────────────
-function AboutMarquee() {
+// ── GALLERY — print-industry mock imagery ─────────────────────────────────────
+// A clean responsive masonry (CSS multi-column) of local Pexels mocks (free
+// license, credit-free) awaiting client photography. Images come from the folder
+// manifest so they are trivially swappable — replace/add a file, nothing else.
+// Each tile reveals on scroll and lifts its image slightly on hover.
+function Gallery() {
   const { t } = useTranslation('ourStory')
-  const reduced = useReducedMotion()
-  const word = t('hero.eyebrow')
-  const run = (key) => (
-    <div className="ab-marquee-run" key={key}>
-      {Array.from({ length: 8 }).map((_, i) => (
-        <span className="ab-marquee-item" key={i}>
-          <span className="ab-marquee-word">{word}</span>
-          <span className="ab-marquee-sep" aria-hidden="true" />
-        </span>
-      ))}
-    </div>
-  )
+  if (!GALLERY.length) return null
   return (
-    <div className="ab-marquee" data-theme="dark" aria-hidden="true">
-      <div className={`ab-marquee-track${reduced ? ' is-static' : ''}`}>
-        {run('a')}
-        {run('b')}
+    <section data-theme="light" className="gal" aria-labelledby="gal-title">
+      <PaperGrain />
+      <div className="ab-wrap">
+        <p className="ab-eyebrow gal-eyebrow" data-reveal>{t('gallery.eyebrow')}</p>
+        <h2 id="gal-title" className="gal-title" data-reveal>{t('gallery.heading')}</h2>
+        <div className="gal-grid">
+          {GALLERY.map((src, i) => (
+            <figure className="gal-item" data-reveal key={i} style={{ '--reveal-delay': `${(i % 4) * 60}ms` }}>
+              <img className="gal-img" src={src} alt="" loading="lazy" decoding="async" />
+            </figure>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   )
 }
 
@@ -322,14 +320,11 @@ function AboutMarquee() {
 // card scale, tight gaps. Cascade in at 60ms; hover warms the divider gold, lifts
 // the card -4px, and scale-ins the future photo (inert while the frame is empty).
 //
-// Header: no ourStory key names a team/people section, so the section's YOO-style
-// statement reuses the only existing purpose-built team heading in the locale set,
-// globalMarkets.teamSection.heading ("Our Global Team"), verbatim. Its companion
-// `placeholder` string is a global-markets-specific stub, so there is no suitable
-// supporting line — the drawn gold hairline + statement open the section.
+// Header: "Our Team" (ourStory.team.heading — own key in all three locales, no
+// longer borrowing globalMarkets). The drawn gold→orange hairline opens the
+// section above the statement.
 function Team() {
   const { t } = useTranslation('ourStory')
-  const { t: tg } = useTranslation('globalMarkets')
   // roster: card 1 real (existing strings), 2-8 shells.
   const roster = [
     { name: t('founder.name'), role: t('founder.role') },
@@ -340,7 +335,7 @@ function Team() {
       <PaperGrain />
       <div className="ab-wrap">
         <hr className="tm-rule" data-reveal aria-hidden="true" />
-        <h2 id="tm-title" className="tm-title" data-reveal>{tg('teamSection.heading')}</h2>
+        <h2 id="tm-title" className="tm-title" data-reveal>{t('team.heading')}</h2>
         <div className="tm-grid">
           {roster.map((m, i) => (
             <article

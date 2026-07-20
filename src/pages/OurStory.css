@@ -10,7 +10,7 @@
    --ab-orange     : the #F37031 accent as-is; decorative marks + on-navy text.
    --ab-orange-ink : a darker burnt-orange of the same family that clears AA
                      (≈4.8:1) as 11-12px text on the cream ground. */
-.ab-hero, .ab-lede, .tls, .mvv, .fnd, .tm, .ab-marquee {
+.ab-hero, .ab-lede, .tls, .mvv, .fnd, .tm, .gal {
   --ab-orange: #f37031;
   --ab-orange-ink: #c2410c;
 }
@@ -281,30 +281,31 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   text-transform: uppercase; color: rgb(var(--navy-rgb) / 0.55);
 }
 
-/* ── SECTION — MARQUEE RIBBON ───────────────────────────────────────────────
-   Thin navy band, gold DM Mono word repeating on a translateX loop, edge-faded
-   both ends. Static under reduced-motion (kill switch in the JSX + the media
-   query below). */
-.ab-marquee {
-  position: relative; background: var(--navy); overflow: hidden;
-  padding: clamp(18px, 2.6vh, 26px) 0;
-  border-top: 1px solid rgb(var(--gold-2-rgb) / 0.22);
-  border-bottom: 1px solid rgb(var(--gold-2-rgb) / 0.22);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+/* ── SECTION 7 — GALLERY (print-industry mock masonry) ───────────────────────
+   A clean responsive masonry via CSS multi-column: tiles keep their natural
+   aspect and pack column-first. Each tile has a card radius, a hairline, and a
+   quiet scale on hover. Reveals ride the shared [data-reveal] system. */
+.gal { position: relative; background: var(--cream); padding: clamp(60px, 7vh, 88px) var(--page-gutter) var(--section-pad-y); overflow: hidden; }
+.gal-eyebrow { margin: 0 0 clamp(14px, 1.9vh, 20px); }
+.gal-title {
+  margin: 0 0 clamp(32px, 4.6vh, 52px); max-width: 20ch;
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(30px, 3.6vw, 48px); line-height: 1.06; letter-spacing: -0.02em; color: var(--ink);
 }
-.ab-marquee-track { display: flex; width: max-content; animation: ab-mq 34s linear infinite; will-change: transform; }
-.ab-marquee-track.is-static { animation: none; }
-.ab-marquee-run { display: flex; }
-.ab-marquee-item { display: flex; align-items: center; }
-.ab-marquee-word {
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: clamp(13px, 1.15vw, 15px);
-  letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold-2);
-  padding: 0 clamp(20px, 2.4vw, 34px);
+.gal-grid { columns: 4 250px; column-gap: clamp(12px, 1.2vw, 20px); }
+.gal-item {
+  break-inside: avoid; margin: 0 0 clamp(12px, 1.2vw, 20px);
+  border-radius: var(--r-card); overflow: hidden;
+  border: 1px solid rgb(var(--navy-rgb) / 0.08);
+  box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.05);
 }
-/* gold diamond separator (rotated square — no font glyph, per bible). */
-.ab-marquee-sep { flex: 0 0 auto; width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
-@keyframes ab-mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.gal-img {
+  display: block; width: 100%; height: auto;
+  transition: transform 0.5s var(--e-out); will-change: transform;
+}
+@media (hover: hover) and (pointer: fine) {
+  .gal-item:hover .gal-img { transform: scale(1.04); }
+}
 
 /* ── SECTION 5 — THE TEAM (full-roster YOO grid) ───────────────────────────── */
 .tm { position: relative; background: var(--cream); padding: clamp(60px, 7vh, 88px) var(--page-gutter) var(--section-pad-y); overflow: hidden; }
@@ -418,9 +419,10 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .mvv-col::before { transform: none !important; transition: none !important; }
   .mvv-col-body { opacity: 1 !important; transform: none !important; transition: none !important; }
   .mvv-rule { transform: scaleX(0.17) !important; transition: none !important; }
-  .ab-marquee-track { animation: none !important; }
   .tm-card, .tm-frame, .tm-frame img, .tm-divider { transition: none !important; }
   .tm-card:hover { transform: none !important; }
   .tm-card:hover .tm-frame img { transform: none !important; }
+  .gal-img { transition: none !important; }
+  .gal-item:hover .gal-img { transform: none !important; }
   html.alive-ready .tm-rule[data-reveal] { transform: scaleX(1) !important; transition: none !important; }
 }
