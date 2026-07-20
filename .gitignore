@@ -7,6 +7,10 @@ studio/.env.*
 studio/dist/
 studio/.sanity/
 .sanity/
+
+# Vite local env — holds the read-only Sanity Viewer token. NEVER commit.
+.env.local
+.env.*.local
 # Never commit a plaintext token file (the token belongs only in studio/.env)
 *API Key*.txt
 *api key*.txt

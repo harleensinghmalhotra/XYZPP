@@ -4,13 +4,23 @@ import {projectId, dataset} from '../../studio/projectConfig.js'
 
 // ── Sanity read client ────────────────────────────────────────────────────────
 // projectId + dataset come from studio/projectConfig.js — the single source of
-// truth shared with the studio. No token: the `production` dataset is public and
-// the site only reads. useCdn:true serves the fast, cached API.
+// truth shared with the studio.
+//
+// Under Sanity's newer access model the `production` dataset's legacy "public"
+// flag no longer grants anonymous document reads, so a tokenless client gets 0
+// posts. We read with a READ-ONLY Viewer token supplied via env
+// (VITE_SANITY_READ_TOKEN). The token is optional and the setup degrades
+// gracefully: with no token the client stays exactly as before — anonymous and
+// CDN-cached (useCdn:true). When a token IS present it must hit the live API,
+// because Sanity's CDN does not serve authenticated reads — so useCdn flips off.
+const readToken = import.meta.env.VITE_SANITY_READ_TOKEN || undefined
+
 export const client = createClient({
   projectId,
   dataset,
   apiVersion: '2026-07-19',
-  useCdn: true,
+  useCdn: !readToken,
+  ...(readToken ? {token: readToken} : {}),
 })
 
 // Image URL builder (hotspot/crop-aware). Callers chain .width().auto('format').
