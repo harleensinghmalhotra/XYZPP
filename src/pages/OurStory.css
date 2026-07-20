@@ -110,50 +110,71 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   color: rgb(var(--navy-rgb) / 0.82);
 }
 
-/* ── SECTION 3 — THE JOURNEY (pure vertical-scroll cards) ─────────────────────
-   A vertical stack of era cards; the reader scrolls through them with zero
-   interaction. Media on one side, copy on the other, alternating each row. Inside
-   the copy: a gold→orange accent line + year (DM Mono) above the title. */
+/* ── SECTION 3 — THE JOURNEY (center-spine scroll-draw timeline) ──────────────
+   A vertical line runs down the CENTRE of the section; its orange (#F37031) fill
+   draws downward with scroll progress (scaleY, 60fps; reduced-motion → fully
+   drawn). Each stop has a node ON the line (orange once the fill reaches it, navy
+   outline before) with the year (DM Mono) beside it on the empty side. Cards
+   alternate left/right of the spine; media + copy stack inside each card. Below
+   720px the spine moves to the left edge and every card sits to its right. */
 .tls {
   position: relative; background: var(--cream); overflow: hidden;
   padding: clamp(20px, 3vh, 40px) var(--page-gutter) var(--section-pad-y);
 }
 .tls-eyebrow { margin: 0 0 clamp(32px, 4.6vh, 60px); }
-.tls-list {
-  list-style: none; margin: 0; padding: 0;
-  display: flex; flex-direction: column; gap: clamp(56px, 8vh, 116px);
+
+.tls-timeline { position: relative; }
+/* the spine track + its orange scroll-draw fill (both 2px, centred). */
+.tls-spine {
+  position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%);
+  background: rgb(var(--navy-rgb) / 0.13); overflow: hidden; z-index: 0;
+}
+.tls-spine-fill {
+  position: absolute; inset: 0; background: #f37031;
+  transform-origin: top center; transform: scaleY(0); will-change: transform;
 }
 
-/* one era card — media column is always the wider side; flip swaps the sides. */
+.tls-list { position: relative; list-style: none; margin: 0; padding: 0; z-index: 1; }
+
+/* one stop — [ left half | node | right half ]; the card fills one half. */
 .tls-card {
-  display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
-  gap: clamp(32px, 4vw, 72px); align-items: center;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  column-gap: clamp(24px, 3vw, 56px);
 }
-.tls-card--flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); }
-.tls-card--flip .tls-media-zone { order: 2; }
-.tls-card--flip .tls-copy { order: 1; }
+.tls-card + .tls-card { margin-top: clamp(48px, 8vh, 104px); }
+.tls-card--left .tls-card-inner { grid-column: 1; }
+.tls-card--right .tls-card-inner { grid-column: 3; }
 
-/* MEDIA — landscape era frame; raw photo covers (awaiting client asset). */
-.tls-media-zone { min-width: 0; }
+/* MARKER — node centred on the spine; the year sits on the empty side. */
+.tls-marker { grid-column: 2; position: relative; display: flex; align-items: center; justify-content: center; }
+.tls-node {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid rgb(var(--navy-rgb) / 0.4); background: var(--cream);
+  transition: background 0.3s var(--e-out), border-color 0.3s var(--e-out), transform 0.3s var(--e-out);
+}
+.tls-node.is-reached { background: #f37031; border-color: #f37031; transform: scale(1.12); }
+.tls-year {
+  position: absolute; top: 50%; transform: translateY(-50%); white-space: nowrap;
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: clamp(14px, 1.1vw, 17px);
+  letter-spacing: 0.12em; text-transform: uppercase; color: #c2410c;   /* AA orange on cream */
+}
+.tls-card--left .tls-year { left: calc(100% + 16px); }
+.tls-card--right .tls-year { right: calc(100% + 16px); }
+
+/* CARD — media over copy, stacked inside the half. */
+.tls-card-inner { min-width: 0; }
+.tls-media-zone { min-width: 0; margin: 0 0 clamp(18px, 2.4vh, 26px); }
 .tls-media {
   position: relative; width: 100%; aspect-ratio: 16 / 10;
   border-radius: var(--radius-lg); background: var(--cream-2);
 }
 .tls-media::before, .tls-media::after { content: none; }   /* clean frame — no ticks */
 .tls-media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-
-/* COPY */
 .tls-copy { min-width: 0; }
-/* year (DM Mono) — stands alone above the title, no accent line. */
-.tls-year {
-  margin: 0 0 clamp(15px, 2vh, 20px);
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: clamp(15px, 1.2vw, 18px);
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ab-orange-ink);
-}
 .tls-title {
-  margin: 0 0 clamp(16px, 2.2vh, 22px); max-width: 22ch;
+  margin: 0 0 clamp(14px, 1.8vh, 18px); max-width: 24ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(24px, 2.8vw, 38px); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink);
+  font-size: clamp(23px, 2.6vw, 34px); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink);
 }
 .tls-body {
   margin: 0; max-width: 46ch;
@@ -293,14 +314,18 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
   font-size: clamp(30px, 3.6vw, 48px); line-height: 1.06; letter-spacing: -0.02em; color: var(--ink);
 }
-.gal-grid { columns: 4 250px; column-gap: clamp(12px, 1.2vw, 20px); }
+/* uniform 3×2 grid — six identical tiles, cover-fit, zero empty cells (2×3 at
+   tablet, single column on mobile). */
+.gal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.6vw, 22px); }
 .gal-item {
-  break-inside: avoid; margin: 0 0 clamp(12px, 1.2vw, 20px);
+  margin: 0; aspect-ratio: 3 / 2;
   border-radius: var(--r-card); overflow: hidden;
   border: 1px solid rgb(var(--navy-rgb) / 0.08);
   box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.05);
 }
-.gal-img { display: block; width: 100%; height: auto; }
+.gal-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 900px) { .gal-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .gal-grid { grid-template-columns: 1fr; } }
 
 /* See More — orange pill in the site's CTA language, AA in both states. */
 .gal-more-wrap { display: flex; justify-content: center; margin-top: clamp(30px, 4.4vh, 48px); }
@@ -425,12 +450,21 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 html.alive-ready :is(.ab-hero, .fnd, .tm) [data-reveal] { transition-duration: 0.6s; }
 html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56s; }
 
-/* ── TIMELINE mobile (<900px) — each card stacks: media over copy ──────────── */
-@media (max-width: 900px) {
-  .tls-card, .tls-card--flip {
-    grid-template-columns: 1fr; gap: clamp(20px, 5vw, 30px); align-items: start;
+/* ── TIMELINE mobile (≤720px) — spine to the left edge, all cards to its right */
+@media (max-width: 720px) {
+  .tls-spine { left: 9px; }
+  .tls-card, .tls-card--left, .tls-card--right {
+    grid-template-columns: 18px 1fr; column-gap: clamp(14px, 4vw, 22px); align-items: start;
   }
-  .tls-card--flip .tls-media-zone, .tls-card--flip .tls-copy { order: 0; }
+  .tls-card + .tls-card { margin-top: clamp(40px, 9vw, 68px); }
+  .tls-marker { grid-column: 1; align-self: start; }
+  .tls-node { margin-top: 2px; }
+  .tls-card--left .tls-card-inner, .tls-card--right .tls-card-inner {
+    grid-column: 2; padding-top: clamp(28px, 8vw, 36px);
+  }
+  .tls-card--left .tls-year, .tls-card--right .tls-year {
+    top: 0; left: calc(100% + 14px); right: auto; transform: none; text-align: left;
+  }
 }
 
 /* ── MVV triptych mobile (<900px) — columns stack, hairlines lie horizontal ──── */
@@ -462,6 +496,8 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 /* ── reduced-motion — explicit resting states for every custom mechanic ────── */
 @media (prefers-reduced-motion: reduce) {
   .ab-spine { transform: scaleY(1) !important; }
+  .tls-spine-fill { transform: scaleY(1) !important; }
+  .tls-node { transition: none !important; }
   .mvv-col::before { transform: none !important; transition: none !important; }
   .mvv-col-body { opacity: 1 !important; transform: none !important; transition: none !important; }
   .mvv-rule { transform: scaleX(0.17) !important; transition: none !important; }

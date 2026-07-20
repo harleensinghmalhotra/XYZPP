@@ -149,42 +149,100 @@ function Spine() {
   return <span ref={ref} className="ab-spine" aria-hidden="true" />
 }
 
-// ── THE JOURNEY — pure vertical-scroll timeline ───────────────────────────────
-// Every stop is a card stacked vertically; the reader scrolls through all of them
-// with ZERO interaction. No click-nav, no prev/next arrows, no year rail, no giant
-// ghost year numerals, no rail line — all deleted. Inside each card: the year
-// (DM Mono, orange) stands alone ABOVE the title, then the body and the existing
-// era imagery. Cards alternate the media side for rhythm and
-// reveal subtly on scroll (shared [data-reveal] system); reduced-motion rests them
-// visible. Below 900px each card stacks to a single column (media over copy).
+// ── THE JOURNEY — center-spine scroll-draw timeline ───────────────────────────
+// A vertical line runs down the centre of the section. Its orange fill draws
+// downward as the reader scrolls (scaleY on a reading-line at ~60% viewport
+// height — transform-only, 60fps). Each stop has a node ON the line that turns
+// orange the moment the fill reaches its card centre; the year (DM Mono) sits
+// beside the node on the empty side — the year lives ONLY on the spine, never in
+// the card. Cards alternate left/right of the spine; media + copy stack inside.
+// Reduced-motion: fill fully drawn, every node reached, no scroll listener.
 function Timeline({ stops }) {
   const { t } = useTranslation('ourStory')
+  const reduced = useReducedMotion()
+  const listRef = useRef(null)
+  const fillRef = useRef(null)
+
+  useEffect(() => {
+    const list = listRef.current
+    const fill = fillRef.current
+    if (!list || !fill) return
+    const cards = Array.from(list.querySelectorAll('.tls-card'))
+    const nodes = cards.map((c) => c.querySelector('.tls-node'))
+
+    if (reduced) {
+      fill.style.transform = 'scaleY(1)'
+      nodes.forEach((nd) => nd && nd.classList.add('is-reached'))
+      return
+    }
+
+    // card centres relative to the list top (layout metrics — transform-free, so
+    // the [data-reveal] entrance never skews them); recomputed on resize.
+    let centers = []
+    const measure = () => { centers = cards.map((c) => c.offsetTop + c.offsetHeight / 2) }
+
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const r = list.getBoundingClientRect()            // one read per frame
+      const readLine = window.innerHeight * 0.6
+      const drawn = clamp(readLine - r.top, 0, r.height)
+      const p = r.height > 0 ? drawn / r.height : 1
+      fill.style.transform = `scaleY(${p.toFixed(4)})`
+      for (let k = 0; k < nodes.length; k += 1) {
+        if (nodes[k]) nodes[k].classList.toggle('is-reached', drawn >= centers[k])
+      }
+    }
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
+    const onResize = () => { measure(); onScroll() }
+
+    measure()
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [reduced, stops])
+
   return (
     <section data-theme="light" className="tls" aria-label={t('timeline.eyebrow')}>
       <PaperGrain />
       <div className="ab-wrap">
         <p className="ab-eyebrow tls-eyebrow" data-reveal>{t('timeline.eyebrow')}</p>
-        <ol className="tls-list">
-          {stops.map((s, i) => (
-            <li className={`tls-card${i % 2 ? ' tls-card--flip' : ''}`} data-reveal key={i}>
-              {/* CARD MEDIA — existing era mock (raw photo, awaiting client asset) */}
-              <div className="tls-media-zone">
-                <div className="ab-frame tls-media" data-slot={`timeline-${i}`} aria-hidden="true">
-                  {TIMELINE_MOCKS[i] && (
-                    <img className="tls-media-img" src={TIMELINE_MOCKS[i]} alt="" loading="lazy" decoding="async" />
-                  )}
+        <div className="tls-timeline">
+          <div className="tls-spine" aria-hidden="true">
+            <span ref={fillRef} className="tls-spine-fill" />
+          </div>
+          <ol className="tls-list" ref={listRef}>
+            {stops.map((s, i) => (
+              <li className={`tls-card ${i % 2 ? 'tls-card--right' : 'tls-card--left'}`} data-reveal key={i}>
+                {/* MARKER — node on the spine + the year beside it (spine-only) */}
+                <div className="tls-marker">
+                  <span className="tls-node" aria-hidden="true" />
+                  <span className="tls-year">{s.year}</span>
                 </div>
-              </div>
 
-              {/* CARD COPY — year (DM Mono) alone above the title, then body */}
-              <div className="tls-copy">
-                <p className="tls-year">{s.year}</p>
-                <h3 className="tls-title">{s.title}</h3>
-                <p className="tls-body">{s.desc}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+                {/* CARD — media over copy, stacked on one side of the spine */}
+                <div className="tls-card-inner">
+                  <div className="tls-media-zone">
+                    <div className="ab-frame tls-media" data-slot={`timeline-${i}`} aria-hidden="true">
+                      {TIMELINE_MOCKS[i] && (
+                        <img className="tls-media-img" src={TIMELINE_MOCKS[i]} alt="" loading="lazy" decoding="async" />
+                      )}
+                    </div>
+                  </div>
+                  <div className="tls-copy">
+                    <h3 className="tls-title">{s.title}</h3>
+                    <p className="tls-body">{s.desc}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   )
