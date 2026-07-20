@@ -7,19 +7,31 @@
       "title": "Web Machines",
       "body": "22 high-capacity web offset towers engineered for large-volume education and commercial printing. Capable of producing millions of printed forms every day, delivering exceptional speed, consistency, and colour accuracy. Multiple cut-off configurations provide flexibility for textbooks, trade books, workbooks, newspapers, and other publications.",
       "caption": "Web Towers, Press Hall",
-      "ph": "PHOTO · WEB TOWERS, PRESS HALL"
+      "ph": "PHOTO · WEB TOWERS, PRESS HALL",
+      "highlights": [
+        "22 high-capacity web offset towers",
+        "millions of printed forms every day"
+      ]
     },
     "02": {
       "title": "Sheetfed Machines",
       "body": "6 state-of-the-art sheetfed presses: 1 × Eight-colour perfecting press, 5 × Four-colour presses. Featuring premium technology from Komori and Ryobi, enabling outstanding print quality for covers, coffee table books, children's books, packaging, diaries, annual reports, and premium commercial printing.",
       "caption": "Sheet-Fed Presses, Taloja",
-      "ph": "PHOTO · SHEET-FED PRESSES"
+      "ph": "PHOTO · SHEET-FED PRESSES",
+      "highlights": [
+        "6 state-of-the-art sheetfed presses",
+        "Komori and Ryobi"
+      ]
     },
     "03": {
       "title": "Binding and Finishing",
       "body": "An integrated post-press line built for speed, durability and precision, with perfect binding, saddle stitching, section sewing and case making, binding millions of high-quality books every year.",
       "caption": "Binding Line, Navi Mumbai",
-      "ph": "PHOTO · BINDING & FINISHING"
+      "ph": "PHOTO · BINDING & FINISHING",
+      "highlights": [
+        "perfect binding, saddle stitching, section sewing and case making",
+        "millions of high-quality books every year"
+      ]
     }
   },
   "books": {
@@ -41,13 +53,20 @@
       "eyebrow": "Warehousing",
       "title": "Warehousing",
       "body": "Our modern warehousing and logistics infrastructure supports efficient inventory management and global distribution: High-capacity storage for paper, finished goods, and customer inventory. Secure stock management. Order consolidation and kitting. Export-ready packing. Efficient dispatch and last-mile distribution coordination.",
-      "cover": "PHOTO · WAREHOUSE & FULFILMENT"
+      "cover": "PHOTO · WAREHOUSE & FULFILMENT",
+      "highlights": [
+        "High-capacity storage",
+        "Export-ready packing"
+      ]
     },
     "05": {
       "eyebrow": "Head Office",
       "title": "Head Office",
       "body": "Our corporate headquarters brings together leadership, customer service, design, finance, procurement, and project management under one roof in the heart of the city of Navi Mumbai. 200+ professionals. Contemporary collaborative workspaces. Dedicated client meeting rooms. In-house café and employee collaboration areas. Technology-enabled offices supporting seamless communication with customers across the globe.",
-      "cover": "PHOTO · SANPADA HEAD OFFICE"
+      "cover": "PHOTO · SANPADA HEAD OFFICE",
+      "highlights": [
+        "200+ professionals"
+      ]
     }
   },
   "processes": {

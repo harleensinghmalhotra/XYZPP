@@ -410,7 +410,8 @@
   min-width: 0;
   display: flex;
   justify-content: center;
-  padding-top: 20px; /* room for the ribbon + counter draped over the top edge */
+  align-items: flex-start;
+  padding-top: 26px; /* room for the page counter above the book */
 }
 
 /* gold ribbon bookmark — "you are here", draped over the spread's top edge */
@@ -448,29 +449,64 @@
   white-space: nowrap; border: 0;
 }
 
+/* THE OPEN BOOK — the "NEW BOOK EMPTY FOR INFRASTRUCTURE" art IS the spread (navy
+   hardcover frame, two cream pages, orange ribbon). Content overlays into the two
+   page zones: LEFT = the read, RIGHT = a full-bleed facility photo. */
 .ib-book {
   position: relative;
-  width: min(820px, 100%);
-  perspective: 2000px;
-}
-/* the open hardcover the pages rest on — a navy board proud of the spread */
-.ib-book::before {
-  content: '';
-  position: absolute;
-  inset: -13px -15px -17px;
-  background: linear-gradient(150deg, #12294a 0%, #0b1c38 70%, #081527 100%);
-  box-shadow:
-    0 32px 58px -30px rgba(0, 0, 0, 0.85),
-    inset 0 0 40px -18px rgba(0, 0, 0, 0.7);
-  z-index: 0;
+  width: min(860px, 100%);
+  aspect-ratio: 3072 / 2048;
+  background: url('/qfp/infra/book-spread.webp') center / 100% 100% no-repeat;
+  filter: drop-shadow(0 34px 52px rgba(0, 0, 0, 0.5));
 }
 
 .ib-spread {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  height: clamp(392px, 44vh, 440px);
-  transform-style: preserve-3d;
+  position: absolute;
+  inset: 0;
+}
+
+/* LEFT PAGE — the read: facility title at the top, body below, key phrases emphasised */
+.ib-textpage {
+  position: absolute;
+  top: 9%; left: 6.5%; width: 38%; height: 82%;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.ib-fac-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: clamp(17px, 1.55vw, 21px);
+  line-height: 1.16; letter-spacing: -0.3px;
+  color: var(--navy);
+  margin: 0 0 clamp(10px, 1.5vh, 15px);
+}
+.ib-fac-body { margin: 0; }   /* size + colour come from .ref-cap-body */
+/* rich, tasteful key-phrase highlight — bold navy over a soft accent under-band */
+.ib-hl {
+  color: var(--navy);
+  font-weight: 600;
+  background: linear-gradient(180deg, transparent 58%, rgb(var(--gold-2-rgb) / 0.24) 58%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.ib-textpage--intro .ib-fac-title {
+  font-size: clamp(24px, 2.4vw, 34px); font-weight: 700; letter-spacing: -0.02em;
+}
+
+/* RIGHT PAGE — full-bleed facility photo, cover-cropped into the page */
+.ib-imgpage {
+  position: absolute;
+  top: 6%; left: 53.5%; width: 40.5%; height: 88%;
+}
+.ib-img-frame {
+  position: absolute; inset: 0;
+  overflow: hidden; border-radius: 3px;
+  background: #0b1c38;
+  box-shadow: 0 8px 22px -10px rgba(11, 28, 56, 0.55);
+}
+.ib-img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: ib-xfade 0.32s ease-out;
 }
 /* the spread is keyed on the open book (+ a bump in flat mode), so it remounts on
    every book switch and on flat-mode page changes → a soft crossfade each time.
@@ -833,4 +869,25 @@
   .ib-arrow { width: 54px; height: 54px; font-size: 21px; bottom: 12px; }
   .ib-arrow--prev { left: 12px; }
   .ib-arrow--next { right: 12px; }
+}
+
+/* ── Phase 4 — responsive overrides for the new art-backed open book ──────────
+   (placed last so they win over the earlier media blocks that targeted the
+   retired CSS-built spread). */
+@media (min-width: 1280px) {
+  .ib-book { width: min(980px, 100%); }
+  .ib-spread { inset: 0; height: auto; }   /* neutralise the retired 560px spread height */
+  .ib-counter { font-size: 13px; letter-spacing: 2.4px; top: -2px; }
+}
+@media (max-width: 900px) {
+  /* drop the fixed landscape art; stack the read above a photo card */
+  .ib-book { width: 100%; aspect-ratio: auto; background: none; filter: none; }
+  .ib-spread { position: static; display: flex; flex-direction: column; gap: 16px; height: auto; }
+  .ib-textpage {
+    position: static; width: 100%; height: auto; overflow: visible;
+    background: #fdfaf4; border: 1px solid rgb(var(--navy-rgb) / 0.1);
+    border-radius: 12px; padding: 22px 20px;
+  }
+  .ib-imgpage { position: static; width: 100%; height: 240px; order: -1; }
+  .ib-img-frame { border-radius: 12px; }
 }

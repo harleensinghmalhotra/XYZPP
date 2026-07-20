@@ -7,19 +7,31 @@
       "title": "Machines web",
       "body": "22 tours offset web haute capacité conçues pour l'impression éducative et commerciale en grand volume. Capables de produire des millions de formes imprimées chaque jour, offrant une vitesse, une régularité et une précision des couleurs exceptionnelles. De multiples configurations de coupe offrent une flexibilité pour les manuels, les livres grand public, les cahiers d'exercices, les journaux et d'autres publications.",
       "caption": "Tours web, atelier de presse",
-      "ph": "PHOTO · TOURS WEB, ATELIER DE PRESSE"
+      "ph": "PHOTO · TOURS WEB, ATELIER DE PRESSE",
+      "highlights": [
+        "22 tours offset web haute capacité",
+        "millions de formes imprimées chaque jour"
+      ]
     },
     "02": {
       "title": "Machines feuille à feuille",
       "body": "6 presses feuille à feuille de pointe : 1 × presse à retiration huit couleurs, 5 × presses quatre couleurs. Dotées de technologies haut de gamme Komori et Ryobi, permettant une qualité d'impression exceptionnelle pour les couvertures, les beaux livres, les livres pour enfants, les emballages, les agendas, les rapports annuels et l'impression commerciale haut de gamme.",
       "caption": "Presses feuille à feuille, Taloja",
-      "ph": "PHOTO · PRESSES FEUILLE À FEUILLE"
+      "ph": "PHOTO · PRESSES FEUILLE À FEUILLE",
+      "highlights": [
+        "6 presses feuille à feuille de pointe",
+        "Komori et Ryobi"
+      ]
     },
     "03": {
       "title": "Reliure et façonnage",
       "body": "Un atelier de façonnage intégré, conçu pour la vitesse, la durabilité et la précision, avec dos carré collé, piqûre à cheval, couture par cahiers et façonnage de couvertures cartonnées, reliant des millions de livres de haute qualité chaque année.",
       "caption": "Chaîne de reliure, Navi Mumbai",
-      "ph": "PHOTO · RELIURE ET FAÇONNAGE"
+      "ph": "PHOTO · RELIURE ET FAÇONNAGE",
+      "highlights": [
+        "dos carré collé, piqûre à cheval, couture par cahiers et façonnage de couvertures cartonnées",
+        "millions de livres de haute qualité chaque année"
+      ]
     }
   },
   "books": {
@@ -41,13 +53,20 @@
       "eyebrow": "Entreposage",
       "title": "Entreposage",
       "body": "Notre infrastructure moderne d'entreposage et de logistique soutient une gestion efficace des stocks et une distribution mondiale : stockage haute capacité pour le papier, les produits finis et les stocks clients. Gestion sécurisée des stocks. Consolidation des commandes et mise en kit. Emballage prêt à l'export. Expédition efficace et coordination de la distribution du dernier kilomètre.",
-      "cover": "PHOTO · ENTREPOSAGE ET LOGISTIQUE"
+      "cover": "PHOTO · ENTREPOSAGE ET LOGISTIQUE",
+      "highlights": [
+        "stockage haute capacité",
+        "Emballage prêt à l'export"
+      ]
     },
     "05": {
       "eyebrow": "Siège social",
       "title": "Siège social",
       "body": "Notre siège social réunit la direction, le service client, le design, la finance, les achats et la gestion de projet sous un même toit, au cœur de la ville de Navi Mumbai. 200+ professionnels. Espaces de travail collaboratifs contemporains. Salles de réunion client dédiées. Café interne et espaces de collaboration pour les employés. Bureaux équipés de technologies assurant une communication fluide avec les clients partout dans le monde.",
-      "cover": "PHOTO · SIÈGE SOCIAL SANPADA"
+      "cover": "PHOTO · SIÈGE SOCIAL SANPADA",
+      "highlights": [
+        "200+ professionnels"
+      ]
     }
   },
   "processes": {

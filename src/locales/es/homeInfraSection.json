@@ -7,19 +7,31 @@
       "title": "Máquinas web",
       "body": "22 torres offset web de alta capacidad diseñadas para impresión educativa y comercial de gran volumen. Capaces de producir millones de formas impresas cada día, ofreciendo una velocidad, consistencia y precisión de color excepcionales. Múltiples configuraciones de corte brindan flexibilidad para libros de texto, libros comerciales, cuadernos de trabajo, periódicos y otras publicaciones.",
       "caption": "Torres web, sala de prensas",
-      "ph": "FOTO · TORRES WEB, SALA DE PRENSAS"
+      "ph": "FOTO · TORRES WEB, SALA DE PRENSAS",
+      "highlights": [
+        "22 torres offset web de alta capacidad",
+        "millones de formas impresas cada día"
+      ]
     },
     "02": {
       "title": "Máquinas de pliego",
       "body": "6 prensas de pliego de última generación: 1 × prensa de retiración de ocho colores, 5 × prensas de cuatro colores. Con tecnología premium de Komori y Ryobi, que permite una calidad de impresión excepcional para cubiertas, libros de mesa, libros infantiles, embalajes, agendas, informes anuales e impresión comercial premium.",
       "caption": "Prensas de pliego, Taloja",
-      "ph": "FOTO · PRENSAS DE PLIEGO"
+      "ph": "FOTO · PRENSAS DE PLIEGO",
+      "highlights": [
+        "6 prensas de pliego de última generación",
+        "Komori y Ryobi"
+      ]
     },
     "03": {
       "title": "Encuadernación y acabado",
       "body": "Una línea de posprensa integrada, diseñada para velocidad, durabilidad y precisión, con encuadernación perfecta, cosido al centro, cosido por secciones y confección de tapas, encuadernando millones de libros de alta calidad cada año.",
       "caption": "Línea de encuadernación, Navi Mumbai",
-      "ph": "FOTO · ENCUADERNACIÓN Y ACABADO"
+      "ph": "FOTO · ENCUADERNACIÓN Y ACABADO",
+      "highlights": [
+        "encuadernación perfecta, cosido al centro, cosido por secciones y confección de tapas",
+        "millones de libros de alta calidad cada año"
+      ]
     }
   },
   "books": {
@@ -41,13 +53,20 @@
       "eyebrow": "Almacenamiento",
       "title": "Almacenamiento",
       "body": "Nuestra moderna infraestructura de almacenamiento y logística respalda una gestión eficiente del inventario y una distribución global: almacenamiento de alta capacidad para papel, productos terminados e inventario de clientes. Gestión segura de stock. Consolidación de pedidos y preparación de kits. Empaque listo para exportar. Expedición eficiente y coordinación de la distribución de última milla.",
-      "cover": "FOTO · ALMACÉN Y LOGÍSTICA"
+      "cover": "FOTO · ALMACÉN Y LOGÍSTICA",
+      "highlights": [
+        "almacenamiento de alta capacidad",
+        "Empaque listo para exportar"
+      ]
     },
     "05": {
       "eyebrow": "Sede central",
       "title": "Sede central",
       "body": "Nuestra sede corporativa reúne dirección, atención al cliente, diseño, finanzas, compras y gestión de proyectos bajo un mismo techo, en el corazón de la ciudad de Navi Mumbai. 200+ profesionales. Espacios de trabajo colaborativos contemporáneos. Salas de reunión dedicadas para clientes. Cafetería interna y áreas de colaboración para empleados. Oficinas equipadas con tecnología que facilitan una comunicación fluida con los clientes de todo el mundo.",
-      "cover": "FOTO · SEDE CENTRAL SANPADA"
+      "cover": "FOTO · SEDE CENTRAL SANPADA",
+      "highlights": [
+        "200+ profesionales"
+      ]
     }
   },
   "processes": {

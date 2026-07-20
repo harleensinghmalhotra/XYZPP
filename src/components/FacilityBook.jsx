@@ -5,22 +5,12 @@ import { typingSound } from '@/lib/typingSound'
 import stackImg from '@/assets/facility-book-stack.png'
 import './FacilityBook.css'
 
-// FLOW book-stack render (v2 — transparent PNG, strict alternating navy-spine /
-// cream-page-block, blank spines) drives the pile. Flip to false (or an image
-// 404 → onError) to fall back to the CSS-built pile below — cheap insurance.
+// FLOW book-stack render drives the pile. Flip to false (or an image 404 → onError)
+// to fall back to the CSS-built pile below — cheap insurance.
 const USE_IMAGE_STACK = true
 
 // One UNIFORM label zone per navy spine, each dead-centred on ITS OWN spine's
-// visible front face (the spines sit at slightly different widths/offsets, so each
-// zone's left/width differs — measured off a percentage grid on the transparent
-// render, with ~9% side margins of that spine's front-face width). `top` = the navy
-// band's vertical centre; the box is centred on it (translateY(-50%)). The render is
-// near straight-on → labels horizontal, single line, uniform size (see CSS). All-%
-// so the zones + centring hold at every container width. Kept within the front face
-// (cream fore-edge is on the right) so nothing bleeds onto the page-block.
-// The top book is seen at a steeper top-cover perspective than the rest, so its
-// label sits higher and follows that cover's up-to-the-right tilt (~-4°); books 2–5
-// read near head-on → horizontal.
+// visible front face. All-% so the zones + centring hold at every container width.
 const SPINE_POS = [
   { top: 6.5, left: 13, width: 57, rot: -4 }, // Web Machines (on the tilted top cover)
   { top: 26, left: 10.8, width: 59.8, rot: 0 }, // Sheetfed Machines
@@ -29,47 +19,29 @@ const SPINE_POS = [
   { top: 82, left: 7.3, width: 61, rot: 0 },    // Head Office
 ]
 
-// ── Facility Book — shared component for Infrastructure section & /infrastructure page ──
-// The three facility cards become a shelf of hardcover books, recycled straight
-// from Case Studies' OPEN-BOOK mechanics (Cases.jsx) — copied, never imported, so
-// the gated Case Studies section survives untouched for if/when it returns. The
-// client's ask: "a stack of books, click one to open it, flip through 3–4 pages
-// of content inside, click a different book to switch." FIVE books:
-//   • Books 1–3 carry the current facility content, paginated into three leaves
-//     each — a COVER (facility title), an OVERVIEW (the body copy) and AT A GLANCE
-//     (the location / headline stat). Their right page is a designed navy+gold MOCK
-//     panel (a real facility photo drops straight in later — client is replacing
-//     photography anyway), matching the placeholder language already on the page.
-//   • Books 4–5 are RESERVED placeholder slots — visible in the stack so the client
-//     sees "five books, ready for content", opening to a graceful "coming soon"
-//     page rather than erroring. Content drops in by filling books.04 / books.05.
-// What was recycled from Cases: the shelf of standing spines (the OPEN book's spine
-// is MISSING from the shelf — a visible gap explains the metaphor), the two-page
-// spread, the 3D leaf page-turn (locked one turn at a time, reduced-motion / narrow
-// fall back to a silent crossfade), the ribbon "you are here", the DM Mono counter,
-// the page-corner arrows, keyboard ← →, touch swipe, and the quiet page-turn SFX.
-// The spines are SLIMMER than Cases' per the client ("a little thinner than before").
-
-// Structural data only — every user-facing string resolves through i18n.
-//   • Books 1–3 pull their pages from the EXISTING `facilities.<src>.*` keys
-//     (title / body / caption / ph) so there's no copy duplication.
-//   • Books 4–5 are `placeholder` and read `books.<id>.*` (eyebrow/title/body/cover).
-// To fill a reserved book later: drop real content into `books.04` / `books.05`
-// (or convert it to a facilities-backed book) and clear its `placeholder` flag.
+// ── Facility Book — Infrastructure section & /infrastructure page ──────────────
+// A shelf of five hardcover books (the PILE, left rail); click one to OPEN it into
+// the two-page spread on the right. The spread IS the "NEW BOOK EMPTY FOR
+// INFRASTRUCTURE" art (navy hardcover, cream pages, orange ribbon):
+//   • LEFT page carries ALL of that facility's copy — title at the top, body below
+//     in the reference caption size, with key phrases richly highlighted.
+//   • RIGHT page is a full-bleed facility photo; ← → / swipe / arrows flip through
+//     the 2–3 strongest shots for that facility.
+// The old "FACILITY 01/02" numbering, gold cover eyebrows and mock navy panels are
+// gone. All five facilities now carry real content (04/05 read from books.04/05).
+//
+// Each book's title/body live under a single i18n base: facilities.01–03 for the
+// first three, books.04/05 for the last two. Its images ship at /qfp/infra/<name>.webp.
 const BOOKS = [
-  { id: '01', src: '01', icon: 'tower' },   // Web Machines
-  { id: '02', src: '02', icon: 'press' },   // Sheetfed Machines
-  { id: '03', src: '03', icon: 'carton' },  // Binding and Finishing
-  { id: '04', icon: 'carton', placeholder: true },  // Warehousing
-  { id: '05', icon: 'tower', placeholder: true },   // Head Office
+  { id: '01', base: 'facilities.01', images: ['web-1', 'web-2', 'web-3'] },
+  { id: '02', base: 'facilities.02', images: ['sheetfed-1', 'sheetfed-2', 'sheetfed-3'] },
+  { id: '03', base: 'facilities.03', images: ['binding-1', 'binding-2', 'binding-3'] },
+  { id: '04', base: 'books.04', images: ['warehouse-1', 'warehouse-2', 'warehouse-3'] },
+  { id: '05', base: 'books.05', images: ['headoffice-1'] },
 ]
 
-// Physical pile order — the 5 facility books interleaved with non-interactive
-// FILLER slabs whose spines are turned AWAY (we see the page-block fore-edge, no
-// label). A real pile has books BETWEEN the labelled ones, so the stack reads as a
-// genuine pile rather than a neat 5-spine shelf. Only the facility books are
-// buttons; fillers are aria-hidden, unfocusable decoration. `book` maps a slot back
-// to its BOOKS index; positions 1,3,5,7,9 are facility books, 2,4,6,8,10 fillers.
+// Physical pile order for the CSS fallback — facility books interleaved with inert
+// FILLER slabs so the stack reads as a real pile. Only facility books are buttons.
 const PILE = [
   { book: 0 }, { filler: true },
   { book: 1 }, { filler: true },
@@ -78,153 +50,35 @@ const PILE = [
   { book: 4 }, { filler: true },
 ]
 
-const FLIP_MS = 560 // JS lock slightly longer than the 520ms CSS leaf turn
-
-// Page-turn SFX — the SAME quiet paper fold Cases uses, fired the instant a leaf
-// starts turning. Gated three ways (flat/flip mode only, global sound toggle on,
-// currentTime reset so rapid flips restart rather than stack). A page turn inside
-// a facility book is the same book metaphor and the same site sound language, so
-// keeping it here reads as consistent, not a new noise.
 const TURN_SRC = '/qfp/sounds/page-turn.wav'
 const TURN_VOL = 0.35
-
-// QA seam mirrored from Cases: `?flip=<ms>` slows the leaf turn so its mid-flip
-// frames can be captured; drives BOTH the CSS leaf turn and the JS input lock.
-function readFlipMs() {
-  if (typeof window === 'undefined') return FLIP_MS
-  const v = parseInt(new URLSearchParams(window.location.search).get('flip'), 10)
-  return Number.isFinite(v) ? Math.min(6000, Math.max(200, v)) : FLIP_MS
-}
-
-// Stroke icons — the exact facility/placeholder icon language already on the page
-// (Infrastructure.jsx MachineIcon set), so the mock cover art matches the site.
-function BookIcon({ name }) {
-  const s = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.4, strokeLinecap: 'round', strokeLinejoin: 'round', pathLength: 1 }
-  return (
-    <svg className="ib-ph-icon" viewBox="0 0 48 48" width="52" height="52" aria-hidden="true">
-      {name === 'press' && (
-        <>
-          <path d="M8 30h32M8 30V16a2 2 0 0 1 2-2h28a2 2 0 0 1 2 2v14" {...s} />
-          <path d="M14 30v8h20v-8M20 14v-4h8v4" {...s} />
-          <path d="M18 22h12" {...s} />
-        </>
-      )}
-      {name === 'tower' && (
-        <>
-          <rect x="10" y="6" width="28" height="36" rx="2" {...s} />
-          <path d="M17 14h14M17 22h14M17 30h14" {...s} />
-          <circle cx="24" cy="24" r="6" {...s} />
-        </>
-      )}
-      {name === 'carton' && (
-        <>
-          <path d="M24 6 8 14v20l16 8 16-8V14L24 6Z" {...s} />
-          <path d="M8 14l16 8 16-8M24 22v20M24 22 16 10M32 10l-8 4" {...s} />
-        </>
-      )}
-      {name === 'soon' && ( /* reserved slot — a dashed frame with a plus, "content lands here" */
-        <>
-          <rect x="9" y="9" width="30" height="30" rx="3" strokeDasharray="3 4" {...s} />
-          <path d="M24 18v12M18 24h12" {...s} />
-        </>
-      )}
-    </svg>
-  )
-}
-
-// The left page — the read. Cream ground, navy ink. Shape depends on the leaf kind:
-// a COVER (big facility title), an OVERVIEW (body copy), AT A GLANCE (a headline
-// stat/location), the RESERVED placeholder (title + a soft "coming soon" line),
-// or the INTRO (centered heading for the resting state).
-function LeftPage({ pg }) {
-  if (pg.kind === 'intro') {
-    return (
-      <div className="ib-face ib-face--text" aria-hidden="true">
-        <h3 className="ib-intro-heading">{pg.heading}</h3>
-      </div>
-    )
-  }
-  return (
-    <div className="ib-face ib-face--text" aria-hidden="true">
-      <div className="ib-eyebrow">{pg.eyebrow}</div>
-      {pg.kind === 'glance' ? (
-        <p className="ib-glance">{pg.big}</p>
-      ) : (
-        <>
-          <h4 className={`ib-title${pg.kind === 'cover' ? ' ib-title--cover' : ''}${pg.kind === 'placeholder' ? ' ib-title--soon' : ''}`}>
-            {pg.title}
-          </h4>
-          {pg.body && <p className={`ib-body${pg.kind === 'placeholder' ? ' ib-body--soon' : ''}`}>{pg.body}</p>}
-        </>
-      )}
-    </div>
-  )
-}
-
-// The right page — the designed MOCK cover panel standing in for a facility photo
-// (a real image drops straight in later). Deep-navy ground, a faint tonal dot grid,
-// the book's gold stroke mark and a DM Mono caption — plus the Cases inner-spine
-// shadow up the bound edge and a soft page-curl catch, so it reads as a real page.
-function RightPage({ icon, caption }) {
-  return (
-    <div className="ib-face ib-face--panel" aria-hidden="true">
-      <div className="ib-ph-pattern" />
-      <div className="ib-ph-mark">
-        <BookIcon name={icon} />
-        <span className="ib-ph-cap">{caption}</span>
-      </div>
-      <span className="ib-spine-shadow" />
-      <span className="ib-curl" />
-    </div>
-  )
-}
-
-// Intro spread — book zero, resting state before any facility is selected
-function IntroSpread({ t }) {
-  return (
-    <>
-      <div className="ib-face ib-face--text" aria-hidden="true">
-        <h3 className="ib-intro-heading">{t('books.intro.heading')}</h3>
-      </div>
-      <div className="ib-face ib-face--intro" aria-hidden="true">
-        <p className="ib-intro-body">{t('books.intro.body')}</p>
-        <span className="ib-intro-arrow" aria-hidden="true">→</span>
-      </div>
-    </>
-  )
-}
-
 const num = (n) => String(n).padStart(2, '0')
+
+// Wrap the body copy's key phrases in a rich highlight. `phrases` are exact,
+// per-language substrings (from the locale) so EN/FR/ES stay in parity.
+function Highlighted({ text, phrases }) {
+  if (!phrases || !phrases.length) return text
+  const esc = phrases.map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+  const re = new RegExp(`(${esc.join('|')})`, 'g')
+  return text.split(re).map((part, i) =>
+    phrases.includes(part)
+      ? <mark key={i} className="ib-hl">{part}</mark>
+      : <span key={i}>{part}</span>,
+  )
+}
 
 export default function FacilityBook() {
   const { t } = useTranslation('homeInfraSection')
   const reduced = useReducedMotion()
-  const [narrow, setNarrow] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches,
-  )
   const [activeBook, setActiveBook] = useState(-1) // -1 = intro spread, 0+ = book index
-  const [imgOk, setImgOk] = useState(true) // FLOW photo loaded? false → CSS pile fallback
-  const [page, setPage] = useState(0)      // current leaf within the open book
-  const [xfade, setXfade] = useState(0)     // bumps to re-trigger the crossfade
-  const [flip, setFlip] = useState(null)    // { from, dir } while a leaf is turning
-  const busy = useRef(false)
-  const timer = useRef(null)
+  const [imgOk, setImgOk] = useState(true)          // FLOW pile photo loaded? false → CSS pile
+  const [page, setPage] = useState(0)               // current image within the open book
+  const [xfade, setXfade] = useState(0)             // bumps to re-trigger the crossfade
   const sectionRef = useRef(null)
-  const inView = useRef(false)              // ≥50% of the stack fills the viewport
-  const stepRef = useRef(() => {})          // latest go() stepper for the window listener
-  const flipMs = useRef(FLIP_MS)
-  useEffect(() => { flipMs.current = readFlipMs() }, [])
-  const flat = !reduced && !narrow          // leaf turn only when it reads well
+  const inView = useRef(false)                      // ≥50% of the stack fills the viewport
+  const stepRef = useRef(() => {})
 
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 900px)')
-    const on = () => setNarrow(mq.matches)
-    mq.addEventListener('change', on)
-    return () => mq.removeEventListener('change', on)
-  }, [])
-  useEffect(() => () => clearTimeout(timer.current), [])
-
-  // Page-turn SFX — lazy Audio on mount, preloaded, silent if the file 404s.
+  // Page-turn SFX — lazy Audio on mount, silent if the file 404s or sound is off.
   const turnAudio = useRef(null)
   useEffect(() => {
     const a = new Audio(TURN_SRC)
@@ -234,82 +88,37 @@ export default function FacilityBook() {
     return () => { turnAudio.current = null }
   }, [])
   const playTurn = () => {
-    if (!flat) return
-    if (!typingSound.isEnabled()) return
+    if (reduced || !typingSound.isEnabled()) return
     const a = turnAudio.current
     if (!a) return
     try {
       a.currentTime = 0
       const p = a.play()
       if (p && typeof p.catch === 'function') p.catch(() => {})
-    } catch { /* file missing / not ready — stay silent, never throw */ }
+    } catch { /* file missing / not ready — stay silent */ }
   }
 
-  // Resolve the active book into its ordered pages (leaves). Books 1–3 paginate the
-  // existing facility copy into cover / overview / at-a-glance; a reserved book is a
-  // single graceful placeholder leaf. `coverCaption` is the mock panel's label —
-  // shared across a book's pages so its cover art stays consistent as you flip.
-  // Intro state (-1) renders a special resting spread before any book opens.
   const isIntro = activeBook === -1
   const book = isIntro ? null : BOOKS[activeBook]
-  const buildPages = (b) => {
-    if (!b) {
-      return {
-        coverCaption: null,
-        pages: [{
-          kind: 'intro',
-          heading: t('books.intro.heading'),
-          body: t('books.intro.body'),
-        }],
-      }
-    }
-    if (b.placeholder) {
-      return {
-        coverCaption: t(`books.${b.id}.cover`),
-        pages: [{
-          kind: 'placeholder',
-          eyebrow: t(`books.${b.id}.eyebrow`),
-          title: t(`books.${b.id}.title`),
-          body: t(`books.${b.id}.body`),
-        }],
-      }
-    }
-    return {
-      coverCaption: t(`facilities.${b.src}.ph`),
-      pages: [
-        { kind: 'cover', eyebrow: `${t('books.ui.coverEyebrow')} ${b.id}`, title: t(`facilities.${b.src}.title`) },
-        { kind: 'text', eyebrow: t('books.ui.overviewEyebrow'), body: t(`facilities.${b.src}.body`) },
-        { kind: 'glance', eyebrow: t('books.ui.glanceEyebrow'), big: t(`facilities.${b.src}.caption`) },
-      ],
-    }
-  }
-  const { coverCaption, pages } = buildPages(book)
-  const total = pages.length
+  const images = book ? book.images : []
+  const total = images.length
+  const safePage = Math.min(page, Math.max(0, total - 1))
+  const title = book ? t(`${book.base}.title`) : t('books.intro.heading')
+  const body = book ? t(`${book.base}.body`) : t('books.intro.body')
+  const highlights = book ? (t(`${book.base}.highlights`, { returnObjects: true }) || []) : []
+  const hlList = Array.isArray(highlights) ? highlights : []
 
-  // Turn to a page within the OPEN book — one leaf at a time, input locked mid-flip.
+  // Flip through the open book's images — crossfade, one step at a time.
   const go = (target) => {
-    if (busy.current || target === page || target < 0 || target >= total) return
-    const dir = target > page ? 'next' : 'prev'
-    if (!flat) {
-      setPage(target)
-      setXfade((k) => k + 1) // instant crossfade — no leaf turn
-      return
-    }
-    busy.current = true
+    if (isIntro || target === safePage || target < 0 || target >= total) return
     playTurn()
-    setFlip({ from: page, dir })
     setPage(target)
-    timer.current = setTimeout(() => {
-      setFlip(null)
-      busy.current = false
-    }, flipMs.current)
+    setXfade((k) => k + 1)
   }
 
-  // Switch to a different book — a jump, not a leaf turn: crossfade in on page 1.
-  // Guarded by the same input lock so it can't collide with a running page turn.
+  // Switch to a different book — crossfade in on its first image.
   const openBook = (target) => {
-    if (busy.current || target === activeBook || target < 0 || target >= BOOKS.length) return
-    setFlip(null)
+    if (target === activeBook || target < 0 || target >= BOOKS.length) return
     setActiveBook(target)
     setPage(0)
     setXfade((k) => k + 1)
@@ -317,14 +126,13 @@ export default function FacilityBook() {
   }
 
   const onKeyDown = (e) => {
-    if (e.key === 'ArrowRight') { e.preventDefault(); go(page + 1) }
-    else if (e.key === 'ArrowLeft') { e.preventDefault(); go(page - 1) }
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(safePage + 1) }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); go(safePage - 1) }
   }
 
   // FOCUS-FREE ARROW KEYS — the open book answers ← → the moment the stack fills
-  // ≥50% of the VIEWPORT (coverage, not the section's own ratio, exactly as Cases
-  // measures it). `stepRef` always holds the latest go() closure.
-  useEffect(() => { stepRef.current = (dir) => go(page + dir) })
+  // ≥50% of the VIEWPORT. `stepRef` always holds the latest go() closure.
+  useEffect(() => { stepRef.current = (dir) => go(safePage + dir) })
 
   useEffect(() => {
     const el = sectionRef.current
@@ -366,24 +174,9 @@ export default function FacilityBook() {
     const dx = e.changedTouches[0].clientX - touch.current.x
     const dy = e.changedTouches[0].clientY - touch.current.y
     if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-      go(dx < 0 ? page + 1 : page - 1)
+      go(dx < 0 ? safePage + 1 : safePage - 1)
     }
     touch.current = null
-  }
-
-  // Build the two base pages + (when flipping) the turning leaf's faces — the SAME
-  // leaf geometry Cases uses: a right-half leaf hinged on the spine, 0° → −180° for
-  // NEXT, −180° → 0° for PREV. Left = text page, right = mock cover panel.
-  const cur = pages[page]
-  let baseLeft = cur, baseRight = cur, leafFront = null, leafBack = null
-  if (flip) {
-    const oldP = pages[flip.from]
-    const nu = pages[page]
-    if (flip.dir === 'next') {
-      baseLeft = oldP; baseRight = nu; leafFront = oldP; leafBack = nu
-    } else {
-      baseLeft = nu; baseRight = oldP; leafFront = nu; leafBack = oldP
-    }
   }
 
   const regionLabel = t('books.ui.region')
@@ -397,9 +190,7 @@ export default function FacilityBook() {
         tabIndex={0}
         onKeyDown={onKeyDown}
       >
-        {/* LEFT RAIL — BOOK PILE. Primary: the FLOW photo of a 10-book pile with 5
-            HTML labels overlaid on its navy spines (interactive buttons). Fallback
-            (flag off, or the photo 404s): the CSS-built 10-slab pile. */}
+        {/* LEFT RAIL — BOOK PILE (FLOW photo + HTML spine labels, or CSS fallback) */}
         {USE_IMAGE_STACK && imgOk ? (
           <div className="ib-stack ib-stack--img" aria-label={regionLabel}>
             <div className="ib-imgstack">
@@ -411,13 +202,8 @@ export default function FacilityBook() {
                 draggable="false"
                 onError={() => setImgOk(false)}
               />
-              {/* The render is transparent, so it sits straight on the section navy —
-                  no feather needed. A soft CSS contact shadow (::after) grounds the
-                  bottom book. 5 facility labels are positioned over the navy spines;
-                  each label IS the button (generous hit-area across the spine). */}
               {BOOKS.map((b, bi) => {
-                const label = b.placeholder ? t(`books.${b.id}.eyebrow`) : t(`facilities.${b.src}.title`)
-                const titleFull = b.placeholder ? t(`books.${b.id}.title`) : t(`facilities.${b.src}.title`)
+                const label = t(`${b.base}.title`)
                 const isActive = bi === activeBook
                 const pos = SPINE_POS[bi]
                 return (
@@ -427,7 +213,7 @@ export default function FacilityBook() {
                     className={`ib-imglabel${isActive ? ' is-active' : ''}`}
                     style={{ top: `${pos.top}%`, left: `${pos.left}%`, width: `${pos.width}%`, '--rot': `${pos.rot}deg` }}
                     onClick={() => openBook(bi)}
-                    aria-label={t('books.ui.open', { title: `${titleFull} (${num(bi + 1)} / ${num(BOOKS.length)})` })}
+                    aria-label={t('books.ui.open', { title: label })}
                     aria-current={isActive ? 'page' : undefined}
                   >
                     <span className="ib-imglabel-glow" aria-hidden="true" />
@@ -441,8 +227,6 @@ export default function FacilityBook() {
         ) : (
           <div className="ib-stack" aria-label={regionLabel}>
             {PILE.map((slot, pos) => {
-              // FILLER — a book placed backwards: skewed TOP face over a page-block
-              // fore-edge FACE (no spine, no text). Purely decorative and inert.
               if (slot.filler) {
                 return (
                   <div key={`f${pos}`} className="ib-filler" aria-hidden="true">
@@ -453,19 +237,16 @@ export default function FacilityBook() {
               }
               const bi = slot.book
               const b = BOOKS[bi]
-              const label = b.placeholder ? t(`books.${b.id}.eyebrow`) : t(`facilities.${b.src}.title`)
-              const titleFull = b.placeholder ? t(`books.${b.id}.title`) : t(`facilities.${b.src}.title`)
+              const label = t(`${b.base}.title`)
               const isActive = bi === activeBook
-              const cream = bi % 2 === 1 // 2nd & 4th facility books cream, for variety
-              // Each book: a skewed TOP face (page block) over a SPINE face carrying
-              // the foil band + title. Colourway / variance are CSS-driven by position.
+              const cream = bi % 2 === 1
               return (
                 <button
                   key={b.id}
                   type="button"
                   className={`ib-spine${cream ? ' ib-spine--cream' : ''}${isActive ? ' ib-spine--active' : ''}`}
                   onClick={() => openBook(bi)}
-                  aria-label={t('books.ui.open', { title: `${titleFull} (${num(bi + 1)} / ${num(BOOKS.length)})` })}
+                  aria-label={t('books.ui.open', { title: label })}
                   aria-current={isActive ? 'page' : undefined}
                 >
                   <span className="ib-book-top" aria-hidden="true" />
@@ -481,75 +262,68 @@ export default function FacilityBook() {
           </div>
         )}
 
-        {/* THE OPEN BOOK */}
+        {/* THE OPEN BOOK — the art-backed spread */}
         <div className="ib-book-wrap">
           <div
-            className={`ib-book${flip ? ` is-flipping is-${flip.dir}` : ''}`}
-            data-mode={flat ? 'flip' : 'flat'}
+            className="ib-book"
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
           >
-            <div className="ib-ribbon" aria-hidden="true" />
-            {/* Counter hidden for intro spread, visible for facility books */}
-            {!isIntro && (
+            {!isIntro && total > 1 && (
               <div className="ib-counter" aria-live="polite">
-                {t('books.ui.pageWord').toUpperCase()} {num(page + 1)} <span className="ib-counter-sep">/</span> {num(total)}
-                <span className="ib-sr">{cur.title || cur.big || cur.eyebrow}</span>
+                {t('books.ui.pageWord').toUpperCase()} {num(safePage + 1)} <span className="ib-counter-sep">/</span> {num(total)}
               </div>
             )}
 
-            <div className="ib-spread" key={flat ? `b${activeBook}` : `x${activeBook}-${xfade}`}>
-              {isIntro ? (
-                <>
-                  <div className="ib-page ib-page--left"><LeftPage pg={baseLeft} /></div>
-                  <div className="ib-page ib-page--right ib-page--intro">
-                    <div className="ib-face ib-face--intro" aria-hidden="true">
-                      <p className="ib-intro-body">{cur.body}</p>
-                      <span className="ib-intro-arrow" aria-hidden="true">→</span>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="ib-page ib-page--left"><LeftPage pg={baseLeft} /></div>
-                  <div className="ib-page ib-page--right"><RightPage icon={book.icon} caption={coverCaption} /></div>
+            <div className="ib-spread">
+              {/* LEFT — the read (title + highlighted body) */}
+              <div className={`ib-textpage${isIntro ? ' ib-textpage--intro' : ''}`}>
+                <h3 className="ib-fac-title">{title}</h3>
+                <p className="ib-fac-body ref-cap-body">
+                  {isIntro ? body : <Highlighted text={body} phrases={hlList} />}
+                </p>
+              </div>
 
-                  {flip && (
-                    <div className="ib-leaf" style={{ animationDuration: `${flipMs.current - 40}ms` }}>
-                      <div className="ib-leaf-face ib-leaf-front"><RightPage icon={book.icon} caption={coverCaption} /></div>
-                      <div className="ib-leaf-face ib-leaf-back"><LeftPage pg={leafBack} /></div>
-                    </div>
+              {/* RIGHT — full-bleed facility photo (flip through the set) */}
+              {!isIntro && total > 0 && (
+                <div className="ib-imgpage">
+                  <div className="ib-img-frame">
+                    <img
+                      key={`${activeBook}-${safePage}-${xfade}`}
+                      className="ib-img"
+                      src={`/qfp/infra/${images[safePage]}.webp`}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                      decoding="async"
+                      draggable="false"
+                    />
+                  </div>
+                  {total > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        className="ib-arrow ib-arrow--prev"
+                        onClick={() => go(safePage - 1)}
+                        disabled={safePage === 0}
+                        aria-label={t('books.ui.prev')}
+                      >
+                        ←
+                      </button>
+                      <button
+                        type="button"
+                        className="ib-arrow ib-arrow--next"
+                        onClick={() => go(safePage + 1)}
+                        disabled={safePage === total - 1}
+                        aria-label={t('books.ui.next')}
+                      >
+                        →
+                      </button>
+                    </>
                   )}
-                </>
+                </div>
               )}
             </div>
-
-            {/* Page arrows only when the book has more than one leaf. Placeholder
-                books (Warehousing / Head Office) are single-page, so two permanently
-                disabled arrows would just sit in the corners overlapping their longer
-                facility copy — hide them there. */}
-            {!isIntro && total > 1 && (
-              <>
-                <button
-                  type="button"
-                  className="ib-arrow ib-arrow--prev"
-                  onClick={() => go(page - 1)}
-                  disabled={page === 0}
-                  aria-label={t('books.ui.prev')}
-                >
-                  ←
-                </button>
-                <button
-                  type="button"
-                  className="ib-arrow ib-arrow--next"
-                  onClick={() => go(page + 1)}
-                  disabled={page === total - 1}
-                  aria-label={t('books.ui.next')}
-                >
-                  →
-                </button>
-              </>
-            )}
           </div>
         </div>
       </div>
