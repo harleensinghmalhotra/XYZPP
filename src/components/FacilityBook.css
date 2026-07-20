@@ -489,9 +489,26 @@
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
-.ib-textpage--intro .ib-fac-title {
-  font-size: clamp(24px, 2.4vw, 34px); font-weight: 700; letter-spacing: -0.02em;
+/* INTRO (resting) spread — centred both pages, over the same art (pre-restructure look) */
+.ib-textpage--intro {
+  justify-content: center; align-items: center; text-align: center; overflow: visible;
 }
+.ib-textpage--intro .ib-intro-heading {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(22px, 2.6vw, 34px); line-height: 1.04; letter-spacing: -0.02em;
+  color: var(--navy); margin: 0; text-align: center; overflow-wrap: break-word;
+}
+.ib-intropage {
+  position: absolute; top: 6%; left: 53.5%; width: 40.5%; height: 88%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 0 6%;
+}
+.ib-intropage .ib-intro-body {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: 14px; line-height: 1.55; color: rgba(28, 32, 25, 0.82);
+  margin: 0 0 14px; max-width: 26ch;
+}
+.ib-intropage .ib-intro-arrow { font-size: 20px; line-height: 1; color: var(--gold-text); }
 
 /* RIGHT PAGE — full-bleed facility photo, cover-cropped into the page */
 .ib-imgpage {
@@ -890,4 +907,6 @@
   }
   .ib-imgpage { position: static; width: 100%; height: 240px; order: -1; }
   .ib-img-frame { border-radius: 12px; }
+  /* intro (resting) on mobile — heading card then the location line + arrow */
+  .ib-intropage { position: static; width: 100%; height: auto; padding: 6px 20px 18px; }
 }

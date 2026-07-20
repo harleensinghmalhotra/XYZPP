@@ -74,7 +74,7 @@ export default function ProcessVideo() {
         {POINTS.map(({ key, Icon }, i) => (
           <li key={key} className="pv-point">
             <span className="pv-point-icon" aria-hidden="true">
-              <Icon weight="light" size={34} />
+              <Icon weight="light" size={27} />
             </span>
             <span className="pv-point-num">{String(i + 1).padStart(2, '0')}</span>
             <h3 className="pv-point-name ref-cap-head">{t(`stages.${key}.name`)}</h3>

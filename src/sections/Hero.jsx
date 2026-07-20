@@ -63,8 +63,11 @@ export default function Hero() {
             Pill radius (rounded-full). Both buttons equal width, widened for comfortable
             padding. Labels nowrap (one line each). Gap-center re-centered on spine. */}
         <div
-          className="hero-cta-pair absolute inset-x-0 z-[20] pointer-events-auto flex items-center justify-center gap-6"
-          style={{ top: '93%', transform: 'translateY(-50%)' }}
+          className="hero-cta-pair absolute z-[20] pointer-events-auto flex items-center gap-6"
+          /* Centred on the book's SPINE (pixel-measured at 50.6% of the art, not 50%)
+             so both pills are equidistant from the crease, and dropped below the
+             book's bottom edge (~90%) into the white ground so they don't overlap it. */
+          style={{ top: '95%', left: '50.6%', transform: 'translate(-50%, -50%)' }}
         >
           <a
             href="#what-we-print"

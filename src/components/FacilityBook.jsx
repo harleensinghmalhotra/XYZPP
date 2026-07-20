@@ -276,52 +276,69 @@ export default function FacilityBook() {
             )}
 
             <div className="ib-spread">
-              {/* LEFT — the read (title + highlighted body) */}
-              <div className={`ib-textpage${isIntro ? ' ib-textpage--intro' : ''}`}>
-                <h3 className="ib-fac-title">{title}</h3>
-                <p className="ib-fac-body ref-cap-body">
-                  {isIntro ? body : <Highlighted text={body} phrases={hlList} />}
-                </p>
-              </div>
-
-              {/* RIGHT — full-bleed facility photo (flip through the set) */}
-              {!isIntro && total > 0 && (
-                <div className="ib-imgpage">
-                  <div className="ib-img-frame">
-                    <img
-                      key={`${activeBook}-${safePage}-${xfade}`}
-                      className="ib-img"
-                      src={`/qfp/infra/${images[safePage]}.webp`}
-                      alt=""
-                      aria-hidden="true"
-                      loading="lazy"
-                      decoding="async"
-                      draggable="false"
-                    />
+              {isIntro ? (
+                <>
+                  {/* INTRO (resting) — centred "Infrastructure" on the left page, the
+                      location line + arrow centred on the right page (the pre-restructure
+                      original), over the same open-book art. */}
+                  <div className="ib-textpage ib-textpage--intro">
+                    <h3 className="ib-intro-heading">{title}</h3>
                   </div>
-                  {total > 1 && (
-                    <>
-                      <button
-                        type="button"
-                        className="ib-arrow ib-arrow--prev"
-                        onClick={() => go(safePage - 1)}
-                        disabled={safePage === 0}
-                        aria-label={t('books.ui.prev')}
-                      >
-                        ←
-                      </button>
-                      <button
-                        type="button"
-                        className="ib-arrow ib-arrow--next"
-                        onClick={() => go(safePage + 1)}
-                        disabled={safePage === total - 1}
-                        aria-label={t('books.ui.next')}
-                      >
-                        →
-                      </button>
-                    </>
+                  <div className="ib-intropage">
+                    <p className="ib-intro-body">{body}</p>
+                    <span className="ib-intro-arrow" aria-hidden="true">→</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* LEFT — the read (title + highlighted body) */}
+                  <div className="ib-textpage">
+                    <h3 className="ib-fac-title">{title}</h3>
+                    <p className="ib-fac-body ref-cap-body">
+                      <Highlighted text={body} phrases={hlList} />
+                    </p>
+                  </div>
+
+                  {/* RIGHT — full-bleed facility photo (flip through the set) */}
+                  {total > 0 && (
+                    <div className="ib-imgpage">
+                      <div className="ib-img-frame">
+                        <img
+                          key={`${activeBook}-${safePage}-${xfade}`}
+                          className="ib-img"
+                          src={`/qfp/infra/${images[safePage]}.webp`}
+                          alt=""
+                          aria-hidden="true"
+                          loading="lazy"
+                          decoding="async"
+                          draggable="false"
+                        />
+                      </div>
+                      {total > 1 && (
+                        <>
+                          <button
+                            type="button"
+                            className="ib-arrow ib-arrow--prev"
+                            onClick={() => go(safePage - 1)}
+                            disabled={safePage === 0}
+                            aria-label={t('books.ui.prev')}
+                          >
+                            ←
+                          </button>
+                          <button
+                            type="button"
+                            className="ib-arrow ib-arrow--next"
+                            onClick={() => go(safePage + 1)}
+                            disabled={safePage === total - 1}
+                            aria-label={t('books.ui.next')}
+                          >
+                            →
+                          </button>
+                        </>
+                      )}
+                    </div>
                   )}
-                </div>
+                </>
               )}
             </div>
           </div>
