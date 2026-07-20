@@ -50,15 +50,15 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 }
 .ab-frame::before, .ab-frame::after {
   content: ''; position: absolute; width: 16px; height: 16px;
-  border: 0 solid rgb(var(--gold-rgb) / 0.5); pointer-events: none;
+  border: 0 solid rgb(243 112 49 / 0.5); pointer-events: none;   /* #F37031 */
 }
 .ab-frame::before { top: 11px; left: 11px; border-top-width: 1.5px; border-left-width: 1.5px; }
 .ab-frame::after  { bottom: 11px; right: 11px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
 
-/* ── SPINE — gold scroll thread pinned to the page's left edge ─────────────── */
+/* ── SPINE — orange scroll thread pinned to the page's left edge ───────────── */
 .ab-spine {
   position: fixed; left: 0; top: 0; bottom: 0; width: 2px; z-index: 4;
-  background: linear-gradient(180deg, var(--gold-2), var(--gold));
+  background: linear-gradient(180deg, #f37031, #d95a1f);
   transform: scaleY(0); transform-origin: top center;
   pointer-events: none; will-change: transform;
 }
@@ -87,12 +87,13 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   font-size: clamp(38px, 6.6vw, 104px); letter-spacing: -0.02em;
   text-transform: uppercase; color: var(--cream);
 }
-/* line 2 — "Through Print Excellence": smaller, wide gold, hung under line 1. */
+/* line 2 — "Through Print Excellence": smaller, wide orange, hung under line 1.
+   Large display on navy → #F37031 clears contrast comfortably. */
 .ab-hl-2 {
   margin-top: clamp(10px, 1.4vh, 16px); padding-left: 0.16em;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
   font-size: clamp(19px, 3.15vw, 50px); letter-spacing: 0.16em;
-  text-transform: uppercase; color: #c89a3c;        /* original hero gold */
+  text-transform: uppercase; color: #f37031;        /* brand orange */
 }
 
 /* ── SECTION 2 — OUR STORY LEDE ──────────────────────────────────────────────
@@ -143,13 +144,12 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 
 /* COPY */
 .tls-copy { min-width: 0; }
-/* accent line + year (DM Mono) — sits above the title. */
+/* year (DM Mono) — stands alone above the title, no accent line. */
 .tls-year {
-  display: flex; align-items: center; gap: 14px; margin: 0 0 clamp(15px, 2vh, 20px);
+  margin: 0 0 clamp(15px, 2vh, 20px);
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: clamp(15px, 1.2vw, 18px);
   letter-spacing: 0.12em; text-transform: uppercase; color: var(--ab-orange-ink);
 }
-.tls-year-line { flex: 0 0 auto; width: clamp(28px, 4vw, 52px); height: 2px; background: var(--ab-orange); }
 .tls-title {
   margin: 0 0 clamp(16px, 2.2vh, 22px); max-width: 22ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
@@ -180,11 +180,11 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 .mvv-col:first-child { padding-left: 0; }
 .mvv-col:last-child { padding-right: 0; }
 
-/* the two gold hairlines — a leading separator on columns 2 & 3, drawn top→down
+/* the two orange hairlines — a leading separator on columns 2 & 3, drawn top→down
    on reveal, staggered by column. */
 .mvv-col:not(:first-child)::before {
   content: ''; position: absolute; top: 0; left: 0; width: 1px; height: 100%;
-  background: rgb(var(--gold-2-rgb) / 0.25);
+  background: rgb(243 112 49 / 0.25);   /* #F37031 */
   transform-origin: top center; transform: scaleY(0);
   transition: transform 0.4s var(--e-out);
   transition-delay: calc(var(--col-i) * 0.12s);
@@ -220,7 +220,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    the sanctioned exception to width animation). */
 .mvv-rule {
   display: block; width: 200px; height: 2px; margin: 0 0 clamp(20px, 3vh, 30px);
-  background: var(--gold-2); transform: scaleX(0); transform-origin: left center;
+  background: #f37031; transform: scaleX(0); transform-origin: left center;
   transition: transform 0.45s var(--e-out);
 }
 .mvv.is-in .mvv-rule { transform: scaleX(0.17); transition-delay: calc(var(--col-i) * 0.12s + 0.32s); }
@@ -281,10 +281,11 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   text-transform: uppercase; color: rgb(var(--navy-rgb) / 0.55);
 }
 
-/* ── SECTION 7 — GALLERY (print-industry mock masonry) ───────────────────────
-   A clean responsive masonry via CSS multi-column: tiles keep their natural
-   aspect and pack column-first. Each tile has a card radius, a hairline, and a
-   quiet scale on hover. Reveals ride the shared [data-reveal] system. */
+/* ── SECTION 7 — GALLERY (capped masonry preview + See More lightbox) ─────────
+   Page shows a capped masonry (first 6 tiles) via CSS multi-column. Tiles are
+   NOT interactive (no cursor, no click). A centred orange "See More" pill opens
+   a fullscreen overlay lightbox that walks the full manifest. Reveals ride the
+   shared [data-reveal] system. */
 .gal { position: relative; background: var(--cream); padding: clamp(60px, 7vh, 88px) var(--page-gutter) var(--section-pad-y); overflow: hidden; }
 .gal-eyebrow { margin: 0 0 clamp(14px, 1.9vh, 20px); }
 .gal-title {
@@ -299,25 +300,70 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   border: 1px solid rgb(var(--navy-rgb) / 0.08);
   box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.05);
 }
-.gal-img {
-  display: block; width: 100%; height: auto;
-  transition: transform 0.5s var(--e-out); will-change: transform;
+.gal-img { display: block; width: 100%; height: auto; }
+
+/* See More — orange pill in the site's CTA language, AA in both states. */
+.gal-more-wrap { display: flex; justify-content: center; margin-top: clamp(30px, 4.4vh, 48px); }
+.gal-more {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 14px 30px; border-radius: 999px; cursor: pointer;
+  border: 1.5px solid #f37031; background: transparent; color: #c2410c;
+  font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px; letter-spacing: 0.01em;
+  transition: background 0.25s var(--e-out), color 0.25s var(--e-out), border-color 0.25s var(--e-out);
 }
-@media (hover: hover) and (pointer: fine) {
-  .gal-item:hover .gal-img { transform: scale(1.04); }
+.gal-more:hover { background: #f37031; color: #0e1b46; border-color: #f37031; }
+.gal-more:focus-visible { outline: 2px solid #f37031; outline-offset: 3px; }
+.gal-more-arrow { transition: transform 0.25s var(--e-out); }
+.gal-more:hover .gal-more-arrow { transform: translateX(3px); }
+
+/* ── LIGHTBOX overlay — fullscreen, navy scrim, media-agnostic stage ─────────── */
+.gal-lb {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(56px, 9vw, 104px);
+  background: rgba(14, 27, 70, 0.96);
+  animation: gal-lb-in 0.22s var(--e-out) both;
+}
+@keyframes gal-lb-in { from { opacity: 0; } to { opacity: 1; } }
+.gal-lb-stage { display: flex; align-items: center; justify-content: center; max-width: min(1120px, 92vw); max-height: 82vh; }
+.gal-lb-media {
+  display: block; max-width: 100%; max-height: 82vh; width: auto; height: auto;
+  border-radius: 8px; box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+}
+.gal-lb-close, .gal-lb-nav {
+  position: absolute; display: grid; place-items: center;
+  width: 52px; height: 52px; border-radius: 50%; cursor: pointer;
+  border: 1.5px solid rgb(253 250 244 / 0.3); background: rgb(253 250 244 / 0.06);
+  color: #fdfaf4; line-height: 1;
+  transition: background 0.2s var(--e-out), border-color 0.2s var(--e-out);
+}
+.gal-lb-close:hover, .gal-lb-nav:hover { background: #f37031; border-color: #f37031; color: #0e1b46; }
+.gal-lb-close:focus-visible, .gal-lb-nav:focus-visible { outline: 2px solid #f37031; outline-offset: 3px; }
+.gal-lb-close { top: clamp(16px, 3vw, 28px); right: clamp(16px, 3vw, 28px); font-size: 30px; }
+.gal-lb-nav { top: 50%; transform: translateY(-50%); font-size: 30px; }
+.gal-lb-prev { left: clamp(12px, 3vw, 32px); }
+.gal-lb-next { right: clamp(12px, 3vw, 32px); }
+.gal-lb-counter {
+  position: absolute; bottom: clamp(18px, 3vw, 30px); left: 50%; transform: translateX(-50%);
+  margin: 0; font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.18em;
+  color: rgb(253 250 244 / 0.85);
+}
+@media (max-width: 560px) {
+  .gal-lb-nav { width: 44px; height: 44px; font-size: 26px; }
+  .gal-lb-close { width: 44px; height: 44px; font-size: 26px; }
 }
 
 /* ── SECTION 5 — THE TEAM (full-roster YOO grid) ───────────────────────────── */
 .tm { position: relative; background: var(--cream); padding: clamp(60px, 7vh, 88px) var(--page-gutter) var(--section-pad-y); overflow: hidden; }
 /* the gold hairline that opens the section — draws left→right (scaleX). */
 html.alive-ready .tm-rule[data-reveal] {
-  width: 100%; height: 1px; border: 0; background: rgb(var(--gold-rgb) / 0.3);
+  width: 100%; height: 1px; border: 0; background: rgb(243 112 49 / 0.3);
   margin: 0 0 clamp(18px, 2.4vh, 26px);
   opacity: 1; transform: scaleX(0); transform-origin: left center;
   transition: transform 0.75s var(--e-out);
 }
 html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
-.tm-rule { width: 100%; height: 1px; border: 0; background: rgb(var(--gold-rgb) / 0.3); margin: 0 0 clamp(18px, 2.4vh, 26px); }
+.tm-rule { width: 100%; height: 1px; border: 0; background: rgb(243 112 49 / 0.3); margin: 0 0 clamp(18px, 2.4vh, 26px); }
 /* YOO-style section statement (existing string; ≤ homepage H2 cap 68). */
 .tm-title {
   margin: 0 0 clamp(34px, 5vh, 56px); max-width: 20ch;
@@ -360,14 +406,14 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 }
 .tm-meta-v {
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-text);
+  letter-spacing: 0.14em; text-transform: uppercase; color: #c2410c;   /* AA orange on cream */
 }
 
-/* hover — divider warms gold, card lifts -4px, future photo scale 1.03. */
+/* hover — divider warms orange, card lifts -4px, future photo scale 1.03. */
 @media (hover: hover) and (pointer: fine) {
   .tm-card:hover { transform: translateY(-4px); }
-  .tm-card:hover .tm-divider { background: rgb(var(--gold-rgb) / 0.6); }
-  .tm-card:hover .tm-frame { border-color: rgb(var(--gold-rgb) / 0.4); box-shadow: 0 10px 24px rgb(var(--navy-rgb) / 0.1); }
+  .tm-card:hover .tm-divider { background: rgb(243 112 49 / 0.6); }
+  .tm-card:hover .tm-frame { border-color: rgb(243 112 49 / 0.4); box-shadow: 0 10px 24px rgb(var(--navy-rgb) / 0.1); }
   .tm-card:hover .tm-frame img { transform: scale(1.03); }
 }
 
@@ -422,7 +468,7 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .tm-card, .tm-frame, .tm-frame img, .tm-divider { transition: none !important; }
   .tm-card:hover { transform: none !important; }
   .tm-card:hover .tm-frame img { transform: none !important; }
-  .gal-img { transition: none !important; }
-  .gal-item:hover .gal-img { transform: none !important; }
+  .gal-more-arrow { transition: none !important; }
+  .gal-lb { animation: none !important; }
   html.alive-ready .tm-rule[data-reveal] { transform: scaleX(1) !important; transition: none !important; }
 }

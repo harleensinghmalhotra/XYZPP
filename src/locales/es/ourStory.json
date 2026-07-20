@@ -70,6 +70,11 @@
   },
   "gallery": {
     "eyebrow": "GALERÍA",
-    "heading": "Dentro de Quarterfold"
+    "heading": "Dentro de Quarterfold",
+    "seeMore": "Ver más",
+    "lightboxLabel": "Visor de galería",
+    "close": "Cerrar",
+    "prev": "Imagen anterior",
+    "next": "Imagen siguiente"
   }
 }

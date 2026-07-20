@@ -152,9 +152,9 @@ function Spine() {
 // ── THE JOURNEY — pure vertical-scroll timeline ───────────────────────────────
 // Every stop is a card stacked vertically; the reader scrolls through all of them
 // with ZERO interaction. No click-nav, no prev/next arrows, no year rail, no giant
-// ghost year numerals, no rail gold line — all deleted. Inside each card: a small
-// gold→orange accent line + the year (DM Mono) sit ABOVE the title, then the body
-// and the existing era imagery. Cards alternate the media side for rhythm and
+// ghost year numerals, no rail line — all deleted. Inside each card: the year
+// (DM Mono, orange) stands alone ABOVE the title, then the body and the existing
+// era imagery. Cards alternate the media side for rhythm and
 // reveal subtly on scroll (shared [data-reveal] system); reduced-motion rests them
 // visible. Below 900px each card stacks to a single column (media over copy).
 function Timeline({ stops }) {
@@ -176,12 +176,9 @@ function Timeline({ stops }) {
                 </div>
               </div>
 
-              {/* CARD COPY — accent line + year (DM Mono) above the title, then body */}
+              {/* CARD COPY — year (DM Mono) alone above the title, then body */}
               <div className="tls-copy">
-                <p className="tls-year">
-                  <span className="tls-year-line" aria-hidden="true" />
-                  {s.year}
-                </p>
+                <p className="tls-year">{s.year}</p>
                 <h3 className="tls-title">{s.title}</h3>
                 <p className="tls-body">{s.desc}</p>
               </div>
@@ -285,14 +282,66 @@ function Founder() {
   )
 }
 
-// ── GALLERY — print-industry mock imagery ─────────────────────────────────────
-// A clean responsive masonry (CSS multi-column) of local Pexels mocks (free
-// license, credit-free) awaiting client photography. Images come from the folder
-// manifest so they are trivially swappable — replace/add a file, nothing else.
-// Each tile reveals on scroll and lifts its image slightly on hover.
+// ── GALLERY — capped preview grid + See More lightbox ─────────────────────────
+// The page shows a capped masonry (first 6 tiles, manifest order). Tiles are NOT
+// clickable. A centred orange "See More" pill opens a fullscreen overlay lightbox
+// that walks the FULL manifest with prev/next + keyboard ← → + Esc, a close (×),
+// and a "n / total" counter. Body scroll locks while open; the dialog is
+// role="dialog" aria-modal, takes focus on open and returns it to the pill on
+// close. Media-agnostic: <img> for images, <video controls> for video files — a
+// future video manifest entry drops in with zero code change.
+const PREVIEW_COUNT = 6
+const isVideoSrc = (src) => /\.(mp4|webm|mov|m4v|ogg)(\?|#|$)/i.test(src)
+
 function Gallery() {
   const { t } = useTranslation('ourStory')
+  const [open, setOpen] = useState(false)
+  const [idx, setIdx] = useState(0)
+  const moreRef = useRef(null)
+  const dialogRef = useRef(null)
+  const wasOpen = useRef(false)
+  const n = GALLERY.length
+
+  const go = (delta) => setIdx((p) => (p + delta + n) % n)
+
+  // While open: keyboard nav (← → Esc), body scroll lock, focus into the dialog,
+  // and a light Tab trap so focus can't leave the overlay.
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') { e.preventDefault(); setOpen(false) }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1) }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); go(1) }
+      else if (e.key === 'Tab') {
+        const f = dialogRef.current?.querySelectorAll('button')
+        if (!f || !f.length) return
+        const first = f[0]
+        const last = f[f.length - 1]
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const raf = requestAnimationFrame(() => dialogRef.current?.focus())
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+      cancelAnimationFrame(raf)
+    }
+  }, [open, n])
+
+  // Return focus to the See More pill when the overlay closes.
+  useEffect(() => {
+    if (wasOpen.current && !open) moreRef.current?.focus()
+    wasOpen.current = open
+  }, [open])
+
   if (!GALLERY.length) return null
+  const preview = GALLERY.slice(0, PREVIEW_COUNT)
+  const current = GALLERY[idx]
+
   return (
     <section data-theme="light" className="gal" aria-labelledby="gal-title">
       <PaperGrain />
@@ -300,13 +349,41 @@ function Gallery() {
         <p className="ab-eyebrow gal-eyebrow" data-reveal>{t('gallery.eyebrow')}</p>
         <h2 id="gal-title" className="gal-title" data-reveal>{t('gallery.heading')}</h2>
         <div className="gal-grid">
-          {GALLERY.map((src, i) => (
-            <figure className="gal-item" data-reveal key={i} style={{ '--reveal-delay': `${(i % 4) * 60}ms` }}>
+          {preview.map((src, i) => (
+            <figure className="gal-item" data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 60}ms` }}>
               <img className="gal-img" src={src} alt="" loading="lazy" decoding="async" />
             </figure>
           ))}
         </div>
+        <div className="gal-more-wrap">
+          <button type="button" ref={moreRef} className="gal-more" onClick={() => { setIdx(0); setOpen(true) }}>
+            <span>{t('gallery.seeMore')}</span>
+            <span className="gal-more-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
       </div>
+
+      {open && (
+        <div
+          className="gal-lb"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('gallery.lightboxLabel')}
+          ref={dialogRef}
+          tabIndex={-1}
+          onClick={(e) => { if (e.target === e.currentTarget) setOpen(false) }}
+        >
+          <button type="button" className="gal-lb-close" onClick={() => setOpen(false)} aria-label={t('gallery.close')}>×</button>
+          <button type="button" className="gal-lb-nav gal-lb-prev" onClick={() => go(-1)} aria-label={t('gallery.prev')}>‹</button>
+          <div className="gal-lb-stage">
+            {isVideoSrc(current)
+              ? <video className="gal-lb-media" src={current} controls autoPlay />
+              : <img className="gal-lb-media" src={current} alt="" />}
+          </div>
+          <button type="button" className="gal-lb-nav gal-lb-next" onClick={() => go(1)} aria-label={t('gallery.next')}>›</button>
+          <p className="gal-lb-counter">{idx + 1} / {n}</p>
+        </div>
+      )}
     </section>
   )
 }
