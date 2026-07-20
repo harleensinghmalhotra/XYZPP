@@ -12,14 +12,16 @@ import Certifications from '@/sections/Certifications'
 import { GALLERY } from '@/assets/gallery/manifest'
 import './OurStory.css'
 
-// MOCK — replace with client photography. Raw Pexels photos (free license), one
-// per era, object-fit cover in the timeline media frame. No filters/overlays/tints.
-import mock1 from '@/assets/mock/timeline-mock-1.jpg'
-import mock2 from '@/assets/mock/timeline-mock-2.jpg'
-import mock3 from '@/assets/mock/timeline-mock-3.jpg'
-import mock4 from '@/assets/mock/timeline-mock-4.jpg'
-import mock5 from '@/assets/mock/timeline-mock-5.jpg'
-const TIMELINE_MOCKS = [mock1, mock2, mock3, mock4, mock5]   // MOCK — replace with client photography
+// Real QFP era photography (Ekta's asset drop), one per timeline stop, object-fit
+// cover in the media frame. 2014 web press · 2015–17 educational books · 2018
+// Komori press · 2021–23 binding line · 2024–25 the Book Education Company of the
+// Year award moment.
+import tl1 from '@/assets/mock/timeline-01.webp'
+import tl2 from '@/assets/mock/timeline-02.webp'
+import tl3 from '@/assets/mock/timeline-03.webp'
+import tl4 from '@/assets/mock/timeline-04.webp'
+import tl5 from '@/assets/mock/timeline-05.webp'
+const TIMELINE_MOCKS = [tl1, tl2, tl3, tl4, tl5]
 
 // ── /about — "Our Story", the definitive craft pass ──────────────────────────
 // Hero band (~74vh) → THE JOURNEY (Union-Properties three-zone timeline) → INK
@@ -176,10 +178,16 @@ function Timeline({ stops }) {
       return
     }
 
-    // card centres relative to the list top (layout metrics — transform-free, so
-    // the [data-reveal] entrance never skews them); recomputed on resize.
-    let centers = []
-    const measure = () => { centers = cards.map((c) => c.offsetTop + c.offsetHeight / 2) }
+    // each node lights when the fill reaches its card's IMAGE TOP edge — the same
+    // line the node sits on. Thresholds use the media element's offsetTop (layout
+    // metric, transform-free, relative to the positioned list); recomputed on resize.
+    let tops = []
+    const measure = () => {
+      tops = cards.map((c) => {
+        const m = c.querySelector('.tls-media')
+        return m ? m.offsetTop : c.offsetTop
+      })
+    }
 
     let raf = 0
     const update = () => {
@@ -190,7 +198,7 @@ function Timeline({ stops }) {
       const p = r.height > 0 ? drawn / r.height : 1
       fill.style.transform = `scaleY(${p.toFixed(4)})`
       for (let k = 0; k < nodes.length; k += 1) {
-        if (nodes[k]) nodes[k].classList.toggle('is-reached', drawn >= centers[k])
+        if (nodes[k]) nodes[k].classList.toggle('is-reached', drawn >= tops[k])
       }
     }
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
@@ -435,7 +443,7 @@ function Gallery() {
           <button type="button" className="gal-lb-nav gal-lb-prev" onClick={() => go(-1)} aria-label={t('gallery.prev')}>‹</button>
           <div className="gal-lb-stage">
             {isVideoSrc(current)
-              ? <video className="gal-lb-media" src={current} controls autoPlay />
+              ? <video className="gal-lb-media" src={current} controls autoPlay muted playsInline />
               : <img className="gal-lb-media" src={current} alt="" />}
           </div>
           <button type="button" className="gal-lb-nav gal-lb-next" onClick={() => go(1)} aria-label={t('gallery.next')}>›</button>
