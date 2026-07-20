@@ -35,7 +35,7 @@
 // is translated via the `newsroom` locale namespace.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const IMG = '/qfp/newsroom' // LFS-exempt public path (see .gitattributes)
+const IMG = '/site-assets/newsroom/gallery' // readable asset tree (overwrite-to-swap)
 
 export const newsroomPosts = [
   {
@@ -97,7 +97,7 @@ export const newsroomPosts = [
     body: [
       { type: 'paragraph', text: 'Quarterfold Printabilities has opened its third facility, a dedicated fulfilment centre that significantly expands the company’s warehousing, pick-and-pack and dispatch capacity. The site is built to hold finished stock closer to distribution, compressing the time between a book leaving the bindery and reaching a reader.' },
       { type: 'paragraph', text: 'The facility integrates directly with Quarterfold’s manufacturing operations, so titles printed and bound in-house can flow into storage and order fulfilment without an external logistics handoff — a structural advantage for publishers managing unpredictable demand.' },
-      { type: 'video', src: `${IMG}/press-run.mp4`, poster: `${IMG}/qfp-warehouse.webp`, caption: 'Inside the new centre — automated handling feeds pick-and-pack and dispatch.' },
+      { type: 'video', src: '/site-assets/newsroom/video/press-run.mp4', poster: `${IMG}/qfp-warehouse.webp`, caption: 'Inside the new centre — automated handling feeds pick-and-pack and dispatch.' },
       { type: 'paragraph', text: 'For print-on-demand and short-run customers, the centre means faster turnaround and the ability to hold safety stock economically. For long educational programmes, it means seasonal peaks can be absorbed without straining the production line.' },
       { type: 'paragraph', text: 'The opening continues a period of sustained infrastructure investment and supports the company’s growing export volume, which now moves hundreds of containers a year.' },
     ],

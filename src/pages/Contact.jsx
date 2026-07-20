@@ -453,7 +453,7 @@ export default function Contact() {
         <SectionCurve position="top" fill="#fdfaf4" inward />
         {/* Real QFP facility exterior (navy duotone) — grounds "our locations" in the actual building */}
         <img
-          src="/qfp/contact/facility-navy.webp"
+          src="/site-assets/contact/facility-navy.webp"
           alt=""
           aria-hidden="true"
           loading="lazy"

@@ -33,8 +33,8 @@ gsap.registerPlugin(ScrollTrigger)
 // false until the client delivers the MP4. COMPLIANCE: the final video must ship
 // with closed captions (walkthrough.vtt) + a text transcript BEFORE this flips on.
 const VIDEO_READY = false
-const VIDEO_SRC = '/qfp/infra/walkthrough.mp4'
-const VIDEO_VTT = '/qfp/infra/walkthrough.vtt'
+const VIDEO_SRC = '/site-assets/infrastructure/video/walkthrough.mp4'
+const VIDEO_VTT = '/site-assets/infrastructure/video/walkthrough.vtt'
 
 // Data carries stable keys + non-translatable values (logos, codes, icons, numbers).
 // User-facing labels/subs/specs/captions resolve via t(`<group>.<key>...`) at render.
@@ -117,7 +117,7 @@ function PlaquePhoto({ img, ph }) {
     <>
       <img
         className="aw-photo-img"
-        src={`/qfp/awards/${img}`}
+        src={`/site-assets/infrastructure/awards/${img}`}
         alt=""
         loading="lazy"
         decoding="async"
@@ -337,7 +337,7 @@ export default function InfrastructurePage() {
                   {c.typographic ? (
                     <span className="inf-strip-star" aria-hidden="true">★</span>
                   ) : (
-                    <img src={`/qfp/certs/${c.logo}`} alt={t('strip.certAlt', { name })} loading="lazy" decoding="async" />
+                    <img src={`/site-assets/infrastructure/certs/${c.logo}`} alt={t('strip.certAlt', { name })} loading="lazy" decoding="async" />
                   )}
                 </div>
                 <p className="inf-strip-name">{name}</p>
@@ -393,7 +393,7 @@ export default function InfrastructurePage() {
               facility-01.webp (a delivered asset covers the navy base, zero code
               change; a 404 simply leaves the framed navy placeholder). */}
           <div className="inf-tri-frame" aria-hidden="true">
-            <div className="inf-tri-frame-img" style={{ backgroundImage: 'url(/qfp/infra/facility-01.webp)' }} />
+            <div className="inf-tri-frame-img" style={{ backgroundImage: 'url(/site-assets/infrastructure/facility/facility-01.webp)' }} />
           </div>
         </div>
         <SectionCurve position="bottom" fill="#fdfaf4" inward />
@@ -493,7 +493,7 @@ export default function InfrastructurePage() {
               aria-label={VIDEO_READY ? t('results.videoPlayLabel') : t('results.videoPendingLabel')}
             >
               {/* Silent drop-in poster: a delivered walkthrough poster covers this with zero code change. */}
-              <span className="inf-video-img" aria-hidden="true" style={{ backgroundImage: 'url(/qfp/infra/walkthrough-poster.webp)' }} />
+              <span className="inf-video-img" aria-hidden="true" style={{ backgroundImage: 'url(/site-assets/infrastructure/gallery/walkthrough-poster.webp)' }} />
               <span className="inf-video-scrim" aria-hidden="true" />
               <span className="inf-video-note" aria-hidden="true">{t('results.videoNote')}</span>
               <span className="inf-play" aria-hidden="true">
@@ -535,7 +535,7 @@ export default function InfrastructurePage() {
               const cap = t(`gallery.items.${g.k}`)
               return (
               <figure key={g.n} className="inf-gallery-item">
-                <InfraPhoto src={`/qfp/infra/gallery-0${g.n.slice(-1)}.webp`} note={t('gallery.photoNote', { caption: cap })} className="inf-gallery-photo" />
+                <InfraPhoto src={`/site-assets/infrastructure/gallery/gallery-0${g.n.slice(-1)}.webp`} note={t('gallery.photoNote', { caption: cap })} className="inf-gallery-photo" />
                 <figcaption className="inf-gallery-cap">{cap}</figcaption>
               </figure>
               )
