@@ -12,7 +12,9 @@
   position: relative;
   margin-top: clamp(44px, 6vh, 80px);
   border-radius: var(--r-card);
-  padding: clamp(40px, 5vw, 72px) clamp(22px, 3.4vw, 60px);
+  /* side padding ~4% of the viewport (client law: minimal margins); the vertical
+     rhythm stays generous so the panel still reads as a hosted "reading room". */
+  padding: clamp(38px, 5vh, 68px) clamp(22px, 4vw, 88px);
   color: #fdfaf4;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
@@ -22,13 +24,41 @@
     var(--navy);
 }
 
+/* ── HOMEPAGE PARITY — the homepage Infrastructure SECTION nests this stage inside
+   .infra-inner (max-width var(--content-max) = 1280px), which caps .ib-interactive
+   below its own 1240 max, so the open book renders ~9% smaller than on the
+   /infrastructure page (where FacilityBook is a full-bleed top-level child). Break
+   the homepage stage out to the full viewport width so .ib-interactive reaches 1240
+   and the book + stack match the /infrastructure render pixel-for-pixel (interactive
+   lands at the same x=148, book 745px, stack 443px @1536). Transform-free (uses
+   margin, not translateX) so it never fights the section's GSAP reveal transform;
+   body has overflow-x:hidden so the 100vw bleed adds no horizontal scrollbar. Desktop
+   only — below the 900px stacking breakpoint the mobile card layout is kept. ── */
+@media (min-width: 901px) {
+  .infra .ib-stage {
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+  }
+}
+
+/* ── FULL-REAL-ESTATE ROW (client law) ────────────────────────────────────────
+   The stack (~33%) and the open book (all remaining width) sit in ONE flex row,
+   tops aligned. Both are aspect-locked art, so equal HEIGHT is guaranteed by the
+   grow ratio, not by a hand-tuned px height: with flex-basis 0, the column widths
+   land in the exact ratio 528 : 1000, which is (book-aspect ÷ stack-aspect) — the
+   width split that makes stack-height ≡ book-height at EVERY viewport. See the
+   .ib-stack--img / .ib-book-wrap flex declarations below for the derivation. The
+   4% side breathing room lives on .ib-stage; the row itself is uncapped so it uses
+   the whole panel. align-items:flex-start pins both top edges to the same line. */
 .ib-interactive {
-  max-width: 1240px;
+  max-width: none;
   margin: 0 auto;
   width: 100%;
   display: flex;
-  align-items: center;
-  gap: clamp(24px, 3vw, 52px);
+  align-items: flex-start;
+  gap: clamp(22px, 2.5vw, 46px);
   outline: none;
 }
 .ib-interactive:focus-visible {
@@ -81,14 +111,16 @@
    The photo already IS a grounded 10-book pile, so no CSS pile/shadow here. The
    container matches the render's aspect so % label positions map straight onto the
    spines; height is capped to the open book's height (never taller). */
-.ib-stack--img { padding: 0; perspective: none; }
+/* STACK COLUMN — the ratio flex item. grow 528 against the book's 1000 (basis 0)
+   puts the two column widths in exactly 528:1000, the split where the portrait
+   stack art (2232×2820) renders the SAME height as the landscape book art
+   (3072×2048). Height therefore tracks the book at every width, no px cap. */
+.ib-stack--img { flex: 528 1 0; min-width: 0; padding: 0; perspective: none; }
 .ib-stack--img > :last-child::after { display: none; } /* photo is self-grounded */
 .ib-imgstack {
   position: relative;
-  flex: 0 0 auto;
+  width: 100%;
   aspect-ratio: 2232 / 2820;         /* the wordless colour-spine stack art ratio */
-  height: clamp(392px, 44vh, 440px); /* = the open-book spread height (cap) */
-  max-width: 100%;
   container-type: inline-size;       /* label font scales with the stack via cqw */
 }
 .ib-imgstack-photo {
@@ -406,12 +438,12 @@
 /* ── THE OPEN BOOK ─────────────────────────────────────────────────────────── */
 .ib-book-wrap {
   position: relative;
-  flex: 1 1 auto;
+  flex: 1000 1 0;   /* all remaining width; pairs with the stack's 528 (see above) */
   min-width: 0;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 26px; /* room for the page counter above the book */
+  padding-top: 0;   /* book top edge sits on the same line as the stack top edge */
 }
 
 /* gold ribbon bookmark — "you are here", draped over the spread's top edge */
@@ -431,11 +463,11 @@
 /* DM Mono counter — announces the current page (aria-live) */
 .ib-counter {
   position: absolute;
-  top: -22px;
-  right: 2px;
+  top: 2%;            /* rides inside the book's empty top navy frame */
+  right: 3%;
   z-index: 6;
   font-family: 'DM Mono', monospace;
-  font-size: 12px;
+  font-size: clamp(10px, 1cqw, 13px);
   letter-spacing: 2px;
   color: var(--gold-2);
   text-transform: uppercase;
@@ -454,10 +486,14 @@
    page zones: LEFT = the read, RIGHT = a full-bleed facility photo. */
 .ib-book {
   position: relative;
-  width: min(860px, 100%);
+  width: 100%;               /* fills the book column — all remaining real estate */
   aspect-ratio: 3072 / 2048;
   background: url('/qfp/infra/book-spread.webp') center / 100% 100% no-repeat;
   filter: drop-shadow(0 34px 52px rgba(0, 0, 0, 0.5));
+  /* query container so the resting INTRO spread scales its type in cqw with the
+     book, exactly as the facility left-page already does (client law: text grows
+     with the bigger page). The facility page keeps its own nearer container. */
+  container-type: inline-size;
 }
 
 .ib-spread {
@@ -491,8 +527,13 @@
 }
 
 /* ── FACILITY LEFT PAGE — client reference layout: icon badge, title, orange rule,
-   intro, four feature points, decorative dot-grid. In-family type, small + neat. ── */
-.ib-facpage { position: relative; justify-content: flex-start; top: 6.5%; height: 88%; }
+   intro, four feature points, decorative dot-grid. In-family type, small + neat.
+   CONTAINER: all type + vertical spacing below is sized in cqw off THIS page's own
+   width (which tracks the open book at every viewport), NOT vw — so the content
+   block scales in lock-step with the book and the last feature point keeps its
+   ≥28px foot margin across the whole desktop range (1280→1920+), where a vw scale
+   drifts as the stack↔book gap and the interactive cap change the book width. ── */
+.ib-facpage { position: relative; justify-content: flex-start; top: 6.5%; height: 88%; container-type: inline-size; }
 /* decorative orange dot-grid, top-right of the page */
 .ib-fac-dots {
   position: absolute; top: 2%; right: 4%;
@@ -501,49 +542,64 @@
   background-size: 20% 25%;
   pointer-events: none;
 }
-/* icon in a thin orange circle */
+/* icon in a thin orange circle — PROPORTIONAL: every dimension below is cqw off the
+   page width, so the whole content block scales in lock-step with the open book. The
+   book now fills the panel's real estate (ratio-flex, grows with the viewport), so the
+   type grows with it — filling the page to a ~28–40px foot margin at EVERY width
+   instead of sitting capped-small in a huge page. Caps are set high (only bind past 4K);
+   the 11px floor on the reading copy is the sole hard limit (compliance). */
 .ib-fac-badge {
   display: inline-grid; place-items: center;
-  width: clamp(34px, 3.6vw, 44px); aspect-ratio: 1;
+  width: clamp(32px, 14.8cqw, 88px); aspect-ratio: 1;
   border: 1.5px solid var(--gold-2);
   border-radius: 50%;
   color: var(--gold-2);
-  margin-bottom: clamp(8px, 1.1vh, 12px);
+  margin-bottom: clamp(7px, 3.05cqw, 21px);
 }
 .ib-facpage-title {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(15px, 1.55vw, 21px); line-height: 1.06; letter-spacing: -0.3px;
+  font-size: clamp(15px, 7.1cqw, 50px); line-height: 1.06; letter-spacing: -0.3px;
   text-transform: uppercase; color: var(--navy);
   margin: 0; max-width: 14ch;
 }
 .ib-facpage-rule {
-  display: block; width: clamp(24px, 2.6vw, 34px); height: 3px;
+  display: block; width: clamp(24px, 9cqw, 58px); height: 3px;
   background: var(--gold-2); border-radius: 2px;
-  margin: clamp(8px, 1.2vh, 12px) 0 clamp(10px, 1.4vh, 14px);
+  margin: clamp(7px, 3.05cqw, 21px) 0 clamp(8px, 3.45cqw, 24px);
 }
 .ib-facpage-intro {
-  margin: 0 0 clamp(11px, 1.6vh, 16px); max-width: 30ch;
+  margin: 0 0 clamp(9px, 4.5cqw, 29px); max-width: 32ch;
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: clamp(10.5px, 0.9vw, 12px); line-height: 1.4;
+  font-size: clamp(11px, 4.15cqw, 28px); line-height: 1.38;
   color: rgba(28, 32, 25, 0.82);
 }
 .ib-facpage-points {
   list-style: none; margin: 0; padding: 0;
-  display: flex; flex-direction: column; gap: clamp(7px, 1vh, 11px);
+  display: flex; flex-direction: column; gap: clamp(6px, 2.45cqw, 17px);
 }
-.ib-fpoint { display: flex; gap: 10px; align-items: flex-start; }
+.ib-fpoint { display: flex; gap: clamp(7px, 2.15cqw, 15px); align-items: flex-start; }
 .ib-fpoint-icon { flex: none; color: var(--gold-2); margin-top: 1px; }
 .ib-fpoint-text { display: flex; flex-direction: column; min-width: 0; }
 .ib-fpoint-title {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(9.5px, 0.85vw, 11px); letter-spacing: 0.03em; line-height: 1.15;
+  font-size: clamp(11px, 4.05cqw, 26px); letter-spacing: 0.03em; line-height: 1.14;
   text-transform: uppercase; color: var(--gold-text);          /* bold orange (AA on cream) */
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
+/* point desc — reading copy; never below the 11px compliance floor, scales up with
+   the page above it via cqw */
 .ib-fpoint-desc {
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: clamp(10px, 0.9vw, 12px); line-height: 1.35;
+  font-size: clamp(11px, 4.15cqw, 28px); line-height: 1.32;
   color: rgba(28, 32, 25, 0.72);
+}
+/* Narrow widths where the book has shrunk enough that the 11px reading floor can no
+   longer scale down with the page — tighten the reading line-heights + point gap a
+   step so the tallest facility (Binding & Finishing, FR) keeps its ≥28px foot margin. */
+@media (max-width: 1279px) {
+  .ib-facpage-intro { line-height: 1.3; }
+  .ib-fpoint-desc { line-height: 1.26; }
+  .ib-facpage-points { gap: clamp(5px, 2.2cqw, 10px); }
 }
 
 /* ── INTRO SPREAD — the resting (no-click) state: a full TEXT takeover across both
@@ -551,47 +607,50 @@
    RIGHT = the dated "As of July 2026…" spec list + closing line. Print-tight type,
    11px floor on the reading copy. ──────────────────────────────────────────────── */
 
-/* LEFT PAGE — heading, orange subtitle + rule, two paragraphs, pillar row */
+/* LEFT PAGE — heading, orange subtitle + rule, two paragraphs, pillar row.
+   Type is now sized in cqw off the BOOK container (.ib-book), so the resting intro
+   grows in lock-step with the enlarged page (client law), matching how the facility
+   left-page already scales. 1cqw ≈ 9px at the 1536 render, ≈ 7.5px at 1280. */
 .ib-intro-left {
   top: 7.5%; left: 6.5%; width: 39%; height: 86%;
   justify-content: flex-start; overflow: hidden;
 }
 .ib-intro-title {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(22px, 2.7vw, 34px); line-height: 1.0; letter-spacing: -0.02em;
+  font-size: clamp(24px, 4.4cqw, 46px); line-height: 1.0; letter-spacing: -0.02em;
   color: var(--navy); margin: 0; overflow-wrap: break-word;
 }
 .ib-intro-sub {
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(11px, 1.15vw, 15px); line-height: 1.2; letter-spacing: -0.1px;
+  font-size: clamp(12px, 1.75cqw, 17px); line-height: 1.2; letter-spacing: -0.1px;
   color: #C2551B;                    /* AA-safe orange on cream */
-  margin: clamp(4px, 0.8vh, 8px) 0 0;
+  margin: clamp(4px, 0.9cqw, 9px) 0 0;
 }
 .ib-intro-rule {
-  display: block; width: clamp(28px, 3vw, 40px); height: 3px;
+  display: block; width: clamp(28px, 3.4cqw, 42px); height: 3px;
   background: var(--gold-2); border-radius: 2px;
-  margin: clamp(7px, 1.1vh, 11px) 0 clamp(9px, 1.4vh, 13px);
+  margin: clamp(8px, 1.3cqw, 13px) 0 clamp(10px, 1.6cqw, 15px);
 }
 .ib-intro-para {
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: clamp(10px, 0.82vw, 11.5px); line-height: 1.42;
+  font-size: clamp(11px, 1.4cqw, 13.5px); line-height: 1.5;
   color: rgba(28, 32, 25, 0.82);
-  margin: 0 0 clamp(7px, 1.1vh, 11px); max-width: 44ch;
+  margin: 0 0 clamp(8px, 1.3cqw, 13px); max-width: 46ch;
 }
 .ib-intro-para:last-of-type { margin-bottom: 0; }
 
 /* four capability pillars — icon + short label, pinned to the page foot */
 .ib-pillars {
-  list-style: none; margin: auto 0 0; padding: clamp(10px, 1.6vh, 16px) 0 0;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(4px, 0.8vw, 10px);
+  list-style: none; margin: auto 0 0; padding: clamp(12px, 1.9cqw, 20px) 0 0;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(5px, 1cqw, 12px);
   border-top: 1px solid rgb(var(--navy-rgb) / 0.12);
 }
-.ib-pillar { display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; }
+.ib-pillar { display: flex; flex-direction: column; align-items: center; gap: clamp(5px, 0.8cqw, 8px); text-align: center; }
 .ib-pillar-icon { color: var(--navy); line-height: 0; }
 .ib-pillar:nth-child(even) .ib-pillar-icon { color: var(--gold-2); }
 .ib-pillar-label {
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(8.5px, 0.7vw, 10px); line-height: 1.12; letter-spacing: 0.01em;
+  font-size: clamp(9px, 1.2cqw, 11.5px); line-height: 1.14; letter-spacing: 0.01em;
   color: rgba(14, 27, 70, 0.86);
 }
 
@@ -602,46 +661,70 @@
 }
 .ib-intro-rhead {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(11px, 1.05vw, 14px); line-height: 1.15; letter-spacing: -0.1px;
-  color: var(--navy); margin: 0 0 clamp(8px, 1.3vh, 13px);
-  padding-left: 10px; border-left: 3px solid var(--gold-2);
+  font-size: clamp(12px, 1.65cqw, 16px); line-height: 1.18; letter-spacing: -0.1px;
+  color: var(--navy); margin: 0 0 clamp(9px, 1.5cqw, 15px);
+  padding-left: clamp(10px, 1.2cqw, 13px); border-left: 3px solid var(--gold-2);
 }
 .ib-speclist {
   list-style: none; margin: 0; padding: 0; flex: 1 1 auto;
-  display: flex; flex-direction: column; justify-content: space-between; gap: clamp(4px, 0.7vh, 8px);
+  display: flex; flex-direction: column; justify-content: space-between; gap: clamp(5px, 0.9cqw, 10px);
 }
 .ib-spec {
-  display: grid; grid-template-columns: auto 1.5em 1fr; align-items: center;
-  column-gap: clamp(6px, 0.7vw, 9px);
+  display: grid; grid-template-columns: auto 1.6em 1fr; align-items: center;
+  column-gap: clamp(7px, 1cqw, 11px);
 }
 .ib-spec-chip {
   display: grid; place-items: center;
-  width: clamp(19px, 1.9vw, 24px); aspect-ratio: 1; border-radius: 50%;
+  width: clamp(20px, 2.5cqw, 28px); aspect-ratio: 1; border-radius: 50%;
   background: var(--navy); color: #fdfaf4; line-height: 0;
 }
 .ib-spec:nth-child(even) .ib-spec-chip { background: var(--gold-2); color: var(--navy); }
 .ib-spec-num {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(15px, 1.5vw, 20px); line-height: 1; letter-spacing: -0.5px;
+  font-size: clamp(16px, 2.5cqw, 24px); line-height: 1; letter-spacing: -0.5px;
   color: var(--gold-text); text-align: right;
 }
 .ib-spec-text { display: flex; flex-direction: column; min-width: 0; }
 .ib-spec-title {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(10px, 0.85vw, 11.5px); line-height: 1.14; letter-spacing: -0.1px;
+  font-size: clamp(11px, 1.4cqw, 13.5px); line-height: 1.16; letter-spacing: -0.1px;
   color: var(--navy);
 }
 .ib-spec-sub {
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: clamp(9px, 0.72vw, 10px); line-height: 1.18;
+  font-size: clamp(9.5px, 1.15cqw, 11.5px); line-height: 1.2;
   color: rgba(28, 32, 25, 0.66); margin-top: 1px;
 }
 .ib-intro-closing {
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: clamp(9.5px, 0.78vw, 11px); line-height: 1.38;
+  font-size: clamp(10px, 1.25cqw, 12.5px); line-height: 1.42;
   color: rgba(28, 32, 25, 0.8);
-  margin: clamp(9px, 1.4vh, 14px) 0 0; padding-top: clamp(8px, 1.2vh, 12px);
+  margin: clamp(10px, 1.6cqw, 16px) 0 0; padding-top: clamp(9px, 1.4cqw, 14px);
   border-top: 1px solid rgb(var(--navy-rgb) / 0.12);
+}
+
+/* ── SMALL-DESKTOP 2-PAGE ZONE (901–1149px) — the open book is still the two-page
+   spread here but at a reduced width, so the enlarged canonical type would spill the
+   7-item spec list + both intro paragraphs off the page (worst case FR: ~90px on the
+   left, ~66px on the right). Claw the vertical rhythm back a step — tighter line-
+   heights, margins and gaps, floors eased to ~10.5px in THIS band only — so the
+   resting spread fits the page cleanly. Canonical desktop (≥1150) keeps the 11px
+   floor and full scale; below 901 the mobile stacked-card layout takes over. ── */
+@media (min-width: 901px) and (max-width: 1149px) {
+  .ib-intro-title { font-size: clamp(22px, 4.0cqw, 30px); }
+  .ib-intro-sub { font-size: clamp(11px, 1.6cqw, 14px); margin-top: 3px; }
+  .ib-intro-rule { margin: 7px 0 8px; }
+  .ib-intro-para { font-size: clamp(10.5px, 1.3cqw, 12px); line-height: 1.3; margin-bottom: 5px; }
+  .ib-pillars { padding-top: 8px; gap: 5px; }
+  .ib-pillar-label { font-size: clamp(8.5px, 1.05cqw, 10px); }
+  .ib-intro-rhead { font-size: clamp(11px, 1.5cqw, 13px); margin-bottom: 7px; }
+  .ib-speclist { gap: clamp(3px, 0.55cqw, 7px); }
+  .ib-spec { column-gap: clamp(6px, 0.9cqw, 9px); }
+  .ib-spec-title { font-size: clamp(10.5px, 1.3cqw, 12px); line-height: 1.12; }
+  .ib-spec-sub { font-size: clamp(9px, 1.05cqw, 10.5px); line-height: 1.14; }
+  .ib-spec-num { font-size: clamp(14px, 2.2cqw, 19px); }
+  .ib-spec-chip { width: clamp(18px, 2.2cqw, 23px); }
+  .ib-intro-closing { font-size: clamp(9.5px, 1.15cqw, 11px); line-height: 1.32; margin-top: 7px; padding-top: 6px; }
 }
 
 /* RIGHT PAGE — full-bleed facility photo, cover-cropped into the page */
@@ -976,15 +1059,16 @@
 
 /* ── SCALED UP (canonical desktop ≥1280) — bigger pages, nav scales ─────────── */
 @media (min-width: 1280px) {
-  .ib-interactive { gap: clamp(36px, 3.4vw, 60px); }
+  .ib-interactive { gap: clamp(28px, 2.5vw, 46px); }
 
   /* pile centred in the 560px column (= the open book's height); the 10 slabs are
      sized so the whole pile stays UNDER that height — facility books ~50px spines,
      fillers ~34px, capped so nothing overflows the open book at 1536×743. */
   .ib-stack { min-height: 560px; justify-content: center; }
-  /* image stack — cap its height at the open book's 560px (photo scales within) */
+  /* IMAGE STACK — height is now driven by the flex ratio (≡ book height), never a
+     px cap; keep it width-driven here too so the equal-height law holds ≥1280. */
   .ib-stack--img { min-height: 0; }
-  .ib-imgstack { height: 560px; }
+  .ib-imgstack { height: auto; }
   .ib-stack > :nth-child(1)  { --book-w: 286px; --spine-h: 50px; }
   .ib-stack > :nth-child(2)  { --book-w: 258px; --spine-h: 33px; }
   .ib-stack > :nth-child(3)  { --book-w: 282px; --spine-h: 52px; }
@@ -997,7 +1081,7 @@
   .ib-stack > :nth-child(10) { --book-w: 262px; --spine-h: 34px; }
   .ib-spine-text { font-size: 12px; }
 
-  .ib-book { width: min(960px, 100%); }
+  .ib-book { width: 100%; }
   .ib-spread { height: 560px; }
   .ib-page--left::after { width: 32px; }
 
@@ -1011,9 +1095,9 @@
   .ib-spine-shadow { width: 38px; }
   .ib-curl { width: 84px; height: 84px; }
 
-  .ib-book-wrap { padding-top: 28px; }
+  .ib-book-wrap { padding-top: 0; }
   .ib-ribbon { width: 24px; height: 76px; top: -22px; }
-  .ib-counter { font-size: 14px; top: -28px; letter-spacing: 2.4px; }
+  .ib-counter { font-size: clamp(11px, 1cqw, 14px); letter-spacing: 2.4px; }
   .ib-arrow { width: 54px; height: 54px; font-size: 21px; bottom: 12px; }
   .ib-arrow--prev { left: 12px; }
   .ib-arrow--next { right: 12px; }
@@ -1023,9 +1107,9 @@
    (placed last so they win over the earlier media blocks that targeted the
    retired CSS-built spread). */
 @media (min-width: 1280px) {
-  .ib-book { width: min(980px, 100%); }
+  .ib-book { width: 100%; }                 /* fills the book column — no px cap */
   .ib-spread { inset: 0; height: auto; }   /* neutralise the retired 560px spread height */
-  .ib-counter { font-size: 13px; letter-spacing: 2.4px; top: -2px; }
+  .ib-counter { font-size: clamp(11px, 1cqw, 14px); letter-spacing: 2.4px; top: 2%; }
 }
 @media (max-width: 900px) {
   /* drop the fixed landscape art; stack the read above a photo card */
