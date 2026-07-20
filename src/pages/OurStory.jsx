@@ -469,13 +469,50 @@ function Gallery() {
 // Header: "Our Team" (ourStory.team.heading — own key in all three locales, no
 // longer borrowing globalMarkets). The drawn gold→orange hairline opens the
 // section above the statement.
+// The eight real people (name/role/bio/quote from ourStory.team.members, this
+// order; photos map team-01..08 by index). Nilesh is founder-only, not in the
+// grid. Each card shows name, role, bio, and a 2-line quote teaser; clicking
+// "Read full quote" opens a modal (gallery-lightbox language: navy scrim, close ×,
+// Esc, focus in/return) with the full quote. Members without a quote (Charani)
+// render a static card. Quotes stay in English under a translated "In their
+// words" label; roles + bios localise.
 function Team() {
   const { t } = useTranslation('ourStory')
-  // roster: card 1 real (existing strings), 2-8 shells.
-  const roster = [
-    { name: t('founder.name'), role: t('founder.role') },
-    ...Array.from({ length: 7 }, () => null),
-  ]
+  const members = t('team.members', { returnObjects: true })
+  const [open, setOpen] = useState(-1)         // open member index, -1 = closed
+  const dialogRef = useRef(null)
+  const openerRef = useRef(null)
+  const wasOpen = useRef(false)
+  const photo = (i) => `/site-assets/about/team/team-${String(i + 1).padStart(2, '0')}.webp`
+
+  // modal: Esc + Tab-trap, body scroll lock, focus into the dialog
+  useEffect(() => {
+    if (open < 0) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') { e.preventDefault(); setOpen(-1) }
+      else if (e.key === 'Tab') {
+        const f = dialogRef.current?.querySelectorAll('button')
+        if (!f || !f.length) return
+        const first = f[0]; const last = f[f.length - 1]
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const raf = requestAnimationFrame(() => dialogRef.current?.focus())
+    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = prev; cancelAnimationFrame(raf) }
+  }, [open])
+
+  // return focus to the card's button when the modal closes
+  useEffect(() => {
+    if (wasOpen.current && open < 0) openerRef.current?.focus()
+    wasOpen.current = open >= 0
+  }, [open])
+
+  const m = open >= 0 ? members[open] : null
+
   return (
     <section data-theme="light" className="tm" aria-labelledby="tm-title">
       <PaperGrain />
@@ -483,30 +520,52 @@ function Team() {
         <hr className="tm-rule" data-reveal aria-hidden="true" />
         <h2 id="tm-title" className="tm-title" data-reveal>{t('team.heading')}</h2>
         <div className="tm-grid">
-          {roster.map((m, i) => (
-            <article
-              className={`tm-card${m ? '' : ' tm-card--shell'}`}
-              data-reveal key={i}
-              style={{ '--reveal-delay': `${i * 60}ms` }}
-              {...(m ? {} : { 'aria-hidden': true })}
-            >
+          {members.map((p, i) => (
+            <article className="tm-card" data-reveal key={i} style={{ '--reveal-delay': `${(i % 4) * 60}ms` }}>
               <div className="ab-frame tm-frame" data-slot={`team-${i + 1}`}>
-                <img src={`/site-assets/about/team/team-${String(i + 1).padStart(2, '0')}.webp`} alt="" loading="lazy" decoding="async" />
+                <img src={photo(i)} alt="" loading="lazy" decoding="async" />
               </div>
-              {m
-                ? <p className="tm-name">{m.name}</p>
-                : <span className="tm-nameskel" aria-hidden="true" />}
-              <span className="tm-divider" aria-hidden="true" />
-              <div className="tm-meta">
-                <span className="tm-meta-k">ROLE</span>
-                {m
-                  ? <span className="tm-meta-v">{m.role}</span>
-                  : <span className="tm-skel tm-skel--role" aria-hidden="true" />}
-              </div>
+              <p className="tm-name">{p.name}</p>
+              <p className="tm-role">{p.role}</p>
+              {p.bio && <p className="tm-bio">{p.bio}</p>}
+              {p.quote && (
+                <>
+                  <p className="tm-quote-teaser">{p.quote}</p>
+                  <button
+                    type="button" className="tm-readmore"
+                    onClick={(e) => { openerRef.current = e.currentTarget; setOpen(i) }}
+                    aria-label={`${t('team.readQuote')} — ${p.name}`}
+                  >
+                    {t('team.readQuote')} <span aria-hidden="true">→</span>
+                  </button>
+                </>
+              )}
             </article>
           ))}
         </div>
       </div>
+
+      {m && (
+        <div
+          className="tm-modal" role="dialog" aria-modal="true" aria-label={m.name}
+          ref={dialogRef} tabIndex={-1}
+          onClick={(e) => { if (e.target === e.currentTarget) setOpen(-1) }}
+        >
+          <div className="tm-modal-card">
+            <button type="button" className="tm-modal-close" onClick={() => setOpen(-1)} aria-label={t('team.close')}>×</button>
+            <div className="ab-frame tm-modal-photo" aria-hidden="true">
+              <img src={photo(open)} alt="" />
+            </div>
+            <div className="tm-modal-body">
+              <p className="tm-modal-name">{m.name}</p>
+              <p className="tm-modal-role">{m.role}</p>
+              {m.bio && <p className="tm-modal-bio">{m.bio}</p>}
+              <p className="tm-modal-label">{t('team.inWords')}</p>
+              <blockquote className="tm-modal-quote">{m.quote}</blockquote>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

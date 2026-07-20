@@ -66,7 +66,60 @@
     "attribution": "Nilesh Dhankani, Fondateur et PDG"
   },
   "team": {
-    "heading": "Notre Équipe"
+    "heading": "Notre Équipe",
+    "inWords": "Dans leurs mots",
+    "readQuote": "Lire la citation",
+    "close": "Fermer",
+    "members": [
+      {
+        "name": "Patrick Carrapiett",
+        "role": "Président",
+        "bio": "Plus de 25 ans d'expérience, à la tête des initiatives internationales et indiennes — élargissant l'empreinte mondiale et cultivant les partenariats.",
+        "quote": "Quarterfold Printabilities represents far more than manufacturing books, it represents reliability, innovation, and global partnerships…"
+      },
+      {
+        "name": "Dilip Ramrakhyani",
+        "role": "Directeur Financier (CFO), Responsable des Finances",
+        "bio": "Gestion financière et planification stratégique pour une croissance durable.",
+        "quote": "A strong company is built on financial discipline, operational excellence, and long term relationships…"
+      },
+      {
+        "name": "Charani Dhankani",
+        "role": "Directrice",
+        "bio": "Diplômée de l'Université de Delhi, major de son département, distinguée d'un Certificat d'Excellence par l'ancien Premier ministre Shri Atal Bihari Vajpayee. Formée en marketing et merchandising au Wigan & Leigh College ; engagée dans la RSE et le développement éducatif.",
+        "quote": ""
+      },
+      {
+        "name": "Milton Everjoy",
+        "role": "Responsable, Usine et Opérations",
+        "bio": "2,5 décennies d'expérience, supervisant l'ensemble des opérations de l'usine pour l'efficacité et la qualité.",
+        "quote": "Operational excellence is at the heart of everything we do…"
+      },
+      {
+        "name": "Sameer Kazi",
+        "role": "Directeur, Ventes Inde",
+        "bio": "Plus de 20 ans d'expérience (4 chez Quarterfold). M.Com, Université de Mumbai ; MBA en marketing, Welingkar Institute.",
+        "quote": "Our greatest strength lies in understanding our customers' needs…"
+      },
+      {
+        "name": "Dhiresh Verlekar",
+        "role": "Responsable, Approvisionnement",
+        "bio": "",
+        "quote": "A Great Book Begins Long Before the Press Starts Spinning."
+      },
+      {
+        "name": "Priyanka Rajpal",
+        "role": "Responsable, Ressources Humaines et Administration",
+        "bio": "Plus d'une décennie chez Quarterfold.",
+        "quote": "…Our success is driven by a culture of commitment, teamwork, and mutual respect…"
+      },
+      {
+        "name": "Sameer Sunil Chavan",
+        "role": "Responsable, Estimation et Planification Centrale",
+        "bio": "15 ans d'expérience (7 chez Quarterfold).",
+        "quote": "Great estimation is not about quoting the lowest price…"
+      }
+    ]
   },
   "gallery": {
     "eyebrow": "GALERIE",
