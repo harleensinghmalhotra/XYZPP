@@ -4,23 +4,61 @@
   "titleB": "Diseñados para generar confianza.",
   "facilities": {
     "01": {
-      "title": "Máquinas web",
+      "title": "Offset rotativo",
       "body": "22 torres offset web de alta capacidad diseñadas para impresión educativa y comercial de gran volumen. Capaces de producir millones de formas impresas cada día, ofreciendo una velocidad, consistencia y precisión de color excepcionales. Múltiples configuraciones de corte brindan flexibilidad para libros de texto, libros comerciales, cuadernos de trabajo, periódicos y otras publicaciones.",
       "caption": "Torres web, sala de prensas",
       "ph": "FOTO · TORRES WEB, SALA DE PRENSAS",
       "highlights": [
         "22 torres offset web de alta capacidad",
         "millones de formas impresas cada día"
+      ],
+      "intro": "22 torres offset web de alta capacidad diseñadas para impresión educativa y comercial de gran volumen.",
+      "points": [
+        {
+          "title": "Gran volumen",
+          "desc": "Millones de formas impresas cada día."
+        },
+        {
+          "title": "Velocidad y consistencia",
+          "desc": "Velocidad y consistencia excepcionales."
+        },
+        {
+          "title": "Precisión de color",
+          "desc": "Calibradas para una precisión de color exacta."
+        },
+        {
+          "title": "Flexibilidad de formatos",
+          "desc": "Múltiples cortes para libros de texto y más."
+        }
       ]
     },
     "02": {
-      "title": "Máquinas de pliego",
+      "title": "Impresión en pliego",
       "body": "6 prensas de pliego de última generación: 1 × prensa de retiración de ocho colores, 5 × prensas de cuatro colores. Con tecnología premium de Komori y Ryobi, que permite una calidad de impresión excepcional para cubiertas, libros de mesa, libros infantiles, embalajes, agendas, informes anuales e impresión comercial premium.",
       "caption": "Prensas de pliego, Taloja",
       "ph": "FOTO · PRENSAS DE PLIEGO",
       "highlights": [
         "6 prensas de pliego de última generación",
         "Komori y Ryobi"
+      ],
+      "intro": "Seis prensas de pliego de última generación: una de retiración de ocho colores y cinco de cuatro colores.",
+      "points": [
+        {
+          "title": "Tecnología premium",
+          "desc": "Tecnología de prensa Komori y Ryobi."
+        },
+        {
+          "title": "Calidad excepcional",
+          "desc": "Calidad de impresión excepcional en cada tirada."
+        },
+        {
+          "title": "Retiración ocho colores",
+          "desc": "Una prensa de retiración de ocho colores dedicada."
+        },
+        {
+          "title": "Aplicaciones premium",
+          "desc": "Cubiertas, libros de mesa, embalajes e informes."
+        }
       ]
     },
     "03": {
@@ -31,6 +69,25 @@
       "highlights": [
         "encuadernación perfecta, cosido al centro, cosido por secciones y confección de tapas",
         "millones de libros de alta calidad cada año"
+      ],
+      "intro": "Una línea de posprensa integrada, diseñada para velocidad, durabilidad y precisión.",
+      "points": [
+        {
+          "title": "Encuadernación perfecta",
+          "desc": "Encuadernación perfecta precisa y duradera."
+        },
+        {
+          "title": "Cosido al centro",
+          "desc": "Cosido al centro rápido y limpio."
+        },
+        {
+          "title": "Cosido y confección",
+          "desc": "Cosido por secciones y confección de tapas."
+        },
+        {
+          "title": "Millones al año",
+          "desc": "Millones de libros de alta calidad cada año."
+        }
       ]
     }
   },
@@ -50,13 +107,32 @@
       "body": "Distribuido en 300,000 pies cuadrados en Navi Mumbai, India."
     },
     "04": {
-      "eyebrow": "Almacenamiento",
-      "title": "Almacenamiento",
+      "eyebrow": "Almacén",
+      "title": "Almacén",
       "body": "Nuestra moderna infraestructura de almacenamiento y logística respalda una gestión eficiente del inventario y una distribución global: almacenamiento de alta capacidad para papel, productos terminados e inventario de clientes. Gestión segura de stock. Consolidación de pedidos y preparación de kits. Empaque listo para exportar. Expedición eficiente y coordinación de la distribución de última milla.",
       "cover": "FOTO · ALMACÉN Y LOGÍSTICA",
       "highlights": [
         "almacenamiento de alta capacidad",
         "Empaque listo para exportar"
+      ],
+      "intro": "Infraestructura moderna de almacenamiento y logística para una gestión eficiente del inventario y distribución global.",
+      "points": [
+        {
+          "title": "Almacenamiento de alta capacidad",
+          "desc": "Para papel, productos terminados e inventario de clientes."
+        },
+        {
+          "title": "Gestión segura",
+          "desc": "Gestión de stock segura y organizada."
+        },
+        {
+          "title": "Consolidación y kits",
+          "desc": "Consolidación, preparación de kits y empaque para exportar."
+        },
+        {
+          "title": "Expedición eficiente",
+          "desc": "Expedición y coordinación de última milla."
+        }
       ]
     },
     "05": {
@@ -66,6 +142,25 @@
       "cover": "FOTO · SEDE CENTRAL SANPADA",
       "highlights": [
         "200+ profesionales"
+      ],
+      "intro": "Dirección, atención al cliente, diseño, finanzas, compras y gestión de proyectos bajo un mismo techo en Navi Mumbai.",
+      "points": [
+        {
+          "title": "200+ profesionales",
+          "desc": "Un equipo de más de 200 personas bajo un mismo techo."
+        },
+        {
+          "title": "Espacios colaborativos",
+          "desc": "Espacios de trabajo colaborativos contemporáneos."
+        },
+        {
+          "title": "Salas de cliente dedicadas",
+          "desc": "Salas de reunión dedicadas para clientes."
+        },
+        {
+          "title": "Conectividad global",
+          "desc": "Oficinas tecnológicas al servicio de todo el mundo."
+        }
       ]
     }
   },

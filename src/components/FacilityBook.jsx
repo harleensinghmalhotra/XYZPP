@@ -1,22 +1,30 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import {
+  Printer, StackSimple, BookOpenText, Warehouse, Buildings, Stack, Gauge, Palette,
+  BookOpen, GearSix, Target, Books, Needle, ShieldCheck, Package, Truck, UsersThree,
+  Handshake, GlobeHemisphereWest,
+} from '@phosphor-icons/react'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import { typingSound } from '@/lib/typingSound'
-import stackImg from '@/assets/facility-book-stack.png'
 import './FacilityBook.css'
+
+const STACK_IMG = '/site-assets/homepage/facility-book/book-stack.webp'
 
 // FLOW book-stack render drives the pile. Flip to false (or an image 404 → onError)
 // to fall back to the CSS-built pile below — cheap insurance.
 const USE_IMAGE_STACK = true
 
-// One UNIFORM label zone per navy spine, each dead-centred on ITS OWN spine's
-// visible front face. All-% so the zones + centring hold at every container width.
+// Invisible click zones over the five colour-labelled spines of the stack ART
+// (blue Web Offset / orange Sheet Fed / green Binding / red Warehouse / slate HQ).
+// Each zone spans that book's spine + its page block. All-% so they track the image
+// at every container width (pixel-measured off the render).
 const SPINE_POS = [
-  { top: 6.5, left: 13, width: 57, rot: -4 }, // Web Machines (on the tilted top cover)
-  { top: 26, left: 10.8, width: 59.8, rot: 0 }, // Sheetfed Machines
-  { top: 44, left: 8.6, width: 56.5, rot: 0 },  // Binding and Finishing
-  { top: 62, left: 8, width: 55.9, rot: 0 },    // Warehousing
-  { top: 82, left: 7.3, width: 61, rot: 0 },    // Head Office
+  { top: 10, left: 16, width: 68, height: 18 }, // Web Offset (blue)
+  { top: 28, left: 16, width: 68, height: 19 }, // Sheet Fed (orange)
+  { top: 47, left: 16, width: 68, height: 19 }, // Binding and Finishing (green)
+  { top: 66, left: 16, width: 68, height: 17 }, // Warehouse (red)
+  { top: 83, left: 16, width: 68, height: 13 }, // Corporate Headquarters (slate)
 ]
 
 // ── Facility Book — Infrastructure section & /infrastructure page ──────────────
@@ -33,11 +41,11 @@ const SPINE_POS = [
 // Each book's title/body live under a single i18n base: facilities.01–03 for the
 // first three, books.04/05 for the last two. Its images ship at /qfp/infra/<name>.webp.
 const BOOKS = [
-  { id: '01', base: 'facilities.01', images: ['web-1', 'web-2', 'web-3'] },
-  { id: '02', base: 'facilities.02', images: ['sheetfed-1', 'sheetfed-2', 'sheetfed-3'] },
-  { id: '03', base: 'facilities.03', images: ['binding-1', 'binding-2', 'binding-3'] },
-  { id: '04', base: 'books.04', images: ['warehouse-1', 'warehouse-2', 'warehouse-3'] },
-  { id: '05', base: 'books.05', images: ['headoffice-1'] },
+  { id: '01', base: 'facilities.01', images: ['web-1', 'web-2', 'web-3'], Icon: Printer, pIcons: [Stack, Gauge, Palette, BookOpen] },
+  { id: '02', base: 'facilities.02', images: ['sheetfed-1', 'sheetfed-2', 'sheetfed-3'], Icon: StackSimple, pIcons: [GearSix, Target, Palette, Books] },
+  { id: '03', base: 'facilities.03', images: ['binding-1', 'binding-2', 'binding-3'], Icon: BookOpenText, pIcons: [BookOpen, Needle, Books, Stack] },
+  { id: '04', base: 'books.04', images: ['warehouse-1', 'warehouse-2', 'warehouse-3'], Icon: Warehouse, pIcons: [Stack, ShieldCheck, Package, Truck] },
+  { id: '05', base: 'books.05', images: ['headoffice-1'], Icon: Buildings, pIcons: [UsersThree, Buildings, Handshake, GlobeHemisphereWest] },
 ]
 
 // Physical pile order for the CSS fallback — facility books interleaved with inert
@@ -53,19 +61,6 @@ const PILE = [
 const TURN_SRC = '/qfp/sounds/page-turn.wav'
 const TURN_VOL = 0.35
 const num = (n) => String(n).padStart(2, '0')
-
-// Wrap the body copy's key phrases in a rich highlight. `phrases` are exact,
-// per-language substrings (from the locale) so EN/FR/ES stay in parity.
-function Highlighted({ text, phrases }) {
-  if (!phrases || !phrases.length) return text
-  const esc = phrases.map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-  const re = new RegExp(`(${esc.join('|')})`, 'g')
-  return text.split(re).map((part, i) =>
-    phrases.includes(part)
-      ? <mark key={i} className="ib-hl">{part}</mark>
-      : <span key={i}>{part}</span>,
-  )
-}
 
 export default function FacilityBook() {
   const { t } = useTranslation('homeInfraSection')
@@ -104,9 +99,10 @@ export default function FacilityBook() {
   const total = images.length
   const safePage = Math.min(page, Math.max(0, total - 1))
   const title = book ? t(`${book.base}.title`) : t('books.intro.heading')
-  const body = book ? t(`${book.base}.body`) : t('books.intro.body')
-  const highlights = book ? (t(`${book.base}.highlights`, { returnObjects: true }) || []) : []
-  const hlList = Array.isArray(highlights) ? highlights : []
+  const introBody = t('books.intro.body')          // the intro spread's right-page line
+  const facIntro = book ? t(`${book.base}.intro`) : ''
+  const rawPoints = book ? t(`${book.base}.points`, { returnObjects: true }) : []
+  const points = Array.isArray(rawPoints) ? rawPoints : []
 
   // Flip through the open book's images — crossfade, one step at a time.
   const go = (target) => {
@@ -196,12 +192,14 @@ export default function FacilityBook() {
             <div className="ib-imgstack">
               <img
                 className="ib-imgstack-photo"
-                src={stackImg}
+                src={STACK_IMG}
                 alt=""
                 aria-hidden="true"
                 draggable="false"
                 onError={() => setImgOk(false)}
               />
+              {/* invisible hit zones over the five colour-labelled spines (labels are
+                  baked into the art) — a soft glow/outline on hover + active only */}
               {BOOKS.map((b, bi) => {
                 const label = t(`${b.base}.title`)
                 const isActive = bi === activeBook
@@ -210,15 +208,13 @@ export default function FacilityBook() {
                   <button
                     key={b.id}
                     type="button"
-                    className={`ib-imglabel${isActive ? ' is-active' : ''}`}
-                    style={{ top: `${pos.top}%`, left: `${pos.left}%`, width: `${pos.width}%`, '--rot': `${pos.rot}deg` }}
+                    className={`ib-hit${isActive ? ' is-active' : ''}`}
+                    style={{ top: `${pos.top}%`, left: `${pos.left}%`, width: `${pos.width}%`, height: `${pos.height}%` }}
                     onClick={() => openBook(bi)}
                     aria-label={t('books.ui.open', { title: label })}
                     aria-current={isActive ? 'page' : undefined}
                   >
-                    <span className="ib-imglabel-glow" aria-hidden="true" />
-                    <span className="ib-imglabel-text">{label}</span>
-                    <span className="ib-imglabel-mark" aria-hidden="true" />
+                    <span className="ib-hit-glow" aria-hidden="true" />
                   </button>
                 )
               })}
@@ -285,18 +281,38 @@ export default function FacilityBook() {
                     <h3 className="ib-intro-heading">{title}</h3>
                   </div>
                   <div className="ib-intropage">
-                    <p className="ib-intro-body">{body}</p>
+                    <p className="ib-intro-body">{introBody}</p>
                     <span className="ib-intro-arrow" aria-hidden="true">→</span>
                   </div>
                 </>
               ) : (
                 <>
-                  {/* LEFT — the read (title + highlighted body) */}
-                  <div className="ib-textpage">
-                    <h3 className="ib-fac-title">{title}</h3>
-                    <p className="ib-fac-body ref-cap-body">
-                      <Highlighted text={body} phrases={hlList} />
-                    </p>
+                  {/* LEFT — the read: icon badge, title, rule, intro, feature points
+                      (client reference layout; content restructured from approved copy) */}
+                  <div className="ib-textpage ib-facpage">
+                    <span className="ib-fac-dots" aria-hidden="true" />
+                    <span className="ib-fac-badge" aria-hidden="true">
+                      {book.Icon && <book.Icon weight="light" size={24} />}
+                    </span>
+                    <h3 className="ib-facpage-title">{title}</h3>
+                    <span className="ib-facpage-rule" aria-hidden="true" />
+                    <p className="ib-facpage-intro">{facIntro}</p>
+                    <ul className="ib-facpage-points">
+                      {points.map((pt, i) => {
+                        const PtIcon = book.pIcons[i]
+                        return (
+                          <li key={i} className="ib-fpoint">
+                            <span className="ib-fpoint-icon" aria-hidden="true">
+                              {PtIcon && <PtIcon weight="light" size={17} />}
+                            </span>
+                            <span className="ib-fpoint-text">
+                              <span className="ib-fpoint-title">{pt.title}</span>
+                              <span className="ib-fpoint-desc">{pt.desc}</span>
+                            </span>
+                          </li>
+                        )
+                      })}
+                    </ul>
                   </div>
 
                   {/* RIGHT — full-bleed facility photo (flip through the set) */}

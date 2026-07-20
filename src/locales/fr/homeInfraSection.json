@@ -4,23 +4,61 @@
   "titleB": "Pensé pour la confiance.",
   "facilities": {
     "01": {
-      "title": "Machines web",
+      "title": "Offset rotatif",
       "body": "22 tours offset web haute capacité conçues pour l'impression éducative et commerciale en grand volume. Capables de produire des millions de formes imprimées chaque jour, offrant une vitesse, une régularité et une précision des couleurs exceptionnelles. De multiples configurations de coupe offrent une flexibilité pour les manuels, les livres grand public, les cahiers d'exercices, les journaux et d'autres publications.",
       "caption": "Tours web, atelier de presse",
       "ph": "PHOTO · TOURS WEB, ATELIER DE PRESSE",
       "highlights": [
         "22 tours offset web haute capacité",
         "millions de formes imprimées chaque jour"
+      ],
+      "intro": "22 tours offset web haute capacité conçues pour l'impression éducative et commerciale en grand volume.",
+      "points": [
+        {
+          "title": "Volume élevé",
+          "desc": "Des millions de formes imprimées chaque jour."
+        },
+        {
+          "title": "Vitesse et régularité",
+          "desc": "Une vitesse et une régularité exceptionnelles."
+        },
+        {
+          "title": "Précision des couleurs",
+          "desc": "Calibrées pour une précision des couleurs."
+        },
+        {
+          "title": "Flexibilité des formats",
+          "desc": "Multiples coupes pour manuels, livres et plus."
+        }
       ]
     },
     "02": {
-      "title": "Machines feuille à feuille",
+      "title": "Feuille à feuille",
       "body": "6 presses feuille à feuille de pointe : 1 × presse à retiration huit couleurs, 5 × presses quatre couleurs. Dotées de technologies haut de gamme Komori et Ryobi, permettant une qualité d'impression exceptionnelle pour les couvertures, les beaux livres, les livres pour enfants, les emballages, les agendas, les rapports annuels et l'impression commerciale haut de gamme.",
       "caption": "Presses feuille à feuille, Taloja",
       "ph": "PHOTO · PRESSES FEUILLE À FEUILLE",
       "highlights": [
         "6 presses feuille à feuille de pointe",
         "Komori et Ryobi"
+      ],
+      "intro": "Six presses feuille à feuille de pointe — une presse à retiration huit couleurs et cinq presses quatre couleurs.",
+      "points": [
+        {
+          "title": "Technologie de pointe",
+          "desc": "Technologie de presse Komori et Ryobi."
+        },
+        {
+          "title": "Qualité exceptionnelle",
+          "desc": "Une qualité d'impression exceptionnelle à chaque tirage."
+        },
+        {
+          "title": "Retiration huit couleurs",
+          "desc": "Une presse à retiration huit couleurs dédiée."
+        },
+        {
+          "title": "Applications premium",
+          "desc": "Couvertures, beaux livres, emballages et rapports."
+        }
       ]
     },
     "03": {
@@ -31,6 +69,25 @@
       "highlights": [
         "dos carré collé, piqûre à cheval, couture par cahiers et façonnage de couvertures cartonnées",
         "millions de livres de haute qualité chaque année"
+      ],
+      "intro": "Un atelier de façonnage intégré, conçu pour la vitesse, la durabilité et la précision.",
+      "points": [
+        {
+          "title": "Dos carré collé",
+          "desc": "Un dos carré collé précis et durable."
+        },
+        {
+          "title": "Piqûre à cheval",
+          "desc": "Une piqûre à cheval rapide et nette."
+        },
+        {
+          "title": "Couture et cartonnage",
+          "desc": "Couture par cahiers et façonnage de couvertures."
+        },
+        {
+          "title": "Des millions par an",
+          "desc": "Des millions de livres de haute qualité chaque année."
+        }
       ]
     }
   },
@@ -50,13 +107,32 @@
       "body": "Réparti sur 300 000 pi² à Navi Mumbai, Inde."
     },
     "04": {
-      "eyebrow": "Entreposage",
-      "title": "Entreposage",
+      "eyebrow": "Entrepôt",
+      "title": "Entrepôt",
       "body": "Notre infrastructure moderne d'entreposage et de logistique soutient une gestion efficace des stocks et une distribution mondiale : stockage haute capacité pour le papier, les produits finis et les stocks clients. Gestion sécurisée des stocks. Consolidation des commandes et mise en kit. Emballage prêt à l'export. Expédition efficace et coordination de la distribution du dernier kilomètre.",
       "cover": "PHOTO · ENTREPOSAGE ET LOGISTIQUE",
       "highlights": [
         "stockage haute capacité",
         "Emballage prêt à l'export"
+      ],
+      "intro": "Infrastructure moderne d'entreposage et de logistique pour une gestion des stocks efficace et une distribution mondiale.",
+      "points": [
+        {
+          "title": "Stockage haute capacité",
+          "desc": "Pour le papier, les produits finis et les stocks clients."
+        },
+        {
+          "title": "Gestion sécurisée",
+          "desc": "Une gestion des stocks sécurisée et organisée."
+        },
+        {
+          "title": "Consolidation et mise en kit",
+          "desc": "Consolidation, mise en kit et emballage export."
+        },
+        {
+          "title": "Expédition efficace",
+          "desc": "Expédition et coordination du dernier kilomètre."
+        }
       ]
     },
     "05": {
@@ -66,6 +142,25 @@
       "cover": "PHOTO · SIÈGE SOCIAL SANPADA",
       "highlights": [
         "200+ professionnels"
+      ],
+      "intro": "Direction, service client, design, finance, achats et gestion de projet sous un même toit à Navi Mumbai.",
+      "points": [
+        {
+          "title": "200+ professionnels",
+          "desc": "Une équipe de plus de 200 personnes sous un même toit."
+        },
+        {
+          "title": "Espaces collaboratifs",
+          "desc": "Des espaces de travail collaboratifs contemporains."
+        },
+        {
+          "title": "Salles client dédiées",
+          "desc": "Des salles de réunion client dédiées."
+        },
+        {
+          "title": "Connectivité mondiale",
+          "desc": "Des bureaux technologiques au service du monde entier."
+        }
       ]
     }
   },
