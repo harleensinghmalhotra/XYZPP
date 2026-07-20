@@ -37,50 +37,134 @@
   background: #000;          /* black letterbox behind the poster/frame */
 }
 
-/* ── THE STRIP — React Bits SpotlightCards, re-themed navy for the cream section.
-   The base component (src/components/SpotlightCard.*) is used verbatim; everything
-   here is an ADDITIVE override on the .pv-spot class, never an edit to the base. */
-.pv-cards {
-  list-style: none; padding: 0;
-  margin: clamp(46px, 6.5vh, 84px) auto 0;
+/* ── THE PROCESS FLOW — seven nodes strung on ONE continuous hairline (no cards).
+   The line IS the section's thesis ("One Continuous Process"); everything around it
+   stays quiet so the line + ghost numerals carry the composition. Navy ink on cream,
+   a single orange accent locked to the drawn fill and the node cores. Cards were
+   rejected here twice — this is a full-width flow, not a container grid. ── */
+.pv-flow {
+  position: relative;
   max-width: var(--content-max);
   width: calc(100% - 2 * var(--page-gutter));
-  display: flex; flex-wrap: nowrap;
-  gap: 16px;
-}
-/* re-theme: navy card on the cream section, tighter radius/padding, equal widths */
-.card-spotlight.pv-spot {
-  flex: 1 1 0; min-width: 0;
-  background-color: #0e1b46;
-  border: 1px solid rgba(14, 27, 70, 0.25);
-  border-radius: 1rem;
-  padding: 1.5rem;
-}
-/* content sits above the mouse-tracked orange glow so text stays crisp */
-.pv-spot > * { position: relative; z-index: 1; }
-.pv-spot-num {
-  display: block;
-  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
-  font-size: 12px; letter-spacing: 0.16em; color: #F37031;
-}
-.pv-spot-icon { display: inline-flex; color: #F37031; margin: 12px 0 14px; }
-.pv-spot-name {
-  font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: 15px; line-height: 1.2; letter-spacing: -0.01em;
-  color: #fff; margin: 0 0 8px;
-}
-.pv-spot-desc {
-  font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: 12.5px; line-height: 1.5; color: rgba(255, 255, 255, 0.75);
-  margin: 0;
+  margin: clamp(48px, 7vh, 92px) auto 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  column-gap: clamp(10px, 1.4vw, 26px);
+  padding-top: 7px;                        /* clearance so the top node isn't clipped */
 }
 
-/* tablet — two rows */
+/* THE LINE — a hairline running from node-1 centre to node-7 centre (each node sits
+   at its column centre, so the inset is exactly half a column each end). The faint
+   base is the track; the orange fill draws through it on scroll. */
+.pv-flow-rail {
+  position: absolute;
+  top: 12px;                               /* node centre: 7px pad + 5px node radius */
+  left: calc(100% / 14);
+  right: calc(100% / 14);
+  height: 2px;
+  transform: translateY(-50%);
+  background: rgb(var(--navy-rgb) / 0.14);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.pv-flow-rail-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  background: #F37031;                     /* the brand-orange "flow" that sweeps the line */
+  /* default state = fully drawn, so reduced-motion / no-JS shows the whole line */
+}
+
+/* each step — a centred column: the node sits on the line, the read stacks below. */
+.pv-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+}
+.pv-step-node {
+  position: relative;
+  z-index: 1;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 2px solid #0e1b46;               /* navy ring — crisp on cream */
+  box-shadow: 0 0 0 4px var(--cream);      /* small halo masks the line behind the node */
+}
+.pv-step-node::after {                     /* orange core */
+  content: '';
+  position: absolute; inset: 2px;
+  border-radius: 50%;
+  background: #F37031;
+}
+.pv-step-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 clamp(2px, 0.4vw, 10px);
+}
+/* the ghost numeral — the order is real information, so the number is earned; kept
+   as a large, quiet navy figure so it structures without shouting. */
+.pv-step-num {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(38px, 3.9vw, 60px); line-height: 1; letter-spacing: -0.02em;
+  color: rgb(var(--navy-rgb) / 0.14);
+  margin-top: clamp(15px, 2.1vh, 24px);
+}
+.pv-step-icon {
+  display: inline-flex; color: #0e1b46;
+  margin: clamp(8px, 1.1vh, 13px) 0 clamp(9px, 1.2vh, 14px);
+}
+.pv-step-name {
+  font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: clamp(15px, 1.15vw, 18px); line-height: 1.18; letter-spacing: -0.01em;
+  color: #0e1b46; margin: 0 0 6px;
+}
+.pv-step-desc {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(12px, 0.92vw, 13.5px); line-height: 1.5;
+  color: rgba(28, 32, 25, 0.72);
+  margin: 0; max-width: 22ch;
+}
+
+/* ── UNDER 1100px — the line STANDS UP: a vertical spine on the left, the seven
+   steps stacked as rows, node on the spine, the read to its right. Same vocabulary,
+   rotated 90° — the responsive vertical form the brief asks for. ── */
 @media (max-width: 1100px) {
-  .pv-cards { flex-wrap: wrap; }
-  .card-spotlight.pv-spot { flex: 1 1 22%; }
+  .pv-flow {
+    grid-template-columns: 1fr;
+    row-gap: clamp(24px, 4.2vw, 40px);
+    column-gap: 0;
+    padding-top: 4px;
+    padding-left: 34px;                    /* room for the spine + nodes */
+  }
+  .pv-flow-rail {
+    top: 10px; bottom: 10px; left: 6px; right: auto;
+    width: 2px; height: auto;
+    transform: none;
+  }
+  .pv-flow-rail-fill { transform-origin: center top; }
+  .pv-step { text-align: left; align-items: stretch; }
+  .pv-step-node { position: absolute; left: -33px; top: 6px; }
+  .pv-step-body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: 'num icon' 'num name' 'num desc';
+    column-gap: clamp(14px, 3vw, 22px);
+    align-items: center;
+    padding: 0;
+  }
+  .pv-step-num {
+    grid-area: num; align-self: center; margin: 0;
+    font-size: clamp(34px, 9vw, 52px);
+    min-width: 1.6ch; text-align: center;
+  }
+  .pv-step-icon { grid-area: icon; margin: 0 0 3px; align-self: end; }
+  .pv-step-name { grid-area: name; margin: 0 0 3px; text-align: left; align-self: center; }
+  .pv-step-desc { grid-area: desc; max-width: 52ch; text-align: left; align-self: start; }
 }
-/* mobile — stack */
-@media (max-width: 620px) {
-  .card-spotlight.pv-spot { flex: 1 1 100%; }
-}
+
+/* reduced motion — GSAP is skipped (useReducedMotion), so the line is already drawn
+   and the steps are already in place; nothing here to suppress beyond that. */

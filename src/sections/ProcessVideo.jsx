@@ -4,18 +4,20 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Printer, SealCheck, Package, Warehouse, Truck, Umbrella, Handshake } from '@phosphor-icons/react'
 import { useReducedMotion } from '@/lib/useReducedMotion'
-import SpotlightCard from '@/components/SpotlightCard'
 import './ProcessVideo.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ── HOMEPAGE "How We Work" — process video + a flagship 7-point numbered band. ──
-// Replaces the retired 3D conveyor (src/sections/process3d). Same slot before
-// Projects, same id="process". The video shows its WHOLE frame (object-fit: contain)
-// centred on a navy letterbox — never cropped or stretched. Below it, the seven
-// process points read as ONE continuous instrument panel: a cream band bounded by
-// navy hairlines, seven equal cells split by vertical hairlines, each with a large
-// ghost numeral + light icon, name and description.
+// ── HOMEPAGE "How We Work" — process video + the 7-point PROCESS FLOW. ──────────
+// Replaces the retired 3D conveyor (src/sections/process3d) and the rejected card
+// grid before it. Same slot before Projects, same id="process". The video shows its
+// WHOLE frame (object-fit: contain) on a black letterbox — never cropped. Below it,
+// the seven steps are NOT cards: they are seven nodes strung on ONE continuous
+// hairline that literally draws the section's own title — "One Continuous Process".
+// Each node carries a large ghost numeral (the order is real information, so the
+// number is earned), a light icon, a name and a one-line read. On scroll the line
+// draws through the nodes left→right (a single motivated gesture, not scattered
+// effects); under 1100px the line stands up as a vertical spine and the steps stack.
 
 const VIDEO = '/qfp/video/how-we-work.mp4'
 const POSTER = '/qfp/video/how-we-work-poster.jpg'
@@ -50,16 +52,25 @@ export default function ProcessVideo() {
     return () => io.disconnect()
   }, [])
 
-  // Cards fade-rise in sequence on scroll (stagger 60ms); reduced-motion → static.
+  // THE ENTRANCE — the through-line draws through the nodes, then each step's
+  // content fade-rises just behind the draw (stagger). One motivated gesture: the
+  // line "flowing" is the section's thesis. Horizontal above 1100px, vertical spine
+  // below. Reduced motion → the line is already drawn and nothing moves.
   useLayoutEffect(() => {
     if (reduced || !bandRef.current) return
     const ctx = gsap.context(() => {
-      gsap.set('.pv-spot', { autoAlpha: 0, y: 18 })
-      gsap.to('.pv-spot', {
-        autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.06,
-        clearProps: 'transform,opacity,visibility',
-        scrollTrigger: { trigger: bandRef.current, start: 'top 82%', once: true },
-      })
+      const mm = gsap.matchMedia()
+      const build = (axis) => () => {
+        const trig = { trigger: bandRef.current, start: 'top 80%', once: true }
+        const tl = gsap.timeline({ scrollTrigger: trig })
+        tl.fromTo('.pv-flow-rail-fill',
+          { scaleX: axis === 'x' ? 0 : 1, scaleY: axis === 'y' ? 0 : 1 },
+          { scaleX: 1, scaleY: 1, duration: 0.85, ease: 'power2.inOut' })
+        tl.fromTo('.pv-step-node', { scale: 0 }, { scale: 1, duration: 0.32, ease: 'back.out(2)', stagger: 0.09 }, 0.12)
+        tl.fromTo('.pv-step-body', { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.09, clearProps: 'transform,opacity,visibility' }, 0.2)
+      }
+      mm.add('(min-width: 1101px)', build('x'))
+      mm.add('(max-width: 1100px)', build('y'))
     }, bandRef)
     return () => ctx.revert()
   }, [reduced])
@@ -88,14 +99,22 @@ export default function ProcessVideo() {
         </video>
       </div>
 
-      <div className="pv-cards" role="list" aria-label={t('detailsAria')} ref={bandRef}>
+      <div className="pv-flow" role="list" aria-label={t('detailsAria')} ref={bandRef}>
+        {/* the continuous line — one rule threading all seven nodes. The faint base
+            is the track; the coloured fill draws through it on scroll. */}
+        <span className="pv-flow-rail" aria-hidden="true">
+          <span className="pv-flow-rail-fill" />
+        </span>
         {POINTS.map(({ key, Icon }, i) => (
-          <SpotlightCard key={key} className="pv-spot" spotlightColor="rgba(243,112,49,0.22)">
-            <span className="pv-spot-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-            <span className="pv-spot-icon" aria-hidden="true"><Icon weight="light" size={26} /></span>
-            <h3 className="pv-spot-name">{t(`stages.${key}.name`)}</h3>
-            <p className="pv-spot-desc">{t(`stages.${key}.desc`)}</p>
-          </SpotlightCard>
+          <div className="pv-step" role="listitem" key={key} style={{ '--i': i }}>
+            <span className="pv-step-node" aria-hidden="true" />
+            <div className="pv-step-body">
+              <span className="pv-step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <span className="pv-step-icon" aria-hidden="true"><Icon weight="light" size={24} /></span>
+              <h3 className="pv-step-name">{t(`stages.${key}.name`)}</h3>
+              <p className="pv-step-desc">{t(`stages.${key}.desc`)}</p>
+            </div>
+          </div>
         ))}
       </div>
     </section>
