@@ -2,43 +2,34 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import {
-  Printer, SealCheck, Package, Warehouse, Truck, Umbrella, MapPinLine,
-  Handshake, Headset, Broadcast, Clock, ShieldCheck, TrendUp,
-} from '@phosphor-icons/react'
+import { Handshake, Headset, Broadcast, Clock, ShieldCheck, TrendUp } from '@phosphor-icons/react'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import './ProcessVideo.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ── HOMEPAGE "How We Work" — process video + the 7-step PROCESS EXHIBIT + promise band.
-// Replaces the retired 3D conveyor and the rejected card grid. Same slot before
-// Projects, same id="process". The video shows its WHOLE frame (contain) on a black
-// letterbox. Below it the seven steps + promise band sit inside ONE hairline-bordered
-// field — a certificate plate / annual-report exhibit, not a floaty AI layout. Each
-// step is engraved-plate numbered ("01" in DM Mono orange with a short underline rule),
-// hung from a calm orange process line whose nodes align with the numbers. A full-width
-// hairline separates the six-guarantee promise band (medallion icons) below. The frame
-// border draws on scroll, then the steps settle in left→right, then the band — one
-// quiet, confident sequence; under 1100px the line stands up as a vertical spine.
+// ── HOMEPAGE "How We Work" — process video + the PROCESS EXHIBIT + promise band. ──────
+// Same slot before Projects, id="process". Below the letterboxed video, one hairline-
+// bordered field (a certificate plate) holds: the client's approved process ARTWORK
+// (paper ribbon flowing press → inspection → folding → rack → box → finished navy book),
+// its baked-in caption band cropped off and blended cream-on-cream; then OUR rebuilt
+// 7-step text row on a strict grid, each column sitting roughly under its artwork moment
+// (roll → 01 Print … navy book → 07 Delivered); then a full-width hairline and the six-
+// guarantee promise band. The artwork carries all imagery, so the text row runs no icons.
+// Entrance: the plate + artwork settle first, then the text columns cascade left→right,
+// then the band. Reduced-motion safe. Under 1100px the text stacks; the artwork stays
+// whole (contain), never cropped.
 
 const VIDEO = '/qfp/video/how-we-work.mp4'
 const POSTER = '/qfp/video/how-we-work-poster.jpg'
+const ARTWORK = '/site-assets/homepage/process/process-artwork.webp'
 
-// Seven steps, in workflow order. "delivered" closes the sequence (the outcome); the
-// old "One Partner" moved to the promise band below so it isn't said twice.
-const POINTS = [
-  { key: 'print', Icon: Printer },
-  { key: 'quality', Icon: SealCheck },
-  { key: 'fulfillment', Icon: Package },
-  { key: 'warehouse', Icon: Warehouse },
-  { key: 'ship', Icon: Truck },
-  { key: 'covered', Icon: Umbrella },
-  { key: 'delivered', Icon: MapPinLine },
-]
+// Seven steps, in workflow order — our copy, keyed to the locale. "delivered" closes the
+// sequence; "One Partner" lives only in the promise band so it isn't said twice.
+const POINTS = ['print', 'quality', 'fulfillment', 'warehouse', 'ship', 'covered', 'delivered']
 
-// The promise band — six guarantees of a single partner. Text (lead + sub) is
-// localised via badges.<i>.{lead,sub}; the icon is the non-translatable mark per row.
+// The promise band — six guarantees of a single partner. Text (lead + sub) is localised
+// via badges.<i>.{lead,sub}; the medallion icon is the non-translatable mark per row.
 const BADGE_ICONS = [Handshake, Headset, Broadcast, Clock, ShieldCheck, TrendUp]
 
 export default function ProcessVideo() {
@@ -64,33 +55,26 @@ export default function ProcessVideo() {
     return () => io.disconnect()
   }, [])
 
-  // THE ENTRANCE — one quiet, confident sequence (~800ms): the frame border DRAWS, the
-  // process line draws with it, then the steps settle in left→right, then the promise
-  // band. Nothing bounces. Horizontal draw above 1100px, top-down along the vertical
-  // spine below. Reduced motion → the plate is already whole and nothing moves.
+  // THE ENTRANCE — one quiet, confident sequence (~900ms): the plate border draws and
+  // the artwork fades in, then the seven text columns cascade left→right, then the
+  // promise band. Nothing bounces. Reduced motion → the plate is already whole.
   useLayoutEffect(() => {
     if (reduced || !bandRef.current) return
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia()
-      const build = (axis) => () => {
-        const trig = { trigger: bandRef.current, start: 'top 82%', once: true }
-        const tl = gsap.timeline({ scrollTrigger: trig, defaults: { ease: 'power2.out' } })
-        // 1 — the frame border draws (clip reveal), the line draws alongside it
-        tl.fromTo('.pv-frame-line',
-          { clipPath: axis === 'x' ? 'inset(0 100% 0 0)' : 'inset(0 0 100% 0)' },
-          { clipPath: 'inset(0 0 0 0)', duration: 0.5, ease: 'power2.inOut' })
-        tl.fromTo('.pv-flow-rail-fill',
-          { scaleX: axis === 'x' ? 0 : 1, scaleY: axis === 'y' ? 0 : 1 },
-          { scaleX: 1, scaleY: 1, duration: 0.5, ease: 'power2.inOut' }, 0.08)
-        // 2 — the steps settle in, left→right
-        tl.fromTo('.pv-step', { autoAlpha: 0, y: 10 },
-          { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.05, clearProps: 'transform,opacity,visibility' }, 0.28)
-        // 3 — the promise band, last
-        tl.fromTo('.pv-badge', { autoAlpha: 0, y: 8 },
-          { autoAlpha: 1, y: 0, duration: 0.38, stagger: 0.035, clearProps: 'transform,opacity,visibility' }, 0.56)
-      }
-      mm.add('(min-width: 1101px)', build('x'))
-      mm.add('(max-width: 1100px)', build('y'))
+      const trig = { trigger: bandRef.current, start: 'top 82%', once: true }
+      const tl = gsap.timeline({ scrollTrigger: trig, defaults: { ease: 'power2.out' } })
+      // 1 — the plate border draws (clip reveal) + the artwork fades in
+      tl.fromTo('.pv-frame-line',
+        { clipPath: 'inset(0 100% 0 0)' },
+        { clipPath: 'inset(0 0 0 0)', duration: 0.5, ease: 'power2.inOut' })
+      tl.fromTo('.pv-art', { autoAlpha: 0, y: 8 },
+        { autoAlpha: 1, y: 0, duration: 0.55, clearProps: 'transform,opacity,visibility' }, 0.1)
+      // 2 — the text columns cascade, left→right
+      tl.fromTo('.pv-step', { autoAlpha: 0, y: 10 },
+        { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.06, clearProps: 'transform,opacity,visibility' }, 0.42)
+      // 3 — the promise band, last
+      tl.fromTo('.pv-badge', { autoAlpha: 0, y: 8 },
+        { autoAlpha: 1, y: 0, duration: 0.38, stagger: 0.035, clearProps: 'transform,opacity,visibility' }, 0.78)
     }, bandRef)
     return () => ctx.revert()
   }, [reduced])
@@ -119,27 +103,37 @@ export default function ProcessVideo() {
         </video>
       </div>
 
-      {/* THE EXHIBIT — the whole assembly sits inside one hairline-bordered field
-          (a certificate plate); the border draws on entrance. */}
+      {/* THE EXHIBIT — the whole assembly sits inside one hairline-bordered field (a
+          certificate plate) whose interior is toned to the artwork's own cream so the
+          illustration blends with no rectangle seam; the border draws on entrance. */}
       <div className="pv-frame-wrap" ref={bandRef}>
         <div className="pv-frame">
           <span className="pv-frame-line" aria-hidden="true" />
 
-          {/* THE STEPS — engraved-plate numbers hung from a calm orange process line,
-              nodes aligned with each number. No connectors — the grid does the work. */}
+          {/* THE ARTWORK — client illustration, caption band cropped off, full-width and
+              cream-on-cream. Decorative (the copy below carries the meaning). */}
+          <div className="pv-art">
+            <img
+              className="pv-art-img"
+              src={ARTWORK}
+              alt=""
+              aria-hidden="true"
+              width="2000"
+              height="865"
+              loading="lazy"
+              decoding="async"
+              draggable="false"
+            />
+          </div>
+
+          {/* THE TEXT ROW — our seven steps on a strict grid, each roughly under its
+              artwork moment. No icons here — the artwork carries the imagery. */}
           <div className="pv-flow" role="list" aria-label={t('detailsAria')}>
-            <span className="pv-flow-rail" aria-hidden="true">
-              <span className="pv-flow-rail-fill" />
-            </span>
-            {POINTS.map(({ key, Icon }, i) => (
+            {POINTS.map((key, i) => (
               <div className="pv-step" role="listitem" key={key} style={{ '--i': i }}>
-                <span className="pv-step-node" aria-hidden="true" />
                 <span className="pv-step-num">{String(i + 1).padStart(2, '0')}</span>
                 <span className="pv-step-rule" aria-hidden="true" />
-                <div className="pv-step-head">
-                  <span className="pv-step-icon" aria-hidden="true"><Icon weight="light" size={20} /></span>
-                  <h3 className="pv-step-name">{t(`stages.${key}.name`)}</h3>
-                </div>
+                <h3 className="pv-step-name">{t(`stages.${key}.name`)}</h3>
                 <p className="pv-step-desc">{t(`stages.${key}.desc`)}</p>
               </div>
             ))}
