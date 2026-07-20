@@ -331,7 +331,9 @@ function Founder() {
       <div className="ab-wrap">
         <div className="fnd-spread">
           <div className="fnd-portrait-wrap" data-reveal>
-            <div className="ab-frame fnd-portrait" data-slot="founder-portrait" aria-hidden="true" />
+            <div className="ab-frame fnd-portrait" data-slot="founder-portrait" aria-hidden="true">
+              <img src="/site-assets/about/founder/founder-portrait.webp" alt="" loading="lazy" decoding="async" />
+            </div>
           </div>
           <div className="fnd-copy">
             <p className="ab-eyebrow fnd-kicker" data-reveal>{t('founder.eyebrow')}</p>
@@ -488,7 +490,9 @@ function Team() {
               style={{ '--reveal-delay': `${i * 60}ms` }}
               {...(m ? {} : { 'aria-hidden': true })}
             >
-              <div className="ab-frame tm-frame" data-slot={`team-${i + 1}`} />
+              <div className="ab-frame tm-frame" data-slot={`team-${i + 1}`}>
+                <img src={`/site-assets/about/team/team-${String(i + 1).padStart(2, '0')}.webp`} alt="" loading="lazy" decoding="async" />
+              </div>
               {m
                 ? <p className="tm-name">{m.name}</p>
                 : <span className="tm-nameskel" aria-hidden="true" />}

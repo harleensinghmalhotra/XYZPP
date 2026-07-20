@@ -1,5 +1,12 @@
 # about/team
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+The eight portraits for the About page team grid (card 1 = Nilesh, cards 2–8 await names).
 
-_Empty._ Drop the eight team portraits here as **`team-01.webp` … `team-08.webp`** (3:4 portrait each).
+**To swap: overwrite `team-01.webp` … `team-08.webp` in place (same name + extension) — no code change.** Each **3:4 portrait**.
+
+| File | Dimensions | What it is |
+|---|---|---|
+| `team-01.webp` | 600x800 · 3:4 | **MOCK** — Nilesh card (same stand-in as founder-portrait). |
+| `team-02.webp` … `team-08.webp` | 600x800 · 3:4 | **MOCK** (Pexels stand-ins) — replace with the real team portraits. |
+
+_All eight are placeholder professional headshots until confirmed team photos + names are supplied._

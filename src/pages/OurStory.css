@@ -272,6 +272,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 /* fitted portrait — a clean institutional frame; the editorial offset-rule is gone. */
 .fnd-portrait-wrap { position: relative; width: 100%; max-width: 420px; }
 .fnd-portrait { position: relative; }
+.fnd-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* RIGHT column — descriptor kicker, name, role, narrative, then the quote block. */
 .fnd-copy { min-width: 0; }

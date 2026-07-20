@@ -1,5 +1,11 @@
 # about/founder
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+Founder portrait for the About page's founder spread.
 
-_Empty._ Drop the founder portrait here as **`founder-portrait.webp`** (approx 3:4 portrait).
+**To swap: overwrite `founder-portrait.webp` in place (same name + extension) — no code change.** Approx **3:4 portrait**.
+
+| File | Dimensions | What it is |
+|---|---|---|
+| `founder-portrait.webp` | 900x1200 · 3:4 | **MOCK** (Pexels stand-in) — replace with the real Nilesh Dhankani portrait. |
+
+_This is a placeholder professional portrait until the confirmed founder photo is supplied._
