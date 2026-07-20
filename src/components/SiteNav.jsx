@@ -43,7 +43,8 @@ const LINKS = [
 ]
 
 // EKTA HEADER — rebuilt to her exact anatomy (qfp-homepage-v17.html):
-// a SOLID opaque cream bar, 86px tall, sticky at the top, faint navy hairline +
+// a SOLID opaque cream bar, 86px tall, NON-STICKY (in normal flow — scrolls away
+// with the page and does not reappear on scroll-up), faint navy hairline +
 // soft shadow. No transparency, no glass, no per-route theme-flip — the header is
 // the same solid cream chrome on every page (over the dark hero too, exactly as
 // she wants). Logo = 48px QF monogram + two-line Inter-Tight-700 wordmark. Nav
@@ -146,7 +147,7 @@ export default function SiteNav() {
   return (
     <header
       role="banner"
-      className="sticky top-0 z-[200] border-b border-[#0f2444]/[0.08] bg-[#fdfaf4]"
+      className="relative z-[200] border-b border-[#0f2444]/[0.08] bg-[#fdfaf4]"
       style={{ boxShadow: '0 2px 24px rgba(15,36,68,0.06)' }}
     >
       <div

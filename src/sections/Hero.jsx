@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-// ── QFP hero — OUTLINE-FREE ART (wsw without the buttons.png → hero-clean.webp) ───────────
+// ── QFP hero — OUTLINE-FREE ART (20th-morning "Hero Image with kids" → hero-kids.webp) ─────
 // Structure: the section displays Ekta's outline-free mockup at full width and natural
 // aspect ratio (2400×1350). No baked pill outlines—white ground below book is our canvas.
 // The HTML layout: image full-width, no overhang, no crops, section bottom = image bottom.
@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next'
 // visitors see English text in the art; pill CTAs localize. Future localized
 // re-exports from Ekta will address this.
 
-const HERO_ART = '/qfp/hero/hero-clean.webp'
+const HERO_ART = '/qfp/hero/hero-kids.webp'
 
 // The four speech-bubble messages exactly as PAINTED into the art (English only).
 // Surfaced sr-only so screen-reader users hear what sighted users read.
@@ -67,11 +67,12 @@ export default function Hero() {
           style={{ top: '93%', transform: 'translateY(-50%)' }}
         >
           <a
-            href="#services"
-            className="hero-btn btn-nebula group relative inline-flex h-[54px] w-[220px] items-center justify-center gap-[12px] rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] px-[24px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
+            href="#what-we-print"
+            className="hero-btn btn-nebula group relative inline-flex h-[54px] w-[220px] items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] pl-[22px] pr-[46px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
+            {/* label centered in the reserved lane; arrow pinned flush to the right padding */}
             <span className="relative z-10 whitespace-nowrap">{t('hero.ctaPrint')}</span>
-            <span className="relative z-10 flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-[#fdfaf4]/15 transition-all duration-300 ease-out group-hover:bg-[#fdfaf4]/25">
+            <span className="absolute right-[8px] top-1/2 z-10 flex h-[40px] w-[40px] shrink-0 -translate-y-1/2 items-center justify-center rounded-full bg-[#fdfaf4]/15 transition-all duration-300 ease-out group-hover:bg-[#fdfaf4]/25">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-[#fdfaf4] transition-transform duration-300 ease-out group-hover:translate-x-[3px]"><path d="m11 5 7 7-7 7" /></svg>
             </span>
           </a>

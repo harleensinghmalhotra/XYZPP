@@ -26,11 +26,12 @@ import { SHOW_CASE_STUDIES } from '@/lib/compliance'
 // single source of truth; SiteNav uses the IDENTICAL routine for its own re-click
 // path so a label click and a cross-route hash always land in the same place.
 
-// Live nav height — measured, not hardcoded (locale/zoom/wrap-proof). Falls back
-// to the 86px design height if the header isn't in the DOM yet.
+// Nav offset for anchor landing. The header is now NON-STICKY (normal flow), so
+// once the page scrolls it no longer occupies the top of the viewport — anchor
+// targets should land flush at the viewport top, not under an 86px band. Returns
+// 0 accordingly (kept as a function so callers/settle-checks stay unchanged).
 export function wwpNavHeight() {
-  const header = document.querySelector('header[role="banner"]')
-  return header ? header.getBoundingClientRect().height : 86
+  return 0
 }
 
 // Scroll so #what-we-print's top sits exactly under the nav. For a per-card anchor
