@@ -12,16 +12,17 @@ import Certifications from '@/sections/Certifications'
 import { GALLERY } from '@/assets/gallery/manifest'
 import './OurStory.css'
 
-// Real QFP era photography (Ekta's asset drop), one per timeline stop, object-fit
-// cover in the media frame. 2014 web press · 2015–17 educational books · 2018
-// Komori press · 2021–23 binding line · 2024–25 the Book Education Company of the
-// Year award moment.
-import tl1 from '@/assets/mock/timeline-01.webp'
-import tl2 from '@/assets/mock/timeline-02.webp'
-import tl3 from '@/assets/mock/timeline-03.webp'
-import tl4 from '@/assets/mock/timeline-04.webp'
-import tl5 from '@/assets/mock/timeline-05.webp'
-const TIMELINE_MOCKS = [tl1, tl2, tl3, tl4, tl5]
+// Real QFP era photography, one per timeline stop, served from the readable asset
+// tree (public/site-assets/about/timeline/). Swap an era by overwriting its file
+// in place — same name, no import, no rebuild. Order: 2014 · 2015–17 · 2018 ·
+// 2021–23 · 2024–25.
+const TIMELINE_MOCKS = [
+  '/site-assets/about/timeline/2014-first-order.webp',
+  '/site-assets/about/timeline/2015-2017-learning-the-continent.webp',
+  '/site-assets/about/timeline/2018-first-facility.webp',
+  '/site-assets/about/timeline/2021-2023-scale-with-systems.webp',
+  '/site-assets/about/timeline/2024-2025-award.webp',
+]
 
 // ── /about — "Our Story", the definitive craft pass ──────────────────────────
 // Hero band (~74vh) → THE JOURNEY (Union-Properties three-zone timeline) → INK
