@@ -20,12 +20,12 @@
   color: var(--ink-2);
 }
 
-/* video band — the WHOLE frame is always visible (contain), centred on a navy
-   #0e1b46 letterbox; never cropped, stretched, or upscaled past the section width. */
+/* video band — the WHOLE frame is always visible (contain), centred on a pure-BLACK
+   cinematic letterbox; never cropped, stretched, or upscaled past the section width. */
 .pv-video-wrap {
   margin-top: clamp(40px, 6vh, 72px);
   width: 100%;
-  background: #0e1b46;
+  background: #000;
   line-height: 0;
 }
 .pv-video {
@@ -34,76 +34,53 @@
   height: clamp(300px, 46vw, 620px);
   object-fit: contain;      /* full frame, no crop */
   object-position: center;
-  background: #0e1b46;       /* letterbox fill behind the poster/frame */
+  background: #000;          /* black letterbox behind the poster/frame */
 }
 
-/* ── THE BAND — one continuous instrument panel. Cream cells on a navy-hairline
-   grid: a top+bottom rule, plus 1px vertical hairlines between cells (rendered by a
-   1px flex gap over the band's hairline-coloured background). ──────────────────── */
-.pv-band {
+/* ── THE STRIP — React Bits SpotlightCards, re-themed navy for the cream section.
+   The base component (src/components/SpotlightCard.*) is used verbatim; everything
+   here is an ADDITIVE override on the .pv-spot class, never an edit to the base. */
+.pv-cards {
   list-style: none; padding: 0;
   margin: clamp(46px, 6.5vh, 84px) auto 0;
   max-width: var(--content-max);
   width: calc(100% - 2 * var(--page-gutter));
   display: flex; flex-wrap: nowrap;
-  gap: 1px;                                     /* the vertical hairlines */
-  background: rgb(var(--navy-rgb) / 0.12);      /* shows through the 1px gaps */
-  border-top: 1px solid rgb(var(--navy-rgb) / 0.12);
-  border-bottom: 1px solid rgb(var(--navy-rgb) / 0.12);
+  gap: 16px;
 }
-.pv-cell {
+/* re-theme: navy card on the cream section, tighter radius/padding, equal widths */
+.card-spotlight.pv-spot {
   flex: 1 1 0; min-width: 0;
-  position: relative;
-  background: var(--cream);
-  padding: clamp(28px, 2.4vw, 34px) clamp(16px, 1.5vw, 22px);
-  display: flex; flex-direction: column; align-items: flex-start; text-align: left;
-  border-left: 3px solid transparent;           /* becomes an accent on mobile */
-  transition: box-shadow 0.2s ease;
+  background-color: #0e1b46;
+  border: 1px solid rgba(14, 27, 70, 0.25);
+  border-radius: 1rem;
+  padding: 1.5rem;
 }
-/* hover — a whisper of navy over the cream (0.03), no movement */
-.pv-cell:hover { box-shadow: inset 0 0 0 200px rgb(var(--navy-rgb) / 0.03); }
-
-/* the mark — a large faint ghost numeral with the light icon in front, both left-set
-   and vertically aligned across every cell (fixed mark height keeps names on a baseline) */
-.pv-cell-mark { position: relative; display: block; height: 44px; margin-bottom: clamp(14px, 1.5vw, 18px); }
-.pv-cell-num {
-  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
-  font-size: 44px; line-height: 1; letter-spacing: -0.02em;
-  color: #F37031; opacity: 0.18; transition: opacity 0.2s ease;
+/* content sits above the mouse-tracked orange glow so text stays crisp */
+.pv-spot > * { position: relative; z-index: 1; }
+.pv-spot-num {
   display: block;
+  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
+  font-size: 12px; letter-spacing: 0.16em; color: #F37031;
 }
-.pv-cell:hover .pv-cell-num { opacity: 0.3; }
-.pv-cell-icon {
-  position: absolute; left: 2px; bottom: -2px;
-  display: inline-flex; color: #F37031;         /* icon graphic → bright orange */
-}
-.pv-cell-name {
+.pv-spot-icon { display: inline-flex; color: #F37031; margin: 12px 0 14px; }
+.pv-spot-name {
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
   font-size: 15px; line-height: 1.2; letter-spacing: -0.01em;
-  color: var(--navy); margin: 0 0 8px;
+  color: #fff; margin: 0 0 8px;
 }
-.pv-cell-desc {
+.pv-spot-desc {
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: 12.5px; line-height: 1.5; color: rgba(28, 32, 25, 0.72);
-  margin: 0; max-width: 22ch;
+  font-size: 12.5px; line-height: 1.5; color: rgba(255, 255, 255, 0.75);
+  margin: 0;
 }
 
-/* tablet — two rows, hairline grid intact (the 1px flex gaps become the row + column
-   rules; cells grow to fill the shorter last row so there is no dead slot) */
+/* tablet — two rows */
 @media (max-width: 1100px) {
-  .pv-band { flex-wrap: wrap; }
-  .pv-cell { flex: 1 1 22%; }
-  .pv-cell-name { font-size: 16px; }
-  .pv-cell-desc { font-size: 13px; max-width: 26ch; }
+  .pv-cards { flex-wrap: wrap; }
+  .card-spotlight.pv-spot { flex: 1 1 22%; }
 }
-
-/* mobile — stack; each cell keeps the row hairline and gains an orange left accent */
+/* mobile — stack */
 @media (max-width: 620px) {
-  .pv-cell { flex: 1 1 100%; border-left: 3px solid #F37031; padding: 22px 20px; }
-  .pv-cell-mark { height: 40px; }
-  .pv-cell-num { font-size: 40px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pv-cell { transition: none; }
+  .card-spotlight.pv-spot { flex: 1 1 100%; }
 }

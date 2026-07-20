@@ -175,7 +175,7 @@ export default function Infrastructure() {
         <div className="infra-video">
           <button
             type="button"
-            className="infra-video-thumb"
+            className={`infra-video-thumb${VIDEO_READY ? ' infra-video-thumb--photo' : ''}`}
             onClick={onPlay}
             data-pending={!VIDEO_READY}
             aria-label={VIDEO_READY ? t('video.playAria') : t('video.previewAria')}

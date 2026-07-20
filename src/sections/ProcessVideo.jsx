@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Printer, SealCheck, Package, Warehouse, Truck, Umbrella, Handshake } from '@phosphor-icons/react'
 import { useReducedMotion } from '@/lib/useReducedMotion'
+import SpotlightCard from '@/components/SpotlightCard'
 import './ProcessVideo.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -49,12 +50,12 @@ export default function ProcessVideo() {
     return () => io.disconnect()
   }, [])
 
-  // Cells fade-rise in sequence on scroll (stagger 60ms); reduced-motion → static.
+  // Cards fade-rise in sequence on scroll (stagger 60ms); reduced-motion → static.
   useLayoutEffect(() => {
     if (reduced || !bandRef.current) return
     const ctx = gsap.context(() => {
-      gsap.set('.pv-cell', { autoAlpha: 0, y: 18 })
-      gsap.to('.pv-cell', {
+      gsap.set('.pv-spot', { autoAlpha: 0, y: 18 })
+      gsap.to('.pv-spot', {
         autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.06,
         clearProps: 'transform,opacity,visibility',
         scrollTrigger: { trigger: bandRef.current, start: 'top 82%', once: true },
@@ -87,18 +88,16 @@ export default function ProcessVideo() {
         </video>
       </div>
 
-      <ol className="pv-band" aria-label={t('detailsAria')} ref={bandRef}>
+      <div className="pv-cards" role="list" aria-label={t('detailsAria')} ref={bandRef}>
         {POINTS.map(({ key, Icon }, i) => (
-          <li key={key} className="pv-cell">
-            <span className="pv-cell-mark" aria-hidden="true">
-              <span className="pv-cell-num">{String(i + 1).padStart(2, '0')}</span>
-              <span className="pv-cell-icon"><Icon weight="light" size={24} /></span>
-            </span>
-            <h3 className="pv-cell-name">{t(`stages.${key}.name`)}</h3>
-            <p className="pv-cell-desc">{t(`stages.${key}.desc`)}</p>
-          </li>
+          <SpotlightCard key={key} className="pv-spot" spotlightColor="rgba(243,112,49,0.22)">
+            <span className="pv-spot-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span className="pv-spot-icon" aria-hidden="true"><Icon weight="light" size={26} /></span>
+            <h3 className="pv-spot-name">{t(`stages.${key}.name`)}</h3>
+            <p className="pv-spot-desc">{t(`stages.${key}.desc`)}</p>
+          </SpotlightCard>
         ))}
-      </ol>
+      </div>
     </section>
   )
 }

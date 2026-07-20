@@ -2519,6 +2519,16 @@ body {
   background-image: radial-gradient(rgb(var(--gold-2-rgb) / 0.14) 1px, transparent 1.4px);
   background-size: 18px 18px;
 }
+/* real facility still behind the play button (VIDEO_READY) — the dot pattern gives
+   way to a bottom-weighted scrim so the play button + caption stay legible. */
+.infra-video-thumb--photo {
+  background: #0b1c38 url('/qfp/video/facilities-thumb.webp') center / cover no-repeat;
+}
+.infra-video-thumb--photo::after {
+  opacity: 1;
+  background-image: linear-gradient(180deg, rgba(11, 28, 56, 0.16) 0%, rgba(11, 28, 56, 0) 34%, rgba(11, 28, 56, 0.62) 100%);
+  background-size: auto;
+}
 .infra-video-thumb:hover {
   transform: translateY(-4px);
   box-shadow:
