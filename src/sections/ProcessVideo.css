@@ -37,176 +37,169 @@
   background: #000;          /* black letterbox behind the poster/frame */
 }
 
-/* ── THE PROCESS FLOW — seven nodes on ONE orange baseline (no cards). Each node is
-   tied to its read by a short vertical connector, so the line and the text read as a
-   single diagram, not two strangers. A large DM-Mono ghost numeral sits BEHIND each
-   icon+title cluster (the order is real information — the number is earned). Steps are
-   left-aligned with generous fixed gutters; navy ink on cream, one orange accent
-   locked to the drawn baseline + node cores. Cards were rejected here twice. ── */
-.pv-flow-wrap { margin-top: clamp(48px, 7vh, 92px); }
-
-.pv-flow {
-  --pv-gap: clamp(20px, 2vw, 40px);
-  position: relative;
+/* ── THE PROCESS EXHIBIT — ROYAL. The whole 7-step + promise assembly sits inside ONE
+   hairline-bordered field (a certificate plate), so nothing floats. Engraved-plate
+   numbering (DM Mono, a calm AA-safe burnt orange — deeper than the bright brand
+   orange, which fails contrast on cream at this size and reads less institutional),
+   hung from a quiet orange process line whose nodes align with the numbers. Strict
+   equal-column grid, top-aligned. ── */
+.pv-frame-wrap {
+  --pv-orange: #C2551B;                    /* AA-safe burnt orange — numbers, rule, line */
   max-width: var(--content-max);
   width: calc(100% - 2 * var(--page-gutter));
-  margin: 0 auto;
+  margin: clamp(48px, 7vh, 92px) auto 0;
+}
+.pv-frame {
+  position: relative;
+  padding: clamp(28px, 4vh, 48px) clamp(24px, 3vw, 52px);
+  border-radius: 3px;
+}
+/* the plate border — its own layer so the entrance can DRAW it (clip reveal) while
+   staying fully visible with no JS / reduced motion. */
+.pv-frame-line {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(var(--navy-rgb) / 0.15);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+/* THE STEPS — strict 7-column grid, top-aligned. */
+.pv-flow {
+  --pv-gap: clamp(18px, 2vw, 40px);
+  position: relative;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   column-gap: var(--pv-gap);
-  padding-top: 6px;                        /* clearance so the top node isn't clipped */
+  align-items: start;
 }
-
-/* THE BASELINE — a hairline from node-1 centre to node-7 centre. Each node sits at
-   its column's LEFT (content-left), 5px in, so the inset is one column-width − 5px on
-   the right. The faint base is the track; the orange fill draws through it on scroll. */
+/* THE PROCESS LINE — a calm 1.5px hairline running along the top of the number row
+   from node-1 to node-7 (each node sits at its column-left, 3.5px in). Faint track +
+   an orange fill that draws with the frame. */
 .pv-flow-rail {
   position: absolute;
-  top: 10px;                               /* node centre: 6px pad + 5px node radius = 11px */
-  left: 5px;
-  right: calc((100% - 6 * var(--pv-gap)) / 7 - 5px);
-  height: 2px;
-  background: rgb(var(--navy-rgb) / 0.14);
-  border-radius: 2px;
+  top: 4px;
+  left: 3.5px;
+  right: calc((100% - 6 * var(--pv-gap)) / 7 - 3.5px);
+  height: 1.5px;
+  background: rgb(var(--navy-rgb) / 0.12);
   overflow: hidden;
 }
 .pv-flow-rail-fill {
   position: absolute;
   inset: 0;
   transform-origin: left center;
-  background: #F37031;                     /* the brand-orange "flow" that sweeps the line */
-  /* default state = fully drawn, so reduced-motion / no-JS shows the whole line */
+  background: var(--pv-orange);
+  /* default = fully drawn, so reduced-motion / no-JS shows the whole line */
 }
 
-/* each step — LEFT-aligned: node on the baseline, a short connector down to the read. */
 .pv-step {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  padding-top: 15px;                       /* line sits just above the number row */
   min-width: 0;
+  text-align: left;
 }
+/* the node — a small, dignified orange dot on the line, aligned above the number. */
 .pv-step-node {
-  position: relative;
-  z-index: 1;
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--cream);
-  border: 2px solid #0e1b46;               /* navy ring — crisp on cream */
-  box-shadow: 0 0 0 4px var(--cream);      /* small halo masks the line behind the node */
-}
-.pv-step-node::after {                     /* orange core */
-  content: '';
-  position: absolute; inset: 2px;
-  border-radius: 50%;
-  background: #F37031;
-}
-/* the connector — a short vertical hairline dropping from the node to the read,
-   binding line and text into one diagram. Drawn (scaleY) on entrance. */
-.pv-step-stem {
-  width: 2px; height: 14px;
-  margin-left: 4px;                        /* centre under the node (node centre = 5px) */
-  background: rgb(var(--navy-rgb) / 0.2);
-  transform-origin: top center;
-}
-.pv-step-body {
-  position: relative;
-  padding-top: 6px;                        /* room for the ghost numeral to peek above */
-}
-/* the ghost numeral — DM Mono, quiet navy, sitting BEHIND the icon+title cluster
-   (overlapping its top-left), never floating in a row of its own. */
-.pv-step-num {
   position: absolute;
-  top: -6px; left: -3px;
-  z-index: 0;
-  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
-  font-size: clamp(36px, 3vw, 44px); line-height: 1; letter-spacing: -0.02em;
-  color: rgb(var(--navy-rgb) / 0.1);
+  top: 1px; left: 0;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--pv-orange);
+  box-shadow: 0 0 0 3px var(--cream);      /* halo so the line reads under the dot */
 }
-/* icon + title on ONE baseline row, over the numeral */
+/* engraved-plate number — DM Mono, small, orange, with a short underline rule. */
+.pv-step-num {
+  display: block;
+  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
+  font-size: 12px; line-height: 1; letter-spacing: 0.12em;
+  color: var(--pv-orange);
+}
+.pv-step-rule {
+  display: block;
+  width: 20px; height: 2px;
+  background: var(--pv-orange);
+  margin: 7px 0 13px;
+}
+/* icon + title on one baseline row */
 .pv-step-head {
-  position: relative; z-index: 1;
   display: flex; align-items: center; gap: 8px;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 .pv-step-icon { display: inline-flex; color: #0e1b46; flex: none; }
 .pv-step-name {
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(15px, 1.1vw, 17px); line-height: 1.15; letter-spacing: -0.01em;
+  font-size: 17px; line-height: 1.18; letter-spacing: -0.01em;
   color: #0e1b46; margin: 0;
 }
 .pv-step-desc {
-  position: relative; z-index: 1;
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: clamp(12px, 0.9vw, 13px); line-height: 1.5;
-  color: rgba(28, 32, 25, 0.7);
+  font-size: 13px; line-height: 1.55;
+  color: rgba(28, 32, 25, 0.75);
   margin: 0; max-width: 24ch;
 }
 
-/* ── THE PROMISE BAND — a quiet, dense certifications-style row: the six guarantees
-   of a single partner. Thin top hairline off the steps; vertical hairlines between
-   badges; two-line reads (bold lead + muted sub). ── */
+/* THE DIVIDE — a full-width hairline across the plate, separating steps from band. */
+.pv-divide {
+  display: block;
+  height: 1px;
+  background: rgb(var(--navy-rgb) / 0.15);
+  margin: clamp(28px, 3.6vh, 46px) 0;
+}
+
+/* ── THE PROMISE BAND — the six guarantees of a single partner, each on a thin-ring
+   medallion; quiet and institutional, on a strict grid inside the same plate. ── */
 .pv-badges {
-  list-style: none;
-  max-width: var(--content-max);
-  width: calc(100% - 2 * var(--page-gutter));
-  margin: clamp(38px, 5.2vh, 62px) auto 0;
-  padding-top: clamp(20px, 2.6vh, 30px);
-  border-top: 1px solid rgb(var(--navy-rgb) / 0.16);
+  list-style: none; margin: 0; padding: 0;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  gap: clamp(14px, 1.6vw, 26px);
 }
-.pv-badge {
-  display: flex; align-items: center; gap: 10px;
-  padding: 2px clamp(12px, 1.3vw, 22px);
-  border-left: 1px solid rgb(var(--navy-rgb) / 0.12);
+.pv-badge { display: flex; align-items: center; gap: 11px; min-width: 0; }
+.pv-badge-medallion {
+  flex: none;
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid rgb(var(--navy-rgb) / 0.2);
+  display: grid; place-items: center;
+  color: #0e1b46;
 }
-.pv-badge:first-child { border-left: 0; padding-left: 0; }
-.pv-badge-icon { flex: none; color: #0e1b46; display: inline-flex; }
 .pv-badge-text { display: flex; flex-direction: column; min-width: 0; }
 .pv-badge-lead {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: 12px; line-height: 1.25; letter-spacing: -0.01em; color: #0e1b46;
+  font-size: 12.5px; line-height: 1.25; letter-spacing: -0.01em; color: #0e1b46;
 }
 .pv-badge-sub {
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: 11.5px; line-height: 1.3; color: rgba(28, 32, 25, 0.65);
+  font-size: 11.5px; line-height: 1.3; color: rgba(28, 32, 25, 0.6);
 }
 
-/* ── UNDER 1100px — the baseline STANDS UP: a vertical spine on the left, the seven
-   steps stacked as rows (node on the spine, read to its right); the promise band
-   reflows to a denser stack. The responsive vertical form the brief asks for. ── */
+/* ── UNDER 1100px — the process line STANDS UP: a vertical spine at the plate's left,
+   the seven steps stacked as rows (node on the spine, number+read to its right); the
+   promise band reflows to a denser grid. ── */
 @media (max-width: 1100px) {
   .pv-flow {
     grid-template-columns: 1fr;
-    row-gap: clamp(22px, 4vw, 36px);
+    row-gap: clamp(22px, 4vw, 34px);
     column-gap: 0;
-    padding-top: 2px;
-    padding-left: 40px;                    /* room for the spine + nodes */
+    padding-left: 34px;                    /* room for the spine + nodes */
   }
   .pv-flow-rail {
-    top: 8px; bottom: 8px; left: 7px; right: auto;
-    width: 2px; height: auto;
+    top: 6px; bottom: 6px; left: 3px; right: auto;
+    width: 1.5px; height: auto;
   }
   .pv-flow-rail-fill { transform-origin: center top; }
-  .pv-step-node { position: absolute; left: -33px; top: 4px; }
-  .pv-step-stem { display: none; }         /* the spine + indent already connect the row */
-  .pv-step-num { font-size: clamp(34px, 8vw, 46px); top: -5px; }
+  .pv-step { padding-top: 0; }
+  .pv-step-node { top: 3px; left: -34px; }  /* on the spine, left of the number */
 
-  .pv-badges { grid-template-columns: repeat(3, 1fr); row-gap: clamp(16px, 2.4vh, 22px); }
-  .pv-badge:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
+  .pv-badges { grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.6vw, 24px) clamp(14px, 2vw, 22px); }
 }
 @media (max-width: 680px) {
   .pv-badges { grid-template-columns: repeat(2, 1fr); }
-  .pv-badge { padding-left: clamp(12px, 3vw, 18px); border-left: 1px solid rgb(var(--navy-rgb) / 0.12); }
-  .pv-badge:nth-child(2n + 1) { border-left: 0; padding-left: 0; }
 }
 @media (max-width: 440px) {
-  .pv-badges { grid-template-columns: 1fr; row-gap: 14px; }
-  .pv-badge { border-left: 0 !important; padding-left: 0 !important; }
+  .pv-frame { padding: 24px 20px; }
+  .pv-badges { grid-template-columns: 1fr; }
 }
 
-/* reduced motion — GSAP is skipped (useReducedMotion), so the line is already drawn,
-   the connectors and steps are in place, and the promise band is visible; nothing to
-   suppress beyond that. */
+/* reduced motion — GSAP is skipped (useReducedMotion): the plate border is whole, the
+   process line is drawn, the steps and promise band are in place. Nothing to suppress. */

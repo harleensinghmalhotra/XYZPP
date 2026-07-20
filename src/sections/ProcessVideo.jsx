@@ -11,15 +11,16 @@ import './ProcessVideo.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ── HOMEPAGE "How We Work" — process video + the 7-step PROCESS FLOW + promise band.
+// ── HOMEPAGE "How We Work" — process video + the 7-step PROCESS EXHIBIT + promise band.
 // Replaces the retired 3D conveyor and the rejected card grid. Same slot before
 // Projects, same id="process". The video shows its WHOLE frame (contain) on a black
-// letterbox. Below it the seven steps are NOT cards: seven nodes on ONE orange base-
-// line, each tied to its read by a short vertical connector so line + text read as a
-// single diagram. A large ghost numeral sits BEHIND each icon+title cluster (the order
-// is real information — the number is earned). Under the steps, a quiet certifications-
-// style promise band restates the six things a single partner guarantees. The line
-// draws through the nodes on scroll (one motivated gesture); under 1100px it stands up.
+// letterbox. Below it the seven steps + promise band sit inside ONE hairline-bordered
+// field — a certificate plate / annual-report exhibit, not a floaty AI layout. Each
+// step is engraved-plate numbered ("01" in DM Mono orange with a short underline rule),
+// hung from a calm orange process line whose nodes align with the numbers. A full-width
+// hairline separates the six-guarantee promise band (medallion icons) below. The frame
+// border draws on scroll, then the steps settle in left→right, then the band — one
+// quiet, confident sequence; under 1100px the line stands up as a vertical spine.
 
 const VIDEO = '/qfp/video/how-we-work.mp4'
 const POSTER = '/qfp/video/how-we-work-poster.jpg'
@@ -63,24 +64,30 @@ export default function ProcessVideo() {
     return () => io.disconnect()
   }, [])
 
-  // THE ENTRANCE — the baseline draws through the nodes; each connector drops, then
-  // the read fade-rises just behind it; the promise band settles in last. One
-  // motivated gesture (the "flow"). Horizontal above 1100px, vertical spine below.
-  // Reduced motion → the line is already drawn and nothing moves.
+  // THE ENTRANCE — one quiet, confident sequence (~800ms): the frame border DRAWS, the
+  // process line draws with it, then the steps settle in left→right, then the promise
+  // band. Nothing bounces. Horizontal draw above 1100px, top-down along the vertical
+  // spine below. Reduced motion → the plate is already whole and nothing moves.
   useLayoutEffect(() => {
     if (reduced || !bandRef.current) return
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia()
       const build = (axis) => () => {
-        const trig = { trigger: bandRef.current, start: 'top 80%', once: true }
-        const tl = gsap.timeline({ scrollTrigger: trig })
+        const trig = { trigger: bandRef.current, start: 'top 82%', once: true }
+        const tl = gsap.timeline({ scrollTrigger: trig, defaults: { ease: 'power2.out' } })
+        // 1 — the frame border draws (clip reveal), the line draws alongside it
+        tl.fromTo('.pv-frame-line',
+          { clipPath: axis === 'x' ? 'inset(0 100% 0 0)' : 'inset(0 0 100% 0)' },
+          { clipPath: 'inset(0 0 0 0)', duration: 0.5, ease: 'power2.inOut' })
         tl.fromTo('.pv-flow-rail-fill',
           { scaleX: axis === 'x' ? 0 : 1, scaleY: axis === 'y' ? 0 : 1 },
-          { scaleX: 1, scaleY: 1, duration: 0.85, ease: 'power2.inOut' })
-        tl.fromTo('.pv-step-node', { scale: 0 }, { scale: 1, duration: 0.3, ease: 'back.out(2)', stagger: 0.08 }, 0.12)
-        tl.fromTo('.pv-step-stem', { scaleY: 0 }, { scaleY: 1, duration: 0.26, ease: 'power2.out', stagger: 0.08 }, 0.2)
-        tl.fromTo('.pv-step-body', { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.08, clearProps: 'transform,opacity,visibility' }, 0.26)
-        tl.fromTo('.pv-badge', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.05, clearProps: 'transform,opacity,visibility' }, 0.55)
+          { scaleX: 1, scaleY: 1, duration: 0.5, ease: 'power2.inOut' }, 0.08)
+        // 2 — the steps settle in, left→right
+        tl.fromTo('.pv-step', { autoAlpha: 0, y: 10 },
+          { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.05, clearProps: 'transform,opacity,visibility' }, 0.28)
+        // 3 — the promise band, last
+        tl.fromTo('.pv-badge', { autoAlpha: 0, y: 8 },
+          { autoAlpha: 1, y: 0, duration: 0.38, stagger: 0.035, clearProps: 'transform,opacity,visibility' }, 0.56)
       }
       mm.add('(min-width: 1101px)', build('x'))
       mm.add('(max-width: 1100px)', build('y'))
@@ -112,46 +119,51 @@ export default function ProcessVideo() {
         </video>
       </div>
 
-      <div className="pv-flow-wrap" ref={bandRef}>
-        {/* THE STEPS — seven nodes on one orange baseline, each tied to its read by a
-            short vertical connector so the diagram reads as one piece. */}
-        <div className="pv-flow" role="list" aria-label={t('detailsAria')}>
-          <span className="pv-flow-rail" aria-hidden="true">
-            <span className="pv-flow-rail-fill" />
-          </span>
-          {POINTS.map(({ key, Icon }, i) => (
-            <div className="pv-step" role="listitem" key={key} style={{ '--i': i }}>
-              <span className="pv-step-node" aria-hidden="true" />
-              <span className="pv-step-stem" aria-hidden="true" />
-              <div className="pv-step-body">
-                <span className="pv-step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+      {/* THE EXHIBIT — the whole assembly sits inside one hairline-bordered field
+          (a certificate plate); the border draws on entrance. */}
+      <div className="pv-frame-wrap" ref={bandRef}>
+        <div className="pv-frame">
+          <span className="pv-frame-line" aria-hidden="true" />
+
+          {/* THE STEPS — engraved-plate numbers hung from a calm orange process line,
+              nodes aligned with each number. No connectors — the grid does the work. */}
+          <div className="pv-flow" role="list" aria-label={t('detailsAria')}>
+            <span className="pv-flow-rail" aria-hidden="true">
+              <span className="pv-flow-rail-fill" />
+            </span>
+            {POINTS.map(({ key, Icon }, i) => (
+              <div className="pv-step" role="listitem" key={key} style={{ '--i': i }}>
+                <span className="pv-step-node" aria-hidden="true" />
+                <span className="pv-step-num">{String(i + 1).padStart(2, '0')}</span>
+                <span className="pv-step-rule" aria-hidden="true" />
                 <div className="pv-step-head">
                   <span className="pv-step-icon" aria-hidden="true"><Icon weight="light" size={20} /></span>
                   <h3 className="pv-step-name">{t(`stages.${key}.name`)}</h3>
                 </div>
                 <p className="pv-step-desc">{t(`stages.${key}.desc`)}</p>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* THE PROMISE BAND — a quiet, dense certifications-style row: the six things a
-            single partner guarantees. Thin top hairline off the steps; vertical
-            hairlines between badges. */}
-        <ul className="pv-badges" aria-label={t('sub')}>
-          {badges.map((b, i) => {
-            const BIcon = BADGE_ICONS[i]
-            return (
-              <li className="pv-badge" key={i}>
-                <span className="pv-badge-icon" aria-hidden="true">{BIcon && <BIcon weight="regular" size={18} />}</span>
-                <span className="pv-badge-text">
-                  <span className="pv-badge-lead">{b.lead}</span>
-                  <span className="pv-badge-sub">{b.sub}</span>
-                </span>
-              </li>
-            )
-          })}
-        </ul>
+          <span className="pv-divide" aria-hidden="true" />
+
+          {/* THE PROMISE BAND — the six guarantees of a single partner, each on a
+              thin-ring medallion; quiet and institutional, inside the same plate. */}
+          <ul className="pv-badges" aria-label={t('sub')}>
+            {badges.map((b, i) => {
+              const BIcon = BADGE_ICONS[i]
+              return (
+                <li className="pv-badge" key={i}>
+                  <span className="pv-badge-medallion" aria-hidden="true">{BIcon && <BIcon weight="regular" size={14} />}</span>
+                  <span className="pv-badge-text">
+                    <span className="pv-badge-lead">{b.lead}</span>
+                    <span className="pv-badge-sub">{b.sub}</span>
+                  </span>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
       </div>
     </section>
   )
