@@ -1,13 +1,27 @@
-// Desk structure — two views over the single `post` type, both ordered by
-// publishedAt desc: "Published" and "Hidden" (filtered on the `published`
-// boolean). Prompt 3 layers icons + an "All Posts" view + the welcome pane.
+import {DocumentsIcon, PublishIcon, EyeClosedIcon} from '@sanity/icons'
+
+// Desk: All Posts + the two visibility views (Published / Hidden), each ordered
+// publishedAt desc, cleanly iconed (Sanity icons closest to our language).
 export const deskStructure = (S) =>
   S.list()
     .title('Newsroom')
     .items([
       S.listItem()
+        .id('all-posts')
+        .title('All Posts')
+        .icon(DocumentsIcon)
+        .child(
+          S.documentList()
+            .id('all-posts-list')
+            .title('All Posts')
+            .filter('_type == "post"')
+            .defaultOrdering([{field: 'publishedAt', direction: 'desc'}]),
+        ),
+      S.divider(),
+      S.listItem()
         .id('published')
         .title('Published')
+        .icon(PublishIcon)
         .child(
           S.documentList()
             .id('published-list')
@@ -18,6 +32,7 @@ export const deskStructure = (S) =>
       S.listItem()
         .id('hidden')
         .title('Hidden')
+        .icon(EyeClosedIcon)
         .child(
           S.documentList()
             .id('hidden-list')
