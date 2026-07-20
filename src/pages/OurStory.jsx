@@ -84,7 +84,17 @@ export default function OurStory() {
         </div>
       </section>
 
-      {/* SECTION 2 ── THE JOURNEY — Union-Properties three-zone timeline ──────── */}
+      {/* SECTION 2 ── OUR STORY LEDE — the "OUR STORY" eyebrow (gold→orange) over
+          the lede paragraph, leading the reader into the journey below. */}
+      <section data-theme="light" className="ab-lede" aria-labelledby="ab-lede-eyebrow">
+        <PaperGrain />
+        <div className="ab-wrap">
+          <p id="ab-lede-eyebrow" className="ab-eyebrow" data-reveal>{t('hero.eyebrow')}</p>
+          <p className="ab-lede-text" data-reveal>{t('hero.lede')}</p>
+        </div>
+      </section>
+
+      {/* SECTION 3 ── THE JOURNEY — pure vertical-scroll timeline (no interaction) */}
       <Timeline stops={timelineStops} />
 
       {/* SECTION 3 ── INK SPREADS — MVV, three navy spines + drawn gold hairlines */}
@@ -137,115 +147,45 @@ function Spine() {
   return <span ref={ref} className="ab-spine" aria-hidden="true" />
 }
 
-// ── THE JOURNEY — Union-Properties three-zone timeline ────────────────────────
-// LEFT year rail (vertical, dotted connector, ring-pulse on select) · CENTER
-// media card (scale-in on swap) · RIGHT big year + drawn gold rule + title +
-// body + prev/next arrows (press 0.96, glyph nudges 2px on hover). Year click /
-// arrows / keyboard ← → switch eras; the swap plays transform+opacity out→in,
-// instant under reduced-motion. Below 900px the rail becomes a horizontal strip.
+// ── THE JOURNEY — pure vertical-scroll timeline ───────────────────────────────
+// Every stop is a card stacked vertically; the reader scrolls through all of them
+// with ZERO interaction. No click-nav, no prev/next arrows, no year rail, no giant
+// ghost year numerals, no rail gold line — all deleted. Inside each card: a small
+// gold→orange accent line + the year (DM Mono) sit ABOVE the title, then the body
+// and the existing era imagery. Cards alternate the media side for rhythm and
+// reveal subtly on scroll (shared [data-reveal] system); reduced-motion rests them
+// visible. Below 900px each card stacks to a single column (media over copy).
 function Timeline({ stops }) {
   const { t } = useTranslation('ourStory')
-  const reduced = useReducedMotion()
-  const n = stops.length
-  const [active, setActive] = useState(0)   // selected era (rail highlight is immediate)
-  const [shown, setShown] = useState(0)     // era currently rendered in media/content
-  const [phase, setPhase] = useState('in')  // 'in' | 'out'
-  const sectionRef = useRef(null)
-  const timer = useRef(0)
-
-  const go = (next) => {
-    const idx = clamp(next, 0, n - 1)
-    if (idx === active) return
-    setActive(idx)
-    if (reduced) { setShown(idx); setPhase('in'); return }
-    setPhase('out')                                   // fade current up + out (~160ms)
-    clearTimeout(timer.current)
-    timer.current = setTimeout(() => { setShown(idx); setPhase('in') }, 160)   // then rise new from below
-  }
-  useEffect(() => () => clearTimeout(timer.current), [])
-
-  // Keyboard ← → when focus sits inside the section.
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
-      const s = sectionRef.current
-      if (!s || !s.contains(document.activeElement)) return
-      const a = document.activeElement
-      if (a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA' || a.isContentEditable)) return
-      e.preventDefault()
-      go(active + (e.key === 'ArrowLeft' ? -1 : 1))
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [active, reduced, n])
-
-  const stop = stops[shown]
-  const atStart = active === 0
-  const atEnd = active === n - 1
-
   return (
-    <section ref={sectionRef} data-theme="light" className="tl" aria-label={t('timeline.eyebrow')}>
+    <section data-theme="light" className="tls" aria-label={t('timeline.eyebrow')}>
       <PaperGrain />
       <div className="ab-wrap">
-        {/* Relocated intro — the former hero lede now leads the chapter. The
-            hero.lede key is kept (shared with the /about-2 page); only the render
-            moves here, verbatim. */}
-        <p className="tl-intro" data-reveal>{t('hero.lede')}</p>
-        <p className="ab-eyebrow--cream tl-eyebrow" data-reveal>{t('timeline.eyebrow')}</p>
+        <p className="ab-eyebrow tls-eyebrow" data-reveal>{t('timeline.eyebrow')}</p>
+        <ol className="tls-list">
+          {stops.map((s, i) => (
+            <li className={`tls-card${i % 2 ? ' tls-card--flip' : ''}`} data-reveal key={i}>
+              {/* CARD MEDIA — existing era mock (raw photo, awaiting client asset) */}
+              <div className="tls-media-zone">
+                <div className="ab-frame tls-media" data-slot={`timeline-${i}`} aria-hidden="true">
+                  {TIMELINE_MOCKS[i] && (
+                    <img className="tls-media-img" src={TIMELINE_MOCKS[i]} alt="" loading="lazy" decoding="async" />
+                  )}
+                </div>
+              </div>
 
-        <div className="tl-grid">
-          {/* LEFT — year rail */}
-          <div className="tl-rail" role="tablist" aria-label={t('timeline.eyebrow')}>
-            <span className="tl-spine" aria-hidden="true" />
-            {stops.map((s, i) => (
-              // Rail shows the START year only (display transform — locale strings
-              // untouched); aria-label keeps the full era text for screen readers.
-              <button
-                key={i}
-                type="button"
-                role="tab"
-                aria-selected={i === active}
-                aria-label={s.year}
-                className={`tl-year focus-ring${i === active ? ' is-active' : ''}`}
-                onClick={() => go(i)}
-              >
-                <span className="tl-year-label" aria-hidden="true">{s.year.split(' ')[0]}</span>
-                <span className="tl-dot" aria-hidden="true" />
-              </button>
-            ))}
-          </div>
-
-          {/* CENTER — media card (raw mock photo, awaiting client asset) */}
-          <div className="tl-media-zone">
-            <div key={shown} className={`ab-frame tl-media tl-anim-${phase}`} data-slot={`timeline-${shown}`} aria-hidden="true">
-              {TIMELINE_MOCKS[shown] && (
-                <img className="tl-media-img" src={TIMELINE_MOCKS[shown]} alt="" loading="lazy" decoding="async" />
-              )}
-            </div>
-          </div>
-
-          {/* RIGHT — content + arrows */}
-          <div className="tl-content-zone">
-            <div key={shown} className={`tl-content tl-anim-${phase}`}>
-              <p className="tl-year-big">{stop.year}</p>
-              <span className="tl-underline" aria-hidden="true" />
-              <h3 className="tl-title">{stop.title}</h3>
-              <p className="tl-body">{stop.desc}</p>
-            </div>
-            <div className="tl-arrows">
-              <button
-                type="button" className="tl-arrow tl-arrow--prev focus-ring"
-                onClick={() => go(active - 1)} disabled={atStart}
-                aria-label={stops[Math.max(0, active - 1)].year}
-              ><span className="tl-arrow-g" aria-hidden="true">←</span></button>
-              <button
-                type="button" className="tl-arrow tl-arrow--next focus-ring"
-                onClick={() => go(active + 1)} disabled={atEnd}
-                aria-label={stops[Math.min(n - 1, active + 1)].year}
-              ><span className="tl-arrow-g" aria-hidden="true">→</span></button>
-            </div>
-          </div>
-        </div>
+              {/* CARD COPY — accent line + year (DM Mono) above the title, then body */}
+              <div className="tls-copy">
+                <p className="tls-year">
+                  <span className="tls-year-line" aria-hidden="true" />
+                  {s.year}
+                </p>
+                <h3 className="tls-title">{s.title}</h3>
+                <p className="tls-body">{s.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   )

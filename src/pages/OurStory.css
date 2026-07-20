@@ -6,18 +6,27 @@
    cheap, one-shot, and guarded by prefers-reduced-motion. Label floor 11px. No
    element exceeds a homepage equivalent (H1 92 / H2 68 / stat 132 caps). */
 
+/* ── local accent — the brand's gold→orange shift, scoped to /about ──────────
+   --ab-orange     : the #F37031 accent as-is; decorative marks + on-navy text.
+   --ab-orange-ink : a darker burnt-orange of the same family that clears AA
+                     (≈4.8:1) as 11-12px text on the cream ground. */
+.ab-hero, .ab-lede, .tls, .mvv, .fnd, .tm, .ab-marquee {
+  --ab-orange: #f37031;
+  --ab-orange-ink: #c2410c;
+}
+
 /* ── shared ─────────────────────────────────────────────────────────────── */
 .ab-wrap { position: relative; z-index: 1; width: 100%; max-width: var(--content-max); margin: 0 auto; }
 
 .ab-eyebrow {
   margin: 0 0 clamp(14px, 1.9vh, 20px);
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-2);
+  letter-spacing: 0.25em; text-transform: uppercase; color: var(--ab-orange-ink);
 }
 .ab-eyebrow--cream {
   margin: 0;
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-text);
+  letter-spacing: 0.25em; text-transform: uppercase; color: var(--ab-orange-ink);
 }
 /* Eyebrow settle — tracking eases 0.35em → 0.25em on reveal (mandated detail).
    Only when JS reveals are live; no-JS rests at the settled 0.25em. */
@@ -86,111 +95,71 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   text-transform: uppercase; color: #c89a3c;        /* original hero gold */
 }
 
-/* ── SECTION 2 — THE JOURNEY (Union-Properties three-zone timeline) ────────── */
-.tl {
-  --tl-e: cubic-bezier(0.22, 1, 0.36, 1);   /* the reference's liquid ease */
+/* ── SECTION 2 — OUR STORY LEDE ──────────────────────────────────────────────
+   The gold→orange "OUR STORY" eyebrow over the lede paragraph, on the cream
+   ground, leading the reader into the journey below. */
+.ab-lede {
   position: relative; background: var(--cream); overflow: hidden;
-  min-height: 90vh; display: flex; flex-direction: column; justify-content: center;
-  padding: clamp(52px, 6.5vh, 84px) var(--page-gutter);
+  padding: clamp(56px, 8vh, 104px) var(--page-gutter) clamp(36px, 5vh, 60px);
 }
-/* relocated intro — the former hero lede, leading the chapter above the eyebrow. */
-.tl-intro {
-  flex: 0 0 auto; margin: 0 0 clamp(24px, 3.4vh, 40px); max-width: 58ch;
-  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.15vw, 18px);
-  line-height: 1.65; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.76);
-}
-.tl-eyebrow { flex: 0 0 auto; margin: 0 0 clamp(22px, 3vh, 38px); }
-
-/* one composed unit filling the width: narrow rail / FAT card / tight text */
-.tl-grid {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1.45fr) minmax(0, 1fr);
-  gap: clamp(28px, 3.4vw, 52px);
-  align-items: center;
+.ab-lede-text {
+  margin: clamp(18px, 2.4vh, 28px) 0 0; max-width: 62ch;
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(18px, 1.45vw, 23px); line-height: 1.58; letter-spacing: -0.011em;
+  color: rgb(var(--navy-rgb) / 0.82);
 }
 
-/* LEFT — narrow year rail */
-.tl-rail { position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: clamp(34px, 4.6vh, 60px); }
-.tl-spine { position: absolute; right: 5px; left: auto; top: 16px; bottom: 16px; width: 1px; background: rgb(var(--navy-rgb) / 0.16); }
-.tl-year {
-  position: relative; z-index: 1; min-height: 36px;
-  display: flex; align-items: center; justify-content: flex-end; gap: 14px;
-  background: none; border: 0; padding: 0; cursor: pointer; text-align: right;
-  font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: 20px; line-height: 1; letter-spacing: -0.01em;
-  color: rgb(var(--navy-rgb) / 0.4);
-  transition: color 0.35s var(--tl-e);
+/* ── SECTION 3 — THE JOURNEY (pure vertical-scroll cards) ─────────────────────
+   A vertical stack of era cards; the reader scrolls through them with zero
+   interaction. Media on one side, copy on the other, alternating each row. Inside
+   the copy: a gold→orange accent line + year (DM Mono) above the title. */
+.tls {
+  position: relative; background: var(--cream); overflow: hidden;
+  padding: clamp(20px, 3vh, 40px) var(--page-gutter) var(--section-pad-y);
 }
-.tl-dot {
-  position: relative;
-  flex: 0 0 auto; width: 11px; height: 11px; border-radius: 50%;
-  border: 1.5px solid rgb(var(--navy-rgb) / 0.35); background: var(--cream);
-  transition: background 0.4s var(--tl-e), border-color 0.4s var(--tl-e), transform 0.4s var(--tl-e);
-}
-.tl-year.is-active { color: var(--gold-text); font-weight: 600; font-size: 28px; }
-.tl-year.is-active .tl-dot { background: var(--gold-text); border-color: var(--gold-text); transform: scale(1.15); }
-/* ring pulse — a single gold ring expands out of the dot when the era is chosen */
-.tl-year.is-active .tl-dot::after {
-  content: ''; position: absolute; inset: -6px; border-radius: 50%;
-  border: 1.5px solid var(--gold-text); pointer-events: none;
-  animation: tl-ring 0.72s var(--tl-e) 1;
-}
-@keyframes tl-ring { from { transform: scale(0.5); opacity: 0.75; } to { transform: scale(1.7); opacity: 0; } }
-@media (hover: hover) and (pointer: fine) {
-  .tl-year:hover:not(.is-active) { color: rgb(var(--navy-rgb) / 0.7); }
+.tls-eyebrow { margin: 0 0 clamp(32px, 4.6vh, 60px); }
+.tls-list {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: clamp(56px, 8vh, 116px);
 }
 
-/* CENTER — FAT landscape media card; raw photo covers and scale-ins on swap. */
-.tl-media-zone { min-width: 0; }
-.tl-media {
-  position: relative; width: 100%; height: clamp(440px, 70vh, 680px);
+/* one era card — media column is always the wider side; flip swaps the sides. */
+.tls-card {
+  display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 72px); align-items: center;
+}
+.tls-card--flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); }
+.tls-card--flip .tls-media-zone { order: 2; }
+.tls-card--flip .tls-copy { order: 1; }
+
+/* MEDIA — landscape era frame; raw photo covers (awaiting client asset). */
+.tls-media-zone { min-width: 0; }
+.tls-media {
+  position: relative; width: 100%; aspect-ratio: 16 / 10;
   border-radius: var(--radius-lg); background: var(--cream-2);
 }
-.tl-media::before, .tl-media::after { content: none; }   /* clean hairline frame — no ticks */
-.tl-media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-.tl-media.tl-anim-in .tl-media-img { animation: tl-imgscale 0.9s var(--tl-e) both; }
-@keyframes tl-imgscale { from { transform: scale(1.05); } to { transform: none; } }
+.tls-media::before, .tls-media::after { content: none; }   /* clean frame — no ticks */
+.tls-media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* RIGHT — content top, arrows anchored to the card's bottom edge. */
-.tl-content-zone { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
-.tl-year-big {
-  margin: 0 0 clamp(14px, 1.8vh, 20px);
-  font-family: 'Inter Tight', sans-serif; font-weight: 800;
-  font-size: clamp(48px, 5vw, 72px); line-height: 1; letter-spacing: -0.03em; color: var(--navy);
+/* COPY */
+.tls-copy { min-width: 0; }
+/* accent line + year (DM Mono) — sits above the title. */
+.tls-year {
+  display: flex; align-items: center; gap: 14px; margin: 0 0 clamp(15px, 2vh, 20px);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: clamp(15px, 1.2vw, 18px);
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ab-orange-ink);
 }
-.tl-underline { display: block; width: 60px; height: 2px; background: var(--gold); margin: 0 0 clamp(20px, 2.8vh, 30px); transform-origin: left center; }
-.tl-content.tl-anim-in .tl-underline { animation: tl-rule 0.5s var(--tl-e) 0.12s both; }
-@keyframes tl-rule { from { transform: scaleX(0); } to { transform: none; } }
-.tl-title {
-  margin: 0 0 clamp(16px, 2.2vh, 22px);
+.tls-year-line { flex: 0 0 auto; width: clamp(28px, 4vw, 52px); height: 2px; background: var(--ab-orange); }
+.tls-title {
+  margin: 0 0 clamp(16px, 2.2vh, 22px); max-width: 22ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(22px, 2.4vw, 30px); line-height: 1.18; letter-spacing: 0.015em; color: var(--ink);
+  font-size: clamp(24px, 2.8vw, 38px); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink);
 }
-.tl-body {
-  margin: 0; max-width: 42ch;
+.tls-body {
+  margin: 0; max-width: 46ch;
   font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(15px, 1.2vw, 18px);
-  line-height: 1.62; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.72);
+  line-height: 1.64; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.72);
 }
-.tl-arrows { display: flex; gap: 14px; margin-top: clamp(30px, 4.4vh, 44px); flex: 0 0 auto; }
-.tl-arrow {
-  width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center;
-  border: 2px solid var(--navy); background: transparent; color: var(--navy);
-  font-size: 20px; font-weight: 600; line-height: 1; cursor: pointer;
-  transition: background 0.24s var(--tl-e), color 0.24s var(--tl-e), border-color 0.24s var(--tl-e), transform 0.14s var(--tl-e);
-}
-.tl-arrow-g { display: block; transition: transform 0.18s var(--tl-e); }
-.tl-arrow:hover:not(:disabled) { background: var(--navy); color: var(--cream); }
-.tl-arrow--prev:hover:not(:disabled) .tl-arrow-g { transform: translateX(-2px); }
-.tl-arrow--next:hover:not(:disabled) .tl-arrow-g { transform: translateX(2px); }
-.tl-arrow:active:not(:disabled) { transform: scale(0.96); }
-.tl-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
-
-/* era swap — outgoing fades up, incoming rises from below; media crossfade
-   trails the text by ~80ms. transform/opacity only. */
-.tl-anim-out { opacity: 0; transform: translateY(-12px); transition: opacity 0.16s var(--tl-e), transform 0.16s var(--tl-e); }
-.tl-anim-in { animation: tl-enter 0.38s var(--tl-e) both; }
-.tl-media.tl-anim-in { animation-delay: 0.08s; }
-@keyframes tl-enter { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
 /* ── MaskText — per-word rise from behind an overflow mask ─────────────────── */
 .masktext { margin: 0; }
@@ -435,22 +404,12 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 html.alive-ready :is(.ab-hero, .fnd, .tm) [data-reveal] { transition-duration: 0.6s; }
 html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56s; }
 
-/* ── TIMELINE mobile (<900px) — rail becomes a horizontal scrollable strip ──── */
+/* ── TIMELINE mobile (<900px) — each card stacks: media over copy ──────────── */
 @media (max-width: 900px) {
-  .tl { min-height: auto; display: block; padding: var(--section-pad-y) var(--page-gutter); }
-  .tl-grid { grid-template-columns: 1fr; grid-template-rows: auto; gap: clamp(28px, 6vw, 40px); align-items: stretch; }
-  .tl-rail {
-    align-self: stretch; align-items: center;
-    flex-direction: row; gap: clamp(18px, 5vw, 30px); overflow-x: auto;
-    scroll-snap-type: x proximity;
-    margin: 0 calc(-1 * var(--page-gutter)); padding: 2px var(--page-gutter) 14px;
+  .tls-card, .tls-card--flip {
+    grid-template-columns: 1fr; gap: clamp(20px, 5vw, 30px); align-items: start;
   }
-  .tl-spine { display: none; }
-  .tl-year { flex: 0 0 auto; min-height: 0; justify-content: flex-start; white-space: nowrap; scroll-snap-align: start; }
-  .tl-year.is-active { font-size: 22px; }
-  .tl-content-zone { align-self: stretch; }
-  .tl-media-zone { align-self: stretch; }
-  .tl-media { height: auto; width: 100%; aspect-ratio: 3 / 4; }
+  .tls-card--flip .tls-media-zone, .tls-card--flip .tls-copy { order: 0; }
 }
 
 /* ── MVV triptych mobile (<900px) — columns stack, hairlines lie horizontal ──── */
@@ -482,13 +441,6 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 /* ── reduced-motion — explicit resting states for every custom mechanic ────── */
 @media (prefers-reduced-motion: reduce) {
   .ab-spine { transform: scaleY(1) !important; }
-  .tl-anim-in { animation: none !important; }
-  .tl-anim-out { transition: none !important; opacity: 1 !important; transform: none !important; }
-  .tl-dot { transition: none !important; }
-  .tl-year.is-active .tl-dot::after { animation: none !important; display: none; }
-  .tl-media-img { animation: none !important; }
-  .tl-underline { animation: none !important; transform: none !important; }
-  .tl-arrow-g { transition: none !important; }
   .mask-w { transform: none !important; transition: none !important; }
   .mvv-col::before { transform: none !important; transition: none !important; }
   .mvv-col-body { opacity: 1 !important; transform: none !important; transition: none !important; }
