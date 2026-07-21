@@ -27,7 +27,7 @@ gsap.registerPlugin(ScrollTrigger)
 //  motion, so Fulfilment now uses the same static navy hero skeleton as every page.)
 // ─────────────────────────────────────────────────────────────────────────────
 
-const BASE = '/qfp/fulfil'
+const BASE = '/site-assets/fulfilment'
 
 // ── stroke icons (marquee + value grid). pathLength="1" lets GSAP stroke-draw
 // any shape uniformly; resting/reduced state renders solid. ───────────────────

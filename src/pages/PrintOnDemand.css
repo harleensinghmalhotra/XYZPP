@@ -202,8 +202,8 @@
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   background: #F5824A; /* gold on navy */
-  -webkit-mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
-  mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
+  -webkit-mask: url('/site-assets/print-on-demand/qfp-mark-foil.png') center / contain no-repeat;
+  mask: url('/site-assets/print-on-demand/qfp-mark-foil.png') center / contain no-repeat;
   pointer-events: none;
 }
 /* finish sheen — gloss shows a hard specular sweep, lay-flat a soft one */
