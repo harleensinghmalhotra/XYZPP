@@ -25,7 +25,7 @@ import { useEffect, useRef, useState } from 'react'
 const NAVY = '#0F2444'
 const CREAM = '#F0EBE0'
 const CREAM_WARM = '#E6DDC8'
-const GOLD = '#C89A3C'
+const GOLD = '#F37031'
 const GOLD_DEEP = '#F37031'
 
 // OpenFreeMap "positron" — the cleaner, lighter of the two free bases, easiest
@@ -69,7 +69,7 @@ function brandStyle(map) {
         if (/water|river|waterway/i.test(id)) {
           map.setPaintProperty(id, 'line-color', NAVY)
         } else if (/boundary|admin/i.test(id)) {
-          map.setPaintProperty(id, 'line-color', 'rgba(155,116,32,0.45)')
+          map.setPaintProperty(id, 'line-color', 'rgba(243, 112, 49,0.45)')
           map.setPaintProperty(id, 'line-width', 0.6)
         } else {
           map.setLayoutProperty(id, 'visibility', 'none') // roads, rail, bridges…

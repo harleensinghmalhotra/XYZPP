@@ -50,8 +50,8 @@ export const elements = [
 
 export const covers = [
   { key: 'educational', src: coverEducational, label: 'Educational', tint: '#00AEEF', spec: 'Perfect bound · 4C offset' },
-  { key: 'children', src: coverChildren, label: "Children's", tint: '#FFC800', spec: 'Board book · matte laminate' },
+  { key: 'children', src: coverChildren, label: "Children's", tint: '#F5824A', spec: 'Board book · matte laminate' },
   { key: 'novel', src: coverNovel, label: 'Novels', tint: '#EC008C', spec: 'Paperback · 80gsm cream' },
-  { key: 'hardcase', src: coverHardcase, label: 'Hardcase', tint: '#C9A24B', spec: 'Case bound · gold foil' },
-  { key: 'exercise', src: coverExercise, label: 'Exercise', tint: '#A9814E', spec: 'Saddle stitch · kraft' },
+  { key: 'hardcase', src: coverHardcase, label: 'Hardcase', tint: '#F5824A', spec: 'Case bound · gold foil' },
+  { key: 'exercise', src: coverExercise, label: 'Exercise', tint: '#F37031', spec: 'Saddle stitch · kraft' },
 ]

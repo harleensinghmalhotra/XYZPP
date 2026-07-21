@@ -34,7 +34,9 @@ export function CalibrationBar({ height = 16, withLabels = false }) {
   const steps = [
     { c: '#00AEEF', l: 'C' },
     { c: '#EC008C', l: 'M' },
-    { c: '#FFC800', l: 'Y' },
+    // CMYK process YELLOW ink — a technical print reference, not brand gold. Kept a
+    // clean process yellow (not the amber it was) so it never reads as decorative gold.
+    { c: '#FFED00', l: 'Y' },
     { c: '#16130F', l: 'K' },
     { c: '#8a8a8a', l: '50' },
     { c: '#c9c9c9', l: '25' },

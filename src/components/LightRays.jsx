@@ -4,7 +4,7 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 import './LightRays.css'
 
 // ── LightRays — React Bits "Light Rays" (ogl/WebGL), reskinned to System B ─────
-// Volumetric god-rays raked from the top edge, recoloured to QFP gold #C89A3C over
+// Volumetric god-rays raked from the top edge, recoloured to QFP gold #F37031 over
 // navy. Complies with our edge-origin beam law by nature (origin sits OUTSIDE the
 // top edge, rays travel downward → light-from-above). This is the ONLY WebGL effect
 // allowed per viewport.
@@ -19,7 +19,7 @@ import './LightRays.css'
 // Defaults below ARE the brief: gold, top-center, low saturation, slight noise,
 // pulsating off. A placement only passes `className` for sizing/opacity tuning.
 
-const DEFAULT_COLOR = '#C89A3C'
+const DEFAULT_COLOR = '#F37031'
 
 const hexToRgb = (hex) => {
   const m = hex.replace('#', '').match(/.{1,2}/g)

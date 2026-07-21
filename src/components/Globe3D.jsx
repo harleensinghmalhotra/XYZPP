@@ -6,7 +6,7 @@ import { Suspense, forwardRef, lazy, useEffect, useImperativeHandle, useMemo, us
    react-globe.gl (three-globe + three), which we already ship.
 
    Look (Ekta's DNA): NASA Blue Marble day texture + topology bump for real
-   continents/oceans, a warm GOLD atmosphere rim (her accent #C89A3C, not the old
+   continents/oceans, a warm GOLD atmosphere rim (her accent #F37031, not the old
    generic blue), and a transparent canvas so the section's near-black navy and
    the CSS gold halo read as "soft space / velvet" behind the sphere.
 
@@ -37,8 +37,8 @@ import { Suspense, forwardRef, lazy, useEffect, useImperativeHandle, useMemo, us
 
 const Globe = lazy(() => import('react-globe.gl'))
 
-// Brand accent (Ekta): light gold #C89A3C for the atmosphere + markers/arcs.
-const GOLD = '#C89A3C'
+// Brand accent (Ekta): light gold #F37031 for the atmosphere + markers/arcs.
+const GOLD = '#F37031'
 const GOLD_RGB = 'rgba(200,154,60'
 
 // Self-hosted, license-safe textures — NASA Blue Marble (public domain) shipped
@@ -220,7 +220,7 @@ function Globe3D({ reduced = false, className = '' }, ref) {
   const points = useMemo(() => {
     const hqHot = hi.country === '__HQ'
     const list = [
-      { lat: HQ.lat, lng: HQ.lng, size: hqHot ? 1.25 : 0.9, color: hqHot ? 'rgba(255,236,190,1)' : GOLD },
+      { lat: HQ.lat, lng: HQ.lng, size: hqHot ? 1.25 : 0.9, color: hqHot ? 'rgba(255,230,214,1)' : GOLD },
     ]
     for (const d of DEST) {
       const tier = tierFor(d, hi)
@@ -228,7 +228,7 @@ function Globe3D({ reduced = false, className = '' }, ref) {
         lat: d.lat,
         lng: d.lng,
         size: tier === 'bright' ? 1.05 : tier === 'dim' ? 0.35 : 0.5,
-        color: tier === 'bright' ? 'rgba(255,236,190,1)' : GOLD,
+        color: tier === 'bright' ? 'rgba(255,230,214,1)' : GOLD,
       })
     }
     return list

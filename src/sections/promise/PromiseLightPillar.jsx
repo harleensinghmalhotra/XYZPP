@@ -5,7 +5,7 @@ import LightPillar from './LightPillar'
 // Reactbits' LightPillar (three.js): a single vertical column of living light, a
 // two-stop gradient between EXACTLY two colours — so the rainbow/red problem that
 // plagued the streak field dies by architecture (no third hue can appear). Our two
-// metals: light gold #D4B477 as the crown, deep navy #1B3A6B as the root.
+// metals: light gold #F5824A as the crown, deep navy #1B3A6B as the root.
 //
 // LIFECYCLE (the component ships no viewport gating): this wrapper mounts LightPillar
 // ONLY while the section is in view AND the tab is visible, and UNMOUNTS it otherwise
@@ -20,7 +20,7 @@ import LightPillar from './LightPillar'
 // it wells opaque #0A0E14 over the text block so the pillar's hot core reads as light
 // BEHIND a dark pane the type sits on. Text wins every rotation frame (asserted AA).
 
-const GOLD = '#D4B477' // light gold — crown
+const GOLD = '#F5824A' // light gold — crown
 const NAVY = '#1B3A6B' // our navy — root
 
 export default function PromiseLightPillar({ reverse: reverseProp = false }) {

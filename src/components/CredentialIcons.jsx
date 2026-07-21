@@ -1,12 +1,12 @@
 // 4 bespoke credential icons with thin strokes, gold color, consistent optical weight
 
 const GOLD = '#F37031'
-const GOLD_HOVER = '#D4931F'
+const GOLD_HOVER = '#F5824A'
 const STROKE_WIDTH = 1.5
 
 export function CertificateIcon() {
   return (
-    <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke={GOLD} strokeWidth={STROKE_WIDTH} strokeLinecap="round" strokeLinejoin="round" className="transition-colors duration-200 group-hover:stroke-[#D4931F]">
+    <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke={GOLD} strokeWidth={STROKE_WIDTH} strokeLinecap="round" strokeLinejoin="round" className="transition-colors duration-200 group-hover:stroke-[#F5824A]">
       {/* Seal/badge shape */}
       <circle cx="16" cy="14" r="9" />
       {/* Ribbon left */}
@@ -21,7 +21,7 @@ export function CertificateIcon() {
 
 export function PenNibIcon() {
   return (
-    <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke={GOLD} strokeWidth={STROKE_WIDTH} strokeLinecap="round" strokeLinejoin="round" className="transition-colors duration-200 group-hover:stroke-[#D4931F]">
+    <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke={GOLD} strokeWidth={STROKE_WIDTH} strokeLinecap="round" strokeLinejoin="round" className="transition-colors duration-200 group-hover:stroke-[#F5824A]">
       {/* Pen nib */}
       <path d="M 8 8 L 16 24 L 20 18 L 24 24 L 24 8 Q 20 6 16 6 Q 12 6 8 8" />
       {/* Text lines */}
@@ -33,7 +33,7 @@ export function PenNibIcon() {
 
 export function PrinterIcon() {
   return (
-    <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke={GOLD} strokeWidth={STROKE_WIDTH} strokeLinecap="round" strokeLinejoin="round" className="transition-colors duration-200 group-hover:stroke-[#D4931F]">
+    <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke={GOLD} strokeWidth={STROKE_WIDTH} strokeLinecap="round" strokeLinejoin="round" className="transition-colors duration-200 group-hover:stroke-[#F5824A]">
       {/* Layered sheets */}
       <rect x="6" y="6" width="14" height="10" />
       <path d="M 8 12 L 20 12" />
@@ -49,7 +49,7 @@ export function PrinterIcon() {
 
 export function HeadsetIcon() {
   return (
-    <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke={GOLD} strokeWidth={STROKE_WIDTH} strokeLinecap="round" strokeLinejoin="round" className="transition-colors duration-200 group-hover:stroke-[#D4931F]">
+    <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke={GOLD} strokeWidth={STROKE_WIDTH} strokeLinecap="round" strokeLinejoin="round" className="transition-colors duration-200 group-hover:stroke-[#F5824A]">
       {/* Headband */}
       <path d="M 8 18 Q 8 10 16 10 Q 24 10 24 18" />
       {/* Left ear cup */}

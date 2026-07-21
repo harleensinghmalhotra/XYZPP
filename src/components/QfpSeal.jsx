@@ -8,13 +8,13 @@ export default function QfpSeal({ size = 72, className = '', title = 'Quarterfol
       role="img"
       aria-label={title}
       className={`select-none ${className}`}
-      style={{ width: size, height: size, animation: 'seal-spin 60s linear infinite', filter: 'drop-shadow(0 0 5px rgba(200,154,60,0.55))', ...style }}
+      style={{ width: size, height: size, animation: 'seal-spin 60s linear infinite', filter: 'drop-shadow(0 0 5px rgba(245, 130, 74,0.55))', ...style }}
     >
       <defs>
         <path id="qfp-seal-shared-path" fill="none" d="M 60,60 m 0,-46 a 46,46 0 1,1 0,92 a 46,46 0 1,1 0,-92" />
         <linearGradient id="qfp-seal-shared-foil" x1="0" y1="0" x2="0.35" y2="1">
           <stop offset="0" stopColor="#fbeec2" />
-          <stop offset="0.5" stopColor="#d8a94a" />
+          <stop offset="0.5" stopColor="#F5824A" />
           <stop offset="1" stopColor="#F37031" />
         </linearGradient>
       </defs>

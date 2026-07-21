@@ -57,10 +57,10 @@ function makeNoise3D() {
 // waves over a near-black base — deep navy + muted gold + faint cream
 const WAVES = [
   { color: '#16345f', alpha: 0.85 },             // deep navy
-  { color: 'rgba(176,132,38,0.4)', alpha: 1 },   // muted gold
+  { color: 'rgba(243, 112, 49,0.4)', alpha: 1 },   // muted gold
   { color: '#122a4d', alpha: 0.7 },
   { color: 'rgba(253,250,244,0.1)', alpha: 1 },  // faint cream
-  { color: 'rgba(155,116,32,0.24)', alpha: 1 },
+  { color: 'rgba(243, 112, 49,0.24)', alpha: 1 },
 ]
 
 export default function WavyBackground({ className = '' }) {

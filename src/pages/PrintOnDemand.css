@@ -1,5 +1,5 @@
 /* ── /print-on-demand — "Build Your Book" configurator ───────────────────────
-   Brand System B ONLY: navy #0F2444, gold #F37031 / #C89A3C / #F37031,
+   Brand System B ONLY: navy #0F2444, gold #F37031 / #F37031 / #F37031,
    cream #FDFAF4, beige #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter / DM Mono.
    Warmest page on the site — it talks to one author. Anti-slop: uniform card
    heights, no thin light rules (hairlines are navy at low alpha), grounded
@@ -188,7 +188,7 @@
     86% 87%,
     50% 12%;
   box-shadow:
-    inset 0 0 0 1px rgba(131, 96, 19, 0.25),
+    inset 0 0 0 1px rgba(243, 112, 49, 0.25),
     inset 22px 0 34px -22px rgba(15, 36, 68, 0.5); /* gutter shade near spine */
   overflow: hidden;
 }
@@ -201,7 +201,7 @@
   width: 17%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
-  background: #d7a94b; /* gold on navy */
+  background: #F5824A; /* gold on navy */
   -webkit-mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
   mask: url('/qfp/brand/qfp-mark-foil.png') center / contain no-repeat;
   pointer-events: none;
@@ -323,7 +323,7 @@
 .pod-book[data-format='hardcover'] .pod-front,
 .pod-book[data-format='hardcover'] .pod-back {
   box-shadow:
-    inset 0 0 0 1px rgba(131, 96, 19, 0.3),
+    inset 0 0 0 1px rgba(243, 112, 49, 0.3),
     inset 22px 0 34px -22px rgba(15, 36, 68, 0.5),
     0 0 0 3px rgba(15, 36, 68, 0.06); /* board rim */
   border-radius: 2px 6px 6px 2px;
@@ -448,14 +448,14 @@
   transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease, background 0.22s ease;
 }
 .pod-chip:hover {
-  border-color: rgba(155, 116, 32, 0.5);
+  border-color: rgba(243, 112, 49, 0.5);
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(15, 36, 68, 0.1);
 }
 .pod-chip[aria-checked='true'] {
   border-color: var(--gold);
   background: linear-gradient(180deg, #fffdf6 0%, #fff8ea 100%);
-  box-shadow: 0 0 0 2px rgba(155, 116, 32, 0.6), 0 10px 26px rgba(15, 36, 68, 0.1);
+  box-shadow: 0 0 0 2px rgba(243, 112, 49, 0.6), 0 10px 26px rgba(15, 36, 68, 0.1);
 }
 .pod-chip:focus-visible {
   outline: 2.5px solid var(--navy);
@@ -661,7 +661,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(90% 60% at 90% 0%, rgba(200, 154, 60, 0.16), transparent 60%);
+  background: radial-gradient(90% 60% at 90% 0%, rgba(245, 130, 74, 0.16), transparent 60%);
 }
 .pod-summary-eyebrow {
   position: relative;
@@ -732,8 +732,8 @@
   animation: pod-rowpulse 600ms ease-out;
 }
 @keyframes pod-rowpulse {
-  0% { background-color: rgba(216, 176, 90, 0.15); }
-  100% { background-color: rgba(216, 176, 90, 0); }
+  0% { background-color: rgba(245, 130, 74, 0.15); }
+  100% { background-color: rgba(245, 130, 74, 0); }
 }
 .pod-summary-row[data-flash] .pod-summary-val {
   animation: pod-valpop 600ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -825,7 +825,7 @@
 .pod-req-field input:focus-visible, .pod-req-field textarea:focus-visible {
   outline: none; border-color: var(--gold-2); box-shadow: 0 0 0 3px rgb(var(--gold-2-rgb) / 0.3);
 }
-.pod-req-field input[aria-invalid="true"] { border-color: #F37031; box-shadow: 0 0 0 3px rgba(232, 180, 95, 0.22); }
+.pod-req-field input[aria-invalid="true"] { border-color: #F37031; box-shadow: 0 0 0 3px rgba(245, 130, 74, 0.22); }
 .pod-req-err { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #C2551B; }
 .pod-req-error { margin: 2px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: #C2551B; }
 .pod-req-error a { color: #C2551B; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
@@ -943,7 +943,7 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(50% 60% at 82% 20%, rgba(200, 154, 60, 0.16), transparent 60%),
+    radial-gradient(50% 60% at 82% 20%, rgba(245, 130, 74, 0.16), transparent 60%),
     radial-gradient(rgba(253, 250, 244, 0.05) 1px, transparent 1.5px);
   background-size: auto, 32px 32px;
 }

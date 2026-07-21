@@ -8,8 +8,8 @@ export { default as WavyBackground } from '@/components/WavyBackground'
    content (content gets a higher z-index). No layout reads in the loop → no thrash. */
 
 const TONES = {
-  navy: ['rgba(200,154,60,0.55)', 'rgba(253,250,244,0.28)'], // gold + faint cream dots on navy
-  warm: ['rgba(155,116,32,0.30)', 'rgba(15,36,68,0.12)'],    // gold + faint navy dots on cream/beige
+  navy: ['rgba(245, 130, 74,0.55)', 'rgba(253,250,244,0.28)'], // gold + faint cream dots on navy
+  warm: ['rgba(243, 112, 49,0.30)', 'rgba(15,36,68,0.12)'],    // gold + faint navy dots on cream/beige
 }
 
 // DotField — a calm, STATIC grid of dots (a faint print-dot texture). The client
@@ -62,8 +62,8 @@ export function DotField({ tone = 'navy', gap = 34, className = '' }) {
 // interior lines). The calmest navy variant; also a warm option for cream.
 export function EdgeGlow({ tone = 'navy', className = '' }) {
   const g = tone === 'warm'
-    ? 'radial-gradient(680px 460px at 8% 0%, rgba(200,154,60,0.10), transparent 60%), radial-gradient(760px 520px at 100% 100%, rgba(15,36,68,0.06), transparent 62%)'
-    : 'radial-gradient(760px 520px at 4% 6%, rgba(200,154,60,0.14), transparent 60%), radial-gradient(820px 560px at 100% 96%, rgba(27,58,107,0.5), transparent 62%)'
+    ? 'radial-gradient(680px 460px at 8% 0%, rgba(245, 130, 74,0.10), transparent 60%), radial-gradient(760px 520px at 100% 100%, rgba(15,36,68,0.06), transparent 62%)'
+    : 'radial-gradient(760px 520px at 4% 6%, rgba(245, 130, 74,0.14), transparent 60%), radial-gradient(820px 560px at 100% 96%, rgba(27,58,107,0.5), transparent 62%)'
   return <div aria-hidden="true" className={`pointer-events-none absolute inset-0 ${className}`} style={{ background: g }} />
 }
 

@@ -1,7 +1,7 @@
 /* ── Infrastructure — THE BOOK STACK ──────────────────────────────────────────
    Mechanics recycled from Cases.css (the open book) — copied, not shared, so the
    gated Case Studies styling stays untouched. Same tokens: navy var(--navy),
-   navy2 var(--navy-2), deep-navy #0B1C38, gold var(--gold-2), gold-bright #E6BD6A,
+   navy2 var(--navy-2), deep-navy #0B1C38, gold var(--gold-2), gold-bright #F5824A,
    gold-text #F37031, cream #FDFAF4. No reds, no pure black/white. Square-ish
    corners via the shared radius tokens. Depth from soft radial/edge shadows only.
    NEW: Book stack design with physical spine appearance, CSS 3D depth, page edges. */
@@ -191,7 +191,7 @@
   width: 116%; height: 190%;
   transform: translate(-50%, -50%);
   border-radius: 999px;
-  background: radial-gradient(60% 60% at 50% 50%, rgba(240, 200, 122, 0.42) 0%, rgba(240, 200, 122, 0.14) 42%, transparent 72%);
+  background: radial-gradient(60% 60% at 50% 50%, rgba(245, 130, 74, 0.42) 0%, rgba(245, 130, 74, 0.14) 42%, transparent 72%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.28s ease;
@@ -201,7 +201,7 @@
 .ib-imglabel:hover .ib-imglabel-text,
 .ib-imglabel:focus-visible .ib-imglabel-text {
   color: #fffdf8;
-  text-shadow: 0 0 14px rgba(240, 200, 122, 0.75), 0 1px 3px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 0 14px rgba(245, 130, 74, 0.75), 0 1px 3px rgba(0, 0, 0, 0.55);
 }
 .ib-imglabel:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; border-radius: 4px; }
 
@@ -209,7 +209,7 @@
    glow + a small gold bookmark dot at the label's leading edge. */
 .ib-imglabel.is-active .ib-imglabel-text {
   color: var(--gold-2);
-  text-shadow: 0 0 14px rgba(240, 200, 122, 0.55), 0 1px 3px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 14px rgba(245, 130, 74, 0.55), 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 .ib-imglabel.is-active .ib-imglabel-glow { opacity: 0.85; }
 .ib-imglabel-mark {
@@ -237,8 +237,8 @@
 .ib-spine {
   --board: #0e1b46;
   --ink: #FDFAF4;
-  --foil-a: #f0c87a;
-  --foil-b: #b07f28;
+  --foil-a: #F5824A;
+  --foil-b: #C2551B;
   position: relative;
   z-index: 1;
   display: flex;
@@ -302,7 +302,7 @@
 .ib-spine--cream {
   --board: #FDFAF4;
   --ink: #16223f;
-  --foil-a: #e7bd6a;
+  --foil-a: #F5824A;
   --foil-b: #F37031;
 }
 
@@ -377,7 +377,7 @@
   transform: translateY(-50%);
   border-radius: 2px;
   background: linear-gradient(180deg, var(--foil-a) 0%, var(--foil-b) 46%, var(--foil-a) 62%, var(--foil-b) 100%);
-  box-shadow: 0 0 4px rgba(240, 200, 122, 0.4), inset 0 0 1px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 4px rgba(245, 130, 74, 0.4), inset 0 0 1px rgba(255, 255, 255, 0.6);
   transition: filter 0.3s ease;
 }
 
@@ -905,7 +905,7 @@
   font-size: 11px; /* 11px floor */
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #d8ae5e; /* a hair brighter than var(--gold-2) — AA on the deep-navy panel */
+  color: #F5824A; /* a hair brighter than var(--gold-2) — AA on the deep-navy panel */
   max-width: 24ch;
   line-height: 1.55;
 }
