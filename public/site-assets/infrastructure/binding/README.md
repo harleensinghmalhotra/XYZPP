@@ -1,9 +1,9 @@
-# infrastructure/binding
+# Infrastructure — Binding
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+> ⚠️ **Reference copies — NOT wired to the site.**
+>
+> The live facility photos are served from `site-assets/homepage/facility-book/`.
+> Overwriting files in *this* folder has **no effect** on the site. Kept only
+> as a naming reference. Swap the real photos in `homepage/facility-book/` instead.
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `binding-01.webp` | 1300x867 · 86KB | Facility book pg3 — binding |
-| `binding-02.webp` | 1300x1694 · 173KB | Facility book pg3 — binding |
-| `binding-03.webp` | 1300x450 · 74KB | Facility book pg3 — binding |
+Files here: `binding-01.webp`, `binding-02.webp`, `binding-03.webp`

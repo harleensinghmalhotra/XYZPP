@@ -1,20 +1,25 @@
-# newsroom/gallery
+# Newsroom — Gallery
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+> ⚠️ **The newsroom is managed in the Sanity Studio, not here.**
+>
+> Article text and images are published through the QFP Newsroom Studio and
+> served from Sanity's CDN. The files below are legacy/source only and are **not**
+> shown on the live site — dropping new files here does nothing. To update the
+> newsroom, use the Studio.
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `books.jpg` | 1400x875 · 84KB | Newsroom article image |
-| `bookstack.jpg` | 1400x875 · 131KB | Newsroom article image |
-| `corridor.jpg` | 1200x750 · 94KB | Newsroom article image |
-| `darkshelves.jpg` | 1200x750 · 133KB | Newsroom article image |
-| `hardcover.jpg` | 1200x750 · 134KB | Newsroom article image |
-| `library.jpg` | 1400x875 · 195KB | Newsroom article image |
-| `openbook.jpg` | 1400x875 · 351KB | Newsroom article image |
-| `openglow.jpg` | 1200x750 · 74KB | Newsroom article image |
-| `picturebook.jpg` | 1200x750 · 105KB | Newsroom article image |
-| `pile.jpg` | 1200x750 · 140KB | Newsroom article image |
-| `qfp-warehouse.webp` | 1000x500 · 112KB | Newsroom — warehouse |
-| `reading.jpg` | 1200x750 · 233KB | Newsroom article image |
-| `shelves.jpg` | 1200x750 · 229KB | Newsroom article image |
-| `spotlight.jpg` | 1200x750 · 37KB | Newsroom article image |
+| File | Note |
+|------|------|
+| `books.jpg` | Legacy newsroom image (books.jpg) |
+| `bookstack.jpg` | Legacy newsroom image (bookstack.jpg) |
+| `corridor.jpg` | Legacy newsroom image (corridor.jpg) |
+| `darkshelves.jpg` | Legacy newsroom image (darkshelves.jpg) |
+| `hardcover.jpg` | Legacy newsroom image (hardcover.jpg) |
+| `library.jpg` | Legacy newsroom image (library.jpg) |
+| `openbook.jpg` | Legacy newsroom image (openbook.jpg) |
+| `openglow.jpg` | Legacy newsroom image (openglow.jpg) |
+| `picturebook.jpg` | Legacy newsroom image (picturebook.jpg) |
+| `pile.jpg` | Legacy newsroom image (pile.jpg) |
+| `qfp-warehouse.webp` | Legacy newsroom image (qfp-warehouse.webp) |
+| `reading.jpg` | Legacy newsroom image (reading.jpg) |
+| `shelves.jpg` | Legacy newsroom image (shelves.jpg) |
+| `spotlight.jpg` | Legacy newsroom image (spotlight.jpg) |

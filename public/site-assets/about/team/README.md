@@ -1,21 +1,18 @@
-# about/team
+# About — Team
 
-The eight portraits for the About page "Our Team" grid, in display order. Nilesh
-Dhankani is founder-only (see `about/founder/`) and is NOT in this grid.
+**Appears on the site:** /about (Our Story) → team grid
 
-**To swap: overwrite the file for that person in place (same name + extension) —
-no code change.** Each **3:4 portrait**. Names/roles/quotes live in the locale
-files; the photos map by filename below:
+**How to swap:** replace a file below with your own, keeping the **exact same filename and extension** (and, where noted, the pixel size). Push the change — the new asset goes live on the next deploy.
 
-| File | Person | Role |
-|---|---|---|
-| `team-01.webp` | Patrick Carrapiett | President |
-| `team-02.webp` | Dilip Ramrakhyani | CFO, Finance Leader |
-| `team-03.webp` | Charani Dhankani | Director |
-| `team-04.webp` | Milton Everjoy | Head, Plant & Operations |
-| `team-05.webp` | Sameer Kazi | Director, Sales India |
-| `team-06.webp` | Dhiresh Verlekar | Head, Procurement |
-| `team-07.webp` | Priyanka Rajpal | Head, Human Resources & Administration |
-| `team-08.webp` | Sameer Sunil Chavan | Head, Estimation & Central Planning |
+Eight team member portraits, in grid order.
 
-_All eight are currently **Pexels stand-ins** — replace each with the real portrait for the named person._
+| File | Size | What it shows | Status |
+|------|------|---------------|--------|
+| `team-01.webp` | 600×800 | Team member portrait 01 | ✅ live |
+| `team-02.webp` | 600×800 | Team member portrait 02 | ✅ live |
+| `team-03.webp` | 600×800 | Team member portrait 03 | ✅ live |
+| `team-04.webp` | 600×800 | Team member portrait 04 | ✅ live |
+| `team-05.webp` | 600×800 | Team member portrait 05 | ✅ live |
+| `team-06.webp` | 600×800 | Team member portrait 06 | ✅ live |
+| `team-07.webp` | 600×800 | Team member portrait 07 | ✅ live |
+| `team-08.webp` | 600×800 | Team member portrait 08 | ✅ live |

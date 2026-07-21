@@ -1,28 +1,42 @@
-# Site Assets
+# Site assets — the overwrite-to-swap image library
 
-A human-readable map of every image and video the site uses, one folder per page
-and section. **This is the single place to swap media.**
+Every photo, video and logo on the Quarterfold website lives in this folder tree,
+organised by the page it appears on. **To change a visual, replace the matching
+file here with your own — keeping the exact same filename and extension** — then
+push the change (or upload it through GitHub in the browser). It goes live on the
+next deploy. No code edits, no developer needed.
 
-## How to swap an asset
-1. Find the page → section folder below.
-2. Open its `README.md` to see what each file is and its dimensions.
-3. **Overwrite the file in place — keep the exact same filename and extension.**
-   The site references these by stable URL (`/site-assets/...`), so a straight
-   overwrite updates the live site with no code change and no rebuild.
+## The three rules
+1. **Same name, same extension.** `hero-main.webp` must stay `hero-main.webp`. A
+   `.jpg` renamed to `.webp` (or the reverse) will **not** show.
+2. **Match the size** where a folder's README lists one — it keeps the layout tidy.
+3. **One file = one spot.** Each folder's README says exactly where each file
+   appears on the site and shows its current pixel size.
 
-## Layout
-```
-public/site-assets/
-  homepage/        hero, facility-book, video, products, destinations, globe,
-                   awards, certifications, cases, stat-icons, brand
-  about/           timeline, gallery (+ facility-tour.mp4), founder, team
-  infrastructure/  press, sheetfed, binding, warehouse, facility, team, gallery
-  newsroom/        gallery, video
-  contact/         facility, map
-  print-on-demand/ preview + book
-```
+## Where everything lives (by page)
 
-## Notes
-- Keep the aspect ratio close to the original when swapping (see each README's dimensions) so crops stay clean.
-- Video files: keep them web-friendly H.264 mp4, ideally < 10MB.
-- Only the **about/** page currently reads from this tree; other pages are wired in their own lanes.
+| Page (URL) | Folder(s) that feed it |
+|---|---|
+| Homepage `/` | `homepage/hero`, `homepage/stat-icons`, `homepage/products`, `homepage/globe`, `homepage/video`, `homepage/process`, `homepage/destinations`, `homepage/facility-book`, `homepage/certifications`, `homepage/awards`, `homepage/cases` *(hidden)* |
+| Our Story `/about` | `about/founder`, `about/team`, `about/timeline`, `about/gallery` |
+| Infrastructure `/infrastructure` | `infrastructure/awards`, `infrastructure/certs`, `infrastructure/facility`, `infrastructure/gallery`, `homepage/facility-book` *(the book)*, `infrastructure/video` *(pending)* |
+| Print on Demand `/print-on-demand` | `print-on-demand` |
+| Fulfilment `/fulfilment` | `fulfilment` |
+| Contact `/contact` | `contact` |
+| **Every** page | `homepage/brand` — the nav + footer logo |
+
+## Two things that are NOT folder-swappable
+
+- **Newsroom `/newsroom`** — articles (text **and** images) are managed in the
+  **Sanity Studio**, not here. The `newsroom/` folder holds legacy/source files
+  only; dropping files there does nothing to the live site.
+- **Some pages have no photos at all** — Global Markets, Founder and CSR are built
+  from text, colour and vector art, so there is nothing to swap.
+
+## Folders marked "reference / not used"
+
+A few folders keep look-alike copies that the site does not read; their README says
+so plainly (e.g. `infrastructure/binding/` → the live photos are actually in
+`homepage/facility-book/`). Overwriting a "reference" file changes nothing — swap
+the file the README points you to instead. Likewise a handful of individual files
+are marked **⚠️ not used** (e.g. `contact/map.webp`) — safe to ignore.

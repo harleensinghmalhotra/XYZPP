@@ -1,17 +1,21 @@
-# homepage/destinations
+# Homepage — Destinations
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+**Appears on the site:** homepage → Worldwide Deliveries destination cards
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `africa-1.jpg` | 1400x1900 · 250KB | Destination/market photo |
-| `africa-2.jpg` | 1400x1900 · 400KB | Destination/market photo |
-| `africa-3.jpg` | 1400x1900 · 321KB | Destination/market photo |
-| `africa-4.jpg` | 1400x1900 · 303KB | Destination/market photo |
-| `asia-1.jpg` | 1400x1900 · 222KB | Destination/market photo |
-| `asia-2.jpg` | 1400x1900 · 249KB | Destination/market photo |
-| `asia-3.jpg` | 1400x1900 · 409KB | Destination/market photo |
-| `europe-1.jpg` | 1400x1900 · 290KB | Destination/market photo |
-| `europe-2.jpg` | 1400x1900 · 259KB | Destination/market photo |
-| `europe-3.jpg` | 1400x1900 · 321KB | Destination/market photo |
-| `europe-4.jpg` | 1400x1900 · 206KB | Destination/market photo |
+**How to swap:** replace a file below with your own, keeping the **exact same filename and extension** (and, where noted, the pixel size). Push the change — the new asset goes live on the next deploy.
+
+Destination photos by region. The cards currently display africa-1, asia-2 and europe-2; the rest ship as ready alternates you can swap in by renaming.
+
+| File | Size | What it shows | Status |
+|------|------|---------------|--------|
+| `africa-1.jpg` | 1400×1900 | Destination photo — africa 1 | ✅ live |
+| `africa-2.jpg` | 1400×1900 | Destination photo — africa 2 | ➕ ready alternate |
+| `africa-3.jpg` | 1400×1900 | Destination photo — africa 3 | ➕ ready alternate |
+| `africa-4.jpg` | 1400×1900 | Destination photo — africa 4 | ➕ ready alternate |
+| `asia-1.jpg` | 1400×1900 | Destination photo — asia 1 | ➕ ready alternate |
+| `asia-2.jpg` | 1400×1900 | Destination photo — asia 2 | ✅ live |
+| `asia-3.jpg` | 1400×1900 | Destination photo — asia 3 | ➕ ready alternate |
+| `europe-1.jpg` | 1400×1900 | Destination photo — europe 1 | ➕ ready alternate |
+| `europe-2.jpg` | 1400×1900 | Destination photo — europe 2 | ✅ live |
+| `europe-3.jpg` | 1400×1900 | Destination photo — europe 3 | ➕ ready alternate |
+| `europe-4.jpg` | 1400×1900 | Destination photo — europe 4 | ➕ ready alternate |

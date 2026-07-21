@@ -1,9 +1,9 @@
-# infrastructure/press
+# Infrastructure — Press
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+> ⚠️ **Reference copies — NOT wired to the site.**
+>
+> The live facility photos are served from `site-assets/homepage/facility-book/`.
+> Overwriting files in *this* folder has **no effect** on the site. Kept only
+> as a naming reference. Swap the real photos in `homepage/facility-book/` instead.
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `web-machine-01.webp` | 1300x1950 · 278KB | Web-offset press |
-| `web-machine-02.webp` | 1300x1950 · 229KB | Web-offset press |
-| `web-machine-03.webp` | 1300x1953 · 210KB | Web-offset press |
+Files here: `web-machine-01.webp`, `web-machine-02.webp`, `web-machine-03.webp`

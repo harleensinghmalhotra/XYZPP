@@ -1,11 +1,13 @@
-# about
+# About (Our Story) — `/about`
 
-Page-level assets, grouped by section. Open each subfolder's README for the file list and dimensions.
+Images for the Our Story page. Open a subfolder's README for its file list, sizes
+and the swap rule.
 
-**Swap rule:** overwrite a file in place with the same name + extension — no code change.
+| Subfolder | What it feeds on the page |
+|---|---|
+| `founder/` | The founder portrait beside the statement |
+| `team/` | The team grid (8 portraits) |
+| `timeline/` | The history timeline — one image per era (the filename **is** the era) |
+| `gallery/` | The facility gallery lightbox — 10 photos + 1 walkthrough video |
 
-## Sections
-- `founder/`
-- `gallery/`
-- `team/`
-- `timeline/`
+Rule everywhere: overwrite a file keeping its **exact name + extension**, then push.

@@ -1,11 +1,11 @@
-# about/founder
+# About — Founder
 
-Founder portrait for the About page's founder spread.
+**Appears on the site:** /about (Our Story) → founder portrait
 
-**To swap: overwrite `founder-portrait.webp` in place (same name + extension) — no code change.** Approx **3:4 portrait**.
+**How to swap:** replace a file below with your own, keeping the **exact same filename and extension** (and, where noted, the pixel size). Push the change — the new asset goes live on the next deploy.
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `founder-portrait.webp` | 900x1200 · 3:4 | **MOCK** (Pexels stand-in) — replace with the real Nilesh Dhankani portrait. |
+The founder portrait shown beside the founder statement.
 
-_This is a placeholder professional portrait until the confirmed founder photo is supplied._
+| File | Size | What it shows | Status |
+|------|------|---------------|--------|
+| `founder-portrait.webp` | 600×800 | Founder portrait | ✅ live |

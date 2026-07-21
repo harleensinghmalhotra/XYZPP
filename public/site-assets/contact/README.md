@@ -1,8 +1,12 @@
-# contact
+# Contact
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+**Appears on the site:** /contact
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `facility-navy.webp` | 1600x880 · 388KB | Contact — facility (navy) |
-| `map.webp` | 1600x820 · 24KB | Contact — location map |
+**How to swap:** replace a file below with your own, keeping the **exact same filename and extension** (and, where noted, the pixel size). Push the change — the new asset goes live on the next deploy.
+
+The welcome-block facility photo. (map.webp is legacy — the page now uses a styled location strip, so overwriting it changes nothing.)
+
+| File | Size | What it shows | Status |
+|------|------|---------------|--------|
+| `facility-navy.webp` | 1600×880 | Contact facility photo (welcome block) | ✅ live |
+| `map.webp` | 1600×820 | Legacy static map — no longer displayed | ⚠️ not used |

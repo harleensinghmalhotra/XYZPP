@@ -1,7 +1,12 @@
-# newsroom/video
+# Newsroom — Video
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+> ⚠️ **The newsroom is managed in the Sanity Studio, not here.**
+>
+> Article text and images are published through the QFP Newsroom Studio and
+> served from Sanity's CDN. The files below are legacy/source only and are **not**
+> shown on the live site — dropping new files here does nothing. To update the
+> newsroom, use the Studio.
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `press-run.mp4` | video · 576KB | Newsroom — press-run video |
+| File | Note |
+|------|------|
+| `press-run.mp4` | Legacy newsroom video (press-run.mp4) |

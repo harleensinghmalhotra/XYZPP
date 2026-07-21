@@ -1,11 +1,15 @@
-# infrastructure/gallery
+# Infrastructure — Gallery
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+**Appears on the site:** /infrastructure → facility gallery + walkthrough poster
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `gallery-01.webp` | 700x350 · 75KB | About gallery photo |
-| `gallery-02.webp` | 700x316 · 59KB | About gallery photo |
-| `gallery-03.webp` | 700x350 · 59KB | About gallery photo |
-| `gallery-04.webp` | 700x467 · 63KB | About gallery photo |
-| `walkthrough-poster.webp` | 1200x800 · 65KB | Walkthrough video poster |
+**How to swap:** replace a file below with your own, keeping the **exact same filename and extension** (and, where noted, the pixel size). Push the change — the new asset goes live on the next deploy.
+
+Four facility gallery photos plus the poster shown behind the walkthrough play button.
+
+| File | Size | What it shows | Status |
+|------|------|---------------|--------|
+| `gallery-01.webp` | 700×350 | Facility gallery photo 01 | ✅ live |
+| `gallery-02.webp` | 700×316 | Facility gallery photo 02 | ✅ live |
+| `gallery-03.webp` | 700×350 | Facility gallery photo 03 | ✅ live |
+| `gallery-04.webp` | 700×467 | Facility gallery photo 04 | ✅ live |
+| `walkthrough-poster.webp` | 1200×800 | Poster behind the walkthrough play button | ✅ live |

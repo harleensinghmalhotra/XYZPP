@@ -1,9 +1,13 @@
-# homepage/cases
+# Homepage — Cases
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+**Appears on the site:** homepage → Case Studies (currently HIDDEN via SHOW_CASE_STUDIES)
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `case-01.webp` | 1600x1000 · 102KB | Case study cover |
-| `case-02.webp` | 1600x1000 · 67KB | Case study cover |
-| `case-03.webp` | 1600x1000 · 71KB | Case study cover |
+**How to swap:** replace a file below with your own, keeping the **exact same filename and extension** (and, where noted, the pixel size). Push the change — the new asset goes live on the next deploy.
+
+Case-study photos. The whole section is switched off in code today; these ship ready for when it returns.
+
+| File | Size | What it shows | Status |
+|------|------|---------------|--------|
+| `case-01.webp` | 1600×1000 | Case study photo 01 | ⏸️ built, hidden by a flag |
+| `case-02.webp` | 1600×1000 | Case study photo 02 | ⏸️ built, hidden by a flag |
+| `case-03.webp` | 1600×1000 | Case study photo 03 | ⏸️ built, hidden by a flag |

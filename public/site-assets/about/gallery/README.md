@@ -1,17 +1,21 @@
-# about/gallery
+# About — Gallery
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+**Appears on the site:** /about (Our Story) → facility gallery (click-to-open lightbox)
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `facility-tour.mp4` | video · 8773KB | About gallery — facility tour video (lightbox item 11) |
-| `gallery-01.webp` | 1200x800 · 118KB | About gallery photo |
-| `gallery-02.webp` | 1200x800 · 80KB | About gallery photo |
-| `gallery-03.webp` | 1200x800 · 164KB | About gallery photo |
-| `gallery-04.webp` | 1200x800 · 168KB | About gallery photo |
-| `gallery-05.webp` | 1200x800 · 106KB | About gallery photo |
-| `gallery-06.webp` | 1200x800 · 66KB | About gallery photo |
-| `gallery-07.webp` | 1200x800 · 138KB | About gallery photo |
-| `gallery-08.webp` | 1200x800 · 167KB | About gallery photo |
-| `gallery-09.webp` | 1200x800 · 189KB | About gallery photo |
-| `gallery-10.webp` | 1200x800 · 157KB | About gallery photo |
+**How to swap:** replace a file below with your own, keeping the **exact same filename and extension** (and, where noted, the pixel size). Push the change — the new asset goes live on the next deploy.
+
+The gallery renders .webp as photos and the .mp4 as the lightbox video (its 11th item). Order follows src/assets/gallery/manifest.js.
+
+| File | Size | What it shows | Status |
+|------|------|---------------|--------|
+| `facility-tour.mp4` | video | Facility walkthrough video (lightbox) | ✅ live |
+| `gallery-01.webp` | 1200×800 | Facility gallery photo 01 | ✅ live |
+| `gallery-02.webp` | 1200×800 | Facility gallery photo 02 | ✅ live |
+| `gallery-03.webp` | 1200×800 | Facility gallery photo 03 | ✅ live |
+| `gallery-04.webp` | 1200×800 | Facility gallery photo 04 | ✅ live |
+| `gallery-05.webp` | 1200×800 | Facility gallery photo 05 | ✅ live |
+| `gallery-06.webp` | 1200×800 | Facility gallery photo 06 | ✅ live |
+| `gallery-07.webp` | 1200×800 | Facility gallery photo 07 | ✅ live |
+| `gallery-08.webp` | 1200×800 | Facility gallery photo 08 | ✅ live |
+| `gallery-09.webp` | 1200×800 | Facility gallery photo 09 | ✅ live |
+| `gallery-10.webp` | 1200×800 | Facility gallery photo 10 | ✅ live |

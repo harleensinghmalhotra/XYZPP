@@ -1,9 +1,13 @@
-# infrastructure/certs
+# Infrastructure — Certs
 
-Certification logos shown on the Infrastructure page. **Overwrite in place (same name) to swap.**
+**Appears on the site:** /infrastructure → certification strip
 
-| File | What it is |
-|---|---|
-| `fsc.webp` | FSC chain-of-custody |
-| `iso.webp` | ISO 9001 / 14001 |
-| `sedex.webp` | SEDEX / SMETA |
+**How to swap:** replace a file below with your own, keeping the **exact same filename and extension** (and, where noted, the pixel size). Push the change — the new asset goes live on the next deploy.
+
+The three certification logos on the infrastructure page.
+
+| File | Size | What it shows | Status |
+|------|------|---------------|--------|
+| `fsc.webp` | 244×291 | FSC certification logo | ✅ live |
+| `iso.webp` | 346×346 | ISO certification logo | ✅ live |
+| `sedex.webp` | 480×132 | SEDEX certification logo | ✅ live |

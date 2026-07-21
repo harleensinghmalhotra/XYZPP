@@ -1,11 +1,15 @@
-# infrastructure/facility
+# Infrastructure — Facility
 
-Assets for this section. **To swap any asset: overwrite the file in place using the SAME filename and SAME extension** — no code changes, no rebuild-rename needed.
+**Appears on the site:** /infrastructure → full-width press-hall frame
 
-| File | Dimensions | What it is |
-|---|---|---|
-| `book-spread.webp` | 1800x1200 · 25KB | Facility book — open spread |
-| `facility-01.webp` | 900x450 · 93KB | Facility exterior/interior |
-| `facility-02.webp` | 900x600 · 38KB | Facility exterior/interior |
-| `facility-03.webp` | 900x450 · 70KB | Facility exterior/interior |
-| `head-office-01.webp` | 1300x1733 · 198KB | Facility book pg5 — head office |
+**How to swap:** replace a file below with your own, keeping the **exact same filename and extension** (and, where noted, the pixel size). Push the change — the new asset goes live on the next deploy.
+
+Only facility-01 is displayed (the framed press-hall exhibit). The others ship as ready alternates.
+
+| File | Size | What it shows | Status |
+|------|------|---------------|--------|
+| `book-spread.webp` | 1800×1200 | Open-book spread (alternate) | ➕ ready alternate |
+| `facility-01.webp` | 900×450 | Press-hall exhibit photo | ✅ live |
+| `facility-02.webp` | 900×600 | Facility photo (alternate) | ➕ ready alternate |
+| `facility-03.webp` | 900×450 | Facility photo (alternate) | ➕ ready alternate |
+| `head-office-01.webp` | 1300×1733 | Head-office photo (alternate) | ➕ ready alternate |
