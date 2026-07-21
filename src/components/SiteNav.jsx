@@ -151,7 +151,7 @@ export default function SiteNav() {
       style={{ boxShadow: '0 2px 24px rgba(15,36,68,0.06)' }}
     >
       <div
-        className="mx-auto flex h-[86px] max-w-page items-center gap-8 px-6 sm:px-10 lg:px-14"
+        className="mx-auto flex h-[86px] max-w-page items-center gap-2 px-4 2xl:gap-8 2xl:px-14"
         style={{ fontFamily: TIGHT }}
       >
         {/* logo lockup — 48px monogram + two-line wordmark, all navy */}
@@ -164,7 +164,7 @@ export default function SiteNav() {
         </Link>
 
         {/* center nav */}
-        <nav className="hidden items-center gap-5 lg:flex">
+        <nav className="hidden items-center gap-2 lg:flex 2xl:gap-5">
           {/* Home — first, explicit; the logo also links home but she wants a named
               item. aria-current marks it on "/" (no other link carries an active
               treatment, so we match that: same qnav-link, semantics only). */}
@@ -253,12 +253,12 @@ export default function SiteNav() {
         </nav>
 
         {/* right group: language toggle + square ghost CTA */}
-        <div className="ml-auto flex items-center gap-4">
+        <div className="ml-auto flex items-center gap-3 2xl:gap-4">
           <LanguageToggle light />
           {/* Square navy ghost button — fills navy on hover (Ekta's .nav-cta). */}
           <Link
             to="/contact"
-            className="btn-nebula btn-nebula--light focus-ring hidden items-center gap-1.5 border-[1.5px] border-[#0f2444] px-[22px] py-[10px] text-[13px] font-medium text-[#0f2444] transition-colors duration-200 hover:bg-[#0f2444] hover:text-[#fdfaf4] sm:inline-flex"
+            className="btn-nebula btn-nebula--light focus-ring hidden shrink-0 items-center gap-1.5 whitespace-nowrap border-[1.5px] border-[#0f2444] px-4 py-[10px] text-[13px] font-medium text-[#0f2444] transition-colors duration-200 hover:bg-[#0f2444] hover:text-[#fdfaf4] sm:inline-flex 2xl:px-[22px]"
             style={{ fontFamily: INTER, letterSpacing: '0.3px' }}
           >
             {t('requestQuote')}
