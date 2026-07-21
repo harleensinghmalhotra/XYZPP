@@ -37,36 +37,24 @@
   background: #000;          /* black letterbox behind the poster/frame */
 }
 
-/* ── THE PROCESS EXHIBIT — client ARTWORK + rebuilt text layer. The whole assembly sits
-   inside ONE hairline-bordered field (a certificate plate) whose interior is toned to
-   the artwork's own cream (#F6F3E2, sampled from the image) so the illustration blends
-   with NO rectangle seam. Top: the artwork, full plate-width. Below it: our seven steps
+/* ── THE PROCESS EXHIBIT — client ARTWORK + rebuilt text layer, NO box. The frame,
+   its border, background panel and padding are gone: the artwork, text row and promise
+   band bleed straight onto the page cream as normal flow. The artwork's cream is
+   normalised (in the asset) to the page cream (#FDFAF4), so there is no rectangle seam
+   and the illustration reads as printed ON the page. Below the artwork: our seven steps
    on a strict grid, engraved-plate numbered in a calm AA-safe burnt orange (bright
-   #F37031 fails contrast on cream at this size). No icons in the text row — the artwork
-   carries the imagery. ── */
+   #F37031 fails contrast on cream at this size). No icons — the artwork carries it. ── */
 .pv-frame-wrap {
   --pv-orange: #C2551B;                    /* AA-safe burnt orange — numbers + rules */
-  max-width: var(--content-max);
+  max-width: 1300px;                       /* the artwork breathes a touch wider */
   width: calc(100% - 2 * var(--page-gutter));
-  margin: clamp(48px, 7vh, 92px) auto 0;
+  margin: clamp(52px, 8vh, 104px) auto 0;  /* generous flow-space from the video above */
 }
 .pv-frame {
-  position: relative;
-  padding: clamp(24px, 3.4vh, 42px) clamp(22px, 2.8vw, 48px) clamp(28px, 4vh, 46px);
-  border-radius: 3px;
-  background: #F6F3E2;                      /* == the artwork's cream → seamless blend */
-}
-/* the plate border — its own layer so the entrance can DRAW it (clip reveal) while
-   staying fully visible with no JS / reduced motion. */
-.pv-frame-line {
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgb(var(--navy-rgb) / 0.15);
-  border-radius: 3px;
-  pointer-events: none;
+  position: relative;                      /* plain block — no border, panel or padding */
 }
 
-/* THE ARTWORK — client illustration (caption band cropped off), full plate-width and
+/* THE ARTWORK — client illustration (caption band cropped off), full-width and
    cream-on-cream. object-fit:contain so it is never cropped at any width. */
 .pv-art {
   width: 100%;
@@ -171,7 +159,6 @@
   .pv-flow { grid-template-columns: 1fr; row-gap: 18px; }
 }
 @media (max-width: 440px) {
-  .pv-frame { padding: 22px 18px 26px; }
   .pv-badges { grid-template-columns: 1fr; }
 }
 

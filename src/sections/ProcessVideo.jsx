@@ -55,26 +55,23 @@ export default function ProcessVideo() {
     return () => io.disconnect()
   }, [])
 
-  // THE ENTRANCE — one quiet, confident sequence (~900ms): the plate border draws and
-  // the artwork fades in, then the seven text columns cascade left→right, then the
-  // promise band. Nothing bounces. Reduced motion → the plate is already whole.
+  // THE ENTRANCE — one quiet, confident sequence: the artwork fades in, then the seven
+  // text columns cascade left→right, then the promise band. Nothing bounces. Reduced
+  // motion → everything is already in place.
   useLayoutEffect(() => {
     if (reduced || !bandRef.current) return
     const ctx = gsap.context(() => {
       const trig = { trigger: bandRef.current, start: 'top 82%', once: true }
       const tl = gsap.timeline({ scrollTrigger: trig, defaults: { ease: 'power2.out' } })
-      // 1 — the plate border draws (clip reveal) + the artwork fades in
-      tl.fromTo('.pv-frame-line',
-        { clipPath: 'inset(0 100% 0 0)' },
-        { clipPath: 'inset(0 0 0 0)', duration: 0.5, ease: 'power2.inOut' })
+      // 1 — the artwork fades in
       tl.fromTo('.pv-art', { autoAlpha: 0, y: 8 },
-        { autoAlpha: 1, y: 0, duration: 0.55, clearProps: 'transform,opacity,visibility' }, 0.1)
+        { autoAlpha: 1, y: 0, duration: 0.55, clearProps: 'transform,opacity,visibility' })
       // 2 — the text columns cascade, left→right
       tl.fromTo('.pv-step', { autoAlpha: 0, y: 10 },
-        { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.06, clearProps: 'transform,opacity,visibility' }, 0.42)
+        { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.06, clearProps: 'transform,opacity,visibility' }, 0.32)
       // 3 — the promise band, last
       tl.fromTo('.pv-badge', { autoAlpha: 0, y: 8 },
-        { autoAlpha: 1, y: 0, duration: 0.38, stagger: 0.035, clearProps: 'transform,opacity,visibility' }, 0.78)
+        { autoAlpha: 1, y: 0, duration: 0.38, stagger: 0.035, clearProps: 'transform,opacity,visibility' }, 0.68)
     }, bandRef)
     return () => ctx.revert()
   }, [reduced])
@@ -103,13 +100,11 @@ export default function ProcessVideo() {
         </video>
       </div>
 
-      {/* THE EXHIBIT — the whole assembly sits inside one hairline-bordered field (a
-          certificate plate) whose interior is toned to the artwork's own cream so the
-          illustration blends with no rectangle seam; the border draws on entrance. */}
+      {/* THE EXHIBIT — no box, no border, no panel. The artwork, text row and promise
+          band bleed straight onto the page cream as normal flow; the artwork's cream is
+          normalised to the page cream so the illustration reads as printed ON the page. */}
       <div className="pv-frame-wrap" ref={bandRef}>
         <div className="pv-frame">
-          <span className="pv-frame-line" aria-hidden="true" />
-
           {/* THE ARTWORK — client illustration, caption band cropped off, full-width and
               cream-on-cream. Decorative (the copy below carries the meaning). */}
           <div className="pv-art">
