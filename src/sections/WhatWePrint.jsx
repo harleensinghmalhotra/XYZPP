@@ -23,21 +23,21 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 // On-palette placeholder for the two categories (Religious Books, Packaging and
 // Gifting) whose photography does not exist yet: a navy card with a gold frame,
 // inlined as an SVG data URI so it never 404s and needs no CSS/layout change.
-// Harry to supply /qfp/products/product-09.webp (Religious Books) and
-// /qfp/products/product-10.webp (Packaging and Gifting); swap the img paths below
+// Harry to supply /site-assets/homepage/products/product-09.webp (Religious Books) and
+// /site-assets/homepage/products/product-10.webp (Packaging and Gifting); swap the img paths below
 // once they land — zero other code change.
 const PLACEHOLDER =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='560'%3E%3Crect width='700' height='560' fill='%230F2444'/%3E%3Crect x='44' y='44' width='612' height='472' fill='none' stroke='%239B7420' stroke-width='3'/%3E%3C/svg%3E"
 
 const CARDS = [
-  { key: 'educational', img: '/qfp/products/product-01.webp', rot: -8 },
-  { key: 'trade', img: '/qfp/products/product-02.webp', rot: 7 },
-  { key: 'coffee', img: '/qfp/products/product-03.webp', rot: -9 },
-  { key: 'general', img: '/qfp/products/product-04.webp', rot: 8 },
-  { key: 'children', img: '/qfp/products/product-05.webp', rot: -7 },
-  { key: 'kits', img: '/qfp/products/product-06.webp', rot: 9 },
-  { key: 'corporate', img: '/qfp/products/product-07.webp', rot: -8 },
-  { key: 'pod', img: '/qfp/products/product-08.webp', rot: 7 },
+  { key: 'educational', img: '/site-assets/homepage/products/product-01.webp', rot: -8 },
+  { key: 'trade', img: '/site-assets/homepage/products/product-02.webp', rot: 7 },
+  { key: 'coffee', img: '/site-assets/homepage/products/product-03.webp', rot: -9 },
+  { key: 'general', img: '/site-assets/homepage/products/product-04.webp', rot: 8 },
+  { key: 'children', img: '/site-assets/homepage/products/product-05.webp', rot: -7 },
+  { key: 'kits', img: '/site-assets/homepage/products/product-06.webp', rot: 9 },
+  { key: 'corporate', img: '/site-assets/homepage/products/product-07.webp', rot: -8 },
+  { key: 'pod', img: '/site-assets/homepage/products/product-08.webp', rot: 7 },
   // Awaiting real photography — see PLACEHOLDER note above.
   { key: 'religious', img: PLACEHOLDER, rot: -9 },
   { key: 'packaging', img: PLACEHOLDER, rot: 8 },

@@ -325,7 +325,7 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
     <div ref={wrapRef} className={`qfp-globe ${className}`} data-phase="boot">
       {fallback ? (
         <div className="qfp-globe-fallback">
-          <img src="/qfp/worldmap-dots.webp" alt="" aria-hidden="true" loading="lazy" />
+          <img src="/site-assets/homepage/globe/worldmap-dots.webp" alt="" aria-hidden="true" loading="lazy" />
           <span className="qfp-globe-fbpin qfp-globe-fbpin--vashi" aria-hidden="true" />
           <span className="qfp-globe-fbpin qfp-globe-fbpin--taloja" aria-hidden="true" />
           <p className="qfp-globe-fbcap">Vashi · Taloja, Navi Mumbai, India</p>

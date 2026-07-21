@@ -29,11 +29,11 @@ gsap.registerPlugin(ScrollTrigger)
 
 // Destination posters — text resolved from the homeProjects namespace by slug.
 // `slug` also names the Globe3D focus region (africa | asia | europe). `img` is
-// the clean school-kids photo (public/qfp/destinations/, no duotone filter).
+// the clean school-kids photo (public/site-assets/homepage/destinations/, no duotone filter).
 const REGIONS = [
-  { slug: 'africa', img: '/qfp/destinations/africa-1.jpg' },
-  { slug: 'asia', img: '/qfp/destinations/asia-2.jpg' },
-  { slug: 'europe', img: '/qfp/destinations/europe-2.jpg' },
+  { slug: 'africa', img: '/site-assets/homepage/destinations/africa-1.jpg' },
+  { slug: 'asia', img: '/site-assets/homepage/destinations/asia-2.jpg' },
+  { slug: 'europe', img: '/site-assets/homepage/destinations/europe-2.jpg' },
 ]
 
 // The featured milestone (loud) + seven shipment records (quiet). The featured

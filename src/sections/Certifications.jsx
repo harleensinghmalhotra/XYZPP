@@ -211,7 +211,7 @@ export default function Certifications() {
                         <span className="cert-star-word">STAR EXPORT<br />HOUSE</span>
                       </div>
                     ) : (
-                      <img src={`/qfp/certs/${c.logo}`} alt={`${t(`cards.${c.key}.title`)} logo`} loading="lazy" decoding="async" />
+                      <img src={`/site-assets/homepage/certifications/${c.logo}`} alt={`${t(`cards.${c.key}.title`)} logo`} loading="lazy" decoding="async" />
                     )}
                     <div className="cert-card-title">{t(`cards.${c.key}.title`)}</div>
                     {c.code && <div className="cert-card-code">{t('licence')} {c.code}</div>}

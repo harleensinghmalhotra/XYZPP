@@ -12,17 +12,17 @@ gsap.registerPlugin(ScrollTrigger)
 // Hero-Video-Dialog walkthrough card, and an "Our People" scene grid. Every photo
 // and the video are PENDING from the client — each surface is a premium navy
 // placeholder that a real asset drops straight into (silent CSS-bg: a missing file
-// simply reveals the placeholder, never a broken frame). Drop-in paths are exact:
-//   public/qfp/infra/facility-01.webp … facility-03.webp
-//   public/qfp/infra/facility-walkthrough.mp4   (+ flip VIDEO_READY → true)
-//   public/qfp/infra/people-01.webp … people-04.webp
+// simply reveals the placeholder, never a broken frame). Overwrite-to-swap paths:
+//   public/site-assets/homepage/facility-book/<name>.webp   (FacilityBook photos)
+//   public/site-assets/homepage/video/facilities.mp4 + facilities-poster.jpg
+//   public/site-assets/homepage/video/facilities.vtt   (captions, ships with video)
 
 // Walkthrough video toggle. Stays false until the client delivers the MP4; the
 // play button then goes live. COMPLIANCE: the final video must ship with closed
 // captions + a text transcript (accessibility / same client-permission bar as the
 // trust strips) BEFORE VIDEO_READY is flipped on.
 const VIDEO_READY = true
-const VIDEO_SRC = '/qfp/video/facilities.mp4'
+const VIDEO_SRC = '/site-assets/homepage/video/facilities.mp4'
 
 // "Our People" grid ("600+ Hands Behind Every Shipment" — Press Floor Team /
 // Quality Check / Kitting & Packing / Leadership Team). Hidden, not deleted:
@@ -229,8 +229,8 @@ export default function Infrastructure() {
               // Caption-ready: the <track> ships with the element so a <video> is never
               // shipped without captions. Drop facility-walkthrough.vtt beside the mp4
               // (+ a linked transcript) before flipping VIDEO_READY on.
-              <video className="infra-dialog-video" src={VIDEO_SRC} poster="/qfp/video/facilities-poster.jpg" controls autoPlay playsInline>
-                <track kind="captions" srcLang="en" src="/qfp/video/facilities.vtt" label={t('video.captionsLabel')} default />
+              <video className="infra-dialog-video" src={VIDEO_SRC} poster="/site-assets/homepage/video/facilities-poster.jpg" controls autoPlay playsInline>
+                <track kind="captions" srcLang="en" src="/site-assets/homepage/video/facilities.vtt" label={t('video.captionsLabel')} default />
               </video>
             ) : (
               <div className="infra-dialog-ph" aria-hidden="true">

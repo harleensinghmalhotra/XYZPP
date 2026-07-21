@@ -2522,7 +2522,7 @@ body {
 /* real facility still behind the play button (VIDEO_READY) — the dot pattern gives
    way to a bottom-weighted scrim so the play button + caption stay legible. */
 .infra-video-thumb--photo {
-  background: #0b1c38 url('/qfp/video/facilities-thumb.webp') center / cover no-repeat;
+  background: #0b1c38 url('/site-assets/homepage/video/facilities-thumb.webp') center / cover no-repeat;
 }
 .infra-video-thumb--photo::after {
   opacity: 1;

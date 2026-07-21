@@ -242,7 +242,7 @@ export default function TrustStrips() {
                   <span className="ts-stat-fig">
                     <img
                       className="ts-stat-ico3d"
-                      src={`/qfp/icons3d/${s.img}.webp`}
+                      src={`/site-assets/homepage/stat-icons/${s.img}.webp`}
                       alt=""
                       width="84"
                       height="84"

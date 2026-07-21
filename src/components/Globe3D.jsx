@@ -43,8 +43,8 @@ const GOLD_RGB = 'rgba(200,154,60'
 
 // Self-hosted, license-safe textures — NASA Blue Marble (public domain) shipped
 // as three-globe's own example assets. See public/qfp/earth/SOURCE.txt.
-const EARTH_TEX = '/qfp/earth/earth-blue-marble.jpg'
-const BUMP_TEX = '/qfp/earth/earth-topology.png'
+const EARTH_TEX = '/site-assets/homepage/globe/earth-blue-marble.jpg'
+const BUMP_TEX = '/site-assets/homepage/globe/earth-topology.png'
 
 // Navi Mumbai HQ — every arc originates here. name '__HQ' so India-side records
 // (Maharashtra / HDFC / ZEE) can pulse the origin marker itself.

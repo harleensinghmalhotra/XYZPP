@@ -80,7 +80,7 @@ function LeftPage({ c, t }) {
 function RightPage({ c }) {
   return (
     <div className="cs-face cs-face--photo" aria-hidden="true">
-      <img src={`/qfp/cases/${c.img}`} alt="" loading="lazy" decoding="async" />
+      <img src={`/site-assets/homepage/cases/${c.img}`} alt="" loading="lazy" decoding="async" />
       <span className="cs-duotone" />
       <span className="cs-photo-scrim" />
       <span className="cs-spine-shadow" />
