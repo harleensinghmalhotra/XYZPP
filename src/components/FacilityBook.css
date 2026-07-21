@@ -488,7 +488,7 @@
   position: relative;
   width: 100%;               /* fills the book column — all remaining real estate */
   aspect-ratio: 3072 / 2048;
-  background: url('/qfp/infra/book-spread.webp') center / 100% 100% no-repeat;
+  background: url('/site-assets/homepage/facility-book/book-spread.webp') center / 100% 100% no-repeat;
   filter: drop-shadow(0 34px 52px rgba(0, 0, 0, 0.5));
   /* query container so the resting INTRO spread scales its type in cqw with the
      book, exactly as the facility left-page already does (client law: text grows

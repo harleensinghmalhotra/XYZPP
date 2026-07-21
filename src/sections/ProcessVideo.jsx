@@ -20,8 +20,8 @@ gsap.registerPlugin(ScrollTrigger)
 // then the band. Reduced-motion safe. Under 1100px the text stacks; the artwork stays
 // whole (contain), never cropped.
 
-const VIDEO = '/qfp/video/how-we-work.mp4'
-const POSTER = '/qfp/video/how-we-work-poster.jpg'
+const VIDEO = '/site-assets/homepage/video/how-we-work.mp4'
+const POSTER = '/site-assets/homepage/video/how-we-work-poster.jpg'
 const ARTWORK = '/site-assets/homepage/process/process-artwork.webp'
 
 // Seven steps, in workflow order — our copy, keyed to the locale. "delivered" closes the

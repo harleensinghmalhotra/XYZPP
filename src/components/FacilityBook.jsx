@@ -41,13 +41,14 @@ const SPINE_POS = [
 //     the visitor flips through with ← → / swipe / arrows.
 //
 // Each book's title/body live under a single i18n base: facilities.01–03 for the
-// first three, books.04/05 for the last two. Its images ship at /qfp/infra/<name>.webp.
+// first three, books.04/05 for the last two. Its images ship at
+// /site-assets/homepage/facility-book/<name>.webp (overwrite-to-swap).
 const BOOKS = [
-  { id: '01', base: 'facilities.01', images: ['web-1', 'web-2', 'web-3'], Icon: Printer, pIcons: [Stack, Ruler, BookOpen, Gauge] },
-  { id: '02', base: 'facilities.02', images: ['sheetfed-1', 'sheetfed-2', 'sheetfed-3'], Icon: StackSimple, pIcons: [GearSix, Target, Books, Palette] },
-  { id: '03', base: 'facilities.03', images: ['binding-1', 'binding-2', 'binding-3'], Icon: BookOpenText, pIcons: [BookOpen, PushPin, Needle, Books] },
-  { id: '04', base: 'books.04', images: ['warehouse-1', 'warehouse-2', 'warehouse-3'], Icon: Warehouse, pIcons: [Package, Stack, Truck, GlobeHemisphereWest] },
-  { id: '05', base: 'books.05', images: ['headoffice-1'], Icon: Buildings, pIcons: [Palette, Headset, UsersThree, Buildings] },
+  { id: '01', base: 'facilities.01', images: ['web-machines-01', 'web-machines-02', 'web-machines-03'], Icon: Printer, pIcons: [Stack, Ruler, BookOpen, Gauge] },
+  { id: '02', base: 'facilities.02', images: ['sheetfed-01', 'sheetfed-02', 'sheetfed-03'], Icon: StackSimple, pIcons: [GearSix, Target, Books, Palette] },
+  { id: '03', base: 'facilities.03', images: ['binding-01', 'binding-02', 'binding-03'], Icon: BookOpenText, pIcons: [BookOpen, PushPin, Needle, Books] },
+  { id: '04', base: 'books.04', images: ['warehousing-01', 'warehousing-02', 'warehousing-03'], Icon: Warehouse, pIcons: [Package, Stack, Truck, GlobeHemisphereWest] },
+  { id: '05', base: 'books.05', images: ['head-office-01'], Icon: Buildings, pIcons: [Palette, Headset, UsersThree, Buildings] },
 ]
 
 // Intro spread — LEFT-page pillar row (4) and RIGHT-page spec list (7). Icons are
@@ -374,7 +375,7 @@ export default function FacilityBook() {
                         <img
                           key={`${activeBook}-${safePage}-${xfade}`}
                           className="ib-img"
-                          src={`/qfp/infra/${images[safePage]}.webp`}
+                          src={`/site-assets/homepage/facility-book/${images[safePage]}.webp`}
                           alt=""
                           aria-hidden="true"
                           loading="lazy"

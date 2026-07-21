@@ -51,7 +51,7 @@ export default function CTAFooter() {
       <div className="relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center px-6 py-32 text-center" style={{ color: '#fdfaf4' }}>
         {/* Static QF logo mark (replaces the rotating seal — no motion). */}
         <div className="mb-8">
-          <img src="/qfp/brand/qfp-mark.png" alt="" aria-hidden="true" width="64" height="64" className="h-16 w-16 object-contain" />
+          <img src="/site-assets/homepage/brand/qfp-mark.png" alt="" aria-hidden="true" width="64" height="64" className="h-16 w-16 object-contain" />
         </div>
 
         <h2 className="mb-6 max-w-4xl text-[clamp(40px,7vw,84px)] font-bold tracking-tight leading-[1.05]" style={{ fontFamily: TIGHT, color: '#fdfaf4' }}>
@@ -89,7 +89,7 @@ export default function CTAFooter() {
             {/* Logo / Brand Column */}
             <div className="lg:col-span-4 flex flex-col items-start">
               <div className="mb-8 flex items-center gap-3">
-                <img src="/qfp/brand/qfp-mark.png" alt="Quarterfold Printabilities" width="52" height="52" className="object-contain" style={{ height: 52, width: 52 }} />
+                <img src="/site-assets/homepage/brand/qfp-mark.png" alt="Quarterfold Printabilities" width="52" height="52" className="object-contain" style={{ height: 52, width: 52 }} />
                 <span className="flex flex-col leading-[1.06] text-[#0e1b46]" style={{ fontFamily: TIGHT }}>
                   <span className="text-[17px] font-bold tracking-[0.2px]">Quarterfold</span>
                   <span className="text-[17px] font-bold tracking-[0.2px]">Printabilities</span>

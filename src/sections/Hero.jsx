@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next'
 // visitors see English text in the art; pill CTAs localize. Future localized
 // re-exports from Ekta will address this.
 
-const HERO_ART = '/qfp/hero/hero-kids.webp'
+const HERO_ART = '/site-assets/homepage/hero/hero-main.webp'
 
 // The four speech-bubble messages exactly as PAINTED into the art (English only).
 // Surfaced sr-only so screen-reader users hear what sighted users read.

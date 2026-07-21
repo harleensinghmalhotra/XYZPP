@@ -156,7 +156,7 @@ export default function SiteNav() {
       >
         {/* logo lockup — 48px monogram + two-line wordmark, all navy */}
         <Link to="/" className="focus-ring flex items-center gap-3" aria-label="Quarterfold Printabilities home">
-          <img src="/qfp/brand/qfp-mark.png" alt="" aria-hidden="true" width="48" height="48" className="h-12 w-12 shrink-0 object-contain" />
+          <img src="/site-assets/homepage/brand/qfp-mark.png" alt="" aria-hidden="true" width="48" height="48" className="h-12 w-12 shrink-0 object-contain" />
           <span className="hidden flex-col leading-[1.06] text-[#0f2444] sm:flex">
             <span className="text-[16px] font-bold tracking-[0.2px]">Quarterfold</span>
             <span className="text-[16px] font-bold tracking-[0.2px]">Printabilities</span>

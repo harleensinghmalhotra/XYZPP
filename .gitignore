@@ -32,6 +32,9 @@ recon/
 *.png
 # ...but src/assets media are real bundler assets that must ship (Vercel imports them)
 !src/assets/**
+# ...and public/site-assets is the CLIENT-SWAP deliverable tree — every file in it MUST
+# ship (the broad *.png rule above must never silently drop a logo/icon Harry overwrites).
+!public/site-assets/**
 
 # Local asset-handoff & scratch folders (not part of the app)
 FLOW assets/
