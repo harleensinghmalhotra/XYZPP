@@ -48,6 +48,8 @@ scripts/task*-*.mjs
 calibrate.mjs
 build_out.txt
 
-# Source asset folders (Ekta's handoff, not part of the app build)
+# Source asset folders (Ekta/Tushar handoff, not part of the app build — never
+# commit the raw source videos/zips; only their processed site-assets outputs ship)
 FRESH EKTA FEEDBACK*/
 assets/drive-download-*/
+FINAL ROUND OF CHANGES/
