@@ -100,7 +100,8 @@
       "open": "Abrir {{title}}",
       "coverEyebrow": "Instalación",
       "overviewEyebrow": "Resumen",
-      "glanceEyebrow": "De un vistazo"
+      "glanceEyebrow": "De un vistazo",
+      "overview": "Resumen"
     },
     "intro": {
       "heading": "Infraestructura",

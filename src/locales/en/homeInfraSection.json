@@ -100,7 +100,8 @@
       "open": "Open {{title}}",
       "coverEyebrow": "Facility",
       "overviewEyebrow": "Overview",
-      "glanceEyebrow": "At a Glance"
+      "glanceEyebrow": "At a Glance",
+      "overview": "Overview"
     },
     "intro": {
       "heading": "Infrastructure",

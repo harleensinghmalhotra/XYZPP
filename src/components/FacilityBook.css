@@ -117,6 +117,38 @@
    (3072×2048). Height therefore tracks the book at every width, no px cap. */
 .ib-stack--img { flex: 528 1 0; min-width: 0; padding: 0; perspective: none; }
 .ib-stack--img > :last-child::after { display: none; } /* photo is self-grounded */
+
+/* ── ⌂ OVERVIEW PILL — the sixth control above the five spine buttons. Returns the
+   book to the resting Infrastructure intro; the default/active state on load. ── */
+.ib-overview {
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 7px 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(10.5px, 0.85vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(253, 250, 244, 0.74);
+  background: rgb(var(--gold-2-rgb) / 0.05);
+  border: 1px solid rgba(253, 250, 244, 0.2);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+.ib-overview svg { flex: none; }
+.ib-overview:hover { color: #fff; border-color: rgb(var(--gold-2-rgb) / 0.55); }
+.ib-overview.is-active {
+  color: var(--gold-2);
+  background: rgb(var(--gold-2-rgb) / 0.14);
+  border-color: rgb(var(--gold-2-rgb) / 0.6);
+}
+.ib-overview:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .ib-overview { transition: none; } }
 .ib-imgstack {
   position: relative;
   width: 100%;
@@ -444,6 +476,9 @@
   justify-content: center;
   align-items: flex-start;
   padding-top: 0;   /* book top edge sits on the same line as the stack top edge */
+  /* query container for the outer-edge arrows + counter (siblings of .ib-book), so
+     they scale in cqw with the book just like the pages inside it do */
+  container-type: inline-size;
 }
 
 /* gold ribbon bookmark — "you are here", draped over the spread's top edge */
@@ -499,6 +534,7 @@
 .ib-spread {
   position: absolute;
   inset: 0;
+  perspective: 2200px;   /* the 3D viewing depth for the turning leaf */
 }
 
 /* LEFT PAGE — the read: facility title at the top, body below, key phrases emphasised */
@@ -727,11 +763,24 @@
   .ib-intro-closing { font-size: clamp(9.5px, 1.15cqw, 11px); line-height: 1.32; margin-top: 7px; padding-top: 6px; }
 }
 
-/* RIGHT PAGE — full-bleed facility photo, cover-cropped into the page */
+/* RIGHT PAGE — facility photo, CONTAIN-fit into the page so every real machine /
+   floor shot shows whole (no crop); mixed-ratio source photos letterbox on the
+   deep-navy page ground. Uniform frame size across the whole flip set. */
 .ib-imgpage {
   position: absolute;
-  top: 6%; left: 53.5%; width: 40.5%; height: 88%;
+  top: 6%; width: 40.5%; height: 88%;
 }
+/* mirror-symmetric wells either side of the ~50% gutter; a solo leftover centres */
+.ib-imgpage--right { left: 53.5%; }
+.ib-imgpage--left  { left: 6%; }
+.ib-imgpage--solo  { left: 29.75%; }
+/* an empty cream end-page — defensive; the solo close means it isn't reached today */
+.ib-blankpage {
+  background: linear-gradient(120deg, #fdfaf4 0%, #f7f2e8 62%, #f1ead9 100%);
+  box-shadow: inset 0 0 40px -18px rgba(11, 28, 56, 0.4);
+  border-radius: 3px;
+}
+.ib-blankpage .ib-img-frame { display: none; }
 .ib-img-frame {
   position: absolute; inset: 0;
   overflow: hidden; border-radius: 3px;
@@ -739,7 +788,7 @@
   box-shadow: 0 8px 22px -10px rgba(11, 28, 56, 0.55);
 }
 .ib-img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
+  width: 100%; height: 100%; object-fit: contain; display: block;
   animation: ib-xfade 0.32s ease-out;
 }
 /* the spread is keyed on the open book (+ a bump in flat mode), so it remounts on
@@ -927,20 +976,27 @@
   box-shadow: -10px -10px 18px -10px rgba(0, 0, 0, 0.55) inset;
 }
 
-/* ── THE TURNING LEAF — a double-sided page hinged on the spine ────────────── */
+/* ── THE TURNING LEAF — a double-sided page hinged on the spine ──────────────────
+   Reinstated from the original Cases-derived mechanic, re-fitted to the ART-BACKED
+   book: the leaf spans the RIGHT page well and pivots on the gutter (~49.5%). NEXT
+   folds it 0° → −180° (right page rolls left, its back becoming the new left page);
+   PREV reverses it. The leaf only shows DURING the ~0.56s turn — the crisp resting
+   spreads are the base pages beneath — so it needs only to read as a folding page.
+   Faces are always photos (the sole text page never rides the leaf). */
 .ib-leaf {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  transform-origin: left center; /* the spine */
+  top: 6%;
+  left: 49.5%;
+  width: 44.5%;
+  height: 88%;
+  transform-origin: left center; /* the gutter / spine */
   transform-style: preserve-3d;
-  z-index: 5;
+  z-index: 6;
   will-change: transform;
+  pointer-events: none;
 }
-.ib-book.is-next .ib-leaf { animation: ib-turn-next 0.52s cubic-bezier(0.33, 0.02, 0.2, 1) forwards; }
-.ib-book.is-prev .ib-leaf { animation: ib-turn-prev 0.52s cubic-bezier(0.33, 0.02, 0.2, 1) forwards; }
+.ib-book.is-next .ib-leaf { animation: ib-turn-next 0.56s cubic-bezier(0.33, 0.02, 0.2, 1) forwards; }
+.ib-book.is-prev .ib-leaf { animation: ib-turn-prev 0.56s cubic-bezier(0.33, 0.02, 0.2, 1) forwards; }
 @keyframes ib-turn-next {
   from { transform: rotateY(0deg); }
   to { transform: rotateY(-180deg); }
@@ -954,46 +1010,106 @@
   inset: 0;
   backface-visibility: hidden;
   overflow: hidden;
-  box-shadow: -10px 8px 22px -8px rgba(0, 0, 0, 0.45);
-}
-.ib-leaf-front { transform: rotateY(0deg); }       /* panel — faces up at 0° */
-.ib-leaf-back {                                     /* text — reads correct at −180° */
-  transform: rotateY(180deg);
+  border-radius: 3px;
+  /* cream page ground shows as a hairline around the contained photo, so the folding
+     leaf reads as paper, not a floating image */
   background: linear-gradient(120deg, #fdfaf4 0%, #f7f2e8 62%, #f1ead9 100%);
+  box-shadow: -12px 10px 26px -10px rgba(0, 0, 0, 0.5);
 }
+.ib-leaf-front { transform: rotateY(0deg); }       /* the from-spread's right page at 0° */
+.ib-leaf-back { transform: rotateY(180deg); }      /* the to-spread's left page at −180° */
+/* the front face maps the right well (53.5–94% of the book) onto the leaf (49.5–94%);
+   the back face mirrors it. Small insets keep the photo inside the page paper. */
+.ib-leaf-front .ib-img-frame { inset: 0 2% 0 9%; }
+.ib-leaf-back .ib-img-frame  { inset: 0 9% 0 2%; }
 
-/* ── page-corner arrow buttons — bottom corners of the spread ──────────────── */
-.ib-arrow {
+/* ── OBVIOUS PAGE-TURNING — solid orange circular arrows at the book's outer edges,
+   a large DM Mono spread counter, and a keyboard hint. The arrows PULSE until the
+   first turn of the session, then hold still (see .is-pulsing + reduced-motion). ── */
+.ib-nav {
   position: absolute;
-  bottom: 8px;
-  z-index: 7;
-  width: 42px;
-  height: 42px;
+  top: 50%;
+  z-index: 8;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
-  font-size: 17px;
+  transform: translateY(-50%);
+  font-size: 20px;
   line-height: 1;
-  color: var(--gold-2);
-  background: rgba(11, 28, 56, 0.72);
-  border: 1px solid rgb(var(--gold-2-rgb) / 0.5);
-  border-radius: var(--radius-md);
+  color: #fff;
+  background: linear-gradient(180deg, #F5824A 0%, var(--gold-2) 100%);
+  border: 0;
+  border-radius: 50%;
   cursor: pointer;
-  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  box-shadow: 0 6px 16px -4px rgba(243, 112, 49, 0.55), 0 2px 5px rgba(0, 0, 0, 0.35);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, opacity 0.22s ease;
 }
-.ib-arrow--prev { left: 8px; }
-.ib-arrow--next { right: 8px; }
-.ib-arrow:hover:not(:disabled) {
-  background: rgb(var(--gold-2-rgb) / 0.16);
-  color: #F37031;
-  border-color: rgb(var(--gold-2-rgb) / 0.85);
+.ib-nav > span { transform: translateY(-1px); pointer-events: none; }
+.ib-nav--prev { left: clamp(2px, 1%, 14px); }
+.ib-nav--next { right: clamp(2px, 1%, 14px); }
+.ib-nav:hover:not(:disabled) {
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 9px 22px -4px rgba(243, 112, 49, 0.7), 0 2px 6px rgba(0, 0, 0, 0.4);
 }
-.ib-arrow:focus-visible {
-  outline: 2px solid #F37031;
-  outline-offset: 2px;
+.ib-nav:active:not(:disabled) { transform: translateY(-50%) scale(0.96); }
+.ib-nav:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.ib-nav:disabled { opacity: 0.32; cursor: default; box-shadow: none; }
+
+/* soft pulse ring until the first turn (halo scale + glow, transform untouched so it
+   composites with the translateY centring via a ::before) */
+.ib-nav.is-pulsing::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgb(var(--gold-2-rgb) / 0.7);
+  animation: ib-nav-pulse 1.7s ease-out infinite;
+  pointer-events: none;
 }
-.ib-arrow:disabled {
-  opacity: 0.28;
-  cursor: default;
+@keyframes ib-nav-pulse {
+  0%   { transform: scale(0.85); opacity: 0.9; }
+  70%  { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* counter + keyboard hint, centred on the book's bottom navy frame */
+.ib-turnbar {
+  position: absolute;
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(11, 28, 56, 0.55);
+  backdrop-filter: blur(2px);
+}
+.ib-pagecount {
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(12px, 1.15cqw, 16px);
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--gold-2);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ib-pagecount-sep { opacity: 0.5; }
+.ib-kbd {
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(11px, 1cqw, 14px);
+  letter-spacing: 1px;
+  color: rgba(253, 250, 244, 0.72);
+  padding-left: 12px;
+  border-left: 1px solid rgb(var(--gold-2-rgb) / 0.3);
+}
+
+/* reduced motion — no arrow pulse, no leaf turn shimmer */
+@media (prefers-reduced-motion: reduce) {
+  .ib-nav.is-pulsing::before { animation: none; display: none; }
 }
 
 /* ── reduced motion ────────────────────────────────────────────────────────── */
@@ -1131,4 +1247,14 @@
     border-radius: 12px; padding: 22px 20px;
   }
   .ib-speclist { gap: 12px; }
+  /* photo pages fill their card on mobile; contain still lets tall shots breathe */
+  .ib-imgpage--left, .ib-imgpage--right, .ib-imgpage--solo { left: auto; }
+  .ib-img { object-fit: cover; }   /* cards are a fixed 240px box → cover reads better */
+  /* turn controls become a bottom bar under the stacked cards */
+  .ib-book-wrap { padding-bottom: 58px; }
+  .ib-nav { top: auto; bottom: 8px; transform: none; width: 46px; height: 46px; }
+  .ib-nav:hover:not(:disabled), .ib-nav:active:not(:disabled) { transform: none; }
+  .ib-nav--prev { left: 12px; }
+  .ib-nav--next { right: 12px; }
+  .ib-turnbar { bottom: 14px; }
 }
