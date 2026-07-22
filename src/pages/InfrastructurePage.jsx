@@ -186,15 +186,23 @@ export default function InfrastructurePage() {
         return <PageHero id="inf-h1" eyebrow={t('hero.eyebrow')} line1={l1} line2={l2} minVh={60} />
       })()}
 
-      {/* ── 1B · FACILITY BOOK — interactive page-turner ────────────────── */}
-      <FacilityBook />
+      {/* ── 1B · FACILITY BOOK — SAME wrapper as the homepage ───────────────
+          Nested in the homepage's cream `.infra` section context (+ .infra-inner) so
+          the navy rounded stage floats on cream exactly like the homepage — not merged
+          with the navy hero above nor invaded by the Certifications cream dome below. */}
+      <section data-theme="light" className="infra inf-facilitybook">
+        <div className="infra-inner">
+          <FacilityBook />
+        </div>
+      </section>
 
       {/* ── 2 · CERTIFICATIONS — shared homepage <Certifications /> (client 22-07) ──
           Replaces the page's old custom trust strip. flatBottom: the capability triptych
           (§3) below carries its OWN cream top-curve, so the certs navy sweep-arc is
           suppressed here to avoid a clashing double curve. The shared component keeps the
-          FSC licence code with its mark (same compliance bar as the retired strip). ── */}
-      <Certifications flatBottom />
+          FSC licence code with its mark (same compliance bar as the retired strip).
+          flatTop too: no cream dome to invade the navy facility-book stage above. ── */}
+      <Certifications flatTop flatBottom />
 
       {/* ── 3 · CAPABILITY TRIPTYCH (navy) — About-MVV vocabulary ───────────
           One flat #0e1b46 band folded into three spines split by two drawn gold
@@ -390,7 +398,7 @@ export default function InfrastructurePage() {
           <p className="inf-cta-sub">
             {t('cta.sub')}
           </p>
-          <Link to="/contact" className="u-btn u-btn--solid">{t('cta.button')}</Link>
+          <Link to="/contact" className="u-btn u-btn--gold">{t('cta.button')}</Link>
         </div>
       </section>
 

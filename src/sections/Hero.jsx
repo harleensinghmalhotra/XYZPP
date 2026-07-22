@@ -55,7 +55,7 @@ export default function Hero() {
           alt="Four children stand around a giant open book resting on a dotted world map. The book's pages read: Powering Global Education Through Print Excellence. Printing is stronger than ever. We love books. We love printing."
           className="block w-full select-none"
           draggable="false"
-          fetchPriority="high"
+          fetchpriority="high"
         />
 
         {/* TWO BUTTON CTAs — pill shape, one-line labels, equal width on spine ────────

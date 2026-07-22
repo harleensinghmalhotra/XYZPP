@@ -1024,23 +1024,10 @@
   line-height: 1.65;
   color: rgba(28, 32, 25, 0.7);
 }
-.pod-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: clamp(28px, 4vh, 40px);
-  padding: 16px 30px;
-  border-radius: var(--r-btn);
-  background: var(--navy);
-  color: var(--cream);
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  text-decoration: none;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
-}
-.pod-cta-btn:hover { background: #16325f; transform: translateY(-2px); }
-.pod-cta-btn svg { width: 18px; height: 18px; }
+/* Rogue local .pod-cta-btn style removed — the CTA now uses the shared .u-btn system.
+   This keeps only the LAYOUT gap: the "Order a sample" button sits a clear ≥28px below
+   the paragraph above it (was collapsing to 0 once the button became a plain .u-btn). */
+.pod-cta-inner .u-btn { margin-top: clamp(32px, 4vh, 44px); }
 
 /* ── responsive ──────────────────────────────────────────────────────────────── */
 @media (max-width: 1180px) {

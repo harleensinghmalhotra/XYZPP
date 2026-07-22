@@ -633,7 +633,7 @@ export default function Contact() {
                 </div>
               )}
 
-              <button type="submit" className="u-btn u-btn--solid"
+              <button type="submit" className="u-btn u-btn--gold"
                 disabled={status === 'submitting' || !form.consent}
                 aria-disabled={status === 'submitting' || !form.consent ? 'true' : undefined}
                 aria-busy={status === 'submitting'}>

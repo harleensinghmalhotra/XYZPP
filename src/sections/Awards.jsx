@@ -91,13 +91,12 @@ export default function Awards() {
               <p className="aw-eyebrow">{t('eyebrow')}</p>
               <h2 id="aw-title" className="aw-title">{t('title')}</h2>
             </div>
-            {/* See More → /newsroom: the site's standard pill CTA system (identical to
-                the "Request a Quote" primary in the Let's-Print-Something section) —
-                btn-nebula ring, h-14 pill, orange fill shifting to #F5824A on hover,
-                scale-up on hover / press-in on active. */}
+            {/* See More → /newsroom: the shared button system (.u-btn), identical to the
+                homepage "Request a Quote" primary — orange --gold pill, --lg footprint,
+                btn-nebula ring, hover/press feel all inherited from the family. */}
             <Link
               to="/newsroom"
-              className="btn-nebula focus-ring aw-see-more inline-flex h-14 items-center justify-center gap-2 rounded-[var(--r-btn)] bg-[#F37031] px-10 text-[15px] font-semibold text-[#0e1b46] transition-all duration-300 hover:bg-[#F5824A] hover:scale-[1.02] active:scale-[0.98]"
+              className="u-btn u-btn--gold u-btn--lg btn-nebula focus-ring"
               style={{ letterSpacing: '0.2px' }}
             >
               {t('seeMore')}

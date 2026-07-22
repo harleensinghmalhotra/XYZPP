@@ -66,7 +66,10 @@ function CheckMark() {
 // keeps the arc for a navy neighbour below (the homepage Marquee / the Infrastructure
 // page's capability triptych, which carries its own cream top-curve). Pass `flatBottom`
 // when a CREAM section follows, so the arc doesn't dome navy onto a light background.
-export default function Certifications({ flatBottom = false }) {
+// `flatTop` likewise suppresses the cream dome that rises ABOVE the section — pass it
+// when the section above is a self-contained panel (e.g. the Infrastructure page's navy
+// facility-book stage) that the cream curve would otherwise invade.
+export default function Certifications({ flatBottom = false, flatTop = false }) {
   const { t } = useTranslation('homeCerts')
   const root = useRef(null)
   const viewport = useRef(null)
@@ -144,10 +147,13 @@ export default function Certifications({ flatBottom = false }) {
 
   return (
     <section id="certifications" ref={root} data-theme="light" className="certs" aria-labelledby="certs-title">
-      {/* signature curve — cream dome sweeping over the section above */}
-      <svg className="certs-arc-top" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0,160 L1440,160 L1440,108 Q720,-34 0,108 Z" fill="#fdfaf4" />
-      </svg>
+      {/* signature curve — cream dome sweeping over the section above. Suppressed when
+          the section above is a self-contained panel (flatTop) it would invade. */}
+      {!flatTop && (
+        <svg className="certs-arc-top" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,160 L1440,160 L1440,108 Q720,-34 0,108 Z" fill="#fdfaf4" />
+        </svg>
+      )}
 
       <div className="certs-inner">
         <div className="certs-top">

@@ -22,7 +22,10 @@ export const client = createClient({
   dataset,
   apiVersion: '2026-07-19',
   useCdn: !readToken,
-  ...(readToken ? {token: readToken} : {}),
+  // The read token is a DELIBERATE, read-only Viewer token (see above). Sanity warns
+  // about browser tokens by default; this acknowledges the intentional trade-off and
+  // silences the console warning per Sanity docs.
+  ...(readToken ? {token: readToken, ignoreBrowserTokenWarning: true} : {}),
 })
 
 // Image URL builder (hotspot/crop-aware). Callers chain .width().auto('format').

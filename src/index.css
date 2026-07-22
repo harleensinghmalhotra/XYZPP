@@ -244,10 +244,18 @@
 .u-btn--solid:hover  { background: var(--gold); color: var(--navy); }
 .u-btn--outline { background: transparent; border-color: var(--navy); color: var(--navy); }
 .u-btn--outline:hover { background: var(--navy); color: var(--cream); }
-.u-btn--gold   { background: var(--gold-2); color: var(--navy); }
-.u-btn--gold:hover   { background: var(--cream-3); color: var(--navy); }
+/* --gold IS the homepage "Request a Quote" primary: orange #F37031 → #F5824A hover,
+   navy label. Every primary CTA site-wide routes through this one variant. */
+.u-btn--gold   { background: var(--gold); color: var(--navy); }
+.u-btn--gold:hover   { background: var(--gold-2); color: var(--navy); }
 .u-btn--ghost  { background: transparent; border-color: rgba(245, 240, 232, 0.5); color: var(--cream-3); }
 .u-btn--ghost:hover  { background: var(--cream-3); color: var(--navy); border-color: var(--cream-3); }
+/* --lg is the prominent footprint of the homepage / footer / awards CTAs (h-14 pill,
+   40px side padding, 15px semibold) so those buttons don't shrink when unified. */
+.u-btn--lg { height: 56px; padding: 0 40px; font-size: 15px; font-weight: 600; }
+/* Homepage hover/press feel, shared by the whole family. */
+.u-btn:hover:not(:disabled)  { transform: scale(1.02); }
+.u-btn:active:not(:disabled) { transform: scale(0.98); }
 .u-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 /* ── GALAXY-NEBULA CTA AURA — the homepage button language ─────────────────────

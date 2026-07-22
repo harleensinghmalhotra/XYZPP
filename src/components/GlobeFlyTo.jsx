@@ -199,20 +199,28 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
         (h) => map[h]?.disable?.(),
       )
 
-      // Failure watchdog: if the style/tiles never load, fall back gracefully.
+      // Failure watchdog: if the style never loads, fall back gracefully. Bumped to
+      // 15s (was 8s) so a slow-but-working connection isn't prematurely dropped to the
+      // static map — the most likely cause of the "no globe, dots only" reports.
       let loaded = false
       const failTimer = setTimeout(() => {
         if (!loaded && !cancelled) {
           removeMap()
           setFallback(true)
         }
-      }, 8000)
+      }, 15000)
       cleanups.push(() => clearTimeout(failTimer))
 
-      // A style/source error BEFORE first load = tiles unreachable → fallback.
-      // After load, transient glyph/tile errors are ignored (no spam loop).
+      // Errors BEFORE first load: tolerate a transient one (a single early glyph/sprite
+      // hiccup shouldn't kill a map whose style is still coming). Only a REPEATED
+      // pre-load error (genuinely unreachable style/tiles) drops to the fallback; the
+      // watchdog above is the final backstop. After load, transient tile errors during
+      // the flight are ignored entirely (no spam loop, no fallback).
+      let preLoadErrors = 0
       map.on('error', () => {
-        if (!loaded && !cancelled) {
+        if (loaded || cancelled) return
+        preLoadErrors += 1
+        if (preLoadErrors >= 3) {
           clearTimeout(failTimer)
           removeMap()
           setFallback(true)

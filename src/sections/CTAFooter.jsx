@@ -63,16 +63,18 @@ export default function CTAFooter() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center gap-4" style={{ fontFamily: INTER }}>
+          {/* Shared button system (.u-btn). --gold = the primary orange pill;
+              --ghost = the on-navy secondary; --lg keeps the hero footprint. */}
           <a
             href="mailto:info@quarterfoldltd.com"
-            className="btn-nebula focus-ring inline-flex h-14 items-center justify-center rounded-[var(--r-btn)] bg-[#F37031] px-10 text-[15px] font-semibold text-[#0e1b46] transition-all duration-300 hover:bg-[#F5824A] hover:scale-[1.02] active:scale-[0.98]"
+            className="u-btn u-btn--gold u-btn--lg btn-nebula focus-ring"
             style={{ letterSpacing: '0.2px' }}
           >
             {t('cta.requestQuote')}
           </a>
           <a
             href="#"
-            className="btn-nebula focus-ring inline-flex h-14 items-center justify-center rounded-[var(--r-btn)] bg-transparent border border-[#fdfaf4]/40 px-10 text-[15px] font-semibold text-[#fdfaf4] transition-all duration-300 hover:bg-[#fdfaf4]/10 hover:scale-[1.02] active:scale-[0.98]"
+            className="u-btn u-btn--ghost u-btn--lg btn-nebula focus-ring"
             style={{ letterSpacing: '0.2px' }}
           >
             {t('cta.downloadProfile')}
