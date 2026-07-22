@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import SiteLayout from '@/components/SiteLayout'
 import Home from '@/pages/Home'
-import ShellPage from '@/pages/ShellPage'
+import LegalPage from '@/pages/LegalPage'
 import OurStory from '@/pages/OurStory'
 import AboutUs2 from '@/pages/AboutUs2'
 import Founder from '@/pages/Founder'
@@ -38,10 +38,10 @@ export default function App() {
         <Route path="/fulfilment" element={<Fulfilment />} />
         <Route path="/contact" element={<Contact />} />
 
-        <Route path="/legal/privacy" element={<ShellPage title="Privacy Policy" eyebrow="Legal" />} />
-        <Route path="/legal/cookies" element={<ShellPage title="Cookie Policy" eyebrow="Legal" />} />
-        <Route path="/legal/terms" element={<ShellPage title="Terms of Use" eyebrow="Legal" />} />
-        <Route path="/legal/accessibility" element={<ShellPage title="Accessibility Statement" eyebrow="Legal" />} />
+        <Route path="/legal/privacy" element={<LegalPage doc="privacy" />} />
+        <Route path="/legal/cookies" element={<LegalPage doc="cookies" />} />
+        <Route path="/legal/terms" element={<LegalPage doc="terms" />} />
+        <Route path="/legal/accessibility" element={<LegalPage doc="accessibility" />} />
 
         <Route path="*" element={<NotFound />} />
       </Route>

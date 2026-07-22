@@ -1,0 +1,62 @@
+/* ── Floating WhatsApp button ────────────────────────────────────────────────
+   Fixed bottom-right, brand-green circle with the white WhatsApp mark. 56px on
+   desktop / 48px on mobile. Sits above page content, below the gallery lightbox
+   (z-1000) and the cookie banner (z-200). Entrance + hover are motion-safe. */
+.wa-fab {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  /* safe-area keeps it clear of iOS home indicator + the footer's last content */
+  bottom: calc(clamp(16px, 3vw, 28px) + env(safe-area-inset-bottom, 0px));
+  z-index: 190;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35), 0 2px 6px rgba(0, 0, 0, 0.18);
+  -webkit-tap-highlight-color: transparent;
+  /* gentle entrance — resting state is hidden until .is-in is added at ~1.5s */
+  opacity: 0;
+  transform: translateY(12px) scale(0.85);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+}
+.wa-fab.is-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.wa-fab:hover {
+  transform: translateY(0) scale(1.06);
+  box-shadow: 0 10px 28px rgba(37, 211, 102, 0.45), 0 3px 8px rgba(0, 0, 0, 0.22);
+}
+.wa-fab:active {
+  transform: scale(0.98);
+}
+.wa-fab:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(37, 211, 102, 0.55), 0 6px 20px rgba(37, 211, 102, 0.35);
+}
+.wa-fab svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .wa-fab { width: 48px; height: 48px; }
+  .wa-fab svg { width: 24px; height: 24px; }
+}
+
+/* Motion-safe: fade only, no scale/translate, no hover growth. */
+@media (prefers-reduced-motion: reduce) {
+  .wa-fab {
+    transform: none;
+    transition: opacity 0.2s ease;
+  }
+  .wa-fab.is-in { transform: none; }
+  .wa-fab:hover { transform: none; }
+  .wa-fab:active { transform: none; }
+}

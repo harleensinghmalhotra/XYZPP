@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "lastUpdated": "Last updated: July 2026",
+    "disclaimer": "This document is provided for general information and should be reviewed by your legal advisors."
+  },
+  "privacy": {
+    "eyebrow": "Legal",
+    "title": "Privacy Policy",
+    "seoDesc": "How Quarterfold Printabilities collects, uses and protects the personal data you share through this website, aligned with India's DPDP Act, 2023.",
+    "intro": "This Privacy Policy explains how Quarterfold Printabilities Private Limited (\"Quarterfold\", \"we\", \"us\") handles personal data collected through this website. We act as the Data Fiduciary for that data and process it lawfully, fairly and only for the purposes described below.",
+    "sections": [
+      {
+        "h": "Who we are",
+        "p": [
+          "Quarterfold Printabilities Private Limited (CIN U74999MH2020PTC337494) is the Data Fiduciary responsible for personal data collected through this site.",
+          "Registered office: Office No 1207, Plot No 4 & 6, Sector 30A, Navi Mumbai, Maharashtra 400705, India.",
+          "For any privacy question or request, contact us at info@quarterfoldltd.com."
+        ]
+      },
+      {
+        "h": "What data we collect",
+        "p": ["We collect only the information you choose to submit through our enquiry and sample-request forms, together with basic technical information created automatically whenever a website is visited:"],
+        "list": [
+          "Details you enter in a form: your name, email address, phone number, company (where provided) and the message or project notes you write.",
+          "Basic server logs, such as IP address, browser type and the date and time of a request, kept for security and to keep the site running reliably."
+        ]
+      },
+      {
+        "h": "Why we use your data",
+        "p": [
+          "We use the information you provide solely to respond to your enquiry and to prepare a quotation or sample. We do not sell your personal data, and we do not use it for marketing without your consent.",
+          "Your language choice is stored in your browser to remember your preference, as explained in our Cookie Policy."
+        ]
+      },
+      {
+        "h": "Legal basis",
+        "p": [
+          "For visitors in India, we process your data on the basis of your consent and the legitimate uses permitted under the Digital Personal Data Protection Act, 2023 and its Rules.",
+          "For visitors in the European Union and United Kingdom, our legal basis is our legitimate interest in responding to your enquiry and, where applicable, your consent (GDPR Article 6(1)(a) and (f))."
+        ]
+      },
+      {
+        "h": "Who we share it with",
+        "p": [
+          "We share your data only with the service providers that help us operate the site and respond to you, for example our website form-delivery provider and our content platform, and only to the extent needed to provide those services. These providers process data on our instructions.",
+          "We may also disclose data where required by law or to protect our legal rights."
+        ]
+      },
+      {
+        "h": "How long we keep it",
+        "p": ["We keep enquiry data for as long as needed to deal with your request and our ongoing relationship, and thereafter only for the periods required to meet our legal, accounting and statutory obligations. When it is no longer needed, we delete or anonymise it."]
+      },
+      {
+        "h": "Your rights",
+        "p": ["Subject to applicable law, you may ask us to:"],
+        "list": [
+          "access the personal data we hold about you;",
+          "correct or update data that is inaccurate or incomplete;",
+          "erase your data where it is no longer required;",
+          "withdraw a consent you have given, at any time; and",
+          "nominate another person to exercise your rights in the event of death or incapacity, as provided under the DPDP Act."
+        ]
+      },
+      {
+        "h": "Raising a request or complaint",
+        "p": [
+          "To exercise any of these rights, email us at info@quarterfoldltd.com and we will respond within the timelines required by law.",
+          "If you are not satisfied with how we have handled your data, you have the right to complain to the Data Protection Board of India."
+        ]
+      },
+      {
+        "h": "International visitors",
+        "p": ["This website is operated from India. If you access it from outside India, your data may be processed in India. We rely on the legal bases set out above and apply the same care to your data wherever it is processed."]
+      },
+      {
+        "h": "Children's data",
+        "p": ["This site is intended for a business audience and is not directed at children. We do not knowingly collect the personal data of children. If you believe a child has provided us with data, contact us and we will delete it."]
+      },
+      {
+        "h": "Security",
+        "p": ["We apply reasonable technical and organisational safeguards to protect personal data against loss, misuse and unauthorised access. No method of transmission over the internet is completely secure, but we work to protect your data using appropriate measures."]
+      },
+      {
+        "h": "Changes to this policy",
+        "p": ["We may update this Privacy Policy from time to time. The current version is always available on this page, with the date it was last updated shown below."]
+      }
+    ]
+  },
+  "cookies": {
+    "eyebrow": "Legal",
+    "title": "Cookie Policy",
+    "seoDesc": "Quarterfold Printabilities uses only essential, functional browser storage. No advertising or analytics trackers. Here is exactly what we store and how to clear it.",
+    "intro": "This Cookie Policy explains the small amount of information this website stores in your browser. In short: we use only essential and functional storage. We do not use advertising cookies or analytics trackers, and we do not track you across other sites.",
+    "sections": [
+      {
+        "h": "What we store",
+        "p": ["The only information kept in your browser is functional. It makes the site work and remembers your choices:"],
+        "list": [
+          "Language preference: remembers whether you are viewing the site in English, French or Spanish.",
+          "Cookie choice: records whether you have accepted or declined non-essential storage, so we do not ask again.",
+          "Sound preference: remembers if you have muted on-site sound.",
+          "Content delivery: images and content are served through the Sanity content platform's global CDN, which may set essential storage to deliver files efficiently."
+        ]
+      },
+      {
+        "h": "What we do not use",
+        "p": [
+          "We do not use advertising or marketing cookies, and we run no third-party analytics or tracking tools (for example Google Analytics, Meta Pixel or similar). Because of this, declining non-essential storage changes nothing about how the site behaves for you today.",
+          "Should we ever add a non-essential tool in future, it will load only after you have given consent through the cookie banner."
+        ]
+      },
+      {
+        "h": "Managing and clearing storage",
+        "p": ["You can clear or block this storage at any time through your browser settings:"],
+        "list": [
+          "Chrome: Settings, then Privacy and security, then Clear browsing data.",
+          "Firefox: Settings, then Privacy & Security, then Cookies and Site Data, then Clear Data.",
+          "Safari: Settings, then Privacy, then Manage Website Data (or Clear History).",
+          "Edge: Settings, then Cookies and site permissions, then Manage and delete cookies and site data."
+        ]
+      },
+      {
+        "h": "Changes to this policy",
+        "p": ["If our use of cookies or browser storage changes, we will update this page and the date shown below."]
+      }
+    ]
+  },
+  "terms": {
+    "eyebrow": "Legal",
+    "title": "Terms of Use",
+    "seoDesc": "The terms governing your use of the Quarterfold Printabilities website: content ownership, permitted use, enquiries, liability and governing law.",
+    "intro": "These Terms of Use govern your access to and use of the Quarterfold Printabilities website. By using this site you agree to these terms. If you do not agree, please do not use the site.",
+    "sections": [
+      {
+        "h": "Use of the site",
+        "p": ["You may use this website for lawful, personal and business-information purposes. You agree not to misuse it. This includes no automated scraping, harvesting or bulk downloading of content, and nothing that disrupts the site or attempts to gain unauthorised access to it or its systems."]
+      },
+      {
+        "h": "Intellectual property",
+        "p": ["All content on this site, including text, images, graphics, logos, layout and design, is the property of Quarterfold Printabilities Private Limited or its licensors and is protected by applicable intellectual-property laws. You may not reproduce, distribute or create derivative works from it without our prior written permission."]
+      },
+      {
+        "h": "Enquiries are not contracts",
+        "p": ["Any form you submit through this site, including quote and sample requests, is an enquiry only. It does not create a binding contract or an obligation on either side. A binding agreement arises only through a separate written quotation or order accepted by both parties."]
+      },
+      {
+        "h": "Third-party links",
+        "p": ["The site may link to third-party services (for example WhatsApp). We are not responsible for the content, policies or practices of those services, and a link does not imply our endorsement."]
+      },
+      {
+        "h": "Disclaimer",
+        "p": ["The site and its content are provided on an \"as is\" basis for general information. While we take care to keep information accurate and current, we make no warranty that it is complete, error-free or continuously available."]
+      },
+      {
+        "h": "Limitation of liability",
+        "p": ["To the fullest extent permitted by law, Quarterfold Printabilities will not be liable for any indirect, incidental or consequential loss arising from your use of, or inability to use, this website or its content."]
+      },
+      {
+        "h": "Governing law and jurisdiction",
+        "p": ["These Terms are governed by the laws of India. Any dispute relating to this website or these Terms is subject to the exclusive jurisdiction of the courts of Navi Mumbai and Mumbai, Maharashtra."]
+      },
+      {
+        "h": "Changes to these terms",
+        "p": ["We may update these Terms from time to time. The current version is always shown on this page, with the date it was last updated below."]
+      }
+    ]
+  },
+  "accessibility": {
+    "eyebrow": "Legal",
+    "title": "Accessibility Statement",
+    "seoDesc": "Quarterfold Printabilities is committed to an accessible website, targeting WCAG 2.1 AA: contrast, keyboard navigation, reduced-motion support and readable text.",
+    "intro": "Quarterfold Printabilities is committed to making this website usable for as many people as possible, including people who rely on assistive technologies. We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1 at Level AA.",
+    "sections": [
+      {
+        "h": "What we do",
+        "p": ["We build and maintain the site with accessibility in mind, including:"],
+        "list": [
+          "Colour contrast that aims to meet WCAG 2.1 AA for text and interface elements.",
+          "Full keyboard navigation, a visible focus indicator and a \"skip to content\" link.",
+          "Support for reduced motion: animations are minimised when your device requests it.",
+          "Readable, scalable text with sensible minimum sizes, plus semantic, screen-reader-friendly structure and alternative text for meaningful images."
+        ]
+      },
+      {
+        "h": "Known limitations",
+        "p": ["We are honest that no site is ever perfectly accessible. Some richer, animated or third-party embedded content may not yet fully conform, and we treat any such gaps as issues to fix. We continue to test and improve the site over time."]
+      },
+      {
+        "h": "Feedback",
+        "p": ["If you encounter an accessibility barrier on this site, or need information in a different format, please tell us at info@quarterfoldltd.com. We welcome your feedback and aim to respond promptly and put things right where we can."]
+      },
+      {
+        "h": "Changes to this statement",
+        "p": ["We will update this statement as the site evolves and as we address the points above. The date it was last updated is shown below."]
+      }
+    ]
+  }
+}

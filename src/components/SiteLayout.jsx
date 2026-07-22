@@ -4,6 +4,7 @@ import SiteNav from '@/components/SiteNav'
 import ScrollToTop from '@/components/ScrollToTop'
 import CTAFooter from '@/sections/CTAFooter'
 import CookieBanner from '@/components/CookieBanner'
+import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import { initAlive } from '@/lib/alive'
 
 // Shared chrome for every route: fixed nav on top, the route's page in the middle,
@@ -29,6 +30,7 @@ export default function SiteLayout() {
       <SiteNav />
       <Outlet />
       <CTAFooter />
+      <FloatingWhatsApp />
       <CookieBanner />
     </>
   )

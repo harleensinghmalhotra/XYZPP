@@ -1,4 +1,5 @@
 import { useTranslation, Trans } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { SHOW_CASE_STUDIES } from '@/lib/compliance'
 
 // Fonts locked to our system (was inheriting the global Space Mono / font-display):
@@ -162,7 +163,7 @@ export default function CTAFooter() {
               </p>
               <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                 {legalLinks.map((it) => (
-                  <a key={it.key} href="#" className="text-[11px] font-semibold tracking-wider uppercase transition-colors hover:text-[#C2551B]" style={{ color: '#5c5346' }}>{it.label}</a>
+                  <Link key={it.key} to={`/legal/${it.key}`} className="text-[11px] font-semibold tracking-wider uppercase transition-colors hover:text-[#C2551B]" style={{ color: '#5c5346' }}>{it.label}</Link>
                 ))}
               </div>
             </div>
