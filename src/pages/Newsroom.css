@@ -54,7 +54,7 @@
 
 .nr-card-media {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;   /* true 16:9 — covers are uniform 1600×900, no crop */
   overflow: hidden;
   background: var(--cream-2);
 }

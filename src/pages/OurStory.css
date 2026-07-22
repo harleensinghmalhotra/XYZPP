@@ -173,11 +173,14 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 .tls-card-inner { min-width: 0; }
 .tls-media-zone { min-width: 0; margin: 0 0 clamp(18px, 2.4vh, 26px); }
 .tls-media {
-  position: relative; width: 100%; aspect-ratio: 16 / 10;
-  border-radius: var(--radius-lg); background: var(--cream-2);
+  position: relative; width: 100%; aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg); background: var(--cream-2); overflow: hidden;
 }
 .tls-media::before, .tls-media::after { content: none; }   /* clean frame — no ticks */
-.tls-media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* CONTAIN so nothing crops: a 4:3 source fills the frame edge-to-edge; the odd
+   ones (the portrait 2014 press hall, the award photo with faces + trophy text)
+   letterbox on cream instead of losing content. */
+.tls-media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
 .tls-copy { min-width: 0; }
 .tls-title {
   margin: 0 0 clamp(14px, 1.8vh, 18px); max-width: 24ch;
@@ -331,8 +334,11 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   border-radius: var(--r-card); overflow: hidden;
   border: 1px solid rgb(var(--navy-rgb) / 0.08);
   box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.05);
+  background: var(--cream-2);   /* letterbox tone for non-3:2 tiles (contain) */
 }
-.gal-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* CONTAIN — identical tile sizes, cream letterbox; machine/factory shots of any
+   ratio show whole, never cropped. */
+.gal-img { display: block; width: 100%; height: 100%; object-fit: contain; }
 @media (max-width: 900px) { .gal-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .gal-grid { grid-template-columns: 1fr; } }
 
@@ -405,8 +411,8 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
   font-size: clamp(32px, 4vw, 52px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink);
 }
 
-/* one unified grid — 4 × 2 at 1536, homepage card scale, tight gaps. */
-.tm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(30px, 3vw, 44px) clamp(20px, 2vw, 32px); }
+/* one unified grid — 3 × 2 at desktop (six leaders), homepage card scale, tight gaps. */
+.tm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(30px, 3vw, 44px) clamp(20px, 2vw, 32px); }
 .tm-card { min-width: 0; transition: transform 0.28s var(--e-out); will-change: transform; }
 
 /* fitted 3:4 portrait frame — the full photo always fits, never cropped. */
