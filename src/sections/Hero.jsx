@@ -80,7 +80,7 @@ export default function Hero() {
             </span>
           </a>
           <a
-            href="#reach"
+            href="#projects"
             className="hero-btn btn-nebula relative inline-flex h-[54px] w-[220px] items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] px-[24px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
             <span className="relative z-10 whitespace-nowrap">{t('hero.ctaReach')}</span>

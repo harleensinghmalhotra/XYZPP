@@ -1812,30 +1812,6 @@ body {
   letter-spacing: 0.2px;
   color: rgba(245, 240, 232, 0.8);
 }
-.proj-dest-go {
-  position: absolute;
-  z-index: 2;
-  top: clamp(20px, 1.8vw, 28px);
-  right: clamp(20px, 1.8vw, 28px);
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-family: 'Inter', sans-serif;
-  font-size: 18px;
-  color: #fdfaf4;
-  background: rgba(10, 18, 34, 0.5);
-  border: 1px solid rgba(245, 240, 232, 0.28);
-  transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
-}
-.proj-dest:hover .proj-dest-go, .proj-dest:focus-visible .proj-dest-go {
-  background: var(--gold-2);
-  color: var(--navy);
-  border-color: var(--gold-2);
-  transform: translateY(-2px);
-}
-
 /* ── DESTINATION DESCRIPTION — text below each region card ──────────────────
    Each region has a detailed description mounted below its card, using the
    brand gold accent (#F37031) for emphasis and cream background. Reduced-motion

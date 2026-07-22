@@ -20,7 +20,11 @@ background as a box on the card.) Push to deploy.
 | `product-07.webp` | 1100×720 | corporate | ✅ real |
 | `product-08.webp` | 700×560 | print-on-demand | ✅ real |
 | `product-09.webp` | 1100×733 | religious | ✅ real |
-| `product-10.webp` | 700×560 | packaging & gifting | 🅿️ **placeholder — client has not supplied this image** |
+| `product-10.webp` | 1200×650 | packaging & gifting | ✅ real |
 
-> Nine of the ten categories now use real cut-out photography; only
-> **packaging & gifting** (`product-10`) is still the navy/gold placeholder.
+> All ten categories now use real cut-out photography.
+>
+> `product-10` (packaging & gifting) was keyed from Ekta's product-grouping render
+> (`Ektas Vibe Coded Latest/Packaging and Gifting.png`) — a hard cut (white box
+> faces the same tone as the glossy studio floor). Re-run its dedicated pipeline
+> with `node scripts/cut-packaging.mjs` if that source is re-exported.

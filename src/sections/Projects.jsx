@@ -137,7 +137,6 @@ function DestPanel({ slug, img, t, onFocus, onReset }) {
               <span className="proj-dest-stat-label">{statLabel}</span>
             </div>
           </div>
-          <span className="proj-dest-go" aria-hidden="true">→</span>
         </div>
       </a>
       <p className="proj-dest-body" dangerouslySetInnerHTML={{ __html: body }} />
