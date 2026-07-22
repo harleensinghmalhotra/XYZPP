@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
+import CTAButton from '@/components/CTAButton'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -94,14 +95,7 @@ export default function Awards() {
             {/* See More → /newsroom: the shared button system (.u-btn), identical to the
                 homepage "Request a Quote" primary — orange --gold pill, --lg footprint,
                 btn-nebula ring, hover/press feel all inherited from the family. */}
-            <Link
-              to="/newsroom"
-              className="u-btn u-btn--gold u-btn--lg btn-nebula focus-ring"
-              style={{ letterSpacing: '0.2px' }}
-            >
-              {t('seeMore')}
-              <span aria-hidden="true">→</span>
-            </Link>
+            <CTAButton to="/newsroom" dark>{t('seeMore')}</CTAButton>
           </div>
 
           {/* paged plaque strip — native horizontal scroller (4 visible), focusable

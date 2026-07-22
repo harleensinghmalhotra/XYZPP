@@ -4,6 +4,7 @@ import { useTranslation, Trans } from 'react-i18next'
 import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
 import PageHero, { splitTitle } from '@/components/PageHero'
+import CTAButton from '@/components/CTAButton'
 import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 import './PrintOnDemand.css'
 
@@ -297,10 +298,10 @@ export default function PrintOnDemand() {
               <span className="ph-stat-foot">{t('hero.statFoot')}</span>
             </div>
             <div className="ph-ctas" style={{ marginTop: 'clamp(24px, 4vh, 36px)' }}>
-              <a href="#build" className="u-btn u-btn--gold">
+              <CTAButton href="#build" dark arrow={false}>
                 {t('hero.cta')}
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="m6 13 6 6 6-6" /></svg>
-              </a>
+              </CTAButton>
             </div>
           </PageHero>
         )
@@ -559,7 +560,7 @@ export default function PrintOnDemand() {
                       <Trans t={t} i18nKey="summary.reqError" components={{ 1: <a href={`mailto:${EMAIL_ENQ}`} /> }} />
                     </p>
                   )}
-                  <button type="submit" className="u-btn u-btn--gold w-full justify-center"
+                  <CTAButton type="submit" dark arrow={false} className="w-full justify-center"
                     disabled={reqStatus === 'submitting' || !req.consent}
                     aria-disabled={reqStatus === 'submitting' || !req.consent ? 'true' : undefined}
                     aria-busy={reqStatus === 'submitting'}>
@@ -568,21 +569,18 @@ export default function PrintOnDemand() {
                     ) : (
                       <>
                         {reqStatus === 'error' ? t('summary.reqRetry') : t('summary.reqSend')}
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
                       </>
                     )}
-                  </button>
+                  </CTAButton>
                   <button type="button" className="pod-req-cancel" onClick={() => setReqOpen(false)}>
                     {t('summary.reqCancel')}
                   </button>
                 </form>
               ) : (
-                <button type="button" className="u-btn u-btn--gold w-full justify-center" onClick={() => setReqOpen(true)}>
+                <CTAButton type="button" dark className="w-full justify-center" onClick={() => setReqOpen(true)}>
                   {t('summary.request')}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                  </svg>
-                </button>
+                </CTAButton>
               )}
               <p className="pod-summary-note">
                 <Trans t={t} i18nKey="summary.note" components={{ 1: <Link to={contactHref} /> }} />
@@ -652,12 +650,9 @@ export default function PrintOnDemand() {
           <p className="pod-cta-sub" data-reveal>
             {t('cta.sub')}
           </p>
-          <Link to="/contact?intent=print-on-demand-sample" className="u-btn u-btn--gold" data-reveal>
+          <CTAButton to="/contact?intent=print-on-demand-sample" data-reveal>
             {t('cta.btn')}
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-            </svg>
-          </Link>
+          </CTAButton>
         </div>
       </section>
     </main>

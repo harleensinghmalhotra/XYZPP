@@ -769,26 +769,7 @@
   70% { opacity: 1; transform: scaleX(1); }
   100% { opacity: 0; transform: scaleX(1); }
 }
-.pod-request {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  width: 100%;
-  padding: 15px 20px;
-  border-radius: var(--r-btn);
-  background: var(--gold-2);
-  color: var(--navy);
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;
-  font-size: 15.5px;
-  letter-spacing: 0.1px;
-  text-decoration: none;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
-}
-.pod-request:hover { background: #F37031; transform: translateY(-2px); }
-.pod-request svg { width: 17px; height: 17px; }
+/* .pod-request removed — superseded local button style (converted to shared CTAButton). */
 .pod-summary-note {
   position: relative;
   margin: 14px 0 0;

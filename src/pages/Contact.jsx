@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import SectionCurve from '@/components/SectionCurve'
 import PageHero, { splitTitle } from '@/components/PageHero'
+import CTAButton from '@/components/CTAButton'
 import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -633,7 +634,7 @@ export default function Contact() {
                 </div>
               )}
 
-              <button type="submit" className="u-btn u-btn--gold"
+              <CTAButton type="submit" arrow={false}
                 disabled={status === 'submitting' || !form.consent}
                 aria-disabled={status === 'submitting' || !form.consent ? 'true' : undefined}
                 aria-busy={status === 'submitting'}>
@@ -645,7 +646,7 @@ export default function Contact() {
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m11 5 7 7-7 7" /></svg>
                   </>
                 )}
-              </button>
+              </CTAButton>
 
               <p className="ctc-dpa">
                 <Trans t={t} i18nKey="form.dpa" components={{ 1: <Link to="/legal/privacy" /> }} />

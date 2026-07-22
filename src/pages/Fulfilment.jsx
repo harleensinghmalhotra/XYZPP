@@ -7,6 +7,7 @@ import Seo from '@/components/Seo'
 import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
 import PageHero from '@/components/PageHero'
+import CTAButton from '@/components/CTAButton'
 import { DotField, PaperGrain } from '@/components/atmosphere'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS } from '@/lib/compliance'
@@ -152,7 +153,7 @@ function Hero() {
         <span className="ph-stat-foot">{t('hero.statFoot')}</span>
       </div>
       <div className="ph-ctas" style={{ marginTop: 'clamp(24px, 4vh, 36px)' }}>
-        <Link to="/contact" className="u-btn u-btn--gold">{t('hero.cta')}</Link>
+        <CTAButton to="/contact" dark>{t('hero.cta')}</CTAButton>
       </div>
     </PageHero>
   )
@@ -385,10 +386,7 @@ function CTA() {
       <p className="ff-cta-sub ff-reveal">
         {t('cta.sub')}
       </p>
-      <Link to="/contact" className="u-btn u-btn--solid ff-reveal">
-        {t('cta.pill')}
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-      </Link>
+      <CTAButton to="/contact" className="ff-reveal">{t('cta.pill')}</CTAButton>
     </section>
   )
 }

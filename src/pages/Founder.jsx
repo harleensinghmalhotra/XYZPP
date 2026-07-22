@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import PageHero from '@/components/PageHero'
+import CTAButton from '@/components/CTAButton'
 import { PaperGrain } from '@/components/atmosphere'
 
 const NAVY = '#0F2444'
@@ -54,7 +55,7 @@ export default function Founder() {
         minVh={62}
       >
         <div className="ph-ctas">
-          <Link to="/contact" className="u-btn u-btn--gold">{t('cta.button')}</Link>
+          <CTAButton to="/contact" dark>{t('cta.button')}</CTAButton>
         </div>
       </PageHero>
 
@@ -128,7 +129,7 @@ export default function Founder() {
           <p className="mx-auto max-w-2xl text-[18px] leading-relaxed mb-8" style={{ fontFamily: INTER, color: 'rgba(28,32,25,0.78)' }}>
             {t('cta.text')}
           </p>
-          <Link to="/contact" className="u-btn u-btn--solid">{t('cta.button')}</Link>
+          <CTAButton to="/contact">{t('cta.button')}</CTAButton>
         </div>
       </section>
     </main>

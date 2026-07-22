@@ -10,6 +10,7 @@ import SectionCurve from '@/components/SectionCurve'
 import FacilityBook from '@/components/FacilityBook'
 import Awards from '@/sections/Awards'
 import Certifications from '@/sections/Certifications'
+import CTAButton from '@/components/CTAButton'
 import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
@@ -398,7 +399,7 @@ export default function InfrastructurePage() {
           <p className="inf-cta-sub">
             {t('cta.sub')}
           </p>
-          <Link to="/contact" className="u-btn u-btn--gold">{t('cta.button')}</Link>
+          <CTAButton to="/contact">{t('cta.button')}</CTAButton>
         </div>
       </section>
 
