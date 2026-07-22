@@ -9,10 +9,11 @@ letterboxes). Each card's title, year and issuer live in the locale files
 (`src/locales/*/homeAwards.json`); the image is the only thing you overwrite here.
 Push the change to deploy.
 
-> Real award art (award-03·04·05·07·08·09·10) was refreshed from the client's
+> Real award art (award-03·04·05·07·08·10) was refreshed from the client's
 > **22 Jul 2026** batch at native **1200×900** so every card fills the 4:3 frame
 > (no more letterbox). `award-07` is the Two Star Export House certificate composed
 > on the brand navy field (`#0e1b46`) with a thin orange rule, per house treatment.
+> Two slots still lack their true image — see `award-06` and `award-09` below.
 
 | File | Award (card title · year · issuer) | Status |
 |------|-------------------------------------|--------|
@@ -25,7 +26,7 @@ Push the change to deploy.
 | `award-06.webp` | Most Trusted Brand of the Year · 2023 · MSME | 🅿️ **placeholder — the 22 Jul 2026 client batch contained NO MSME image; still awaiting it** |
 | `award-07.webp` | Two Star Export House · 2022 · Govt of India | ✅ real (certificate composed on a navy field) |
 | `award-08.webp` | Highest Exporter of Printed Books · CAPEXIL | ✅ real |
-| `award-09.webp` | One of the Youngest & Most Enterprising Book Presses · 2019 · PrintWeek | ✅ real |
+| `award-09.webp` | One of the Youngest & Most Enterprising Book Presses · 2019 · PrintWeek | 🅿️ **facility stand-in — the 22 Jul batch's "Print Technologies 2019" file is a DIFFERENT award (The Association for PRINT Technologies, to the founder), NOT this PrintWeek honour; still awaiting the correct image** |
 | `award-10.webp` | Most Emerging SME, Indian Company · 2016 · Dun & Bradstreet | ✅ real |
 
 > The card **order** (newest first) is set in `src/sections/Awards.jsx`, not by the
