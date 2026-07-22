@@ -285,28 +285,33 @@ export default function Projects() {
         .to(q('.proj-cred-card'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, '>-0.3')
 
       // the archive shelf — own trigger so the books slide up as the shelf enters.
-      gsap.set(q('.proj-books-eyebrow'), { autoAlpha: 0, y: 12 })
-      gsap.set(q('.proj-books-shelf'), { autoAlpha: 0, scaleX: 0.55 })
-      gsap.set(q('.proj-book'), { autoAlpha: 0, y: 34 })
+      // Only wire it when the shipment-records block actually renders (SHOW_SHIPMENT_RECORDS,
+      // line ~382). Gated off, its targets (.proj-books-*, .proj-book) are absent and every
+      // set/tween below would fire GSAP's "target not found" warning against nothing.
+      if (SHOW_SHIPMENT_RECORDS) {
+        gsap.set(q('.proj-books-eyebrow'), { autoAlpha: 0, y: 12 })
+        gsap.set(q('.proj-books-shelf'), { autoAlpha: 0, scaleX: 0.55 })
+        gsap.set(q('.proj-book'), { autoAlpha: 0, y: 34 })
 
-      const tl2 = gsap.timeline({ scrollTrigger: { trigger: recordsRef.current, start: 'top 82%', once: true } })
-      tl2.to(q('.proj-books-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' })
-        .to(q('.proj-books-shelf'), { autoAlpha: 1, scaleX: 1, duration: 0.7, ease: 'power2.out' }, 0.04)
-        .to(q('.proj-book'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.09, ease: 'power3.out', clearProps: 'transform,opacity,visibility' }, 0.12)
+        const tl2 = gsap.timeline({ scrollTrigger: { trigger: recordsRef.current, start: 'top 82%', once: true } })
+        tl2.to(q('.proj-books-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' })
+          .to(q('.proj-books-shelf'), { autoAlpha: 1, scaleX: 1, duration: 0.7, ease: 'power2.out' }, 0.04)
+          .to(q('.proj-book'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.09, ease: 'power3.out', clearProps: 'transform,opacity,visibility' }, 0.12)
 
-      // count-up on reveal — each figure tweens 0 → target once, formatted to the
-      // target's precision, and lights its foil shimmer (one pass) on start.
-      q('.proj-book-countn').forEach((el) => {
-        const target = parseFloat(el.dataset.value)
-        const dec = parseInt(el.dataset.decimals, 10) || 0
-        const suffix = el.dataset.suffix || ''
-        const proxy = { v: 0 }
-        tl2.to(proxy, {
-          v: target, duration: 1.15, ease: 'power2.out',
-          onStart: () => el.classList.add('is-lit'),
-          onUpdate: () => { el.textContent = proxy.v.toFixed(dec) + suffix },
-        }, 0.3)
-      })
+        // count-up on reveal — each figure tweens 0 → target once, formatted to the
+        // target's precision, and lights its foil shimmer (one pass) on start.
+        q('.proj-book-countn').forEach((el) => {
+          const target = parseFloat(el.dataset.value)
+          const dec = parseInt(el.dataset.decimals, 10) || 0
+          const suffix = el.dataset.suffix || ''
+          const proxy = { v: 0 }
+          tl2.to(proxy, {
+            v: target, duration: 1.15, ease: 'power2.out',
+            onStart: () => el.classList.add('is-lit'),
+            onUpdate: () => { el.textContent = proxy.v.toFixed(dec) + suffix },
+          }, 0.3)
+        })
+      }
     }, root)
     return () => ctx.revert()
   }, [reduced])

@@ -1,5 +1,7 @@
 import {createClient} from '@sanity/client'
-import imageUrlBuilder from '@sanity/image-url'
+// Named export — the default export is a deprecation-wrapped alias that logs a console
+// warning on use; createImageUrlBuilder is the current, warning-free entry point.
+import {createImageUrlBuilder} from '@sanity/image-url'
 import {projectId, dataset} from '../../studio/projectConfig.js'
 
 // ── Sanity read client ────────────────────────────────────────────────────────
@@ -24,7 +26,7 @@ export const client = createClient({
 })
 
 // Image URL builder (hotspot/crop-aware). Callers chain .width().auto('format').
-const builder = imageUrlBuilder(client)
+const builder = createImageUrlBuilder(client)
 export const urlFor = (source) => builder.image(source)
 
 // Date meta in the newsroom's DM-Mono style, localised to the active language.

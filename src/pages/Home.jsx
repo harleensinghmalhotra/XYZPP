@@ -95,9 +95,10 @@ function wwpLanded() {
 //   • 7e (Harry): the four-stat bar lives INSIDE TrustStrips as its third strip
 //     (countries ticker → institutions ticker → stats = one welded unit under the
 //     hero). No standalone stats block here.
-// HARD CONSTRAINT preserved: the process section stays immediately before Projects
-// (the 3D conveyor was retired for a full-bleed video + 7-point strip — ProcessVideo
-// — taking the exact same slot). Everything else keeps its prior relative order.
+// CLIENT REORDER 22-07: the "How We Work" video (ProcessVideo) NO LONGER sits before
+// Projects. It moves DOWN to just after Certifications, near the closing CTA/footer, and
+// its 7-step illustrated exhibit is hidden (SHOW_PROCESS_EXHIBIT in ProcessVideo.jsx) so
+// only the heading + video remain. Everything else keeps its prior relative order.
 export default function Home() {
   const { t } = useTranslation('home')
   const { hash } = useLocation()
@@ -161,10 +162,14 @@ export default function Home() {
         <WhatWePrint />
         <GlobeReach />
         <Promise />
-        <ProcessVideo />
         <Projects />
         <Infrastructure />
-        <Certifications />
+        {/* flatBottom: the navy sweep-arc is suppressed because the "How We Work" video
+            (a cream section) now follows Certifications instead of the navy Marquee. */}
+        <Certifications flatBottom />
+        {/* HOW WE WORK video — moved here per client 22-07: it now sits after the
+            Certifications section, near the closing CTA/footer (was before Projects). */}
+        <ProcessVideo />
         <Marquee />
         <Sustainability />
         <Awards />

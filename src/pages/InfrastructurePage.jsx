@@ -8,6 +8,8 @@ import CountUp from '@/components/CountUp'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import FacilityBook from '@/components/FacilityBook'
+import Awards from '@/sections/Awards'
+import Certifications from '@/sections/Certifications'
 import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
@@ -29,22 +31,18 @@ gsap.registerPlugin(ScrollTrigger)
 //   public/qfp/infra/gallery-0{1..4}.webp     (facility strip)
 //   public/qfp/infra/walkthrough.mp4 + .vtt   (then flip VIDEO_READY → true)
 
-// Walkthrough video gate (reused from the homepage Infrastructure section). Stays
-// false until the client delivers the MP4. COMPLIANCE: the final video must ship
-// with closed captions (walkthrough.vtt) + a text transcript BEFORE this flips on.
-const VIDEO_READY = false
-const VIDEO_SRC = '/site-assets/infrastructure/video/walkthrough.mp4'
-const VIDEO_VTT = '/site-assets/infrastructure/video/walkthrough.vtt'
+// Walkthrough video — plays the SAME "Inside Our Facilities" file the homepage slot
+// uses (site-assets/homepage/video/facilities.*), not a duplicate copy, so both pages
+// stay in lock-step when the asset is re-cut. It ships with closed captions (facilities.vtt),
+// meeting the same accessibility bar as the homepage slot.
+const VIDEO_READY = true
+const VIDEO_SRC = '/site-assets/homepage/video/facilities.mp4'
+const VIDEO_VTT = '/site-assets/homepage/video/facilities.vtt'
+const VIDEO_POSTER = '/site-assets/homepage/video/facilities-poster.jpg'
 
 // Data carries stable keys + non-translatable values (logos, codes, icons, numbers).
 // User-facing labels/subs/specs/captions resolve via t(`<group>.<key>...`) at render.
-const CERTS = [
-  { k: 'fsc', logo: 'fsc.webp', code: 'TUVDC-COC-101258' },
-  { k: 'iso9001', logo: 'iso.webp' },
-  { k: 'iso14001', logo: 'iso.webp' },
-  { k: 'sedex', logo: 'sedex.webp' },
-  { k: 'starExport', typographic: true },
-]
+// (The certification trust strip is now the shared homepage <Certifications /> — see §2.)
 
 const CAPABILITIES = [
   { k: 'print' },
@@ -76,15 +74,8 @@ const STATS = [
   { k: 'people', value: 600, suffix: '+' },
 ]
 
-// Recognition plaques reuse the HOMEPAGE Awards visual language (.aw/.plq, gold-foil
-// names, press-clipping). Two items carry the real ceremony photos already shipped for
-// the homepage (CAPEXIL → award-04, PrintWeek → award-01); D&B — a listing, not a
-// ceremony — takes the designed press-clipping treatment (the homepage's Forbes card).
-const AWARDS = [
-  { k: 'capexil', img: 'award-04.webp' },
-  { k: 'printweek', img: 'award-01.webp' },
-  { k: 'dnb', clipping: true },
-]
+// Recognition is now the shared homepage <Awards /> component (see §6) — the page's
+// own plaque rail was retired per client 22-07.
 
 const GALLERY = [
   { n: '01', k: 'pressHall' },
@@ -103,130 +94,6 @@ function InfraPhoto({ src, note, className = '' }) {
       {src && (
         <div className="inf-photo-img" aria-hidden="true" style={{ backgroundImage: `url(${src})` }} />
       )}
-    </div>
-  )
-}
-
-// ── Recognition plaque internals — ported from the homepage Awards section so the
-// treatment is pixel-identical (same .aw-photo frame, same gold placeholder, same
-// press-clipping). Photo: real ceremony webp reveals on load and hides the elegant
-// gold-framed placeholder; a 404 keeps the placeholder (zero code change if a file moves).
-function PlaquePhoto({ img, ph }) {
-  const [ok, setOk] = useState(false)
-  return (
-    <>
-      <img
-        className="aw-photo-img"
-        src={`/site-assets/infrastructure/awards/${img}`}
-        alt=""
-        loading="lazy"
-        decoding="async"
-        style={{ opacity: ok ? 1 : 0 }}
-        onLoad={() => setOk(true)}
-        onError={() => setOk(false)}
-      />
-      {!ok && <div className="aw-photo-ph" aria-hidden="true"><span>{ph}</span></div>}
-    </>
-  )
-}
-
-// D&B is a business-register listing, not a ceremony — so its photo zone IS a designed
-// press clipping (the homepage's Forbes-card device), no image needed.
-function PlaqueClipping({ t }) {
-  return (
-    <div className="aw-clip">
-      <div className="aw-clip-head">
-        <span className="aw-clip-masthead">{t('recognition.awards.dnb.clipMasthead')}</span>
-        <span className="aw-clip-date">{t('recognition.awards.dnb.clipDate')}</span>
-      </div>
-      <div className="aw-clip-rule" />
-      <div className="aw-clip-headline">{t('recognition.awards.dnb.clipHeadline')}</div>
-      <div className="aw-clip-lines">
-        <span style={{ width: '100%' }} />
-        <span style={{ width: '93%' }} />
-        <span style={{ width: '98%' }} />
-        <span style={{ width: '58%' }} />
-      </div>
-    </div>
-  )
-}
-
-// Recognition rail — the homepage Awards anatomy replicated 1:1 (in-territory, so
-// the homepage stays untouched): left-aligned .aw-head-text + paging arrows, an
-// .aw-viewport scroller wrapping a flex .aw-grid of .plq plaques. Same arrow chip
-// (.wwp-arrow), same scroll mechanics as Awards.jsx — with three cards filling the
-// row on desktop the arrows sit disabled (exactly the homepage's rendered state),
-// and they light up when a narrower viewport shows fewer than three at a time.
-function RecognitionRail({ t }) {
-  const viewport = useRef(null)
-  const [atStart, setAtStart] = useState(true)
-  const [atEnd, setAtEnd] = useState(true)
-
-  const cardStep = () => {
-    const vp = viewport.current
-    if (!vp) return 0
-    const cards = vp.querySelectorAll('.plq')
-    if (cards.length >= 2) {
-      return cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left
-    }
-    return cards[0]?.getBoundingClientRect().width ?? 0
-  }
-  const scrollRow = (dir) => {
-    const vp = viewport.current
-    if (!vp) return
-    vp.scrollBy({ left: dir * cardStep(), behavior: prefersReduced() ? 'auto' : 'smooth' })
-  }
-  useEffect(() => {
-    const vp = viewport.current
-    if (!vp) return
-    const update = () => {
-      const max = vp.scrollWidth - vp.clientWidth
-      setAtStart(vp.scrollLeft <= 1)
-      setAtEnd(vp.scrollLeft >= max - 1) // no overflow → both ends true → both disabled
-    }
-    update()
-    vp.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
-    return () => { vp.removeEventListener('scroll', update); window.removeEventListener('resize', update) }
-  }, [])
-
-  return (
-    <div className="aw-content">
-      <div className="aw-head">
-        <div className="aw-head-text">
-          <p className="aw-eyebrow">{t('recognition.eyebrow')}</p>
-          <h2 id="inf-rec-h" className="aw-title">{t('recognition.title')}</h2>
-        </div>
-        <div className="wwp-arrows aw-arrows">
-          <button type="button" className="wwp-arrow focus-ring" onClick={() => scrollRow(-1)} disabled={atStart} aria-label={t('recognition.scrollPrev')}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6" /></svg>
-          </button>
-          <button type="button" className="wwp-arrow focus-ring" onClick={() => scrollRow(1)} disabled={atEnd} aria-label={t('recognition.scrollNext')}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m10 6 6 6-6 6" /></svg>
-          </button>
-        </div>
-      </div>
-
-      <div className="aw-viewport" ref={viewport} role="region" aria-label={t('recognition.rowLabel')} tabIndex={0}>
-        <div className="aw-grid">
-          {AWARDS.map((a) => (
-            <article className="plq" key={a.k}>
-              <div className="aw-photo">
-                {a.clipping
-                  ? <PlaqueClipping t={t} />
-                  : <PlaquePhoto img={a.img} ph={t(`recognition.awards.${a.k}.kicker`)} />}
-                <div className="plq-tint" aria-hidden="true" />
-                <div className="plq-sheen" aria-hidden="true" />
-              </div>
-              <div className="aw-body">
-                <div className="aw-label">{t(`recognition.awards.${a.k}.kicker`)}</div>
-                <h3 className="aw-name">{t(`recognition.awards.${a.k}.name`)}</h3>
-                <p className="aw-desc">{t(`recognition.awards.${a.k}.body`)}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
     </div>
   )
 }
@@ -282,14 +149,13 @@ export default function InfrastructurePage() {
       }
 
       // (hero reveals now handled by PageHero via alive.js data-reveal/textreveal)
-      reveal('.inf-strip-item', { trigger: '.inf-strip', stagger: 0.07 })
+      // §2 Certifications + §6 Awards are the shared homepage components — they own their
+      // OWN entrance animations, so no reveal() is wired for them here.
       // §3 capability triptych reveals via CSS `.is-in` (IntersectionObserver above).
       reveal('.inf-ledger-row', { trigger: '.inf-ledger', stagger: 0.1, start: 'top 80%' })
       reveal('.inf-finish-cell', { trigger: '.inf-finish-grid', stagger: 0.05, start: 'top 82%' })
       reveal('.inf-results-head, .inf-stat', { trigger: '.inf-results', stagger: 0.08 })
       reveal('.inf-video', { trigger: '.inf-results', start: 'top 72%' })
-      reveal('.inf-recognition .aw-head', { trigger: '.inf-recognition', start: 'top 80%' })
-      reveal('.inf-recognition .plq', { trigger: '.inf-recognition', stagger: 0.12, start: 'top 74%' })
       reveal('.inf-gallery-item', { trigger: '.inf-gallery', stagger: 0.08 })
       reveal('.inf-cta-inner', { trigger: '.inf-cta', start: 'top 84%' })
     }, root)
@@ -323,33 +189,12 @@ export default function InfrastructurePage() {
       {/* ── 1B · FACILITY BOOK — interactive page-turner ────────────────── */}
       <FacilityBook />
 
-      {/* ── 2 · TRUST STRIP — certifications (cream) ─────────────────────── */}
-      <section data-theme="light" className="inf-strip" aria-labelledby="inf-strip-h">
-        <PaperGrain />
-        <div className="inf-wrap inf-z">
-          <h2 id="inf-strip-h" className="inf-strip-eyebrow">{t('strip.eyebrow')}</h2>
-          <ul className="inf-strip-row">
-            {CERTS.map((c) => {
-              const name = t(`strip.certs.${c.k}.name`)
-              return (
-              <li key={c.k} className="inf-strip-item">
-                <div className="inf-strip-mark">
-                  {c.typographic ? (
-                    <span className="inf-strip-star" aria-hidden="true">★</span>
-                  ) : (
-                    <img src={`/site-assets/infrastructure/certs/${c.logo}`} alt={t('strip.certAlt', { name })} loading="lazy" decoding="async" />
-                  )}
-                </div>
-                <p className="inf-strip-name">{name}</p>
-                <p className="inf-strip-sub">{t(`strip.certs.${c.k}.sub`)}</p>
-                {/* COMPLIANCE: the FSC licence code must render with the mark — never omit. */}
-                {c.code && <p className="inf-strip-code">{t('strip.licence', { code: c.code })}</p>}
-              </li>
-              )
-            })}
-          </ul>
-        </div>
-      </section>
+      {/* ── 2 · CERTIFICATIONS — shared homepage <Certifications /> (client 22-07) ──
+          Replaces the page's old custom trust strip. flatBottom: the capability triptych
+          (§3) below carries its OWN cream top-curve, so the certs navy sweep-arc is
+          suppressed here to avoid a clashing double curve. The shared component keeps the
+          FSC licence code with its mark (same compliance bar as the retired strip). ── */}
+      <Certifications flatBottom />
 
       {/* ── 3 · CAPABILITY TRIPTYCH (navy) — About-MVV vocabulary ───────────
           One flat #0e1b46 band folded into three spines split by two drawn gold
@@ -492,8 +337,8 @@ export default function InfrastructurePage() {
               data-pending={!VIDEO_READY}
               aria-label={VIDEO_READY ? t('results.videoPlayLabel') : t('results.videoPendingLabel')}
             >
-              {/* Silent drop-in poster: a delivered walkthrough poster covers this with zero code change. */}
-              <span className="inf-video-img" aria-hidden="true" style={{ backgroundImage: 'url(/site-assets/infrastructure/gallery/walkthrough-poster.webp)' }} />
+              {/* Poster = the shared homepage "Inside Our Facilities" still. */}
+              <span className="inf-video-img" aria-hidden="true" style={{ backgroundImage: `url(${VIDEO_POSTER})` }} />
               <span className="inf-video-scrim" aria-hidden="true" />
               <span className="inf-video-note" aria-hidden="true">{t('results.videoNote')}</span>
               <span className="inf-play" aria-hidden="true">
@@ -507,20 +352,12 @@ export default function InfrastructurePage() {
             plaques below; the navy→cream sweep happens at the foot of Recognition. */}
       </section>
 
-      {/* ── 6 · RECOGNITION — homepage Awards plaque language, 3-up (navy) ─
-          Reuses the homepage Awards section verbatim: Broadway spotlights, navy
-          gold-bordered plaques, ceremony photos + a press-clipping, gold-foil names.
-          Flows on from the navy Results band as one "honour hall" chapter, then the
-          signature curve sweeps navy → cream into the gallery below. */}
-      <section data-theme="dark" className="aw inf-recognition" aria-labelledby="inf-rec-h">
-        <div className="aw-glow" aria-hidden="true" />
-        <div className="aw-carpet" aria-hidden="true" />
-        <div className="aw-vignette" aria-hidden="true" />
-        <div className="aw-inner">
-          <RecognitionRail t={t} />
-        </div>
-        <SectionCurve position="bottom" fill="#fdfaf4" inward />
-      </section>
+      {/* ── 6 · RECOGNITION — shared homepage <Awards /> (client 22-07) ────
+          Replaces the page's old custom recognition rail with the exact homepage
+          Awards section (Broadway spotlights, navy gold-bordered plaques, gold-foil
+          names). Flows on from the navy Results band (both navy, flush) into the cream
+          Gallery below. Position within the page layout is preserved. ── */}
+      <Awards />
 
       {/* ── 7 · GALLERY — facility photos only, no testimonials (cream) ─── */}
       <section data-theme="light" className="inf-gallery" aria-labelledby="inf-gal-h">
@@ -572,7 +409,7 @@ export default function InfrastructurePage() {
             </button>
             {VIDEO_READY ? (
               // COMPLIANCE: ship with <track kind="captions"> + linked transcript before go-live.
-              <video className="inf-dialog-video" src={VIDEO_SRC} controls autoPlay playsInline crossOrigin="anonymous">
+              <video className="inf-dialog-video" src={VIDEO_SRC} poster={VIDEO_POSTER} controls autoPlay playsInline>
                 <track kind="captions" src={VIDEO_VTT} srcLang="en" label={t('dialog.captionsLabel')} default />
               </video>
             ) : (

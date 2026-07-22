@@ -62,7 +62,11 @@ function CheckMark() {
   )
 }
 
-export default function Certifications() {
+// `flatBottom` suppresses the navy sweep-arc at the section's foot. Default (false)
+// keeps the arc for a navy neighbour below (the homepage Marquee / the Infrastructure
+// page's capability triptych, which carries its own cream top-curve). Pass `flatBottom`
+// when a CREAM section follows, so the arc doesn't dome navy onto a light background.
+export default function Certifications({ flatBottom = false }) {
   const { t } = useTranslation('homeCerts')
   const root = useRef(null)
   const viewport = useRef(null)
@@ -235,10 +239,13 @@ export default function Certifications() {
         </div>
       </div>
 
-      {/* signature curve — the next dark section (techniques strip) arcs in below */}
-      <svg className="certs-arc-bottom" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0,150 L1440,150 L1440,70 Q720,-10 0,70 Z" fill="var(--navy)" />
-      </svg>
+      {/* signature curve — the next dark section arcs in below. Suppressed when a cream
+          section follows (flatBottom), so the navy dome never lands on a light background. */}
+      {!flatBottom && (
+        <svg className="certs-arc-bottom" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,150 L1440,150 L1440,70 Q720,-10 0,70 Z" fill="var(--navy)" />
+        </svg>
+      )}
     </section>
   )
 }

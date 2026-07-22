@@ -125,10 +125,9 @@ export default function Infrastructure() {
     if (reduced) return
     const ctx = gsap.context(() => {
       const q = gsap.utils.selector(root)
-      gsap.set(q('.infra-eyebrow, .infra-title, .infra-people-title, .infra-people-body'), { autoAlpha: 0, y: 16 })
+      gsap.set(q('.infra-eyebrow, .infra-title'), { autoAlpha: 0, y: 16 })
       gsap.set(q('.ib-stage'), { autoAlpha: 0, y: 32 })
       gsap.set(q('.infra-video'), { autoAlpha: 0, y: 28 })
-      gsap.set(q('.infra-person'), { autoAlpha: 0, y: 22 })
 
       // header + facility cards
       const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: 'top 74%', once: true } })
@@ -140,11 +139,17 @@ export default function Infrastructure() {
       gsap.timeline({ scrollTrigger: { trigger: q('.infra-video'), start: 'top 84%', once: true } })
         .to(q('.infra-video'), { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out', clearProps: 'transform,opacity,visibility' })
 
-      // people block — heading + scene grid cascade
-      const tl3 = gsap.timeline({ scrollTrigger: { trigger: q('.infra-people'), start: 'top 80%', once: true } })
-      tl3.to(q('.infra-people-title'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' })
-        .to(q('.infra-people-body'), { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out' }, 0.12)
-        .to(q('.infra-person'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, 0.18)
+      // people block — heading + scene grid cascade. Only wired when the team section
+      // actually renders (SHOW_TEAM_SECTION); gated off, its targets (.infra-people*,
+      // .infra-person) are absent and GSAP would warn "target not found" against nothing.
+      if (SHOW_TEAM_SECTION) {
+        gsap.set(q('.infra-people-title, .infra-people-body'), { autoAlpha: 0, y: 16 })
+        gsap.set(q('.infra-person'), { autoAlpha: 0, y: 22 })
+        const tl3 = gsap.timeline({ scrollTrigger: { trigger: q('.infra-people'), start: 'top 80%', once: true } })
+        tl3.to(q('.infra-people-title'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+          .to(q('.infra-people-body'), { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out' }, 0.12)
+          .to(q('.infra-person'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, 0.18)
+      }
     }, root)
     return () => ctx.revert()
   }, [reduced])

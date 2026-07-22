@@ -32,6 +32,13 @@ const POINTS = ['print', 'quality', 'fulfillment', 'warehouse', 'ship', 'covered
 // via badges.<i>.{lead,sub}; the medallion icon is the non-translatable mark per row.
 const BADGE_ICONS = [Handshake, Headset, Broadcast, Clock, ShieldCheck, TrendUp]
 
+// HIDDEN per client 22-07 — the 7-step illustrated process EXHIBIT (client artwork +
+// our numbered text row + the six-guarantee promise band) is hidden by client request.
+// Nothing is deleted: the artwork, copy, badges and their CSS stay intact; flip this to
+// `true` to restore the full exhibit exactly as built. The "How We Work" heading + video
+// above stay live (and now move down the homepage — see Home.jsx section order).
+const SHOW_PROCESS_EXHIBIT = false
+
 export default function ProcessVideo() {
   const { t } = useTranslation('homeProcess')
   const reduced = useReducedMotion()
@@ -102,7 +109,9 @@ export default function ProcessVideo() {
 
       {/* THE EXHIBIT — no box, no border, no panel. The artwork, text row and promise
           band bleed straight onto the page cream as normal flow; the artwork's cream is
-          normalised to the page cream so the illustration reads as printed ON the page. */}
+          normalised to the page cream so the illustration reads as printed ON the page.
+          HIDDEN per client 22-07 (SHOW_PROCESS_EXHIBIT) — restore by flipping the flag. */}
+      {SHOW_PROCESS_EXHIBIT && (
       <div className="pv-frame-wrap" ref={bandRef}>
         <div className="pv-frame">
           {/* THE ARTWORK — client illustration, caption band cropped off, full-width and
@@ -154,6 +163,7 @@ export default function ProcessVideo() {
           </ul>
         </div>
       </div>
+      )}
     </section>
   )
 }
