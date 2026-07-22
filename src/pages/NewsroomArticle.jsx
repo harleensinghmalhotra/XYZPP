@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { PortableText } from '@portabletext/react'
 import Seo from '@/components/Seo'
 import { PaperGrain } from '@/components/atmosphere'
-import { client, urlFor, formatDate, revealDynamic } from '@/lib/sanity'
+import { client, urlFor, formatDate, revealDynamic, groqLang } from '@/lib/sanity'
 import './NewsroomArticle.css'
 
 // ── /newsroom/:slug — reading-first article (live Sanity) ────────────────────
@@ -13,13 +13,20 @@ import './NewsroomArticle.css'
 // body now renders via @portabletext/react. The slug fetch carries the same
 // published + publishedAt<=now() guard as the index, so a direct URL to a hidden
 // or future post resolves to null → the existing 404 view.
+//
+// Field-level i18n: title / excerpt / body read the active locale with a
+// per-field English fallback (coalesce). The body projection runs on the chosen
+// locale array, so videoFile blocks still deref their asset url in any language.
 const ARTICLE_QUERY = `{
   "post": *[_type == "post" && slug.current == $slug && published == true && publishedAt <= now()][0]{
-    title, "slug": slug.current, publishedAt, category, excerpt, coverImage,
-    body[]{ ..., _type == "videoFile" => { "url": asset->url } }
+    "title": coalesce(title[$lang], title.en),
+    "slug": slug.current, publishedAt, category,
+    "excerpt": coalesce(excerpt[$lang], excerpt.en),
+    coverImage,
+    "body": coalesce(body[$lang], body.en)[]{ ..., _type == "videoFile" => { "url": asset->url } }
   },
   "candidates": *[_type == "post" && published == true && publishedAt <= now() && slug.current != $slug]
-    | order(publishedAt desc){ title, "slug": slug.current, publishedAt, category, coverImage }
+    | order(publishedAt desc){ "title": coalesce(title[$lang], title.en), "slug": slug.current, publishedAt, category, coverImage }
 }`
 
 function Arrow() {
@@ -112,14 +119,16 @@ function relatedFor(current, candidates) {
 export default function NewsroomArticle() {
   const { slug } = useParams()
   const { t, i18n } = useTranslation('newsroom')
+  const lang = groqLang(i18n.language)
   const [status, setStatus] = useState('loading') // loading | ready | error | missing
   const [post, setPost] = useState(null)
   const [related, setRelated] = useState([])
 
+  // Re-fetch on slug OR language change so the article + related row swap locale.
   const load = useCallback(() => {
     setStatus('loading')
     client
-      .fetch(ARTICLE_QUERY, { slug })
+      .fetch(ARTICLE_QUERY, { slug, lang })
       .then((data) => {
         if (!data || !data.post) {
           setStatus('missing')
@@ -130,7 +139,7 @@ export default function NewsroomArticle() {
         setStatus('ready')
       })
       .catch(() => setStatus('error'))
-  }, [slug])
+  }, [slug, lang])
 
   useEffect(() => { load() }, [load])
 

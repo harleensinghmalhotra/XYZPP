@@ -1,7 +1,11 @@
-import {defineType, defineField, defineArrayMember} from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 // Newsroom post — the ONLY document type. Fields exactly per the client mandate.
 // Grouped Content / Publishing, with plain-English descriptions for the client.
+//
+// i18n: title / excerpt / body are FIELD-LEVEL localized — each is a locale
+// object {en, fr, es} (see schemas/locale.js). Shared fields (slug, coverImage,
+// publishedAt, category, published) stay single values on the one document.
 export const post = defineType({
   name: 'post',
   title: 'Post',
@@ -14,9 +18,9 @@ export const post = defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
+      type: 'localeString',
       group: 'content',
-      description: 'The headline, exactly as it appears on the website.',
+      description: 'The headline, exactly as it appears on the website. English is required; French / Spanish are optional and fall back to English.',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -24,8 +28,9 @@ export const post = defineType({
       title: 'Slug',
       type: 'slug',
       group: 'content',
-      description: 'The web address for this post — click “Generate” to fill it from the title.',
-      options: {source: 'title', maxLength: 96},
+      description: 'The web address for this post — click “Generate” to fill it from the English title.',
+      // Source is a function now that title is a locale object: slug tracks English.
+      options: {source: (doc) => doc?.title?.en, maxLength: 96},
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -39,33 +44,16 @@ export const post = defineType({
     defineField({
       name: 'excerpt',
       title: 'Excerpt',
-      type: 'text',
-      rows: 3,
+      type: 'localeText',
       group: 'content',
       description: 'A short 2–3 sentence summary shown on the newsroom index card.',
     }),
     defineField({
       name: 'body',
       title: 'Body',
-      type: 'array',
+      type: 'localePortableText',
       group: 'content',
-      description: 'The article itself. Add paragraphs, images (with captions) and video.',
-      of: [
-        defineArrayMember({type: 'block'}),
-        defineArrayMember({
-          type: 'image',
-          title: 'Image',
-          options: {hotspot: true},
-          fields: [defineField({name: 'caption', title: 'Caption', type: 'string'})],
-        }),
-        defineArrayMember({
-          type: 'file',
-          name: 'videoFile',
-          title: 'Video',
-          options: {accept: 'video/*'},
-          fields: [defineField({name: 'caption', title: 'Caption', type: 'string'})],
-        }),
-      ],
+      description: 'The article itself. Add paragraphs, images (with captions) and video — separately per language.',
     }),
     defineField({
       name: 'publishedAt',
@@ -108,7 +96,7 @@ export const post = defineType({
     },
   ],
   preview: {
-    select: {title: 'title', date: 'publishedAt', category: 'category', media: 'coverImage', published: 'published'},
+    select: {title: 'title.en', date: 'publishedAt', category: 'category', media: 'coverImage', published: 'published'},
     prepare({title, date, category, media, published}) {
       const day = date ? new Date(date).toISOString().slice(0, 10) : 'no date'
       const bits = [day]

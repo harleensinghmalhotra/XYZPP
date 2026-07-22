@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Seo from '@/components/Seo'
 import PageHero from '@/components/PageHero'
 import { PaperGrain } from '@/components/atmosphere'
-import { client, urlFor, formatDate, revealDynamic } from '@/lib/sanity'
+import { client, urlFor, formatDate, revealDynamic, groqLang } from '@/lib/sanity'
 import './Newsroom.css'
 
 // ── /newsroom — editorial card index (live Sanity) ───────────────────────────
@@ -16,10 +16,15 @@ import './Newsroom.css'
 // The GROQ below IS the whole hide/unhide + scheduling logic: `published == true`
 // is the instant toggle, `publishedAt <= now()` reveals future-dated posts the
 // moment their time arrives — no cron. Chrome stays translated (newsroom ns);
-// post copy is EN, authored in the studio.
+// post copy is field-level localized in the studio: title + excerpt read the
+// active locale with a per-field English fallback (coalesce), so a post with no
+// FR/ES yet still shows its English headline rather than a blank.
 const INDEX_QUERY = `*[_type == "post" && published == true && publishedAt <= now()]
   | order(publishedAt desc){
-    title, "slug": slug.current, publishedAt, category, excerpt, coverImage
+    "title": coalesce(title[$lang], title.en),
+    "slug": slug.current, publishedAt, category,
+    "excerpt": coalesce(excerpt[$lang], excerpt.en),
+    coverImage
   }`
 
 function Arrow() {
@@ -76,20 +81,23 @@ function SkeletonCard() {
 }
 
 export default function Newsroom() {
-  const { t } = useTranslation('newsroom')
+  const { t, i18n } = useTranslation('newsroom')
+  const lang = groqLang(i18n.language)
   const [status, setStatus] = useState('loading') // loading | ready | error
   const [posts, setPosts] = useState([])
 
+  // Re-fetch when the language changes so titles/excerpts swap to the active
+  // locale (dates already reformat client-side via formatDate).
   const load = useCallback(() => {
     setStatus('loading')
     client
-      .fetch(INDEX_QUERY)
+      .fetch(INDEX_QUERY, { lang })
       .then((data) => {
         setPosts(data || [])
         setStatus('ready')
       })
       .catch(() => setStatus('error'))
-  }, [])
+  }, [lang])
 
   useEffect(() => { load() }, [load])
 

@@ -32,6 +32,14 @@ export const client = createClient({
 const builder = createImageUrlBuilder(client)
 export const urlFor = (source) => builder.image(source)
 
+// Clamp any i18n language to a supported GROQ locale key (en | fr | es). The
+// newsroom stores field-level translations under exactly these keys; anything
+// else (or a region-tagged code like "en-US") resolves to English, and the
+// GROQ `coalesce(field[$lang], field.en)` gives a second EN safety net per field.
+export function groqLang(lang) {
+  return lang === 'fr' || lang === 'es' ? lang : 'en'
+}
+
 // Date meta in the newsroom's DM-Mono style, localised to the active language.
 // Accepts a full ISO datetime (publishedAt); mirrors the retired mock's format.
 export function formatDate(iso, lang = 'en') {
