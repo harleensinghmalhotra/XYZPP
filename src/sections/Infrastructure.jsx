@@ -10,27 +10,27 @@ gsap.registerPlugin(ScrollTrigger)
 // ── Infrastructure — "Built for Scale. Engineered for Trust." ────────────────
 // Light proof band (cream2). Three alternating photo/content facility rows, a
 // Hero-Video-Dialog walkthrough card, and an "Our People" scene grid. Every photo
-// and the video are PENDING from the client — each surface is a premium navy
+// and the video are PENDING delivery — each surface is a premium navy
 // placeholder that a real asset drops straight into (silent CSS-bg: a missing file
 // simply reveals the placeholder, never a broken frame). Overwrite-to-swap paths:
 //   public/site-assets/homepage/facility-book/<name>.webp   (FacilityBook photos)
 //   public/site-assets/homepage/video/facilities.mp4 + facilities-poster.jpg
 //   public/site-assets/homepage/video/facilities.vtt   (captions, ships with video)
 
-// Walkthrough video toggle. Stays false until the client delivers the MP4; the
+// Walkthrough video toggle. Stays false until the MP4 is delivered; the
 // play button then goes live. COMPLIANCE: the final video must ship with closed
-// captions + a text transcript (accessibility / same client-permission bar as the
+// captions + a text transcript (accessibility / same permission bar as the
 // trust strips) BEFORE VIDEO_READY is flipped on.
 const VIDEO_READY = true
 const VIDEO_SRC = '/site-assets/homepage/video/facilities.mp4'
 
 // "Our People" grid ("600+ Hands Behind Every Shipment" — Press Floor Team /
 // Quality Check / Kitting & Packing / Leadership Team). Hidden, not deleted:
-// pending client photography. Locale keys stay so the block returns by flipping
+// awaiting final photography. Locale keys stay so the block returns by flipping
 // this to true once real team photos land. Same pattern as SHOW_STRIP_3.
 const SHOW_TEAM_SECTION = false
 
-// The three facility cards are now the InfraBooks book stack (Lane 15): the copy
+// The three facility cards are now the InfraBooks book stack: the copy
 // still lives in the same `facilities.<n>.*` keys, re-paginated into book pages by
 // InfraBooks.jsx. Only the card GRID moved — the video + People blocks below stay.
 
@@ -86,11 +86,11 @@ function TeamIcon({ name }) {
 
 // Team portrait placeholder — the exact facility placeholder language on the 4/5
 // portrait frame: solid deep-navy ground, faint tonal dot grid, gold stroke mark,
-// DM Mono caption. Photos were pulled (Harry's call); a real drop restores here.
+// DM Mono caption. Photos are pending; a real drop restores here.
 function TeamPlaceholder({ icon, note }) {
   return (
     <div className="infra-photo infra-photo--portrait infra-ph" aria-hidden="true">
-      {/* TODO(Harry): real team photo drops here */}
+      {/* TODO: real team photo drops here */}
       <div className="infra-ph-pattern" />
       <div className="infra-ph-mark">
         <TeamIcon name={icon} />
@@ -170,12 +170,12 @@ export default function Infrastructure() {
         </header>
 
         {/* ── THE BOOK STACK — the three facility cards, rebuilt as a stack of
-             hardcover books you open and flip through (Lane 15, Cases mechanics).
+             hardcover books you open and flip through (Cases mechanics).
              Books 4–5 are reserved placeholder slots awaiting content. ── */}
         <FacilityBook />
 
         {/* ── VIDEO — walkthrough placeholder, sits between the facility cards and the
-             People block (client request). Gated by VIDEO_READY (false): the click opens
+             People block. Gated by VIDEO_READY (false): the click opens
              a graceful "coming soon" panel, never a broken <video>. ── */}
         <div className="infra-video">
           <button
@@ -195,8 +195,8 @@ export default function Infrastructure() {
           </button>
         </div>
 
-        {/* ── OUR PEOPLE — the closing note of the section (client request).
-             Gated behind SHOW_TEAM_SECTION (pending client photography). ── */}
+        {/* ── OUR PEOPLE — the closing note of the section.
+             Gated behind SHOW_TEAM_SECTION (pending final photography). ── */}
         {SHOW_TEAM_SECTION && (
           <div className="infra-people">
             <h3 className="infra-people-title">

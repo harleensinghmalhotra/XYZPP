@@ -19,7 +19,7 @@ gsap.registerPlugin(ScrollTrigger)
 // DM Mono). Native scroll — Lenis lives only on "/". No live Google Maps iframe
 // (cookieless-safe): a styled static map + an "Open in Google Maps" link instead.
 
-// ── Canonical contact data (recon/qfp-live-pages/footer-contact.md) ──
+// ── Canonical contact data ──
 const PHONE_DISPLAY = '(+91) 829 199 9922'
 const PHONE_FOIL = '+91 829 199 9922'      // hero foil anchor (unparenthesised)
 const PHONE_TEL = '+918291999922'          // tel: / wa.me digits
@@ -493,7 +493,7 @@ export default function Contact() {
               <p className="ctc-addr-lines">
                 <Trans t={t} i18nKey="addr.hours.lines" components={{ 1: <br /> }} />
               </p>
-              {/* TODO(Harry): confirm exact business hours — placeholder Mon–Sat above. */}
+              {/* TODO: confirm exact business hours — placeholder Mon–Sat above. */}
               <p className="ctc-addr-flag">{t('addr.hours.flag')}</p>
             </article>
           </div>

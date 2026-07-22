@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 // ── Our Promise — the mission, centred on flat navy ──────────────────────────
-// Lane 10 (client meeting): the dark glow/aura treatment is DEAD. The section now
+// The dark glow/aura treatment was removed. The section now
 // sits on the SAME flat navy (var(--navy) #0F2444) GlobeReach uses, so the two navy
 // passages read as one continuous field. Gone with the effect: the LightPillar
 // (three.js), the radial scrim, the vignetted dot grid and the warm reading-lamp

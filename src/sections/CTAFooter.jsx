@@ -15,8 +15,8 @@ export default function CTAFooter() {
   const columns = [
     {
       h: t('quickLinks'),
-      // Case Studies link gated with the section (client instruction) — hidden
-      // while SHOW_CASE_STUDIES is false so no link points at a hidden section.
+      // Case Studies link gated with the section — hidden while
+      // SHOW_CASE_STUDIES is false so no link points at a hidden section.
       items: [
         t('links.products'),
         t('links.globalReach'),
@@ -66,13 +66,13 @@ export default function CTAFooter() {
         <div className="flex flex-col sm:flex-row items-center gap-4" style={{ fontFamily: INTER }}>
           {/* Shared button system (.u-btn). --gold = the primary orange pill;
               --ghost = the on-navy secondary; --lg keeps the hero footprint. */}
-          <a
-            href="mailto:info@quarterfoldltd.com"
+          <Link
+            to="/contact"
             className="u-btn u-btn--gold u-btn--lg btn-nebula focus-ring"
             style={{ letterSpacing: '0.2px' }}
           >
             {t('cta.requestQuote')}
-          </a>
+          </Link>
           <a
             href="#"
             className="u-btn u-btn--ghost u-btn--lg btn-nebula focus-ring"

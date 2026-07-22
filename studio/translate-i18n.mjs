@@ -10,7 +10,7 @@
 //     Education, "Champion in Biz", India-Africa Trade & Investment Forum).
 //   • Inter-governmental bodies use their official FR/ES names (World Bank →
 //     Banque mondiale / Banco Mundial; UN → ONU); UNESCO/UNICEF/USAID keep their
-//     acronyms. (Documented in the lane report.)
+//     acronyms.
 //   • Dates localized (June 2026 → juin 2026 / junio de 2026). Numbers & facts
 //     identical (INR 25 crore, 22 %, 2,00,000 sq ft, 4,00,000/day, etc.).
 //

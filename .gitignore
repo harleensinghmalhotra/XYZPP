@@ -1,55 +1,33 @@
 # Dependencies
 node_modules/
 
-# Sanity studio — secrets & build/runtime artifacts (studio/ is its own package)
+# Build output (Vercel rebuilds it)
+dist/
+
+# Sanity Studio — secrets & build artifacts (studio/ is its own package)
 studio/.env
 studio/.env.*
 studio/dist/
 studio/.sanity/
 .sanity/
 
-# Vite local env — holds the read-only Sanity Viewer token. NEVER commit.
+# Local environment — the Vite Sanity read token lives here. Never commit.
 .env.local
 .env.*.local
-# Never commit a plaintext token file (the token belongs only in studio/.env)
+
+# Never commit a plaintext token/secret file
 *API Key*.txt
 *api key*.txt
 
-# Exceeds GitHub 100MB file limit
-ALTERNATIVINC.COM Walkthrough.mp4
+# Editor / tooling
+.claude/
+.agents/
 
-# Ekta asset handoff kit — local delivery folder, not part of the app
-EKTA-HANDOFF/
+# Local, non-shipping working material (backups, scratch, source dumps)
+_archive/
 
-# Build output — Vercel rebuilds it; committing it only causes churn
-dist/
-
-# Screenshot / recon scratch (~1.7 GB)
-shots/
-recon/
-
-# Root-level screenshots (temporary verification artifacts)
+# Root-level image scratch (screenshots). Real bundler assets under src/assets and
+# the client-swap deliverable tree under public/site-assets must always ship.
 *.png
-# ...but src/assets media are real bundler assets that must ship (Vercel imports them)
 !src/assets/**
-# ...and public/site-assets is the CLIENT-SWAP deliverable tree — every file in it MUST
-# ship (the broad *.png rule above must never silently drop a logo/icon Harry overwrites).
 !public/site-assets/**
-
-# Local asset-handoff & scratch folders (not part of the app)
-FLOW assets/
-Ektas Vibe Coded Latest/
-sound/
-
-# Dev/scratch scripts
-scripts/_*.mjs
-scripts/task*-verify.mjs
-scripts/task*-*.mjs
-calibrate.mjs
-build_out.txt
-
-# Source asset folders (Ekta/Tushar handoff, not part of the app build — never
-# commit the raw source videos/zips; only their processed site-assets outputs ship)
-FRESH EKTA FEEDBACK*/
-assets/drive-download-*/
-FINAL ROUND OF CHANGES/

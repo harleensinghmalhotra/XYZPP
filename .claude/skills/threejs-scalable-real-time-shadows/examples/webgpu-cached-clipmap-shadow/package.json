@@ -1,7 +1,0 @@
-{
-  "type": "module",
-  "scripts": {
-    "capture": "node capture-shadow-depth.mjs",
-    "validate": "node validate.js"
-  }
-}

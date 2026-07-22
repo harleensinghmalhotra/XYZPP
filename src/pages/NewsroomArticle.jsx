@@ -9,7 +9,7 @@ import './NewsroomArticle.css'
 
 // ── /newsroom/:slug — reading-first article (live Sanity) ────────────────────
 // Navy masthead → 16:9 hero → single reading column of Portable Text → gold
-// hairline → related → back link. Structure/classes unchanged from the mock; the
+// hairline → related → back link. Structure/classes unchanged from the earlier build; the
 // body now renders via @portabletext/react. The slug fetch carries the same
 // published + publishedAt<=now() guard as the index, so a direct URL to a hidden
 // or future post resolves to null → the existing 404 view.
@@ -108,7 +108,7 @@ function RelatedCard({ post }) {
   )
 }
 
-// Same-category first, then most-recent fill, capped at 3 (mirrors the mock's
+// Same-category first, then most-recent fill, capped at 3 (mirrors the earlier
 // getRelatedPosts; candidates already arrive newest-first from GROQ).
 function relatedFor(current, candidates) {
   const sameCat = current.category ? candidates.filter((c) => c.category === current.category) : []

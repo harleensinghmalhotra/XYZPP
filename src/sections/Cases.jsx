@@ -6,9 +6,9 @@ import { typingSound } from '@/lib/typingSound'
 import './Cases.css'
 
 // ── Case Studies — THE OPEN BOOK ─────────────────────────────────────────────
-// Ekta's verdict on the old filmstrip: "not intuitive — the closed spines read as
-// decoration, nothing signals clickability or how many stories exist." So the
-// section becomes a real book you browse, and the metaphor explains itself:
+// The old filmstrip was not intuitive — the closed spines read as decoration and
+// nothing signalled clickability or how many stories exist. So the section becomes
+// a real book you browse, and the metaphor explains itself:
 //   • THE OPEN SPREAD — the active case is a two-page spread. Left page (cream):
 //     eyebrow, title, country/stat pills, body copy, "Read the full case study →".
 //     Right page: the case photo with an inner spine shadow + a page-curl hint.

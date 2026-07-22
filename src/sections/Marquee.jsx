@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 // switches language with the rest of the site. Order is fixed by this key list.
 const TERM_KEYS = ['offset', 'case', 'foil', 'perfect', 'spotuv', 'saddle', 'litho', 'emboss', 'fourcolour']
 
-// Lane 12b font re-audit: family/weight were already brand (Inter Tight 800, a loaded
-// weight), so there was no fallback face. The off-brand look the client caught was the
+// Font re-audit: family/weight were already brand (Inter Tight 800, a loaded
+// weight), so there was no fallback face. The off-brand look was the
 // ALTERNATING -webkit-text-stroke outline treatment (every odd term drawn transparent
 // with a paper stroke) — outline-only letterforms read like a different, condensed
 // display face (Anton/Bebas), unlike the solid fill every other heading on the site

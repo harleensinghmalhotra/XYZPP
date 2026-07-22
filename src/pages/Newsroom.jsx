@@ -9,7 +9,7 @@ import './Newsroom.css'
 
 // ── /newsroom — editorial card index (live Sanity) ───────────────────────────
 // Flat-navy PageHero band (site law) → a two-column card grid. Card anatomy and
-// classes are unchanged from the mock build — only the data source moved to
+// classes are unchanged from the earlier build — only the data source moved to
 // Sanity. Reveals ride the shared [data-reveal] runtime; because posts arrive
 // async, revealDynamic() re-observes them (see src/lib/sanity.js).
 //

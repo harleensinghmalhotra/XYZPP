@@ -56,7 +56,7 @@
 
 /* ── 1 · HERO — now the shared `.u-hero` skeleton (Phase 3.3). The forked
    `.inf-hero*` shell (incl. its gold-foil-gradient stat) was deleted; the shared
-   `.u-stat-num` renders a flat Ekta-style gold numeral instead. `.inf-z` stays —
+   `.u-stat-num` renders a flat gold numeral instead. `.inf-z` stays —
    it is reused by the strip/results sections below. ──────────────────────────── */
 .inf-z { position: relative; z-index: 10; }
 

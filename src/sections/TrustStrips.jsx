@@ -5,16 +5,15 @@ import { useReducedMotion } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES, SHOW_RESTRICTED_CLIENTS, SHOW_STRIP_3 } from '@/lib/compliance'
 
 // ── Trust strips (sits directly below the hero's book landing) ──────────────
-// Content ported verbatim from the client's vibe-coded homepage v17
+// Content ported verbatim from the approved homepage v17
 // (COUNTRIES STRIP + institutions row + STATS BAR). Text, order and icons are
-// law — not reworded, trimmed or reordered. Only the presentation is elevated.
+// fixed — not reworded, trimmed or reordered. Only the presentation is elevated.
 //
 // The three strips (countries ticker → institutions ticker → stats bar) are ONE
-// welded unit sitting under the hero's book landing. Lane 7 briefly split the
-// stats out below the mission band; 7e (Harry, on visual grounds) returns them
-// here as the third strip — their 9cccb0d home.
+// welded unit sitting under the hero's book landing, with the stats bar as the
+// third strip.
 
-// Strip 1 — 27 countries (Ekta's authoritative list), exact source order. Drifts
+// Strip 1 — 27 countries (the authoritative list), exact source order. Drifts
 // LEFT (~42s).
 // Display text is resolved via t(`countries.${key}`); keys are stable, order is law.
 const COUNTRIES = [
@@ -55,13 +54,12 @@ const INSTITUTIONS = INSTITUTIONS_ALL.filter(
   (it) => (SHOW_MINISTRY_NAMES || !it.ministry) && (SHOW_RESTRICTED_CLIENTS || !it.restricted),
 )
 
-// Strip 3 — four stats, numeric values are law; text is resolved via
-// t(`stats.${key}.label|accent|sr`). Count-up on first view. Ekta's gold-numeral
-// treatment; her dated flat-outline SVG icons and the straight gray column
-// dividers were retired per Harry's bar. Each metric is anchored by one of
-// Harry's custom navy/gold 3D clay renders, cut to true alpha (see
-// scripts/cutout-strip-icons.mjs → /qfp/icons3d/stat-*.webp).
-// Four canonical stats — numerals match the corrected locale copy (9cccb0d):
+// Strip 3 — four stats, numeric values are fixed; text is resolved via
+// t(`stats.${key}.label|accent|sr`). Count-up on first view. Gold-numeral
+// treatment; the older flat-outline SVG icons and the straight gray column
+// dividers were retired. Each metric is anchored by a custom navy/gold 3D clay
+// render, cut to true alpha (/qfp/icons3d/stat-*.webp).
+// Four canonical stats — numerals match the corrected locale copy:
 // 75 million books printed every year · 25+ countries · 800+ containers · 98% on-time.
 const STATS = [
   { key: 'books', value: 75, suffix: 'M', img: 'stat-book' },
@@ -148,7 +146,7 @@ export default function TrustStrips() {
 
     // GPU-composited transform loops via WAAPI (off the main thread, no React
     // state per frame). Strip 1 drifts left, strip 2 drifts right.
-    // Ticker speed dialed ~40% slower per client (countries + institutions/projects
+    // Ticker speed dialed ~40% slower (countries + institutions/projects
     // marquees): 30s → 42s and 38s → 53.2s. Hover-pause + reduced-motion unchanged.
     const a1 = track1.current.animate(
       [{ transform: 'translateX(0)' }, { transform: 'translateX(-50%)' }],
@@ -231,7 +229,7 @@ export default function TrustStrips() {
         </div>
       </div>
 
-      {/* Stats bar — numbers-led in Ekta's gold-numeral treatment */}
+      {/* Stats bar — numbers-led in the gold-numeral treatment */}
       {SHOW_STRIP_3 && (
         <div className="ts-stats">
           <ul className={`ts-stats-grid${statsIn ? ' is-in' : ''}`} ref={statsRef}>

@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// ONE-OFF SEED — imports the 12 mock newsroom posts into Sanity as documents,
+// ONE-OFF SEED — imports the 12 seed newsroom posts into Sanity as documents,
 // converting their body blocks to Portable Text and uploading their local
 // /public/qfp/newsroom media as Sanity assets.
 //
@@ -66,7 +66,7 @@ async function buildBody(post) {
         ...(blk.caption ? {caption: blk.caption} : {}),
       })
     } else if (blk.type === 'video') {
-      // Schema `videoFile` = file (video/*) + caption. The mock's poster has no
+      // Schema `videoFile` = file (video/*) + caption. The seed post's poster has no
       // home in that minimal schema, so it is intentionally dropped (native
       // <video> plays without one).
       const ref = await uploadAsset('file', blk.src)

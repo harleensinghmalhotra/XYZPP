@@ -594,7 +594,7 @@
 }
 
 /* ── SIZED TO ITS CONTENT (canonical desktop ≥1280) ─────────────────────────
-   Harry's overrule of the earlier WWP height-match: Cases sizes to its own
+   Superseding the earlier WWP height-match: Cases sizes to its own
    content — beige header + the open spread + spines + counter + View-All CTA.
    The artificial min-height (once = WWP's 2160px) is GONE, and with it the flex
    column that centered the book inside all that borrowed height (the hundreds of

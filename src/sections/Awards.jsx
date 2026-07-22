@@ -8,16 +8,16 @@ import CTAButton from '@/components/CTAButton'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ── Awards & Press — pixel-faithful port of the approved Claude Design export ──
+// ── Awards & Press — pixel-faithful port of the approved design ──
 // Navy plaque cards with gold-foil names, a CAPEXIL/press label row, and the
-// Forbes press-clipping card. One approved change vs the export: the "RECOGNITION"
+// Forbes press-clipping card. One approved change vs the design: the "RECOGNITION"
 // eyebrow LOSES its gold dash/hairline. Only motion added: a subtle stagger reveal
-// on the four cards (the export is static); reduced-motion → static.
+// on the four cards (the design is static); reduced-motion → static.
 
 // Eleven real awards, newest first (title + year + issuer are verbatim in the locale).
 // Real award photography lives at site-assets/homepage/awards/award-01..11.webp; only
-// award-06 (Most Trusted Brand, MSME 2023) is still a placeholder — the client has not
-// supplied it yet. The row scrolls; "See More" routes to /newsroom.
+// award-06 (Most Trusted Brand, MSME 2023) is still a placeholder — the final asset
+// has not been supplied yet. The row scrolls; "See More" routes to /newsroom.
 const CARDS = [
   { key: 'power100', img: 'award-01.webp', labelKey: 'industry' },
   { key: 'businessconnect', img: 'award-11.webp', labelKey: 'press' },
@@ -59,7 +59,7 @@ export default function Awards() {
   const root = useRef(null)
   const viewport = useRef(null)
   const [reduced] = useState(prefersReduced)
-  // The prev/next arrow paging was retired (client): the header now carries a single
+  // The prev/next arrow paging was retired: the header now carries a single
   // "See More" pill → /newsroom instead. The plaque row stays a native overflow-x
   // scroller (aw-viewport) so more awards dropped into RESERVED still scroll.
 

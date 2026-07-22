@@ -50,7 +50,7 @@ const SPINE_POS = [
 // Each book's title/body live under a single i18n base: facilities.01–03 for the
 // first three, books.04/05 for the last two. Its images ship at
 // /site-assets/homepage/facility-book/<name>-NN.webp (overwrite-to-swap). The full
-// client photo set is wired per facility — web 9 · sheetfed 8 · binding 11 ·
+// facility photo set is wired per facility — web 9 · sheetfed 8 · binding 11 ·
 // warehouse 6 · head office 1 — flipped through on the right page (contain-fit, so
 // portrait + panoramic shots letterbox on the navy page, never crop).
 const seq = (prefix, n) => Array.from({ length: n }, (_, i) => `${prefix}-${String(i + 1).padStart(2, '0')}`)
@@ -112,7 +112,7 @@ function buildSpreads(book) {
 }
 
 // A photo page — the contain-fit facility image (letterboxed on the navy page so the
-// client's mixed portrait / panoramic shots never crop).
+// mixed portrait / panoramic shots never crop).
 function PhotoFrame({ src }) {
   return (
     <div className="ib-img-frame">

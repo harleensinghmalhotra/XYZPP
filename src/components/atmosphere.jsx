@@ -12,8 +12,8 @@ const TONES = {
   warm: ['rgba(243, 112, 49,0.30)', 'rgba(15,36,68,0.12)'],    // gold + faint navy dots on cream/beige
 }
 
-// DotField — a calm, STATIC grid of dots (a faint print-dot texture). The client
-// rejected background motion, so this renders one settled frame (no drift, no
+// DotField — a calm, STATIC grid of dots (a faint print-dot texture). Background
+// motion was dropped, so this renders one settled frame (no drift, no
 // pulse loop) on navy sections and as a faint texture on cream/beige (tone="warm").
 export function DotField({ tone = 'navy', gap = 34, className = '' }) {
   const ref = useRef(null)

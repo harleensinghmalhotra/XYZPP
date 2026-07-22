@@ -24,8 +24,8 @@ gsap.registerPlugin(ScrollTrigger)
 // (src/lib/compliance.js): SHOW_RESTRICTED_CLIENTS is FALSE (no written permission
 // on file), so named commercial clients (HDFC, ZEE, Reliance) stay OUT of the DOM.
 // The trust marquee otherwise stays permission-safe (ministries / programmes only).
-// (Phase 3.3: the ambient-video hero was retired — the client rejected background
-//  motion, so Fulfilment now uses the same static navy hero skeleton as every page.)
+// (Phase 3.3: the ambient-video hero was retired — background motion was dropped,
+//  so Fulfilment now uses the same static navy hero skeleton as every page.)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const BASE = '/site-assets/fulfilment'

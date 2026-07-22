@@ -72,7 +72,7 @@ export default function WavyBackground({ className = '' }) {
     const ctx = canvas.getContext('2d')
     const noise = makeNoise3D()
     const DPR = Math.min(window.devicePixelRatio || 1, 1.25) // cap canvas DPR
-    // MOTIONLESS: the client rejected background motion, so the waves render as a
+    // MOTIONLESS: background motion was dropped, so the waves render as a
     // single settled static frame everywhere (was: slow drifting loop). nt is a
     // fixed phase so the wave shape is stable and deterministic.
     let w = 0, h = 0

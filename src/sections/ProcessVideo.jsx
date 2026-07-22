@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ── HOMEPAGE "How We Work" — process video + the PROCESS EXHIBIT + promise band. ──────
 // Same slot before Projects, id="process". Below the letterboxed video, one hairline-
-// bordered field (a certificate plate) holds: the client's approved process ARTWORK
+// bordered field (a certificate plate) holds: the approved process ARTWORK
 // (paper ribbon flowing press → inspection → folding → rack → box → finished navy book),
 // its baked-in caption band cropped off and blended cream-on-cream; then OUR rebuilt
 // 7-step text row on a strict grid, each column sitting roughly under its artwork moment
@@ -32,11 +32,11 @@ const POINTS = ['print', 'quality', 'fulfillment', 'warehouse', 'ship', 'covered
 // via badges.<i>.{lead,sub}; the medallion icon is the non-translatable mark per row.
 const BADGE_ICONS = [Handshake, Headset, Broadcast, Clock, ShieldCheck, TrendUp]
 
-// HIDDEN per client 22-07 — the 7-step illustrated process EXHIBIT (client artwork +
-// our numbered text row + the six-guarantee promise band) is hidden by client request.
-// Nothing is deleted: the artwork, copy, badges and their CSS stay intact; flip this to
-// `true` to restore the full exhibit exactly as built. The "How We Work" heading + video
-// above stay live (and now move down the homepage — see Home.jsx section order).
+// Section disabled — the 7-step illustrated process exhibit (artwork + the numbered
+// text row + the six-guarantee promise band) is currently hidden. Nothing is deleted:
+// the artwork, copy, badges and their CSS stay intact; flip this to `true` to restore
+// the full exhibit. The "How We Work" heading + video above stay live (and sit lower
+// on the homepage — see Home.jsx section order).
 const SHOW_PROCESS_EXHIBIT = false
 
 export default function ProcessVideo() {
@@ -110,7 +110,7 @@ export default function ProcessVideo() {
       {/* THE EXHIBIT — no box, no border, no panel. The artwork, text row and promise
           band bleed straight onto the page cream as normal flow; the artwork's cream is
           normalised to the page cream so the illustration reads as printed ON the page.
-          HIDDEN per client 22-07 (SHOW_PROCESS_EXHIBIT) — restore by flipping the flag. */}
+          Section disabled (SHOW_PROCESS_EXHIBIT) — restore by flipping the flag. */}
       {SHOW_PROCESS_EXHIBIT && (
       <div className="pv-frame-wrap" ref={bandRef}>
         <div className="pv-frame">

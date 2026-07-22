@@ -1,7 +1,7 @@
 import {defineType, defineField} from 'sanity'
 
-// Newsroom post — the ONLY document type. Fields exactly per the client mandate.
-// Grouped Content / Publishing, with plain-English descriptions for the client.
+// Newsroom post — the ONLY document type. Fields per the content model.
+// Grouped Content / Publishing, with plain-English field descriptions.
 //
 // i18n: title / excerpt / body are FIELD-LEVEL localized — each is a locale
 // object {en, fr, es} (see schemas/locale.js). Shared fields (slug, coverImage,

@@ -112,7 +112,7 @@ export default function OurStory() {
       {/* SECTION 6 ── OUR TEAM — full roster, one grid, everyone shown ────────── */}
       <Team />
 
-      {/* SECTION 7 ── GALLERY — print-industry mock imagery, trivially swappable */}
+      {/* SECTION 7 ── GALLERY — print-industry placeholder imagery, trivially swappable */}
       <Gallery />
 
       {/* SECTION 8 & 9 ── AWARDS + CERTIFICATES — company-wide credentials,

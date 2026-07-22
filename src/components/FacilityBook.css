@@ -12,7 +12,7 @@
   position: relative;
   margin-top: clamp(44px, 6vh, 80px);
   border-radius: var(--r-card);
-  /* side padding ~4% of the viewport (client law: minimal margins); the vertical
+  /* side padding ~4% of the viewport (design law: minimal margins); the vertical
      rhythm stays generous so the panel still reads as a hosted "reading room". */
   padding: clamp(38px, 5vh, 68px) clamp(22px, 4vw, 88px);
   color: #fdfaf4;
@@ -43,7 +43,7 @@
   }
 }
 
-/* ── FULL-REAL-ESTATE ROW (client law) ────────────────────────────────────────
+/* ── FULL-REAL-ESTATE ROW (design law) ────────────────────────────────────────
    The stack (~33%) and the open book (all remaining width) sit in ONE flex row,
    tops aligned. Both are aspect-locked art, so equal HEIGHT is guaranteed by the
    grow ratio, not by a hand-tuned px height: with flex-basis 0, the column widths
@@ -526,7 +526,7 @@
   background: url('/site-assets/homepage/facility-book/book-spread.webp') center / 100% 100% no-repeat;
   filter: drop-shadow(0 34px 52px rgba(0, 0, 0, 0.5));
   /* query container so the resting INTRO spread scales its type in cqw with the
-     book, exactly as the facility left-page already does (client law: text grows
+     book, exactly as the facility left-page already does (design law: text grows
      with the bigger page). The facility page keeps its own nearer container. */
   container-type: inline-size;
 }
@@ -562,7 +562,7 @@
   box-decoration-break: clone;
 }
 
-/* ── FACILITY LEFT PAGE — client reference layout: icon badge, title, orange rule,
+/* ── FACILITY LEFT PAGE — reference layout: icon badge, title, orange rule,
    intro, four feature points, decorative dot-grid. In-family type, small + neat.
    CONTAINER: all type + vertical spacing below is sized in cqw off THIS page's own
    width (which tracks the open book at every viewport), NOT vw — so the content
@@ -645,7 +645,7 @@
 
 /* LEFT PAGE — heading, orange subtitle + rule, two paragraphs, pillar row.
    Type is now sized in cqw off the BOOK container (.ib-book), so the resting intro
-   grows in lock-step with the enlarged page (client law), matching how the facility
+   grows in lock-step with the enlarged page (design law), matching how the facility
    left-page already scales. 1cqw ≈ 9px at the 1536 render, ≈ 7.5px at 1280. */
 .ib-intro-left {
   top: 7.5%; left: 6.5%; width: 39%; height: 86%;
@@ -923,7 +923,7 @@
   display: inline-block;
 }
 
-/* ── panel face — the designed MOCK cover (a real photo drops in later) ─────── */
+/* ── panel face — the designed placeholder cover (a real photo drops in later) ─────── */
 .ib-face--panel {
   background:
     radial-gradient(120% 120% at 30% 20%, #16305a 0%, var(--navy) 56%, #0b1c38 100%);
@@ -1164,7 +1164,7 @@
     height: auto;
   }
   .ib-page { width: 100%; }
-  .ib-page--right { height: 220px; order: -1; } /* mock cover on top */
+  .ib-page--right { height: 220px; order: -1; } /* cover on top */
   .ib-page--left { min-height: 320px; }
   .ib-page--left::after { display: none; }
   .ib-face--text { position: relative; }

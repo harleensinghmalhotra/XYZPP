@@ -37,7 +37,7 @@
   background: #000;          /* black letterbox behind the poster/frame */
 }
 
-/* ── THE PROCESS EXHIBIT — client ARTWORK + rebuilt text layer, NO box. The frame,
+/* ── THE PROCESS EXHIBIT — process ARTWORK + rebuilt text layer, NO box. The frame,
    its border, background panel and padding are gone: the artwork, text row and promise
    band bleed straight onto the page cream as normal flow. The artwork's cream is
    normalised (in the asset) to the page cream (#FDFAF4), so there is no rectangle seam
@@ -54,7 +54,7 @@
   position: relative;                      /* plain block — no border, panel or padding */
 }
 
-/* THE ARTWORK — client illustration (caption band cropped off), full-width and
+/* THE ARTWORK — process illustration (caption band cropped off), full-width and
    cream-on-cream. object-fit:contain so it is never cropped at any width. */
 .pv-art {
   width: 100%;

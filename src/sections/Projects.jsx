@@ -22,7 +22,7 @@ gsap.registerPlugin(ScrollTrigger)
 //     stamp. Hovering pulls a book off the shelf and pulses its country on the globe.
 // Reduced-motion → static globe, no reveals, no globe reactions, hover = glow only.
 
-// HDFC + ZEE rows carry the same client-permission flag as the trust strips, so
+// HDFC + ZEE rows carry the same permission flag as the trust strips, so
 // the gate is the CENTRAL one from src/lib/compliance.js (not a local const —
 // that leaked `true` in the last revamp and shipped restricted names). A
 // `?hideRestricted` URL param also forces them off for preview/QA.
@@ -50,11 +50,11 @@ const HERO = {
 // behind SHOW_RESTRICTED_CLIENTS. Either gate filters its rows out cleanly.
 // `key` → stable i18n key (name/desc); `unitKey` → unit label key; `globeTarget`
 // → the Globe3D marker/arc this record pulses ('__HQ' for the India-side rows).
-// Milestone rows (client change doc, lane 2):
-//   • ZEE Learn removed entirely (client asked for it gone, not just gated).
+// Milestone rows:
+//   • ZEE Learn removed entirely (removed, not just gated).
 //   • DR Congo removed; replaced by Côte d'Ivoire (already present below) — the
-//     requested Mozambique row is pending an approved delivery figure (see report).
-//   • Ghana set to the client's 10M milestone (was 2M), keyed to `ledger.rows.ghana`
+//     Mozambique row is pending an approved delivery figure.
+//   • Ghana set to the 10M milestone (was 2M), keyed to `ledger.rows.ghana`
 //     ("Ghana / 10 million books... across various publishers").
 //   • HDFC stays in code, gated behind SHOW_RESTRICTED_CLIENTS (currently false).
 const LEDGER = [
@@ -94,15 +94,15 @@ const STARS = (() => {
 // brand gold→navy glow-border. A bottom-up navy scrim is the ONLY tint, and it
 // only sits behind the label/stat zone so faces stay natural. Hovering (or
 // focusing) it swings the globe to face the region and brightens the glow.
-// href="#" for now — per-region pages are built later, per client.
+// href="#" for now — per-region pages are built later.
 function DestPanel({ slug, img, t, onFocus, onReset }) {
   const name = t(`regions.${slug}.name`)
   const stat = t(`regions.${slug}.stat`)
   const statLabel = t(`regions.${slug}.statLabel`)
   const body = t(`regions.${slug}.body`)
   return (
-    // TODO(region-pages): point href to the per-region destination page once the
-    // client scopes+approves them; keep the globe-focus + stat as the poster.
+    // TODO(region-pages): point href to the per-region destination page once
+    // those pages are scoped and approved; keep the globe-focus + stat as the poster.
     // The glow lives on ::before/::after of .proj-dest (outside .proj-dest-frame,
     // which owns overflow:hidden so only the photo zoom is clipped, not the glow).
     <div className="proj-dest-wrapper">

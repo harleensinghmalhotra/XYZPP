@@ -4,20 +4,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── EKTA PALETTE (design law) ──
+        // ── Brand palette ──
         navy: { DEFAULT: '#0F2444', 2: '#1B3A6B', deep: '#0A1B33' },
         gold: { DEFAULT: '#9B7420', 2: '#C89A3C', text: '#836013' },
         olive: { DEFAULT: '#6B7A2A', light: '#8FA05A', deep: '#5A6623' },
         cream: { DEFAULT: '#FDFAF4', 2: '#F0EBE0', 3: '#F5F0E8' },
         ink: {
           DEFAULT: '#1C2019',
-          // warm-grey text ramp retained for footer meta (≈ her #444/#555 greys)
+          // warm-grey text ramp retained for footer meta (≈ #444/#555 greys)
           600: '#463E32',
           500: '#5C5346',
           400: '#7A7061',
         },
-        // ── Legacy class aliases — old System-A utility names now resolve to
-        //    Ekta's palette so existing className hexes reskin without edits. ──
+        // ── Legacy class aliases — old utility names now resolve to the brand
+        //    palette so existing className hexes reskin without edits. ──
         cyan: '#1B3A6B',
         magenta: '#9B7420',
         yellow: '#C89A3C',
@@ -30,7 +30,7 @@ export default {
         tone: 'var(--video-tone)',
       },
       fontFamily: {
-        // Ekta's stack everywhere — display + legacy 'metrisch' alias → Inter Tight.
+        // Brand type stack everywhere — display + legacy 'metrisch' alias → Inter Tight.
         display: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         tight: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         serif: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],

@@ -41,7 +41,7 @@ export function groqLang(lang) {
 }
 
 // Date meta in the newsroom's DM-Mono style, localised to the active language.
-// Accepts a full ISO datetime (publishedAt); mirrors the retired mock's format.
+// Accepts a full ISO datetime (publishedAt); mirrors the retired local data's format.
 export function formatDate(iso, lang = 'en') {
   const opts = {day: '2-digit', month: 'short', year: 'numeric'}
   try {

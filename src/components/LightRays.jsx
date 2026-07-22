@@ -229,7 +229,7 @@ void main() {
       uniforms.rayDir.value = dir
     }
 
-    // MOTIONLESS (Phase 3.3): the client rejected background motion, so the rays
+    // MOTIONLESS (Phase 3.3): background motion was dropped, so the rays
     // render a single settled frame instead of an animated loop — matching the
     // frozen WavyBackground. iTime is pinned to a fixed phase; once the band is
     // on-screen we draw exactly once, then stop the rAF (no ongoing animation).

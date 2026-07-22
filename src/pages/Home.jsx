@@ -20,7 +20,7 @@ import Cases from '@/sections/Cases'
 import { SHOW_CASE_STUDIES } from '@/lib/compliance'
 
 // ── What We Print anchor scroll ──────────────────────────────────────────────
-// The client's exact target: the "Formats and Categories" heading sits flush
+// The exact target: the "Formats and Categories" heading sits flush
 // under the sticky nav — section top pinned to the nav's bottom edge, no overshoot
 // past the heading, no undershoot showing the section above. The math below is the
 // single source of truth; SiteNav uses the IDENTICAL routine for its own re-click
@@ -84,21 +84,19 @@ function wwpLanded() {
 // tears down (Lenis destroy + ScrollTrigger.killAll) when navigating away, so no
 // pin ever leaks onto a native-scroll inner page.
 //
-// Section order (client reorder, lane 7 → 7c → 7d → 9 — LAW):
+// Section order (approved layout):
 //   • TrustStrips rides directly under the Hero — the two are a designed PAIR.
 //     The hero's open book deliberately overhangs its section bottom and
 //     TrustStrips receives it with reserved top padding (ts-band, 115px): the
-//     book lands ON the strips. (7c welded them back after lane 7 split them.)
-//   • 9 (fresh client meeting): WhatWePrint moves BACK ABOVE GlobeReach —
-//     reversing 7d. TrustStrips → WhatWePrint (light band → WWP header, seamless),
-//     WhatWePrint → GlobeReach (cream → navy flat edge). This is the final order.
-//   • 7e (Harry): the four-stat bar lives INSIDE TrustStrips as its third strip
-//     (countries ticker → institutions ticker → stats = one welded unit under the
-//     hero). No standalone stats block here.
-// CLIENT REORDER 22-07: the "How We Work" video (ProcessVideo) NO LONGER sits before
-// Projects. It moves DOWN to just after Certifications, near the closing CTA/footer, and
-// its 7-step illustrated exhibit is hidden (SHOW_PROCESS_EXHIBIT in ProcessVideo.jsx) so
-// only the heading + video remain. Everything else keeps its prior relative order.
+//     book lands ON the strips.
+//   • WhatWePrint sits above GlobeReach. TrustStrips → WhatWePrint (light band →
+//     WWP header, seamless), WhatWePrint → GlobeReach (cream → navy flat edge).
+//   • The four-stat bar lives INSIDE TrustStrips as its third strip (countries
+//     ticker → institutions ticker → stats = one welded unit under the hero).
+//     No standalone stats block here.
+// The "How We Work" video (ProcessVideo) sits just after Certifications, near the
+// closing CTA/footer, and its 7-step illustrated exhibit is hidden
+// (SHOW_PROCESS_EXHIBIT in ProcessVideo.jsx) so only the heading + video remain.
 export default function Home() {
   const { t } = useTranslation('home')
   const { hash } = useLocation()
@@ -167,14 +165,14 @@ export default function Home() {
         {/* flatBottom: the navy sweep-arc is suppressed because the "How We Work" video
             (a cream section) now follows Certifications instead of the navy Marquee. */}
         <Certifications flatBottom />
-        {/* HOW WE WORK video — moved here per client 22-07: it now sits after the
-            Certifications section, near the closing CTA/footer (was before Projects). */}
+        {/* HOW WE WORK video — sits after the Certifications section, near the
+            closing CTA/footer. */}
         <ProcessVideo />
         <Marquee />
         <Sustainability />
         <Awards />
-        {/* Cases hidden on client instruction — see SHOW_CASE_STUDIES in
-            lib/compliance.js. Component preserved for the Infrastructure rebuild. */}
+        {/* Cases gated off — see SHOW_CASE_STUDIES in
+            lib/compliance.js. Component preserved for reuse in Infrastructure. */}
         {SHOW_CASE_STUDIES && <Cases />}
       </main>
     </SmoothScrollProvider>

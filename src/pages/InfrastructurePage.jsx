@@ -26,7 +26,7 @@ gsap.registerPlugin(ScrollTrigger)
 //   4 machine LEDGER — four hairline rows, big gold numeral / mark (cream)
 //   5 measurable-results band + video (navy)
 //   6 recognition plaques (beige) · 7 facility gallery, photos only (cream) · 8 CTA (beige)
-// Every image + the walkthrough video are PENDING from the client: each surface is
+// Every image + the walkthrough video are PENDING delivery: each surface is
 // a premium navy placeholder that a delivered asset drops into with zero code change.
 //   public/qfp/infra/facility-0{1..3}.webp   (accordion side image)
 //   public/qfp/infra/gallery-0{1..4}.webp     (facility strip)
@@ -51,7 +51,7 @@ const CAPABILITIES = [
   { k: 'ware' },
 ]
 
-// The ledger's defining mark per machine — a numeral pulled straight from the client
+// The ledger's defining mark per machine — a numeral pulled straight from the source
 // copy (non-translatable, like a code): "22 … web offset towers" → 22, "6 … sheetfed
 // presses" → 6. Binding & Book Finishing is a whole equipment line with no single
 // headline count, so it carries a Phosphor Books glyph (bind:true) rather than picking
@@ -62,10 +62,10 @@ const MACHINES = [
   { k: 'book', bind: true },
 ]
 
-// Premium finishing services — the client's list, in her order. No counts attach to
+// Premium finishing services — the approved list, in the given order. No counts attach to
 // these (they're capabilities, not machine tallies), so each renders as a hairline
 // cell with a gold DM-Mono index in the ledger's cream+gold vocabulary. Names resolve
-// via t(`finish.items.<k>`); the index is decorative sequencing, not a client number.
+// via t(`finish.items.<k>`); the index is decorative sequencing, not a data figure.
 const FINISH = ['foiling', 'embossing', 'spotuv', 'dripuv', 'lamination', 'diecutting', 'windowpatching', 'coatings', 'decorative']
 
 const STATS = [
@@ -76,7 +76,7 @@ const STATS = [
 ]
 
 // Recognition is now the shared homepage <Awards /> component (see §6) — the page's
-// own plaque rail was retired per client 22-07.
+// own plaque rail was retired.
 
 const GALLERY = [
   { n: '01', k: 'pressHall' },
@@ -197,7 +197,7 @@ export default function InfrastructurePage() {
         </div>
       </section>
 
-      {/* ── 2 · CERTIFICATIONS — shared homepage <Certifications /> (client 22-07) ──
+      {/* ── 2 · CERTIFICATIONS — shared homepage <Certifications /> ──
           Replaces the page's old custom trust strip. flatBottom: the capability triptych
           (§3) below carries its OWN cream top-curve, so the certs navy sweep-arc is
           suppressed here to avoid a clashing double curve. The shared component keeps the
@@ -283,7 +283,7 @@ export default function InfrastructurePage() {
       </section>
 
       {/* ── 4B · PREMIUM FINISHING — value-added services grid (cream) ──────
-          The client's finishing list carries no per-item counts, so a numeral
+          The finishing list carries no per-item counts, so a numeral
           ledger would force invented numbers; instead each capability is a
           hairline cell with a gold DM-Mono index — the ledger's cream + gold
           vocabulary laid out as a clean grid. A gold top-hairline separates it
@@ -361,7 +361,7 @@ export default function InfrastructurePage() {
             plaques below; the navy→cream sweep happens at the foot of Recognition. */}
       </section>
 
-      {/* ── 6 · RECOGNITION — shared homepage <Awards /> (client 22-07) ────
+      {/* ── 6 · RECOGNITION — shared homepage <Awards /> ────
           Replaces the page's old custom recognition rail with the exact homepage
           Awards section (Broadway spotlights, navy gold-bordered plaques, gold-foil
           names). Flows on from the navy Results band (both navy, flush) into the cream

@@ -5,9 +5,9 @@ import { Suspense, forwardRef, lazy, useEffect, useImperativeHandle, useMemo, us
    the old cobe dotted globe (which read "cheap / pixelated"). Built on
    react-globe.gl (three-globe + three), which we already ship.
 
-   Look (Ekta's DNA): NASA Blue Marble day texture + topology bump for real
-   continents/oceans, a warm GOLD atmosphere rim (her accent #F37031, not the old
-   generic blue), and a transparent canvas so the section's near-black navy and
+   Look: NASA Blue Marble day texture + topology bump for real continents/oceans,
+   a warm GOLD atmosphere rim (brand accent #F37031, not the old generic blue),
+   and a transparent canvas so the section's near-black navy and
    the CSS gold halo read as "soft space / velvet" behind the sphere.
 
    Behaviour contract (kept from the cobe version):
@@ -37,7 +37,7 @@ import { Suspense, forwardRef, lazy, useEffect, useImperativeHandle, useMemo, us
 
 const Globe = lazy(() => import('react-globe.gl'))
 
-// Brand accent (Ekta): light gold #F37031 for the atmosphere + markers/arcs.
+// Brand accent: light gold #F37031 for the atmosphere + markers/arcs.
 const GOLD = '#F37031'
 const GOLD_RGB = 'rgba(200,154,60'
 

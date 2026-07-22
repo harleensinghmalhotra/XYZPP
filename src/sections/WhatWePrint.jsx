@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { prefersReduced } from '@/lib/useReducedMotion'
 
 // ── What We Print ───────────────────────────────────────────────────────────
-// Her 8 QFP categories + the two newer ones (Religious Books, Packaging and
+// The 8 QFP categories + the two newer ones (Religious Books, Packaging and
 // Gifting) — exact names / one-line descriptions / order. Content is LAW.
 //
-// R3b (client call): the ORIGINAL single-row horizontal card row is back — she
-// liked the row; what she rejected was the page LOCK (the ScrollTrigger pin that
+// The ORIGINAL single-row horizontal card row is back — the row itself was kept;
+// what was dropped was the page LOCK (the ScrollTrigger pin that
 // trapped the visitor until every card had scrubbed past). So the row returns as
 // a NATIVE horizontal scroller: NO pin, NO scroll-jack — vertical page scroll is
 // never intercepted. The section holds its natural height and the page scrolls
@@ -15,16 +15,16 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 // (scroll-snap, momentum/touch-drag, shift+wheel) plus a pair of arrow buttons.
 // The last card peeks cut-off at the right edge as the affordance that it scrolls.
 //
-// Card = our 3D "pop" skeleton (image breaks out of the card top) wearing her QFP
+// Card = the 3D "pop" skeleton (image breaks out of the card top) wearing the QFP
 // skin: light card, name, one sentence. Photos are contained flat JPEGs today;
 // transparent cutouts drop in later over the SAME filenames (product-0N.webp)
 // with zero code change.
 
 // On-palette fallback for the two categories (Religious Books, Packaging and
 // Gifting) whose real photography does not exist yet: a navy card with a gold
-// frame. It now ships as a real, swappable file (product-09/10.webp) so Harry
-// overwrites those to drop in photos — the SVG below stays only as an onError
-// safety net so a missing/renamed file never shows a broken frame.
+// frame. It now ships as a real, swappable file (product-09/10.webp) so those
+// files can be overwritten to drop in photos — the SVG below stays only as an
+// onError safety net so a missing/renamed file never shows a broken frame.
 const PLACEHOLDER =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='560'%3E%3Crect width='700' height='560' fill='%230F2444'/%3E%3Crect x='44' y='44' width='612' height='472' fill='none' stroke='%239B7420' stroke-width='3'/%3E%3C/svg%3E"
 

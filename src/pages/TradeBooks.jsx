@@ -14,7 +14,7 @@ import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 // Palette LAW — System B only: navy #0F2444, gold #F37031/#F37031/#F37031 (accent),
 // cream #FDFAF4, beige #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter / DM Mono.
 // B2B showcase: no prices, no cart, no sizes — "Request a Quote" → /contact.
-// All copy is drawn from recon/qfp-live-pages/trade-books.md + the homepage
+// All copy is drawn from the approved trade-books page content + the homepage
 // print-craft marquee terms; nothing is invented.
 
 // Structural data only — all human-readable copy (name, story, craft, materials,

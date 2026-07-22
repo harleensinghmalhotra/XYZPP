@@ -6,7 +6,7 @@
 // walks the FULL list, videos included. Reorder/add by editing this list.
 //
 // Items 1–11 are the original set (10 stills + the facility tour). Items 12–14 are
-// the real client machine/factory media appended after them: a digital print-on-
+// the real machine/factory media appended after them: a digital print-on-
 // demand press still, the web-offset press running, and the automated binding line.
 const BASE = '/site-assets/about/gallery'
 export const GALLERY = [

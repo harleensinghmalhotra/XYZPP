@@ -7,7 +7,7 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 gsap.registerPlugin(ScrollTrigger)
 
 // ── Sustainability — "Responsible by Practice." ──────────────────────────────
-// LEFT is a designed nature scene (Harry's drawing), not a photograph: a quiet
+// LEFT is a designed nature scene (line-art illustration), not a photograph: a quiet
 // cream panel with stroke-drawn line-art in the site's icon language — two soft
 // clouds top-left (one drifting), a gold ray-tick sun top-right (subtle shimmer),
 // a leafy plant up the right edge, and a row of swaying grass along the bottom.
@@ -86,7 +86,7 @@ export default function Sustainability() {
   return (
     <section id="sustainability" ref={root} data-theme="light" className="sustain" aria-labelledby="sustain-title">
       <div className="sustain-inner">
-        {/* LEFT — designed nature scene (Harry's drawing): clouds + sun in the sky,
+        {/* LEFT — designed nature scene (line-art illustration): clouds + sun in the sky,
             plant up the right, grass along the bottom, one butterfly in the middle,
             the pressed FSC plate bottom-left. All stroke line-art but the butterfly. */}
         <div className="sustain-media">
@@ -107,7 +107,7 @@ export default function Sustainability() {
                 </g>
               </svg>
 
-              {/* PLANT — leafy branch up the right edge (Harry keeps this) */}
+              {/* PLANT — leafy branch up the right edge */}
               <svg className="scn-plant" viewBox="0 0 130 320" fill="none" aria-hidden="true" focusable="false">
                 <path className="scn-stem" d="M108 320C86 276 74 236 70 188C67 150 74 110 64 72C61 60 60 52 62 42" />
                 <path className="scn-leaf" d="M70 188C86 180 106 182 118 193C104 201 84 199 70 188Z" />

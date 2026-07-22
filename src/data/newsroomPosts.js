@@ -4,22 +4,22 @@
 // from the QFP Newsroom studio via src/lib/sanity.js. Left in place as the
 // authored-copy reference (and the body-block shape the seed converted).
 // ─────────────────────────────────────────────────────────────────────────────
-// MOCK CONTENT — pending client copy replacement.
+// Placeholder content — replace with final copy.
 //
 // Images are placeholders too: licence-free, book-themed Pexels stock only —
 // open books, hardcovers, library shelves, book piles and reading — so every
 // card and article cover reads as one book world. All live under
 // /public/qfp/newsroom/ (LFS-exempt). The lone video post keeps its clip +
-// poster. Swap for client newsroom photography later.
+// poster. Swap for final newsroom photography later.
 //
 // Twelve newsroom posts for the /newsroom index + /newsroom/:slug article view.
-// Every headline, date and paragraph below is placeholder editorial written by the
-// build, anchored ONLY to publicly-known Quarterfold Printabilities facts
+// Every headline, date and paragraph below is placeholder editorial anchored
+// ONLY to publicly-known Quarterfold Printabilities facts
 // (PrintWeek Book Education Company of the Year, CAPEXIL Highest Book Exporter,
 // Dun & Bradstreet recognition, FSC / ISO / Sedex credentials, the 27-country
 // export reach, the 75-million-book milestone, 800+ containers a year, the third
 // fulfilment centre, and the Spanish-language + new-website launches). Dates are
-// spread across 2024–2026. Replace this file wholesale when client copy lands —
+// spread across 2024–2026. Replace this file wholesale when final copy lands —
 // the page reads `slug / title / date / category / excerpt / heroImage / body`
 // and nothing else, so the shape is the contract.
 //

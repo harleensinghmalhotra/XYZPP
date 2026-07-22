@@ -42,13 +42,13 @@ const LINKS = [
   { key: 'contact', to: '/contact' },
 ]
 
-// EKTA HEADER — rebuilt to her exact anatomy (qfp-homepage-v17.html):
+// SITE HEADER — the approved anatomy (qfp-homepage-v17.html):
 // a SOLID opaque cream bar, 86px tall, NON-STICKY (in normal flow — scrolls away
 // with the page and does not reappear on scroll-up), faint navy hairline +
 // soft shadow. No transparency, no glass, no per-route theme-flip — the header is
 // the same solid cream chrome on every page (over the dark hero too, exactly as
-// she wants). Logo = 48px QF monogram + two-line Inter-Tight-700 wordmark. Nav
-// links carry her center-growing gold underline (.qnav-link). CTA = square navy
+// specified). Logo = 48px QF monogram + two-line Inter-Tight-700 wordmark. Nav
+// links carry the center-growing gold underline (.qnav-link). CTA = square navy
 // ghost button that fills navy on hover.
 export default function SiteNav() {
   const { pathname } = useLocation()
@@ -167,7 +167,7 @@ export default function SiteNav() {
             xl (1280) breathing tier, and a generous 2xl (1536) gap so the row never
             reads as "cluttered". FR/ES stay uncrowded via the compact nav strings. */}
         <nav className="hidden items-center gap-2 lg:flex xl:gap-4 2xl:gap-6">
-          {/* Home — first, explicit; the logo also links home but she wants a named
+          {/* Home — first, explicit; the logo also links home but a named nav
               item. aria-current marks it on "/" (no other link carries an active
               treatment, so we match that: same qnav-link, semantics only). */}
           <Link to="/" aria-current={pathname === '/' ? 'page' : undefined} className="qnav-link">{t('home')}</Link>
@@ -257,7 +257,7 @@ export default function SiteNav() {
         {/* right group: language toggle + square ghost CTA */}
         <div className="ml-auto flex items-center gap-3 2xl:gap-4">
           <LanguageToggle light />
-          {/* Square navy ghost button — fills navy on hover (Ekta's .nav-cta). */}
+          {/* Square navy ghost button — fills navy on hover (.nav-cta). */}
           <Link
             to="/contact"
             className="btn-nebula btn-nebula--light focus-ring hidden shrink-0 items-center gap-1.5 whitespace-nowrap border-[1.5px] border-[#0f2444] px-4 py-[10px] text-[13px] font-medium text-[#0f2444] transition-colors duration-200 hover:bg-[#0f2444] hover:text-[#fdfaf4] sm:inline-flex 2xl:px-[22px]"

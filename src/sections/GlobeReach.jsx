@@ -3,7 +3,7 @@ import GlobeFlyTo from '@/components/GlobeFlyTo'
 
 // ── Printed in India. Read by the World. ────────────────────────────────────
 // Homepage global markets moment (sits between WhatWePrint and Promise).
-// RESTRUCTURE (Lane 6): Section header kept to eyebrow + title + subhead + globe.
+// Section header kept to eyebrow + title + subhead + globe.
 // Regions restructured as destination cards with descriptions below.
 // Credentials moved to 2x2 grid below destinations (compact card treatment).
 export default function GlobeReach() {
