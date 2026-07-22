@@ -13,11 +13,13 @@ gsap.registerPlugin(ScrollTrigger)
 // eyebrow LOSES its gold dash/hairline. Only motion added: a subtle stagger reveal
 // on the four cards (the export is static); reduced-motion → static.
 
-// Ten real awards, newest first (title + year + issuer are verbatim in the locale;
-// the mock photos at site-assets/homepage/awards/award-01..10.webp are overwrite-ready
-// for the real award photography). The row scrolls; "See More" routes to /newsroom.
+// Eleven real awards, newest first (title + year + issuer are verbatim in the locale).
+// Real award photography lives at site-assets/homepage/awards/award-01..11.webp; only
+// award-06 (Most Trusted Brand, MSME 2023) is still a placeholder — the client has not
+// supplied it yet. The row scrolls; "See More" routes to /newsroom.
 const CARDS = [
   { key: 'power100', img: 'award-01.webp', labelKey: 'industry' },
+  { key: 'businessconnect', img: 'award-11.webp', labelKey: 'press' },
   { key: 'forbes', img: 'award-02.webp', labelKey: 'press' },
   { key: 'bookedu', img: 'award-03.webp', labelKey: 'industry' },
   { key: 'assocham', img: 'award-04.webp', labelKey: 'industry' },
