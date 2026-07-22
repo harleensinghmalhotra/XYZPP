@@ -90,12 +90,6 @@
         "quote": ""
       },
       {
-        "name": "Milton Everjoy",
-        "role": "Jefe, Planta y Operaciones",
-        "bio": "2,5 décadas de experiencia, supervisando todas las operaciones de la planta para la eficiencia y la calidad.",
-        "quote": "Operational excellence is at the heart of everything we do…"
-      },
-      {
         "name": "Sameer Kazi",
         "role": "Director, Ventas India",
         "bio": "Más de 20 años de experiencia (4 en Quarterfold). M.Com, Universidad de Mumbai; MBA en Marketing, Welingkar Institute.",
@@ -112,12 +106,6 @@
         "role": "Jefa, Recursos Humanos y Administración",
         "bio": "Más de una década en Quarterfold.",
         "quote": "…Our success is driven by a culture of commitment, teamwork, and mutual respect…"
-      },
-      {
-        "name": "Sameer Sunil Chavan",
-        "role": "Jefe, Estimación y Planificación Central",
-        "bio": "15 años de experiencia (7 en Quarterfold).",
-        "quote": "Great estimation is not about quoting the lowest price…"
       }
     ]
   },

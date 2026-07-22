@@ -457,14 +457,13 @@ function Gallery() {
   )
 }
 
-// ── THE TEAM — full roster, one grid, everyone shown ──────────────────────────
-// One unified grid of 8 identical YOO cards: a fitted 3:4 portrait frame, a name
-// line, a thin hairline divider, then a DM Mono 11px "ROLE" / value micro-label
-// pair. Card 1 is Nilesh's team presence (real name + role from existing strings);
-// cards 2-8 are shells (skeleton name, "ROLE" + empty value) awaiting client
-// portraits — no tiering, no expand, no "rest of us" button. 4×2 at 1536, homepage
-// card scale, tight gaps. Cascade in at 60ms; hover warms the divider gold, lifts
-// the card -4px, and scale-ins the future photo (inert while the frame is empty).
+// ── THE TEAM — leadership roster, one grid, everyone shown ────────────────────
+// One unified grid of six identical YOO cards — the real leadership team, each a
+// fitted 3:4 portrait (client photos, portrait-cropped consistent), a name line, a
+// thin hairline divider, then role + bio and an optional "read full quote" modal.
+// Nilesh is founder-only (the Founder spread above), not in this grid. 3×2 at
+// desktop, homepage card scale, tight gaps. Cascade in at 60ms; hover warms the
+// divider gold, lifts the card -4px, and scale-ins the portrait.
 //
 // Header: "Our Team" (ourStory.team.heading — own key in all three locales, no
 // longer borrowing globalMarkets). The drawn gold→orange hairline opens the
@@ -521,7 +520,7 @@ function Team() {
         <h2 id="tm-title" className="tm-title" data-reveal>{t('team.heading')}</h2>
         <div className="tm-grid">
           {members.map((p, i) => (
-            <article className="tm-card" data-reveal key={i} style={{ '--reveal-delay': `${(i % 4) * 60}ms` }}>
+            <article className="tm-card" data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 60}ms` }}>
               <div className="ab-frame tm-frame" data-slot={`team-${i + 1}`}>
                 <img src={photo(i)} alt="" loading="lazy" decoding="async" />
               </div>
