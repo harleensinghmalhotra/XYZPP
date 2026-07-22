@@ -1199,11 +1199,14 @@ body {
   width: 300px;
   scroll-snap-align: start;
   display: grid;
-  grid-template-rows: 140px 88px 72px; /* A photo / B name / C sentence = 300px.
-     Zone C trimmed 96→72 (still clears the tallest 3-line sentence, 59px): the pin
-     stack was 7px TALLER than the panel on a 743px viewport, so it top-aligned and
-     the card row butted the section's bottom edge. Losing the dead reserve lets the
-     stack fit and centre, which is what makes the mirrored bottom padding read. */
+  grid-template-rows: 140px 88px 112px; /* A photo / B name / C sentence = 340px.
+     Zone C = 112px sizes to the LONGEST localized sentence (FR/ES "Religious" &
+     "Packaging" wrap to 4 lines = 78px) plus its 8px top gap AND a full empty
+     breathing line below, so text never touches the card's bottom edge in any
+     locale. The old native scroller (no pin) has no height constraint, so the card
+     can grow freely; sentences are top-anchored (.wwp-line align-self:start), so
+     shorter EN cards simply carry more clear space beneath — uniform card height,
+     bottom breathing everywhere. */
   background: #fdfaf4;
   border-radius: var(--r-card);
   /* barely-there rest shadow — expensive, not heavy */

@@ -151,7 +151,7 @@ export default function SiteNav() {
       style={{ boxShadow: '0 2px 24px rgba(15,36,68,0.06)' }}
     >
       <div
-        className="mx-auto flex h-[86px] max-w-page items-center gap-2 px-4 2xl:gap-8 2xl:px-14"
+        className="mx-auto flex h-[86px] max-w-page items-center gap-2 px-4 xl:gap-6 xl:px-8 2xl:gap-8 2xl:px-14"
         style={{ fontFamily: TIGHT }}
       >
         {/* logo lockup — 48px monogram + two-line wordmark, all navy */}
@@ -163,8 +163,10 @@ export default function SiteNav() {
           </span>
         </Link>
 
-        {/* center nav */}
-        <nav className="hidden items-center gap-2 lg:flex 2xl:gap-5">
+        {/* center nav — breathing scales up with width: tight gap-2 at lg, a real
+            xl (1280) breathing tier, and a generous 2xl (1536) gap so the row never
+            reads as "cluttered". FR/ES stay uncrowded via the compact nav strings. */}
+        <nav className="hidden items-center gap-2 lg:flex xl:gap-4 2xl:gap-6">
           {/* Home — first, explicit; the logo also links home but she wants a named
               item. aria-current marks it on "/" (no other link carries an active
               treatment, so we match that: same qnav-link, semantics only). */}
