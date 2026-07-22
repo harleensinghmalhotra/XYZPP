@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Target, Eye, Handshake } from '@phosphor-icons/react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
+import CTAButton from '@/components/CTAButton'
 import { PaperGrain } from '@/components/atmosphere'
 // Company-wide credentials — imported verbatim from the homepage sections so the
 // content, markup, CSS (global, in index.css) and behaviour stay in exact sync.
@@ -425,10 +426,10 @@ function Gallery() {
           ))}
         </div>
         <div className="gal-more-wrap">
-          <button type="button" ref={moreRef} className="gal-more" onClick={() => { setIdx(0); setOpen(true) }}>
-            <span>{t('gallery.seeMore')}</span>
-            <span className="gal-more-arrow" aria-hidden="true">→</span>
-          </button>
+          {/* Shared site CTA — identical to the header "Request a Quote" pill. */}
+          <CTAButton ref={moreRef} className="gal-more" onClick={() => { setIdx(0); setOpen(true) }}>
+            {t('gallery.seeMore')}
+          </CTAButton>
         </div>
       </div>
 
@@ -457,60 +458,22 @@ function Gallery() {
   )
 }
 
-// ── THE TEAM — leadership roster, one grid, everyone shown ────────────────────
-// One unified grid of six identical YOO cards — the real leadership team, each a
-// fitted 3:4 portrait (client photos, portrait-cropped consistent), a name line, a
-// thin hairline divider, then role + bio and an optional "read full quote" modal.
-// Nilesh is founder-only (the Founder spread above), not in this grid. 3×2 at
-// desktop, homepage card scale, tight gaps. Cascade in at 60ms; hover warms the
-// divider gold, lifts the card -4px, and scale-ins the portrait.
+// ── THE TEAM — leadership roster, six horizontal cards, everything visible ────
+// Six uniform HORIZONTAL cards — the whole 3:4 portrait LEFT (shown COMPLETE, never
+// cropped), copy RIGHT. Laid 2 × 3. One uniform text structure for all six:
+//   name · (thin orange rule that draws under it on hover) · role · one-line bio ·
+//   quote (italic, thin orange left rule).
+// The quote is ALWAYS visible — no "+" expander, no truncation. A member with no
+// quote (Charani) simply drops the quote block; one with no bio (Dhiresh) drops the
+// bio line — the structure is otherwise identical. Cool hover: the photo warms from
+// grayscale → full colour (300ms), the card lifts 4px, and the orange rule draws in.
 //
-// Header: "Our Team" (ourStory.team.heading — own key in all three locales, no
-// longer borrowing globalMarkets). The drawn gold→orange hairline opens the
-// section above the statement.
-// The eight real people (name/role/bio/quote from ourStory.team.members, this
-// order; photos map team-01..08 by index). Nilesh is founder-only, not in the
-// grid. Each card shows name, role, bio, and a 2-line quote teaser; clicking
-// "Read full quote" opens a modal (gallery-lightbox language: navy scrim, close ×,
-// Esc, focus in/return) with the full quote. Members without a quote (Charani)
-// render a static card. Quotes stay in English under a translated "In their
-// words" label; roles + bios localise.
+// Header + copy resolve from ourStory.team (heading / members) in all three locales;
+// roles + bios localise, quotes stay in their original language. No locale changes.
 function Team() {
   const { t } = useTranslation('ourStory')
   const members = t('team.members', { returnObjects: true })
-  const [open, setOpen] = useState(-1)         // open member index, -1 = closed
-  const dialogRef = useRef(null)
-  const openerRef = useRef(null)
-  const wasOpen = useRef(false)
   const photo = (i) => `/site-assets/about/team/team-${String(i + 1).padStart(2, '0')}.webp`
-
-  // modal: Esc + Tab-trap, body scroll lock, focus into the dialog
-  useEffect(() => {
-    if (open < 0) return
-    const onKey = (e) => {
-      if (e.key === 'Escape') { e.preventDefault(); setOpen(-1) }
-      else if (e.key === 'Tab') {
-        const f = dialogRef.current?.querySelectorAll('button')
-        if (!f || !f.length) return
-        const first = f[0]; const last = f[f.length - 1]
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
-      }
-    }
-    window.addEventListener('keydown', onKey)
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    const raf = requestAnimationFrame(() => dialogRef.current?.focus())
-    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = prev; cancelAnimationFrame(raf) }
-  }, [open])
-
-  // return focus to the card's button when the modal closes
-  useEffect(() => {
-    if (wasOpen.current && open < 0) openerRef.current?.focus()
-    wasOpen.current = open >= 0
-  }, [open])
-
-  const m = open >= 0 ? members[open] : null
 
   return (
     <section data-theme="light" className="tm" aria-labelledby="tm-title">
@@ -520,51 +483,22 @@ function Team() {
         <h2 id="tm-title" className="tm-title" data-reveal>{t('team.heading')}</h2>
         <div className="tm-grid">
           {members.map((p, i) => (
-            <article className="tm-card" data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 60}ms` }}>
-              <div className="ab-frame tm-frame" data-slot={`team-${i + 1}`}>
-                <img src={photo(i)} alt="" loading="lazy" decoding="async" />
+            <article className="tm-card" data-reveal key={i} style={{ '--reveal-delay': `${(i % 2) * 80}ms` }}>
+              <div className="tm-media">
+                {/* Whole 3:4 portrait, never cropped (object-fit: contain). */}
+                <img src={photo(i)} alt={p.name} loading="lazy" decoding="async" />
               </div>
-              <p className="tm-name">{p.name}</p>
-              <p className="tm-role">{p.role}</p>
-              {p.bio && <p className="tm-bio">{p.bio}</p>}
-              {p.quote && (
-                <>
-                  <p className="tm-quote-teaser">{p.quote}</p>
-                  <button
-                    type="button" className="tm-readmore"
-                    onClick={(e) => { openerRef.current = e.currentTarget; setOpen(i) }}
-                    aria-label={`${t('team.readQuote')} — ${p.name}`}
-                  >
-                    {t('team.readQuote')} <span aria-hidden="true">→</span>
-                  </button>
-                </>
-              )}
+              <div className="tm-body">
+                <p className="tm-name">{p.name}</p>
+                <span className="tm-underline" aria-hidden="true" />
+                <p className="tm-role">{p.role}</p>
+                {p.bio && <p className="tm-bio">{p.bio}</p>}
+                {p.quote && <blockquote className="tm-quote">{p.quote}</blockquote>}
+              </div>
             </article>
           ))}
         </div>
       </div>
-
-      {m && (
-        <div
-          className="tm-modal" role="dialog" aria-modal="true" aria-label={m.name}
-          ref={dialogRef} tabIndex={-1}
-          onClick={(e) => { if (e.target === e.currentTarget) setOpen(-1) }}
-        >
-          <div className="tm-modal-card">
-            <button type="button" className="tm-modal-close" onClick={() => setOpen(-1)} aria-label={t('team.close')}>×</button>
-            <div className="ab-frame tm-modal-photo" aria-hidden="true">
-              <img src={photo(open)} alt="" />
-            </div>
-            <div className="tm-modal-body">
-              <p className="tm-modal-name">{m.name}</p>
-              <p className="tm-modal-role">{m.role}</p>
-              {m.bio && <p className="tm-modal-bio">{m.bio}</p>}
-              <p className="tm-modal-label">{t('team.inWords')}</p>
-              <blockquote className="tm-modal-quote">{m.quote}</blockquote>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }

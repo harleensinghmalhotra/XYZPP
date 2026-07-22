@@ -10,10 +10,19 @@
 .inf-wrap { max-width: 1200px; margin: 0 auto; padding-inline: clamp(20px, 4vw, 56px); }
 
 /* Facility-book section reuses the homepage `.infra` cream container so the navy stage
-   floats on cream identically. The homepage reserves a big bottom clearance for its
-   People grid + the Certifications dome; here there is no People block and the certs
-   dome is suppressed (flatTop), so trim that clearance to a normal rhythm. */
-.inf-facilitybook { padding-top: clamp(48px, 7vh, 88px); padding-bottom: clamp(64px, 9vh, 104px); }
+   floats on cream identically. The homepage reserves a big bottom clearance
+   (padding-bottom: clamp(170px,20vh,240px)) for its People grid + the Certifications
+   DOME that rises into the section tail. Here there is no People block and the certs
+   render is flatTop (no dome), so that clearance is dead space — a tall beige band
+   before the certs pills. Trim it to a normal rhythm.
+   NOTE: `.infra` and a bare `.inf-facilitybook` are equal specificity, and `.infra`
+   (index.css) wins on source order — so the qualified `.inf-facilitybook.infra`
+   selector is REQUIRED for the trim to actually take.
+   The `.infra` ground is BEIGE (#f0ebe0); against the CREAM (#fdfaf4) Certifications
+   below, its bottom padding read as a two-tone beige seam even after the trim. Force
+   it cream so the navy stage floats on ONE continuous cream surface that flows
+   straight into the certs — no band, no seam. */
+.inf-facilitybook.infra { background: #fdfaf4; padding-top: clamp(48px, 7vh, 88px); padding-bottom: clamp(36px, 4.5vh, 56px); }
 
 /* shared type */
 .inf-eyebrow {
