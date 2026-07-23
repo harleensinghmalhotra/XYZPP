@@ -1005,10 +1005,14 @@
   line-height: 1.65;
   color: rgba(28, 32, 25, 0.7);
 }
-/* Rogue local .pod-cta-btn style removed — the CTA now uses the shared .u-btn system.
-   This keeps only the LAYOUT gap: the "Order a sample" button sits a clear ≥28px below
-   the paragraph above it (was collapsing to 0 once the button became a plain .u-btn). */
-.pod-cta-inner .u-btn { margin-top: clamp(32px, 4vh, 44px); }
+/* The "Order a sample" CTA is a shared .btn-nebula (CTAButton) — NOT a .u-btn, so
+   the old `.pod-cta-inner .u-btn` rule matched nothing and the button collapsed flush
+   against the paragraph (0px gap). Give the real button a comfortable gap above (~38px)
+   and a matching gap below so it never hugs the section's lower edge. */
+.pod-cta-inner .btn-nebula {
+  margin-top: clamp(36px, 4.4vh, 40px);
+  margin-bottom: clamp(36px, 4.4vh, 40px);
+}
 
 /* ── responsive ──────────────────────────────────────────────────────────────── */
 @media (max-width: 1180px) {
