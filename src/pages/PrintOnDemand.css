@@ -985,7 +985,9 @@
   position: relative;
   overflow: hidden;
   background: var(--beige);
-  padding: clamp(72px, 11vh, 120px) clamp(24px, 5vw, 72px);
+  /* Composed vertical rhythm: ~72–80px above the eyebrow and below the button.
+     (Was clamp(72px,11vh,120px) → up to 120px, which left the block floating in a void.) */
+  padding: clamp(72px, 9vh, 80px) clamp(24px, 5vw, 72px);
   text-align: center;
 }
 .pod-cta-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
@@ -1007,11 +1009,12 @@
 }
 /* The "Order a sample" CTA is a shared .btn-nebula (CTAButton) — NOT a .u-btn, so
    the old `.pod-cta-inner .u-btn` rule matched nothing and the button collapsed flush
-   against the paragraph (0px gap). Give the real button a comfortable gap above (~38px)
-   and a matching gap below so it never hugs the section's lower edge. */
+   against the paragraph (0px gap). Keep the ~36px gap above the button; the space
+   BELOW it is owned by the section's bottom padding alone, so no margin-bottom here
+   (a margin-bottom + the section padding double-counted into a floating void). */
 .pod-cta-inner .btn-nebula {
   margin-top: clamp(36px, 4.4vh, 40px);
-  margin-bottom: clamp(36px, 4.4vh, 40px);
+  margin-bottom: 0;
 }
 
 /* ── responsive ──────────────────────────────────────────────────────────────── */
