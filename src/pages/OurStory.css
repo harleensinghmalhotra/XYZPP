@@ -28,7 +28,7 @@
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
   letter-spacing: 0.25em; text-transform: uppercase; color: var(--ab-orange-ink);
 }
-/* Eyebrow settle — tracking eases 0.35em → 0.25em on reveal (mandated detail).
+/* Eyebrow settle — tracking eases 0.35em → 0.25em on reveal.
    Only when JS reveals are live; no-JS rests at the settled 0.25em. */
 html.alive-ready .ab-eyebrow[data-reveal],
 html.alive-ready .ab-eyebrow--cream[data-reveal] {

@@ -101,8 +101,8 @@ function DestPanel({ slug, img, t, onFocus, onReset }) {
   const statLabel = t(`regions.${slug}.statLabel`)
   const body = t(`regions.${slug}.body`)
   return (
-    // TODO(region-pages): point href to the per-region destination page once
-    // those pages are scoped and approved; keep the globe-focus + stat as the poster.
+    // Region cards present the globe-focus + stat as the poster; point href at a
+    // per-region destination page here when those routes exist.
     // The glow lives on ::before/::after of .proj-dest (outside .proj-dest-frame,
     // which owns overflow:hidden so only the photo zoom is clipped, not the glow).
     <div className="proj-dest-wrapper">

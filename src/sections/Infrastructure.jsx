@@ -9,25 +9,24 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ── Infrastructure — "Built for Scale. Engineered for Trust." ────────────────
 // Light proof band (cream2). Three alternating photo/content facility rows, a
-// Hero-Video-Dialog walkthrough card, and an "Our People" scene grid. Every photo
-// and the video are PENDING delivery — each surface is a premium navy
-// placeholder that a real asset drops straight into (silent CSS-bg: a missing file
-// simply reveals the placeholder, never a broken frame). Overwrite-to-swap paths:
+// Hero-Video-Dialog walkthrough card, and an "Our People" scene grid. Image
+// surfaces degrade gracefully — a missing file falls back to a premium navy
+// placeholder (silent CSS-bg) rather than a broken frame. Asset paths:
 //   public/site-assets/homepage/facility-book/<name>.webp   (FacilityBook photos)
 //   public/site-assets/homepage/video/facilities.mp4 + facilities-poster.jpg
 //   public/site-assets/homepage/video/facilities.vtt   (captions, ships with video)
 
-// Walkthrough video toggle. Stays false until the MP4 is delivered; the
-// play button then goes live. COMPLIANCE: the final video must ship with closed
-// captions + a text transcript (accessibility / same permission bar as the
-// trust strips) BEFORE VIDEO_READY is flipped on.
+// Walkthrough video toggle. When true the play button opens the dialog player;
+// when false it shows a graceful "coming soon" panel instead of a broken <video>.
+// The video ships with closed captions + a text transcript (accessibility parity
+// with the trust strips).
 const VIDEO_READY = true
 const VIDEO_SRC = '/site-assets/homepage/video/facilities.mp4'
 
 // "Our People" grid ("600+ Hands Behind Every Shipment" — Press Floor Team /
-// Quality Check / Kitting & Packing / Leadership Team). Hidden, not deleted:
-// awaiting final photography. Locale keys stay so the block returns by flipping
-// this to true once real team photos land. Same pattern as SHOW_STRIP_3.
+// Quality Check / Kitting & Packing / Leadership Team). Feature-flagged off; the
+// locale keys stay so the block returns by flipping this to true. Same pattern as
+// SHOW_STRIP_3.
 const SHOW_TEAM_SECTION = false
 
 // The three facility cards are now the InfraBooks book stack: the copy
@@ -84,13 +83,12 @@ function TeamIcon({ name }) {
   )
 }
 
-// Team portrait placeholder — the exact facility placeholder language on the 4/5
+// Team portrait placeholder — the facility placeholder language on the 4/5
 // portrait frame: solid deep-navy ground, faint tonal dot grid, gold stroke mark,
-// DM Mono caption. Photos are pending; a real drop restores here.
+// DM Mono caption.
 function TeamPlaceholder({ icon, note }) {
   return (
     <div className="infra-photo infra-photo--portrait infra-ph" aria-hidden="true">
-      {/* TODO: real team photo drops here */}
       <div className="infra-ph-pattern" />
       <div className="infra-ph-mark">
         <TeamIcon name={icon} />
@@ -171,12 +169,12 @@ export default function Infrastructure() {
 
         {/* ── THE BOOK STACK — the three facility cards, rebuilt as a stack of
              hardcover books you open and flip through (Cases mechanics).
-             Books 4–5 are reserved placeholder slots awaiting content. ── */}
+             Books 4–5 are reserved slots. ── */}
         <FacilityBook />
 
-        {/* ── VIDEO — walkthrough placeholder, sits between the facility cards and the
-             People block. Gated by VIDEO_READY (false): the click opens
-             a graceful "coming soon" panel, never a broken <video>. ── */}
+        {/* ── VIDEO — walkthrough card between the facility cards and the People
+             block. Gated by VIDEO_READY: the play button opens the dialog player,
+             or a graceful "coming soon" panel when the flag is off. ── */}
         <div className="infra-video">
           <button
             type="button"

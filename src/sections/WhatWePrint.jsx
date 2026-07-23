@@ -37,7 +37,7 @@ const CARDS = [
   { key: 'kits', img: '/site-assets/homepage/products/product-06.webp', rot: 9 },
   { key: 'corporate', img: '/site-assets/homepage/products/product-07.webp', rot: -8 },
   { key: 'pod', img: '/site-assets/homepage/products/product-08.webp', rot: 7 },
-  // Placeholder photography until real shots land — overwrite these two files.
+  // religious / packaging — overwrite product-09 / product-10 to swap these shots.
   { key: 'religious', img: '/site-assets/homepage/products/product-09.webp', rot: -9 },
   { key: 'packaging', img: '/site-assets/homepage/products/product-10.webp', rot: 8 },
 ]

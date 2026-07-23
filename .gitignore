@@ -26,6 +26,9 @@ studio/.sanity/
 # Local, non-shipping working material (backups, scratch, source dumps)
 _archive/
 
+# Local verification / asset-prep scratch (one-off Playwright + transcode harnesses)
+scripts/
+
 # Root-level image scratch (screenshots). Real bundler assets under src/assets and
 # the client-swap deliverable tree under public/site-assets must always ship.
 *.png

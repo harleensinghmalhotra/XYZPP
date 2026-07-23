@@ -510,7 +510,6 @@ export default function Contact() {
               <p className="ctc-addr-lines">
                 <Trans t={t} i18nKey="addr.hours.lines" components={{ 1: <br /> }} />
               </p>
-              {/* TODO: confirm exact business hours — placeholder Mon–Sat above. */}
               <p className="ctc-addr-flag">{t('addr.hours.flag')}</p>
             </article>
           </div>
