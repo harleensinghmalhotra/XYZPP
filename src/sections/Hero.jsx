@@ -16,24 +16,30 @@ import { useTranslation } from 'react-i18next'
 // are sr-only; image alt is descriptive. Sighted users read the baked headline
 // and pill CTAs; screen-reader users hear the sr-only copy.
 //
-// KNOWN LIMITATION: baked-in text (headline, bubbles) is ENGLISH ONLY. FR/ES
-// visitors see English text in the art; pill CTAs localize. Future localized
-// re-exports of the art will address this.
+// LOCALISED ART: the hero illustration (headline + speech bubbles are baked into
+// the image) ships per language — English, French, Spanish — chosen from the active
+// i18n language. Any unrecognised or missing language falls back to English, so the
+// image is never broken. The sr-only bubble copy and the image alt are localised
+// alongside the art via the home.json locale files.
 
-const HERO_ART = '/site-assets/homepage/hero/hero-main.webp'
-
-// The four speech-bubble messages exactly as PAINTED into the art (English only).
-// Surfaced sr-only so screen-reader users hear what sighted users read.
-const BUBBLE_LINES = [
-  'Oh yes! Education has no borders.',
-  'WOW! Quarterfold prints 75 million books every year.',
-  'What? Quarterfold also exports to 25+ countries every year?',
-  'Yes! Trusted by publishers across continents for its quality and on-time delivery!',
-]
+// Language-keyed hero art. Any language not listed here resolves to English.
+const HERO_ART = {
+  en: '/site-assets/homepage/hero/hero-main.webp',
+  fr: '/site-assets/homepage/hero/hero-main-fr.webp',
+  es: '/site-assets/homepage/hero/hero-main-es.webp',
+}
+const HERO_ART_FALLBACK = HERO_ART.en
 
 export default function Hero() {
-  const { t } = useTranslation('home')
+  const { t, i18n } = useTranslation('home')
   const section = useRef(null)
+
+  // Normalise the active language (e.g. 'fr-FR' → 'fr') and resolve the art;
+  // anything unrecognised or missing falls back to English so the image never breaks.
+  const lang = (i18n.language || 'en').slice(0, 2).toLowerCase()
+  const heroArt = HERO_ART[lang] || HERO_ART_FALLBACK
+  const bubbles = t('hero.bubbles', { returnObjects: true })
+  const bubbleLines = Array.isArray(bubbles) ? bubbles : []
 
   return (
     <section id="hero" ref={section} data-theme="dark" className="relative overflow-x-clip">
@@ -41,7 +47,7 @@ export default function Hero() {
       <h1 className="sr-only">{t('hero.line1')}, {t('hero.line2')}</h1>
       <p className="sr-only">{t('hero.subhead')}</p>
       <ul className="sr-only">
-        {BUBBLE_LINES.map((line) => (
+        {bubbleLines.map((line) => (
           <li key={line}>{line}</li>
         ))}
       </ul>
@@ -51,8 +57,9 @@ export default function Hero() {
           positioning context for the pill CTAs. */}
       <div className="pointer-events-none relative">
         <img
-          src={HERO_ART}
-          alt="Four children stand around a giant open book resting on a dotted world map. The book's pages read: Powering Global Education Through Print Excellence. Printing is stronger than ever. We love books. We love printing."
+          key={lang}
+          src={heroArt}
+          alt={t('hero.alt')}
           className="block w-full select-none"
           draggable="false"
           fetchpriority="high"

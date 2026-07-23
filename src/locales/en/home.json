@@ -11,12 +11,13 @@
     "subhead": "We help publishers around the world print, bind, package, and deliver exceptional books on time, every time.",
     "ctaPrint": "What we print",
     "ctaReach": "Our global reach",
-    "bubbles": {
-      "mustard": "Oh yes! Education has no borders.",
-      "red": "Quarterfold prints <1>75 million books</1> every year,",
-      "blonde": "reaching classrooms in <1>25+ countries</1>.",
-      "green": "Printed in India, read all over the world."
-    },
+    "bubbles": [
+      "Oh yes! Education has no borders.",
+      "WOW! Quarterfold prints 75 million books every year.",
+      "What? Quarterfold also exports to 25+ countries every year?",
+      "Yes! Trusted by publishers across continents for its quality and on-time delivery!"
+    ],
+    "alt": "Four children stand around a giant open book resting on a dotted world map. The book's pages read: Powering Global Education Through Print Excellence. Printing is stronger than ever. We love books. We love printing.",
     "book": {
       "left": ["Powering", "Global", "Education", "Through Print", "Excellence"],
       "rightHead": ["Printing is", "stronger than ever."],

@@ -11,12 +11,13 @@
     "subhead": "Nous aidons les éditeurs du monde entier à imprimer, relier, conditionner et livrer des ouvrages d'exception, dans les délais, à chaque fois.",
     "ctaPrint": "Ce que nous imprimons",
     "ctaReach": "Notre présence mondiale",
-    "bubbles": {
-      "mustard": "Oh oui ! L'éducation n'a pas de frontières.",
-      "red": "Quarterfold imprime <1>75 millions de livres</1> chaque année,",
-      "blonde": "qui rejoignent des salles de classe dans <1>plus de 25 pays</1>.",
-      "green": "Imprimé en Inde, lu partout dans le monde."
-    },
+    "bubbles": [
+      "Oh oui! L'éducation n'a pas de frontières.",
+      "WOW ! Quarterfold imprime 75 millions de livres chaque année.",
+      "Quoi ? Quarterfold exporte également vers plus de 25 pays chaque année ?",
+      "Oui !! Des éditeurs du monde entier lui font confiance pour sa qualité et le respect des délais de livraison !"
+    ],
+    "alt": "Quatre enfants entourent un grand livre ouvert posé sur une carte du monde en pointillés. Les pages du livre indiquent : Dynamiser l'éducation mondiale grâce à l'excellence de l'impression. L'impression est plus forte que jamais. Nous aimons les livres. Nous aimons l'impression.",
     "book": {
       "left": ["Propulser", "l'éducation", "mondiale par", "l'impression", "d'excellence"],
       "rightHead": ["L'impression est", "plus forte que jamais."],
