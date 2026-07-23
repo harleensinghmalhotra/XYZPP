@@ -37,7 +37,7 @@ const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron'
 const TARGET = { center: [73.0, 19.03], zoom: 9 }
 const MARKERS = [
   { lngLat: [72.9987, 19.077], label: 'Vashi', role: 'Head Office' },
-  { lngLat: [73.103, 19.083], label: 'Taloja', role: 'Main Factory' },
+  { lngLat: [73.103, 19.083], label: 'Taloja', role: 'Main Factory', placement: 'above' },
 ]
 
 const SPACE_VIEW = { center: [58, 21], zoom: 1.3 }
@@ -305,6 +305,7 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
     MARKERS.forEach((m, i) => {
       const el = document.createElement('div')
       el.className = 'qfp-globe-marker'
+      if (m.placement === 'above') el.classList.add('qfp-globe-marker--above')
       const pin = document.createElement('span')
       pin.className = 'qfp-globe-pin'
       const tip = document.createElement('span')

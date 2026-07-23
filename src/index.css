@@ -4807,6 +4807,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   pointer-events: none; will-change: transform, opacity;
 }
 .qfp-globe-marker.is-in { transform: translateY(0) scale(1); opacity: 1; }
+.qfp-globe-marker--above { flex-direction: column-reverse; }
 .qfp-globe-pin {
   width: 15px; height: 15px; border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #F5824A, var(--gold-2) 60%, var(--gold));
