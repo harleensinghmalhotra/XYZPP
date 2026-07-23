@@ -13,7 +13,7 @@ background as a box on the card.) Push to deploy.
 |------|------|---------------------------|--------|
 | `product-01.webp` | 1100×880 | educational | ✅ real |
 | `product-02.webp` | 700×560 | trade / counterbook | ✅ real |
-| `product-03.webp` | 1200×882 | trade books / coffee-table | ✅ real (client) |
+| `product-03.webp` | 1100×808 | trade books / coffee-table | ✅ real (client) |
 | `product-04.webp` | 700×560 | general | ✅ real |
 | `product-05.webp` | 700×560 | children | ✅ real |
 | `product-06.webp` | 700×560 | kits | ✅ real |
