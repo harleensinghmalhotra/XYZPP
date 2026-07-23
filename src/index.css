@@ -351,6 +351,18 @@
 }
 .u-card--navy { background: var(--navy); border-color: rgba(245, 240, 232, 0.12); color: var(--cream-3); }
 
+/* ── Newsroom cover inset ────────────────────────────────────────────────────
+   Shared by the /newsroom index cards (.nr-card-media) AND the Related-News
+   cards on every article (.nra-rel-media): the cover floats inside the card with
+   a cream gutter all round and corners softened one step in from the 22px card
+   corner. One class so both card types stay identical. Element-specific bits
+   (aspect-ratio, chip position, hover-zoom) live in each page's own CSS. */
+.nr-cover-inset { padding: 12px; background: var(--cream); }
+.nr-cover-inset > img {
+  border-radius: calc(var(--r-card) - 12px);   /* concentric with the card corner */
+  background: var(--cream-2);                   /* soft letterbox while the cover loads */
+}
+
 /* ── ONE SECTION rhythm ─────────────────────────────────────────────────────── */
 .u-section { padding: var(--section-y) var(--page-gutter); }
 .u-section-inner { max-width: var(--measure); margin: 0 auto; }

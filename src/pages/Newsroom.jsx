@@ -41,7 +41,7 @@ function NewsCard({ post }) {
   return (
     <article className="nr-card" data-reveal>
       <Link className="nr-card-link" to={`/newsroom/${post.slug}`}>
-        <div className="nr-card-media">
+        <div className="nr-card-media nr-cover-inset">
           {cover && <img src={cover} alt="" loading="lazy" decoding="async" />}
           {post.category && (
             <span className="nr-chip">{t(`categories.${post.category}`, post.category)}</span>

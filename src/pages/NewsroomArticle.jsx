@@ -93,7 +93,7 @@ function RelatedCard({ post }) {
   return (
     <article className="nra-rel-card" data-reveal>
       <Link className="nra-rel-link" to={`/newsroom/${post.slug}`}>
-        <div className="nra-rel-media">
+        <div className="nra-rel-media nr-cover-inset">
           {cover && <img src={cover} alt="" loading="lazy" decoding="async" />}
           {post.category && (
             <span className="nra-chip nra-chip--sm">{t(`categories.${post.category}`, post.category)}</span>
