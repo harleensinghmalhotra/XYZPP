@@ -74,7 +74,8 @@ export default function CTAFooter() {
             {t('cta.requestQuote')}
           </Link>
           <a
-            href="#"
+            href="/site-assets/documents/company-profile.pdf"
+            download
             className="u-btn u-btn--ghost u-btn--lg btn-nebula focus-ring"
             style={{ letterSpacing: '0.2px' }}
           >
