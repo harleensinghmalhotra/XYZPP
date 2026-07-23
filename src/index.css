@@ -360,7 +360,7 @@
 .nr-cover-inset { padding: 12px; background: var(--cream); }
 .nr-cover-inset > img {
   border-radius: calc(var(--r-card) - 12px);   /* concentric with the card corner */
-  background: var(--cream-2);                   /* soft letterbox while the cover loads */
+  background: var(--cream);                     /* contain letterbox = card cream, so the frame reads as one field */
 }
 
 /* ── ONE SECTION rhythm ─────────────────────────────────────────────────────── */
