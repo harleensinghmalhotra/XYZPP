@@ -43,7 +43,6 @@ export default function LegalPage({ doc }) {
           ))}
 
           <p className="legal-updated">{meta.lastUpdated}</p>
-          <p className="legal-disclaimer">{meta.disclaimer}</p>
         </div>
       </section>
     </main>

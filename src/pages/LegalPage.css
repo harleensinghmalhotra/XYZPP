@@ -67,14 +67,6 @@
   text-transform: uppercase;
   color: #c2551b;
 }
-.legal-disclaimer {
-  margin: 12px 0 0;
-  font-family: 'Inter', sans-serif;
-  font-style: italic;
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(92, 83, 70, 0.9);
-}
 
 @keyframes legalIn {
   from { opacity: 0; transform: translateY(10px); }
