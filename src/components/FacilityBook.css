@@ -14,7 +14,7 @@
   border-radius: var(--r-card);
   /* side padding ~4% of the viewport (design law: minimal margins); the vertical
      rhythm stays generous so the panel still reads as a hosted "reading room". */
-  padding: clamp(38px, 5vh, 68px) clamp(22px, 4vw, 88px);
+  padding: clamp(38px, 5vh, 68px) clamp(20px, 2.6vw, 64px);
   color: #fdfaf4;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
@@ -58,7 +58,7 @@
   width: 100%;
   display: flex;
   align-items: flex-start;
-  gap: clamp(22px, 2.5vw, 46px);
+  gap: clamp(16px, 1.7vw, 32px);
   outline: none;
 }
 .ib-interactive:focus-visible {
@@ -475,7 +475,13 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 0;   /* book top edge sits on the same line as the stack top edge */
+  /* Offset the book down so its top + bottom edges sit EXACTLY level with the stack
+     PILE (the imgstack, which sits below the "click a book" hint + the Overview pill
+     in the left column). Re-locks the equal-heights rule at the 1536 reference; the
+     pill+hint header is near-constant (~62px) across the desktop range, so alignment
+     holds within a couple of px everywhere. Zeroed in the mobile stacked layout. */
+  margin-top: 62px;
+  padding-top: 0;
   /* query container for the outer-edge arrows + counter (siblings of .ib-book), so
      they scale in cqw with the book just like the pages inside it do */
   container-type: inline-size;
@@ -1250,7 +1256,7 @@
   .ib-book-spine { height: auto; padding: 9px 18px; border-radius: 4px; }
   .ib-spine-text { max-width: none; }
   .ib-stack > :last-child::after { display: none; }
-  .ib-book-wrap { order: 1; padding-top: 26px; }
+  .ib-book-wrap { order: 1; padding-top: 26px; margin-top: 0; }
   .ib-book { width: 100%; }
   .ib-spread {
     flex-direction: column;

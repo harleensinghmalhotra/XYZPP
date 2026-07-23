@@ -11,10 +11,12 @@
   "hero": {
     "eyebrow": "Contact",
     "title": "Parlons-en. <strong>Réponse sous un jour ouvré.</strong>",
-    "line": "Que vous soyez un ministère, un éditeur ou un auteur avec un seul livre, nous serions ravis d'échanger avec vous.",
+    "line": "Parlez-nous de votre projet. Nous serons ravis de vous lire.",
     "callLabel": "Appelez-nous directement",
     "callFoot": "Du lundi au samedi, aux heures ouvrables, ou remplissez le formulaire ci-dessous.",
-    "callAriaLabel": "Appelez-nous directement au +91 829 199 9922"
+    "callAriaLabel": "Appelez-nous directement au +91 829 199 9922",
+    "waAria": "Écrivez-nous sur WhatsApp",
+    "emailAria": "Écrivez-nous à info@quarterfoldltd.com"
   },
   "map": {
     "regionLabel": "Où nous trouver",

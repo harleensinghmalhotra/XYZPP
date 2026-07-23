@@ -11,10 +11,12 @@
   "hero": {
     "eyebrow": "Contacto",
     "title": "Hablemos. <strong>Respondemos en un día laborable.</strong>",
-    "line": "Ya sea un ministerio, una editorial o un autor con un solo libro, nos encantaría saber de usted.",
+    "line": "Cuéntenos sobre su proyecto. Esperamos su mensaje.",
     "callLabel": "Llámenos directamente",
     "callFoot": "De lunes a sábado, en horario comercial, o envíe el formulario de consulta a continuación.",
-    "callAriaLabel": "Llámenos directamente al +91 829 199 9922"
+    "callAriaLabel": "Llámenos directamente al +91 829 199 9922",
+    "waAria": "Escríbanos por WhatsApp",
+    "emailAria": "Escríbanos a info@quarterfoldltd.com"
   },
   "map": {
     "regionLabel": "Dónde estamos",

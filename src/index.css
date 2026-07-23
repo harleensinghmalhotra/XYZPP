@@ -3708,6 +3708,63 @@ body {
 /* ── 2. LOCATION STRIP (navy, compact) — replaces the oversized static map.
    Two tidy DM Mono address blocks with a small gold pin + Maps link. The real
    interactive globe lives on / and /about; contact needs no third map moment. ── */
+/* ── Hero reach — phone number + premium WhatsApp / Email glass chips ────────── */
+.ctc-hero-reach {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(14px, 2vw, 24px); flex-wrap: wrap;
+}
+.ctc-chips { display: inline-flex; gap: 10px; }
+.ctc-chip {
+  position: relative;
+  display: inline-grid; place-items: center;
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  overflow: hidden;
+  color: #F37031;                                   /* icon — brand orange */
+  background: rgba(15, 36, 68, 0.45);               /* frosted translucent navy */
+  border: 1px solid rgba(253, 250, 244, 0.18);      /* subtle light edge */
+  box-shadow:
+    inset 0 1px 0 rgba(253, 250, 244, 0.22),        /* soft inner highlight */
+    inset 0 -9px 20px -12px rgba(0, 0, 0, 0.55),
+    0 6px 18px -8px rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+  backdrop-filter: blur(10px) saturate(1.3);
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+.ctc-chip-ico { position: relative; z-index: 1; width: 22px; height: 22px; display: block; }
+/* diagonal glare band, parked off-screen; sweeps across on hover */
+.ctc-chip-glare {
+  position: absolute; top: -50%; left: 0;
+  width: 42%; height: 200%;
+  transform: translateX(-180%) rotate(18deg);
+  background: linear-gradient(90deg, transparent, rgba(253, 250, 244, 0.4), transparent);
+  opacity: 0; pointer-events: none;
+}
+.ctc-chip:hover,
+.ctc-chip:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(243, 112, 49, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(253, 250, 244, 0.3),
+    0 12px 28px -8px rgba(0, 0, 0, 0.55);
+}
+.ctc-chip:hover .ctc-chip-glare,
+.ctc-chip:focus-visible .ctc-chip-glare { animation: ctc-chip-glare 0.32s ease; }
+@keyframes ctc-chip-glare {
+  0%   { transform: translateX(-180%) rotate(18deg); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateX(420%) rotate(18deg); opacity: 0; }
+}
+/* fallback — browsers without backdrop-filter get a solid navy chip */
+@supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
+  .ctc-chip { background: #0f2444; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ctc-chip { transition: none; }
+  .ctc-chip:hover, .ctc-chip:focus-visible { transform: none; }
+  .ctc-chip:hover .ctc-chip-glare, .ctc-chip:focus-visible .ctc-chip-glare { animation: none; opacity: 0; }
+}
+
 .ctc-loc { position: relative; background: var(--navy); color: #fdfaf4; padding: clamp(30px, 5vh, 48px) 24px clamp(38px, 6vh, 58px); border-top: 1px solid rgba(253, 250, 244, 0.1); }
 .ctc-loc-inner { max-width: 1180px; margin: 0 auto; }
 .ctc-loc-eyebrow {

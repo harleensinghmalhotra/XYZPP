@@ -11,10 +11,12 @@
   "hero": {
     "eyebrow": "Contact",
     "title": "Let's Talk. <strong>We Reply in One Business Day.</strong>",
-    "line": "Whether you're a ministry, a publisher, or an author with one book, we'd love to hear from you.",
+    "line": "Tell us about your project. We look forward to hearing from you.",
     "callLabel": "Call us direct",
     "callFoot": "Mon-Sat, business hours, or send the enquiry form below.",
-    "callAriaLabel": "Call us direct on +91 829 199 9922"
+    "callAriaLabel": "Call us direct on +91 829 199 9922",
+    "waAria": "Message us on WhatsApp",
+    "emailAria": "Email us at info@quarterfoldltd.com"
   },
   "map": {
     "regionLabel": "Where we are",
