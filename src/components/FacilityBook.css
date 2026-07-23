@@ -1112,6 +1112,99 @@
   .ib-nav.is-pulsing::before { animation: none; display: none; }
 }
 
+/* ── IMAGE SYSTEM — stacked-pair intro page + full double-page landscape ────────
+   Spread 1's right page carries TWO 16:9s stacked to fill the tall page; landscape
+   images on later spreads run edge-to-edge across BOTH pages, continuous through the
+   spine. Cover-fit fills the wells (no dead bands); tall shots keep contain-fit. */
+.ib-stackpair {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.4cqw, 12px);
+}
+.ib-img-frame--stack {
+  position: relative;
+  inset: auto;
+  flex: 1 1 0;
+  min-height: 0;
+}
+.ib-img--cover { object-fit: cover; }
+
+/* full double-page spread — one image across both cream pages, through the gutter */
+.ib-doublepage {
+  position: absolute;
+  top: 6%;
+  left: 6%;
+  width: 88%;
+  height: 88%;
+}
+.ib-img-frame--double { position: absolute; inset: 0; }
+/* the spine valley down the centre of the spread image */
+.ib-double-spine {
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 46px;
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(6, 16, 32, 0.30) 44%, rgba(6, 16, 32, 0.36) 50%, rgba(6, 16, 32, 0.30) 56%, transparent 100%);
+}
+
+/* ── DISCOVERABILITY — "click a book" hint (pulses until first open) + thin
+   hand-drawn arrows pointing at each spine (idle drift), both dimming after the
+   first facility is opened. Spine labels lift 4px on hover with a stronger glow. */
+.ib-hint {
+  align-self: stretch;
+  margin: 0 0 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(10.5px, 0.92vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.34;
+  color: #F5824A;                       /* AA-safe orange on the navy stage */
+  text-align: center;
+  animation: ib-hint-pulse 2s ease-in-out infinite;
+}
+@keyframes ib-hint-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+.ib-hint.is-done { animation: none; opacity: 0.7; }
+@media (prefers-reduced-motion: reduce) { .ib-hint { animation: none; opacity: 0.85; } }
+
+.ib-spine-arrows {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.ib-spine-arrows.is-dim { opacity: 0; }
+.ib-spine-arrow {
+  position: absolute;
+  left: -5%;
+  width: 14%;
+  color: #F5824A;
+  transform: translateY(-50%);
+  animation: ib-arrow-drift 2.6s ease-in-out infinite;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+.ib-spine-arrow svg { width: 100%; height: auto; display: block; }
+@keyframes ib-arrow-drift {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50%      { transform: translateY(-50%) translateX(3px); }
+}
+@media (prefers-reduced-motion: reduce) { .ib-spine-arrow { animation: none; } }
+
+/* spine hover — a 4px lift + the existing gold glow strengthens */
+.ib-imglabel { transition: transform 0.24s ease; }
+.ib-imglabel:hover,
+.ib-imglabel:focus-visible { transform: translateY(calc(-50% - 4px)); }
+@media (prefers-reduced-motion: reduce) {
+  .ib-imglabel,
+  .ib-imglabel:hover,
+  .ib-imglabel:focus-visible { transition: none; transform: translateY(-50%); }
+}
+
 /* ── reduced motion ────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .ib-spread { animation-duration: 0.18s; }
@@ -1257,4 +1350,16 @@
   .ib-nav--prev { left: 12px; }
   .ib-nav--next { right: 12px; }
   .ib-turnbar { bottom: 14px; }
+}
+
+/* ── responsive — the new image-system spreads collapse to stacked cards ──────── */
+@media (max-width: 900px) {
+  .ib-stackpair {
+    position: static; width: 100%; height: auto; order: -1;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .ib-img-frame--stack { position: relative; inset: auto; height: 150px; flex: none; border-radius: 12px; }
+  .ib-doublepage { position: static; width: 100%; height: 240px; order: -1; }
+  .ib-img-frame--double { position: relative; inset: auto; height: 100%; border-radius: 12px; }
+  .ib-double-spine { display: none; }
 }

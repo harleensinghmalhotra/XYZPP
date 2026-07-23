@@ -101,7 +101,8 @@
       "coverEyebrow": "Facility",
       "overviewEyebrow": "Overview",
       "glanceEyebrow": "At a Glance",
-      "overview": "Overview"
+      "overview": "Overview",
+      "hint": "Click a book to explore each facility"
     },
     "intro": {
       "heading": "Infrastructure",

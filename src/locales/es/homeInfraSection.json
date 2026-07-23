@@ -101,7 +101,8 @@
       "coverEyebrow": "Instalación",
       "overviewEyebrow": "Resumen",
       "glanceEyebrow": "De un vistazo",
-      "overview": "Resumen"
+      "overview": "Resumen",
+      "hint": "Haz clic en un libro para explorar cada instalación"
     },
     "intro": {
       "heading": "Infraestructura",

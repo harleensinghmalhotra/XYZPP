@@ -91,23 +91,48 @@ function readFlipMs() {
   return Number.isFinite(v) ? Math.min(6000, Math.max(200, v)) : FLIP_MS
 }
 
-// Walk a facility's wired images into SPREADS. Spread 0 pairs the text read with the
-// first photo; every spread after pairs the remaining photos two-at-a-time (left,
-// right). ODD leftover (a facility with an EVEN photo count): the last image becomes
-// a `solo` spread — one photo centred across the spread — so nothing is ever blank
-// and no image repeats. Current counts: web 9 / binding 11 → clean pairs; sheetfed 8
-// / warehouse 6 → close on a solo photo; head office 1 → a single spread.
+// TALL (portrait / squareish) images fill a single page; everything else is a
+// LANDSCAPE (16:9-ish) that fills a full double-page spread. Derived from the
+// shipped assets' aspect ratios — update this set if a swapped-in file changes
+// orientation (the folder README lists the expected shape per slot).
+const TALL = new Set([
+  'web-machines-03', 'web-machines-08', 'web-machines-09',
+  'sheetfed-08', 'binding-04', 'binding-09',
+])
+const isLand = (src) => !TALL.has(src)
+
+// Walk a facility's wired images into SPREADS under the image-system rules:
+//   • Spread 0  = the facility read (left) + the first TWO 16:9s stacked to fill the
+//                 tall right page (`intro0`).
+//   • Landscape = a full DOUBLE-PAGE spread, one image across both pages (`double`).
+//   • Tall      = a full single page; consecutive talls pair two-per-spread (`pair`),
+//                 a lone leftover shows centred on one page (`solo`).
+// Corporate Headquarters (id 05) is left UNTOUCHED: its single tall photo keeps the
+// original read-left / photo-right single spread.
 const BLANK = { kind: 'blank' }
 function buildSpreads(book) {
   if (!book) return []
   const imgs = book.images || []
-  const spreads = [{ left: { kind: 'text' }, right: imgs[0] ? { kind: 'photo', src: imgs[0] } : BLANK }]
-  for (let i = 1; i < imgs.length; i += 2) {
-    const l = imgs[i]
-    const r = imgs[i + 1]
-    if (r) spreads.push({ left: { kind: 'photo', src: l }, right: { kind: 'photo', src: r } })
-    else spreads.push({ solo: { kind: 'photo', src: l } })
+  if (book.id === '05') {
+    return [{ t: 'base', left: { kind: 'text' }, right: imgs[0] ? { kind: 'photo', src: imgs[0] } : BLANK }]
   }
+  const spreads = []
+  const lands = imgs.filter(isLand)
+  const stack = lands.slice(0, 2)                     // the two 16:9s for the first spread
+  spreads.push({ t: 'intro0', stack })
+  const used = new Set(stack)
+  const rest = imgs.filter((s) => !used.has(s))       // keep original order
+  let buf = []
+  const flush = () => {
+    if (buf.length === 2) spreads.push({ t: 'pair', left: { kind: 'photo', src: buf[0] }, right: { kind: 'photo', src: buf[1] } })
+    else if (buf.length === 1) spreads.push({ t: 'solo', solo: { kind: 'photo', src: buf[0] } })
+    buf = []
+  }
+  for (const src of rest) {
+    if (isLand(src)) { flush(); spreads.push({ t: 'double', src }) }
+    else { buf.push(src); if (buf.length === 2) flush() }
+  }
+  flush()
   return spreads
 }
 
@@ -141,7 +166,8 @@ export default function FacilityBook() {
   const [spread, setSpread] = useState(0)           // current spread within the open book
   const [xfade, setXfade] = useState(0)             // bumps to re-trigger the crossfade
   const [flip, setFlip] = useState(null)            // { from, dir } while a leaf is turning
-  const [hasTurned, setHasTurned] = useState(false) // first turn stops the arrow pulse for good
+  const [hasTurned, setHasTurned] = useState(false) // first turn stops the nav-arrow pulse for good
+  const [hasOpened, setHasOpened] = useState(false) // first book opened → stop the "click a book" hint pulse + dim the spine arrows
   const busy = useRef(false)
   const timer = useRef(null)
   const sectionRef = useRef(null)
@@ -207,8 +233,12 @@ export default function FacilityBook() {
     if (busy.current || isIntro || target === safeSpread || target < 0 || target >= totalSpreads) return
     if (!hasTurned) setHasTurned(true)
     const dir = target > safeSpread ? 'next' : 'prev'
-    const soloEnds = spreads[safeSpread]?.solo || spreads[target]?.solo
-    if (!canFlip || soloEnds) {
+    // The two-face leaf can only carry a photo↔photo turn (both spreads `pair`). Any
+    // spread involving a double-page image, the intro stack or a solo turns as one
+    // unit via the crossfade (narrow / reduced motion crossfade too).
+    const leafable = (s) => s && s.t === 'pair'
+    const canLeaf = canFlip && leafable(spreads[safeSpread]) && leafable(spreads[target])
+    if (!canLeaf) {
       playTurn()
       setSpread(target)
       setXfade((k) => k + 1) // instant crossfade — no leaf turn
@@ -228,6 +258,7 @@ export default function FacilityBook() {
   // leaf turn. Guarded by the same input lock so it can't collide with a running turn.
   const select = (target) => {
     if (busy.current || target === activeBook || target < -1 || target >= BOOKS.length) return
+    if (target >= 0 && !hasOpened) setHasOpened(true)
     setFlip(null)
     setActiveBook(target)
     setSpread(0)
@@ -321,6 +352,7 @@ export default function FacilityBook() {
   // A base page zone (left or right) for whatever face the current spread carries.
   const renderZone = (face, side) => {
     const cls = side === 'left' ? 'ib-imgpage--left' : 'ib-imgpage--right'
+    if (!face) return <div className={`ib-imgpage ${cls} ib-blankpage`} aria-hidden="true" />
     if (face.kind === 'text') return renderText()
     if (face.kind === 'photo') {
       return <div className={`ib-imgpage ${cls}`}><PhotoFrame src={face.src} /></div>
@@ -362,6 +394,30 @@ export default function FacilityBook() {
     </button>
   )
 
+  // DISCOVERABILITY — a DM-Mono instruction that pulses until the first book is
+  // opened this session, and thin hand-drawn arrows pointing at each spine (idle
+  // drift). NOTE: arrow positions are a sensible first pass — to be nudged to match
+  // a markup screenshot. Both dim once a facility has been opened.
+  const hint = (
+    <p className={`ib-hint${hasOpened || reduced ? ' is-done' : ''}`}>{t('books.ui.hint')}</p>
+  )
+  const spineArrows = !narrow && (
+    <div className={`ib-spine-arrows${hasOpened ? ' is-dim' : ''}`} aria-hidden="true">
+      {SPINE_POS.map((pos, i) => (
+        <span
+          key={i}
+          className="ib-spine-arrow"
+          style={{ top: `${pos.cy}%`, animationDelay: `${(i * 0.14).toFixed(2)}s` }}
+        >
+          <svg viewBox="0 0 46 14" fill="none">
+            <path d="M2 7c12-4.2 24-4.2 40 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <path d="M42 7l-7.5-3.6M42 7l-7.5 3.6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      ))}
+    </div>
+  )
+
   return (
     <div className="ib-stage" ref={sectionRef} data-theme="dark">
       <div
@@ -375,8 +431,10 @@ export default function FacilityBook() {
             HTML spine labels, or the CSS fallback pile) */}
         {USE_IMAGE_STACK && imgOk ? (
           <div className="ib-stack ib-stack--img" aria-label={regionLabel}>
+            {hint}
             {overviewPill}
             <div className="ib-imgstack">
+              {spineArrows}
               <img
                 className="ib-imgstack-photo"
                 src={STACK_IMG}
@@ -412,6 +470,7 @@ export default function FacilityBook() {
           </div>
         ) : (
           <div className="ib-stack" aria-label={regionLabel}>
+            {hint}
             {overviewPill}
             {PILE.map((slot, pos) => {
               if (slot.filler) {
@@ -506,13 +565,36 @@ export default function FacilityBook() {
                     <p className="ib-intro-closing">{t('books.intro.closing')}</p>
                   </div>
                 </>
-              ) : cur.solo ? (
-                // ODD leftover — one photo centred across the spread, repeat-free.
+              ) : cur.t === 'intro0' ? (
+                <>
+                  {/* SPREAD 1 — the facility read (left) + two 16:9s stacked to fill
+                      the tall right page (no small floating photo, no dead bands). */}
+                  {renderText()}
+                  <div className="ib-imgpage ib-imgpage--right ib-stackpair">
+                    {(cur.stack || []).map((s) => (
+                      <div className="ib-img-frame ib-img-frame--stack" key={s}>
+                        <img className="ib-img ib-img--cover" src={IMG(s)} alt="" aria-hidden="true" loading="lazy" decoding="async" draggable="false" />
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : cur.t === 'double' ? (
+                // LANDSCAPE — one image stretched across BOTH pages, continuous through
+                // the spine (never a small centred landscape on one page).
+                <div className="ib-doublepage">
+                  <div className="ib-img-frame ib-img-frame--double">
+                    <img className="ib-img ib-img--cover" key={cur.src} src={IMG(cur.src)} alt="" aria-hidden="true" loading="lazy" decoding="async" draggable="false" />
+                  </div>
+                  <span className="ib-double-spine" aria-hidden="true" />
+                </div>
+              ) : cur.t === 'solo' ? (
+                // Lone tall leftover — one photo filling a single centred page, repeat-free.
                 <div className="ib-imgpage ib-imgpage--solo"><PhotoFrame src={cur.solo.src} /></div>
               ) : (
                 <>
-                  {/* BASE PAGES — the destination spread's left + right faces. During a
-                      turn the leaf covers whichever base page is mid-swap. */}
+                  {/* BASE PAGES — the destination spread's left + right faces (facing
+                      tall pages, or the HQ read + photo). During a photo↔photo turn the
+                      leaf covers whichever base page is mid-swap. */}
                   {renderZone(baseLeft, 'left')}
                   {renderZone(baseRight, 'right')}
 
