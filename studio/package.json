@@ -8,8 +8,7 @@
     "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build",
-    "deploy": "sanity deploy",
-    "seed": "node --env-file=.env seed.mjs"
+    "deploy": "sanity deploy"
   },
   "dependencies": {
     "@sanity/client": "^6.29.1",

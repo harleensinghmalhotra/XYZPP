@@ -70,14 +70,10 @@ needed to register a new namespace.
 
 ## Asset-swap system
 
-All imagery and media live in two swappable trees. To replace a placeholder or
-update a picture, **overwrite the file in place, keeping the same path and
-filename** — no code changes required.
-
-- **`assets/`** (import alias `@assets`) — bundler assets imported directly by
-  the app: hero art, cover mockups, cut-out elements, and background videos.
-- **`public/site-assets/`** — static files served at `/site-assets/…`; the
-  client-facing deliverable tree of logos, photos, and icons.
+All imagery and media live under **`public/site-assets/`** — static files served
+at `/site-assets/…`, the client-facing deliverable tree of logos, photos, icons,
+and video. To replace a placeholder or update a picture, **overwrite the file in
+place, keeping the same path and filename** — no code changes required.
 
 Individual asset folders include a short README noting the expected filenames
 and dimensions for each slot.
@@ -85,13 +81,12 @@ and dimensions for each slot.
 ## Project structure
 
 ```
-assets/              Swappable bundler media (@assets)
 public/              Static files served as-is (incl. public/site-assets)
 src/
   components/        Shared UI and layout
   sections/          Homepage and page sections
   pages/             Routed pages
-  lib/               Helpers (Sanity client, asset registry, i18n utils)
+  lib/               Helpers (Sanity client, i18n utils)
   locales/           en / fr / es translation JSON
   index.css          Global styles and design tokens
 studio/              Sanity Studio (Newsroom CMS)
