@@ -113,7 +113,7 @@ export default function Founder() {
               "{t('quote.text')}"
             </p>
             <footer style={{ fontFamily: INTER, fontSize: '15px', color: 'rgba(253,250,244,0.72)' }}>
-              — {t('quote.attribution')}
+              {t('quote.attribution')}
             </footer>
           </blockquote>
         </div>

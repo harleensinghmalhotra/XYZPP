@@ -21,7 +21,7 @@ export default function LegalPage({ doc }) {
 
   return (
     <main id="main">
-      <Seo title={`${data.title} — Quarterfold Printabilities`} description={data.seoDesc} />
+      <Seo title={`${data.title}, Quarterfold Printabilities`} description={data.seoDesc} />
 
       <PageHero eyebrow={data.eyebrow} line1={data.title} minVh={44} />
 

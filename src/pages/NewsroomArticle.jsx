@@ -208,7 +208,7 @@ export default function NewsroomArticle() {
   return (
     <main id="main">
       <Seo
-        title={`${post.title} — ${t('seo.articleSuffix')}`}
+        title={`${post.title}, ${t('seo.articleSuffix')}`}
         description={post.excerpt}
         jsonLd={jsonLd}
       />

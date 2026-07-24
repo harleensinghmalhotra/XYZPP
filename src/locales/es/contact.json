@@ -94,7 +94,7 @@
     "summaryMany": "Hay {{count}} problemas con el formulario. Revise los campos resaltados."
   },
   "success": {
-    "title": "Gracias — su consulta está en camino.",
+    "title": "Gracias, su consulta está en camino.",
     "sub": "Hemos recibido su mensaje y le responderemos en un día laborable. Esté atento a su bandeja de entrada, y a la carpeta de spam por si acaso.",
     "again": "Enviar otra consulta"
   },

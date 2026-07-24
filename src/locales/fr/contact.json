@@ -94,7 +94,7 @@
     "summaryMany": "Le formulaire comporte {{count}} erreurs. Veuillez vérifier les champs signalés."
   },
   "success": {
-    "title": "Merci — votre demande est en route.",
+    "title": "Merci, votre demande est en route.",
     "sub": "Nous avons bien reçu votre message et vous répondrons sous un jour ouvré. Surveillez votre boîte de réception, ainsi que vos spams par précaution.",
     "again": "Envoyer une autre demande"
   },

@@ -94,7 +94,7 @@
     "summaryMany": "There are {{count}} problems with the form. Please review the highlighted fields."
   },
   "success": {
-    "title": "Thank you — your enquiry is on its way.",
+    "title": "Thank you, your enquiry is on its way.",
     "sub": "We've received your message and will reply within one business day. Keep an eye on your inbox, and your spam folder just in case.",
     "again": "Send another enquiry"
   },

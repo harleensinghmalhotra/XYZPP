@@ -90,7 +90,7 @@
     "reqEmail": "Email",
     "reqPhone": "Phone",
     "reqNotes": "Notes (optional)",
-    "reqNotesPlaceholder": "Anything we should know — deadline, cover files, questions.",
+    "reqNotesPlaceholder": "Anything we should know, deadline, cover files, questions.",
     "reqSend": "Send request",
     "reqSending": "Sending…",
     "reqRetry": "Try again",

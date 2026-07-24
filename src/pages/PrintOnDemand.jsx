@@ -274,7 +274,7 @@ export default function PrintOnDemand() {
           binding: optLabel('binding', cfg.binding),
           finish: optLabel('finish', cfg.finish),
           quantity: optLabel('quantity', cfg.quantity),
-          message: `Print on Demand — book specification\n${spec}\n\nNotes: ${req.notes || '—'}`,
+          message: `Print on Demand, book specification\n${spec}\n\nNotes: ${req.notes || 'None'}`,
         }),
       })
       const data = await res.json().catch(() => ({}))

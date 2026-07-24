@@ -291,7 +291,7 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
-          subject: 'Website Enquiry — Contact Form',
+          subject: 'Website Enquiry, Contact Form',
           from_name: 'QFP Website',
           botcheck: '',
           name: `${form.first} ${form.last}`.trim(),
