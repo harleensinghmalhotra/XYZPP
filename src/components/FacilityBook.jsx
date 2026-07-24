@@ -28,7 +28,7 @@ const SPINE_POS = [
   { cy: 31.5, left: 12, width: 73, height: 13 }, // Sheet Fed (orange)
   { cy: 53,   left: 12, width: 73, height: 13 }, // Binding and Finishing (green)
   { cy: 74,   left: 12, width: 73, height: 13 }, // Warehouse (red)
-  { cy: 92,   left: 12, width: 73, height: 12 }, // Corporate Headquarters (slate)
+  { cy: 94,   left: 12, width: 73, height: 12 }, // Corporate Headquarters (slate) — cy measured off book-stack.webp (slate band centre = 94%)
 ]
 
 // ── Facility Book — Infrastructure section & /infrastructure page ──────────────
