@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useState, useEffect, useRef } from 'react'
-import { Target, Eye, Handshake } from '@phosphor-icons/react'
-import { Flag, Globe, Factory, TrendingUp, Trophy } from 'lucide-react'
+import { Flag, Globe, Factory, TrendingUp, Trophy, Target, Telescope, HeartHandshake } from 'lucide-react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import CTAButton from '@/components/CTAButton'
@@ -261,12 +260,12 @@ function InkSpreads() {
   const { t } = useTranslation('ourStory')
   const reduced = useReducedMotion()
   const sectionRef = useRef(null)
-  // One Phosphor LIGHT glyph per card (44px, matching the site credentials row):
-  // Target → mission, Eye → vision, Handshake → values.
+  // Task 18 — one lucide glyph per card, better matched to each idea:
+  // Target → mission, Telescope → vision (looking ahead), HeartHandshake → values.
   const beats = [
     { key: 'mission', Icon: Target },
-    { key: 'vision', Icon: Eye },
-    { key: 'values', Icon: Handshake },
+    { key: 'vision', Icon: Telescope },
+    { key: 'values', Icon: HeartHandshake },
   ]
 
   // reveal once, when the band crosses into view — CSS carries the stagger.
@@ -295,7 +294,7 @@ function InkSpreads() {
           {beats.map(({ key, Icon }, i) => (
             <div className="mvv-col" key={key} style={{ '--col-i': i }}>
               <div className="mvv-col-body">
-                <span className="mvv-icon" aria-hidden="true"><Icon weight="light" size={44} /></span>
+                <span className="mvv-icon" aria-hidden="true"><Icon size={44} strokeWidth={1.5} /></span>
                 <p className="mvv-label">{t(`${key}.label`)}</p>
                 <span className="mvv-rule" aria-hidden="true" />
                 <p className="mvv-text">{t(`${key}.desc`)}</p>
