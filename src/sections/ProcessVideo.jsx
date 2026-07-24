@@ -50,9 +50,11 @@ export default function ProcessVideo() {
   const rawSteps = t('steps', { returnObjects: true })
   const steps = Array.isArray(rawSteps) ? rawSteps : []
 
+  // Autoplay/pause on scroll — but ONLY when reduced motion is off. Under reduced
+  // motion the video never plays; the poster frame stays shown (see autoPlay gate below).
   useEffect(() => {
     const v = videoRef.current
-    if (!v || typeof IntersectionObserver === 'undefined') return
+    if (!v || reduced || typeof IntersectionObserver === 'undefined') return
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) v.play?.().catch(() => {})
@@ -62,7 +64,7 @@ export default function ProcessVideo() {
     )
     io.observe(v)
     return () => io.disconnect()
-  }, [])
+  }, [reduced])
 
   // THE ENTRANCE — one quiet, confident sequence: the artwork fades in, then the seven
   // text columns cascade left→right, then the promise band. Nothing bounces. Reduced
@@ -100,7 +102,7 @@ export default function ProcessVideo() {
           muted
           loop
           playsInline
-          autoPlay
+          autoPlay={!reduced}
           preload="none"
           poster={POSTER}
           aria-hidden="true"

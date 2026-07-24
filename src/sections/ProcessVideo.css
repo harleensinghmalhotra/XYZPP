@@ -20,8 +20,9 @@
   color: var(--ink-2);
 }
 
-/* video band — the WHOLE frame is always visible (contain), centred on a pure-BLACK
-   cinematic letterbox; never cropped, stretched, or upscaled past the section width. */
+/* video band — full width of the page, edge to edge. The video fills its full-bleed
+   16:9 frame (its native ratio) so there are no letterbox side bars and nothing in the
+   frame is cropped. */
 .pv-video-wrap {
   margin-top: clamp(40px, 6vh, 72px);
   width: 100%;
@@ -31,10 +32,11 @@
 .pv-video {
   display: block;
   width: 100%;
-  height: clamp(300px, 46vw, 620px);
-  object-fit: contain;      /* full frame, no crop */
+  height: auto;
+  aspect-ratio: 16 / 9;      /* the video's native ratio — full width, no bars, no crop */
+  object-fit: cover;
   object-position: center;
-  background: #000;          /* black letterbox behind the poster/frame */
+  background: #000;
 }
 
 /* ── THE SIX STEPS — one continuous process on the page cream, directly under the
