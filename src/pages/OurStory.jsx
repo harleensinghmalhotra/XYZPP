@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useState, useEffect, useRef } from 'react'
 import { Target, Eye, Handshake } from '@phosphor-icons/react'
+import { Flag, Globe, Factory, TrendingUp, Trophy } from 'lucide-react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import CTAButton from '@/components/CTAButton'
@@ -13,17 +14,10 @@ import Certifications from '@/sections/Certifications'
 import { GALLERY } from '@/assets/gallery/manifest'
 import './OurStory.css'
 
-// Real QFP era photography, one per timeline stop, served from the readable asset
-// tree (public/site-assets/about/timeline/). Swap an era by overwriting its file
-// in place — same name, no import, no rebuild. Order: 2014 · 2015–17 · 2018 ·
-// 2021–23 · 2024–25.
-const TIMELINE_MOCKS = [
-  '/site-assets/about/timeline/2014-first-order.webp',
-  '/site-assets/about/timeline/2015-2017-learning-the-continent.webp',
-  '/site-assets/about/timeline/2018-first-facility.webp',
-  '/site-assets/about/timeline/2021-2023-scale-with-systems.webp',
-  '/site-assets/about/timeline/2024-2025-award.webp',
-]
+// Task 17 — the timeline now shows a lucide milestone icon per stop instead of a
+// photo (the era photos made the section overflow). Order matches timeline.stops:
+// 2014 first order · 2015-17 continent · 2018 first facility · 2021-23 scale · 2024-25 award.
+const TIMELINE_ICONS = [Flag, Globe, Factory, TrendingUp, Trophy]
 
 // ── /about — "Our Story", the definitive craft pass ──────────────────────────
 // Hero band (~74vh) → THE JOURNEY (Union-Properties three-zone timeline) → INK
@@ -186,7 +180,7 @@ function Timeline({ stops }) {
     let tops = []
     const measure = () => {
       tops = cards.map((c) => {
-        const m = c.querySelector('.tls-media')
+        const m = c.querySelector('.tls-icon')
         return m ? m.offsetTop : c.offsetTop
       })
     }
@@ -235,15 +229,12 @@ function Timeline({ stops }) {
                   <span className="tls-year">{s.year}</span>
                 </div>
 
-                {/* CARD — media over copy, stacked on one side of the spine */}
+                {/* CARD — a milestone icon over the copy, stacked on one side of the spine */}
                 <div className="tls-card-inner">
-                  <div className="tls-media-zone">
-                    <div className="ab-frame tls-media" data-slot={`timeline-${i}`} aria-hidden="true">
-                      {TIMELINE_MOCKS[i] && (
-                        <img className="tls-media-img" src={TIMELINE_MOCKS[i]} alt="" loading="lazy" decoding="async" />
-                      )}
-                    </div>
-                  </div>
+                  {(() => {
+                    const Ic = TIMELINE_ICONS[i] || Flag
+                    return <span className="tls-icon" aria-hidden="true"><Ic size={26} strokeWidth={1.6} /></span>
+                  })()}
                   <div className="tls-copy">
                     <h3 className="tls-title">{s.title}</h3>
                     <p className="tls-body">{s.desc}</p>

@@ -119,9 +119,9 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    720px the spine moves to the left edge and every card sits to its right. */
 .tls {
   position: relative; background: var(--cream); overflow: hidden;
-  padding: clamp(20px, 3vh, 40px) var(--page-gutter) var(--section-pad-y);
+  padding: clamp(20px, 3vh, 40px) var(--page-gutter) clamp(44px, 6vh, 72px);
 }
-.tls-eyebrow { margin: 0 0 clamp(32px, 4.6vh, 60px); }
+.tls-eyebrow { margin: 0 0 clamp(24px, 3.4vh, 40px); }
 
 .tls-timeline { position: relative; }
 /* the spine track + its orange scroll-draw fill (both 2px, centred). */
@@ -142,7 +142,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: start;
   column-gap: clamp(24px, 3vw, 56px);
 }
-.tls-card + .tls-card { margin-top: clamp(48px, 8vh, 104px); }
+.tls-card + .tls-card { margin-top: clamp(28px, 4.5vh, 56px); }   /* Task 17 — tighter, icons need less room */
 /* pin marker + card to ONE row: without this, a left card's inner (column 1)
    sits after the marker (column 2) in source order and sparse auto-placement
    bumps it to an implicit row 2, dropping the image ~16px below the node. */
@@ -163,34 +163,35 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 .tls-node.is-reached { background: #f37031; border-color: #f37031; transform: translateY(-50%) scale(1.12); }
 .tls-year {
   position: absolute; top: 0; transform: translateY(-50%); white-space: nowrap;
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: clamp(14px, 1.1vw, 17px);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: clamp(12px, 0.9vw, 14px);
   letter-spacing: 0.12em; text-transform: uppercase; color: #c2410c;   /* AA orange on cream */
 }
 .tls-card--left .tls-year { left: calc(100% + 16px); }
 .tls-card--right .tls-year { right: calc(100% + 16px); }
 
-/* CARD — media over copy, stacked inside the half. */
+/* CARD — a small milestone icon over the copy, stacked inside the half. */
 .tls-card-inner { min-width: 0; }
-.tls-media-zone { min-width: 0; margin: 0 0 clamp(18px, 2.4vh, 26px); }
-.tls-media {
-  position: relative; width: 100%; aspect-ratio: 4 / 3;
-  border-radius: var(--radius-lg); background: var(--cream-2); overflow: hidden;
+/* Task 17 — a lucide milestone icon badge replaces the era photo, so the section no
+   longer overflows; the type is stepped down to match. */
+.tls-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; border-radius: 50%;
+  margin: 0 0 clamp(12px, 1.8vh, 18px);
+  color: var(--ab-orange);
+  background: rgb(243 112 49 / 0.08);
+  border: 1px solid rgb(243 112 49 / 0.28);
 }
-.tls-media::before, .tls-media::after { content: none; }   /* clean frame — no ticks */
-/* CONTAIN so nothing crops: a 4:3 source fills the frame edge-to-edge; the odd
-   ones (the portrait 2014 press hall, the award photo with faces + trophy text)
-   letterbox on cream instead of losing content. */
-.tls-media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+.tls-icon svg { display: block; }
 .tls-copy { min-width: 0; }
 .tls-title {
-  margin: 0 0 clamp(14px, 1.8vh, 18px); max-width: 24ch;
+  margin: 0 0 clamp(10px, 1.4vh, 14px); max-width: 26ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(23px, 2.6vw, 34px); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink);
+  font-size: clamp(19px, 2vw, 26px); line-height: 1.14; letter-spacing: -0.02em; color: var(--ink);
 }
 .tls-body {
   margin: 0; max-width: 46ch;
-  font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(15px, 1.2vw, 18px);
-  line-height: 1.64; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.72);
+  font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(13.5px, 1vw, 15.5px);
+  line-height: 1.6; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.72);
 }
 
 /* ── SECTION 3 — MVV ONE-SCREEN TRIPTYCH ────────────────────────────────────
