@@ -6,6 +6,7 @@ import SectionCurve from '@/components/SectionCurve'
 import PageHero, { splitTitle } from '@/components/PageHero'
 import CTAButton from '@/components/CTAButton'
 import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import { CARDS } from '@/sections/WhatWePrint'
 import './PrintOnDemand.css'
 
 /* /print-on-demand — replaces the ShellPage. A "Build Your Book" configurator
@@ -149,6 +150,7 @@ const isValidPhone = (v) => {
 
 export default function PrintOnDemand() {
   const { t } = useTranslation('printOnDemand')
+  const { t: tw } = useTranslation('homeWwp')   // category names for the Explore band
   // "Request This Book" — reveal a minimal contact step, then post spec to Web3Forms.
   const [reqOpen, setReqOpen] = useState(false)
   const [reqStatus, setReqStatus] = useState('idle') // idle | submitting | success | error
@@ -641,18 +643,24 @@ export default function PrintOnDemand() {
         </div>
       </section>
 
-      {/* 5 · CTA */}
-      <section className="pod-cta" data-theme="light" aria-labelledby="pod-cta-title">
+      {/* 5 · EXPLORE CATEGORIES — reuses the What We Print category data (same keys +
+          images); each tile links to that category on the homepage What We Print band. */}
+      <section className="pod-explore" data-theme="light" aria-labelledby="pod-explore-title">
         <PaperGrain opacity={0.05} />
-        <div className="pod-cta-inner">
-          <p className="pod-eyebrow" data-reveal>{t('cta.eyebrow')}</p>
-          <h2 className="pod-cta-title" id="pod-cta-title" data-textreveal>{t('cta.title')}</h2>
-          <p className="pod-cta-sub" data-reveal>
-            {t('cta.sub')}
-          </p>
-          <CTAButton to="/contact?intent=print-on-demand-sample" data-reveal>
-            {t('cta.btn')}
-          </CTAButton>
+        <div className="pod-explore-inner">
+          <h2 className="pod-explore-title" id="pod-explore-title" data-textreveal>{t('explore.title')}</h2>
+          <ul className="pod-cat-grid">
+            {CARDS.filter((c) => c.key !== 'pod').map((c) => (
+              <li key={c.key} data-reveal>
+                <Link to={`/#wwp-${c.key}`} className="pod-cat">
+                  <span className="pod-cat-thumb">
+                    <img src={c.img} alt="" aria-hidden="true" loading="lazy" draggable="false" />
+                  </span>
+                  <span className="pod-cat-name">{tw(`cards.${c.key}.name`)}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </main>

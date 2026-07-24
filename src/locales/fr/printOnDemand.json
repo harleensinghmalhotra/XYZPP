@@ -124,10 +124,7 @@
     "stat3Num": "Jours",
     "stat3Label": "Pas des semaines : délai d’échantillon"
   },
-  "cta": {
-    "eyebrow": "Prenez votre temps",
-    "title": "Encore hésitant ? Commandez d’abord un échantillon.",
-    "sub": "Touchez le papier, vérifiez la couleur, ressentez la reliure, puis décidez. Dites-nous ce que vous réalisez et nous vous aiderons à obtenir un exemplaire d’échantillon entre les mains.",
-    "btn": "Commander un échantillon"
+  "explore": {
+    "title": "Explorer les catégories"
   }
 }

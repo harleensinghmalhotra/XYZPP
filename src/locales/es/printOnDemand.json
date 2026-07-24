@@ -124,10 +124,7 @@
     "stat3Num": "Días",
     "stat3Label": "No semanas: tiempo de entrega de muestras"
   },
-  "cta": {
-    "eyebrow": "Con calma",
-    "title": "¿Aún no está seguro? Pida primero una muestra.",
-    "sub": "Toque el papel, compruebe el color, sienta la encuadernación y luego decida. Díganos qué está creando y le ayudaremos a tener un único ejemplar de muestra en sus manos.",
-    "btn": "Pedir una muestra"
+  "explore": {
+    "title": "Explorar categorías"
   }
 }

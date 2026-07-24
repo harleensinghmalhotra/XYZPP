@@ -28,7 +28,9 @@ import { prefersReduced } from '@/lib/useReducedMotion'
 const PLACEHOLDER =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='560'%3E%3Crect width='700' height='560' fill='%230F2444'/%3E%3Crect x='44' y='44' width='612' height='472' fill='none' stroke='%239B7420' stroke-width='3'/%3E%3C/svg%3E"
 
-const CARDS = [
+// Exported so other surfaces (e.g. the Print on Demand "Explore Categories" band)
+// reuse the SAME category keys + images rather than duplicating the list.
+export const CARDS = [
   { key: 'educational', img: '/site-assets/homepage/products/product-01.webp', rot: -8 },
   { key: 'trade', img: '/site-assets/homepage/products/product-02.webp', rot: 7 },
   { key: 'coffee', img: '/site-assets/homepage/products/product-03.webp', rot: -9 },

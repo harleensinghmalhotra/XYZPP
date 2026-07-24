@@ -124,10 +124,7 @@
     "stat3Num": "Days",
     "stat3Label": "Not weeks: sample turnaround"
   },
-  "cta": {
-    "eyebrow": "Take it slowly",
-    "title": "Not sure yet? Order a sample first.",
-    "sub": "Hold the paper, check the colour, feel the binding, then decide. Tell us what you’re making and we’ll help you get a single sample copy into your hands.",
-    "btn": "Order a sample"
+  "explore": {
+    "title": "Explore Categories"
   }
 }
