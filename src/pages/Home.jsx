@@ -11,6 +11,7 @@ import WhatWePrint from '@/sections/WhatWePrint'
 import Marquee from '@/sections/Marquee'
 import Promise from '@/sections/Promise'
 import ProcessVideo from '@/sections/ProcessVideo'
+import TrustBelt from '@/sections/TrustBelt'
 import Projects from '@/sections/Projects'
 import Infrastructure from '@/sections/Infrastructure'
 import Certifications from '@/sections/Certifications'
@@ -168,6 +169,7 @@ export default function Home() {
         {/* HOW WE WORK video — sits after the Certifications section, near the
             closing CTA/footer. */}
         <ProcessVideo />
+        <TrustBelt />
         <Marquee />
         <Sustainability />
         <Awards />
