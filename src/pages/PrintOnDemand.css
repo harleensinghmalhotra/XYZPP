@@ -192,18 +192,20 @@
     inset 22px 0 34px -22px rgba(15, 36, 68, 0.5); /* gutter shade near spine */
   overflow: hidden;
 }
-/* the small foil QFP mark, centred in the navy title band */
+/* the full-colour QFP mark, centred in the navy title band. Task 14: was a monochrome
+   foil silhouette (mask + gold fill); now the real full-colour logo, seated on a small
+   cream chip so every part of the mark reads against the navy band. */
 .pod-front::before {
   content: '';
   position: absolute;
   top: 21%;
   left: 50%;
-  width: 17%;
+  width: 18%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
-  background: #F5824A; /* gold on navy */
-  -webkit-mask: url('/site-assets/print-on-demand/qfp-mark-foil.png') center / contain no-repeat;
-  mask: url('/site-assets/print-on-demand/qfp-mark-foil.png') center / contain no-repeat;
+  background: #fdfaf4 url('/site-assets/homepage/brand/qfp-mark.png') center / 82% 82% no-repeat;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(2, 8, 20, 0.45);
   pointer-events: none;
 }
 /* finish sheen — gloss shows a hard specular sweep, lay-flat a soft one */
