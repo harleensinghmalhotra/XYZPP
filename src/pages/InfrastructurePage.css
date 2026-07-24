@@ -368,6 +368,16 @@
    per the bible's gold rule. The list renders as a hairline-celled grid: each
    capability a cell with a gold DM-Mono index + Inter Tight name, echoing the
    ledger's cream + gold vocabulary without inventing per-item counts. */
+/* Task 19 — capacity strip grid: four figures across, reusing the global .tb-band /
+   .tb-item / .tb-ico / .tb-text trust-belt atoms. Reflows 4 → 2 → 1. */
+.inf-hero-stats {
+  list-style: none; margin: 0 auto; padding: 0;
+  max-width: var(--content-max, 1280px);
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 1.8vw, 28px);
+}
+@media (max-width: 760px) { .inf-hero-stats { grid-template-columns: repeat(2, 1fr); row-gap: clamp(18px, 3vw, 24px); } }
+@media (max-width: 420px) { .inf-hero-stats { grid-template-columns: 1fr; } }
+
 .inf-finish-sec {
   position: relative; overflow: hidden;
   background: #fdfaf4;

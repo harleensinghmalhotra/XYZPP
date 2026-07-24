@@ -15,6 +15,15 @@
     "statUnit": "SQ FT",
     "statFoot": "Engineered across three printing facilities in Navi Mumbai"
   },
+  "heroStats": {
+    "aria": "Capacity at a glance",
+    "items": [
+      "Capacity 300,000 sq ft",
+      "3 printing facilities",
+      "75M books per year",
+      "800+ people"
+    ]
+  },
   "strip": {
     "eyebrow": "Certified, audited and renewed",
     "certAlt": "{{name}} certification",
@@ -69,19 +78,19 @@
   },
   "finish": {
     "eyebrow": "Premium Finishing",
-    "title": "Value-added finishing, under one roof.",
+    "title": "Value Added Finishing Under One Roof",
     "items": {
       "foiling": "Foiling",
-      "embossing": "Embossing & Debossing",
+      "embossing": "Embossing",
+      "debossing": "Debossing",
       "spotuv": "Spot UV",
-      "dripuv": "Drip UV",
-      "lamination": "Lamination (Gloss & Matt)",
+      "dripuvlamination": "Drip UV Lamination",
       "diecutting": "Die Cutting",
       "windowpatching": "Window Patching",
-      "coatings": "Specialty Coatings",
-      "decorative": "Premium Decorative Effects"
+      "specialtycoating": "Specialty Coating",
+      "premiumdecorative": "Premium Decorative"
     },
-    "note": "These capabilities enhance the visual appeal and durability of every publication."
+    "note": "Enhances the visual appeal and durability of every publication."
   },
   "results": {
     "eyebrow": "Real capacity",

@@ -15,6 +15,7 @@ import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
 import { Books } from '@phosphor-icons/react'
+import { Maximize, Factory, BookOpen, Users } from 'lucide-react'
 import './InfrastructurePage.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -66,7 +67,7 @@ const MACHINES = [
 // these (they're capabilities, not machine tallies), so each renders as a hairline
 // cell with a gold DM-Mono index in the ledger's cream+gold vocabulary. Names resolve
 // via t(`finish.items.<k>`); the index is decorative sequencing, not a data figure.
-const FINISH = ['foiling', 'embossing', 'spotuv', 'dripuv', 'lamination', 'diecutting', 'windowpatching', 'coatings', 'decorative']
+const FINISH = ['foiling', 'embossing', 'debossing', 'spotuv', 'dripuvlamination', 'diecutting', 'windowpatching', 'specialtycoating', 'premiumdecorative']
 
 const STATS = [
   { k: 'sqft', value: 300000, suffix: '' },
@@ -74,6 +75,10 @@ const STATS = [
   { k: 'books', value: 75, suffix: 'M' },
   { k: 'people', value: 600, suffix: '+' },
 ]
+
+// Task 19 — the hero capacity strip: one lucide icon per figure (order matches
+// heroStats.items). Its gold-hairline cream band reuses the homepage trust-belt look.
+const HERO_STAT_ICONS = [Maximize, Factory, BookOpen, Users]
 
 // Recognition is now the shared homepage <Awards /> component (see §6) — the page's
 // own plaque rail was retired.
@@ -187,6 +192,22 @@ export default function InfrastructurePage() {
         return <PageHero id="inf-h1" eyebrow={t('hero.eyebrow')} line1={l1} line2={l2} minVh={60} />
       })()}
 
+      {/* ── 1A · CAPACITY STRIP — highlight figures below the page heading, in the
+          homepage trust-belt visual language (gold top-hairline, cream, icon per figure). */}
+      <section className="tb-band" aria-label={t('heroStats.aria')}>
+        <ul className="inf-hero-stats">
+          {(t('heroStats.items', { returnObjects: true }) || []).map((line, i) => {
+            const Icon = HERO_STAT_ICONS[i] || Maximize
+            return (
+              <li className="tb-item" key={i}>
+                <span className="tb-ico" aria-hidden="true"><Icon size={20} strokeWidth={1.6} /></span>
+                <span className="tb-text">{line}</span>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
+
       {/* ── 1B · FACILITY BOOK — SAME wrapper as the homepage ───────────────
           Nested in the homepage's cream `.infra` section context (+ .infra-inner) so
           the navy rounded stage floats on cream exactly like the homepage — not merged
@@ -194,6 +215,28 @@ export default function InfrastructurePage() {
       <section data-theme="light" className="infra inf-facilitybook">
         <div className="infra-inner">
           <FacilityBook />
+        </div>
+      </section>
+
+      {/* ── 1C · PREMIUM FINISHING — value-added services grid (cream), directly below
+          the book display. Each capability is a hairline cell with a gold DM-Mono index
+          in the ledger's cream + gold vocabulary; a gold top-hairline opens the band. */}
+      <section data-theme="light" className="inf-finish-sec" aria-labelledby="inf-fin-h">
+        <PaperGrain />
+        <div className="inf-wrap inf-z">
+          <div className="inf-sec-head">
+            <p className="inf-eyebrow">{t('finish.eyebrow')}</p>
+            <h2 id="inf-fin-h" className="inf-h2">{t('finish.title')}</h2>
+          </div>
+          <ul className="inf-finish-grid">
+            {FINISH.map((k, i) => (
+              <li key={k} className="inf-finish-cell">
+                <span className="inf-finish-mark" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span className="inf-finish-name">{t(`finish.items.${k}`)}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="inf-finish-note">{t('finish.note')}</p>
         </div>
       </section>
 
@@ -279,31 +322,6 @@ export default function InfrastructurePage() {
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── 4B · PREMIUM FINISHING — value-added services grid (cream) ──────
-          The finishing list carries no per-item counts, so a numeral
-          ledger would force invented numbers; instead each capability is a
-          hairline cell with a gold DM-Mono index — the ledger's cream + gold
-          vocabulary laid out as a clean grid. A gold top-hairline separates it
-          from the machine ledger above (both cream), per the bible's gold rule. */}
-      <section data-theme="light" className="inf-finish-sec" aria-labelledby="inf-fin-h">
-        <PaperGrain />
-        <div className="inf-wrap inf-z">
-          <div className="inf-sec-head">
-            <p className="inf-eyebrow">{t('finish.eyebrow')}</p>
-            <h2 id="inf-fin-h" className="inf-h2">{t('finish.title')}</h2>
-          </div>
-          <ul className="inf-finish-grid">
-            {FINISH.map((k, i) => (
-              <li key={k} className="inf-finish-cell">
-                <span className="inf-finish-mark" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                <span className="inf-finish-name">{t(`finish.items.${k}`)}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="inf-finish-note">{t('finish.note')}</p>
         </div>
       </section>
 

@@ -15,6 +15,15 @@
     "statUnit": "PIES²",
     "statFoot": "Diseñados en tres instalaciones de impresión en Navi Mumbai"
   },
+  "heroStats": {
+    "aria": "La capacidad de un vistazo",
+    "items": [
+      "Capacidad 300,000 sq ft",
+      "3 plantas de impresión",
+      "75M de libros al año",
+      "800+ personas"
+    ]
+  },
   "strip": {
     "eyebrow": "Certificado, auditado y renovado",
     "certAlt": "Certificación {{name}}",
@@ -69,19 +78,19 @@
   },
   "finish": {
     "eyebrow": "Acabado premium",
-    "title": "Acabado de valor añadido, bajo un mismo techo.",
+    "title": "Acabado de valor añadido bajo un mismo techo",
     "items": {
       "foiling": "Estampación metálica",
-      "embossing": "Grabado en relieve y bajorrelieve",
+      "embossing": "Grabado en relieve",
+      "debossing": "Bajorrelieve",
       "spotuv": "Barniz UV localizado",
-      "dripuv": "Barniz UV goteado",
-      "lamination": "Laminado (brillante y mate)",
+      "dripuvlamination": "Laminado UV goteado",
       "diecutting": "Troquelado",
       "windowpatching": "Aplicación de ventanas film",
-      "coatings": "Recubrimientos especiales",
-      "decorative": "Efectos decorativos premium"
+      "specialtycoating": "Recubrimiento especial",
+      "premiumdecorative": "Decorativo premium"
     },
-    "note": "Estas capacidades realzan el atractivo visual y la durabilidad de cada publicación."
+    "note": "Realza el atractivo visual y la durabilidad de cada publicación."
   },
   "results": {
     "eyebrow": "Capacidad real",

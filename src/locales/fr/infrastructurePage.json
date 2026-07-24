@@ -15,6 +15,15 @@
     "statUnit": "SQ FT",
     "statFoot": "Aménagés sur trois sites d’impression à Navi Mumbai"
   },
+  "heroStats": {
+    "aria": "La capacité en un coup d'œil",
+    "items": [
+      "Capacité 300,000 sq ft",
+      "3 usines d'impression",
+      "75M de livres par an",
+      "800+ personnes"
+    ]
+  },
   "strip": {
     "eyebrow": "Certifié, audité et renouvelé",
     "certAlt": "Certification {{name}}",
@@ -69,19 +78,19 @@
   },
   "finish": {
     "eyebrow": "Façonnage haut de gamme",
-    "title": "Façonnage à valeur ajoutée, sous un même toit.",
+    "title": "Façonnage à valeur ajoutée sous un même toit",
     "items": {
       "foiling": "Dorure",
-      "embossing": "Gaufrage et débossage",
+      "embossing": "Gaufrage",
+      "debossing": "Débossage",
       "spotuv": "Vernis UV sélectif",
-      "dripuv": "Vernis UV goutte à goutte",
-      "lamination": "Pelliculage (brillant et mat)",
-      "diecutting": "Découpe à l’emporte-pièce",
+      "dripuvlamination": "Pelliculage UV goutte à goutte",
+      "diecutting": "Découpe à l'emporte-pièce",
       "windowpatching": "Pose de fenêtres film",
-      "coatings": "Vernis spéciaux",
-      "decorative": "Effets décoratifs haut de gamme"
+      "specialtycoating": "Revêtement spécial",
+      "premiumdecorative": "Décoratif haut de gamme"
     },
-    "note": "Ces capacités renforcent l’attrait visuel et la durabilité de chaque publication."
+    "note": "Renforce l'attrait visuel et la durabilité de chaque publication."
   },
   "results": {
     "eyebrow": "Capacité réelle",
