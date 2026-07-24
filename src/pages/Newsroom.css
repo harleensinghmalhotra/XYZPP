@@ -10,9 +10,9 @@
 .nr-index {
   position: relative; overflow: hidden;
   background: var(--cream);
-  padding: clamp(52px, 8vh, 92px) var(--page-gutter) clamp(88px, 12vh, 132px);
+  padding: clamp(40px, 6vh, 64px) var(--page-gutter) clamp(52px, 8vh, 84px);
 }
-.nr-index-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; }
+.nr-index-inner { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; }
 
 .nr-empty {
   text-align: center;
@@ -23,8 +23,8 @@
 
 .nr-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(28px, 3.2vw, 44px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));   /* Task 11 — smaller cards, 3 across */
+  gap: clamp(20px, 2.2vw, 30px);
 }
 
 /* ── Card ── */
@@ -67,8 +67,8 @@
 }
 
 .nr-chip {
-  position: absolute; top: 24px; right: 24px;   /* 12px gutter + 12px in from the image edge */
-  font-family: 'DM Mono', monospace; font-size: 11px;
+  position: absolute; top: 18px; right: 18px;
+  font-family: 'DM Mono', monospace; font-size: 10.5px;
   letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--cream-3);
   background: rgb(var(--navy-rgb) / 0.86);
@@ -79,8 +79,8 @@
 
 .nr-card-body {
   flex: 1;
-  display: flex; flex-direction: column; gap: 13px;
-  padding: clamp(24px, 2.4vw, 32px);
+  display: flex; flex-direction: column; gap: 9px;
+  padding: clamp(16px, 1.5vw, 22px);
 }
 .nr-date {
   font-family: 'DM Mono', monospace; font-size: 11px;
@@ -90,7 +90,7 @@
 .nr-card-title {
   margin: 0;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(20px, 1.5vw, 22px); line-height: 1.18; letter-spacing: -0.01em;
+  font-size: clamp(16px, 1.2vw, 18.5px); line-height: 1.2; letter-spacing: -0.01em;
   color: var(--ink);
   transition: color 0.3s ease;
 }
@@ -99,8 +99,10 @@
 }
 .nr-card-excerpt {
   margin: 0;
-  font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.65;
+  font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.55;
   color: rgb(28 32 25 / 0.72);
+  /* cap excerpt to 3 lines so card heights stay compact and even */
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;
 }
 .nr-card-more {
   margin-top: auto; padding-top: 8px;
@@ -115,8 +117,11 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 760px) {
-  .nr-grid { grid-template-columns: 1fr; gap: 26px; }
+@media (max-width: 1000px) {
+  .nr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .nr-grid { grid-template-columns: 1fr; gap: 22px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

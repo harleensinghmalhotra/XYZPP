@@ -3348,11 +3348,11 @@ body {
   -webkit-mask: radial-gradient(520px 460px at 100% 100%, #000 6%, rgba(0, 0, 0, 0.5) 26%, transparent 46%);
   mask: radial-gradient(520px 460px at 100% 100%, #000 6%, rgba(0, 0, 0, 0.5) 26%, transparent 46%);
 }
-.aw-content { position: relative; display: flex; flex-direction: column; padding: var(--section-pad-y) 110px; }
+.aw-content { position: relative; display: flex; flex-direction: column; padding: clamp(44px, 6vh, 68px) 110px; }
 
 /* header — text column on the left, paging arrows top-right */
 .aw-head { display: flex; flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 24px; }
-.aw-head-text { display: flex; flex-direction: column; gap: 22px; }
+.aw-head-text { display: flex; flex-direction: column; gap: 14px; }
 .aw-arrows { flex: 0 0 auto; }
 /* Reused WhatWePrint arrow chip, recoloured for the dark Awards surface (the base
    .wwp-arrow is navy-on-light; here it's cream-on-navy). Same geometry, same
@@ -3378,12 +3378,15 @@ body {
   letter-spacing: -0.02em;
   color: #fdfaf4;
 }
+/* Task 11 — smaller Awards & Press cards: title steps down from --h2 so the whole
+   section fits one screen without inner scroll. */
+.aw-title { font-size: clamp(32px, 4vw, 52px); }
 
 /* paged card strip — native horizontal scroller showing 4 at a time (same
    mechanics as .wwp-viewport). The track is a flex row of fixed-fraction cards;
    with 4 cards it exactly fills the viewport (no overflow → arrows disabled). */
 .aw-viewport {
-  margin-top: 80px;
+  margin-top: 40px;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x proximity;
@@ -3430,7 +3433,7 @@ body {
    photos letterbox on the navy frame until then. */
 .aw-photo {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   border-radius: var(--radius-sm);
   overflow: hidden;
   background: rgba(9, 20, 40, 0.6);
@@ -3488,7 +3491,7 @@ body {
 .aw-clip-lines span { height: 5px; border-radius: var(--radius-xs); background: rgb(var(--navy-rgb) / 0.13); }
 
 /* card body */
-.aw-body { display: flex; flex-direction: column; gap: 12px; padding: 26px 14px 30px; }
+.aw-body { display: flex; flex-direction: column; gap: 10px; padding: 18px 14px 22px; }
 .aw-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(245, 130, 74, 0.72); }
 .aw-name {
   margin: 0;
