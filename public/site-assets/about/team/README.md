@@ -1,16 +1,23 @@
 # About — Team
 
-**Appears on the site:** /about (Our Story) → team grid (3 × 2)
+**Appears on the site:** /about (Our Story) → "Our Team" leadership cards (3 members)
 
-**How to swap:** replace a file below with your own, keeping the **exact same filename and extension** and a **3:4 portrait** (600×800) so the fitted frame never crops the face. Push the change — the new asset goes live on the next deploy.
+Names / roles / bios / quotes live in `src/locales/<lang>/ourStory.json` (`team.members`).
 
-The six leadership portraits, in grid order. Names/roles/bios live in `src/locales/<lang>/ourStory.json` (`team.members`). Nilesh Dhankani is the founder-only portrait (see `../founder/`), not in this grid.
+## Photos
 
-| File | Size | Who | Status |
-|------|------|-----|--------|
-| `team-01.webp` | 600×800 | Patrick Carrapiett — President | ✅ live |
-| `team-02.webp` | 600×800 | Dilip Ramrakhyani — CFO, Finance Leader | ✅ live |
-| `team-03.webp` | 600×800 | Charani Dhankani — Director | ✅ live |
-| `team-04.webp` | 600×800 | Sameer Kazi — Director, Sales India | ✅ live |
-| `team-05.webp` | 600×800 | Dhiresh Verlekar — Head, Procurement | ✅ live |
-| `team-06.webp` | 600×800 | Priyanka Rajpal — Head, HR & Administration | ✅ live |
+Photographs for the three leaders have **not been supplied yet**, so every card shows a
+neutral placeholder (`placeholder-portrait.svg`, "PHOTO COMING SOON"). To add a real
+photo, **drop the file below into this folder** using the **exact filename** and a **3:4
+portrait** (600×800 recommended). It replaces the placeholder automatically on the next
+load — no code change, just push and deploy.
+
+| Drop-in file | Who |
+|--------------|-----|
+| `sameer-kazi.webp` | Sameer Kazi — Director, Sales |
+| `charani-dhankani.webp` | Charani Dhankani |
+| `dhiresh-verlekar.webp` | Dhiresh Verlekar — Head, Procurement |
+
+`placeholder-portrait.svg` is the shared fallback and should stay in place.
+
+> The earlier `team-01.webp … team-06.webp` portraits are no longer referenced by the site.

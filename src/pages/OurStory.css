@@ -273,7 +273,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 .fnd { position: relative; background: var(--cream); padding: var(--section-pad-y) var(--page-gutter); overflow: hidden; }
 .fnd-spread { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(40px, 6vw, 88px); align-items: start; }
 /* fitted portrait — a clean institutional frame; the editorial offset-rule is gone. */
-.fnd-portrait-wrap { position: relative; width: 100%; max-width: 420px; }
+.fnd-portrait-wrap { position: relative; width: 100%; max-width: 340px; }   /* Task 15 — smaller founder portrait */
 .fnd-portrait { position: relative; }
 .fnd-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -283,11 +283,11 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 .fnd-name {
   margin: 0 0 clamp(8px, 1.2vh, 12px);
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(34px, 4vw, 52px); line-height: 1.05; letter-spacing: -0.025em; color: var(--ink);
+  font-size: clamp(26px, 3vw, 38px); line-height: 1.06; letter-spacing: -0.025em; color: var(--ink);   /* Task 15 — reduced */
 }
 .fnd-role {
   margin: 0 0 clamp(24px, 3.4vh, 34px);
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px;   /* Task 15 — reduced */
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--ab-orange-ink);
 }
 .fnd-bio {
@@ -407,13 +407,14 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
   font-size: clamp(32px, 4vw, 52px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink);
 }
 
-/* 2 × 3 grid — generous gaps; cards size to their own content (align-items:start)
-   so a taller card never stretches its row-mate. */
-.tm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(22px, 2.4vw, 36px); align-items: start; }
+/* Task 16 — three leadership cards, stacked in one left-aligned column (capped width)
+   so each card has a wide copy area for the full bios/quotes; cards size to their own
+   content (align-items:start). */
+.tm-grid { display: grid; grid-template-columns: minmax(0, 920px); gap: clamp(20px, 2.6vh, 32px); align-items: start; }
 
 /* one horizontal card — the WHOLE portrait (col 1) | copy (col 2). */
 .tm-card {
-  display: grid; grid-template-columns: minmax(140px, 36%) 1fr;
+  display: grid; grid-template-columns: 200px 1fr;
   background: var(--cream); border: 1px solid rgb(var(--navy-rgb) / 0.09);
   border-radius: var(--r-card); overflow: hidden;
   box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.05);
@@ -515,9 +516,12 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 }
 /* team cards stack to one column when two horizontal cards get too cramped;
    each card stays horizontal (whole portrait left, copy right). */
-@media (max-width: 640px) {
+@media (max-width: 720px) {
   .tm-grid { grid-template-columns: 1fr; }
-  .tm-card { grid-template-columns: minmax(120px, 40%) 1fr; }
+  .tm-card { grid-template-columns: 132px 1fr; }
+}
+@media (max-width: 460px) {
+  .tm-card { grid-template-columns: 100px 1fr; }
 }
 @media (max-width: 520px) {
   .ab-hl-1 { font-size: clamp(34px, 11vw, 64px); }

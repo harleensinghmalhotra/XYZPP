@@ -61,8 +61,8 @@
     "eyebrow": "De designer à l'un des imprimeurs de livres les plus célèbres de l'Inde",
     "name": "Nilesh Dhankani",
     "role": "Fondateur et PDG",
-    "bio": "Nilesh Dhankani a commencé comme designer graphique en 2000, s'est orienté vers le marketing et a trouvé son travail définitif dans l'impression. En 2014, une commande de 50 000 livres pour un éditeur africain l'a amené à fonder Quarterfold Printabilities. Ce qui a commencé comme une opération à deux personnes s'est transformé en l'une des entreprises d'impression de livres les plus avancées de l'Inde.",
-    "quote": "Peu importe la difficulté du travail, nous ne nous dérobons jamais à soutenir nos amis éditeurs.",
+    "bio": "J'ai toujours cru que les grandes entreprises sont bâties par des personnes qui osent penser au-delà du présent. Quarterfold Printabilities a été fondée avec la vision de redéfinir les normes mondiales de l'impression par l'innovation, l'intégrité et une quête inébranlable de l'excellence. Quelle que soit la difficulté de la mission, nous n'hésitons jamais à soutenir nos partenaires éditeurs. Chaque défi est une occasion d'innover, chaque partenariat repose sur la confiance, et chaque succès renforce notre engagement à offrir des solutions de classe mondiale.",
+    "quote": "Le meilleur reste toujours à venir.",
     "attribution": "Nilesh Dhankani, Fondateur et PDG"
   },
   "team": {
@@ -72,40 +72,22 @@
     "close": "Fermer",
     "members": [
       {
-        "name": "Patrick Carrapiett",
-        "role": "Président",
-        "bio": "Plus de 25 ans d'expérience, à la tête des initiatives internationales et indiennes, élargissant l'empreinte mondiale et cultivant les partenariats.",
-        "quote": "Quarterfold Printabilities represents far more than manufacturing books, it represents reliability, innovation, and global partnerships…"
-      },
-      {
-        "name": "Dilip Ramrakhyani",
-        "role": "Directeur Financier (CFO), Responsable des Finances",
-        "bio": "Gestion financière et planification stratégique pour une croissance durable.",
-        "quote": "A strong company is built on financial discipline, operational excellence, and long term relationships…"
+        "name": "Sameer Kazi",
+        "role": "Directeur, Ventes",
+        "bio": "Fort de plus de 20 ans d'expérience dans la vente et le développement commercial, M. Sameer Kazi est titulaire d'un M.Com de l'Université de Mumbai et d'un MBA en marketing. Il a à cœur de bâtir des relations clients durables et de stimuler la croissance de l'entreprise par une approche centrée sur le client.",
+        "quote": "Notre plus grande force réside dans la compréhension des besoins de nos clients et dans notre capacité à dépasser leurs attentes. Chez Quarterfold Printabilities, chaque partenariat repose sur la confiance, la réactivité et un engagement commun envers la réussite à long terme."
       },
       {
         "name": "Charani Dhankani",
-        "role": "Directrice",
-        "bio": "Diplômée de l'Université de Delhi, major de son département, distinguée d'un Certificat d'Excellence par l'ancien Premier ministre Shri Atal Bihari Vajpayee. Formée en marketing et merchandising au Wigan & Leigh College ; engagée dans la RSE et le développement éducatif.",
+        "role": "",
+        "bio": "Mme Charani Dhankani est une diplômée émérite de l'Université de Delhi, où elle a été major de son département et a reçu un Certificat d'excellence des mains de l'ancien Premier ministre Shri Atal Bihari Vajpayee. Elle a suivi une formation spécialisée en marketing et merchandising au Wigan and Leigh College. Après avoir dirigé la fonction Ressources humaines de l'entreprise, elle s'investit aujourd'hui dans les initiatives de responsabilité sociétale (RSE) et les programmes de développement éducatif.",
         "quote": ""
       },
       {
-        "name": "Sameer Kazi",
-        "role": "Directeur, Ventes Inde",
-        "bio": "Plus de 20 ans d'expérience (4 chez Quarterfold). M.Com, Université de Mumbai ; MBA en marketing, Welingkar Institute.",
-        "quote": "Our greatest strength lies in understanding our customers' needs…"
-      },
-      {
         "name": "Dhiresh Verlekar",
-        "role": "Responsable, Approvisionnement",
-        "bio": "",
-        "quote": "A Great Book Begins Long Before the Press Starts Spinning."
-      },
-      {
-        "name": "Priyanka Rajpal",
-        "role": "Responsable, Ressources Humaines et Administration",
-        "bio": "Plus d'une décennie chez Quarterfold.",
-        "quote": "…Our success is driven by a culture of commitment, teamwork, and mutual respect…"
+        "role": "Responsable, Achats",
+        "bio": "M. Dhiresh Verlekar dirige la fonction achats de Quarterfold, gérant un réseau de plus de 100 fournisseurs de confiance dans le papier, les consommables, les machines et les services connexes. Son attention portée à la résilience des fournisseurs, à la qualité et à l'optimisation des coûts soutient les capacités de production à grande échelle de l'entreprise.",
+        "quote": "Un grand livre commence bien avant que les presses ne se mettent à tourner. En bâtissant une chaîne d'approvisionnement résiliente et de solides partenariats avec les fournisseurs, nous faisons en sorte que Quarterfold reste un partenaire fiable et économique pour les éditeurs du monde entier."
       }
     ]
   },

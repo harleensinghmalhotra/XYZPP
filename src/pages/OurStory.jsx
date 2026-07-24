@@ -470,10 +470,16 @@ function Gallery() {
 //
 // Header + copy resolve from ourStory.team (heading / members) in all three locales;
 // roles + bios localise, quotes stay in their original language. No locale changes.
+// Task 16 — the three leaders' photos have not been supplied; each card falls back to a
+// neutral placeholder. Drop <slug>.webp into public/site-assets/about/team/ to swap in a
+// real photo (see that folder's README). Order matches team.members in ourStory.json.
+const TEAM_SLUGS = ['sameer-kazi', 'charani-dhankani', 'dhiresh-verlekar']
+const TEAM_PLACEHOLDER = '/site-assets/about/team/placeholder-portrait.svg'
+
 function Team() {
   const { t } = useTranslation('ourStory')
   const members = t('team.members', { returnObjects: true })
-  const photo = (i) => `/site-assets/about/team/team-${String(i + 1).padStart(2, '0')}.webp`
+  const photo = (i) => `/site-assets/about/team/${TEAM_SLUGS[i] || `team-${String(i + 1).padStart(2, '0')}`}.webp`
 
   return (
     <section data-theme="light" className="tm" aria-labelledby="tm-title">
@@ -483,15 +489,22 @@ function Team() {
         <h2 id="tm-title" className="tm-title" data-reveal>{t('team.heading')}</h2>
         <div className="tm-grid">
           {members.map((p, i) => (
-            <article className="tm-card" data-reveal key={i} style={{ '--reveal-delay': `${(i % 2) * 80}ms` }}>
+            <article className="tm-card" data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}>
               <div className="tm-media">
-                {/* Whole 3:4 portrait, never cropped (object-fit: contain). */}
-                <img src={photo(i)} alt={p.name} loading="lazy" decoding="async" />
+                {/* Real photo when its <slug>.webp is dropped in; otherwise the neutral
+                    placeholder. Whole 3:4 portrait, never cropped. */}
+                <img
+                  src={photo(i)}
+                  alt={p.name}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => { if (!e.currentTarget.src.endsWith('placeholder-portrait.svg')) e.currentTarget.src = TEAM_PLACEHOLDER }}
+                />
               </div>
               <div className="tm-body">
                 <p className="tm-name">{p.name}</p>
                 <span className="tm-underline" aria-hidden="true" />
-                <p className="tm-role">{p.role}</p>
+                {p.role && <p className="tm-role">{p.role}</p>}
                 {p.bio && <p className="tm-bio">{p.bio}</p>}
                 {p.quote && <blockquote className="tm-quote">{p.quote}</blockquote>}
               </div>
