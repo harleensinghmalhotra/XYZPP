@@ -6,11 +6,12 @@ Names / roles / bios / quotes live in `src/locales/<lang>/ourStory.json` (`team.
 
 ## Photos
 
-Photographs for the three leaders have **not been supplied yet**, so every card shows a
-neutral placeholder (`placeholder-portrait.svg`, "PHOTO COMING SOON"). To add a real
-photo, **drop the file below into this folder** using the **exact filename** and a **3:4
-portrait** (600×800 recommended). It replaces the placeholder automatically on the next
-load — no code change, just push and deploy.
+Photographs for the three leaders have **not been supplied yet**, so each card currently
+shows a neutral "PHOTO COMING SOON" placeholder. Those placeholder images are committed at
+the three filenames below so the page never 404s. To add a real photo, **replace the file
+below** (keep the **exact filename**, a **3:4 portrait**, 600×800 recommended). It goes
+live on the next deploy — no code change. (`placeholder-portrait.svg` is a further safety
+net used only if a file is ever missing.)
 
 | Drop-in file | Who |
 |--------------|-----|
