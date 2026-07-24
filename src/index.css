@@ -1279,6 +1279,14 @@ body {
 .wwp-img {
   display: block;
   width: 312px;
+  /* Uniform cutout height: a fixed 5:4 box (the majority source ratio) with the
+     subject CONTAINED and seated on the box base. The two wider source canvases
+     (product-07 1.53:1, product-08 1.36:1) shrink to fit their width rather than
+     crop, so every cutout occupies the same height and the row reads symmetric —
+     without slicing any book off (why contain, not cover, for these cutouts). */
+  aspect-ratio: 5 / 4;
+  object-fit: contain;
+  object-position: center bottom;
   margin-top: -10px;
   transform: rotate(var(--rot, 0deg));
   transform-origin: center bottom;
