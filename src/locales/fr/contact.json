@@ -77,7 +77,19 @@
     "programme": "Programme éducatif ou appel d'offres",
     "trade": "Livres grand public",
     "pod": "Impression à la demande",
+    "careers": "Carrières",
     "other": "Autre"
+  },
+  "careers": {
+    "title": "Carrières chez Quarterfold",
+    "subtitle": "Rejoignez l'équipe qui dynamise l'éducation mondiale par l'excellence de l'impression.",
+    "whyTitle": "Pourquoi Quarterfold",
+    "whyBody": "Quarterfold imprime et livre à une échelle que peu d'entreprises en Inde peuvent égaler, distinguée au PrintWeek Power 100 et au Forbes India D.Gems. Rejoignez la mission derrière chaque livre, un travail qui atteint les salles de classe dans plus de 25 pays.",
+    "openTitle": "Postes ouverts",
+    "openBody": "Nous sommes toujours à la recherche de personnes talentueuses pour rejoindre notre équipe.",
+    "cvCta": "Envoyer votre CV",
+    "cvSubject": "Candidature chez Quarterfold",
+    "inquiryCta": "Envoyer une demande"
   },
   "errors": {
     "first": "Saisissez votre prénom.",

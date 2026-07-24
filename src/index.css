@@ -3982,6 +3982,32 @@ body {
   letter-spacing: 0.02em; color: rgba(253, 250, 244, 0.72);
 }
 
+/* ── 5B. CAREERS AT QUARTERFOLD — cream section that leads into the enquiry form ── */
+.ctc-careers { position: relative; overflow: hidden; background: #fdfaf4; padding: clamp(64px, 9vh, 104px) 24px clamp(48px, 6vh, 72px); }
+.ctc-careers-inner { max-width: var(--content-max, 1280px); margin: 0 auto; }
+.ctc-careers-head { max-width: 640px; margin: 0 0 clamp(30px, 4.2vh, 50px); }
+.ctc-careers-title {
+  margin: 0 0 14px;
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(30px, 3.6vw, 48px); line-height: 1.06; letter-spacing: -0.02em; color: #1c2019;
+}
+.ctc-careers-sub {
+  margin: 0; max-width: 52ch;
+  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: rgba(14, 27, 70, 0.78);
+}
+.ctc-careers-blocks { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(28px, 3.4vw, 56px); align-items: start; }
+.ctc-careers-block-title {
+  margin: 0 0 12px;
+  font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2; letter-spacing: -0.01em; color: #0e1b46;
+}
+.ctc-careers-block-body {
+  margin: 0; max-width: 54ch;
+  font-family: 'Inter', sans-serif; font-size: clamp(15px, 1.15vw, 17px); line-height: 1.65; color: rgba(28, 32, 25, 0.78);
+}
+.ctc-careers-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: clamp(20px, 2.6vh, 28px); }
+@media (max-width: 760px) { .ctc-careers-blocks { grid-template-columns: 1fr; } }
+
 /* ── 6. ENQUIRY FORM ── */
 .ctc-form-sec { background: #f0ebe0; padding: 116px 24px 120px; scroll-margin-top: 92px; }
 .ctc-form-inner {

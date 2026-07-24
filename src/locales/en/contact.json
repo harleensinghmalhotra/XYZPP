@@ -77,7 +77,19 @@
     "programme": "Educational Programme or Tender",
     "trade": "Trade Books",
     "pod": "Print on Demand",
+    "careers": "Careers",
     "other": "Other"
+  },
+  "careers": {
+    "title": "Careers at Quarterfold",
+    "subtitle": "Join the team powering global education through print excellence.",
+    "whyTitle": "Why Quarterfold",
+    "whyBody": "Quarterfold prints and delivers at a scale few companies in India can match, recognized on the PrintWeek Power 100 and Forbes India D.Gems. Join the mission behind every book, work that reaches classrooms across 25+ countries.",
+    "openTitle": "Open Opportunities",
+    "openBody": "We're always looking for talented people to join our team.",
+    "cvCta": "Email your CV",
+    "cvSubject": "Career application at Quarterfold",
+    "inquiryCta": "Send an Inquiry"
   },
   "errors": {
     "first": "Enter your first name.",

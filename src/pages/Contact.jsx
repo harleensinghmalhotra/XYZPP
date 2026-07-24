@@ -63,7 +63,7 @@ const DESK_BOTTOM = [
 
 // Enquiry-type option keys — the machine value (stored in form.enquiry / mailto) is
 // the stable enum key; the label shown to the user is resolved via t().
-const ENQUIRY_TYPES = ['quote', 'programme', 'trade', 'pod', 'other']
+const ENQUIRY_TYPES = ['quote', 'programme', 'trade', 'pod', 'careers', 'other']
 
 const COUNTRIES = [
   'India', 'Nigeria', 'Ghana', 'Tanzania', 'Kenya', 'Uganda', 'Ivory Coast',
@@ -520,6 +520,39 @@ export default function Contact() {
             Registered Office: Office No 1207, Plot No 4 &amp; 6, Sector 30A, Navi
             Mumbai 400705
           </p>
+        </div>
+      </section>
+
+      {/* ── 5B. CAREERS AT QUARTERFOLD ── the Careers block leads into the existing
+          enquiry form below (reused verbatim, with all its validation / honeypot /
+          consent). CV submission uses the existing enquiries email (Web3Forms' free
+          tier does not accept file uploads), so no new endpoint or address is added. */}
+      <section id="careers" data-theme="light" className="ctc-careers relative overflow-hidden" aria-labelledby="ctc-careers-title">
+        <PaperGrain />
+        <div className="ctc-careers-inner relative z-10">
+          <div className="ctc-careers-head ctc-reveal">
+            <h2 id="ctc-careers-title" className="ctc-careers-title">{t('careers.title')}</h2>
+            <p className="ctc-careers-sub">{t('careers.subtitle')}</p>
+          </div>
+          <div className="ctc-careers-blocks">
+            <div className="ctc-careers-block ctc-reveal">
+              <h3 className="ctc-careers-block-title">{t('careers.whyTitle')}</h3>
+              <p className="ctc-careers-block-body">{t('careers.whyBody')}</p>
+            </div>
+            <div className="ctc-careers-block ctc-reveal">
+              <h3 className="ctc-careers-block-title">{t('careers.openTitle')}</h3>
+              <p className="ctc-careers-block-body">{t('careers.openBody')}</p>
+              <div className="ctc-careers-ctas">
+                <a
+                  className="u-btn u-btn--outline"
+                  href={`mailto:${EMAIL_ENQ}?subject=${encodeURIComponent(t('careers.cvSubject'))}`}
+                >
+                  {t('careers.cvCta')}
+                </a>
+                <a className="u-btn u-btn--gold" href="#enquiry">{t('careers.inquiryCta')}</a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -77,7 +77,19 @@
     "programme": "Programa educativo o licitación",
     "trade": "Libros comerciales",
     "pod": "Impresión bajo demanda",
+    "careers": "Empleo",
     "other": "Otro"
+  },
+  "careers": {
+    "title": "Empleo en Quarterfold",
+    "subtitle": "Únase al equipo que impulsa la educación mundial con impresión de excelencia.",
+    "whyTitle": "Por qué Quarterfold",
+    "whyBody": "Quarterfold imprime y entrega a una escala que pocas empresas en la India pueden igualar, reconocida en el PrintWeek Power 100 y en Forbes India D.Gems. Únase a la misión detrás de cada libro, un trabajo que llega a las aulas de más de 25 países.",
+    "openTitle": "Oportunidades abiertas",
+    "openBody": "Siempre buscamos personas con talento para unirse a nuestro equipo.",
+    "cvCta": "Envíe su CV",
+    "cvSubject": "Candidatura en Quarterfold",
+    "inquiryCta": "Enviar una consulta"
   },
   "errors": {
     "first": "Introduzca su nombre.",
