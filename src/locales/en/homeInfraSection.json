@@ -102,7 +102,8 @@
       "overviewEyebrow": "Overview",
       "glanceEyebrow": "At a Glance",
       "overview": "Infrastructure",
-      "hint": "Click a book to explore each facility"
+      "hint": "Click a book to explore each facility",
+      "turn": "Turn"
     },
     "intro": {
       "heading": "Infrastructure",

@@ -102,7 +102,8 @@
       "overviewEyebrow": "Resumen",
       "glanceEyebrow": "De un vistazo",
       "overview": "Infraestructura",
-      "hint": "Haz clic en un libro para explorar cada instalación"
+      "hint": "Haz clic en un libro para explorar cada instalación",
+      "turn": "Pasar"
     },
     "intro": {
       "heading": "Infraestructura",

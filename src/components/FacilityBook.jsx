@@ -176,6 +176,21 @@ export default function FacilityBook() {
   const flipMs = useRef(FLIP_MS)
   useEffect(() => { flipMs.current = readFlipMs() }, [])
 
+  // Page-turn cursor prompt — a subtle "Turn →" pill that follows the pointer over the
+  // open book and, on click, turns to the next spread. Desktop turnable state only
+  // (canFlip && showTurn); updated via the ref so mousemove never re-renders.
+  const turnCursorRef = useRef(null)
+  const moveTurnCursor = (e) => {
+    const el = turnCursorRef.current
+    const wrap = el?.parentElement
+    if (!el || !wrap) return
+    const r = wrap.getBoundingClientRect()
+    el.style.left = `${e.clientX - r.left}px`
+    el.style.top = `${e.clientY - r.top}px`
+    el.style.opacity = '1'
+  }
+  const hideTurnCursor = () => { if (turnCursorRef.current) turnCursorRef.current.style.opacity = '0' }
+
   // The CSS-3D leaf turn only reads well with room + motion allowed; narrow / reduced
   // fall back to a silent crossfade.
   const canFlip = !reduced && !narrow
@@ -381,6 +396,9 @@ export default function FacilityBook() {
   const overviewLabel = t('books.ui.overview')
   const showTurn = !isIntro && totalSpreads > 1
   const pulse = showTurn && !hasTurned && !reduced
+  // Turnable = the desktop flip state with more than one spread. Only then does the
+  // "Turn →" cursor prompt appear and clicking the book turn forward.
+  const turnable = showTurn && canFlip
 
   const overviewPill = (
     <button
@@ -511,10 +529,13 @@ export default function FacilityBook() {
         {/* THE OPEN BOOK — the art-backed spread that turns */}
         <div className="ib-book-wrap">
           <div
-            className={`ib-book${flip ? ` is-flipping is-${flip.dir}` : ''}`}
+            className={`ib-book${flip ? ` is-flipping is-${flip.dir}` : ''}${turnable ? ' ib-book--turnable' : ''}`}
             data-mode={canFlip ? 'flip' : 'flat'}
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
+            onMouseMove={turnable ? moveTurnCursor : undefined}
+            onMouseLeave={turnable ? hideTurnCursor : undefined}
+            onClick={turnable ? () => go(safeSpread + 1) : undefined}
           >
             <div className="ib-spread" key={canFlip ? `b${activeBook}` : `x${activeBook}-${safeSpread}-${xfade}`}>
               {isIntro ? (
@@ -644,6 +665,14 @@ export default function FacilityBook() {
                 <span className="ib-kbd" aria-hidden="true">← →</span>
               </div>
             </>
+          )}
+
+          {/* PAGE-TURN CURSOR — a subtle "Turn →" pill that follows the pointer over
+              the open book (desktop turnable state only); click turns forward. */}
+          {turnable && (
+            <span className="ib-turncursor" ref={turnCursorRef} aria-hidden="true">
+              {t('books.ui.turn')}<span className="ib-turncursor-arrow"> →</span>
+            </span>
           )}
         </div>
       </div>
