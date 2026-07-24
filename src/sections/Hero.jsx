@@ -1,26 +1,27 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-// ── QFP hero — OUTLINE-FREE ART (20th-morning "Hero Image with kids" → hero-kids.webp) ─────
-// Structure: the section displays the outline-free mockup at full width and natural
-// aspect ratio (2400×1350). No baked pill outlines—white ground below book is the canvas.
-// The HTML layout: image full-width, no overhang, no crops, section bottom = image bottom.
-// HTML pill CTAs are positioned absolutely in the white ground below the book base.
+// ── QFP homepage hero — headline → CTAs → localised artwork (top to bottom) ──────
+// Plain document flow, no absolute positioning:
+//   1. Visible <h1> headline — one heading, two lines: headlineTop (cream, display)
+//      and headlineAccent (gold-2, its own line), stepped down from --h1 to --h2 so
+//      the block clears the fold. Centred in a navy band that matches the artwork's
+//      baked sky (var(--navy) resolves to #0e1b46 under .home-palette). Sits below
+//      the in-flow (non-sticky) cream nav.
+//   2. A visible subhead (headlineSub), then the two pill CTAs, centred in normal
+//      flow; the pills wrap (stack) rather than squash on narrow screens.
+//   3. The full-width artwork image (natural 2400×1350 aspect). Its navy sky
+//      continues the band's navy seamlessly; its white ground meets TrustStrips.
 //
-// Pill positioning:
-//   Vertical center: 93% of image height (mid-white-ground, below book base, above image bottom)
-//   Horizontal: centered flex row, gap 28px
-//   Style: navy 2px border, rounded-full capsule, transparent fill, hover invert
+// A11y: the <h1> is now visible copy. The subhead and the four speech-bubble lines
+// stay sr-only — that text is painted into the art, surfaced sr-only for screen
+// readers. Image alt is descriptive and localised.
 //
-// A11y: the <h1> and subhead are sr-only (semantic + SEO); the bubble lines
-// are sr-only; image alt is descriptive. Sighted users read the baked headline
-// and pill CTAs; screen-reader users hear the sr-only copy.
-//
-// LOCALISED ART: the hero illustration (headline + speech bubbles are baked into
-// the image) ships per language — English, French, Spanish — chosen from the active
-// i18n language. Any unrecognised or missing language falls back to English, so the
-// image is never broken. The sr-only bubble copy and the image alt are localised
-// alongside the art via the home.json locale files.
+// LOCALISED ART: the illustration (headline + speech bubbles baked in) ships per
+// language — English, French, Spanish — chosen from the active i18n language. Any
+// unrecognised or missing language falls back to English, so the image is never
+// broken. The sr-only bubble copy and the image alt are localised alongside the
+// art via the home.json locale files.
 
 // Language-keyed hero art. Any language not listed here resolves to English.
 const HERO_ART = {
@@ -42,40 +43,37 @@ export default function Hero() {
   const bubbleLines = Array.isArray(bubbles) ? bubbles : []
 
   return (
-    <section id="hero" ref={section} data-theme="dark" className="relative overflow-x-clip">
-      {/* Semantic copy — baked into the image, surfaced sr-only for SEO + a11y. */}
-      <h1 className="sr-only">{t('hero.line1')}, {t('hero.line2')}</h1>
-      <p className="sr-only">{t('hero.subhead')}</p>
-      <ul className="sr-only">
-        {bubbleLines.map((line) => (
-          <li key={line}>{line}</li>
-        ))}
-      </ul>
+    <section id="hero" ref={section} data-theme="dark" className="relative overflow-x-clip bg-[var(--navy)]">
+      {/* Headline + CTAs — centred in the navy band above the artwork, normal flow.
+          Top padding is deliberately smaller than the shared --hero-pad-top: the
+          nav is in normal flow (non-sticky), so the headline block + CTAs stay short
+          enough that the top of the artwork clears the fold at 1536×743. */}
+      <div className="mx-auto max-w-[var(--content-max)] px-[var(--page-gutter)] pt-[clamp(48px,7vh,84px)] pb-[clamp(24px,4vh,40px)] text-center">
+        {/* ONE <h1> (SEO + a11y): line 1 cream/display, line 2 accent on its own line.
+            Stepped down from --h1 to --h2 so the block never fills the fold. Accent
+            colour comes from the existing --gold-2 token. */}
+        <h1 className="mx-auto max-w-[20ch] [font-family:'Inter_Tight',sans-serif] font-bold leading-[1.05] tracking-[-0.02em] text-[length:var(--h2)] text-[color:var(--cream-3)] [text-wrap:balance]">
+          <span className="block">{t('hero.headlineTop')}</span>
+          <span className="block text-[color:var(--gold-2)]">{t('hero.headlineAccent')}</span>
+        </h1>
 
-      {/* HERO IMAGE — final mockup displayed at full width, natural aspect ratio.
-          No overhang, no crops. Section bottom = image bottom. The wrapper is the
-          positioning context for the pill CTAs. */}
-      <div className="pointer-events-none relative">
-        <img
-          key={lang}
-          src={heroArt}
-          alt={t('hero.alt')}
-          className="block w-full select-none"
-          draggable="false"
-          fetchpriority="high"
-        />
+        {/* Visible subhead — smaller, cream at reduced opacity, between headline and CTAs. */}
+        <p className="mx-auto mt-4 max-w-[52ch] text-[length:var(--body)] leading-[1.6] text-[color:var(--cream-3)] opacity-80">
+          {t('hero.headlineSub')}
+        </p>
 
-        {/* TWO BUTTON CTAs — pill shape, one-line labels, equal width on spine ────────
-            Positioned centered on book spine. Navy fill with gold outline + cream text.
-            Pill radius (rounded-full). Both buttons equal width, widened for comfortable
-            padding. Labels nowrap (one line each). Gap-center re-centered on spine. */}
-        <div
-          className="hero-cta-pair absolute z-[20] pointer-events-auto flex items-center gap-6"
-          /* Centred on the book's SPINE (pixel-measured at 50.6% of the art, not 50%)
-             so both pills are equidistant from the crease, and dropped below the
-             book's bottom edge (~90%) into the white ground so they don't overlap it. */
-          style={{ top: '95%', left: '50.6%', transform: 'translate(-50%, -50%)' }}
-        >
+        {/* Painted-into-art copy, surfaced sr-only for SEO + a11y. */}
+        <p className="sr-only">{t('hero.subhead')}</p>
+        <ul className="sr-only">
+          {bubbleLines.map((line) => (
+            <li key={line}>{line}</li>
+          ))}
+        </ul>
+
+        {/* TWO BUTTON CTAs — pill shape, one-line labels, equal width. Now in normal
+            flow, centred below the headline; they wrap (stack) rather than squash on
+            narrow screens. Navy fill + gold nebula ring + cream label read on navy. */}
+        <div className="hero-cta-pair mt-7 flex flex-wrap items-center justify-center gap-6">
           <a
             href="#what-we-print"
             className="hero-btn btn-nebula group relative inline-flex h-[54px] w-[220px] items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] pl-[22px] pr-[46px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
@@ -94,6 +92,17 @@ export default function Hero() {
           </a>
         </div>
       </div>
+
+      {/* HERO IMAGE — full width, natural aspect (2400×1350). Below the CTAs; its
+          navy sky continues the band, its white ground meets TrustStrips. */}
+      <img
+        key={lang}
+        src={heroArt}
+        alt={t('hero.alt')}
+        className="block w-full select-none"
+        draggable="false"
+        fetchpriority="high"
+      />
     </section>
   )
 }
