@@ -147,8 +147,8 @@ export default function SiteNav() {
   return (
     <header
       role="banner"
-      className="relative z-[200] border-b border-[#0f2444]/[0.08] bg-[#fdfaf4]"
-      style={{ boxShadow: '0 2px 24px rgba(15,36,68,0.06)' }}
+      className="relative z-[200] border-b border-[#030C31]/[0.08] bg-[#fdfaf4]"
+      style={{ boxShadow: '0 2px 24px rgba(3,12,49,0.06)' }}
     >
       <div
         className="mx-auto flex h-[86px] max-w-page items-center gap-2 px-4 xl:gap-6 xl:px-8 2xl:gap-8 2xl:px-14"
@@ -157,7 +157,7 @@ export default function SiteNav() {
         {/* logo lockup — 48px monogram + two-line wordmark, all navy */}
         <Link to="/" className="focus-ring flex items-center gap-3" aria-label="Quarterfold Printabilities home">
           <img src="/site-assets/homepage/brand/qfp-mark.png" alt="" aria-hidden="true" width="48" height="48" className="h-12 w-12 shrink-0 object-contain" />
-          <span className="hidden flex-col leading-[1.06] text-[#0f2444] sm:flex">
+          <span className="hidden flex-col leading-[1.06] text-[#030C31] sm:flex">
             <span className="text-[16px] font-bold tracking-[0.2px]">Quarterfold</span>
             <span className="text-[16px] font-bold tracking-[0.2px]">Printabilities</span>
           </span>
@@ -219,7 +219,7 @@ export default function SiteNav() {
               <div className="absolute left-0 top-full pt-4">
                 <div
                   id="wwp-dropdown"
-                  className="min-w-[260px] rounded-[var(--radius-md)] border border-[#0f2444]/10 bg-[#fdfaf4] p-2 shadow-[0_16px_48px_rgba(15,36,68,0.14)]"
+                  className="min-w-[260px] rounded-[var(--radius-md)] border border-[#030C31]/10 bg-[#fdfaf4] p-2 shadow-[0_16px_48px_rgba(3,12,49,0.14)]"
                   role="menu"
                 >
                   {PRODUCTS.map((p, idx) => (
@@ -230,13 +230,13 @@ export default function SiteNav() {
                       onClick={() => handleProductClick(p)}
                       onKeyDown={(e) => onItemKey(e, idx)}
                       onMouseEnter={() => setActiveItem(idx)}
-                      className="focus-ring w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#F37031]/[0.08] hover:pl-6 hover:text-[#C2551B]"
+                      className="focus-ring w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F15]/[0.08] hover:pl-6 hover:text-[#925C10]"
                       style={{
                         fontFamily: INTER,
                         backgroundColor:
-                          activeItem === idx ? '#F37031/[0.08]' : 'transparent',
+                          activeItem === idx ? '#B06F15/[0.08]' : 'transparent',
                         paddingLeft: activeItem === idx ? '1.5rem' : '1rem',
-                        color: activeItem === idx ? '#C2551B' : '#1c2019/85',
+                        color: activeItem === idx ? '#925C10' : '#1c2019/85',
                       }}
                       role="menuitem"
                       aria-current={activeItem === idx ? 'true' : undefined}
@@ -260,7 +260,7 @@ export default function SiteNav() {
           {/* Square navy ghost button — fills navy on hover (.nav-cta). */}
           <Link
             to="/contact"
-            className="btn-nebula btn-nebula--light focus-ring hidden shrink-0 items-center gap-1.5 whitespace-nowrap border-[1.5px] border-[#0f2444] px-4 py-[10px] text-[13px] font-medium text-[#0f2444] transition-colors duration-200 hover:bg-[#0f2444] hover:text-[#fdfaf4] sm:inline-flex 2xl:px-[22px]"
+            className="btn-nebula btn-nebula--light focus-ring hidden shrink-0 items-center gap-1.5 whitespace-nowrap border-[1.5px] border-[#030C31] px-4 py-[10px] text-[13px] font-medium text-[#030C31] transition-colors duration-200 hover:bg-[#030C31] hover:text-[#fdfaf4] sm:inline-flex 2xl:px-[22px]"
             style={{ fontFamily: INTER, letterSpacing: '0.3px' }}
           >
             {t('requestQuote')}

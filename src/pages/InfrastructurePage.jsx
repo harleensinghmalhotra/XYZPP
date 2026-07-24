@@ -249,7 +249,7 @@ export default function InfrastructurePage() {
       <Certifications flatTop flatBottom />
 
       {/* ── 3 · CAPABILITY TRIPTYCH (navy) — About-MVV vocabulary ───────────
-          One flat #0e1b46 band folded into three spines split by two drawn gold
+          One flat #030C31 band folded into three spines split by two drawn gold
           hairlines. NO 01/02/03 indices, NO ghost numerals (MVV site law). Each
           column: DM Mono gold capability name → Inter cream statement, equal
           optical weight. The 98% stat punctuates below (homepage stat anatomy),

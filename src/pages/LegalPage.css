@@ -19,7 +19,7 @@
   font-family: 'Inter', sans-serif;
   font-size: clamp(17px, 1.4vw, 20px);
   line-height: 1.7;
-  color: #0f2444;
+  color: #030C31;
   margin: 0 0 clamp(28px, 4vh, 44px);
 }
 
@@ -32,7 +32,7 @@
   font-size: clamp(21px, 2.3vw, 30px);
   line-height: 1.18;
   letter-spacing: -0.01em;
-  color: #0f2444;
+  color: #030C31;
   margin: 0 0 14px;
 }
 
@@ -65,7 +65,7 @@
   font-size: 12px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #c2551b;
+  color: #925C10;
 }
 
 @keyframes legalIn {

@@ -11,7 +11,7 @@ import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 // immersive product experience; the six categories behave like "colourways" —
 // clicking a swatch swaps the sticky gallery + copy client-side (no route change).
 //
-// Palette LAW — System B only: navy #0F2444, gold #F37031/#F37031/#F37031 (accent),
+// Palette LAW — System B only: navy #030C31, gold #B06F15/#B06F15/#B06F15 (accent),
 // cream #FDFAF4, beige #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter / DM Mono.
 // B2B showcase: no prices, no cart, no sizes — "Request a Quote" → /contact.
 // All copy is drawn from the approved trade-books page content + the homepage
@@ -29,7 +29,7 @@ const CATS = [
   },
   {
     key: 'notebooks',
-    swatch: '#0F2444',
+    swatch: '#030C31',
     gallery: ['/qfp/trade/notebooks-01.webp', '/qfp/trade/notebooks-02.webp', '/qfp/trade/notebooks-03.webp'],
     features: ['perfect', 'emboss', 'formats'],
   },
@@ -41,7 +41,7 @@ const CATS = [
   },
   {
     key: 'calendars',
-    swatch: '#1B3A6B',
+    swatch: '#061A4B',
     gallery: ['/qfp/trade/calendars-01.webp', '/qfp/trade/calendars-02.webp', '/qfp/trade/calendars-03.webp'],
     features: ['saddle', 'fourc', 'formats'],
   },

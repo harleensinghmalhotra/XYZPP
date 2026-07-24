@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 
 const MONO = "'DM Mono', monospace"
-// Darkened orange (#C2551B) not the bright #F37031: the active label is small
+// Darkened orange (#925C10) not the bright #B06F15: the active label is small
 // informational text and must stay readable on the cream nav (orange sweep contrast).
-const GOLD = '#C2551B'
+const GOLD = '#925C10'
 
 // Quiet EN / FR / ES pill for the nav's right group (beside Request a Quote).
 // Mirrors Alternativ's understated globe toggle: short labels in DM Mono, the active
@@ -24,7 +24,7 @@ export default function LanguageToggle({ light = false }) {
   // Inactive label + hairlines adapt to the nav tone; active is always gold.
   const inactive = light ? 'rgba(28,32,25,0.72)' : 'rgba(253,250,244,0.6)'
   const inactiveHover = light ? 'rgba(28,32,25,0.9)' : 'rgba(253,250,244,0.95)'
-  const ring = light ? 'ring-[#0f2444]/15' : 'ring-white/20'
+  const ring = light ? 'ring-[#030C31]/15' : 'ring-white/20'
 
   return (
     <div

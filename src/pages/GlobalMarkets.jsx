@@ -6,13 +6,13 @@ import PageHero, { splitTitle } from '@/components/PageHero'
 import { PaperGrain } from '@/components/atmosphere'
 import { CertificateIcon, PenNibIcon, PrinterIcon, HeadsetIcon } from '@/components/CredentialIcons'
 
-const NAVY = '#0F2444'
+const NAVY = '#030C31'
 const CREAM = '#FDFAF4'
 const BEIGE = '#F0EBE0'
 const INK = '#1C2019'
-const GOLD = '#F37031'
-const GOLD_BRIGHT = '#F37031' // canonical on-navy accent (matches --gold-2)
-const GOLD_TEXT = '#C2551B'
+const GOLD = '#B06F15'
+const GOLD_BRIGHT = '#B06F15' // canonical on-navy accent (matches --gold-2)
+const GOLD_TEXT = '#925C10'
 const TIGHT = "'Inter Tight', sans-serif"
 const INTER = "'Inter', sans-serif"
 const MONO = "'DM Mono', monospace"

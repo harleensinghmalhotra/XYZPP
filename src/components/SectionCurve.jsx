@@ -52,7 +52,7 @@ export default function SectionCurve({ position = 'top', fill = '#FDFAF4', heigh
       {/* grounded edge shadow — soft navy-tinted lip along the curve. The spill on
           the neighbour side is clipped by the section's overflow, leaving a one-
           sided shadow that grounds the paper edge (drawn over the light fill). */}
-      <path d={line} fill="none" stroke="rgba(15,36,68,0.22)" strokeWidth="3.4" filter={`url(#${sid})`} />
+      <path d={line} fill="none" stroke="rgba(3,12,49,0.22)" strokeWidth="3.4" filter={`url(#${sid})`} />
       {hairline && <path d={line} fill="none" stroke={hairline} strokeWidth="1.5" />}
     </svg>
   )

@@ -2,12 +2,12 @@ import { useTranslation } from 'react-i18next'
 
 // ── Our Promise — the mission, centred on flat navy ──────────────────────────
 // The dark glow/aura treatment was removed. The section now
-// sits on the SAME flat navy (var(--navy) #0F2444) GlobeReach uses, so the two navy
+// sits on the SAME flat navy (var(--navy) #030C31) GlobeReach uses, so the two navy
 // passages read as one continuous field. Gone with the effect: the LightPillar
 // (three.js), the radial scrim, the vignetted dot grid and the warm reading-lamp
 // glow — every background layer. Typography alone on navy: the mission pull-quote
 // centred, cream on navy (AA+), the gold-2 eyebrow + sign-off matching GlobeReach's
-// eyebrow exactly (#F37031 ≈ 6:1 on navy — the older #F37031 dropped to 4.27 once
+// eyebrow exactly (#B06F15 ≈ 6:1 on navy — the older #B06F15 dropped to 4.27 once
 // the ground lifted from near-black to navy). Text reveal (if any) is unaffected —
 // only the background died. PromiseLightPillar is now imported by nothing.
 

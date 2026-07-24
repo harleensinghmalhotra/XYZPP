@@ -12,34 +12,34 @@
      gold → cream → olive, in that priority. Gold is the single prestige accent;
      olive is the quiet eco note. */
   /* Navy & gold are split into RGB-channel tokens. The base navy is the baked
-     hero sky #0e1b46 (14 27 70) — the SAME value the homepage's .home-palette pins,
+     hero sky #030C31 (3 12 49) — the SAME value the homepage's .home-palette pins,
      and the PageHero navy every inner page's hero uses. Design rule: every inner-page
-     dark section is this one flat navy (no lighter #0f2444, no tinted variants), so
-     the token resolves to #0e1b46 everywhere. Solid fills use var(--navy); alpha uses
+     dark section is this one flat navy (no lighter #030C31, no tinted variants), so
+     the token resolves to #030C31 everywhere. Solid fills use var(--navy); alpha uses
      take rgb(var(--navy-rgb) / a). The homepage repaints via .home-palette below to
      the same value, so it is unaffected. */
-  --navy-rgb: 14 27 70;
+  --navy-rgb: 3 12 49;
   --navy: rgb(var(--navy-rgb));
-  --navy-2-rgb: 27 58 107;
+  --navy-2-rgb: 6 26 75;
   --navy-2: rgb(var(--navy-2-rgb));
-  --navy-deep: #0a1b33;      /* deeper footer navy */
+  --navy-deep: #020C24;      /* deeper footer navy */
   /* THE SEAMLESS MELT — one shared boundary navy for the conveyor→Projects seam.
      BOTH edges arrive here: the conveyor's exit fade ends AT this colour and the
      Projects section's top background starts AT it, so the two sections meet on one
      value — the horizontal line is mathematically impossible. Sits between the
-     conveyor's arrival navy (#0c192e) and Projects' deep-space core (#070c18), so
+     conveyor's arrival navy (#030B20) and Projects' deep-space core (#020511), so
      the night descends monotonically with no local step. (The 3D conveyor was
      retired for a full-bleed video section; Projects keeps this seam value.) */
-  --section-melt: #0a1524;   /* rgb(10,21,36) — process↔globe boundary */
-  /* ORANGE SWEEP — brand accent is #F37031 site-wide (was the gold family). --gold /
+  --section-melt: #020919;   /* rgb(10,21,36) — process↔globe boundary */
+  /* ORANGE SWEEP — brand accent is #B06F15 site-wide (was the gold family). --gold /
      --gold-2 stay the BRIGHT accent (graphics, rules, icons, on-navy text, large
-     text). --gold-text is the DARKENED orange #C2551B for small text on cream, where
-     #F37031 fails 4.5:1. Names kept as --gold* so the whole token graph sweeps at once. */
-  --gold-rgb: 243 112 49;                 /* #F37031 */
+     text). --gold-text is the DARKENED orange #925C10 for small text on cream, where
+     #B06F15 fails 4.5:1. Names kept as --gold* so the whole token graph sweeps at once. */
+  --gold-rgb: 176 111 21;                 /* #B06F15 */
   --gold: rgb(var(--gold-rgb));           /* THE accent — hairlines, top-borders, links */
-  --gold-2-rgb: 245 130 74;               /* #F5824A — brighter orange (on-navy eyebrows / foils) */
+  --gold-2-rgb: 177 129 32;               /* #B18120 — brighter orange (on-navy eyebrows / foils) */
   --gold-2: rgb(var(--gold-2-rgb));       /* brighter orange — on-navy eyebrows / numbers */
-  --gold-text: #C2551B;      /* darkened orange for small text on cream (contrast pass) */
+  --gold-text: #925C10;      /* darkened orange for small text on cream (contrast pass) */
   --olive: #6b7a2a;
   --olive-light: #8fa05a;
   --olive-deep: #5a6623;
@@ -64,7 +64,7 @@
   --cyan: var(--navy-2);     /* CMYK retired → navy/gold */
   --magenta: var(--gold);
   --yellow: var(--gold-2);
-  --video-tone: #12294c;     /* dark sections melt into navy, not warm brown */
+  --video-tone: #041235;     /* dark sections melt into navy, not warm brown */
 
   /* ── STRUCTURE TOKENS — Phase 3.3 unification. A single ~100px section rhythm,
      a 1280px measure with a 56px gutter, and a 6-step type scale whose section
@@ -130,33 +130,33 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    HOMEPAGE PALETTE — the baked hero navy/gold (sampled from
    public/qfp/hero/hero-composed.webp). The hero (baked navy
-   #0e1b46 / gold #F37031) didn't match the rest of the homepage (site navy
-   #0f2444 / golds #F37031 + #F37031). This override lives ONLY on the homepage
+   #030C31 / gold #B06F15) didn't match the rest of the homepage (site navy
+   #030C31 / golds #B06F15 + #B06F15). This override lives ONLY on the homepage
    wrapper (<main class="home-palette"> in Home.jsx), so every homepage section —
    which reads navy/gold through var(--navy)/var(--gold)/var(--gold-2) and the
    rgb(var(--*-rgb) / a) alpha forms — repaints to the hero's exact values, while
    the eight inner pages keep the untouched :root values.
-   Sampled: navy rgb(14 27 70) = #0e1b46 (flat sky, 6 patches, unanimous);
-            gold rgb(243 112 49) = #F37031 (interior of the bubble accent words
-            "Oh yes!", "What?", 2nd bubble — avg #F37031).
+   Sampled: navy rgb(3 12 49) = #030C31 (flat sky, 6 patches, unanimous);
+            gold rgb(176 111 21) = #B06F15 (interior of the bubble accent words
+            "Oh yes!", "What?", 2nd bubble — avg #B06F15).
    --gold and --gold-2 UNIFY onto the one hero gold. --gold-text stays the darker
-   AA-safe #F37031 for informational gold text on cream (see contrast note). Navy-2
+   AA-safe #B06F15 for informational gold text on cream (see contrast note). Navy-2
    is nudged along the same hue so gradients stay cohesive. ─────────────────────── */
 .home-palette {
   /* Channel tokens — drive the alpha forms rgb(var(--*-rgb) / a). */
-  --navy-rgb: 14 27 70;      /* #0e1b46 — the baked sky */
-  --navy-2-rgb: 26 49 109;   /* lighter indigo, same delta off the base as before */
-  --gold-rgb: 243 112 49;    /* #F37031 — orange sweep (was the baked bubble gold) */
-  --gold-2-rgb: 245 130 74;  /* #F5824A — brighter orange, on-navy eyebrows/numbers
+  --navy-rgb: 3 12 49;      /* #030C31 — the baked sky */
+  --navy-2-rgb: 6 26 75;   /* lighter indigo, same delta off the base as before */
+  --gold-rgb: 176 111 21;    /* #B06F15 — orange sweep (was the baked bubble gold) */
+  --gold-2-rgb: 177 129 32;  /* #B18120 — brighter orange, on-navy eyebrows/numbers
                                 (5.6:1 on the hero navy) */
   /* Solid tokens must be overridden DIRECTLY too: --navy = rgb(var(--navy-rgb)) is
      resolved at :root and inherits its resolved value, so re-pointing only the
      channel would not re-resolve var(--navy). */
-  --navy: rgb(14 27 70);
-  --navy-2: rgb(26 49 109);
-  --gold: rgb(243 112 49);         /* #F37031 — decorative + large text */
-  --gold-2: rgb(245 130 74);       /* #F5824A — brighter orange on-navy (eyebrows/numbers) */
-  --video-tone: #0e1b46;     /* dark video sections melt into the hero navy */
+  --navy: rgb(3 12 49);
+  --navy-2: rgb(6 26 75);
+  --gold: rgb(176 111 21);         /* #B06F15 — decorative + large text */
+  --gold-2: rgb(177 129 32);       /* #B18120 — brighter orange on-navy (eyebrows/numbers) */
+  --video-tone: #030C31;     /* dark video sections melt into the hero navy */
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -243,7 +243,7 @@
 .u-btn--solid:hover  { background: var(--gold); color: var(--navy); }
 .u-btn--outline { background: transparent; border-color: var(--navy); color: var(--navy); }
 .u-btn--outline:hover { background: var(--navy); color: var(--cream); }
-/* --gold IS the homepage "Request a Quote" primary: orange #F37031 → #F5824A hover,
+/* --gold IS the homepage "Request a Quote" primary: orange #B06F15 → #B18120 hover,
    navy label. Every primary CTA site-wide routes through this one variant. */
 .u-btn--gold   { background: var(--gold); color: var(--navy); }
 .u-btn--gold:hover   { background: var(--gold-2); color: var(--navy); }
@@ -299,7 +299,7 @@
 .btn-nebula::before {
   padding: var(--nb-ring);
   background: conic-gradient(from var(--nb-angle) at 50% 50%,
-    var(--navy) 0deg, var(--gold) 60deg, #F5824A 120deg,
+    var(--navy) 0deg, var(--gold) 60deg, #B18120 120deg,
     var(--navy) 180deg, #6B7A2A 240deg, var(--gold) 300deg, var(--navy) 360deg);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -381,7 +381,7 @@
 .ref-cap-head {
   font-family: 'Inter Tight', Inter, system-ui, sans-serif; font-weight: 600;
   font-size: clamp(30px, 2.7vw, 40px); line-height: 1.0; letter-spacing: -0.015em;
-  color: var(--navy, #0f2444);
+  color: var(--navy, #030C31);
 }
 .ref-cap-body {
   font-family: 'Inter', system-ui, sans-serif; font-weight: 400;
@@ -697,7 +697,7 @@ body {
     rgb(var(--navy-2-rgb) / 0) 0px,
     rgb(var(--navy-2-rgb) / 0) 92px,
     rgba(44, 85, 144, 0.34) 172px,
-    rgba(245, 130, 74, 0.16) 232px,
+    rgba(177, 129, 32, 0.16) 232px,
     rgba(44, 85, 144, 0.24) 292px,
     rgb(var(--navy-2-rgb) / 0) 360px,
     rgb(var(--navy-2-rgb) / 0) 420px
@@ -753,7 +753,7 @@ body {
    "25+ Countries", "billions") read as gold FOIL, not flat text: a tight gold
    gradient clipped to the glyphs, weight 700, slightly larger than the sentence
    — the same foil language as the shelf books. Base gold is the palette var(--gold),
-   but the gradient mass is anchored a touch darker (#F37031 / #C2551B) so the
+   but the gradient mass is anchored a touch darker (#B06F15 / #925C10) so the
    numerals clear AA on the cream bubble ground at bubble text size (not large
    text). On the bubble's reveal a single slow highlight sweep passes across
    (`.is-lit`, added once by the scroll driver when that bubble's window is
@@ -764,18 +764,18 @@ body {
   letter-spacing: -0.01em;
   background-image: linear-gradient(
     100deg,
-    #C2551B 0%,
-    #C2551B 42%,
-    #F5824A 50%,
-    #C2551B 58%,
-    #C2551B 100%
+    #925C10 0%,
+    #925C10 42%,
+    #B18120 50%,
+    #925C10 58%,
+    #925C10 100%
   );
   background-size: 250% 100%;
   background-position: 120% 0;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: #F37031; /* fallback where background-clip:text is unsupported */
+  color: #B06F15; /* fallback where background-clip:text is unsupported */
 }
 .bub-foil.is-lit {
   animation: bub-foil-sweep 1100ms ease-out 1 both;
@@ -1082,7 +1082,7 @@ body {
 }
 
 /* ── What We Print (scroll-jacked horizontal card row) ───────────────────────
-   Palette law: navy var(--navy), gold-text #F37031, olive #6B7A2A, cream #FDFAF4,
+   Palette law: navy var(--navy), gold-text #B06F15, olive #6B7A2A, cream #FDFAF4,
    cream2 #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter. Section bg = the
    cream2; cards ride a warmer cream and pop above their own top edge. */
 .wwp-section {
@@ -1118,7 +1118,7 @@ body {
   font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #C2551B; /* dash removed — eyebrow text stands alone */
+  color: #925C10; /* dash removed — eyebrow text stands alone */
 }
 /* Short heading — wraps naturally if a locale ever needs it (no JS fit now that
    the section is normal-flow; nothing measures against a pinned panel width). */
@@ -1198,7 +1198,7 @@ body {
   transition: text-decoration-color 0.25s ease, opacity 0.25s ease;
 }
 .wwp-more:hover {
-  text-decoration-color: #C2551B;
+  text-decoration-color: #925C10;
   opacity: 0.85;
 }
 
@@ -1407,7 +1407,7 @@ body {
   letter-spacing: 3px;
   text-transform: uppercase;
   /* gold-2 on navy: the on-navy eyebrow gold (matches GlobeReach's .gr-eyebrow).
-     #F37031 dropped to 4.27:1 once the ground lifted from near-black to navy;
+     #B06F15 dropped to 4.27:1 once the ground lifted from near-black to navy;
      var(--gold-2) clears 6.0:1. */
   color: var(--gold-2);
 }
@@ -1484,8 +1484,8 @@ body {
      the seam) — its top band was removed so this melt colour renders true. */
   background:
     linear-gradient(to bottom, var(--section-melt) 0%, rgba(10, 21, 36, 0) 240px),
-    radial-gradient(120% 82% at 62% 34%, #10203c 0%, #0a1424 44%, #070c18 100%),
-    #070c18;
+    radial-gradient(120% 82% at 62% 34%, #10203c 0%, #0a1424 44%, #020511 100%),
+    #020511;
   padding: var(--section-pad-y) 56px;
   isolation: isolate;
 }
@@ -1780,7 +1780,7 @@ body {
 .proj-dest-base { /* flat navy fallback shown only until the photo decodes */
   position: absolute;
   inset: 0;
-  background: #12294c;
+  background: #041235;
 }
 .proj-dest-photo {
   position: absolute;
@@ -1866,7 +1866,7 @@ body {
 }
 /* ── DESTINATION DESCRIPTION — text below each region card ──────────────────
    Each region has a detailed description mounted below its card, using the
-   brand gold accent (#F37031) for emphasis and cream background. Reduced-motion
+   brand gold accent (#B06F15) for emphasis and cream background. Reduced-motion
    safe fade-in on scroll trigger. */
 .proj-dest-wrapper {
   display: flex;
@@ -1983,7 +1983,7 @@ body {
    scale / tilt), its shadow deepening; neighbours lean away ~2deg. Reduced-motion
    → glow lift only, no transforms. Square corners (design law). Soft navy-tinted
    painted shadows, never pure black. Palette: navy var(--navy), cream #FDFAF4/#F0EBE0,
-   gold var(--gold) / var(--gold-2) / #F37031. */
+   gold var(--gold) / var(--gold-2) / #B06F15. */
 .proj-books { margin-top: clamp(48px, 6.5vh, 84px); }
 .proj-books-eyebrow {
   margin: 0 0 30px;
@@ -2149,10 +2149,10 @@ body {
 .proj-book--cream .proj-book-countn { filter: drop-shadow(0 1px 0.5px rgba(194, 85, 27, 0.32)); }
 .proj-book.is-milestone .proj-book-countn { font-size: clamp(34px, 3.1vw, 48px); }
 /* navy ground → bright foil ramp; every stop clears AA-large (≥3:1) on navy */
-.proj-book--navy { --foil-hi: #F5824A; --foil-b: #F5824A; --foil-a: #F37031; --foil-lo: #F37031; }
+.proj-book--navy { --foil-hi: #B18120; --foil-b: #B18120; --foil-a: #B06F15; --foil-lo: #B06F15; }
 /* cream ground → deeper ramp so even the top light-catch clears AA-large (≥3:1)
    against the lightest part of the cream cover */
-.proj-book--cream { --foil-hi: #F37031; --foil-b: #F37031; --foil-a: #C2551B; --foil-lo: #C2551B; }
+.proj-book--cream { --foil-hi: #B06F15; --foil-b: #B06F15; --foil-a: #925C10; --foil-lo: #925C10; }
 .proj-book-countn.is-lit { animation: proj-foil 1.2s ease-out 0.1s 1 forwards; }
 @keyframes proj-foil {
   from { background-position: 0 98%; }
@@ -2167,7 +2167,7 @@ body {
   border-radius: var(--radius-xs);
   background: linear-gradient(90deg, var(--gold), var(--gold-2));
 }
-.proj-book--cream .proj-book-rule { background: linear-gradient(90deg, #F37031, var(--gold)); }
+.proj-book--cream .proj-book-rule { background: linear-gradient(90deg, #B06F15, var(--gold)); }
 
 /* the one human line, small type — 11px floor; line-height tightened (not the
    font) to keep it from crowding on the narrower cover. */
@@ -2200,8 +2200,8 @@ body {
   pointer-events: none;
   opacity: 0.92;
 }
-.proj-book--navy .proj-book-stamp { color: #F5824A; }
-.proj-book--cream .proj-book-stamp { color: #F37031; }
+.proj-book--navy .proj-book-stamp { color: #B18120; }
+.proj-book--cream .proj-book-stamp { color: #B06F15; }
 .proj-book-stamp-svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .proj-book-stamp-text {
   font-family: 'DM Mono', monospace;
@@ -2226,7 +2226,7 @@ body {
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #241a06;
-  background: linear-gradient(100deg, #F37031 0%, #F5824A 46%, #F37031 92%);
+  background: linear-gradient(100deg, #B06F15 0%, #B18120 46%, #B06F15 92%);
   box-shadow: 0 7px 15px -7px rgba(0, 0, 0, 0.6);
   clip-path: polygon(0 0, 100% 0, calc(100% - 9px) 50%, 100% 100%, 0 100%);
 }
@@ -2237,7 +2237,7 @@ body {
   top: 100%;
   border-width: 0 6px 6px 0;
   border-style: solid;
-  border-color: transparent #F37031 transparent transparent;
+  border-color: transparent #B06F15 transparent transparent;
 }
 .proj-book-ribbon {
   position: absolute;
@@ -2246,7 +2246,7 @@ body {
   z-index: 1;
   width: 15px;
   height: 42px;
-  background: linear-gradient(180deg, #F5824A 0%, var(--gold) 100%);
+  background: linear-gradient(180deg, #B18120 0%, var(--gold) 100%);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
 }
@@ -2317,7 +2317,7 @@ body {
 }
 
 /* ── Infrastructure — "Built for Scale. Engineered for Trust." ────────────────
-   Palette law: navy var(--navy), ink #1C2019, gold-text #F37031, gold var(--gold)/var(--gold-2),
+   Palette law: navy var(--navy), ink #1C2019, gold-text #B06F15, gold var(--gold)/var(--gold-2),
    cream #FDFAF4, cream2 #F0EBE0. Fonts: Inter Tight (title), Inter (body),
    DM Mono (eyebrow/numbers/captions ≥11px). Light section, GPU-only motion. */
 .infra {
@@ -2340,7 +2340,7 @@ body {
   font-size: 12px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #C2551B; /* gold-text — no dash/hairline after it */
+  color: #925C10; /* gold-text — no dash/hairline after it */
 }
 .infra-title {
   margin: 0;
@@ -2424,13 +2424,13 @@ body {
 .infra-card-cap {
   margin: auto 0 0; /* pin to the card bottom — uniform caption line */
   padding-top: 16px;
-  border-top: 1px solid rgba(243, 112, 49, 0.28);
+  border-top: 1px solid rgba(176, 111, 21, 0.28);
   font-family: 'DM Mono', monospace;
   font-weight: 500;
   font-size: 12px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #C2551B;
+  color: #925C10;
 }
 
 /* silent drop-in photo surface (16:10) — navy placeholder under the real image */
@@ -2458,7 +2458,7 @@ body {
 .infra-photo-base {
   position: absolute;
   inset: 0;
-  background: linear-gradient(150deg, var(--navy-2) 0%, #12294c 55%, var(--navy) 100%);
+  background: linear-gradient(150deg, var(--navy-2) 0%, #041235 55%, var(--navy) 100%);
 }
 .infra-photo-base::after {
   content: '';
@@ -2481,7 +2481,7 @@ body {
   font-size: 12px;
   letter-spacing: 2px;
   line-height: 1.5;
-  color: rgba(245, 130, 74, 0.92);
+  color: rgba(177, 129, 32, 0.92);
 }
 .infra-photo-img { /* real photo covers the placeholder when the file lands */
   position: absolute;
@@ -2520,7 +2520,7 @@ body {
   padding: 0 18px;
   text-align: center;
 }
-.infra-ph-icon { color: #F37031; } /* gold stroke via currentColor */
+.infra-ph-icon { color: #B06F15; } /* gold stroke via currentColor */
 .infra-ph-cap {
   font-family: 'DM Mono', monospace;
   font-weight: 500;
@@ -2528,7 +2528,7 @@ body {
   letter-spacing: 2px;
   line-height: 1.5;
   text-transform: uppercase;
-  color: #F37031; /* light gold — AA on the deep-navy ground */
+  color: #B06F15; /* light gold — AA on the deep-navy ground */
 }
 
 /* video — Hero Video Dialog thumbnail card (16:9) */
@@ -2543,7 +2543,7 @@ body {
   border-radius: var(--r-media);
   overflow: hidden;
   cursor: pointer;
-  background: linear-gradient(155deg, var(--navy-2) 0%, #12294c 52%, #0b1c38 100%);
+  background: linear-gradient(155deg, var(--navy-2) 0%, #041235 52%, #0b1c38 100%);
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.3),
     0 14px 34px rgb(var(--navy-rgb) / 0.32),
@@ -2585,7 +2585,7 @@ body {
   font-weight: 500;
   font-size: 12px;
   letter-spacing: 2.5px;
-  color: rgba(245, 130, 74, 0.92);
+  color: rgba(177, 129, 32, 0.92);
   white-space: nowrap;
 }
 .infra-play {
@@ -2599,8 +2599,8 @@ body {
   width: 76px;
   height: 76px;
   border-radius: 50%;
-  color: #12294c;
-  background: linear-gradient(180deg, #F5824A 0%, var(--gold-2) 100%);
+  color: #041235;
+  background: linear-gradient(180deg, #B18120 0%, var(--gold-2) 100%);
   box-shadow: 0 8px 22px rgb(var(--gold-2-rgb) / 0.4);
   padding-left: 3px; /* optical-centre the triangle */
 }
@@ -2675,7 +2675,7 @@ body {
   font-weight: 500;
   font-size: 12px;
   letter-spacing: 1.5px;
-  color: #C2551B;
+  color: #925C10;
 }
 
 /* video dialog — backdrop blur + navy scrim */
@@ -2708,7 +2708,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 14px;
-  background: linear-gradient(155deg, var(--navy-2) 0%, #12294c 52%, #0b1c38 100%);
+  background: linear-gradient(155deg, var(--navy-2) 0%, #041235 52%, #0b1c38 100%);
 }
 .infra-dialog-ph .infra-video-note { position: static; transform: none; }
 .infra-dialog-soon {
@@ -2753,7 +2753,7 @@ body {
    Signature dome curve (cream sweeps over the section above, dark section arcs in
    below), functional filter pills, slow rotating seal, flat hairline-card
    carousel. Palette: cream #FDFAF4, cream2 #F0EBE0, navy var(--navy), gold var(--gold-2),
-   gold-text #F37031, olive #6B7A2A, tone #2D2926. Fonts: Inter Tight/Inter/DM Mono.
+   gold-text #B06F15, olive #6B7A2A, tone #2D2926. Fonts: Inter Tight/Inter/DM Mono.
    Labels ≥11px. GPU-only motion. */
 .certs {
   position: relative;
@@ -2805,10 +2805,10 @@ body {
   letter-spacing: 0.1px;
   transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
-.certs-pill--gold { background: rgb(var(--gold-2-rgb) / 0.16); color: #C2551B; }
+.certs-pill--gold { background: rgb(var(--gold-2-rgb) / 0.16); color: #925C10; }
 .certs-pill--olive { background: rgba(107, 122, 42, 0.16); color: #47521a; }
 .certs-pill--navy { background: rgb(var(--navy-rgb) / 0.10); color: var(--navy); }
-.certs-pill.is-active.certs-pill--gold { background: #f6d0bd; color: #7a2e0c; box-shadow: inset 0 0 0 1px rgba(243, 112, 49, 0.4); }
+.certs-pill.is-active.certs-pill--gold { background: #f6d0bd; color: #7a2e0c; box-shadow: inset 0 0 0 1px rgba(176, 111, 21, 0.4); }
 .certs-pill.is-active.certs-pill--olive { background: #d3dbb4; color: #3a4413; box-shadow: inset 0 0 0 1px rgba(107, 122, 42, 0.45); }
 .certs-pill.is-active.certs-pill--navy { background: #c3cddd; color: var(--navy); box-shadow: inset 0 0 0 1px rgb(var(--navy-rgb) / 0.4); }
 
@@ -2830,7 +2830,7 @@ body {
   font-size: 12.5px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  fill: #F37031;
+  fill: #B06F15;
 }
 .certs-seal-core {
   position: absolute;
@@ -2948,7 +2948,7 @@ body {
   font-weight: 500;
   font-size: 11px;
   letter-spacing: 0.4px;
-  color: #C2551B;
+  color: #925C10;
   line-height: 1.3;
 }
 .cert-star { display: flex; flex-direction: column; align-items: center; gap: 6px; }
@@ -3056,7 +3056,7 @@ body {
   position: absolute;
   inset: 0 0 auto 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold) 18%, #F37031 50%, var(--gold) 82%, transparent);
+  background: linear-gradient(90deg, transparent, var(--gold) 18%, #B06F15 50%, var(--gold) 82%, transparent);
   opacity: 0.75;
   pointer-events: none;
   z-index: 4;
@@ -3118,7 +3118,7 @@ body {
   filter: drop-shadow(0 5px 6px rgb(var(--navy-rgb) / 0.1));
   animation: bfly-drift 16s ease-in-out infinite;
 }
-.bfly-wing-fill { fill: var(--gold); stroke: #F37031; stroke-width: 1.4; }
+.bfly-wing-fill { fill: var(--gold); stroke: #B06F15; stroke-width: 1.4; }
 .bfly-wing-pattern { stroke: #4f5a20; stroke-width: 1.4; opacity: 0.5; fill: none; stroke-linecap: round; }
 .bfly-body-fill { fill: #4f5a20; }
 .bfly-antenna { stroke: #4f5a20; stroke-width: 1.5; stroke-linecap: round; fill: none; }
@@ -3259,7 +3259,7 @@ body {
 /* ── Awards & Press — faithful port of the approved design ───────
    Navy plaque cards, gold-foil names, Forbes press-clipping card. Exact values
    from the approved design; one approved change: the RECOGNITION eyebrow loses its dash.
-   Tokens: navy var(--navy), gold #F5824A/var(--gold), cream #FDFAF4. GPU-only motion. */
+   Tokens: navy var(--navy), gold #B18120/var(--gold), cream #FDFAF4. GPU-only motion. */
 .aw {
   position: relative;
   background: var(--navy);
@@ -3280,8 +3280,8 @@ body {
   pointer-events: none;
   overflow: hidden;
   background:
-    radial-gradient(340px 260px at 0% 0%, rgba(245, 130, 74, 0.16), transparent 62%),
-    radial-gradient(340px 260px at 100% 0%, rgba(245, 130, 74, 0.16), transparent 62%);
+    radial-gradient(340px 260px at 0% 0%, rgba(177, 129, 32, 0.16), transparent 62%),
+    radial-gradient(340px 260px at 100% 0%, rgba(177, 129, 32, 0.16), transparent 62%);
 }
 .aw-glow::before,
 .aw-glow::after {
@@ -3293,15 +3293,15 @@ body {
 }
 .aw-glow::before { /* beam from the top-LEFT edge, fanning down-right */
   background: conic-gradient(from 109deg at 0% 0%,
-    transparent 0deg, rgba(245, 130, 74, 0.03) 12deg, rgba(240, 214, 150, 0.20) 27deg,
-    rgba(240, 214, 150, 0.20) 34deg, rgba(245, 130, 74, 0.08) 47deg, transparent 60deg);
+    transparent 0deg, rgba(177, 129, 32, 0.03) 12deg, rgba(240, 214, 150, 0.20) 27deg,
+    rgba(240, 214, 150, 0.20) 34deg, rgba(177, 129, 32, 0.08) 47deg, transparent 60deg);
   -webkit-mask: radial-gradient(560px 520px at 0% 0%, #000 6%, rgba(0, 0, 0, 0.5) 28%, transparent 52%);
   mask: radial-gradient(560px 520px at 0% 0%, #000 6%, rgba(0, 0, 0, 0.5) 28%, transparent 52%);
 }
 .aw-glow::after { /* beam from the top-RIGHT edge, fanning down-left */
   background: conic-gradient(from 191deg at 100% 0%,
-    transparent 0deg, rgba(245, 130, 74, 0.03) 12deg, rgba(240, 214, 150, 0.20) 27deg,
-    rgba(240, 214, 150, 0.20) 34deg, rgba(245, 130, 74, 0.08) 47deg, transparent 60deg);
+    transparent 0deg, rgba(177, 129, 32, 0.03) 12deg, rgba(240, 214, 150, 0.20) 27deg,
+    rgba(240, 214, 150, 0.20) 34deg, rgba(177, 129, 32, 0.08) 47deg, transparent 60deg);
   -webkit-mask: radial-gradient(560px 520px at 100% 0%, #000 6%, rgba(0, 0, 0, 0.5) 28%, transparent 52%);
   mask: radial-gradient(560px 520px at 100% 0%, #000 6%, rgba(0, 0, 0, 0.5) 28%, transparent 52%);
 }
@@ -3336,15 +3336,15 @@ body {
 }
 .aw-vignette::before { /* bottom-LEFT, rising up-right */
   background: conic-gradient(from 12deg at 0% 100%,
-    transparent 0deg, rgba(245, 130, 74, 0.03) 12deg, rgba(240, 214, 150, 0.15) 27deg,
-    rgba(240, 214, 150, 0.15) 34deg, rgba(245, 130, 74, 0.06) 47deg, transparent 60deg);
+    transparent 0deg, rgba(177, 129, 32, 0.03) 12deg, rgba(240, 214, 150, 0.15) 27deg,
+    rgba(240, 214, 150, 0.15) 34deg, rgba(177, 129, 32, 0.06) 47deg, transparent 60deg);
   -webkit-mask: radial-gradient(520px 460px at 0% 100%, #000 6%, rgba(0, 0, 0, 0.5) 26%, transparent 46%);
   mask: radial-gradient(520px 460px at 0% 100%, #000 6%, rgba(0, 0, 0, 0.5) 26%, transparent 46%);
 }
 .aw-vignette::after { /* bottom-RIGHT, rising up-left */
   background: conic-gradient(from 288deg at 100% 100%,
-    transparent 0deg, rgba(245, 130, 74, 0.03) 12deg, rgba(240, 214, 150, 0.15) 27deg,
-    rgba(240, 214, 150, 0.15) 34deg, rgba(245, 130, 74, 0.06) 47deg, transparent 60deg);
+    transparent 0deg, rgba(177, 129, 32, 0.03) 12deg, rgba(240, 214, 150, 0.15) 27deg,
+    rgba(240, 214, 150, 0.15) 34deg, rgba(177, 129, 32, 0.06) 47deg, transparent 60deg);
   -webkit-mask: radial-gradient(520px 460px at 100% 100%, #000 6%, rgba(0, 0, 0, 0.5) 26%, transparent 46%);
   mask: radial-gradient(520px 460px at 100% 100%, #000 6%, rgba(0, 0, 0, 0.5) 26%, transparent 46%);
 }
@@ -3367,7 +3367,7 @@ body {
   font-weight: 500;
   letter-spacing: var(--track-eyebrow);   /* was 0.3em — unified to the eyebrow track */
   text-transform: uppercase;
-  color: #F5824A;
+  color: #B18120;
 }
 .aw-title {
   margin: 0;
@@ -3410,7 +3410,7 @@ body {
   display: flex;
   flex-direction: column;
   background: rgba(253, 250, 244, 0.035);
-  border: 1px solid rgba(245, 130, 74, 0.16);
+  border: 1px solid rgba(177, 129, 32, 0.16);
   border-radius: var(--radius-md);
   padding: 12px 12px 0;
   box-shadow:
@@ -3421,7 +3421,7 @@ body {
 }
 .plq:hover {
   transform: translateY(-8px);
-  border-color: rgba(245, 130, 74, 0.38);
+  border-color: rgba(177, 129, 32, 0.38);
   box-shadow:
     inset 0 1px 0 rgba(253, 250, 244, 0.08),
     0 32px 60px -18px rgba(2, 8, 20, 0.82),
@@ -3440,7 +3440,7 @@ body {
 }
 .aw-photo-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease; }
 .aw-photo-ph { position: absolute; inset: 0; display: grid; place-items: center; padding: 18px; text-align: center; }
-.aw-photo-ph::before { content: ''; position: absolute; inset: 10px; border: 1px solid rgba(245, 130, 74, 0.14); border-radius: var(--radius-xs); }
+.aw-photo-ph::before { content: ''; position: absolute; inset: 10px; border: 1px solid rgba(177, 129, 32, 0.14); border-radius: var(--radius-xs); }
 .aw-photo-ph span {
   position: relative;
   max-width: 80%;
@@ -3449,7 +3449,7 @@ body {
   letter-spacing: 0.14em;
   line-height: 1.5;
   text-transform: uppercase;
-  color: rgba(245, 130, 74, 0.5);
+  color: rgba(177, 129, 32, 0.5);
 }
 /* filter kill: the navy scrim that used to tint the award photos is gone — the
    card text lives in .aw-body BELOW the frame, so nothing on the photo needs
@@ -3492,7 +3492,7 @@ body {
 
 /* card body */
 .aw-body { display: flex; flex-direction: column; gap: 10px; padding: 18px 14px 22px; }
-.aw-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(245, 130, 74, 0.72); }
+.aw-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(177, 129, 32, 0.72); }
 .aw-name {
   margin: 0;
   font-family: 'Inter Tight', sans-serif;
@@ -3518,13 +3518,13 @@ body {
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.16em;
-  color: #F5824A;
+  color: #B18120;
   text-decoration: none;
   border-bottom: 1px solid transparent;
   padding-bottom: 4px;
   transition: border-color 0.3s ease, color 0.3s ease;
 }
-.aw-more-link:hover { border-bottom-color: rgba(245, 130, 74, 0.7); color: #f1d397; }
+.aw-more-link:hover { border-bottom-color: rgba(177, 129, 32, 0.7); color: #f1d397; }
 
 @media (max-width: 1200px) {
   .aw-content { padding: 96px 48px 80px; }
@@ -3543,7 +3543,7 @@ body {
 
 /* ═══════════════════════════════════════════════════════════════════════════
    EDUCATIONAL BOOKS PAGE — /educational-books (System B, marimba reskin)
-   Navy var(--navy) · gold var(--gold)/var(--gold-2)/#F37031 (accents only) · cream #FDFAF4
+   Navy var(--navy) · gold var(--gold)/var(--gold-2)/#B06F15 (accents only) · cream #FDFAF4
    · beige #F0EBE0 · ink #1C2019. Inter Tight / Inter / DM Mono.
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -3567,7 +3567,7 @@ body {
 .edu-proc-inner { max-width: 1280px; margin: 0 auto; }
 .edu-proc-eyebrow {
   font-family: 'DM Mono', monospace;
-  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #C2551B;
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #925C10;
   margin: 0 0 16px;
 }
 .edu-proc-title {
@@ -3604,7 +3604,7 @@ body {
 .edu-proc-step {
   grid-row: 2; align-self: end;
   font-family: 'DM Mono', monospace;
-  font-size: 12px; letter-spacing: 0.14em; color: #C2551B;   /* AA-safe gold on cream */
+  font-size: 12px; letter-spacing: 0.14em; color: #925C10;   /* AA-safe gold on cream */
 }
 .edu-proc-name {
   margin: 0;
@@ -3709,7 +3709,7 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
   transition: transform 0.25s ease, background 0.25s ease;
 }
-.edu-cta-pill:hover { background: #F37031; transform: translateY(-2px); }
+.edu-cta-pill:hover { background: #B06F15; transform: translateY(-2px); }
 
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 960px) {
@@ -3738,7 +3738,7 @@ body {
 .ctc-eyebrow {
   margin: 0 0 16px;
   font-family: 'DM Mono', monospace;
-  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #C2551B;
+  font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #925C10;
 }
 .ctc-eyebrow.gold { color: var(--gold-2); }
 
@@ -3776,8 +3776,8 @@ body {
   width: 48px; height: 48px;
   border-radius: 14px;
   overflow: hidden;
-  color: #F37031;                                   /* icon — brand orange */
-  background: rgba(15, 36, 68, 0.45);               /* frosted translucent navy */
+  color: #B06F15;                                   /* icon — brand orange */
+  background: rgba(3, 12, 49, 0.45);               /* frosted translucent navy */
   border: 1px solid rgba(253, 250, 244, 0.18);      /* subtle light edge */
   box-shadow:
     inset 0 1px 0 rgba(253, 250, 244, 0.22),        /* soft inner highlight */
@@ -3799,7 +3799,7 @@ body {
 .ctc-chip:hover,
 .ctc-chip:focus-visible {
   transform: translateY(-3px);
-  border-color: rgba(243, 112, 49, 0.5);
+  border-color: rgba(176, 111, 21, 0.5);
   box-shadow:
     inset 0 1px 0 rgba(253, 250, 244, 0.3),
     0 12px 28px -8px rgba(0, 0, 0, 0.55);
@@ -3813,7 +3813,7 @@ body {
 }
 /* fallback — browsers without backdrop-filter get a solid navy chip */
 @supports not ((backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px))) {
-  .ctc-chip { background: #0f2444; }
+  .ctc-chip { background: #030C31; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ctc-chip { transition: none; }
@@ -3847,7 +3847,7 @@ body {
   text-transform: uppercase; color: var(--gold-2); text-decoration: none;
   transition: color 0.25s ease;
 }
-.ctc-loc-link:hover { color: #F37031; text-decoration: underline; text-underline-offset: 3px; }
+.ctc-loc-link:hover { color: #B06F15; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ── 3. WELCOME STATEMENT ── */
 .ctc-welcome { background: #fdfaf4; padding: 96px 24px 40px; }
@@ -3952,7 +3952,7 @@ body {
 .ctc-addr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .ctc-addr-card {
   padding: 32px 30px 30px; border-radius: var(--r-card);
-  background: linear-gradient(180deg, #163156, #12294c);
+  background: linear-gradient(180deg, #163156, #041235);
   border: 1px solid rgb(var(--gold-2-rgb) / 0.16);
 }
 .ctc-addr-name {
@@ -3970,7 +3970,7 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; color: var(--gold-2);
 }
 .ctc-addr-link::after { content: '↗'; font-size: 13px; }
-.ctc-addr-link:hover { color: #F37031; }
+.ctc-addr-link:hover { color: #B06F15; }
 .ctc-addr-flag {
   margin: 14px 0 0;
   font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
@@ -3993,13 +3993,13 @@ body {
 }
 .ctc-careers-sub {
   margin: 0; max-width: 52ch;
-  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: rgba(14, 27, 70, 0.78);
+  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.6; color: rgba(3, 12, 49, 0.78);
 }
 .ctc-careers-blocks { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(28px, 3.4vw, 56px); align-items: start; }
 .ctc-careers-block-title {
   margin: 0 0 12px;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2; letter-spacing: -0.01em; color: #0e1b46;
+  font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2; letter-spacing: -0.01em; color: #030C31;
 }
 .ctc-careers-block-body {
   margin: 0; max-width: 54ch;
@@ -4052,11 +4052,11 @@ body {
   outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgb(var(--gold-2-rgb) / 0.24);
 }
 .ctc-field input[aria-invalid="true"], .ctc-field select[aria-invalid="true"], .ctc-field textarea[aria-invalid="true"] {
-  border-color: #C2551B; box-shadow: 0 0 0 3px rgba(194, 85, 27, 0.14);
+  border-color: #925C10; box-shadow: 0 0 0 3px rgba(194, 85, 27, 0.14);
 }
 .ctc-err {
   margin-top: 7px;
-  font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; color: #C2551B;
+  font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; color: #925C10;
 }
 /* consent — checkbox unticked by default (React initial state), on-palette accent */
 .ctc-consent {
@@ -4064,7 +4064,7 @@ body {
   margin: 22px 0 6px; padding: 16px 18px; border-radius: var(--r-chip);
   background: rgb(var(--navy-rgb) / 0.03); border: 1px solid rgb(var(--navy-rgb) / 0.1);
 }
-.ctc-consent.has-err { border-color: #C2551B; background: rgba(194, 85, 27, 0.05); }
+.ctc-consent.has-err { border-color: #925C10; background: rgba(194, 85, 27, 0.05); }
 .ctc-consent input {
   width: 20px; height: 20px; margin-top: 1px; accent-color: var(--gold); cursor: pointer;
 }
@@ -4072,8 +4072,8 @@ body {
 .ctc-consent label {
   font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.55; color: #3c382e;
 }
-.ctc-consent a { color: #C2551B; text-decoration: underline; text-underline-offset: 2px; }
-.ctc-consent a:hover { color: #C2551B; }
+.ctc-consent a { color: #925C10; text-decoration: underline; text-underline-offset: 2px; }
+.ctc-consent a:hover { color: #925C10; }
 .ctc-submit {
   display: inline-flex; align-items: center; gap: 10px; margin-top: 22px;
   height: 56px; padding: 0 30px; border: none; cursor: pointer;
@@ -4081,12 +4081,12 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.01em;
   transition: background 0.25s ease, transform 0.25s ease;
 }
-.ctc-submit:hover { background: #F37031; transform: translateY(-2px); }
+.ctc-submit:hover { background: #B06F15; transform: translateY(-2px); }
 .ctc-dpa {
   margin: 20px 0 0;
   font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.55; color: #6b6455;
 }
-.ctc-dpa a { color: #C2551B; text-decoration: underline; text-underline-offset: 2px; }
+.ctc-dpa a { color: #925C10; text-decoration: underline; text-underline-offset: 2px; }
 /* honeypot — visually and AT-hidden, but present in the DOM for bots to trip on */
 .ctc-hp {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -4112,15 +4112,15 @@ body {
   margin: 22px 0 4px; padding: 16px 18px; border-radius: var(--r-chip);
   background: rgba(194, 85, 27, 0.06); border: 1px solid rgba(194, 85, 27, 0.34);
 }
-.ctc-formerr-mark { color: #C2551B; margin-top: 1px; display: inline-flex; }
+.ctc-formerr-mark { color: #925C10; margin-top: 1px; display: inline-flex; }
 .ctc-formerr strong {
   display: block; margin-bottom: 3px;
   font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 14.5px; color: #4a3708;
 }
 .ctc-formerr span:last-child, .ctc-formerr span:last-child {
-  font-family: 'Inter', sans-serif; font-size: 13.5px; line-height: 1.5; color: #C2551B;
+  font-family: 'Inter', sans-serif; font-size: 13.5px; line-height: 1.5; color: #925C10;
 }
-.ctc-formerr a { color: #C2551B; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
+.ctc-formerr a { color: #925C10; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
 /* success state */
 .ctc-success {
   padding: 44px 40px; border-radius: var(--r-card); background: #fdfaf4; text-align: center;
@@ -4197,11 +4197,11 @@ body {
 }
 .ctc-closer-mail {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(22px, 3vw, 36px); letter-spacing: -0.02em; color: #C2551B;
+  font-size: clamp(22px, 3vw, 36px); letter-spacing: -0.02em; color: #925C10;
   text-decoration: underline; text-decoration-color: rgb(var(--gold-rgb) / 0.4);
   text-underline-offset: 4px; transition: color 0.25s ease, text-decoration-color 0.25s ease;
 }
-.ctc-closer-mail:hover { color: #C2551B; text-decoration-color: var(--gold); }
+.ctc-closer-mail:hover { color: #925C10; text-decoration-color: var(--gold); }
 
 /* ── Responsive ── */
 @media (max-width: 1080px) {
@@ -4236,10 +4236,10 @@ body {
 /* ════════════════════════════════════════════════════════════════════════════
    /fulfilment — "One System, Start to Finish."  (structure reskinned from
    flexis-mobility.com into QFP System B). Palette law: navy var(--navy),
-   navy2 var(--navy-2), gold var(--gold) / var(--gold-2) / #F5824A, gold-text #F37031,
+   navy2 var(--navy-2), gold var(--gold) / var(--gold-2) / #B18120, gold-text #B06F15,
    cream #FDFAF4, beige #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter / DM Mono.
    Beige↔navy rhythm. All labels ≥11px. Contrast held ≥4.5:1 (gold on cream uses
-   the dark #F37031; gold on navy uses var(--gold-2)/#F5824A). ════════════════════════ */
+   the dark #B06F15; gold on navy uses var(--gold-2)/#B18120). ════════════════════════ */
 
 .ff-shared-eyebrow {
   margin: 0;
@@ -4254,7 +4254,7 @@ body {
 /* ── 2. TRUST MARQUEE ("They trust us", permission-safe) ───────────────────── */
 .ff-trust { background: #f0ebe0; padding: clamp(56px, 8vh, 92px) 0 clamp(60px, 8vh, 96px); }
 .ff-trust-head { max-width: 1280px; margin: 0 auto clamp(30px, 4vh, 44px); padding: 0 56px; }
-.ff-trust-eyebrow { color: #C2551B; margin-bottom: 12px; }
+.ff-trust-eyebrow { color: #925C10; margin-bottom: 12px; }
 .ff-trust-title {
   margin: 0; font-family: 'Inter Tight', sans-serif;
   font-weight: 500; font-size: clamp(24px, 3vw, 40px); letter-spacing: -0.02em; color: var(--navy);
@@ -4281,7 +4281,7 @@ body {
 /* ── 3. CONVICTION + 3 TALL PHOTO CARDS ────────────────────────────────────── */
 .ff-conv { background: #fdfaf4; padding: clamp(84px, 12vh, 148px) 56px clamp(72px, 10vh, 120px); }
 .ff-conv-inner { max-width: 1280px; margin: 0 auto; }
-.ff-conv-eyebrow { color: #C2551B; margin-bottom: 26px; }
+.ff-conv-eyebrow { color: #925C10; margin-bottom: 26px; }
 .ff-conv-quote {
   margin: 0; max-width: 24ch;
   font-family: 'Inter Tight', sans-serif;
@@ -4321,7 +4321,7 @@ body {
   padding: 28px 26px 30px;
   display: flex; flex-direction: column;
 }
-.ff-card-index { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #C2551B; margin-bottom: 12px; }
+.ff-card-index { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #925C10; margin-bottom: 12px; }
 .ff-card-name {
   margin: 0 0 10px; font-family: 'Inter Tight', sans-serif;
   font-weight: 600; font-size: clamp(20px, 1.7vw, 25px); letter-spacing: -0.02em; line-height: 1.14; color: #fdfaf4;
@@ -4347,7 +4347,7 @@ body {
   display: flex; flex-direction: column; gap: 14px; min-height: 220px;
   transition: background 0.4s ease;
 }
-.ff-vi:hover { background: #12294c; }
+.ff-vi:hover { background: #041235; }
 .ff-vi-ico { width: 46px; height: 46px; }
 .ff-vi-ico svg { width: 46px; height: 46px; color: var(--gold-2); overflow: visible; }
 .ff-vi-draw { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
@@ -4377,9 +4377,9 @@ body {
 }
 .ff-feat-index {
   position: absolute; top: 18px; left: 20px; z-index: 2;
-  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #C2551B;
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #925C10;
 }
-.ff-feat-eyebrow { color: #C2551B; margin-bottom: 14px; }
+.ff-feat-eyebrow { color: #925C10; margin-bottom: 14px; }
 .ff-feat-title {
   margin: 0 0 16px; font-family: 'Inter Tight', sans-serif; font-weight: 600;
   font-size: clamp(26px, 3vw, 42px); line-height: 1.08; letter-spacing: -0.025em; color: var(--navy);
@@ -4391,9 +4391,9 @@ body {
   font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 0.2px;
   color: var(--navy); background: none; border: none; cursor: pointer; padding: 0;
 }
-.ff-feat-more svg { width: 16px; height: 16px; stroke: #F37031; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s ease; }
+.ff-feat-more svg { width: 16px; height: 16px; stroke: #B06F15; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s ease; }
 .ff-feat-more[aria-expanded='true'] svg { transform: rotate(45deg); }
-.ff-feat-more:hover { color: #C2551B; }
+.ff-feat-more:hover { color: #925C10; }
 .ff-feat-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.42s cubic-bezier(0.22,1,0.36,1); }
 .ff-feat-panel.is-open { grid-template-rows: 1fr; }
 .ff-feat-panel > div { overflow: hidden; }
@@ -4412,7 +4412,7 @@ body {
     radial-gradient(1200px 700px at 50% 30%, rgb(var(--navy-rgb) / 0.2), rgba(10,18,32,0.7) 78%);
 }
 .ff-journey-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; text-align: center; }
-.ff-journey-eyebrow { color: #F37031; margin-bottom: 18px; }
+.ff-journey-eyebrow { color: #B06F15; margin-bottom: 18px; }
 .ff-journey-title {
   margin: 0 auto clamp(52px, 7vh, 82px); max-width: 18ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
@@ -4427,7 +4427,7 @@ body {
 }
 .ff-stage-word {
   margin: 12px 0 0; font-family: 'DM Mono', monospace; font-weight: 500;
-  font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #F37031;
+  font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #B06F15;
 }
 .ff-stage-line {
   margin: 20px auto 0; max-width: 22ch;
@@ -4445,7 +4445,7 @@ body {
   background: radial-gradient(900px 560px at 50% 0%, rgb(var(--gold-2-rgb) / 0.1), transparent 60%), #f0ebe0;
   padding: clamp(96px, 14vh, 148px) 24px clamp(104px, 15vh, 156px); text-align: center;
 }
-.ff-cta-eyebrow { color: #C2551B; margin-bottom: 22px; }
+.ff-cta-eyebrow { color: #925C10; margin-bottom: 22px; }
 .ff-cta-title {
   margin: 0 auto; max-width: 16ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(34px, 5.4vw, 74px);
@@ -4458,7 +4458,7 @@ body {
   transition: transform 0.25s ease, background 0.25s ease;
 }
 .ff-cta-pill svg { width: 18px; height: 18px; stroke: var(--navy); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.ff-cta-pill:hover { background: #F37031; transform: translateY(-2px); }
+.ff-cta-pill:hover { background: #B06F15; transform: translateY(-2px); }
 
 /* ── Phase 2.5 atmosphere enabling — host sections become the positioning context
    for SectionCurve / PaperGrain / DotField (absolutely-positioned, aria-hidden
@@ -4493,7 +4493,7 @@ body {
 
 /* ═══════════════════════════════════════════════════════════════════════════
    TRADE BOOKS PAGE — /trade-books (System B, fctry product-page reskin)
-   Navy var(--navy) · gold var(--gold)/var(--gold-2)/#F37031 (accents only) · cream #FDFAF4
+   Navy var(--navy) · gold var(--gold)/var(--gold-2)/#B06F15 (accents only) · cream #FDFAF4
    · beige #F0EBE0 · ink #1C2019. Inter Tight / Inter / DM Mono. ≥11px labels.
    fctry anatomy: sticky gallery + product panel, colourway swatches become the
    CATEGORY SWITCHER, accordions, full-bleed lifestyle break, range strip, CTA.
@@ -4541,11 +4541,11 @@ body {
 .tb-eyebrow {
   display: flex; align-items: center; gap: 14px; margin: 0 0 18px;
   font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em;
-  text-transform: uppercase; color: #C2551B;
+  text-transform: uppercase; color: #925C10;
 }
 .tb-badge {
   font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
-  text-transform: uppercase; color: #C2551B; border: 1px solid rgb(var(--gold-rgb) / 0.42);
+  text-transform: uppercase; color: #925C10; border: 1px solid rgb(var(--gold-rgb) / 0.42);
   border-radius: 0; padding: 3px 11px;
 }
 .tb-h1 {
@@ -4606,7 +4606,7 @@ body {
   background: var(--gold-2); color: var(--navy); font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px;
   text-decoration: none; transition: background 0.25s ease, transform 0.25s ease;
 }
-.tb-quote:hover { background: #F37031; transform: translateY(-2px); }
+.tb-quote:hover { background: #B06F15; transform: translateY(-2px); }
 .tb-spec {
   display: inline-flex; align-items: center; height: 52px; padding: 0 22px; border-radius: 0;
   border: 1px solid rgb(var(--navy-rgb) / 0.25); color: var(--navy); font-family: 'Inter Tight', sans-serif;
@@ -4640,7 +4640,7 @@ body {
 /* ── 4. RANGE BAR ── */
 .tb-range { background: #fdfaf4; border-top: 1px solid rgb(var(--navy-rgb) / 0.08); padding: clamp(56px, 8vh, 96px) clamp(20px, 4vw, 56px); }
 .tb-range-inner { max-width: 1240px; margin: 0 auto; }
-.tb-range-eyebrow { margin: 0 0 8px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #C2551B; }
+.tb-range-eyebrow { margin: 0 0 8px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #925C10; }
 .tb-range-sub { margin: 0; font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(28, 32, 25, 0.72); }
 .tb-range-cats { margin: 28px 0 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .tb-range-cat {
@@ -4671,7 +4671,7 @@ body {
 /* ── 5. CTA BAND ── */
 .tb-close { background: #f0ebe0; padding: clamp(52px, 8vh, 92px) clamp(20px, 4vw, 56px) clamp(64px, 9vh, 108px); }
 .tb-close-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
-.tb-close-eyebrow { margin: 0 0 10px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #C2551B; }
+.tb-close-eyebrow { margin: 0 0 10px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: #925C10; }
 .tb-close-h { margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(30px, 4.2vw, 54px); letter-spacing: -0.8px; color: var(--navy); }
 .tb-close-pill {
   display: inline-flex; align-items: center; gap: 10px; height: 58px; padding: 0 32px; border-radius: 0;
@@ -4679,7 +4679,7 @@ body {
   text-decoration: none; transition: background 0.25s ease, transform 0.25s ease;
   box-shadow: 0 12px 30px -14px rgb(var(--gold-2-rgb) / 0.65);
 }
-.tb-close-pill:hover { background: #F37031; transform: translateY(-2px); }
+.tb-close-pill:hover { background: #B06F15; transform: translateY(-2px); }
 
 /* ── responsive ── */
 @media (max-width: 980px) {
@@ -4880,7 +4880,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 .qfp-globe-marker--above { flex-direction: column-reverse; }
 .qfp-globe-pin {
   width: 15px; height: 15px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #F5824A, var(--gold-2) 60%, var(--gold));
+  background: radial-gradient(circle at 35% 30%, #B18120, var(--gold-2) 60%, var(--gold));
   box-shadow: 0 0 0 4px rgb(var(--gold-2-rgb) / 0.28), 0 3px 8px rgba(10, 18, 34, 0.55);
 }
 .qfp-globe-tip {
@@ -4903,7 +4903,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 .qfp-globe-fallback img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 38%; opacity: 0.9; }
 .qfp-globe-fbpin {
   position: absolute; width: 14px; height: 14px; border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #F5824A, var(--gold-2) 60%, var(--gold));
+  background: radial-gradient(circle at 35% 30%, #B18120, var(--gold-2) 60%, var(--gold));
   box-shadow: 0 0 0 5px rgb(var(--gold-2-rgb) / 0.22), 0 2px 8px rgba(10, 18, 34, 0.5);
   transform: translate(-50%, -50%);
 }

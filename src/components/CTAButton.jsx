@@ -23,10 +23,10 @@ const COMMON =
   'whitespace-nowrap border-[1.5px] px-[22px] py-[10px] text-[13px] font-medium ' +
   'transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed'
 const BASE =
-  `${COMMON} border-[#0f2444] text-[#0f2444] hover:bg-[#0f2444] hover:text-[#fdfaf4] ` +
-  'disabled:hover:bg-transparent disabled:hover:text-[#0f2444]'
+  `${COMMON} border-[#030C31] text-[#030C31] hover:bg-[#030C31] hover:text-[#fdfaf4] ` +
+  'disabled:hover:bg-transparent disabled:hover:text-[#030C31]'
 const BASE_DARK =
-  `${COMMON} border-[#fdfaf4] text-[#fdfaf4] hover:bg-[#fdfaf4] hover:text-[#0f2444] ` +
+  `${COMMON} border-[#fdfaf4] text-[#fdfaf4] hover:bg-[#fdfaf4] hover:text-[#030C31] ` +
   'disabled:hover:bg-transparent disabled:hover:text-[#fdfaf4]'
 
 const CTAButton = forwardRef(function CTAButton(

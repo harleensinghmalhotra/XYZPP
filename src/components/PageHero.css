@@ -1,10 +1,10 @@
 /* ── PageHero — shared two-line centered hero band for inner pages ────────────
    Extracted from About v4's hero, tamer scale (utility pages, not the story).
-   Flat #0e1b46 with the bible gold top-hairline; single H1 of two styled spans.
+   Flat #030C31 with the bible gold top-hairline; single H1 of two styled spans.
    Split-text word-rise via alive.js data-textreveal (reduced-motion: instant). */
 .ph-hero {
   position: relative;
-  background: #0e1b46;
+  background: #030C31;
   border-top: 3px solid rgb(var(--gold-rgb) / 0.55);   /* gold hairline */
   min-height: 60vh;
   display: flex;
@@ -65,7 +65,7 @@
   color: var(--gold-2); text-decoration: none;
 }
 .ph-stat-num--text { font-size: clamp(28px, 4vw, 54px); }
-a.ph-stat-num:hover { color: #F37031; }
+a.ph-stat-num:hover { color: #B06F15; }
 .ph-stat-label {
   margin-top: 8px;
   font-family: 'DM Mono', monospace; font-size: 11px;

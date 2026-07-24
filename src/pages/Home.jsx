@@ -154,7 +154,7 @@ export default function Home() {
   return (
     <SmoothScrollProvider>
       <Seo title={t('seo.title')} description={t('seo.description')} />
-      <main id="main" className="home-palette relative" style={{ '--video-tone': '#0e1b46' }}>
+      <main id="main" className="home-palette relative" style={{ '--video-tone': '#030C31' }}>
         <span id="top" />
         <Hero />
         <TrustStrips />

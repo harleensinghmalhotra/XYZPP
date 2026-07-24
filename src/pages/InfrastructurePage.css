@@ -2,8 +2,8 @@
    /infrastructure — "Built for Scale. Engineered for Trust."
    Structure + rhythm reskinned from dispel.com into brand System B. Navy anchors
    the hero + the measured-results band; cream/beige carry the light beats between.
-   Palette: navy #0F2444 · navy2 #1B3A6B · gold #F37031 · gold2 #F37031 ·
-   gold-text #F37031 · deep-gold #C2551B · cream #FDFAF4 · beige #F0EBE0 ·
+   Palette: navy #030C31 · navy2 #061A4B · gold #B06F15 · gold2 #B06F15 ·
+   gold-text #B06F15 · deep-gold #925C10 · cream #FDFAF4 · beige #F0EBE0 ·
    ink #1C2019 · warm-ink #40453B. Fonts: Inter Tight / Inter / DM Mono. Labels ≥11px.
    ═══════════════════════════════════════════════════════════════════════════ */
 .inf { color: #1c2019; background: #fdfaf4; }
@@ -28,13 +28,13 @@
 .inf-eyebrow {
   margin: 0 0 14px;
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 3px; text-transform: uppercase; color: #C2551B;
+  letter-spacing: 3px; text-transform: uppercase; color: #925C10;
 }
-.inf-eyebrow--ondark { color: #F37031; }
+.inf-eyebrow--ondark { color: #B06F15; }
 .inf-h2 {
   margin: 0; max-width: 20ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(30px, 3.6vw, 48px); line-height: 1.05; letter-spacing: -0.6px; color: #0f2444;
+  font-size: clamp(30px, 3.6vw, 48px); line-height: 1.05; letter-spacing: -0.6px; color: #030C31;
 }
 .inf-h2--ondark { color: #fdfaf4; }
 .inf-sec-head { margin-bottom: clamp(36px, 5vh, 60px); }
@@ -47,12 +47,12 @@
   text-decoration: none; cursor: pointer; border: 0;
   transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
-.inf-btn--gold { background: #F37031; color: #0f2444; }
-.inf-btn--gold:hover { background: #F37031; transform: translateY(-2px); }
+.inf-btn--gold { background: #B06F15; color: #030C31; }
+.inf-btn--gold:hover { background: #B06F15; transform: translateY(-2px); }
 .inf-btn--ghost { color: #fdfaf4; border: 1px solid rgba(253,250,244,0.35); background: transparent; }
-.inf-btn--ghost:hover { border-color: #F37031; color: #F5824A; }
+.inf-btn--ghost:hover { border-color: #B06F15; color: #B18120; }
 .inf-btn--lg { height: 54px; padding: 0 34px; font-size: 16px; }
-.inf-btn:focus-visible { outline: 2px solid #F37031; outline-offset: 3px; }
+.inf-btn:focus-visible { outline: 2px solid #B06F15; outline-offset: 3px; }
 
 /* ── 1 · HERO — now the shared `.u-hero` skeleton (Phase 3.3). The forked
    `.inf-hero*` shell (incl. its gold-foil-gradient stat) was deleted; the shared
@@ -65,7 +65,7 @@
 .inf-strip-eyebrow {
   margin: 0 0 clamp(28px, 4vh, 44px); text-align: center;
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-  letter-spacing: 2.5px; text-transform: uppercase; color: #C2551B;
+  letter-spacing: 2.5px; text-transform: uppercase; color: #925C10;
 }
 .inf-strip-row {
   list-style: none; margin: 0; padding: 0;
@@ -79,13 +79,13 @@
 .inf-strip-item:first-child { border-left: 0; }
 .inf-strip-mark { height: 48px; display: grid; place-items: center; }
 .inf-strip-mark img { max-height: 44px; max-width: 92%; object-fit: contain; }
-.inf-strip-star { font-size: 32px; line-height: 1; color: #C2551B; }
-.inf-strip-name { margin: 12px 0 0; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px; color: #0f2444; }
+.inf-strip-star { font-size: 32px; line-height: 1; color: #925C10; }
+.inf-strip-name { margin: 12px 0 0; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px; color: #030C31; }
 .inf-strip-sub { margin: 4px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.4; color: #55504a; }
-.inf-strip-code { margin: 8px 0 0; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.5px; color: #C2551B; }
+.inf-strip-code { margin: 8px 0 0; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.5px; color: #925C10; }
 
 /* ── 3 · CAPABILITY TRIPTYCH (navy) — About-MVV vocabulary ─────────────────── */
-.inf-tri { position: relative; overflow: hidden; background: #0e1b46; color: #fdfaf4; padding: clamp(84px, 12vh, 148px) 0; }
+.inf-tri { position: relative; overflow: hidden; background: #030C31; color: #fdfaf4; padding: clamp(84px, 12vh, 148px) 0; }
 
 /* header — left-aligned eyebrow + heading, fades up with the band */
 .inf-tri-head {
@@ -105,7 +105,7 @@
    on reveal, staggered by column (the About-MVV mechanism, 20-25% gold). */
 .inf-tri-col:not(:first-child)::before {
   content: ''; position: absolute; top: 0; left: 0; width: 1px; height: 100%;
-  background: rgba(245, 130, 74, 0.22);
+  background: rgba(177, 129, 32, 0.22);
   transform-origin: top center; transform: scaleY(0);
   transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
   transition-delay: calc(var(--col-i) * 0.12s);
@@ -127,7 +127,7 @@
   margin: 0 0 clamp(16px, 2.2vh, 22px);
   font-family: 'DM Mono', monospace; font-weight: 500;
   font-size: clamp(13.5px, 1.1vw, 15.5px); letter-spacing: 2px; text-transform: uppercase;
-  line-height: 1.4; color: #F37031;
+  line-height: 1.4; color: #B06F15;
 }
 /* statement — Inter, cream 90%, comfortable size */
 .inf-tri-text {
@@ -149,7 +149,7 @@
 .inf-tri-stat-num {
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(46px, 6vw, 76px); line-height: 1; letter-spacing: -0.02em;
-  color: #F37031; font-variant-numeric: tabular-nums;
+  color: #B06F15; font-variant-numeric: tabular-nums;
 }
 .inf-tri-stat-label {
   max-width: 24ch;
@@ -162,7 +162,7 @@
 .inf-tri-frame {
   position: relative; margin-top: clamp(44px, 6.5vh, 80px);
   aspect-ratio: 21 / 9; overflow: hidden;
-  border: 1px solid rgba(245, 130, 74, 0.5); /* visible gold hairline vs both photo + navy */
+  border: 1px solid rgba(177, 129, 32, 0.5); /* visible gold hairline vs both photo + navy */
   background: linear-gradient(150deg, #14294c 0%, #0f2246 58%, #0c1c3e 100%);
   box-shadow: 0 1px 2px rgba(0,0,0,0.22), 0 22px 54px -26px rgba(0,0,0,0.55);
   opacity: 0; transform: translateY(16px);
@@ -171,44 +171,44 @@
 .inf-tri.is-in .inf-tri-frame { opacity: 1; transform: none; }
 .inf-tri-frame::after {
   content: ''; position: absolute; inset: 0; z-index: 0; opacity: 0.4; pointer-events: none;
-  background-image: radial-gradient(rgba(245, 130, 74,0.12) 1px, transparent 1.4px); background-size: 20px 20px;
+  background-image: radial-gradient(rgba(177, 129, 32,0.12) 1px, transparent 1.4px); background-size: 20px 20px;
 }
 .inf-tri-frame-img { position: absolute; z-index: 1; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; }
 
 /* ── 4 · MACHINE LEDGER — full-width hairline rows (cream) ─────────────────── */
 .inf-ledger-sec { position: relative; overflow: hidden; background: #fdfaf4; padding: clamp(72px, 11vh, 130px) 0; }
-.inf-ledger { border-bottom: 1px solid rgba(14, 27, 70, 0.12); }
+.inf-ledger { border-bottom: 1px solid rgba(3, 12, 49, 0.12); }
 .inf-ledger-row {
   position: relative;
   display: grid; grid-template-columns: clamp(84px, 11vw, 150px) minmax(0, 0.82fr) minmax(0, 1.5fr);
   gap: clamp(18px, 3vw, 48px); align-items: start;
   padding: clamp(38px, 6vh, 56px) 0;
-  border-top: 1px solid rgba(14, 27, 70, 0.12);
+  border-top: 1px solid rgba(3, 12, 49, 0.12);
 }
 /* hover: the row's top hairline warms gold, drawn scaleX from the left */
 .inf-ledger-rule {
   position: absolute; top: -1px; left: 0; right: 0; height: 2px;
-  background: #F37031; transform: scaleX(0); transform-origin: left center;
+  background: #B06F15; transform: scaleX(0); transform-origin: left center;
   transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
 }
 @media (hover: hover) and (pointer: fine) {
   .inf-ledger-row:hover .inf-ledger-rule { transform: scaleX(1); }
 }
 /* left zone — the defining numeral / mark BIG in gold, top-aligned with the name */
-.inf-ledger-mark { display: flex; align-items: flex-start; color: #C2551B; }
+.inf-ledger-mark { display: flex; align-items: flex-start; color: #925C10; }
 /* the Package icon carries internal top padding the tight-leading numerals don't —
    lift it so its optical top sits on the same locked axis as 20 / 5 / 3. */
 .inf-ledger-mark svg { margin-top: -5px; }
 .inf-ledger-num {
   font-family: 'Inter Tight', sans-serif; font-weight: 800;
   font-size: clamp(40px, 5vw, 64px); line-height: 0.86; letter-spacing: -0.02em;
-  color: #C2551B; font-variant-numeric: tabular-nums;
+  color: #925C10; font-variant-numeric: tabular-nums;
 }
 /* centre zone — machine name */
 .inf-ledger-name {
   margin: 0;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(19px, 1.7vw, 23px); line-height: 1.2; letter-spacing: -0.2px; color: #0f2444;
+  font-size: clamp(19px, 1.7vw, 23px); line-height: 1.2; letter-spacing: -0.2px; color: #030C31;
 }
 /* right zone — spec, max 44ch */
 .inf-ledger-spec {
@@ -218,12 +218,12 @@
 }
 
 /* ── 5 · MEASURABLE RESULTS + video (navy) ────────────────────────────────── */
-.inf-results { position: relative; overflow: hidden; background: #0e1b46; color: #fdfaf4; padding: clamp(80px, 12vh, 140px) 0; }
+.inf-results { position: relative; overflow: hidden; background: #030C31; color: #fdfaf4; padding: clamp(80px, 12vh, 140px) 0; }
 .inf-results-beam {
   position: absolute; inset: 0; pointer-events: none;
   background:
     radial-gradient(90% 80% at 0% 0%, rgba(27,58,107,0.55) 0%, transparent 60%),
-    radial-gradient(120% 90% at 100% 100%, rgba(245, 130, 74,0.12) 0%, transparent 58%);
+    radial-gradient(120% 90% at 100% 100%, rgba(177, 129, 32,0.12) 0%, transparent 58%);
 }
 /* Light Rays deployment — kept quiet so the stats/video always lead. */
 .inf-results-rays { opacity: 0.72; }
@@ -236,7 +236,7 @@
 .inf-stat { border-top: 1px solid rgba(253,250,244,0.18); padding-top: 16px; }
 .inf-stat-num {
   display: block; font-family: 'Inter Tight', sans-serif; font-weight: 800;
-  font-size: clamp(34px, 4vw, 52px); line-height: 1; letter-spacing: -1px; color: #F37031;
+  font-size: clamp(34px, 4vw, 52px); line-height: 1; letter-spacing: -1px; color: #B06F15;
   font-variant-numeric: tabular-nums;
 }
 .inf-stat-label { display: block; margin-top: 10px; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px; color: #fdfaf4; }
@@ -247,31 +247,31 @@
 .inf-video-thumb {
   position: relative; display: block; width: 100%; aspect-ratio: 16 / 9;
   padding: 0; border: 1px solid rgba(253,250,244,0.12); border-radius: 0; overflow: hidden; cursor: pointer;
-  background: linear-gradient(155deg, #1b3a6b 0%, #12294c 52%, #0b1c38 100%);
+  background: linear-gradient(155deg, #061A4B 0%, #041235 52%, #0b1c38 100%);
   box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 18px 44px -18px rgba(0,0,0,0.6);
   transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
 }
 .inf-video-thumb::after {
   content: ''; position: absolute; inset: 0; z-index: 1; opacity: 0.45;
-  background-image: radial-gradient(rgba(245, 130, 74,0.14) 1px, transparent 1.4px); background-size: 18px 18px;
+  background-image: radial-gradient(rgba(177, 129, 32,0.14) 1px, transparent 1.4px); background-size: 18px 18px;
 }
 .inf-video-img { position: absolute; inset: 0; z-index: 0; background-position: center; background-size: cover; background-repeat: no-repeat; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
 .inf-video-thumb:hover .inf-video-img { transform: scale(1.04); }
-.inf-video-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(155deg, rgba(15,36,68,0.42) 0%, rgba(11,28,56,0.62) 100%); }
+.inf-video-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(155deg, rgba(3,12,49,0.42) 0%, rgba(11,28,56,0.62) 100%); }
 .inf-video-thumb:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(0,0,0,0.34), 0 28px 60px -20px rgba(0,0,0,0.66); }
-.inf-video-thumb:focus-visible { outline: 2px solid #F37031; outline-offset: 3px; }
+.inf-video-thumb:focus-visible { outline: 2px solid #B06F15; outline-offset: 3px; }
 .inf-video-note {
   position: absolute; z-index: 2; left: 50%; bottom: 24px; transform: translateX(-50%);
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 2.5px;
-  color: rgba(245, 130, 74,0.92); white-space: nowrap;
+  color: rgba(177, 129, 32,0.92); white-space: nowrap;
 }
 .inf-play {
   position: absolute; z-index: 3; left: 50%; top: 50%; transform: translate(-50%, -50%);
   display: grid; place-items: center; width: 74px; height: 74px; border-radius: 50%;
-  color: #12294c; background: linear-gradient(180deg, #F5824A 0%, #F37031 100%);
-  box-shadow: 0 8px 22px rgba(245, 130, 74,0.4); padding-left: 3px;
+  color: #041235; background: linear-gradient(180deg, #B18120 0%, #B06F15 100%);
+  box-shadow: 0 8px 22px rgba(177, 129, 32,0.4); padding-left: 3px;
 }
-.inf-play-ring { position: absolute; inset: -10px; border-radius: 50%; border: 2px solid rgba(245, 130, 74,0.55); opacity: 0; }
+.inf-play-ring { position: absolute; inset: -10px; border-radius: 50%; border: 2px solid rgba(177, 129, 32,0.55); opacity: 0; }
 .inf-video-thumb:hover .inf-play-ring { animation: inf-pulse 1.6s ease-out infinite; }
 @keyframes inf-pulse { 0% { transform: scale(0.9); opacity: 0.7; } 100% { transform: scale(1.35); opacity: 0; } }
 
@@ -280,10 +280,10 @@
    rules (index.css): Broadway spotlights, the .aw-head-text + paging-arrow header,
    the horizontal .aw-viewport scroller, gold-bordered navy plaques, ceremony photos,
    press-clipping and gold-foil names. These page overrides only (a) hold the
-   canonical #0e1b46 navy so the page cascade can't beat it back to beige, (b) fit
+   canonical #030C31 navy so the page cascade can't beat it back to beige, (b) fit
    the page's 1240 rhythm, and (c) size the three plaques to fill the row (the
    homepage's .plq basis is tuned for four). Nothing visual is re-authored. */
-.inf-recognition.aw { padding: 0; background: #0e1b46; }
+.inf-recognition.aw { padding: 0; background: #030C31; }
 .inf-recognition .aw-inner { max-width: 1240px; }
 .inf-recognition .aw-content { padding: clamp(72px, 11vh, 130px) clamp(20px, 4vw, 56px) clamp(84px, 12vh, 146px); }
 .inf-recognition .aw-title { font-size: clamp(32px, 5vw, 58px); }
@@ -303,22 +303,22 @@
 .inf-gallery-item { margin: 0; }
 .inf-gallery-photo { aspect-ratio: 4 / 5; border-radius: 0; }
 .inf-gallery-item:hover .inf-photo-img { transform: scale(1.04); }
-.inf-gallery-cap { margin-top: 12px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #C2551B; }
+.inf-gallery-cap { margin-top: 12px; font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #925C10; }
 
 /* ── 8 · CTA (beige) ──────────────────────────────────────────────────────── */
 .inf-cta { position: relative; overflow: hidden; background: #f0ebe0; padding: clamp(80px, 12vh, 150px) 0; text-align: center; }
 .inf-cta-inner { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
-.inf-cta-title { margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(30px, 4vw, 52px); line-height: 1.05; letter-spacing: -0.6px; color: #0f2444; }
+.inf-cta-title { margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(30px, 4vw, 52px); line-height: 1.05; letter-spacing: -0.6px; color: #030C31; }
 .inf-cta-sub { margin: 18px 0 clamp(28px, 4vh, 40px); max-width: 44ch; font-family: 'Inter', sans-serif; font-size: clamp(15px, 1.2vw, 18px); line-height: 1.65; color: #40453b; }
 
 /* silent drop-in photo surface — navy duotone under the real image */
-.inf-photo { position: relative; border-radius: 0; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.22), 0 18px 46px -22px rgba(15,36,68,0.5); }
-.inf-photo-base { position: absolute; inset: 0; background: linear-gradient(150deg, #1b3a6b 0%, #12294c 55%, #0f2444 100%); }
-.inf-photo-base::after { content: ''; position: absolute; inset: 0; opacity: 0.5; background-image: radial-gradient(rgba(245, 130, 74,0.16) 1px, transparent 1.4px); background-size: 16px 16px; }
+.inf-photo { position: relative; border-radius: 0; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.22), 0 18px 46px -22px rgba(3,12,49,0.5); }
+.inf-photo-base { position: absolute; inset: 0; background: linear-gradient(150deg, #061A4B 0%, #041235 55%, #030C31 100%); }
+.inf-photo-base::after { content: ''; position: absolute; inset: 0; opacity: 0.5; background-image: radial-gradient(rgba(177, 129, 32,0.16) 1px, transparent 1.4px); background-size: 16px 16px; }
 .inf-photo-note {
   position: absolute; z-index: 1; left: 50%; top: 50%; transform: translate(-50%, -50%);
   width: 82%; text-align: center; font-family: 'DM Mono', monospace; font-weight: 500;
-  font-size: 12px; letter-spacing: 2px; line-height: 1.5; color: rgba(245, 130, 74,0.92);
+  font-size: 12px; letter-spacing: 2px; line-height: 1.5; color: rgba(177, 129, 32,0.92);
 }
 .inf-photo-img { position: absolute; z-index: 2; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
 
@@ -326,12 +326,12 @@
 .inf-dialog { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: clamp(20px, 5vw, 64px); background: rgba(9,20,40,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); animation: inf-dialog-in 0.28s ease both; }
 .inf-dialog-panel { position: relative; width: min(1120px, 100%); aspect-ratio: 16 / 9; border-radius: 0; overflow: hidden; box-shadow: 0 40px 120px -20px rgba(0,0,0,0.7); }
 .inf-dialog-video { width: 100%; height: 100%; display: block; background: #0b1c38; }
-.inf-dialog-ph { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: linear-gradient(155deg, #1b3a6b 0%, #12294c 52%, #0b1c38 100%); }
+.inf-dialog-ph { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: linear-gradient(155deg, #061A4B 0%, #041235 52%, #0b1c38 100%); }
 .inf-dialog-ph .inf-video-note { position: static; transform: none; }
 .inf-dialog-soon { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 14px; letter-spacing: 0.3px; color: rgba(253,250,244,0.7); }
-.inf-dialog-close { position: absolute; z-index: 2; top: 14px; right: 14px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer; color: #fdfaf4; background: rgba(15,36,68,0.55); transition: background 0.2s ease; }
-.inf-dialog-close:hover { background: rgba(15,36,68,0.85); }
-.inf-dialog-close:focus-visible { outline: 2px solid #F37031; outline-offset: 2px; }
+.inf-dialog-close { position: absolute; z-index: 2; top: 14px; right: 14px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer; color: #fdfaf4; background: rgba(3,12,49,0.55); transition: background 0.2s ease; }
+.inf-dialog-close:hover { background: rgba(3,12,49,0.85); }
+.inf-dialog-close:focus-visible { outline: 2px solid #B06F15; outline-offset: 2px; }
 @keyframes inf-dialog-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* ── responsive ───────────────────────────────────────────────────────────── */
@@ -381,31 +381,31 @@
 .inf-finish-sec {
   position: relative; overflow: hidden;
   background: #fdfaf4;
-  border-top: 3px solid rgba(243, 112, 49, 0.55);
+  border-top: 3px solid rgba(176, 111, 21, 0.55);
   padding: clamp(72px, 11vh, 130px) 0;
 }
 .inf-finish-grid {
   list-style: none; margin: 0; padding: 0;
   display: grid; grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid rgba(14, 27, 70, 0.12);
-  border-left: 1px solid rgba(14, 27, 70, 0.12);
+  border-top: 1px solid rgba(3, 12, 49, 0.12);
+  border-left: 1px solid rgba(3, 12, 49, 0.12);
 }
 .inf-finish-cell {
   display: flex; align-items: baseline; gap: clamp(12px, 1.4vw, 18px);
   padding: clamp(22px, 3vh, 30px) clamp(20px, 2.2vw, 30px);
-  border-right: 1px solid rgba(14, 27, 70, 0.12);
-  border-bottom: 1px solid rgba(14, 27, 70, 0.12);
+  border-right: 1px solid rgba(3, 12, 49, 0.12);
+  border-bottom: 1px solid rgba(3, 12, 49, 0.12);
 }
 .inf-finish-mark {
   flex: none;
   font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
-  letter-spacing: 1px; color: #C2551B; line-height: 1.4;
+  letter-spacing: 1px; color: #925C10; line-height: 1.4;
   font-variant-numeric: tabular-nums;
 }
 .inf-finish-name {
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
   font-size: clamp(16px, 1.35vw, 20px); line-height: 1.25; letter-spacing: -0.2px;
-  color: #0f2444;
+  color: #030C31;
 }
 .inf-finish-note {
   margin: clamp(30px, 4vh, 44px) 0 0; max-width: 60ch;

@@ -7,12 +7,12 @@
    element exceeds a homepage equivalent (H1 92 / H2 68 / stat 132 caps). */
 
 /* ── local accent — the brand's gold→orange shift, scoped to /about ──────────
-   --ab-orange     : the #F37031 accent as-is; decorative marks + on-navy text.
+   --ab-orange     : the #B06F15 accent as-is; decorative marks + on-navy text.
    --ab-orange-ink : a darker burnt-orange of the same family that clears AA
                      (≈4.8:1) as 11-12px text on the cream ground. */
 .ab-hero, .ab-lede, .tls, .mvv, .fnd, .tm, .gal {
-  --ab-orange: #f37031;
-  --ab-orange-ink: #c2410c;
+  --ab-orange: #B06F15;
+  --ab-orange-ink: #925C10;
 }
 
 /* ── shared ─────────────────────────────────────────────────────────────── */
@@ -50,7 +50,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 }
 .ab-frame::before, .ab-frame::after {
   content: ''; position: absolute; width: 16px; height: 16px;
-  border: 0 solid rgb(243 112 49 / 0.5); pointer-events: none;   /* #F37031 */
+  border: 0 solid rgb(176 111 21 / 0.5); pointer-events: none;   /* #B06F15 */
 }
 .ab-frame::before { top: 11px; left: 11px; border-top-width: 1.5px; border-left-width: 1.5px; }
 .ab-frame::after  { bottom: 11px; right: 11px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
@@ -58,7 +58,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 /* ── SPINE — orange scroll thread pinned to the page's left edge ───────────── */
 .ab-spine {
   position: fixed; left: 0; top: 0; bottom: 0; width: 2px; z-index: 4;
-  background: linear-gradient(180deg, #f37031, #d95a1f);
+  background: linear-gradient(180deg, #B06F15, #d95a1f);
   transform: scaleY(0); transform-origin: top center;
   pointer-events: none; will-change: transform;
 }
@@ -69,7 +69,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    cream, line 2 smaller, wide-tracked gold, hung under it with leading 0.9. Nothing
    else lives here. Type face is Inter Tight (the site display face). */
 .ab-hero {
-  position: relative; background: var(--navy);      /* #0e1b46 */
+  position: relative; background: var(--navy);      /* #030C31 */
   min-height: clamp(360px, 56vh, 560px);
   display: flex; align-items: center; justify-content: center;
   padding: clamp(64px, 10vh, 120px) var(--page-gutter);
@@ -88,12 +88,12 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   text-transform: uppercase; color: var(--cream);
 }
 /* line 2 — "Through Print Excellence": smaller, wide orange, hung under line 1.
-   Large display on navy → #F37031 clears contrast comfortably. */
+   Large display on navy → #B06F15 clears contrast comfortably. */
 .ab-hl-2 {
   margin-top: clamp(10px, 1.4vh, 16px); padding-left: 0.16em;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
   font-size: clamp(19px, 3.15vw, 50px); letter-spacing: 0.16em;
-  text-transform: uppercase; color: #f37031;        /* brand orange */
+  text-transform: uppercase; color: #B06F15;        /* brand orange */
 }
 
 /* ── SECTION 2 — OUR STORY LEDE ──────────────────────────────────────────────
@@ -111,7 +111,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 }
 
 /* ── SECTION 3 — THE JOURNEY (center-spine scroll-draw timeline) ──────────────
-   A vertical line runs down the CENTRE of the section; its orange (#F37031) fill
+   A vertical line runs down the CENTRE of the section; its orange (#B06F15) fill
    draws downward with scroll progress (scaleY, 60fps; reduced-motion → fully
    drawn). Each stop has a node ON the line (orange once the fill reaches it, navy
    outline before) with the year (DM Mono) beside it on the empty side. Cards
@@ -130,7 +130,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   background: rgb(var(--navy-rgb) / 0.13); overflow: hidden; z-index: 0;
 }
 .tls-spine-fill {
-  position: absolute; inset: 0; background: #f37031;
+  position: absolute; inset: 0; background: #B06F15;
   transform-origin: top center; transform: scaleY(0); will-change: transform;
 }
 
@@ -160,11 +160,11 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   transform: translateY(-50%);
   transition: background 0.3s var(--e-out), border-color 0.3s var(--e-out), transform 0.3s var(--e-out);
 }
-.tls-node.is-reached { background: #f37031; border-color: #f37031; transform: translateY(-50%) scale(1.12); }
+.tls-node.is-reached { background: #B06F15; border-color: #B06F15; transform: translateY(-50%) scale(1.12); }
 .tls-year {
   position: absolute; top: 0; transform: translateY(-50%); white-space: nowrap;
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: clamp(12px, 0.9vw, 14px);
-  letter-spacing: 0.12em; text-transform: uppercase; color: #c2410c;   /* AA orange on cream */
+  letter-spacing: 0.12em; text-transform: uppercase; color: #925C10;   /* AA orange on cream */
 }
 .tls-card--left .tls-year { left: calc(100% + 16px); }
 .tls-card--right .tls-year { right: calc(100% + 16px); }
@@ -178,8 +178,8 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   width: 48px; height: 48px; border-radius: 50%;
   margin: 0 0 clamp(12px, 1.8vh, 18px);
   color: var(--ab-orange);
-  background: rgb(243 112 49 / 0.08);
-  border: 1px solid rgb(243 112 49 / 0.28);
+  background: rgb(176 111 21 / 0.08);
+  border: 1px solid rgb(176 111 21 / 0.28);
 }
 .tls-icon svg { display: block; }
 .tls-copy { min-width: 0; }
@@ -217,7 +217,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    on reveal, staggered by column. */
 .mvv-col:not(:first-child)::before {
   content: ''; position: absolute; top: 0; left: 0; width: 1px; height: 100%;
-  background: rgb(243 112 49 / 0.25);   /* #F37031 */
+  background: rgb(176 111 21 / 0.25);   /* #B06F15 */
   transform-origin: top center; transform: scaleY(0);
   transition: transform 0.4s var(--e-out);
   transition-delay: calc(var(--col-i) * 0.12s);
@@ -253,7 +253,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    the sanctioned exception to width animation). */
 .mvv-rule {
   display: block; width: 200px; height: 2px; margin: 0 0 clamp(20px, 3vh, 30px);
-  background: #f37031; transform: scaleX(0); transform-origin: left center;
+  background: #B06F15; transform: scaleX(0); transform-origin: left center;
   transition: transform 0.45s var(--e-out);
 }
 .mvv.is-in .mvv-rule { transform: scaleX(0.17); transition-delay: calc(var(--col-i) * 0.12s + 0.32s); }
@@ -353,7 +353,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   position: fixed; inset: 0; z-index: 1000;
   display: flex; align-items: center; justify-content: center;
   padding: clamp(56px, 9vw, 104px);
-  background: rgba(14, 27, 70, 0.96);
+  background: rgba(3, 12, 49, 0.96);
   animation: gal-lb-in 0.22s var(--e-out) both;
 }
 @keyframes gal-lb-in { from { opacity: 0; } to { opacity: 1; } }
@@ -369,8 +369,8 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   color: #fdfaf4; line-height: 1;
   transition: background 0.2s var(--e-out), border-color 0.2s var(--e-out);
 }
-.gal-lb-close:hover, .gal-lb-nav:hover { background: #f37031; border-color: #f37031; color: #0e1b46; }
-.gal-lb-close:focus-visible, .gal-lb-nav:focus-visible { outline: 2px solid #f37031; outline-offset: 3px; }
+.gal-lb-close:hover, .gal-lb-nav:hover { background: #B06F15; border-color: #B06F15; color: #030C31; }
+.gal-lb-close:focus-visible, .gal-lb-nav:focus-visible { outline: 2px solid #B06F15; outline-offset: 3px; }
 .gal-lb-close { top: clamp(16px, 3vw, 28px); right: clamp(16px, 3vw, 28px); font-size: 30px; }
 .gal-lb-nav { top: 50%; transform: translateY(-50%); font-size: 30px; }
 .gal-lb-prev { left: clamp(12px, 3vw, 32px); }
@@ -395,13 +395,13 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 .tm { position: relative; background: var(--cream); padding: clamp(60px, 7vh, 88px) var(--page-gutter) var(--section-pad-y); overflow: hidden; }
 /* the gold hairline that opens the section — draws left→right (scaleX). */
 html.alive-ready .tm-rule[data-reveal] {
-  width: 100%; height: 1px; border: 0; background: rgb(243 112 49 / 0.3);
+  width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3);
   margin: 0 0 clamp(18px, 2.4vh, 26px);
   opacity: 1; transform: scaleX(0); transform-origin: left center;
   transition: transform 0.75s var(--e-out);
 }
 html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
-.tm-rule { width: 100%; height: 1px; border: 0; background: rgb(243 112 49 / 0.3); margin: 0 0 clamp(18px, 2.4vh, 26px); }
+.tm-rule { width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3); margin: 0 0 clamp(18px, 2.4vh, 26px); }
 .tm-title {
   margin: 0 0 clamp(26px, 4vh, 44px); max-width: 20ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
@@ -445,13 +445,13 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 /* thin orange rule under the name — draws on hover (scaleX 0→1). */
 .tm-underline {
   display: block; width: 44px; height: 2px; margin: 9px 0 0;
-  background: #f37031; transform: scaleX(0); transform-origin: left center;
+  background: #B06F15; transform: scaleX(0); transform-origin: left center;
   transition: transform 0.3s var(--e-out);
 }
 .tm-role {
   margin: 12px 0 0;
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11.5px;
-  letter-spacing: 0.14em; text-transform: uppercase; color: #c2410c;   /* AA orange on cream */
+  letter-spacing: 0.14em; text-transform: uppercase; color: #925C10;   /* AA orange on cream */
 }
 /* one short bio line */
 .tm-bio {
@@ -462,7 +462,7 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 /* quote — ALWAYS visible: italic with a thin orange left rule. */
 .tm-quote {
   margin: clamp(14px, 1.8vh, 18px) 0 0; padding-left: 14px;
-  border-left: 2px solid #f37031;
+  border-left: 2px solid #B06F15;
   font-family: 'Inter Tight', sans-serif; font-style: italic; font-weight: 500;
   font-size: clamp(14px, 1.05vw, 15.5px); line-height: 1.5; letter-spacing: -0.01em;
   color: rgb(var(--navy-rgb) / 0.9);
@@ -470,7 +470,7 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 
 /* hover — photo warms to colour, card lifts 4px, orange rule draws under name (300ms). */
 @media (hover: hover) and (pointer: fine) {
-  .tm-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgb(var(--navy-rgb) / 0.12); border-color: rgb(243 112 49 / 0.4); }
+  .tm-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgb(var(--navy-rgb) / 0.12); border-color: rgb(176 111 21 / 0.4); }
   .tm-card:hover .tm-media img { filter: grayscale(0); }
   .tm-card:hover .tm-underline { transform: scaleX(1); }
 }

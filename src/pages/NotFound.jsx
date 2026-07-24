@@ -34,20 +34,20 @@ export default function NotFound() {
       >
         <rect x="14" y="8" width="36" height="48" />
         <line x1="20" y1="8" x2="20" y2="56" />
-        <line x1="28" y1="23" x2="44" y2="23" stroke="#F37031" />
+        <line x1="28" y1="23" x2="44" y2="23" stroke="#B06F15" />
         <line x1="28" y1="31" x2="40" y2="31" opacity="0.55" />
-        <path d="M40 8 V26 L43 22.5 L46 26 V8" stroke="#F37031" />
+        <path d="M40 8 V26 L43 22.5 L46 26 V8" stroke="#B06F15" />
       </svg>
 
       <p
         className="mb-5 text-[12px] font-medium uppercase tracking-[0.28em]"
-        style={{ fontFamily: MONO, color: '#C2551B' }}
+        style={{ fontFamily: MONO, color: '#925C10' }}
       >
         {t('notFound.eyebrow')}
       </p>
       <h1
         className="max-w-3xl text-[clamp(36px,6vw,72px)] font-bold leading-[1.05] tracking-tight"
-        style={{ fontFamily: TIGHT, color: '#0F2444' }}
+        style={{ fontFamily: TIGHT, color: '#030C31' }}
       >
         {t('notFound.title')}
       </h1>
@@ -59,8 +59,8 @@ export default function NotFound() {
       </p>
       <Link
         to="/"
-        className="focus-ring mt-10 inline-flex items-center text-[15px] font-semibold tracking-[0.02em] transition-colors hover:text-[#C2551B]"
-        style={{ fontFamily: MONO, color: '#C2551B' }}
+        className="focus-ring mt-10 inline-flex items-center text-[15px] font-semibold tracking-[0.02em] transition-colors hover:text-[#925C10]"
+        style={{ fontFamily: MONO, color: '#925C10' }}
       >
         {t('notFound.back')}
       </Link>

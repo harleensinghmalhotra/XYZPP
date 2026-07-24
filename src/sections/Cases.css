@@ -1,12 +1,12 @@
 /* ── Case Studies — THE OPEN BOOK ─────────────────────────────────────────────
-   Tokens: navy #0F2444, navy2 #1B3A6B, deep-navy #0B1C38, gold #F37031,
-   gold-bright #F5824A, gold-text #F37031, cream #FDFAF4, cream2 #F0EBE0.
+   Tokens: navy #030C31, navy2 #061A4B, deep-navy #0B1C38, gold #B06F15,
+   gold-bright #B18120, gold-text #B06F15, cream #FDFAF4, cream2 #F0EBE0.
    No reds, no pure black/white. Square corners (radius 0 — a site-wide radius
    token lands later; build square, it inherits). No straight interior light
    lines — depth comes from soft radial/edge shadows only. GPU transforms. */
 .section-cases {
   position: relative; /* anchors the bottom curve divider */
-  background-color: #0f2444;
+  background-color: #030C31;
   color: #fdfaf4;
   padding: 0 0 0;
   display: flex;
@@ -18,9 +18,9 @@
 /* ── SIGNATURE CURVE DIVIDER — the Certifications dome language, ported ────────
    Same SVG-arc technique, same path, same upward direction as .certs-arc-bottom;
    sits at the section's bottom edge and domes up into the navy stage. Because the
-   Cases stage and the CTA footer share #0f2444, the arc can't rely on a solid-fill
+   Cases stage and the CTA footer share #030C31, the arc can't rely on a solid-fill
    colour contrast (there'd be no curve to see). Instead the path carries a vertical
-   gradient — the footer's deeper --section-melt navy at the dome, fading to #0f2444
+   gradient — the footer's deeper --section-melt navy at the dome, fading to #030C31
    at the straight base — so the curve reads on navy while the base melts seamlessly
    into the footer below. Height stays inside the stage's bottom --section-pad-y so
    it never reaches the View-All pill; painted above the stage's navy, pointer-safe. */
@@ -53,7 +53,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: #C2551B; /* gold-text — AA on beige */
+  color: #925C10; /* gold-text — AA on beige */
   margin-bottom: var(--section-gap-head);
 }
 .cases-header h3 {
@@ -62,7 +62,7 @@
   font-weight: 500;
   margin: 0 0 16px;
   letter-spacing: -0.5px;
-  color: #0f2444;
+  color: #030C31;
 }
 .cases-header p {
   font-size: 16px;
@@ -78,8 +78,8 @@
   padding: 64px 0 84px;
   /* a faint warm reading-light pooled behind the book — radial, never a line */
   background:
-    radial-gradient(120% 90% at 62% 34%, rgba(245, 130, 74, 0.10) 0%, transparent 58%),
-    #0f2444;
+    radial-gradient(120% 90% at 62% 34%, rgba(177, 129, 32, 0.10) 0%, transparent 58%),
+    #030C31;
 }
 .cs-interactive {
   max-width: 1400px;
@@ -92,7 +92,7 @@
   outline: none;
 }
 .cs-interactive:focus-visible {
-  outline: 2px solid #F37031;
+  outline: 2px solid #B06F15;
   outline-offset: 8px;
 }
 
@@ -157,7 +157,7 @@
     0 10px 18px -12px rgba(0, 0, 0, 0.6);
 }
 .cs-spine--navy {
-  background: linear-gradient(100deg, #173257 0%, #0f2444 58%, #0b1c38 100%);
+  background: linear-gradient(100deg, #173257 0%, #030C31 58%, #0b1c38 100%);
 }
 .cs-spine--cream {
   background: linear-gradient(100deg, #fdfaf4 0%, #f4eede 60%, #e9dfca 100%);
@@ -168,9 +168,9 @@
   font-weight: 500;
   font-size: 13px;
   letter-spacing: 0.5px;
-  color: #F37031; /* foil gold — AA-large on navy */
+  color: #B06F15; /* foil gold — AA-large on navy */
 }
-.cs-spine--cream .cs-spine-num { color: #C2551B; } /* gold-text — AA on cream */
+.cs-spine--cream .cs-spine-num { color: #925C10; } /* gold-text — AA on cream */
 
 .cs-spine-label {
   margin-top: 14px;
@@ -201,9 +201,9 @@
   max-height: 240px;
 }
 .cs-spine--navy .cs-spine-label { color: #f5f0e8; }
-.cs-spine--navy .cs-spine-country { color: #F37031; }
-.cs-spine--cream .cs-spine-label { color: #0f2444; }
-.cs-spine--cream .cs-spine-country { color: #C2551B; }
+.cs-spine--navy .cs-spine-country { color: #B06F15; }
+.cs-spine--cream .cs-spine-label { color: #030C31; }
+.cs-spine--cream .cs-spine-country { color: #925C10; }
 
 /* THE SHELF MOVE — hover pulls the spine off the shelf toward the viewer */
 .cs-spine:hover,
@@ -217,7 +217,7 @@
   z-index: 3;
 }
 .cs-spine:focus-visible {
-  outline: 2px solid #F37031;
+  outline: 2px solid #B06F15;
   outline-offset: 3px;
 }
 
@@ -242,7 +242,7 @@
   width: 20px;
   height: 62px;
   z-index: 6;
-  background: linear-gradient(180deg, #F37031 0%, #F37031 46%, #F37031 100%);
+  background: linear-gradient(180deg, #B06F15 0%, #B06F15 46%, #B06F15 100%);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 74%, 0 100%);
 }
@@ -256,7 +256,7 @@
   font-family: 'DM Mono', monospace;
   font-size: 12px;
   letter-spacing: 2px;
-  color: #F37031;
+  color: #B06F15;
   text-transform: uppercase;
 }
 .cs-counter-sep { opacity: 0.5; margin: 0 2px; }
@@ -332,7 +332,7 @@
   flex-direction: column;
   justify-content: center;
   padding: clamp(30px, 4vh, 48px) clamp(30px, 3.4vw, 54px);
-  color: #0f2444;
+  color: #030C31;
 }
 .cs-face--text .cs-eyebrow {
   font-family: 'DM Mono', monospace;
@@ -340,7 +340,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #C2551B; /* gold-text — AA on cream */
+  color: #925C10; /* gold-text — AA on cream */
   margin-bottom: 18px;
 }
 .cs-title {
@@ -350,7 +350,7 @@
   line-height: 1.12;
   letter-spacing: -0.5px;
   margin: 0 0 22px;
-  color: #0f2444;
+  color: #030C31;
 }
 .cs-pills {
   display: flex;
@@ -359,9 +359,9 @@
   margin-bottom: 24px;
 }
 .cs-pill {
-  background: #0f2444;
-  color: #F37031;
-  border: 1px solid rgba(15, 36, 68, 0.25);
+  background: #030C31;
+  color: #B06F15;
+  border: 1px solid rgba(3, 12, 49, 0.25);
   padding: 6px 13px;
   font-size: 11px;
   font-family: 'DM Mono', monospace;
@@ -372,15 +372,15 @@
 .cs-body {
   font-size: 15px;
   line-height: 1.6;
-  color: rgba(15, 36, 68, 0.82);
+  color: rgba(3, 12, 49, 0.82);
   margin: 0 0 30px;
   max-width: 42ch;
 }
 .cs-cta {
   align-self: flex-start;
-  color: #C2551B;
+  color: #925C10;
   text-decoration: none;
-  border: 1px solid rgba(243, 112, 49, 0.5);
+  border: 1px solid rgba(176, 111, 21, 0.5);
   background: transparent;
   padding: 12px 22px;
   font-size: 12px;
@@ -391,9 +391,9 @@
   transition: background 0.3s, border-color 0.3s, color 0.3s;
 }
 .cs-cta:hover {
-  background: rgba(243, 112, 49, 0.08);
-  border-color: rgba(243, 112, 49, 0.85);
-  color: #C2551B;
+  background: rgba(176, 111, 21, 0.08);
+  border-color: rgba(176, 111, 21, 0.85);
+  color: #925C10;
 }
 
 /* photo face — the case image in the brand duotone */
@@ -407,7 +407,7 @@
 .cs-duotone {
   position: absolute;
   inset: 0;
-  background: #0f2444;
+  background: #030C31;
   opacity: 0.32;
   mix-blend-mode: multiply;
   pointer-events: none;
@@ -485,9 +485,9 @@
   place-items: center;
   font-size: 18px;
   line-height: 1;
-  color: #F37031;
+  color: #B06F15;
   background: rgba(11, 28, 56, 0.72);
-  border: 1px solid rgba(245, 130, 74, 0.5);
+  border: 1px solid rgba(177, 129, 32, 0.5);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: background 0.25s, color 0.25s, border-color 0.25s;
@@ -495,12 +495,12 @@
 .cs-arrow--prev { left: 8px; }
 .cs-arrow--next { right: 8px; }
 .cs-arrow:hover:not(:disabled) {
-  background: rgba(245, 130, 74, 0.16);
-  color: #F37031;
-  border-color: rgba(245, 130, 74, 0.85);
+  background: rgba(177, 129, 32, 0.16);
+  color: #B06F15;
+  border-color: rgba(177, 129, 32, 0.85);
 }
 .cs-arrow:focus-visible {
-  outline: 2px solid #F37031;
+  outline: 2px solid #B06F15;
   outline-offset: 2px;
 }
 .cs-arrow:disabled {
@@ -511,7 +511,7 @@
 /* ── VIEW ALL — the CTA came home to the book ──────────────────────────────────
    The orphan cream strip is gone; the button now lives on the navy stage, centered
    below the spread and comfortably clear of the corner arrows. Cream #FDFAF4 pill,
-   navy #0F2444 text (≈13:1 — AA easily), wearing the full nebula foil ring via
+   navy #030C31 text (≈13:1 — AA easily), wearing the full nebula foil ring via
    .btn-nebula--light (cream-surface variant: gold ring, no cream stars). Type +
    dimensions mirror "Request a Quote" so it reads as its sibling, not a new species. */
 .cs-viewall {
@@ -528,7 +528,7 @@
   height: 56px;
   padding: 0 40px;
   background: #fdfaf4;   /* cream fill */
-  color: #0f2444;        /* navy text — AA easily on cream */
+  color: #030C31;        /* navy text — AA easily on cream */
   border: none;
   font-family: 'Inter', sans-serif;
   font-size: 15px;
@@ -552,8 +552,8 @@
     box-shadow:
       inset 5px 0 10px -6px rgba(0, 0, 0, 0.5),
       inset -5px 0 10px -6px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(245, 130, 74, 0.6),
-      0 0 22px rgba(245, 130, 74, 0.32);
+      0 0 0 1px rgba(177, 129, 32, 0.6),
+      0 0 22px rgba(177, 129, 32, 0.32);
   }
   .cs-book[data-mode='flat'] .cs-spread { animation-duration: 0.18s; }
   /* View-All stays static — the nebula ring is already pinned by its own rules */

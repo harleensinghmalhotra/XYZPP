@@ -5,8 +5,8 @@
   position: fixed;
   left: 0; right: 0; bottom: 0;
   z-index: 200;
-  background: var(--navy, #0f2444);
-  border-top: 2px solid var(--gold, #F37031);
+  background: var(--navy, #030C31);
+  border-top: 2px solid var(--gold, #B06F15);
   box-shadow: 0 -8px 30px rgba(10, 18, 34, 0.35);
   animation: ck-rise 0.35s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -29,11 +29,11 @@
   color: rgba(253, 250, 244, 0.92);
 }
 .ck-link {
-  color: var(--gold-2, #F37031);
+  color: var(--gold-2, #B06F15);
   font-weight: 500;
   text-underline-offset: 3px;
 }
-.ck-link:hover { color: #F5824A; }
+.ck-link:hover { color: #B18120; }
 .ck-actions {
   display: flex;
   gap: 12px;
@@ -52,11 +52,11 @@
   transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 .ck-btn--accept {
-  background: var(--gold-2, #F37031);
-  color: var(--navy, #0f2444);
-  border-color: var(--gold-2, #F37031);
+  background: var(--gold-2, #B06F15);
+  color: var(--navy, #030C31);
+  border-color: var(--gold-2, #B06F15);
 }
-.ck-btn--accept:hover { background: #F37031; border-color: #F37031; }
+.ck-btn--accept:hover { background: #B06F15; border-color: #B06F15; }
 .ck-btn--reject {
   background: transparent;
   color: var(--cream, #fdfaf4);

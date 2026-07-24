@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 //   1. Visible <h1> headline — one heading, two lines: headlineTop (cream, display)
 //      and headlineAccent (gold-2, its own line), stepped down from --h1 to --h2 so
 //      the block clears the fold. Centred in a navy band that matches the artwork's
-//      baked sky (var(--navy) resolves to #0e1b46 under .home-palette). Sits below
+//      baked sky (var(--navy) resolves to #030C31 under .home-palette). Sits below
 //      the in-flow (non-sticky) cream nav.
 //   2. A visible subhead (headlineSub), then the two pill CTAs, centred in normal
 //      flow; the pills wrap (stack) rather than squash on narrow screens.

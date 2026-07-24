@@ -1,20 +1,20 @@
 /* ── /print-on-demand — "Build Your Book" configurator ───────────────────────
-   Brand System B ONLY: navy #0F2444, gold #F37031 / #F37031 / #F37031,
+   Brand System B ONLY: navy #030C31, gold #B06F15 / #B06F15 / #B06F15,
    cream #FDFAF4, beige #F0EBE0, ink #1C2019. Fonts: Inter Tight / Inter / DM Mono.
    Warmest page on the site — it talks to one author. Anti-slop: uniform card
    heights, no thin light rules (hairlines are navy at low alpha), grounded
    shadows. The homepage Hero's green/blue palette does NOT apply here. */
 
 .pod {
-  --navy: #0e1b46;
-  --gold: #F37031;
-  --gold-2: #F37031;
-  --gold-3: #F37031;
+  --navy: #030C31;
+  --gold: #B06F15;
+  --gold-2: #B06F15;
+  --gold-3: #B06F15;
   --cream: #fdfaf4;
   --beige: #f0ebe0;
   --ink: #1c2019;
-  --hair: rgba(15, 36, 68, 0.1);
-  --hair-soft: rgba(15, 36, 68, 0.06);
+  --hair: rgba(3, 12, 49, 0.1);
+  --hair-soft: rgba(3, 12, 49, 0.06);
   font-family: 'Inter', sans-serif;
   color: var(--ink);
   background: var(--cream);
@@ -83,7 +83,7 @@
   background:
     radial-gradient(120% 90% at 50% 12%, #fffdf8 0%, var(--beige) 62%, #e7ddca 100%);
   border: 1px solid var(--hair);
-  box-shadow: 0 2px 14px rgba(15, 36, 68, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 14px rgba(3, 12, 49, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   padding: clamp(28px, 4vh, 46px) 24px;
   min-height: 520px;
   display: flex;
@@ -123,7 +123,7 @@
   height: 26px;
   transform: translateX(-50%);
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(15, 36, 68, 0.28), rgba(15, 36, 68, 0));
+  background: radial-gradient(closest-side, rgba(3, 12, 49, 0.28), rgba(3, 12, 49, 0));
   filter: blur(3px);
   z-index: 0;
 }
@@ -132,7 +132,7 @@
   --bh: 320px;
   --thick: 34px;
   --edge: #f3ead4;
-  --edge-line: rgba(15, 36, 68, 0.16);
+  --edge-line: rgba(3, 12, 49, 0.16);
   position: relative;
   width: var(--bw);
   height: var(--bh);
@@ -169,11 +169,11 @@
   border-radius: 3px 8px 8px 3px;
   background-color: #fdfaf4;
   background-image:
-    linear-gradient(#F37031, #F37031),   /* title rule (widest) */
-    linear-gradient(#F37031, #F37031),   /* subtitle rule */
-    linear-gradient(#F37031, #F37031),   /* byline rule (narrowest) */
-    linear-gradient(#0e1b46, #0e1b46),   /* edition mark, low-right */
-    linear-gradient(#0e1b46, #0e1b46);   /* navy title band, upper third */
+    linear-gradient(#B06F15, #B06F15),   /* title rule (widest) */
+    linear-gradient(#B06F15, #B06F15),   /* subtitle rule */
+    linear-gradient(#B06F15, #B06F15),   /* byline rule (narrowest) */
+    linear-gradient(#030C31, #030C31),   /* edition mark, low-right */
+    linear-gradient(#030C31, #030C31);   /* navy title band, upper third */
   background-repeat: no-repeat;
   background-size:
     58% 2px,
@@ -188,8 +188,8 @@
     86% 87%,
     50% 12%;
   box-shadow:
-    inset 0 0 0 1px rgba(243, 112, 49, 0.25),
-    inset 22px 0 34px -22px rgba(15, 36, 68, 0.5); /* gutter shade near spine */
+    inset 0 0 0 1px rgba(176, 111, 21, 0.25),
+    inset 22px 0 34px -22px rgba(3, 12, 49, 0.5); /* gutter shade near spine */
   overflow: hidden;
 }
 /* the full-colour QFP mark, centred in the navy title band. Task 14: was a monochrome
@@ -232,7 +232,7 @@
   pointer-events: none;
   opacity: 0;
   mix-blend-mode: multiply;
-  background: radial-gradient(120% 120% at 30% 20%, transparent 55%, rgba(15, 36, 68, 0.1) 100%);
+  background: radial-gradient(120% 120% at 30% 20%, transparent 55%, rgba(3, 12, 49, 0.1) 100%);
   transition: opacity 0.4s ease;
 }
 .pod-book[data-finish='matte'] .pod-matte { opacity: 1; }
@@ -277,12 +277,12 @@
   margin-top: calc(var(--bh) / -2);
   transform: rotateY(-90deg) translateZ(calc(var(--bw) / 2));
   border-radius: 2px 0 0 2px;
-  background-color: #0e1b46;
+  background-color: #030C31;
   background-image:
     linear-gradient(#fdfaf4, #fdfaf4),   /* tick 1 */
     linear-gradient(#fdfaf4, #fdfaf4),   /* tick 2 */
     linear-gradient(#fdfaf4, #fdfaf4),   /* tick 3 */
-    linear-gradient(#F37031, #F37031);   /* gold stripe near top */
+    linear-gradient(#B06F15, #B06F15);   /* gold stripe near top */
   background-repeat: no-repeat;
   background-size: 52% 2px, 52% 2px, 52% 2px, 68% 3px;
   background-position: 50% 45%, 50% 50%, 50% 55%, 50% 15%;
@@ -317,7 +317,7 @@
 .pod-book[data-binding='wiro'] .pod-coil { display: block; }
 .pod-book[data-binding='wiro'] .pod-spine {
   background: #efe9dc;
-  box-shadow: inset 0 0 0 1px rgba(15, 36, 68, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(3, 12, 49, 0.12);
 }
 .pod-coil svg { width: 100%; height: 100%; }
 
@@ -325,9 +325,9 @@
 .pod-book[data-format='hardcover'] .pod-front,
 .pod-book[data-format='hardcover'] .pod-back {
   box-shadow:
-    inset 0 0 0 1px rgba(243, 112, 49, 0.3),
-    inset 22px 0 34px -22px rgba(15, 36, 68, 0.5),
-    0 0 0 3px rgba(15, 36, 68, 0.06); /* board rim */
+    inset 0 0 0 1px rgba(176, 111, 21, 0.3),
+    inset 22px 0 34px -22px rgba(3, 12, 49, 0.5),
+    0 0 0 3px rgba(3, 12, 49, 0.06); /* board rim */
   border-radius: 2px 6px 6px 2px;
 }
 
@@ -337,7 +337,7 @@
   inset: 0;
   border-radius: 3px 8px 8px 3px;
   background: linear-gradient(135deg, #efe6d4, #ddd0b6);
-  box-shadow: 0 1px 2px rgba(15, 36, 68, 0.14);
+  box-shadow: 0 1px 2px rgba(3, 12, 49, 0.14);
 }
 .pod-qty-badge {
   position: absolute;
@@ -353,7 +353,7 @@
   font-family: 'DM Mono', monospace;
   font-size: 12px;
   letter-spacing: 0.5px;
-  box-shadow: 0 6px 18px rgba(15, 36, 68, 0.22);
+  box-shadow: 0 6px 18px rgba(3, 12, 49, 0.22);
 }
 .pod-preview-caption {
   margin: 8px 0 0;
@@ -446,18 +446,18 @@
   background: #fffdf9;
   font-family: 'Inter', sans-serif;
   color: var(--ink);
-  box-shadow: 0 1px 2px rgba(15, 36, 68, 0.04), 0 3px 10px rgba(15, 36, 68, 0.05);
+  box-shadow: 0 1px 2px rgba(3, 12, 49, 0.04), 0 3px 10px rgba(3, 12, 49, 0.05);
   transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease, background 0.22s ease;
 }
 .pod-chip:hover {
-  border-color: rgba(243, 112, 49, 0.5);
+  border-color: rgba(176, 111, 21, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(15, 36, 68, 0.1);
+  box-shadow: 0 10px 24px rgba(3, 12, 49, 0.1);
 }
 .pod-chip[aria-checked='true'] {
   border-color: var(--gold);
   background: linear-gradient(180deg, #fffdf6 0%, #fff8ea 100%);
-  box-shadow: 0 0 0 2px rgba(243, 112, 49, 0.6), 0 10px 26px rgba(15, 36, 68, 0.1);
+  box-shadow: 0 0 0 2px rgba(176, 111, 21, 0.6), 0 10px 26px rgba(3, 12, 49, 0.1);
 }
 .pod-chip:focus-visible {
   outline: 2.5px solid var(--navy);
@@ -513,8 +513,8 @@
 }
 .pod-chip-sw {
   border-radius: var(--r-chip);
-  border: 1px solid rgba(15, 36, 68, 0.14);
-  box-shadow: inset 0 -6px 10px -6px rgba(15, 36, 68, 0.3);
+  border: 1px solid rgba(3, 12, 49, 0.14);
+  box-shadow: inset 0 -6px 10px -6px rgba(3, 12, 49, 0.3);
 }
 .pod-chip-name {
   font-family: 'Inter Tight', sans-serif;
@@ -655,7 +655,7 @@
   background: var(--navy);
   color: var(--cream);
   padding: clamp(22px, 3vh, 30px);
-  box-shadow: 0 18px 44px rgba(15, 36, 68, 0.2);
+  box-shadow: 0 18px 44px rgba(3, 12, 49, 0.2);
   overflow: hidden;
 }
 .pod-summary::before {
@@ -663,7 +663,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(90% 60% at 90% 0%, rgba(245, 130, 74, 0.16), transparent 60%);
+  background: radial-gradient(90% 60% at 90% 0%, rgba(177, 129, 32, 0.16), transparent 60%);
 }
 .pod-summary-eyebrow {
   position: relative;
@@ -734,8 +734,8 @@
   animation: pod-rowpulse 600ms ease-out;
 }
 @keyframes pod-rowpulse {
-  0% { background-color: rgba(245, 130, 74, 0.15); }
-  100% { background-color: rgba(245, 130, 74, 0); }
+  0% { background-color: rgba(177, 129, 32, 0.15); }
+  100% { background-color: rgba(177, 129, 32, 0); }
 }
 .pod-summary-row[data-flash] .pod-summary-val {
   animation: pod-valpop 600ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -808,10 +808,10 @@
 .pod-req-field input:focus-visible, .pod-req-field textarea:focus-visible {
   outline: none; border-color: var(--gold-2); box-shadow: 0 0 0 3px rgb(var(--gold-2-rgb) / 0.3);
 }
-.pod-req-field input[aria-invalid="true"] { border-color: #F37031; box-shadow: 0 0 0 3px rgba(245, 130, 74, 0.22); }
-.pod-req-err { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #C2551B; }
-.pod-req-error { margin: 2px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: #C2551B; }
-.pod-req-error a { color: #C2551B; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
+.pod-req-field input[aria-invalid="true"] { border-color: #B06F15; box-shadow: 0 0 0 3px rgba(177, 129, 32, 0.22); }
+.pod-req-err { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #925C10; }
+.pod-req-error { margin: 2px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: #925C10; }
+.pod-req-error a { color: #925C10; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
 .pod-req-star { color: var(--gold-2); }
 /* consent gate — hard-controls the submit button; checkbox on the navy card */
 .pod-req-consent { display: grid; grid-template-columns: 20px 1fr; gap: 10px; align-items: start; }
@@ -819,7 +819,7 @@
 .pod-req-consent input:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; }
 .pod-req-consent label { font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: rgba(253, 250, 244, 0.82); cursor: pointer; }
 .pod-req-consent a { color: var(--gold-2); text-decoration: underline; text-underline-offset: 2px; }
-.pod-req-consent.has-err input { outline: 2px solid #F37031; outline-offset: 2px; }
+.pod-req-consent.has-err input { outline: 2px solid #B06F15; outline-offset: 2px; }
 .pod-req .u-btn { margin-top: 2px; }
 .pod-req-cancel {
   align-self: center; background: none; border: none; cursor: pointer; padding: 4px;
@@ -829,7 +829,7 @@
 .pod-req-cancel:hover { color: rgba(253, 250, 244, 0.9); }
 .pod-spin {
   width: 16px; height: 16px; border-radius: 50%;
-  border: 2px solid rgba(14, 27, 70, 0.3); border-top-color: var(--navy);
+  border: 2px solid rgba(3, 12, 49, 0.3); border-top-color: var(--navy);
   animation: pod-spin 0.7s linear infinite;
 }
 @keyframes pod-spin { to { transform: rotate(360deg); } }
@@ -874,7 +874,7 @@
   border-radius: var(--r-card);
   background: var(--cream);
   border: 1px solid var(--hair-soft);
-  box-shadow: 0 2px 14px rgba(15, 36, 68, 0.05);
+  box-shadow: 0 2px 14px rgba(3, 12, 49, 0.05);
 }
 .pod-how-step {
   font-family: 'DM Mono', monospace;
@@ -926,7 +926,7 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(50% 60% at 82% 20%, rgba(245, 130, 74, 0.16), transparent 60%),
+    radial-gradient(50% 60% at 82% 20%, rgba(177, 129, 32, 0.16), transparent 60%),
     radial-gradient(rgba(253, 250, 244, 0.05) 1px, transparent 1.5px);
   background-size: auto, 32px 32px;
 }
@@ -1013,12 +1013,12 @@
   text-decoration: none;
   padding: 14px 12px 16px;
   background: #fdfaf4;
-  border: 1px solid rgba(14, 27, 70, 0.1);
+  border: 1px solid rgba(3, 12, 49, 0.1);
   border-radius: var(--radius-md, 14px);
   transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.26s ease, box-shadow 0.26s ease;
 }
 @media (hover: hover) {
-  .pod-cat:hover { transform: translateY(-4px); border-color: rgba(243, 112, 49, 0.4); box-shadow: 0 14px 30px -14px rgba(14, 27, 70, 0.28); }
+  .pod-cat:hover { transform: translateY(-4px); border-color: rgba(176, 111, 21, 0.4); box-shadow: 0 14px 30px -14px rgba(3, 12, 49, 0.28); }
 }
 .pod-cat:focus-visible { outline: 2px solid var(--gold-3); outline-offset: 3px; }
 .pod-cat-thumb {

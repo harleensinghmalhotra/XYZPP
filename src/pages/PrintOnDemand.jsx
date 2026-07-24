@@ -33,9 +33,9 @@ const QTY_HERO = { 1: '1', 10: '10', 50: '50', 250: '250', 500: '500+' }
 /* ── preview geometry ────────────────────────────────────────────────────────── */
 const SIZE_RATIO = { '5x8': 0.625, '6x9': 0.667, '8x10': 0.8, a4: 0.707 }
 const PAPER_EDGE = {
-  cream: { edge: '#f3ead4', line: 'rgba(15,36,68,0.16)' },
-  white: { edge: '#fbfaf6', line: 'rgba(15,36,68,0.12)' },
-  art: { edge: '#eef0ea', line: 'rgba(15,36,68,0.14)' },
+  cream: { edge: '#f3ead4', line: 'rgba(3,12,49,0.16)' },
+  white: { edge: '#fbfaf6', line: 'rgba(3,12,49,0.12)' },
+  art: { edge: '#eef0ea', line: 'rgba(3,12,49,0.14)' },
 }
 function bookDims(format, size) {
   const r = SIZE_RATIO[size] ?? 0.66
@@ -619,7 +619,7 @@ export default function PrintOnDemand() {
         <SectionCurve position="top" fill="#f0ebe0" inward />
         <SectionCurve position="bottom" fill="#f0ebe0" inward />
         <div className="pod-band-inner">
-          <p className="pod-eyebrow" style={{ color: '#C2551B' }} data-reveal>{t('band.eyebrow')}</p>
+          <p className="pod-eyebrow" style={{ color: '#925C10' }} data-reveal>{t('band.eyebrow')}</p>
           <p className="pod-band-quote" id="pod-band-title" data-reveal>
             <Trans t={t} i18nKey="band.quote" components={{ em: <em /> }} />
           </p>

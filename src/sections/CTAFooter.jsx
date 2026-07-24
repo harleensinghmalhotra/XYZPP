@@ -86,7 +86,7 @@ export default function CTAFooter() {
 
       {/* Embedded Rounded Footer — cream card raised on the beige surface */}
       <div className="relative z-10 mx-4 mb-4 sm:mx-6 sm:mb-6">
-        <footer className="mx-auto w-full max-w-[1400px] rounded-[var(--r-card)] bg-[#fdfaf4] px-8 pb-10 pt-16 sm:px-16 sm:pt-20 ring-1 ring-[#0e1b46]/10" style={{ fontFamily: INTER, color: 'rgba(28,32,25,0.82)' }}>
+        <footer className="mx-auto w-full max-w-[1400px] rounded-[var(--r-card)] bg-[#fdfaf4] px-8 pb-10 pt-16 sm:px-16 sm:pt-20 ring-1 ring-[#030C31]/10" style={{ fontFamily: INTER, color: 'rgba(28,32,25,0.82)' }}>
 
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
 
@@ -94,7 +94,7 @@ export default function CTAFooter() {
             <div className="lg:col-span-4 flex flex-col items-start">
               <div className="mb-8 flex items-center gap-3">
                 <img src="/site-assets/homepage/brand/qfp-mark.png" alt="Quarterfold Printabilities" width="52" height="52" className="object-contain" style={{ height: 52, width: 52 }} />
-                <span className="flex flex-col leading-[1.06] text-[#0e1b46]" style={{ fontFamily: TIGHT }}>
+                <span className="flex flex-col leading-[1.06] text-[#030C31]" style={{ fontFamily: TIGHT }}>
                   <span className="text-[17px] font-bold tracking-[0.2px]">Quarterfold</span>
                   <span className="text-[17px] font-bold tracking-[0.2px]">Printabilities</span>
                 </span>
@@ -114,11 +114,11 @@ export default function CTAFooter() {
 
               {columns.map((col) => (
                 <div key={col.h} className="flex flex-col">
-                  <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#C2551B' }}>{col.h}</h3>
+                  <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#925C10' }}>{col.h}</h3>
                   <ul className="flex flex-col gap-4">
                     {col.items.map((it) => (
                       <li key={it}>
-                        <a href="#" className="text-[14px] font-medium transition-colors hover:text-[#C2551B]" style={{ color: 'rgba(28,32,25,0.82)' }}>{it}</a>
+                        <a href="#" className="text-[14px] font-medium transition-colors hover:text-[#925C10]" style={{ color: 'rgba(28,32,25,0.82)' }}>{it}</a>
                       </li>
                     ))}
                   </ul>
@@ -126,14 +126,14 @@ export default function CTAFooter() {
               ))}
 
               <div className="flex flex-col">
-                <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#C2551B' }}>{t('headOffice')}</h3>
+                <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#925C10' }}>{t('headOffice')}</h3>
                 <p className="text-[14px] font-medium leading-relaxed" style={{ color: 'rgba(28,32,25,0.82)' }}>
                   1207, Cyber One IT Park,<br />Sector 30-A, Vashi,<br />Navi Mumbai 400703, India
                 </p>
               </div>
 
               <div className="flex flex-col">
-                <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#C2551B' }}>{t('factories')}</h3>
+                <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#925C10' }}>{t('factories')}</h3>
                 <p className="text-[14px] font-medium leading-relaxed" style={{ color: 'rgba(28,32,25,0.82)' }}>
                   Plot No. B-8, L-143 &amp; A 2/3,<br />Taloja MIDC,<br />Navi Mumbai 410208, India
                 </p>
@@ -145,11 +145,11 @@ export default function CTAFooter() {
           {/* Rule + social + legal */}
           <div className="mt-20 flex flex-col">
             <div className="mb-8 flex items-end justify-between">
-              <div className="h-[3px] w-48" style={{ background: '#F37031' }} />
+              <div className="h-[3px] w-48" style={{ background: '#B06F15' }} />
               <div className="flex items-center gap-3">
                 {['LinkedIn', 'Instagram', 'Facebook'].map((net) => (
-                  <a key={net} href="#" className="group flex h-10 w-10 items-center justify-center rounded-full bg-[#0e1b46]/6 transition-all hover:bg-[#F37031]/20 hover:scale-110 active:scale-95" aria-label={net}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#5c5346] transition-colors group-hover:text-[#F37031]">
+                  <a key={net} href="#" className="group flex h-10 w-10 items-center justify-center rounded-full bg-[#030C31]/6 transition-all hover:bg-[#B06F15]/20 hover:scale-110 active:scale-95" aria-label={net}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#5c5346] transition-colors group-hover:text-[#B06F15]">
                       {net === 'LinkedIn' && <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></>}
                       {net === 'Instagram' && <><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></>}
                       {net === 'Facebook' && <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />}
@@ -158,13 +158,13 @@ export default function CTAFooter() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col items-start justify-between gap-4 border-t border-[#0e1b46]/12 pt-8 lg:flex-row lg:items-center">
+            <div className="flex flex-col items-start justify-between gap-4 border-t border-[#030C31]/12 pt-8 lg:flex-row lg:items-center">
               <p className="text-[11px] font-semibold tracking-wider uppercase" style={{ color: '#5c5346' }}>
                 {t('copyright')}
               </p>
               <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                 {legalLinks.map((it) => (
-                  <Link key={it.key} to={`/legal/${it.key}`} className="text-[11px] font-semibold tracking-wider uppercase transition-colors hover:text-[#C2551B]" style={{ color: '#5c5346' }}>{it.label}</Link>
+                  <Link key={it.key} to={`/legal/${it.key}`} className="text-[11px] font-semibold tracking-wider uppercase transition-colors hover:text-[#925C10]" style={{ color: '#5c5346' }}>{it.label}</Link>
                 ))}
               </div>
             </div>

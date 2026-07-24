@@ -44,7 +44,7 @@
    Inter sentence. Six across on desktop (the flow reads left→right), wrapping to 3 / 2
    / 1 so the whole section stays comfortable on one screen. ── */
 .pv-steps {
-  --pv-orange: #C2551B;                     /* AA-safe burnt orange — numbers + rules */
+  --pv-orange: #925C10;                     /* AA-safe burnt orange — numbers + rules */
   list-style: none;
   max-width: var(--content-max);
   margin: clamp(40px, 6vh, 68px) auto 0;
@@ -70,7 +70,7 @@
 .pv-step2-name {
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
   font-size: 15px; line-height: 1.2; letter-spacing: -0.01em;
-  color: #0e1b46; margin: 0 0 6px;
+  color: #030C31; margin: 0 0 6px;
 }
 .pv-step2-desc {
   font-family: 'Inter', sans-serif; font-weight: 400;
@@ -94,9 +94,9 @@
    normalised (in the asset) to the page cream (#FDFAF4), so there is no rectangle seam
    and the illustration reads as printed ON the page. Below the artwork: our seven steps
    on a strict grid, engraved-plate numbered in a calm AA-safe burnt orange (bright
-   #F37031 fails contrast on cream at this size). No icons — the artwork carries it. ── */
+   #B06F15 fails contrast on cream at this size). No icons — the artwork carries it. ── */
 .pv-frame-wrap {
-  --pv-orange: #C2551B;                    /* AA-safe burnt orange — numbers + rules */
+  --pv-orange: #925C10;                    /* AA-safe burnt orange — numbers + rules */
   max-width: 1300px;                       /* the artwork breathes a touch wider */
   width: calc(100% - 2 * var(--page-gutter));
   margin: clamp(52px, 8vh, 104px) auto 0;  /* generous flow-space from the video above */
@@ -149,7 +149,7 @@
 .pv-step-name {
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
   font-size: 15px; line-height: 1.2; letter-spacing: -0.01em;
-  color: #0e1b46; margin: 0 0 5px;
+  color: #030C31; margin: 0 0 5px;
 }
 .pv-step-desc {
   font-family: 'Inter', sans-serif; font-weight: 400;
@@ -180,12 +180,12 @@
   width: 26px; height: 26px; border-radius: 50%;
   border: 1px solid rgb(var(--navy-rgb) / 0.2);
   display: grid; place-items: center;
-  color: #0e1b46;
+  color: #030C31;
 }
 .pv-badge-text { display: flex; flex-direction: column; min-width: 0; }
 .pv-badge-lead {
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: 12.5px; line-height: 1.25; letter-spacing: -0.01em; color: #0e1b46;
+  font-size: 12.5px; line-height: 1.25; letter-spacing: -0.01em; color: #030C31;
 }
 .pv-badge-sub {
   font-family: 'Inter', sans-serif; font-weight: 400;
