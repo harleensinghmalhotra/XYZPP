@@ -27,6 +27,11 @@ const CREAM = '#F0EBE0'
 const CREAM_WARM = '#E6DDC8'
 const GOLD = '#F37031'
 const GOLD_DEEP = '#F37031'
+// Task 7 (client revision): the globe's own background water reads light blue rather
+// than navy. A restrained, slightly muted light blue that sits comfortably against the
+// navy section around the globe. This is a file-local literal only — no site token or
+// CSS variable is touched, and it applies solely to the globe's water fill.
+const WATER = '#A7C6DE'
 
 // OpenFreeMap "positron" — the cleaner, lighter of the two free bases, easiest
 // to restyle into a cream-land planet. Free vector tiles, no key. (See
@@ -34,7 +39,7 @@ const GOLD_DEEP = '#F37031'
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/positron'
 
 // Navi Mumbai landing, plus the two QFP sites that pop as gold markers.
-const TARGET = { center: [73.0, 19.03], zoom: 9 }
+const TARGET = { center: [73.04, 19.065], zoom: 10 }
 const MARKERS = [
   { lngLat: [72.9987, 19.077], label: 'Vashi', role: 'Head Office' },
   { lngLat: [73.103, 19.083], label: 'Taloja', role: 'Main Factory', placement: 'above' },
@@ -56,7 +61,7 @@ function brandStyle(map) {
         map.setPaintProperty(id, 'background-color', CREAM)
       } else if (type === 'fill') {
         if (/water|ocean|sea|river|lake|bay|marine|reservoir/i.test(id)) {
-          map.setPaintProperty(id, 'fill-color', NAVY)
+          map.setPaintProperty(id, 'fill-color', WATER)
           map.setPaintProperty(id, 'fill-opacity', 1)
         } else if (/building/i.test(id)) {
           map.setLayoutProperty(id, 'visibility', 'none')
