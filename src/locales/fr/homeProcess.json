@@ -4,6 +4,14 @@
   "sub": "Un seul partenaire. Un seul flux de travail. Nous prenons tout en charge pour que vous puissiez vous consacrer à votre mission.",
   "legs": ["Papier", "Du papier au livre", "Du livre au colis", "Emballé et scellé", "Expédié", "Livré"],
   "detailsAria": "Notre processus, de l'impression à la livraison",
+  "steps": [
+    { "title": "Impression", "desc": "Des presses offset et feuille à feuille à haut volume impriment chaque commande selon la même norme, d'un seul titre à des millions d'exemplaires." },
+    { "title": "Reliure et finition", "desc": "Reliure sans couture, piqûre à cheval, reliure cartonnée et finitions spéciales sont réalisées en interne, afin que la qualité reste constante à chaque étape." },
+    { "title": "Contrôles qualité", "desc": "Chaque lot est inspecté selon des normes définies avant de quitter l'atelier, ce qui permet de détecter les problèmes avant qu'ils n'atteignent le client." },
+    { "title": "Logistique", "desc": "Les livres sont assemblés, emballés et préparés pour l'expédition selon les spécifications exactes de la commande, prêts à être expédiés sans délai." },
+    { "title": "Expédié", "desc": "La documentation, les douanes et le fret sont gérés de bout en bout pour chaque envoi quittant le site." },
+    { "title": "Livré", "desc": "Les livres parviennent aux éditeurs, aux ministères et aux institutions dans les délais, partout dans le monde." }
+  ],
   "stages": {
     "print": {
       "name": "Impression",

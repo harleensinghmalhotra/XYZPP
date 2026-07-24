@@ -37,6 +37,55 @@
   background: #000;          /* black letterbox behind the poster/frame */
 }
 
+/* ── THE SIX STEPS — one continuous process on the page cream, directly under the
+   video. A compact numbered grid: DM-Mono index + short rule, Inter-Tight title, one
+   Inter sentence. Six across on desktop (the flow reads left→right), wrapping to 3 / 2
+   / 1 so the whole section stays comfortable on one screen. ── */
+.pv-steps {
+  --pv-orange: #C2551B;                     /* AA-safe burnt orange — numbers + rules */
+  list-style: none;
+  max-width: var(--content-max);
+  margin: clamp(40px, 6vh, 68px) auto 0;
+  padding: 0 var(--page-gutter);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(20px, 2vw, 34px);
+  align-items: start;
+}
+.pv-step2 { position: relative; min-width: 0; text-align: left; }
+.pv-step2-num {
+  display: block;
+  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
+  font-size: 11px; line-height: 1; letter-spacing: 0.14em;
+  color: var(--pv-orange);
+}
+.pv-step2-rule {
+  display: block;
+  width: 18px; height: 2px;
+  background: var(--pv-orange);
+  margin: 6px 0 11px;
+}
+.pv-step2-name {
+  font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: 15px; line-height: 1.2; letter-spacing: -0.01em;
+  color: #0e1b46; margin: 0 0 6px;
+}
+.pv-step2-desc {
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: 12.5px; line-height: 1.5;
+  color: rgba(28, 32, 25, 0.72);
+  margin: 0;
+}
+@media (max-width: 1180px) {
+  .pv-steps { grid-template-columns: repeat(3, 1fr); row-gap: clamp(24px, 3vw, 34px); }
+}
+@media (max-width: 720px) {
+  .pv-steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 460px) {
+  .pv-steps { grid-template-columns: 1fr; }
+}
+
 /* ── THE PROCESS EXHIBIT — process ARTWORK + rebuilt text layer, NO box. The frame,
    its border, background panel and padding are gone: the artwork, text row and promise
    band bleed straight onto the page cream as normal flow. The artwork's cream is

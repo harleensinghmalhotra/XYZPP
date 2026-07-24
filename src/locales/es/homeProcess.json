@@ -4,6 +4,14 @@
   "sub": "Un solo socio. Un solo flujo de trabajo. Nos encargamos de todo para que usted pueda centrarse en su misión.",
   "legs": ["Papel", "Del papel al libro", "Del libro al paquete", "Empaquetado y sellado", "Enviado", "Entregado"],
   "detailsAria": "Nuestro proceso, de la impresión a la entrega",
+  "steps": [
+    { "title": "Impresión", "desc": "Prensas offset y de pliego de alto volumen imprimen cada trabajo con el mismo estándar, desde un solo título hasta millones de ejemplares." },
+    { "title": "Encuadernación y acabado", "desc": "El encuadernado en rústica, el cosido a caballete, la encuadernación en tapa dura y los acabados especiales se realizan internamente, para que la calidad se mantenga constante en cada etapa." },
+    { "title": "Controles de calidad", "desc": "Cada lote se inspecciona según normas definidas antes de salir de la planta, detectando los problemas antes de que lleguen al cliente." },
+    { "title": "Logística", "desc": "Los libros se preparan, se embalan y se acondicionan para el envío según las especificaciones exactas del pedido, listos para expedirse sin demora." },
+    { "title": "Enviado", "desc": "La documentación, las aduanas y el flete se gestionan de principio a fin para cada envío que sale de las instalaciones." },
+    { "title": "Entregado", "desc": "Los libros llegan a editoriales, ministerios e instituciones a tiempo, en cualquier parte del mundo." }
+  ],
   "stages": {
     "print": {
       "name": "Impresión",

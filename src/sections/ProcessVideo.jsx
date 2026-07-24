@@ -47,6 +47,8 @@ export default function ProcessVideo() {
 
   const rawBadges = t('badges', { returnObjects: true })
   const badges = Array.isArray(rawBadges) ? rawBadges : []
+  const rawSteps = t('steps', { returnObjects: true })
+  const steps = Array.isArray(rawSteps) ? rawSteps : []
 
   useEffect(() => {
     const v = videoRef.current
@@ -106,6 +108,20 @@ export default function ProcessVideo() {
           <source src={VIDEO} type="video/mp4" />
         </video>
       </div>
+
+      {/* THE SIX STEPS — one continuous process, print → delivered. A compact numbered
+          grid on the page cream; each step a title + one sentence. Sits directly under
+          the video so the whole section reads as one workflow. */}
+      <ol className="pv-steps" aria-label={t('detailsAria')}>
+        {steps.map((s, i) => (
+          <li className="pv-step2" key={i}>
+            <span className="pv-step2-num">{String(i + 1).padStart(2, '0')}</span>
+            <span className="pv-step2-rule" aria-hidden="true" />
+            <h3 className="pv-step2-name">{s.title}</h3>
+            <p className="pv-step2-desc">{s.desc}</p>
+          </li>
+        ))}
+      </ol>
 
       {/* THE EXHIBIT — no box, no border, no panel. The artwork, text row and promise
           band bleed straight onto the page cream as normal flow; the artwork's cream is
