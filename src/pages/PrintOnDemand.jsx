@@ -630,7 +630,7 @@ export default function PrintOnDemand() {
               <p className="pod-stat-lbl">{t('band.stat1Label')}</p>
             </li>
             <li className="pod-stat" data-reveal>
-              <div className="pod-stat-num"><CountUp value={8} suffix="M+" /></div>
+              <div className="pod-stat-num"><CountUp value={75} suffix="M" /></div>
               <p className="pod-stat-lbl">{t('band.stat2Label')}</p>
             </li>
             <li className="pod-stat" data-reveal>
