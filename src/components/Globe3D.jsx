@@ -6,8 +6,8 @@ import { Suspense, forwardRef, lazy, useEffect, useImperativeHandle, useMemo, us
    react-globe.gl (three-globe + three), which we already ship.
 
    Look: NASA Blue Marble day texture + topology bump for real continents/oceans,
-   a warm GOLD atmosphere rim (brand accent #F37031, not the old generic blue),
-   and a transparent canvas so the section's near-black navy and
+   a warm GOLD atmosphere rim (brand gold #B06F15, not the old orange), and a
+   transparent canvas so the section's near-black navy and
    the CSS gold halo read as "soft space / velvet" behind the sphere.
 
    Behaviour contract (kept from the cobe version):
@@ -37,9 +37,11 @@ import { Suspense, forwardRef, lazy, useEffect, useImperativeHandle, useMemo, us
 
 const Globe = lazy(() => import('react-globe.gl'))
 
-// Brand accent: light gold #F37031 for the atmosphere + markers/arcs.
-const GOLD = '#F37031'
-const GOLD_RGB = 'rgba(200,154,60'
+// Task 7 — brand gold #B06F15 for the atmosphere rim + markers/arcs (was the old
+// orange #F37031). GOLD_RGB is the same brand gold as an rgb() prefix for the arc
+// colour ramps. The deliberate blue-marble ocean texture is untouched.
+const GOLD = '#B06F15'
+const GOLD_RGB = 'rgba(176,111,21'
 
 // Self-hosted, license-safe textures — NASA Blue Marble (public domain) shipped
 // as three-globe's own example assets. See public/qfp/earth/SOURCE.txt.
