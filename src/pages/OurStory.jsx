@@ -107,10 +107,15 @@ export default function OurStory() {
       <Gallery />
 
       {/* SECTION 8 & 9 ── AWARDS + CERTIFICATES — company-wide credentials,
-          imported from the homepage sections (Awards navy → Certs cream dome).
-          The closing CTA is appended by the site layout after <main>. */}
+          imported from the homepage sections (Awards navy → Certs cream).
+          Task 3 — flatTop: the Certifications cream dome (certs-arc-top) otherwise
+          sweeps UP into the navy Awards section and clips the outer plaque cards'
+          lower corners. On the homepage Awards is the LAST section (nothing above the
+          certs), so it never clips there; suppressing the dome here brings About in
+          line — the cards sit fully clear on a flat navy→cream seam. The closing CTA
+          is appended by the site layout after <main>. */}
       <Awards />
-      <Certifications />
+      <Certifications flatTop />
     </main>
   )
 }
