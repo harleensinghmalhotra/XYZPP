@@ -386,22 +386,20 @@ function Gallery() {
   )
 }
 
-// ── THE TEAM — leadership roster, six horizontal cards, everything visible ────
-// Six uniform HORIZONTAL cards — the whole 3:4 portrait LEFT (shown COMPLETE, never
-// cropped), copy RIGHT. Laid 2 × 3. One uniform text structure for all six:
-//   name · (thin orange rule that draws under it on hover) · role · one-line bio ·
-//   quote (italic, thin orange left rule).
-// The quote is ALWAYS visible — no "+" expander, no truncation. A member with no
-// quote (Charani) simply drops the quote block; one with no bio (Dhiresh) drops the
-// bio line — the structure is otherwise identical. Cool hover: the photo warms from
-// grayscale → full colour (300ms), the card lifts 4px, and the orange rule draws in.
+// ── THE TEAM — leadership roster, six cards in a 3-up grid ────────────────────
+// Six vertical cards, three per row → two clean rows (two per row on tablet, one on
+// phones). Portrait on TOP (a fixed 3:4 frame the pre-cropped 3:4 webp fills), copy
+// BELOW: name · (thin orange rule that draws under it on hover) · role · bio · quote
+// (italic, thin orange left rule). Every copy slot is optional and simply drops when
+// its string is empty — Charani has no quote; the three newest leaders (Dilip,
+// Patrick, Priyanka) render photo + name only until their bios and titles are
+// supplied. Cool hover: the photo warms grayscale → colour (300ms), the card lifts 4px.
 //
 // Header + copy resolve from ourStory.team (heading / members) in all three locales;
-// roles + bios localise, quotes stay in their original language. No locale changes.
-// Task 16 — the three leaders' photos have not been supplied; each card falls back to a
-// neutral placeholder. Drop <slug>.webp into public/site-assets/about/team/ to swap in a
-// real photo (see that folder's README). Order matches team.members in ourStory.json.
-const TEAM_SLUGS = ['sameer-kazi', 'charani-dhankani', 'dhiresh-verlekar']
+// roles + bios localise, quotes stay in their original language. Photos live at
+// public/site-assets/about/team/<slug>.webp (see that folder's README); order matches
+// team.members in ourStory.json. A missing file falls back to the neutral placeholder.
+const TEAM_SLUGS = ['sameer-kazi', 'charani-dhankani', 'dhiresh-verlekar', 'dilip-ramrakhyani', 'patrick-carrapiett', 'priyanka-rajpal']
 const TEAM_PLACEHOLDER = '/site-assets/about/team/placeholder-portrait.svg'
 
 function Team() {
@@ -419,8 +417,8 @@ function Team() {
           {members.map((p, i) => (
             <article className="tm-card" data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}>
               <div className="tm-media">
-                {/* Real photo when its <slug>.webp is dropped in; otherwise the neutral
-                    placeholder. Whole 3:4 portrait, never cropped. */}
+                {/* Pre-cropped 3:4 portrait that fills the fixed 3:4 frame; falls back
+                    to the neutral placeholder only if the file is ever missing. */}
                 <img
                   src={photo(i)}
                   alt={p.name}
