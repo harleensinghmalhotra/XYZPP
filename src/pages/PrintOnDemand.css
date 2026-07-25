@@ -1001,10 +1001,12 @@
   line-height: 1.06;
   color: var(--navy);
 }
+/* Task 5 — 5 cards per row on desktop so the 9 categories read as a balanced 5 + 4
+   (was auto-fill minmax(150px), which broke 7 + 2). Degrades to 4 / 3 / 2 below. */
 .pod-cat-grid {
   list-style: none; margin: 0; padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: clamp(14px, 1.6vw, 22px);
 }
 .pod-cat {
@@ -1043,11 +1045,13 @@
     position: static;
     grid-column: 1 / -1;
   }
+  .pod-cat-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 860px) {
   .pod-config {
     grid-template-columns: 1fr;
   }
+  .pod-cat-grid { grid-template-columns: repeat(3, 1fr); }
   .pod-preview {
     position: static;
     min-height: 420px;
@@ -1067,6 +1071,7 @@
   .pod-opts.cols-3 { grid-template-columns: 1fr; }
   .pod-opts.chips.size { grid-template-columns: repeat(2, 1fr); }
   .pod-opts.chips.qty { grid-template-columns: repeat(3, 1fr); }
+  .pod-cat-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 380px) {
   .pod-opts.chips.qty { grid-template-columns: repeat(2, 1fr); }
