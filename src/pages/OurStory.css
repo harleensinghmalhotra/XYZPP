@@ -273,7 +273,11 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 }
 
 /* ── SECTION 4 — THE FOUNDER (corporate boardroom profile) ──────────────────── */
-.fnd { position: relative; background: var(--cream); padding: var(--section-pad-y) var(--page-gutter); overflow: hidden; }
+/* Task 2 — the founder→Team boundary carried a double gap (full section-pad-y here
+   + the Team section's own top padding), reading as a large empty band under the
+   quote card. Trim the founder's BOTTOM padding so the two sit at a normal, single
+   section rhythm; the top padding is untouched (founder still breathes from MVV). */
+.fnd { position: relative; background: var(--cream); padding: var(--section-pad-y) var(--page-gutter) clamp(32px, 4vh, 48px); overflow: hidden; }
 .fnd-spread { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(40px, 6vw, 88px); align-items: start; }
 /* fitted portrait — a clean institutional frame; the editorial offset-rule is gone. */
 .fnd-portrait-wrap { position: relative; width: 100%; max-width: 340px; }   /* Task 15 — smaller founder portrait */
@@ -394,7 +398,9 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    orange left rule). The quote is ALWAYS visible (no expander, no truncation); an
    absent bio or quote simply drops out. Cool hover: the photo warms grayscale →
    colour (300ms), the card lifts 4px, and the orange rule draws in. */
-.tm { position: relative; background: var(--cream); padding: clamp(60px, 7vh, 88px) var(--page-gutter) var(--section-pad-y); overflow: hidden; }
+/* Task 2 — Team top padding reduced (was clamp(60,7vh,88)) so it sits comfortably
+   close to the founder quote above, at the page's standard section rhythm. */
+.tm { position: relative; background: var(--cream); padding: clamp(44px, 5.5vh, 64px) var(--page-gutter) var(--section-pad-y); overflow: hidden; }
 /* the gold hairline that opens the section — draws left→right (scaleX). */
 html.alive-ready .tm-rule[data-reveal] {
   width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3);
