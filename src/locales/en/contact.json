@@ -79,7 +79,7 @@
     "pod": "Print on Demand",
     "careers": "Careers",
     "other": "Other"
-  },
+  },
   "careers": {
     "title": "Careers at Quarterfold",
     "subtitle": "Join the team powering global education through print excellence.",
@@ -123,60 +123,70 @@
     "regionLabel": "FAQ",
     "eyebrow": "Questions, answered",
     "title": "Frequently asked questions.",
-    "tablistLabel": "FAQ audiences",
-    "tabs": {
-      "publishers": "For Publishers",
-      "institutions": "For Institutions & Programmes",
-      "self": "For Self-Publishers"
-    },
     "items": {
-      "publishers-0": {
-        "q": "Do you print for publishers outside India?",
-        "a": "Yes. We serve 250+ publishers worldwide and export more than 800 containers a year to 25+ countries, working with many of the top publishers in India."
+      "q0": {
+        "q": "What services does Quarterfold Printabilities offer?",
+        "a": "Quarterfold Printabilities is a fully integrated print and fulfilment company specializing in educational publishing. Our services include offset (web and sheetfed), digital printing, binding and finishing, customisation, school wise kitting and packing, warehousing, inventory management, logistics support, and end to end supply chain solutions."
       },
-      "publishers-1": {
-        "q": "What print certifications do you hold?",
-        "a": "We are FSC certified under licence TUVDC COC 101258, alongside ISO and Sedex, so your titles can carry recognised responsible-sourcing and audited-supply marks."
+      "q1": {
+        "q": "What types of books do you print?",
+        "a": "We print a wide range of publications including: Educational textbooks; Children's colouring and activity books; Notebooks and stationery; Teacher guides and higher education publications; Religious books; Trade books; Financial reports; Marketing collaterals; Calendars and diaries; Custom publishing projects."
       },
-      "publishers-2": {
-        "q": "Can you handle large offset runs?",
-        "a": "Yes. Our three facilities across 300,000 sq ft print more than 75 million books a year on web-offset and sheet-fed presses, so we scale comfortably to long runs."
+      "q2": {
+        "q": "Can Quarterfold handle large printing projects?",
+        "a": "Yes. Quarterfold has the capability and infrastructure to manage large scale international publishing programmes. We manufacture approximately 6.5 million books per month across our 3 advanced printing facilities in Navi Mumbai, supported by a dedicated fulfilment and warehouse facility for efficient storage, packing, and distribution. With an annual production capacity of over 75 million books and exports to more than 25 countries, our integrated manufacturing and logistics capabilities enable us to deliver high volume educational and publishing projects with consistent quality, reliability, and on time execution."
       },
-      "publishers-3": {
-        "q": "Do you manage export and shipping?",
-        "a": "We handle containerised export, customs documentation and delivery, moving 800+ containers a year to ministries, distributors and publishers across 25+ countries."
+      "q3": {
+        "q": "What printing technologies do you use?",
+        "a": "Quarterfold operates a comprehensive fleet of advanced web offset and sheet fed printing presses, supported by digital printing capabilities for specialised and short run requirements. Our diverse printing infrastructure enables us to efficiently manage projects of all sizes, from print on demand and short run printing to large scale print projects. With advanced technology, experienced teams, and robust quality control processes, we deliver consistent print quality, competitive pricing, and reliable turnaround times for publishers worldwide."
       },
-      "institutions-0": {
-        "q": "Do you work with governments and ministries on tenders?",
-        "a": "Yes. We deliver national textbook programmes for ministries of education, and are a print partner on World Bank and USAID funded programmes."
+      "q4": {
+        "q": "Do you provide complete fulfilment and packing services?",
+        "a": "Yes. Quarterfold provides end to end fulfilment solutions beyond printing, including school wise packing, kitting, barcode labelling, shrink wrapping, palletisation, warehousing, and global distribution. We have successfully executed large scale school distribution programmes, managing school wise packing and shipment ranging from 800 schools per project to over 3,000 schools, ensuring accurate, organised, and timely delivery for complex educational programmes."
       },
-      "institutions-1": {
-        "q": "Which countries have you printed national programmes for?",
-        "a": "We have printed curriculum programmes across 10+ African countries, including Tanzania, Ghana, Nigeria, Ivory Coast and DR Congo."
+      "q5": {
+        "q": "What certifications does Quarterfold hold?",
+        "a": "We maintain internationally recognised certifications including: ISO 9001:2015 (Quality Management); ISO/IEC 27001:2022 (Information Security); FSC Certification; SEDEX. These certifications reflect our commitment to quality, sustainability, security, and ethical business practices."
       },
-      "institutions-2": {
-        "q": "Are programme books produced responsibly?",
-        "a": "Yes. We are FSC certified under licence TUVDC COC 101258, so programme books can be printed on responsibly sourced paper for tenders that require it."
+      "q6": {
+        "q": "How do you ensure consistent print quality?",
+        "a": "Quality assurance is integrated into every stage of production. Our experienced quality control teams perform rigorous inspections throughout pre press, printing, binding, finishing, packing, and dispatch to ensure every product meets international publishing standards."
       },
-      "institutions-3": {
-        "q": "How quickly can you scale for a national rollout?",
-        "a": "With three facilities, 300,000 sq ft and capacity for 75 million+ books a year, we scale from a single curriculum edition to a full national rollout."
+      "q7": {
+        "q": "Can Quarterfold assist with international shipping and logistics?",
+        "a": "Yes, we offer end to end export logistics, including documentation, container loading, freight coordination, customs support, and delivery to international destinations, ensuring a smooth supply chain from our facility to your warehouse."
       },
-      "self-0": {
-        "q": "Do you print single copies or short runs?",
-        "a": "Yes. Our print-on-demand service is built for self-publishers and independent authors, from a single book to short runs."
+      "q8": {
+        "q": "Do you support sustainable printing practices?",
+        "a": "Yes. Sustainability is at the core of our operations. We source paper from responsibly managed forests through FSC certified suppliers, offer recycled and sustainable paper options, and implement environmentally responsible manufacturing processes to minimise our environmental footprint. Our commitment enables publishers to meet their sustainability goals while maintaining the highest standards of quality, consistency, and performance."
       },
-      "self-1": {
-        "q": "Can I see a sample before a full run?",
-        "a": "Yes. We can produce samples so you can check trim size, paper and binding before committing to a full print run."
+      "q9": {
+        "q": "What information do I need to request a quotation?",
+        "a": "To prepare an accurate quotation, we typically require: Book specifications; Page count; Trim size; Print quantity; Paper specifications; Binding style; Packaging requirements; Delivery destination. Our team will guide you through the process if additional information is required."
       },
-      "self-2": {
-        "q": "What formats can you produce?",
-        "a": "From paperbacks and hardbacks to premium notebooks, diaries and coffee-table books, with hard, soft and leather bindings."
+      "q10": {
+        "q": "Do you offer sample copies or proofs before full production?",
+        "a": "Yes. We provide pre press proofs and physical sample copies so publishers can review the content, print quality, binding type and finishing before we proceed with full scale production."
       },
-      "self-3": {
-        "q": "How do I get a quote for one title?",
-        "a": "Send your specification, trim size, page count, paper, binding and quantity, using the enquiry form above and we will come back within one business day."
+      "q11": {
+        "q": "What paper and binding options are available?",
+        "a": "At Quarterfold, we are committed to sustainable printing practices and offer a wide range of paper gsm and solutions tailored to each publisher's specific requirements. Our portfolio includes recycled paper, woodfree paper, and FSC certified paper sourced from responsible suppliers to support environmental goals while maintaining excellent print quality and performance. We also provide a comprehensive range of binding options, including perfect binding, saddle stitching, case binding, and spiral binding, allowing publishers to select the ideal combination of durability, functionality, sustainability, and cost effectiveness for their projects."
+      },
+      "q12": {
+        "q": "Can Quarterfold support tender based or bid based educational projects?",
+        "a": "Yes. Quarterfold has extensive experience supporting large scale educational projects involving government departments, Ministries of Education, international agencies, and publishers. We assist with technical and commercial documentation, specification review, production planning, and end to end execution to ensure successful project delivery."
+      },
+      "q13": {
+        "q": "Do you offer warehousing and staggered delivery for large programmes?",
+        "a": "Yes. Quarterfold offers dedicated fulfilment and warehousing facilities totalling over 60,000 sq ft, allowing publishers and organisations to store printed materials with us without investing in their own warehouse infrastructure. We provide secure storage, inventory management, pick and pack services, and staggered delivery solutions to support large scale, multi school, and multi region programmes efficiently."
+      },
+      "q14": {
+        "q": "Can Quarterfold support tender based and government funded educational projects?",
+        "a": "Yes. Quarterfold has extensive experience supporting and delivering large scale educational programmes involving government departments, Ministries of Education, international agencies, publishers, and donor funded organisations such as the World Bank. We provide end to end support, including technical and commercial documentation, specification review, production planning, fulfilment, and delivery, ensuring successful execution of complex projects across multiple countries while meeting strict quality and timeline requirements."
+      },
+      "q15": {
+        "q": "Why should I choose Quarterfold over other printing companies?",
+        "a": "Quarterfold combines world class manufacturing capabilities with personalised customer service to deliver exceptional value. From pre press to final delivery, we provide a complete print and fulfilment solution backed by a decade of experience, internationally recognised certifications, advanced production facilities, and a proven track record of delivering educational programmes and publishing projects across more than 25 countries. Our competitive pricing, agile production processes, and ability to efficiently handle projects of any scale, from short runs to multi million copy print programmes, make us a trusted and reliable partner for publishers worldwide."
       }
     }
   },

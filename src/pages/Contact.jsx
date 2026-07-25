@@ -71,14 +71,10 @@ const COUNTRIES = [
   'United Arab Emirates', 'Other',
 ]
 
-// ── FAQ — audience tabs. Structure only: each tab has a stable key and a fixed
-// number of Q/A items. Labels, questions and answers resolve through the namespace
-// via t(`faq.tabs.<key>`) and t(`faq.items.<key>-<i>.q|a`).
-const FAQ_TABS = [
-  { key: 'publishers', count: 4 },
-  { key: 'institutions', count: 4 },
-  { key: 'self', count: 4 },
-]
+// ── FAQ — a single flat list of company Q&As (no audience tabs). Each question
+// resolves through the namespace via t(`faq.items.q<i>.q|a`); one panel open at a
+// time. FAQ_COUNT matches the items authored in contact.json.
+const FAQ_COUNT = 16
 
 const initialForm = {
   first: '', last: '', email: '', phone: '', company: '', country: '',
@@ -105,8 +101,7 @@ export default function Contact() {
   const [errors, setErrors] = useState({})
   // 'idle' | 'submitting' | 'success' | 'error'
   const [status, setStatus] = useState('idle')
-  const [tab, setTab] = useState(0)
-  const [openQ, setOpenQ] = useState('publishers-0')
+  const [openQ, setOpenQ] = useState('q0')
 
   // Desk seam geometry — the horizontal hairline sits at the boundary between the
   // top (3-cell) and bottom (2-cell) rows; measured so the drawn SVG lines land on
@@ -715,57 +710,32 @@ export default function Contact() {
             <h2 id="ctc-faq-title" className="ctc-faq-title">{t('faq.title')}</h2>
           </div>
 
-          <div className="ctc-tabs" role="tablist" aria-label={t('faq.tablistLabel')}>
-            {FAQ_TABS.map((tabDef, i) => (
-              <button
-                key={tabDef.key}
-                role="tab"
-                id={`tab-${tabDef.key}`}
-                aria-selected={tab === i}
-                aria-controls={`panel-${tabDef.key}`}
-                tabIndex={tab === i ? 0 : -1}
-                className={`ctc-tab focus-ring${tab === i ? ' is-active' : ''}`}
-                onClick={() => { setTab(i); setOpenQ(`${tabDef.key}-0`) }}
-              >
-                {t(`faq.tabs.${tabDef.key}`)}
-              </button>
-            ))}
-          </div>
-
-          {FAQ_TABS.map((tabDef, i) => (
-            <div
-              key={tabDef.key}
-              role="tabpanel"
-              id={`panel-${tabDef.key}`}
-              aria-labelledby={`tab-${tabDef.key}`}
-              hidden={tab !== i}
-              className="ctc-faq-list"
-            >
-              {Array.from({ length: tabDef.count }, (_, j) => {
-                const id = `${tabDef.key}-${j}`
-                const open = openQ === id
-                return (
-                  <div className={`ctc-qa${open ? ' is-open' : ''}`} key={id}>
-                    <h3 className="ctc-qa-h">
-                      <button
-                        type="button"
-                        className="ctc-qa-btn focus-ring"
-                        aria-expanded={open}
-                        aria-controls={`a-${id}`}
-                        onClick={() => setOpenQ(open ? '' : id)}
-                      >
-                        <span>{t(`faq.items.${id}.q`)}</span>
-                        <svg className="ctc-qa-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
-                      </button>
-                    </h3>
-                    <div id={`a-${id}`} className="ctc-qa-a" role="region" aria-labelledby={`q-${id}`} hidden={!open}>
-                      <p>{t(`faq.items.${id}.a`)}</p>
-                    </div>
+          <div className="ctc-faq-list">
+            {Array.from({ length: FAQ_COUNT }, (_, j) => {
+              const id = `q${j}`
+              const open = openQ === id
+              return (
+                <div className={`ctc-qa${open ? ' is-open' : ''}`} key={id}>
+                  <h3 className="ctc-qa-h">
+                    <button
+                      type="button"
+                      id={`q-${id}`}
+                      className="ctc-qa-btn focus-ring"
+                      aria-expanded={open}
+                      aria-controls={`a-${id}`}
+                      onClick={() => setOpenQ(open ? '' : id)}
+                    >
+                      <span>{t(`faq.items.${id}.q`)}</span>
+                      <svg className="ctc-qa-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </button>
+                  </h3>
+                  <div id={`a-${id}`} className="ctc-qa-a" role="region" aria-labelledby={`q-${id}`} hidden={!open}>
+                    <p>{t(`faq.items.${id}.a`)}</p>
                   </div>
-                )
-              })}
-            </div>
-          ))}
+                </div>
+              )
+            })}
+          </div>
         </div>
       </section>
 

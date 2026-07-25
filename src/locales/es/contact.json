@@ -123,60 +123,70 @@
     "regionLabel": "Preguntas frecuentes",
     "eyebrow": "Preguntas, respondidas",
     "title": "Preguntas frecuentes.",
-    "tablistLabel": "Públicos de las preguntas frecuentes",
-    "tabs": {
-      "publishers": "Para editoriales",
-      "institutions": "Para instituciones y programas",
-      "self": "Para autoeditores"
-    },
     "items": {
-      "publishers-0": {
-        "q": "¿Imprimen para editoriales fuera de la India?",
-        "a": "Sí. Atendemos a más de 250 editoriales en todo el mundo y exportamos más de 800 contenedores al año a más de 25 países, trabajando con muchas de las principales editoriales de la India."
+      "q0": {
+        "q": "¿Qué servicios ofrece Quarterfold Printabilities?",
+        "a": "Quarterfold Printabilities es una empresa de impresión y logística totalmente integrada, especializada en edición educativa. Nuestros servicios incluyen offset (web y de pliego), impresión digital, encuadernación y acabado, personalización, preparación de kits y empaquetado por escuela, almacenamiento, gestión de inventario, apoyo logístico y soluciones de cadena de suministro de extremo a extremo."
       },
-      "publishers-1": {
-        "q": "¿Qué certificaciones de impresión tienen?",
-        "a": "Contamos con la certificación FSC bajo la licencia TUVDC COC 101258, además de ISO y Sedex, de modo que sus títulos pueden llevar sellos reconocidos de abastecimiento responsable y suministro auditado."
+      "q1": {
+        "q": "¿Qué tipos de libros imprimen?",
+        "a": "Imprimimos una amplia gama de publicaciones, entre ellas: libros de texto educativos; libros de colorear y de actividades para niños; cuadernos y papelería; guías del profesorado y publicaciones de educación superior; libros religiosos; libros comerciales; informes financieros; materiales de marketing; calendarios y agendas; proyectos de edición personalizada."
       },
-      "publishers-2": {
-        "q": "¿Pueden gestionar grandes tiradas offset?",
-        "a": "Sí. Nuestras tres instalaciones, con 300,000 pies cuadrados, imprimen más de 75 millones de libros al año en prensas web offset y de pliego, por lo que escalamos con holgura a tiradas largas."
+      "q2": {
+        "q": "¿Puede Quarterfold gestionar grandes proyectos de impresión?",
+        "a": "Sí. Quarterfold cuenta con la capacidad y la infraestructura para gestionar programas de edición internacionales a gran escala. Fabricamos aproximadamente 6,5 millones de libros al mes en nuestras 3 avanzadas instalaciones de impresión en Navi Mumbai, con el apoyo de unas instalaciones dedicadas de logística y almacén para un almacenamiento, empaquetado y distribución eficientes. Con una capacidad de producción anual de más de 75 millones de libros y exportaciones a más de 25 países, nuestras capacidades integradas de fabricación y logística nos permiten entregar proyectos educativos y de edición de alto volumen con calidad constante, fiabilidad y ejecución puntual."
       },
-      "publishers-3": {
-        "q": "¿Gestionan la exportación y el envío?",
-        "a": "Nos encargamos de la exportación en contenedor, la documentación aduanera y la entrega, moviendo más de 800 contenedores al año a ministerios, distribuidores y editoriales de más de 25 países."
+      "q3": {
+        "q": "¿Qué tecnologías de impresión utilizan?",
+        "a": "Quarterfold opera una completa flota de avanzadas prensas web offset y de pliego, con el apoyo de capacidades de impresión digital para requisitos especializados y tiradas cortas. Nuestra diversa infraestructura de impresión nos permite gestionar con eficiencia proyectos de todos los tamaños, desde la impresión bajo demanda y las tiradas cortas hasta los proyectos de impresión a gran escala. Con tecnología avanzada, equipos con experiencia y sólidos procesos de control de calidad, ofrecemos una calidad de impresión constante, precios competitivos y plazos de entrega fiables para editoriales de todo el mundo."
       },
-      "institutions-0": {
-        "q": "¿Trabajan con gobiernos y ministerios en licitaciones?",
-        "a": "Sí. Realizamos programas nacionales de libros de texto para ministerios de educación y somos socios de impresión en programas financiados por el Banco Mundial y USAID."
+      "q4": {
+        "q": "¿Ofrecen servicios completos de logística y empaquetado?",
+        "a": "Sí. Quarterfold ofrece soluciones de logística de extremo a extremo más allá de la impresión, incluidos el empaquetado por escuela, la preparación de kits, el etiquetado con código de barras, el retractilado, la paletización, el almacenamiento y la distribución global. Hemos ejecutado con éxito programas de distribución escolar a gran escala, gestionando el empaquetado y el envío por escuela, desde 800 escuelas por proyecto hasta más de 3,000 escuelas, garantizando una entrega precisa, organizada y puntual para programas educativos complejos."
       },
-      "institutions-1": {
-        "q": "¿Para qué países han impreso programas nacionales?",
-        "a": "Hemos impreso programas de currículo en más de 10 países africanos, entre ellos Tanzania, Ghana, Nigeria, Côte d'Ivoire y RD Congo."
+      "q5": {
+        "q": "¿Qué certificaciones tiene Quarterfold?",
+        "a": "Mantenemos certificaciones reconocidas internacionalmente, entre ellas: ISO 9001:2015 (gestión de la calidad); ISO/IEC 27001:2022 (seguridad de la información); certificación FSC; SEDEX. Estas certificaciones reflejan nuestro compromiso con la calidad, la sostenibilidad, la seguridad y las prácticas comerciales éticas."
       },
-      "institutions-2": {
-        "q": "¿Los libros de los programas se producen de forma responsable?",
-        "a": "Sí. Contamos con la certificación FSC bajo la licencia TUVDC COC 101258, por lo que los libros de los programas pueden imprimirse en papel de origen responsable para las licitaciones que así lo exijan."
+      "q6": {
+        "q": "¿Cómo garantizan una calidad de impresión constante?",
+        "a": "El control de calidad está integrado en cada etapa de la producción. Nuestros experimentados equipos de control de calidad realizan inspecciones rigurosas a lo largo del preprensa, la impresión, la encuadernación, el acabado, el empaquetado y la expedición para garantizar que cada producto cumpla las normas internacionales de edición."
       },
-      "institutions-3": {
-        "q": "¿Con qué rapidez pueden escalar para un despliegue nacional?",
-        "a": "Con tres instalaciones, 300,000 pies cuadrados y capacidad para más de 75 millones de libros al año, escalamos desde una sola edición de currículo hasta un despliegue nacional completo."
+      "q7": {
+        "q": "¿Puede Quarterfold ayudar con el envío y la logística internacionales?",
+        "a": "Sí, ofrecemos una logística de exportación de extremo a extremo que incluye la documentación, la carga de contenedores, la coordinación del flete, el apoyo aduanero y la entrega a destinos internacionales, garantizando una cadena de suministro fluida desde nuestras instalaciones hasta su almacén."
       },
-      "self-0": {
-        "q": "¿Imprimen ejemplares únicos o tiradas cortas?",
-        "a": "Sí. Nuestro servicio de impresión bajo demanda está pensado para autoeditores y autores independientes, desde un solo libro hasta tiradas cortas."
+      "q8": {
+        "q": "¿Apoyan prácticas de impresión sostenibles?",
+        "a": "Sí. La sostenibilidad es el núcleo de nuestras operaciones. Obtenemos papel de bosques gestionados de forma responsable a través de proveedores certificados FSC, ofrecemos opciones de papel reciclado y sostenible, e implementamos procesos de fabricación responsables con el medio ambiente para minimizar nuestra huella ambiental. Nuestro compromiso permite a las editoriales alcanzar sus objetivos de sostenibilidad manteniendo al mismo tiempo los más altos estándares de calidad, constancia y rendimiento."
       },
-      "self-1": {
-        "q": "¿Puedo ver una muestra antes de una tirada completa?",
-        "a": "Sí. Podemos producir muestras para que compruebe el formato, el papel y la encuadernación antes de comprometerse con una tirada completa."
+      "q9": {
+        "q": "¿Qué información necesito para solicitar un presupuesto?",
+        "a": "Para preparar un presupuesto preciso, normalmente necesitamos: especificaciones del libro; número de páginas; formato; cantidad de impresión; especificaciones del papel; tipo de encuadernación; requisitos de empaquetado; destino de entrega. Nuestro equipo le orientará a lo largo del proceso si se requiere información adicional."
       },
-      "self-2": {
-        "q": "¿Qué formatos pueden producir?",
-        "a": "Desde libros en rústica y tapa dura hasta cuadernos premium, agendas y libros de gran formato, con encuadernaciones en tapa dura, blanda y en piel."
+      "q10": {
+        "q": "¿Ofrecen ejemplares de muestra o pruebas antes de la producción completa?",
+        "a": "Sí. Proporcionamos pruebas de preprensa y ejemplares de muestra físicos para que las editoriales puedan revisar el contenido, la calidad de impresión, el tipo de encuadernación y el acabado antes de que iniciemos la producción a gran escala."
       },
-      "self-3": {
-        "q": "¿Cómo obtengo un presupuesto para un solo título?",
-        "a": "Envíe su especificación, formato, número de páginas, papel, encuadernación y cantidad, usando el formulario de consulta anterior, y le responderemos en un día laborable."
+      "q11": {
+        "q": "¿Qué opciones de papel y encuadernación están disponibles?",
+        "a": "En Quarterfold estamos comprometidos con prácticas de impresión sostenibles y ofrecemos una amplia gama de gramajes de papel y soluciones adaptadas a los requisitos específicos de cada editorial. Nuestra oferta incluye papel reciclado, papel sin madera y papel certificado FSC procedente de proveedores responsables, para apoyar los objetivos ambientales manteniendo al mismo tiempo una excelente calidad de impresión y rendimiento. También ofrecemos una completa gama de opciones de encuadernación, incluidas la encuadernación rústica, la encuadernación grapada, la encuadernación en tapa dura y la encuadernación en espiral, que permiten a las editoriales elegir la combinación ideal de resistencia, funcionalidad, sostenibilidad y rentabilidad para sus proyectos."
+      },
+      "q12": {
+        "q": "¿Puede Quarterfold apoyar proyectos educativos por licitación o concurso?",
+        "a": "Sí. Quarterfold cuenta con amplia experiencia en el apoyo a proyectos educativos a gran escala en los que participan organismos gubernamentales, ministerios de educación, agencias internacionales y editoriales. Colaboramos con la documentación técnica y comercial, la revisión de especificaciones, la planificación de la producción y la ejecución de extremo a extremo para asegurar el éxito en la entrega del proyecto."
+      },
+      "q13": {
+        "q": "¿Ofrecen almacenamiento y entrega escalonada para grandes programas?",
+        "a": "Sí. Quarterfold dispone de instalaciones dedicadas de logística y almacén que suman más de 60,000 pies cuadrados, lo que permite a las editoriales y organizaciones almacenar sus materiales impresos con nosotros sin invertir en su propia infraestructura de almacén. Ofrecemos almacenamiento seguro, gestión de inventario, servicios de preparación de pedidos y soluciones de entrega escalonada para apoyar con eficiencia programas a gran escala que abarcan varias escuelas y varias regiones."
+      },
+      "q14": {
+        "q": "¿Puede Quarterfold apoyar proyectos educativos por licitación y financiados con fondos públicos?",
+        "a": "Sí. Quarterfold cuenta con amplia experiencia en el apoyo y la entrega de programas educativos a gran escala en los que participan organismos gubernamentales, ministerios de educación, agencias internacionales, editoriales y organizaciones financiadas por donantes, como el Banco Mundial. Ofrecemos apoyo de extremo a extremo, que incluye la documentación técnica y comercial, la revisión de especificaciones, la planificación de la producción, la logística y la entrega, garantizando la ejecución exitosa de proyectos complejos en varios países y cumpliendo estrictos requisitos de calidad y plazos."
+      },
+      "q15": {
+        "q": "¿Por qué debería elegir Quarterfold en lugar de otras imprentas?",
+        "a": "Quarterfold combina capacidades de fabricación de clase mundial con un servicio al cliente personalizado para ofrecer un valor excepcional. Desde el preprensa hasta la entrega final, ofrecemos una solución completa de impresión y logística respaldada por una década de experiencia, certificaciones reconocidas internacionalmente, avanzadas instalaciones de producción y una trayectoria probada en la entrega de programas educativos y proyectos de edición en más de 25 países. Nuestros precios competitivos, nuestros ágiles procesos de producción y nuestra capacidad para gestionar con eficiencia proyectos de cualquier escala, desde tiradas cortas hasta programas de impresión de varios millones de ejemplares, nos convierten en un socio fiable y de confianza para editoriales de todo el mundo."
       }
     }
   },
