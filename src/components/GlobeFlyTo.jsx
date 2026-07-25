@@ -27,11 +27,11 @@ const CREAM = '#F0EBE0'
 const CREAM_WARM = '#E6DDC8'
 const GOLD = '#F37031'
 const GOLD_DEEP = '#F37031'
-// Task 7 (client revision): the globe's own background water reads light blue rather
-// than navy. A restrained, slightly muted light blue that sits comfortably against the
-// navy section around the globe. This is a file-local literal only — no site token or
-// CSS variable is touched, and it applies solely to the globe's water fill.
-const WATER = '#A7C6DE'
+// Task 6 (client revision): the map water fill reads as the SITE navy #030C31 — one of
+// the brand blues — rather than a pale stock blue, so ocean and the surrounding navy
+// section blend into one continuous brand surface. File-local literal only; no site
+// token or CSS variable is touched, and it applies solely to the map's water fill.
+const WATER = '#030C31'
 
 // OpenFreeMap "positron" — the cleaner, lighter of the two free bases, easiest
 // to restyle into a cream-land planet. Free vector tiles, no key. (See
