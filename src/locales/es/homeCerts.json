@@ -19,9 +19,14 @@
       "body": "La certificación de Cadena de Custodia FSC rastrea el material certificado en cada etapa de la cadena de suministro. Confirma que el papel sobre el que imprimimos procede de bosques gestionados de forma responsable que cumplen estrictos estándares ambientales y sociales. Cada trabajo puede rastrearse desde el bosque hasta el libro terminado."
     },
     "iso9001": {
-      "eyebrow": "Gestión de la calidad",
+      "eyebrow": "Sistema de gestión de la calidad",
       "title": "ISO 9001:2015",
-      "body": "La norma ISO 9001:2015 es el estándar internacional para los sistemas de gestión de la calidad. Certifica que nuestros procesos están documentados, supervisados y en mejora continua para cumplir los requisitos de los clientes y de la normativa. Auditorías independientes renuevan la certificación y someten a cada instalación al mismo criterio."
+      "body": "Quarterfold Printabilities cuenta con la certificación ISO 9001:2015, lo que confirma nuestro compromiso con una calidad constante en la impresión personalizada, la edición, la impresión de libros y los servicios de logística de almacén. Esta certificación refleja los sólidos sistemas de gestión de la calidad que seguimos para cumplir los requisitos de los clientes en cada etapa de la producción."
+    },
+    "iso27001": {
+      "eyebrow": "Sistema de gestión de la seguridad de la información",
+      "title": "ISO/IEC 27001:2022",
+      "body": "Quarterfold Printabilities cuenta con la certificación ISO/IEC 27001:2022 para la gestión de la seguridad de la información, lo que demuestra nuestro compromiso de proteger los datos de los clientes y mantener procesos seguros en todas nuestras operaciones de impresión, edición y logística."
     },
     "iso14001": {
       "eyebrow": "Gestión ambiental",
@@ -31,7 +36,7 @@
     "sedex": {
       "eyebrow": "Auditoría de comercio ético",
       "title": "Miembro de Sedex",
-      "body": "La membresía de Sedex respalda nuestro compromiso con un abastecimiento ético y responsable. Mediante la auditoría SMETA se evalúan de forma independiente nuestros estándares laborales, la salud y la seguridad, el medio ambiente y la ética empresarial. Los resultados se comparten de forma transparente con los clientes en la plataforma Sedex."
+      "body": "Quarterfold Printabilities es miembro de Sedex (Supplier Ethical Data Exchange), lo que refleja nuestro compromiso con prácticas comerciales responsables y éticas en materia de normas laborales, salud y seguridad, medio ambiente y ética empresarial."
     },
     "star": {
       "eyebrow": "Gobierno de la India",

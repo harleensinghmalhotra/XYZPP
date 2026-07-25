@@ -37,6 +37,11 @@ const CERTS = [
     logo: 'iso.webp',
   },
   {
+    key: 'iso27001',
+    cats: ['certifications'],
+    logo: 'iso.webp',
+  },
+  {
     key: 'iso14001',
     cats: ['environment'],
     logo: 'iso.webp',

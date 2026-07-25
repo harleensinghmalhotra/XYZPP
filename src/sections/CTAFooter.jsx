@@ -25,7 +25,7 @@ export default function CTAFooter() {
         t('links.contact'),
       ],
     },
-    { h: t('certified'), items: ['FSC', 'ISO', 'Sedex'] },
+    { h: t('certified'), items: ['FSC', 'ISO 9001:2015', 'ISO/IEC 27001:2022', 'Sedex'] },
   ]
 
   const legalLinks = [

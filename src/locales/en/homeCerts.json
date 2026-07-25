@@ -19,9 +19,14 @@
       "body": "FSC Chain of Custody certification tracks certified material through every step of the supply chain. It confirms that the paper we print on is sourced from responsibly managed forests meeting strict environmental and social standards. Each job can be traced from forest to finished book."
     },
     "iso9001": {
-      "eyebrow": "Quality Management",
+      "eyebrow": "Quality Management System",
       "title": "ISO 9001:2015",
-      "body": "ISO 9001:2015 is the international standard for quality management systems. It certifies that our processes are documented, monitored and continually improved to meet customer and regulatory requirements. Independent audits renew the certification and hold every facility to the same benchmark."
+      "body": "Quarterfold Printabilities is ISO 9001:2015 certified, affirming our commitment to consistent quality across customized printing, publishing, book printing, and warehouse fulfillment services. This certification reflects the robust quality management systems we follow to meet customer requirements at every stage of production."
+    },
+    "iso27001": {
+      "eyebrow": "Information Security Management System",
+      "title": "ISO/IEC 27001:2022",
+      "body": "Quarterfold Printabilities is ISO/IEC 27001:2022 certified for Information Security Management, demonstrating our commitment to protecting client data and maintaining secure processes across our printing, publishing, and fulfillment operations."
     },
     "iso14001": {
       "eyebrow": "Environmental Management",
@@ -31,7 +36,7 @@
     "sedex": {
       "eyebrow": "Ethical Trade Audit",
       "title": "Sedex Member",
-      "body": "Sedex membership underpins our commitment to ethical and responsible sourcing. Through the SMETA audit our labour standards, health and safety, environment and business ethics are independently assessed. Findings are shared transparently with customers on the Sedex platform."
+      "body": "Quarterfold Printabilities is a member of Sedex (Supplier Ethical Data Exchange), reflecting our commitment to responsible and ethical business practices across labour standards, health and safety, environment, and business ethics."
     },
     "star": {
       "eyebrow": "Govt. of India",
