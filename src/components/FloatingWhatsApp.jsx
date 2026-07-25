@@ -4,7 +4,7 @@ import './FloatingWhatsApp.css'
 
 // ── Site-wide WhatsApp float button ──────────────────────────────────────────
 // Fixed bottom-right on every route (mounted once by SiteLayout). Official
-// WhatsApp mark (simple-icons glyph) in white on the brand-green circle (#25D366).
+// WhatsApp mark (simple-icons glyph) in white on the brand-olive circle (#6B7A2A).
 // Opens wa.me for the canonical business number — the SAME number the Contact
 // page's WhatsApp link uses (+91 82919 99922) — in a new tab with an EN prefill.
 // Gentle entrance ~1.5s after mount; hover lift; z-index sits above page content
