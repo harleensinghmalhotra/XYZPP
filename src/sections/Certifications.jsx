@@ -41,11 +41,10 @@ const CERTS = [
     cats: ['certifications'],
     logo: 'iso.webp',
   },
-  {
-    key: 'iso14001',
-    cats: ['environment'],
-    logo: 'iso.webp',
-  },
+  // Task 9 — the client confirmed exactly FIVE featured certifications: FSC,
+  // ISO 9001:2015, ISO/IEC 27001:2022, Sedex, Star Export House. ISO 14001 is NOT
+  // one of them and was removed here; it stays in the Sustainability/Environment
+  // content (homeSustain `bullets.iso`) where it belongs as an EMS reference.
   {
     key: 'sedex',
     cats: ['social'],

@@ -16,7 +16,7 @@
     "fsc": {
       "eyebrow": "Forest Stewardship Council",
       "title": "FSC Chain of Custody",
-      "body": "FSC Chain of Custody certification tracks certified material through every step of the supply chain. It confirms that the paper we print on is sourced from responsibly managed forests meeting strict environmental and social standards. Each job can be traced from forest to finished book."
+      "body": "Quarterfold Printabilities is FSC certified under the Chain of Custody standard (FSC STD 40 004), ensuring that our paper and print products are sourced from responsibly managed forests. This certification reflects our commitment to sustainable sourcing across FSC Mix, FSC Recycled, and FSC 100% material categories."
     },
     "iso9001": {
       "eyebrow": "Quality Management System",
@@ -28,11 +28,6 @@
       "title": "ISO/IEC 27001:2022",
       "body": "Quarterfold Printabilities is ISO/IEC 27001:2022 certified for Information Security Management, demonstrating our commitment to protecting client data and maintaining secure processes across our printing, publishing, and fulfillment operations."
     },
-    "iso14001": {
-      "eyebrow": "Environmental Management",
-      "title": "ISO 14001:2015",
-      "body": "ISO 14001:2015 sets the framework for a certified environmental management system. It requires us to identify, control and continually reduce the environmental impact of our operations, from waste and energy to emissions. Compliance is verified through regular external assessment."
-    },
     "sedex": {
       "eyebrow": "Ethical Trade Audit",
       "title": "Sedex Member",
@@ -41,7 +36,7 @@
     "star": {
       "eyebrow": "Govt. of India",
       "title": "Star Export House",
-      "body": "Star Export House is a status awarded by the Government of India’s Directorate General of Foreign Trade to recognised, high-performing exporters. It reflects a sustained record of export excellence and reliability, and it streamlines customs and trade procedures for the shipments we deliver worldwide."
+      "body": "Quarterfold Printabilities holds Star Export House status, a recognition awarded by the Government of India (DGFT) to companies with a consistent track record of export performance. This certification reflects our credibility and scale as an exporter in the printing and publishing industry."
     }
   }
 }

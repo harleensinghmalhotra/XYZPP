@@ -25,7 +25,8 @@ export default function CTAFooter() {
         t('links.contact'),
       ],
     },
-    { h: t('certified'), items: ['FSC', 'ISO 9001:2015', 'ISO/IEC 27001:2022', 'Sedex'] },
+    // Task 9 — the confirmed five featured certifications (Star Export House added; no ISO 14001).
+    { h: t('certified'), items: ['FSC', 'ISO 9001:2015', 'ISO/IEC 27001:2022', 'Sedex', 'Star Export House'] },
   ]
 
   const legalLinks = [
