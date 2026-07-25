@@ -30,18 +30,20 @@ const PLACEHOLDER =
 
 // Exported so other surfaces (e.g. the Print on Demand "Explore Categories" band)
 // reuse the SAME category keys + images rather than duplicating the list.
+// Images are the delivered transparent-background product cutouts, one per category,
+// under /site-assets/what-we-print/ (WebP, alpha preserved). The old product-0N.webp
+// set is left in place for now; these paths simply repoint to the new art.
 export const CARDS = [
-  { key: 'educational', img: '/site-assets/homepage/products/product-01.webp', rot: -8 },
-  { key: 'trade', img: '/site-assets/homepage/products/product-02.webp', rot: 7 },
-  { key: 'coffee', img: '/site-assets/homepage/products/product-03.webp', rot: -9 },
-  { key: 'general', img: '/site-assets/homepage/products/product-04.webp', rot: 8 },
-  { key: 'children', img: '/site-assets/homepage/products/product-05.webp', rot: -7 },
-  { key: 'kits', img: '/site-assets/homepage/products/product-06.webp', rot: 9 },
-  { key: 'corporate', img: '/site-assets/homepage/products/product-07.webp', rot: -8 },
-  { key: 'pod', img: '/site-assets/homepage/products/product-08.webp', rot: 7 },
-  // religious / packaging — overwrite product-09 / product-10 to swap these shots.
-  { key: 'religious', img: '/site-assets/homepage/products/product-09.webp', rot: -9 },
-  { key: 'packaging', img: '/site-assets/homepage/products/product-10.webp', rot: 8 },
+  { key: 'educational', img: '/site-assets/what-we-print/educational.webp', rot: -8 },
+  { key: 'trade', img: '/site-assets/what-we-print/counterbook-stationery.webp', rot: 7 },
+  { key: 'coffee', img: '/site-assets/what-we-print/trade-books.webp', rot: -9 },
+  { key: 'general', img: '/site-assets/what-we-print/general-books.webp', rot: 8 },
+  { key: 'children', img: '/site-assets/what-we-print/children-books.webp', rot: -7 },
+  { key: 'kits', img: '/site-assets/what-we-print/learning-kits.webp', rot: 9 },
+  { key: 'corporate', img: '/site-assets/what-we-print/corporate.webp', rot: -8 },
+  { key: 'pod', img: '/site-assets/what-we-print/pod.webp', rot: 7 },
+  { key: 'religious', img: '/site-assets/what-we-print/religious-books.webp', rot: -9 },
+  { key: 'packaging', img: '/site-assets/what-we-print/packaging.webp', rot: 8 },
 ]
 
 function Card({ c, t }) {
