@@ -4,6 +4,7 @@ import { Flag, Globe, Building2, Cog, Target, Telescope, HeartHandshake } from '
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import CTAButton from '@/components/CTAButton'
+import PageHero from '@/components/PageHero'
 import { PaperGrain } from '@/components/atmosphere'
 // Company-wide credentials — imported verbatim from the homepage sections so the
 // content, markup, CSS (global, in index.css) and behaviour stay in exact sync.
@@ -67,21 +68,18 @@ export default function OurStory() {
       {/* One continuous gold thread down the page spine — scaleY by scroll. */}
       <Spine />
 
-      {/* SECTION 1 ── HERO BAND — the ORIGINAL homepage display headline, recreated.
-          A full-width navy top containing ONLY the staggered two-line hero text:
-          "Powering Global Education" (line 1, big bold cream) over "Through Print
-          Excellence" (line 2, smaller, wide-tracked gold) — the exact type treatment
-          from the git-history homepage hero (commit ba7b134). No eyebrow, no "ABOUT
-          US" display, no subline. The two visible lines carry the page's single H1;
-          the lede has moved down to lead the JOURNEY section. */}
-      <section data-theme="dark" className="ab-hero" aria-labelledby="about-h1">
-        <div className="ab-wrap ab-hero-inner">
-          <h1 id="about-h1" className="ab-hero-headline" data-reveal>
-            <span className="ab-hl-1">{t('hero.titleLine1')}</span>
-            <span className="ab-hl-2">{t('hero.titleLine2')}</span>
-          </h1>
-        </div>
-      </section>
+      {/* SECTION 1 ── HERO BAND — now the shared <PageHero> so the About hero matches
+          the Infrastructure page treatment EXACTLY: a small gold eyebrow ("ABOUT")
+          over a tamer two-line headline (line 1 cream, line 2 gold). The existing
+          headline copy is kept verbatim; only the scale, eyebrow and gold/cream split
+          change. The lede leads the JOURNEY section below. */}
+      <PageHero
+        id="about-h1"
+        eyebrow={t('hero.eyebrowLabel')}
+        line1={t('hero.titleLine1')}
+        line2={t('hero.titleLine2')}
+        minVh={60}
+      />
 
       {/* SECTION 2 ── OUR STORY LEDE — the "OUR STORY" eyebrow (gold→orange) over
           the lede paragraph, leading the reader into the journey below. */}
