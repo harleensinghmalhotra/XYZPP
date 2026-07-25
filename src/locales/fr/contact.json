@@ -41,7 +41,7 @@
     "eyebrow": "Nos implantations",
     "title": "Deux sites à Navi Mumbai.",
     "head": { "name": "Siège", "directions": "Itinéraire" },
-    "factory": { "name": "Usine principale", "directions": "Itinéraire" },
+    "factory": { "name": "Usine principale", "unit": "Unité {{n}}", "directions": "Itinéraire" },
     "hours": {
       "name": "Heures d'ouverture",
       "lines": "Du lundi au samedi<1/>9 h 30 - 18 h 30 (IST)",

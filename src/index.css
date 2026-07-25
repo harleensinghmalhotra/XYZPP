@@ -3965,6 +3965,13 @@ body {
   font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.65;
   color: rgba(253, 250, 244, 0.88);
 }
+/* Main Factory card lists its three units separately, each with a small label. */
+.ctc-addr-units { display: flex; flex-direction: column; gap: 18px; }
+.ctc-addr-unit {
+  display: block; margin-bottom: 2px;
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gold-2);
+}
 .ctc-addr-link {
   display: inline-flex; align-items: center; gap: 6px; margin-top: 18px;
   font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; color: var(--gold-2);

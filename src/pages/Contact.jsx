@@ -152,7 +152,7 @@ export default function Contact() {
           {
             '@type': 'PostalAddress',
             name: 'Head Office',
-            streetAddress: '1207, Cyber One IT Park, Sector 30 A, Vashi',
+            streetAddress: '1207, Cyber One IT Park, Sector 30A, Vashi',
             addressLocality: 'Navi Mumbai',
             postalCode: '400703',
             addressRegion: 'Maharashtra',
@@ -160,8 +160,26 @@ export default function Contact() {
           },
           {
             '@type': 'PostalAddress',
-            name: 'Main Factory',
+            name: 'Main Factory, Unit 1',
             streetAddress: 'Plot No. B-8, Taloja MIDC',
+            addressLocality: 'Navi Mumbai',
+            postalCode: '410208',
+            addressRegion: 'Maharashtra',
+            addressCountry: 'IN',
+          },
+          {
+            '@type': 'PostalAddress',
+            name: 'Main Factory, Unit 2',
+            streetAddress: 'Plot No. L-143, Taloja MIDC',
+            addressLocality: 'Navi Mumbai',
+            postalCode: '410208',
+            addressRegion: 'Maharashtra',
+            addressCountry: 'IN',
+          },
+          {
+            '@type': 'PostalAddress',
+            name: 'Main Factory, Unit 3',
+            streetAddress: 'Plot No. A-2/3, Taloja MIDC',
             addressLocality: 'Navi Mumbai',
             postalCode: '410208',
             addressRegion: 'Maharashtra',
@@ -390,7 +408,7 @@ export default function Contact() {
               </span>
               <div className="ctc-loc-body">
                 <p className="ctc-loc-name">{t('addr.head.name')}</p>
-                <p className="ctc-loc-addr">1207, Cyber One IT Park, Sector 30 A, Vashi · Navi Mumbai 400703</p>
+                <p className="ctc-loc-addr">1207, Cyber One IT Park, Sector 30A, Vashi · Navi Mumbai 400703</p>
                 <a className="ctc-loc-link focus-ring" href={MAPS_HEAD} target="_blank" rel="noreferrer">
                   {t('map.openInMaps')}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -408,7 +426,7 @@ export default function Contact() {
               </span>
               <div className="ctc-loc-body">
                 <p className="ctc-loc-name">{t('addr.factory.name')}</p>
-                <p className="ctc-loc-addr">Plot No. B-8, Taloja MIDC · Navi Mumbai 410208</p>
+                <p className="ctc-loc-addr">Taloja MIDC · Navi Mumbai 410208</p>
                 <a className="ctc-loc-link focus-ring" href={MAPS_FACTORY} target="_blank" rel="noreferrer">
                   {t('map.openInMaps')}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -485,18 +503,32 @@ export default function Contact() {
               <h3 className="ctc-addr-name">{t('addr.head.name')}</h3>
               <p className="ctc-addr-lines">
                 1207, Cyber One IT Park,<br />
-                Sector 30 A, Vashi,<br />
-                Navi Mumbai 400703, India
+                Sector 30A, Vashi,<br />
+                Navi Mumbai, 400703, India
               </p>
               <a className="ctc-addr-link focus-ring" href={MAPS_HEAD} target="_blank" rel="noreferrer">{t('addr.head.directions')}</a>
             </article>
 
+            {/* Main Factory — three units listed separately (never run together) */}
             <article className="ctc-addr-card ctc-reveal">
               <h3 className="ctc-addr-name">{t('addr.factory.name')}</h3>
-              <p className="ctc-addr-lines">
-                Plot No. B-8, Taloja MIDC,<br />
-                Navi Mumbai 410208, India
-              </p>
+              <div className="ctc-addr-units">
+                <p className="ctc-addr-lines">
+                  <span className="ctc-addr-unit">{t('addr.factory.unit', { n: 1 })}</span>
+                  Plot No. B-8, Taloja MIDC,<br />
+                  Navi Mumbai, 410208, India
+                </p>
+                <p className="ctc-addr-lines">
+                  <span className="ctc-addr-unit">{t('addr.factory.unit', { n: 2 })}</span>
+                  Plot No. L-143, Taloja MIDC,<br />
+                  Navi Mumbai, 410208, India
+                </p>
+                <p className="ctc-addr-lines">
+                  <span className="ctc-addr-unit">{t('addr.factory.unit', { n: 3 })}</span>
+                  Plot No. A-2/3, Taloja MIDC,<br />
+                  Navi Mumbai, 410208, India
+                </p>
+              </div>
               <a className="ctc-addr-link focus-ring" href={MAPS_FACTORY} target="_blank" rel="noreferrer">{t('addr.factory.directions')}</a>
             </article>
 

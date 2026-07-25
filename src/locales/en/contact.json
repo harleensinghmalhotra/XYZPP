@@ -41,7 +41,7 @@
     "eyebrow": "Our locations",
     "title": "Two sites in Navi Mumbai.",
     "head": { "name": "Head Office", "directions": "Directions" },
-    "factory": { "name": "Main Factory", "directions": "Directions" },
+    "factory": { "name": "Main Factory", "unit": "Unit {{n}}", "directions": "Directions" },
     "hours": {
       "name": "Business Hours",
       "lines": "Monday to Saturday<1/>9:30am - 6:30pm IST",

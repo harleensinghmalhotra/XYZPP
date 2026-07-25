@@ -10,6 +10,7 @@
   "certified": "Certificaciones",
   "headOffice": "Sede central",
   "factories": "Fábricas",
+  "unit": "Unidad {{n}}",
   "links": {
     "products": "Productos",
     "globalReach": "Presencia mundial",

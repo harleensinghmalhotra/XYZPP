@@ -10,6 +10,7 @@
   "certified": "Certified",
   "headOffice": "Head Office",
   "factories": "Factories",
+  "unit": "Unit {{n}}",
   "links": {
     "products": "Products",
     "globalReach": "Global Reach",

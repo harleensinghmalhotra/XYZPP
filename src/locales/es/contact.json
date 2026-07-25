@@ -41,7 +41,7 @@
     "eyebrow": "Nuestras sedes",
     "title": "Dos sedes en Navi Mumbai.",
     "head": { "name": "Oficina central", "directions": "Cómo llegar" },
-    "factory": { "name": "Fábrica principal", "directions": "Cómo llegar" },
+    "factory": { "name": "Fábrica principal", "unit": "Unidad {{n}}", "directions": "Cómo llegar" },
     "hours": {
       "name": "Horario comercial",
       "lines": "De lunes a sábado<1/>9:30 - 18:30 IST",

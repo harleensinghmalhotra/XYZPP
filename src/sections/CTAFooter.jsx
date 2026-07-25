@@ -128,15 +128,18 @@ export default function CTAFooter() {
               <div className="flex flex-col">
                 <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#925C10' }}>{t('headOffice')}</h3>
                 <p className="text-[14px] font-medium leading-relaxed" style={{ color: 'rgba(28,32,25,0.82)' }}>
-                  1207, Cyber One IT Park,<br />Sector 30-A, Vashi,<br />Navi Mumbai 400703, India
+                  1207, Cyber One IT Park,<br />Sector 30A, Vashi,<br />Navi Mumbai, 400703, India
                 </p>
               </div>
 
+              {/* Three factory units listed separately (never run together into one line) */}
               <div className="flex flex-col">
                 <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#925C10' }}>{t('factories')}</h3>
-                <p className="text-[14px] font-medium leading-relaxed" style={{ color: 'rgba(28,32,25,0.82)' }}>
-                  Plot No. B-8, L-143 &amp; A 2/3,<br />Taloja MIDC,<br />Navi Mumbai 410208, India
-                </p>
+                <div className="flex flex-col gap-4 text-[14px] font-medium leading-relaxed" style={{ color: 'rgba(28,32,25,0.82)' }}>
+                  <p><span className="block font-semibold text-[#030C31]">{t('unit', { n: 1 })}</span>Plot No. B-8, Taloja MIDC,<br />Navi Mumbai, 410208, India</p>
+                  <p><span className="block font-semibold text-[#030C31]">{t('unit', { n: 2 })}</span>Plot No. L-143, Taloja MIDC,<br />Navi Mumbai, 410208, India</p>
+                  <p><span className="block font-semibold text-[#030C31]">{t('unit', { n: 3 })}</span>Plot No. A-2/3, Taloja MIDC,<br />Navi Mumbai, 410208, India</p>
+                </div>
               </div>
 
             </div>
