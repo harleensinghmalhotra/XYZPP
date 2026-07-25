@@ -79,7 +79,7 @@
     "pod": "Impresión bajo demanda",
     "careers": "Empleo",
     "other": "Otro"
-  },
+  },
   "careers": {
     "title": "Empleo en Quarterfold",
     "subtitle": "Únase al equipo que impulsa la educación mundial con impresión de excelencia.",
@@ -189,6 +189,11 @@
         "a": "Quarterfold combina capacidades de fabricación de clase mundial con un servicio al cliente personalizado para ofrecer un valor excepcional. Desde el preprensa hasta la entrega final, ofrecemos una solución completa de impresión y logística respaldada por una década de experiencia, certificaciones reconocidas internacionalmente, avanzadas instalaciones de producción y una trayectoria probada en la entrega de programas educativos y proyectos de edición en más de 25 países. Nuestros precios competitivos, nuestros ágiles procesos de producción y nuestra capacidad para gestionar con eficiencia proyectos de cualquier escala, desde tiradas cortas hasta programas de impresión de varios millones de ejemplares, nos convierten en un socio fiable y de confianza para editoriales de todo el mundo."
       }
     }
+  },
+  "matters": {
+    "title": "Imprima algo que importa",
+    "body": "Cada libro que imprimimos lleva el aprendizaje de alguien, la historia de alguien, la fe de alguien. Si tiene un proyecto que necesita llegar a lectores, nos gustaría ayudarle a imprimirlo.",
+    "cta": "Iniciar una conversación"
   },
   "closer": {
     "line": "¿Prefiere el correo electrónico?"
