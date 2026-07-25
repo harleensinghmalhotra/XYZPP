@@ -2783,6 +2783,14 @@ body {
   bottom: 0;
   height: 76px;
 }
+/* /about seam: there the Certifications section is the last thing in <main>, so its
+   navy sweep-arc meets the site CTAFooter directly below. The arc is filled
+   var(--navy) (#030C31) but the footer navy is #0f1838 (sampled from the hero art) —
+   two navies at one boundary read as a lighter strip under the curve. Repaint ONLY
+   the /about arc to the footer navy so the curve + the band below are one continuous
+   #0f1838. Scoped via main:has(.ab-spine) (the About page's gold spine thread) so the
+   SAME arc keeps var(--navy) where it domes into the homepage Marquee. */
+main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 
 /* top row — pills + seal */
 .certs-top {
