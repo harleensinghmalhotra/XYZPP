@@ -1013,7 +1013,8 @@
   display: flex; flex-direction: column; align-items: center; gap: 10px;
   height: 100%;
   text-decoration: none;
-  padding: 14px 12px 16px;
+  /* Slim horizontal padding so the cutout thumb spans nearly edge to edge. */
+  padding: 14px 6px 16px;
   background: #fdfaf4;
   border: 1px solid rgba(3, 12, 49, 0.1);
   border-radius: var(--radius-md, 14px);
