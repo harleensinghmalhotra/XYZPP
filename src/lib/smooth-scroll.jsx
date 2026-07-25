@@ -15,6 +15,24 @@ export function SmoothScrollProvider({ children }) {
   const [lenis, setLenis] = useState(null)
   const raf = useRef(null)
 
+  // Reset scroll to the top BEFORE this provider's children (the homepage sections)
+  // render and create their ScrollTriggers. When an SPA navigation enters the homepage
+  // from an inner page, the window keeps the previous page's scroll position (e.g. the
+  // footer, near the bottom) until ScrollToTop re-scrolls. If the sections mount at
+  // that large offset, every `once:true` trigger is created already "past" its start,
+  // fires and self-kills mid-creation, and leaves an undefined hole in GSAP's global
+  // trigger list — the next trigger to refresh then reads `.end` off that hole and
+  // crashes, blanking the app (seen on footer/nav links to /#certifications etc.).
+  // Starting sections at scroll 0 keeps the trigger list intact; ScrollToTop then
+  // scrolls to the hash target. Guarded to once per mount; a no-op on a fresh load
+  // (already at top). Also clears any triggers stranded by the page we came from.
+  const prepared = useRef(false)
+  if (!prepared.current) {
+    prepared.current = true
+    if (typeof window !== 'undefined' && window.scrollY > 0) window.scrollTo(0, 0)
+    ScrollTrigger.getAll().forEach((t) => t.kill())
+  }
+
   useEffect(() => {
     if (prefersReduced()) {
       ScrollTrigger.refresh()

@@ -10,6 +10,16 @@ const MONO = "'DM Mono', monospace"
 export default function CTAFooter() {
   const { t } = useTranslation('footer')
 
+  // Task 10 — every footer link is now wired ({ label, to }). Several targets are
+  // SECTIONS on the homepage, not standalone pages: those use a hash route (e.g.
+  // "/#reach") so a click from any inner page navigates to "/" AND the site's global
+  // ScrollToTop handler scrolls the section into view on arrival (via Lenis, offset
+  // for the nav). Infrastructure and Contact are real routes, linked directly.
+  //   Products      → homepage What We Print section (#what-we-print)
+  //   Global Reach  → homepage Global Markets / Global Reach section (#reach)
+  //   Infrastructure→ /infrastructure route
+  //   Contact       → /contact route
+  //   Certified (×5)→ homepage Certifications section (#certifications)
   // Quick Links resolve through the footer namespace; certification acronyms and
   // the CIN entity line below are proper names and stay English in every language.
   const columns = [
@@ -18,15 +28,25 @@ export default function CTAFooter() {
       // Case Studies link gated with the section — hidden while
       // SHOW_CASE_STUDIES is false so no link points at a hidden section.
       items: [
-        t('links.products'),
-        t('links.globalReach'),
-        t('links.infrastructure'),
-        ...(SHOW_CASE_STUDIES ? [t('links.caseStudies')] : []),
-        t('links.contact'),
+        { label: t('links.products'), to: '/#what-we-print' },
+        { label: t('links.globalReach'), to: '/#reach' },
+        { label: t('links.infrastructure'), to: '/infrastructure' },
+        ...(SHOW_CASE_STUDIES ? [{ label: t('links.caseStudies'), to: '/#cases' }] : []),
+        { label: t('links.contact'), to: '/contact' },
       ],
     },
     // Task 9 — the confirmed five featured certifications (Star Export House added; no ISO 14001).
-    { h: t('certified'), items: ['FSC', 'ISO 9001:2015', 'ISO/IEC 27001:2022', 'Sedex', 'Star Export House'] },
+    // Task 10 — each links to the homepage Certifications section.
+    {
+      h: t('certified'),
+      items: [
+        { label: 'FSC', to: '/#certifications' },
+        { label: 'ISO 9001:2015', to: '/#certifications' },
+        { label: 'ISO/IEC 27001:2022', to: '/#certifications' },
+        { label: 'Sedex', to: '/#certifications' },
+        { label: 'Star Export House', to: '/#certifications' },
+      ],
+    },
   ]
 
   const legalLinks = [
@@ -118,8 +138,8 @@ export default function CTAFooter() {
                   <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#925C10' }}>{col.h}</h3>
                   <ul className="flex flex-col gap-4">
                     {col.items.map((it) => (
-                      <li key={it}>
-                        <a href="#" className="text-[14px] font-medium transition-colors hover:text-[#925C10]" style={{ color: 'rgba(28,32,25,0.82)' }}>{it}</a>
+                      <li key={it.label}>
+                        <Link to={it.to} className="text-[14px] font-medium transition-colors hover:text-[#925C10]" style={{ color: 'rgba(28,32,25,0.82)' }}>{it.label}</Link>
                       </li>
                     ))}
                   </ul>
