@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useState, useEffect, useRef } from 'react'
-import { Flag, Globe, Factory, TrendingUp, Trophy, Target, Telescope, HeartHandshake } from 'lucide-react'
+import { Flag, Globe, Building2, Cog, Target, Telescope, HeartHandshake } from 'lucide-react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import CTAButton from '@/components/CTAButton'
@@ -13,10 +13,10 @@ import Certifications from '@/sections/Certifications'
 import { GALLERY } from '@/assets/gallery/manifest'
 import './OurStory.css'
 
-// Task 17 — the timeline now shows a lucide milestone icon per stop instead of a
-// photo (the era photos made the section overflow). Order matches timeline.stops:
-// 2014 first order · 2015-17 continent · 2018 first facility · 2021-23 scale · 2024-25 award.
-const TIMELINE_ICONS = [Flag, Globe, Factory, TrendingUp, Trophy]
+// Task 6 — horizontal timeline, one lucide milestone icon per stop. Order matches
+// timeline.stops: 2014 first order (flag) · 2015-17 startup (globe) · 2018 first
+// facility (building) · 2021-23 scale (gears) · 2024-26 global operation (target).
+const TIMELINE_ICONS = [Flag, Globe, Building2, Cog, Target]
 
 // ── /about — "Our Story", the definitive craft pass ──────────────────────────
 // Hero band (~74vh) → THE JOURNEY (Union-Properties three-zone timeline) → INK
@@ -146,103 +146,38 @@ function Spine() {
   return <span ref={ref} className="ab-spine" aria-hidden="true" />
 }
 
-// ── THE JOURNEY — center-spine scroll-draw timeline ───────────────────────────
-// A vertical line runs down the centre of the section. Its orange fill draws
-// downward as the reader scrolls (scaleY on a reading-line at ~60% viewport
-// height — transform-only, 60fps). Each stop has a node ON the line that turns
-// orange the moment the fill reaches its card centre; the year (DM Mono) sits
-// beside the node on the empty side — the year lives ONLY on the spine, never in
-// the card. Cards alternate left/right of the spine; media + copy stack inside.
-// Reduced-motion: fill fully drawn, every node reached, no scroll listener.
+// ── THE JOURNEY — horizontal timeline (Task 6) ────────────────────────────────
+// A single horizontal axis. At each of the five stops a small boxed year sits ON
+// the axis, and the milestone icon + copy alternate ABOVE and BELOW the line
+// (stop 1 above, 2 below, 3 above, …). Sized to read as one screen at 1536×743;
+// below 900px it folds into a vertical rail. Reveal-on-scroll via the shared
+// [data-reveal] system (content rests fully visible when JS is off).
 function Timeline({ stops }) {
   const { t } = useTranslation('ourStory')
-  const reduced = useReducedMotion()
-  const listRef = useRef(null)
-  const fillRef = useRef(null)
-
-  useEffect(() => {
-    const list = listRef.current
-    const fill = fillRef.current
-    if (!list || !fill) return
-    const cards = Array.from(list.querySelectorAll('.tls-card'))
-    const nodes = cards.map((c) => c.querySelector('.tls-node'))
-
-    if (reduced) {
-      fill.style.transform = 'scaleY(1)'
-      nodes.forEach((nd) => nd && nd.classList.add('is-reached'))
-      return
-    }
-
-    // each node lights when the fill reaches its card's IMAGE TOP edge — the same
-    // line the node sits on. Thresholds use the media element's offsetTop (layout
-    // metric, transform-free, relative to the positioned list); recomputed on resize.
-    let tops = []
-    const measure = () => {
-      tops = cards.map((c) => {
-        const m = c.querySelector('.tls-icon')
-        return m ? m.offsetTop : c.offsetTop
-      })
-    }
-
-    let raf = 0
-    const update = () => {
-      raf = 0
-      const r = list.getBoundingClientRect()            // one read per frame
-      const readLine = window.innerHeight * 0.6
-      const drawn = clamp(readLine - r.top, 0, r.height)
-      const p = r.height > 0 ? drawn / r.height : 1
-      fill.style.transform = `scaleY(${p.toFixed(4)})`
-      for (let k = 0; k < nodes.length; k += 1) {
-        if (nodes[k]) nodes[k].classList.toggle('is-reached', drawn >= tops[k])
-      }
-    }
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
-    const onResize = () => { measure(); onScroll() }
-
-    measure()
-    update()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onResize)
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onResize)
-      if (raf) cancelAnimationFrame(raf)
-    }
-  }, [reduced, stops])
 
   return (
-    <section data-theme="light" className="tls" aria-label={t('timeline.eyebrow')}>
+    <section data-theme="light" className="tlh" aria-label={t('timeline.eyebrow')}>
       <PaperGrain />
       <div className="ab-wrap">
-        <p className="ab-eyebrow tls-eyebrow" data-reveal>{t('timeline.eyebrow')}</p>
-        <div className="tls-timeline">
-          <div className="tls-spine" aria-hidden="true">
-            <span ref={fillRef} className="tls-spine-fill" />
-          </div>
-          <ol className="tls-list" ref={listRef}>
-            {stops.map((s, i) => (
-              <li className={`tls-card ${i % 2 ? 'tls-card--right' : 'tls-card--left'}`} data-reveal key={i}>
-                {/* MARKER — node on the spine + the year beside it (spine-only) */}
-                <div className="tls-marker">
-                  <span className="tls-node" aria-hidden="true" />
-                  <span className="tls-year">{s.year}</span>
+        <p className="ab-eyebrow tlh-eyebrow" data-reveal>{t('timeline.eyebrow')}</p>
+        <ol className="tlh-track">
+          {stops.map((s, i) => {
+            const Ic = TIMELINE_ICONS[i] || Flag
+            const side = i % 2 === 0 ? 'above' : 'below'
+            return (
+              <li className={`tlh-stop tlh-stop--${side}`} data-reveal style={{ '--i': i }} key={i}>
+                <div className="tlh-panel">
+                  <span className="tlh-icon" aria-hidden="true"><Ic size={25} strokeWidth={1.6} /></span>
+                  <h3 className="tlh-title">{s.title}</h3>
+                  <p className="tlh-body">{s.desc}</p>
                 </div>
-
-                {/* CARD — a milestone icon over the copy, stacked on one side of the spine */}
-                <div className="tls-card-inner">
-                  {(() => {
-                    const Ic = TIMELINE_ICONS[i] || Flag
-                    return <span className="tls-icon" aria-hidden="true"><Ic size={26} strokeWidth={1.6} /></span>
-                  })()}
-                  <div className="tls-copy">
-                    <h3 className="tls-title">{s.title}</h3>
-                    <p className="tls-body">{s.desc}</p>
-                  </div>
+                <div className="tlh-axis">
+                  <span className="tlh-year">{s.year}</span>
                 </div>
               </li>
-            ))}
-          </ol>
-        </div>
+            )
+          })}
+        </ol>
       </div>
     </section>
   )
