@@ -25,6 +25,7 @@ const PHONE_FOIL = '+91 829 199 9922'      // hero foil anchor (unparenthesised)
 const PHONE_TEL = '+918291999922'          // tel: / wa.me digits
 const EMAIL_INFO = 'info@quarterfoldltd.com'
 const EMAIL_ENQ = 'enquiry@quarterfoldltd.com'
+const EMAIL_CAREERS = 'careers@quarterfoldltd.com'
 const WA_URL = `https://wa.me/${PHONE_TEL.replace('+', '')}`
 const MAPS_HEAD = 'https://www.google.com/maps/search/?api=1&query=Cyber+One+IT+Park+Sector+30A+Vashi+Navi+Mumbai+400703'
 const MAPS_FACTORY = 'https://www.google.com/maps/search/?api=1&query=Taloja+MIDC+Navi+Mumbai+410208'
@@ -552,8 +553,9 @@ export default function Contact() {
 
       {/* ── 5B. CAREERS AT QUARTERFOLD ── the Careers block leads into the existing
           enquiry form below (reused verbatim, with all its validation / honeypot /
-          consent). CV submission uses the existing enquiries email (Web3Forms' free
-          tier does not accept file uploads), so no new endpoint or address is added. */}
+          consent). CV submission goes to the dedicated careers inbox
+          (careers@quarterfoldltd.com) via mailto; the enquiry form still posts to
+          Web3Forms (its free tier does not accept file uploads). */}
       <section id="careers" data-theme="light" className="ctc-careers relative overflow-hidden" aria-labelledby="ctc-careers-title">
         <PaperGrain />
         <div className="ctc-careers-inner relative z-10">
@@ -572,7 +574,7 @@ export default function Contact() {
               <div className="ctc-careers-ctas">
                 <a
                   className="u-btn u-btn--outline"
-                  href={`mailto:${EMAIL_ENQ}?subject=${encodeURIComponent(t('careers.cvSubject'))}`}
+                  href={`mailto:${EMAIL_CAREERS}?subject=${encodeURIComponent(t('careers.cvSubject'))}`}
                 >
                   {t('careers.cvCta')}
                 </a>
