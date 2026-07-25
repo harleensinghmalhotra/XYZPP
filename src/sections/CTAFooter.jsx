@@ -16,7 +16,10 @@ export default function CTAFooter() {
   // ScrollToTop handler scrolls the section into view on arrival (via Lenis, offset
   // for the nav). Infrastructure and Contact are real routes, linked directly.
   //   Products      → homepage What We Print section (#what-we-print)
-  //   Global Reach  → homepage Global Markets / Global Reach section (#reach)
+  //   Global Reach  → homepage "Global Reach / Worldwide Deliveries" section (#projects):
+  //                   the "Trusted by 200+ publishers" block (Leading Publishers,
+  //                   Educational Institutions, World Bank Funded Projects, Ministries of
+  //                   Education, NGOs, Multinational Retail Brands) — NOT the #reach map.
   //   Infrastructure→ /infrastructure route
   //   Contact       → /contact route
   //   Certified (×5)→ homepage Certifications section (#certifications)
@@ -29,7 +32,7 @@ export default function CTAFooter() {
       // SHOW_CASE_STUDIES is false so no link points at a hidden section.
       items: [
         { label: t('links.products'), to: '/#what-we-print' },
-        { label: t('links.globalReach'), to: '/#reach' },
+        { label: t('links.globalReach'), to: '/#projects' },
         { label: t('links.infrastructure'), to: '/infrastructure' },
         ...(SHOW_CASE_STUDIES ? [{ label: t('links.caseStudies'), to: '/#cases' }] : []),
         { label: t('links.contact'), to: '/contact' },
