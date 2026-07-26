@@ -1,15 +1,15 @@
 # About — Team
 
-**Appears on the site:** /about (Our Story) → "Our Team" — six **split cards** in a 3-up grid
-(2 per row on touch / phone). Each card is a photo zone on top (the 3:4 portrait, greyscale) and
-an always-visible navy text panel below (name, gold-mono title, a 2-line bio preview clamped to a
-whole line with a soft bottom fade). All six cards are one fixed height. On hover (desktop) the
-photo warms greyscale → colour and scales 1.02, and the panel auto-scrolls its full text (bio →
-quote) at ~28px/s with 800ms pauses, looping while hovered and easing back on mouse-out; text that
-already fits is centred with no scroll. No card ever changes size on hover (no clipped words). On
-touch, tapping a card expands its panel to the full text (reflowing the grid — mobile only), and a
-second tap collapses it. The tall cards mean row 1 fills a 1536×743 screen and row 2 is a short
-scroll.
+**Appears on the site:** /about (Our Story) → "Our Team" — a **spotlight**: a six-card grid (3×2,
+2-wide on phone) beside one sticky navy panel. Each card is just the 3:4 portrait (greyscale) with
+the name + gold-mono title on a bottom gradient — no bios, no quotes, no overlays on cards, ever.
+Cards warm greyscale → colour and lift on hover; the **selected** card keeps its colour and wears a
+2px gold ring. Clicking a card fills the panel with that person in full: name (Inter Tight), title
+(gold mono), full bio (cream), quote (italic, gold left rule) — always complete, never truncated.
+Every person's block is stacked in the same panel cell, so the panel's height is fixed to the
+longest person and never jumps; the outgoing block fades down 12px while the incoming fades up
+(250ms). Default selection is the first card, Sameer Kazi. On phone (<768px) the grid sits on top
+and the panel below it (not sticky); tapping a card scrolls the panel into view.
 
 Names / titles / bios / quotes live in `src/locales/<lang>/ourStory.json` (`team.members`).
 Card order matches that array and `TEAM_SLUGS` in `src/pages/OurStory.jsx`.
@@ -17,11 +17,14 @@ Card order matches that array and `TEAM_SLUGS` in `src/pages/OurStory.jsx`.
 ## Photos
 
 Each webp is **one honest crop — no padding, no blur, no vignette, no added effect**. All six are
-cropped to **3:4** (width:height), object-fit: cover from the original, anchored to the subject's
-face / upper body (never cutting heads or hands). Output **720×960 WebP, quality 85, in colour** —
-greyscale is applied by CSS (a filter), not baked into the file. Six files, identical dimensions,
-identical treatment. To replace one, drop a face-anchored 3:4 crop at the same filename.
-(`placeholder-portrait.svg` is a safety net used only if a file is missing.)
+cropped to **3:4** (width:height) from the original masters, anchored to the TOP of the frame (never
+centred vertically): a source wider than 3:4 keeps its full height (head + air above are always
+retained) and trims width on the face; a taller source keeps its full width and crops the height
+with the window starting ~4% below the top edge; an exact-3:4 source is only resized. Output
+**720×960 WebP, quality 85, in colour** — greyscale is applied by CSS (a filter), not baked into the
+file. Re-export with `node scripts/reexport-team-photos.mjs` (masters live outside the repo in the
+QFP archive's `Leadership Team` folder). To replace one, drop a top-anchored 3:4 crop at the same
+filename. (`placeholder-portrait.svg` is a safety net used only if a file is missing.)
 
 | File | Who | Title |
 |------|-----|-------|
