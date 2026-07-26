@@ -51,7 +51,7 @@ export function SmoothScrollProvider({ children }) {
     gsap.ticker.lagSmoothing(0)
     raf.current = tick
     setLenis(l)
-    if (typeof window !== 'undefined') window.__lenis = l // for screenshot tooling
+    if (typeof window !== 'undefined') window.__lenis = l // exposed on window for external scroll tooling
 
     return () => {
       gsap.ticker.remove(tick)

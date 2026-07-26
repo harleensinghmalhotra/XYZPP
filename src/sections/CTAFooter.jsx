@@ -10,7 +10,7 @@ const MONO = "'DM Mono', monospace"
 export default function CTAFooter() {
   const { t } = useTranslation('footer')
 
-  // Task 10 — every footer link is now wired ({ label, to }). Several targets are
+  // Every footer link is wired ({ label, to }). Several targets are
   // SECTIONS on the homepage, not standalone pages: those use a hash route (e.g.
   // "/#reach") so a click from any inner page navigates to "/" AND the site's global
   // ScrollToTop handler scrolls the section into view on arrival (via Lenis, offset
@@ -38,8 +38,8 @@ export default function CTAFooter() {
         { label: t('links.contact'), to: '/contact' },
       ],
     },
-    // Task 9 — the confirmed five featured certifications (Star Export House added; no ISO 14001).
-    // Task 10 — each links to the homepage Certifications section.
+    // The five featured certifications (Star Export House added; no ISO 14001).
+    // Each links to the homepage Certifications section.
     {
       h: t('certified'),
       items: [

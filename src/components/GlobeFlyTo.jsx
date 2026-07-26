@@ -27,8 +27,8 @@ const CREAM = '#F0EBE0'
 const CREAM_WARM = '#E6DDC8'
 const GOLD = '#F37031'
 const GOLD_DEEP = '#F37031'
-// Task 6 (client revision): the map water fill reads as the SITE navy #030C31 — one of
-// the brand blues — rather than a pale stock blue, so ocean and the surrounding navy
+// The map water fill reads as the SITE navy #030C31 (one of the brand blues)
+// rather than a pale stock blue, so ocean and the surrounding navy
 // section blend into one continuous brand surface. File-local literal only; no site
 // token or CSS variable is touched, and it applies solely to the map's water fill.
 const WATER = '#030C31'

@@ -69,7 +69,7 @@
   "team": {
     "heading": "Our Team",
     "leadershipEyebrow": "OUR LEADERSHIP",
-    "selectPrompt": "Select a member to know more",
+    "selectHint": "Select a member to know more",
     "inWords": "In their words",
     "readQuote": "Read full quote",
     "close": "Close",

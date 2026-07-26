@@ -106,7 +106,7 @@ export default function OurStory() {
 
       {/* SECTION 8 & 9 ── AWARDS + CERTIFICATES — company-wide credentials,
           imported from the homepage sections (Awards navy → Certs cream).
-          Task 3 — flatTop: the Certifications cream dome (certs-arc-top) otherwise
+          flatTop: the Certifications cream dome (certs-arc-top) otherwise
           sweeps UP into the navy Awards section and clips the outer plaque cards'
           lower corners. On the homepage Awards is the LAST section (nothing above the
           certs), so it never clips there; suppressing the dome here brings About in
@@ -159,7 +159,7 @@ function InkSpreads() {
   const { t } = useTranslation('ourStory')
   const reduced = useReducedMotion()
   const sectionRef = useRef(null)
-  // Task 18 — one lucide glyph per card, better matched to each idea:
+  // One lucide glyph per card, better matched to each idea:
   // Target → mission, Telescope → vision (looking ahead), HeartHandshake → values.
   const beats = [
     { key: 'mission', Icon: Target },
@@ -372,8 +372,8 @@ const TEAM_PLACEHOLDER = '/site-assets/about/team/placeholder-portrait.svg'
 // (gold mono), full bio (cream) and quote (italic, gold left rule) — all at
 // comfortable reading size, never truncated.
 //
-// NOTHING is selected by default: the panel shows a centred invitation (gold-mono
-// eyebrow + cream prompt + a subtle cursor glyph) and every card sits greyscale.
+// Nothing is selected by default: the panel shows a centred invitation (gold-mono
+// eyebrow + cream hint + a subtle cursor glyph) and every card sits greyscale.
 // Clicking a card selects it; clicking the active card again, clicking anywhere
 // outside the cards and panel, or pressing Escape deselects and eases the panel
 // back to the invitation. The invitation and all six people are stacked in the
@@ -463,7 +463,7 @@ function Team() {
               {/* invitation — shown whenever no card is selected */}
               <div className={`tm-invite${selected === null ? ' is-active' : ''}`} aria-hidden={selected !== null}>
                 <p className="tm-invite-eyebrow">{t('team.leadershipEyebrow')}</p>
-                <p className="tm-invite-prompt">{t('team.selectPrompt')}</p>
+                <p className="tm-invite-hint">{t('team.selectHint')}</p>
                 <MousePointerClick className="tm-invite-glyph" strokeWidth={1.5} aria-hidden="true" />
               </div>
 

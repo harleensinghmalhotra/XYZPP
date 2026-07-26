@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import './JourneyTimeline.css'
 
-// ── THE PRESS RUN — the About-page journey timeline ───────────────────────────
-// A scroll-DRIVEN pinned timeline, ported from the "Press Run" design (Claude
-// Design project 96a8ef9e). The section pins (position:sticky) inside a tall
+// THE PRESS RUN: the About-page journey timeline.
+// A scroll-driven pinned timeline (the "Press Run" design). The section pins
+// (position:sticky) inside a tall
 // wrapper; the wrapper's scroll progress 0→1 drives the whole run. A press-head
 // travels the gold line (left→right on desktop, top→down on mobile); the line
 // draws to wherever the head is; each milestone "prints" — ink-dot stamp + ripple,
@@ -476,7 +476,7 @@ export default function JourneyTimeline() {
           <header className="prun-header">
             <div className="prun-eyebrow">
               <RegMark />
-              <span className="prun-eyebrow-text">OUR JOURNEY · 2014—2026</span>
+              <span className="prun-eyebrow-text">OUR JOURNEY · 2014 to 2026</span>
               <RegMark />
             </div>
             <h2 className="prun-lead">{heading}</h2>

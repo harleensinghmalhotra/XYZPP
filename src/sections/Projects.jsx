@@ -245,8 +245,8 @@ export default function Projects() {
   const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
   const hideParam = !!params && params.has('hideRestricted')
   const showRestricted = SHOW_RESTRICTED_CLIENTS && !hideParam
-  // A/B glow tuning — `?glow=olive` swaps the navy leg for olive so both can be
-  // screenshotted side-by-side. Default (and the shipped pick) is navy.
+  // A/B glow tuning: `?glow=olive` swaps the navy leg for olive so both can be
+  // compared side by side. Default (and the shipped pick) is navy.
   const glowVariant = params?.get('glow') === 'olive' ? 'olive' : 'navy'
   const rows = LEDGER.filter(
     (r) => (SHOW_MINISTRY_NAMES || !r.ministry) && (showRestricted || !r.restricted),

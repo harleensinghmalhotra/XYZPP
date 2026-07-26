@@ -23,7 +23,7 @@
 
 .nr-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));   /* Task 11 — smaller cards, 3 across */
+  grid-template-columns: repeat(3, minmax(0, 1fr));   /* smaller cards, 3 across */
   gap: clamp(20px, 2.2vw, 30px);
 }
 

@@ -37,7 +37,7 @@ import { Suspense, forwardRef, lazy, useEffect, useImperativeHandle, useMemo, us
 
 const Globe = lazy(() => import('react-globe.gl'))
 
-// Task 7 — brand gold #B06F15 for the atmosphere rim + markers/arcs (was the old
+// Brand gold #B06F15 for the atmosphere rim + markers/arcs (was the old
 // orange #F37031). GOLD_RGB is the same brand gold as an rgb() prefix for the arc
 // colour ramps. The deliberate blue-marble ocean texture is untouched.
 const GOLD = '#B06F15'

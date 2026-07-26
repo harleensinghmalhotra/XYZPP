@@ -176,7 +176,7 @@ export default function FacilityBook() {
   const flipMs = useRef(FLIP_MS)
   useEffect(() => { flipMs.current = readFlipMs() }, [])
 
-  // Page-turn cursor prompt — a subtle "Turn →" pill that follows the pointer over the
+  // Page-turn cursor hint: a subtle "Turn →" pill that follows the pointer over the
   // open book and, on click, turns to the next spread. Desktop turnable state only
   // (canFlip && showTurn); updated via the ref so mousemove never re-renders.
   const turnCursorRef = useRef(null)
@@ -397,7 +397,7 @@ export default function FacilityBook() {
   const showTurn = !isIntro && totalSpreads > 1
   const pulse = showTurn && !hasTurned && !reduced
   // Turnable = the desktop flip state with more than one spread. Only then does the
-  // "Turn →" cursor prompt appear and clicking the book turn forward.
+  // "Turn →" cursor hint appear and clicking the book turn forward.
   const turnable = showTurn && canFlip
 
   const overviewPill = (
@@ -414,8 +414,7 @@ export default function FacilityBook() {
 
   // DISCOVERABILITY — a DM-Mono instruction that pulses until the first book is
   // opened this session, and thin hand-drawn arrows pointing at each spine (idle
-  // drift). NOTE: arrow positions are a sensible first pass — to be nudged to match
-  // a markup screenshot. Both dim once a facility has been opened.
+  // drift). Arrow positions are approximate. Both dim once a facility has been opened.
   const hint = (
     <p className={`ib-hint${hasOpened || reduced ? ' is-done' : ''}`}>{t('books.ui.hint')}</p>
   )

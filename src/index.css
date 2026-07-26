@@ -3387,7 +3387,7 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
   letter-spacing: -0.02em;
   color: #fdfaf4;
 }
-/* Task 11 — smaller Awards & Press cards: title steps down from --h2 so the whole
+/* Smaller Awards & Press cards: title steps down from --h2 so the whole
    section fits one screen without inner scroll. */
 .aw-title { font-size: clamp(32px, 4vw, 52px); }
 
@@ -4917,7 +4917,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 .qfp-globe-marker--above { flex-direction: column-reverse; }
 .qfp-globe-pin {
   width: 15px; height: 15px; border-radius: 50%;
-  /* Task 6 — the marker dots render in the brand gold #B06F15 (var(--gold)), with only
+  /* The marker dots render in the brand gold #B06F15 (var(--gold)), with only
      a subtle brighter-gold gloss highlight (var(--gold-2)); no orange. */
   background: radial-gradient(circle at 35% 30%, var(--gold-2), var(--gold) 55%, var(--gold));
   box-shadow: 0 0 0 4px rgb(var(--gold-2-rgb) / 0.28), 0 3px 8px rgba(10, 18, 34, 0.55);
@@ -4942,7 +4942,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 .qfp-globe-fallback img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 38%; opacity: 0.9; }
 .qfp-globe-fbpin {
   position: absolute; width: 14px; height: 14px; border-radius: 50%;
-  /* Task 6 — brand gold #B06F15 dot (matches the live-map markers), no orange. */
+  /* Brand gold #B06F15 dot (matches the live-map markers), no orange. */
   background: radial-gradient(circle at 35% 30%, var(--gold-2), var(--gold) 55%, var(--gold));
   box-shadow: 0 0 0 5px rgb(var(--gold-2-rgb) / 0.22), 0 2px 8px rgba(10, 18, 34, 0.5);
   transform: translate(-50%, -50%);

@@ -191,14 +191,14 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 }
 
 /* ── SECTION 4 — THE FOUNDER (corporate boardroom profile) ──────────────────── */
-/* Task 2 — the founder→Team boundary carried a double gap (full section-pad-y here
+/* The founder→Team boundary carried a double gap (full section-pad-y here
    + the Team section's own top padding), reading as a large empty band under the
    quote card. Trim the founder's BOTTOM padding so the two sit at a normal, single
    section rhythm; the top padding is untouched (founder still breathes from MVV). */
 .fnd { position: relative; background: var(--cream); padding: var(--section-pad-y) var(--page-gutter) clamp(32px, 4vh, 48px); overflow: hidden; }
 .fnd-spread { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(40px, 6vw, 88px); align-items: start; }
 /* fitted portrait — a clean institutional frame; the editorial offset-rule is gone. */
-.fnd-portrait-wrap { position: relative; width: 100%; max-width: 340px; }   /* Task 15 — smaller founder portrait */
+.fnd-portrait-wrap { position: relative; width: 100%; max-width: 340px; }   /* smaller founder portrait */
 .fnd-portrait { position: relative; }
 .fnd-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -208,11 +208,11 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
 .fnd-name {
   margin: 0 0 clamp(8px, 1.2vh, 12px);
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(26px, 3vw, 38px); line-height: 1.06; letter-spacing: -0.025em; color: var(--ink);   /* Task 15 — reduced */
+  font-size: clamp(26px, 3vw, 38px); line-height: 1.06; letter-spacing: -0.025em; color: var(--ink);   /* reduced */
 }
 .fnd-role {
   margin: 0 0 clamp(24px, 3.4vh, 34px);
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px;   /* Task 15 — reduced */
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px;   /* reduced */
   letter-spacing: 0.16em; text-transform: uppercase; color: var(--ab-orange-ink);
 }
 .fnd-bio {
@@ -316,7 +316,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    orange left rule). The quote is ALWAYS visible (no expander, no truncation); an
    absent bio or quote simply drops out. Cool hover: the photo warms grayscale →
    colour (300ms), the card lifts 4px, and the orange rule draws in. */
-/* Task 2 — Team top padding reduced (was clamp(60,7vh,88)) so it sits comfortably
+/* Team top padding reduced (was clamp(60,7vh,88)) so it sits comfortably
    close to the founder quote above, at the page's standard section rhythm. */
 .tm { position: relative; background: var(--cream); padding: clamp(28px, 4vh, 52px) var(--page-gutter) clamp(30px, 4.5vh, 60px); overflow: hidden; }
 /* the gold hairline that opens the section — draws left→right (scaleX). */
@@ -425,7 +425,7 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
   letter-spacing: 0.18em; text-transform: uppercase;
 }
-.tm-invite-prompt {
+.tm-invite-hint {
   margin: 0; max-width: 18ch; color: rgb(253 250 244 / 0.9);
   font-family: 'Inter Tight', sans-serif; font-weight: 500;
   font-size: clamp(19px, 1.5vw, 24px); line-height: 1.3; letter-spacing: -0.01em;

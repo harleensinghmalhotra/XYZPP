@@ -76,7 +76,7 @@ const STATS = [
   { k: 'people', value: 600, suffix: '+' },
 ]
 
-// Task 19 — the hero capacity strip: one lucide icon per figure (order matches
+// The hero capacity strip: one lucide icon per figure (order matches
 // heroStats.items). Its gold-hairline cream band reuses the homepage trust-belt look.
 const HERO_STAT_ICONS = [Maximize, Factory, BookOpen, Users]
 

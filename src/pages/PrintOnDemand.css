@@ -192,7 +192,7 @@
     inset 22px 0 34px -22px rgba(3, 12, 49, 0.5); /* gutter shade near spine */
   overflow: hidden;
 }
-/* the full-colour QFP mark, centred in the navy title band. Task 14: was a monochrome
+/* the full-colour QFP mark, centred in the navy title band. Was a monochrome
    foil silhouette (mask + gold fill); now the real full-colour logo, seated on a small
    cream chip so every part of the mark reads against the navy band. */
 .pod-front::before {
@@ -1001,7 +1001,7 @@
   line-height: 1.06;
   color: var(--navy);
 }
-/* Task 5 — 5 cards per row on desktop so the 9 categories read as a balanced 5 + 4
+/* 5 cards per row on desktop so the 9 categories read as a balanced 5 + 4
    (was auto-fill minmax(150px), which broke 7 + 2). Degrades to 4 / 3 / 2 below. */
 .pod-cat-grid {
   list-style: none; margin: 0; padding: 0;
