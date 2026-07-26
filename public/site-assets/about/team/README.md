@@ -39,4 +39,4 @@ Every card has a title. Charani has a bio but no quote; Priyanka has a quote but
 reveals cleanly with whatever is present.
 
 > Source masters: the Leadership Team studio shots; Charani uses her high-resolution seated
-> portrait. The earlier `team-01.webp … team-06.webp` files are no longer referenced by the site.
+> portrait. The earlier `team-01.webp` to `team-06.webp` files have been removed.
