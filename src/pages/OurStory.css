@@ -334,82 +334,81 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
   font-size: clamp(28px, 3vw, 44px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink);
 }
 
-/* ── OUR TEAM — a hover-reveal photo grid. Each card IS a full-bleed 3:4 portrait; the name
-   and gold-mono title sit on the photo (bottom-left) over a bottom-only navy gradient. On
-   hover the photo warms grayscale → colour and scales 1.03 inside the frame, the gradient
-   deepens upward, and the bio (+ quote, if any) fade + rise in above the name. No read-more,
-   no click states, NO layout shift ever (opacity/transform only). Touch: first tap opens a
-   card's overlay, a second tap — or another card — dismisses it. The big photos mean row 1
-   fills a 1536×743 screen and row 2 is a short scroll. */
-/* spans the full .ab-wrap content width (same container as the heading + founder section
-   above), so the first card's left edge and the last card's right edge line up with the
-   page's content edges; the three columns divide that width with the 24px gaps. */
+/* ── OUR TEAM — split cards: a photo zone on top + an always-visible navy text panel below.
+   Fixed card height (aspect-ratio) so all six match exactly. At rest the panel shows name,
+   gold title and a 2-line bio preview (whole-line clamp + a soft bottom fade — never a
+   mid-line clip). On hover the photo warms grayscale → colour and scales 1.02, and JS
+   auto-scrolls the panel's inner wrapper through the FULL bio + quote (WAAPI, ~28px/s, 800ms
+   pauses, looping, eased back on leave); text that already fits is centred with no scroll.
+   Touch taps the panel open to full height. The grid spans the full .ab-wrap content width
+   (same container as the heading + founder above) so the card edges line up with the page
+   content edges; the three columns divide it with the 24px gaps. Taller cards → heading +
+   row 1 fill a 1536×743 screen, row 2 is a short scroll. */
 .tm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.tm-cell { min-width: 0; }
 
-/* the photo IS the card — a fixed 3:4 frame, rounded 12px, nothing below it. */
 .tm-card {
-  position: relative; aspect-ratio: 3 / 4; border-radius: 12px; overflow: hidden;
-  background: var(--cream-2); outline: none;
-  box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.08);
+  position: relative; display: flex; flex-direction: column;
+  aspect-ratio: 20 / 27;   /* fixed → identical heights across all six */
+  border-radius: 12px; overflow: hidden; background: var(--navy); outline: none;
+  box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.1);
   transition: box-shadow 0.3s var(--e-out);
 }
-.tm-photo {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top;
-  filter: grayscale(1); transform: scale(1);
-  transition: filter 0.3s var(--e-out), transform 0.35s var(--e-out);
+.tm-card:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) {
+  .tm-card:hover { box-shadow: 0 18px 40px rgb(var(--navy-rgb) / 0.22); }
 }
 
-/* caption — the gradient + text, anchored bottom-left. Name + title always show; the reveal
-   (bio + quote) sits above them, invisible at rest. pointer-events:none so it never blocks
-   the card's own hover / tap. */
-.tm-cap {
-  position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;
-  padding: 20px;
-  background: linear-gradient(to top, rgb(3 12 49 / 0.75) 0%, rgb(3 12 49 / 0) 30%);
-  transition: background 0.3s var(--e-out);
+/* photo zone — the 3:4 face-anchored webp, cover-filled, greyscale; warms + scales on hover. */
+.tm-photo-zone { flex: 0 0 62%; overflow: hidden; background: var(--cream-2); }
+.tm-photo {
+  display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 22%;
+  filter: grayscale(1); transform: scale(1);
+  transition: filter 0.35s var(--e-out), transform 0.4s var(--e-out);
 }
+.tm-card.is-hovered .tm-photo, .tm-card:focus-visible .tm-photo { filter: grayscale(0); transform: scale(1.02); }
+
+/* navy text panel — always visible; an overflow-hidden window the inner wrapper scrolls in.
+   A soft mask fades the bottom edge at rest (top + bottom while text scrolls on hover). */
+.tm-text {
+  flex: 0 0 38%; position: relative; overflow: hidden; background: var(--navy);
+  padding: 15px 20px 8px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent);
+          mask-image: linear-gradient(to bottom, #000 calc(100% - 22px), transparent);
+}
+.tm-card.is-hovered .tm-text, .tm-card:focus-visible .tm-text {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18px, #000 calc(100% - 22px), transparent);
+          mask-image: linear-gradient(to bottom, transparent, #000 18px, #000 calc(100% - 22px), transparent);
+}
+.tm-text-inner { will-change: transform; transition: transform 0.3s var(--e-out); }
+
 .tm-name {
-  margin: 0; color: #fdfaf4;
+  margin: 0; color: #fdfaf4; overflow-wrap: break-word;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(17px, 1.35vw, 21px); line-height: 1.14; letter-spacing: -0.015em;
-  text-shadow: 0 1px 10px rgb(3 12 49 / 0.55);
+  font-size: clamp(16px, 1.2vw, 19px); line-height: 1.18; letter-spacing: -0.015em;
 }
 .tm-role {
-  margin: 5px 0 0; color: var(--gold-2);
+  margin: 4px 0 0; color: var(--gold-2);
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 10.5px;
   letter-spacing: 0.1em; text-transform: uppercase;
-  text-shadow: 0 1px 8px rgb(3 12 49 / 0.55);
 }
-/* reveal — bio + quote above the name; hidden at rest, fades + rises on reveal. */
-.tm-reveal {
-  margin-bottom: 12px; opacity: 0; transform: translateY(10px);
-  transition: opacity 0.3s var(--e-out), transform 0.3s var(--e-out);
-}
+/* bio — 2-line whole-line clamp at rest; unclamped on reveal so the inner can scroll it. */
 .tm-bio {
-  margin: 0; color: rgb(253 250 244 / 0.92);
-  font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.5;
-  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+  margin: 10px 0 0; color: rgb(253 250 244 / 0.72);
+  font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.55;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
+/* quote — hidden at rest; shown below the bio when the panel reveals. */
 .tm-quote {
-  margin: 10px 0 0; padding-left: 12px; border-left: 2px solid var(--gold-2);
-  color: rgb(253 250 244 / 0.95);
+  margin: 12px 0 4px; padding-left: 12px; border-left: 2px solid var(--gold-2);
+  color: rgb(253 250 244 / 0.92);
   font-family: 'Inter Tight', sans-serif; font-style: italic; font-weight: 500;
-  font-size: 13px; line-height: 1.45;
-  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+  font-size: 13px; line-height: 1.5; display: none;
 }
-
-/* reveal triggers — desktop :hover, touch .is-active, keyboard :focus-visible. */
-.tm-card.is-active .tm-photo, .tm-card:focus-visible .tm-photo { filter: grayscale(0); transform: scale(1.03); }
-.tm-card.is-active .tm-cap, .tm-card:focus-visible .tm-cap { background: linear-gradient(to top, rgb(3 12 49 / 0.92) 0%, rgb(3 12 49 / 0.72) 45%, rgb(3 12 49 / 0) 85%); }
-.tm-card.is-active .tm-reveal, .tm-card:focus-visible .tm-reveal { opacity: 1; transform: translateY(0); }
-.tm-card:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 3px; }
-@media (hover: hover) and (pointer: fine) {
-  .tm-card:hover { box-shadow: 0 18px 40px rgb(var(--navy-rgb) / 0.2); }
-  .tm-card:hover .tm-photo { filter: grayscale(0); transform: scale(1.03); }
-  .tm-card:hover .tm-cap { background: linear-gradient(to top, rgb(3 12 49 / 0.92) 0%, rgb(3 12 49 / 0.72) 45%, rgb(3 12 49 / 0) 85%); }
-  .tm-card:hover .tm-reveal { opacity: 1; transform: translateY(0); }
+.tm-card.is-hovered .tm-bio, .tm-card:focus-visible .tm-bio, .tm-card.is-expanded .tm-bio {
+  -webkit-line-clamp: unset; display: block; overflow: visible;
 }
+.tm-card.is-hovered .tm-quote, .tm-card:focus-visible .tm-quote, .tm-card.is-expanded .tm-quote { display: block; }
 
 /* ── shared reveal durations (alive.js [data-reveal]/[data-textreveal]) ─────── */
 html.alive-ready :is(.ab-hero, .fnd, .tm) [data-reveal] { transition-duration: 0.6s; }
@@ -454,10 +453,17 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 /* team grid — 3 per row on desktop, 2 per row on touch / mobile (<768px). */
 @media (max-width: 768px) {
   .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .tm-cap { padding: 14px; }
+  .tm-card { aspect-ratio: 5 / 7; }
+  .tm-text { padding: 12px 14px 8px; }
   .tm-name { font-size: 15px; }
-  .tm-role { font-size: 9.5px; letter-spacing: 0.08em; }
-  .tm-bio, .tm-quote { font-size: 12px; -webkit-line-clamp: 3; }
+  .tm-role { font-size: 9px; letter-spacing: 0.07em; }
+  .tm-bio, .tm-quote { font-size: 12px; }
+  /* tap-open — the panel grows to the full text and the card height follows (grid reflows;
+     acceptable on mobile only). Second tap collapses back. */
+  .tm-card.is-expanded { aspect-ratio: auto; }
+  .tm-card.is-expanded .tm-photo-zone { flex: 0 0 auto; aspect-ratio: 4 / 3; }
+  .tm-card.is-expanded .tm-text { flex: 0 0 auto; -webkit-mask-image: none; mask-image: none; padding-bottom: 16px; }
+  .tm-card.is-expanded .tm-text-inner { transform: none !important; }
 }
 @media (max-width: 520px) {
   .ab-hl-1 { font-size: clamp(34px, 11vw, 64px); }
@@ -472,8 +478,8 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .mvv-col::before { transform: none !important; transition: none !important; }
   .mvv-col-body { opacity: 1 !important; transform: none !important; transition: none !important; }
   .mvv-rule { transform: scaleX(0.17) !important; transition: none !important; }
-  .tm-card, .tm-photo, .tm-cap, .tm-reveal { transition: none !important; }
-  .tm-card:hover .tm-photo, .tm-card.is-active .tm-photo, .tm-card:focus-visible .tm-photo { transform: none !important; }   /* colour + overlay reveal stay; no scale/motion */
+  .tm-card, .tm-photo, .tm-text, .tm-text-inner { transition: none !important; }
+  .tm-card.is-hovered .tm-photo, .tm-card:focus-visible .tm-photo { transform: none !important; }   /* colour reveal stays; no scale, no scroll (JS skips WAAPI) */
   .gal-lb { animation: none !important; }
   html.alive-ready .tm-rule[data-reveal] { transform: scaleX(1) !important; transition: none !important; }
 }

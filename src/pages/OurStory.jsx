@@ -363,16 +363,87 @@ function Gallery() {
 const TEAM_SLUGS = ['sameer-kazi', 'charani-dhankani', 'dhiresh-verlekar', 'dilip-ramrakhyani', 'patrick-carrapiett', 'priyanka-rajpal']
 const TEAM_PLACEHOLDER = '/site-assets/about/team/placeholder-portrait.svg'
 
+// One split card: a fixed-height 3:4-ish photo zone on top + an always-visible navy text
+// panel below (name, gold title, 2-line bio preview, whole-line clamp + bottom fade). On
+// hover the photo warms + scales and the panel's inner wrapper auto-scrolls the FULL text
+// (bio → quote → end) at ~28px/s via WAAPI, pausing 800ms at each end and looping, then eases
+// back on mouse-out. Text that already fits is vertically centred instead (no scroll). On
+// touch the panel taps open to full height (pushing the grid — mobile only).
+function TeamCard({ p, src }) {
+  const panelRef = useRef(null)
+  const innerRef = useRef(null)
+  const [hovered, setHovered] = useState(false)   // desktop hover / keyboard focus
+  const [expanded, setExpanded] = useState(false) // touch tap-open
+  const [fits, setFits] = useState(false)         // full text fits the panel (→ centre, no scroll)
+  const hasText = !!(p.bio || p.quote)
+  const isTouch = () => window.matchMedia('(hover: none), (pointer: coarse)').matches
+
+  useEffect(() => {
+    const panel = panelRef.current, inner = innerRef.current
+    if (!panel || !inner || !hovered) { setFits(false); return }
+    const overflow = Math.round(inner.scrollHeight - panel.clientHeight)
+    if (overflow <= 2) {                                   // fits — centre it, no scroll
+      setFits(true)
+      inner.style.transform = `translateY(${Math.round(-overflow / 2)}px)`
+      return () => { inner.style.transform = '' }
+    }
+    setFits(false)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof inner.animate !== 'function') return
+    const pause = 800, scrollMs = (overflow / 28) * 1000, total = pause * 2 + scrollMs
+    const anim = inner.animate(
+      [
+        { transform: 'translateY(0px)', offset: 0 },
+        { transform: 'translateY(0px)', offset: pause / total },
+        { transform: `translateY(${-overflow}px)`, offset: (pause + scrollMs) / total },
+        { transform: `translateY(${-overflow}px)`, offset: 1 },
+      ],
+      { duration: total, iterations: Infinity, easing: 'linear' },
+    )
+    return () => {                                          // ease back to the top from wherever it is
+      let cur = 'none'
+      try { cur = getComputedStyle(inner).transform } catch { /* noop */ }
+      anim.cancel()
+      const back = inner.animate([{ transform: cur === 'none' ? 'translateY(0px)' : cur }, { transform: 'translateY(0px)' }], { duration: 300, easing: 'ease-out' })
+      back.onfinish = () => { try { back.cancel() } catch { /* noop */ } }
+    }
+  }, [hovered])
+
+  return (
+    <article
+      className={`tm-card${hovered ? ' is-hovered' : ''}${expanded ? ' is-expanded' : ''}${fits ? ' tm-fits' : ''}`}
+      tabIndex={0}
+      onMouseEnter={() => { if (!isTouch()) setHovered(true) }}
+      onMouseLeave={() => { if (!isTouch()) setHovered(false) }}
+      onFocus={() => { if (!isTouch()) setHovered(true) }}
+      onBlur={() => { if (!isTouch()) setHovered(false) }}
+      onClick={() => { if (isTouch() && hasText) setExpanded((v) => !v) }}
+    >
+      <div className="tm-photo-zone">
+        <img
+          className="tm-photo"
+          src={src}
+          alt={p.name}
+          loading="lazy"
+          decoding="async"
+          onError={(e) => { if (!e.currentTarget.src.endsWith('placeholder-portrait.svg')) e.currentTarget.src = TEAM_PLACEHOLDER }}
+        />
+      </div>
+      <div className="tm-text" ref={panelRef}>
+        <div className="tm-text-inner" ref={innerRef}>
+          <p className="tm-name">{p.name}</p>
+          {p.role && <p className="tm-role">{p.role}</p>}
+          {p.bio && <p className="tm-bio">{p.bio}</p>}
+          {p.quote && <blockquote className="tm-quote">{p.quote}</blockquote>}
+        </div>
+      </div>
+    </article>
+  )
+}
+
 function Team() {
   const { t } = useTranslation('ourStory')
   const members = t('team.members', { returnObjects: true })
-  const [activeIdx, setActiveIdx] = useState(null)   // touch only — which card's overlay is tapped open
   const photo = (i) => `/site-assets/about/team/${TEAM_SLUGS[i] || `team-${String(i + 1).padStart(2, '0')}`}.webp`
-  // Desktop reveals purely on CSS :hover (no click state). On touch (no hover), a first tap opens a
-  // card's overlay and a second tap — or tapping another card — dismisses it.
-  const onTap = (i) => {
-    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) setActiveIdx((prev) => (prev === i ? null : i))
-  }
 
   return (
     <section data-theme="light" className="tm" aria-labelledby="tm-title">
@@ -382,31 +453,9 @@ function Team() {
         <h2 id="tm-title" className="tm-title" data-reveal>{t('team.heading')}</h2>
         <div className="tm-grid">
           {members.map((p, i) => (
-            <article
-              className={`tm-card${activeIdx === i ? ' is-active' : ''}`}
-              data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}
-              tabIndex={0} onClick={() => onTap(i)}
-            >
-              {/* the photo IS the card — full-bleed 3:4; greyscale at rest → colour on hover (CSS). */}
-              <img
-                className="tm-photo"
-                src={photo(i)}
-                alt={p.name}
-                loading="lazy"
-                decoding="async"
-                onError={(e) => { if (!e.currentTarget.src.endsWith('placeholder-portrait.svg')) e.currentTarget.src = TEAM_PLACEHOLDER }}
-              />
-              {/* caption over the photo: name + title always visible over a bottom gradient; the bio
-                  and quote fade + rise in above them on hover/tap. Opacity/transform only — no shift. */}
-              <div className="tm-cap">
-                <div className="tm-reveal">
-                  {p.bio && <p className="tm-bio">{p.bio}</p>}
-                  {p.quote && <blockquote className="tm-quote">{p.quote}</blockquote>}
-                </div>
-                <p className="tm-name">{p.name}</p>
-                {p.role && <p className="tm-role">{p.role}</p>}
-              </div>
-            </article>
+            <div className="tm-cell" data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}>
+              <TeamCard p={p} src={photo(i)} />
+            </div>
           ))}
         </div>
       </div>
