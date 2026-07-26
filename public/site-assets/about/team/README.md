@@ -1,28 +1,24 @@
 # About — Team
 
 **Appears on the site:** /about (Our Story) → "Our Team" — six cards in a 3-up grid
-(2 per row on tablet, 1 on phone). Each card leads with a **full-bleed** portrait (edge to edge,
-top of the card); below it, left-aligned, are the name, gold-mono title and a 2-line bio excerpt,
-with a **Read more** toggle that expands the card in place (accordion — opening one closes any
-other) to reveal the full bio and quote. All six collapsed cards share one height. The photos are
-large, so the section runs past one screen: the first row fills a 1536×743 viewport and the
-second row is a short scroll.
+(2 per row on touch / phone). Each card **is** a full-bleed 3:4 portrait; the name and gold-mono
+title sit on the photo, bottom-left, over a bottom navy gradient. On hover (desktop) the photo
+warms greyscale → colour and scales slightly, the gradient deepens, and the bio (and quote, if
+present) fade + rise in above the name — no read-more, no click state, no layout shift. On touch,
+a first tap reveals a card's overlay and a second tap — or tapping another card — dismisses it.
+The big photos mean row 1 fills a 1536×743 screen and row 2 is a short scroll.
 
-Names / titles / bios / quotes live in `src/locales/<lang>/ourStory.json` (`team.members`);
-the toggle labels are `team.readMore` / `team.readLess`. Card order matches that array and the
-slug list in `src/pages/OurStory.jsx` (`TEAM_SLUGS`).
+Names / titles / bios / quotes live in `src/locales/<lang>/ourStory.json` (`team.members`).
+Card order matches that array and `TEAM_SLUGS` in `src/pages/OurStory.jsx`.
 
 ## Photos
 
-Each webp is the photographer's **full frame, never cropped**. Sources have mixed aspect ratios,
-so every image is normalised to a common **2:3 portrait** (the tallest source's shape): the full
-photo is centred and any remaining area is filled with the photo's own blurred edge (no subject,
-face or hand is ever cropped). Output is **480×720 WebP, quality 85** (≤ 640px wide). The card's
-image frame spans the full card width at exactly 2:3, so the webp fills it edge-to-edge, no letterbox.
-
-To replace one, drop a new file at the **exact filename** below, keeping the same treatment:
-the full photo centred on a 2:3 canvas with the remaining area filled by the photo's own blurred
-edge, exported at 480×720 q85. (`placeholder-portrait.svg` is a safety net used only if missing.)
+Each webp is **one honest crop — no padding, no blur, no vignette, no added effect**. All six are
+cropped to **3:4** (width:height), object-fit: cover from the original, anchored to the subject's
+face / upper body (never cutting heads or hands). Output **720×960 WebP, quality 85, in colour** —
+greyscale is applied by CSS (a filter), not baked into the file. Six files, identical dimensions,
+identical treatment. To replace one, drop a face-anchored 3:4 crop at the same filename.
+(`placeholder-portrait.svg` is a safety net used only if a file is missing.)
 
 | File | Who | Title |
 |------|-----|-------|
@@ -34,9 +30,7 @@ edge, exported at 480×720 q85. (`placeholder-portrait.svg` is a safety net used
 | `priyanka-rajpal.webp`     | Priyanka Rajpal    | Head, Human Resources & Administration |
 
 Every card has a title. Charani has a bio but no quote; Priyanka has a quote but no bio — each
-still renders at the uniform collapsed height, and Read more simply reveals whatever is present.
-
-`placeholder-portrait.svg` is the shared fallback and should stay in place.
+reveals cleanly with whatever is present.
 
 > Source masters: the Leadership Team studio shots; Charani uses her high-resolution seated
 > portrait. The earlier `team-01.webp … team-06.webp` files are no longer referenced by the site.

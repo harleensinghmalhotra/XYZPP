@@ -366,8 +366,13 @@ const TEAM_PLACEHOLDER = '/site-assets/about/team/placeholder-portrait.svg'
 function Team() {
   const { t } = useTranslation('ourStory')
   const members = t('team.members', { returnObjects: true })
-  const [openIdx, setOpenIdx] = useState(null)   // accordion — one card open at a time
+  const [activeIdx, setActiveIdx] = useState(null)   // touch only — which card's overlay is tapped open
   const photo = (i) => `/site-assets/about/team/${TEAM_SLUGS[i] || `team-${String(i + 1).padStart(2, '0')}`}.webp`
+  // Desktop reveals purely on CSS :hover (no click state). On touch (no hover), a first tap opens a
+  // card's overlay and a second tap — or tapping another card — dismisses it.
+  const onTap = (i) => {
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) setActiveIdx((prev) => (prev === i ? null : i))
+  }
 
   return (
     <section data-theme="light" className="tm" aria-labelledby="tm-title">
@@ -376,43 +381,33 @@ function Team() {
         <hr className="tm-rule" data-reveal aria-hidden="true" />
         <h2 id="tm-title" className="tm-title" data-reveal>{t('team.heading')}</h2>
         <div className="tm-grid">
-          {members.map((p, i) => {
-            const open = openIdx === i
-            const hasMore = !!(p.bio || p.quote)
-            return (
-              <article className={`tm-card${open ? ' is-open' : ''}`} data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}>
-                {/* Full-frame 2:3 portrait — the webp is pre-padded to 2:3, so it fills the
-                    2:3 frame with nothing cropped. Falls back to the placeholder if missing. */}
-                <div className="tm-media">
-                  <img
-                    src={photo(i)}
-                    alt={p.name}
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => { if (!e.currentTarget.src.endsWith('placeholder-portrait.svg')) e.currentTarget.src = TEAM_PLACEHOLDER }}
-                  />
+          {members.map((p, i) => (
+            <article
+              className={`tm-card${activeIdx === i ? ' is-active' : ''}`}
+              data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 80}ms` }}
+              tabIndex={0} onClick={() => onTap(i)}
+            >
+              {/* the photo IS the card — full-bleed 3:4; greyscale at rest → colour on hover (CSS). */}
+              <img
+                className="tm-photo"
+                src={photo(i)}
+                alt={p.name}
+                loading="lazy"
+                decoding="async"
+                onError={(e) => { if (!e.currentTarget.src.endsWith('placeholder-portrait.svg')) e.currentTarget.src = TEAM_PLACEHOLDER }}
+              />
+              {/* caption over the photo: name + title always visible over a bottom gradient; the bio
+                  and quote fade + rise in above them on hover/tap. Opacity/transform only — no shift. */}
+              <div className="tm-cap">
+                <div className="tm-reveal">
+                  {p.bio && <p className="tm-bio">{p.bio}</p>}
+                  {p.quote && <blockquote className="tm-quote">{p.quote}</blockquote>}
                 </div>
-                <div className="tm-body">
-                  <p className="tm-name">{p.name}</p>
-                  {p.role && <p className="tm-role">{p.role}</p>}
-                  {/* collapsed 2-line excerpt (height reserved even when empty → uniform cards) */}
-                  <div className="tm-excerpt-wrap"><div className="tm-excerpt-inner"><p className="tm-excerpt">{p.bio}</p></div></div>
-                  {/* expanded detail — full bio + quote, revealed on open (smooth height anim) */}
-                  <div className="tm-detail-wrap">
-                    <div className="tm-detail">
-                      {p.bio && <p className="tm-bio">{p.bio}</p>}
-                      {p.quote && <blockquote className="tm-quote">{p.quote}</blockquote>}
-                    </div>
-                  </div>
-                  {hasMore && (
-                    <button type="button" className="tm-toggle" aria-expanded={open} onClick={() => setOpenIdx(open ? null : i)}>
-                      {open ? t('team.readLess') : t('team.readMore')}
-                    </button>
-                  )}
-                </div>
-              </article>
-            )
-          })}
+                <p className="tm-name">{p.name}</p>
+                {p.role && <p className="tm-role">{p.role}</p>}
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
