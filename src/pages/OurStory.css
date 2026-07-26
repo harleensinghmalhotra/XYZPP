@@ -341,7 +341,10 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
    no click states, NO layout shift ever (opacity/transform only). Touch: first tap opens a
    card's overlay, a second tap — or another card — dismisses it. The big photos mean row 1
    fills a 1536×743 screen and row 2 is a short scroll. */
-.tm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; max-width: 1140px; margin-inline: auto; }
+/* spans the full .ab-wrap content width (same container as the heading + founder section
+   above), so the first card's left edge and the last card's right edge line up with the
+   page's content edges; the three columns divide that width with the 24px gaps. */
+.tm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: start; }
 
 /* the photo IS the card — a fixed 3:4 frame, rounded 12px, nothing below it. */
 .tm-card {
@@ -450,7 +453,7 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 }
 /* team grid — 3 per row on desktop, 2 per row on touch / mobile (<768px). */
 @media (max-width: 768px) {
-  .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 620px; }
+  .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
   .tm-cap { padding: 14px; }
   .tm-name { font-size: 15px; }
   .tm-role { font-size: 9.5px; letter-spacing: 0.08em; }
