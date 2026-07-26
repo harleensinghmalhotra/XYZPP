@@ -318,88 +318,107 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    colour (300ms), the card lifts 4px, and the orange rule draws in. */
 /* Task 2 — Team top padding reduced (was clamp(60,7vh,88)) so it sits comfortably
    close to the founder quote above, at the page's standard section rhythm. */
-.tm { position: relative; background: var(--cream); padding: clamp(44px, 5.5vh, 64px) var(--page-gutter) var(--section-pad-y); overflow: hidden; }
+.tm { position: relative; background: var(--cream); padding: clamp(16px, 2.2vh, 26px) var(--page-gutter) clamp(18px, 2.6vh, 32px); overflow: hidden; }
 /* the gold hairline that opens the section — draws left→right (scaleX). */
 html.alive-ready .tm-rule[data-reveal] {
   width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3);
-  margin: 0 0 clamp(18px, 2.4vh, 26px);
+  margin: 0 0 clamp(8px, 1.4vh, 14px);
   opacity: 1; transform: scaleX(0); transform-origin: left center;
   transition: transform 0.75s var(--e-out);
 }
 html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
-.tm-rule { width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3); margin: 0 0 clamp(18px, 2.4vh, 26px); }
+.tm-rule { width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3); margin: 0 0 clamp(8px, 1.4vh, 14px); }
 .tm-title {
-  margin: 0 0 clamp(26px, 4vh, 44px); max-width: 20ch;
+  margin: 0 0 clamp(10px, 1.5vh, 16px); max-width: 20ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(32px, 4vw, 52px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink);
+  font-size: clamp(24px, 2.5vw, 34px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink);
 }
 
-/* Task 16 — three leadership cards, stacked in one left-aligned column (capped width)
-   so each card has a wide copy area for the full bios/quotes; cards size to their own
-   content (align-items:start). */
-/* 3-up grid — three leaders per row, so the six read as two clean rows. Folds to two
-   columns on tablet and one on phones (breakpoints below). */
-.tm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2vw, 28px); align-items: start; }
+/* ── Six uniform, COMPACT cards in a 3-up grid (3×2 fits one 1536×743 screen). ────
+   Each card = a full-frame 2:3 portrait + name + title + a 2-line bio excerpt +
+   a Read more toggle. The collapsed state sets the uniform card height. Opening a
+   card (accordion — one at a time) reveals its full bio + quote with a smooth
+   grid-rows height animation; the excerpt fades and collapses as it opens. */
+.tm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 18px); align-items: start; max-width: 1000px; margin-inline: auto; }
 
-/* one vertical card — portrait on TOP, copy BELOW. */
 .tm-card {
   display: flex; flex-direction: column; min-width: 0;
+  padding: clamp(12px, 1vw, 16px);
   background: var(--cream); border: 1px solid rgb(var(--navy-rgb) / 0.09);
-  border-radius: var(--r-card); overflow: hidden;
-  box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.05);
-  transition: transform 0.3s var(--e-out), box-shadow 0.3s var(--e-out), border-color 0.3s var(--e-out);
+  border-radius: var(--r-card);
+  box-shadow: 0 2px 10px rgb(var(--navy-rgb) / 0.05);
+  transition: box-shadow 0.3s var(--e-out), border-color 0.3s var(--e-out);
 }
 
-/* photo — a fixed 3:4 frame; the pre-cropped 3:4 portrait fills it exactly (object-fit
-   cover is only a safety net). Grayscale at rest → full colour on hover. */
-.tm-media { position: relative; aspect-ratio: 3 / 4; background: var(--cream-2); overflow: hidden; }
+/* photo — a fixed 2:3 frame the pre-padded 2:3 webp fills EXACTLY (never cropped).
+   Kept compact + centred so all six rows fit one screen. Grayscale → colour on hover. */
+.tm-media {
+  width: clamp(96px, 34%, 112px); aspect-ratio: 2 / 3; margin: 0 auto clamp(8px, 0.9vh, 11px);
+  border-radius: 9px; overflow: hidden; background: var(--cream-2);
+}
 .tm-media img {
-  display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top;
+  display: block; width: 100%; height: 100%; object-fit: cover;
   filter: grayscale(1); transition: filter 0.3s var(--e-out);
 }
 
-/* copy column — generous padding, comfortable vertical rhythm. */
-.tm-body {
-  display: flex; flex-direction: column; min-width: 0;
-  padding: clamp(20px, 1.9vw, 30px) clamp(20px, 2vw, 30px);
-}
+.tm-body { display: flex; flex-direction: column; min-width: 0; text-align: center; }
 .tm-name {
   margin: 0; overflow-wrap: break-word;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(17px, 1.3vw, 21px); line-height: 1.18; letter-spacing: -0.015em; color: var(--ink);
+  font-size: clamp(15.5px, 1.1vw, 18px); line-height: 1.18; letter-spacing: -0.015em; color: var(--ink);
 }
-/* thin orange rule under the name — draws on hover (scaleX 0→1). */
-.tm-underline {
-  display: block; width: 44px; height: 2px; margin: 9px 0 0;
-  background: #B06F15; transform: scaleX(0); transform-origin: left center;
-  transition: transform 0.3s var(--e-out);
-}
+/* title — capped + reserved at two lines so a long title (Priyanka) matches a short one. */
 .tm-role {
-  margin: 12px 0 0;
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11.5px;
-  letter-spacing: 0.14em; text-transform: uppercase; color: #925C10;   /* AA orange on cream */
-}
-/* one short bio line */
-.tm-bio {
-  margin: 12px 0 0;
-  font-family: 'Inter', sans-serif; font-size: clamp(13px, 1vw, 14.5px); line-height: 1.5;
-  letter-spacing: -0.005em; color: rgb(var(--navy-rgb) / 0.74);
-}
-/* quote — ALWAYS visible: italic with a thin orange left rule. */
-.tm-quote {
-  margin: clamp(14px, 1.8vh, 18px) 0 0; padding-left: 14px;
-  border-left: 2px solid #B06F15;
-  font-family: 'Inter Tight', sans-serif; font-style: italic; font-weight: 500;
-  font-size: clamp(14px, 1.05vw, 15.5px); line-height: 1.5; letter-spacing: -0.01em;
-  color: rgb(var(--navy-rgb) / 0.9);
+  margin: 4px 0 0; min-height: 2.3em;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 9.5px;
+  letter-spacing: 0.06em; line-height: 1.2; text-transform: uppercase; color: #925C10;   /* AA orange on cream */
 }
 
-/* hover — photo warms to colour, card lifts 4px, orange rule draws under name (300ms). */
-@media (hover: hover) and (pointer: fine) {
-  .tm-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgb(var(--navy-rgb) / 0.12); border-color: rgb(176 111 21 / 0.4); }
-  .tm-card:hover .tm-media img { filter: grayscale(0); }
-  .tm-card:hover .tm-underline { transform: scaleX(1); }
+/* collapsed 2-line excerpt — always reserves two lines (blank for a card with no bio,
+   e.g. Priyanka) so every collapsed card is identical height. Fades away on open. */
+.tm-excerpt-wrap {
+  display: grid; grid-template-rows: 1fr; margin-top: 8px; opacity: 1;
+  transition: grid-template-rows 0.4s var(--e-out), opacity 0.24s var(--e-out), margin-top 0.4s var(--e-out);
 }
+.tm-card.is-open .tm-excerpt-wrap { grid-template-rows: 0fr; opacity: 0; margin-top: 0; }
+.tm-excerpt-inner { overflow: hidden; min-height: 0; }   /* lets the row collapse to 0 on open */
+.tm-excerpt {
+  overflow: hidden; min-height: calc(2 * 1.5em); margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: rgb(var(--navy-rgb) / 0.72);
+}
+
+/* expanded detail — full bio + quote; grows from 0 with a smooth grid-rows animation. */
+.tm-detail-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.42s var(--e-out); }
+.tm-card.is-open .tm-detail-wrap { grid-template-rows: 1fr; }
+.tm-detail { overflow: hidden; min-height: 0; text-align: left; }
+.tm-bio {
+  margin: 8px 0 0;
+  font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.55;
+  letter-spacing: -0.005em; color: rgb(var(--navy-rgb) / 0.75);
+}
+/* quote — expanded-only, italic with the thin orange left rule. */
+.tm-quote {
+  margin: 11px 0 2px; padding-left: 12px; border-left: 2px solid #B06F15;
+  font-family: 'Inter Tight', sans-serif; font-style: italic; font-weight: 500;
+  font-size: 13px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.9);
+}
+
+/* Read more / Read less */
+.tm-toggle {
+  align-self: center; margin-top: 9px; padding: 3px 4px;
+  background: none; border: 0; cursor: pointer;
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 10.5px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: #925C10;
+  transition: color 0.2s var(--e-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tm-toggle:hover { color: #B06F15; text-decoration: underline; }
+  .tm-card:hover { box-shadow: 0 12px 26px rgb(var(--navy-rgb) / 0.1); border-color: rgb(176 111 21 / 0.35); }
+  .tm-card:hover .tm-media img { filter: grayscale(0); }
+}
+.tm-toggle:focus-visible { outline: 2px solid #B06F15; outline-offset: 2px; border-radius: 4px; }
 
 /* ── shared reveal durations (alive.js [data-reveal]/[data-textreveal]) ─────── */
 html.alive-ready :is(.ab-hero, .fnd, .tm) [data-reveal] { transition-duration: 0.6s; }
@@ -441,12 +460,10 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .fnd-spread { grid-template-columns: 1fr; gap: clamp(30px, 8vw, 44px); }
   .fnd-portrait-wrap { max-width: 320px; }
 }
-/* team grid — three per row on desktop, two on tablet, one on phones. */
-@media (max-width: 960px) {
+/* team grid — three per row on desktop, two per row on tablet and phones. */
+@media (max-width: 900px) {
   .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 560px) {
-  .tm-grid { grid-template-columns: 1fr; }
+  .tm-media { width: clamp(120px, 46%, 168px); }
 }
 @media (max-width: 520px) {
   .ab-hl-1 { font-size: clamp(34px, 11vw, 64px); }
@@ -461,8 +478,7 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .mvv-col::before { transform: none !important; transition: none !important; }
   .mvv-col-body { opacity: 1 !important; transform: none !important; transition: none !important; }
   .mvv-rule { transform: scaleX(0.17) !important; transition: none !important; }
-  .tm-card, .tm-media img, .tm-underline { transition: none !important; }
-  .tm-card:hover { transform: none !important; }
+  .tm-card, .tm-media img, .tm-excerpt-wrap, .tm-detail-wrap, .tm-toggle { transition: none !important; }
   .tm-card:hover .tm-media img { filter: grayscale(0); }   /* colour reveal stays, no fade */
   .gal-lb { animation: none !important; }
   html.alive-ready .tm-rule[data-reveal] { transform: scaleX(1) !important; transition: none !important; }
