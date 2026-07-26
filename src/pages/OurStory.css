@@ -318,7 +318,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    colour (300ms), the card lifts 4px, and the orange rule draws in. */
 /* Task 2 — Team top padding reduced (was clamp(60,7vh,88)) so it sits comfortably
    close to the founder quote above, at the page's standard section rhythm. */
-.tm { position: relative; background: var(--cream); padding: clamp(16px, 2.2vh, 26px) var(--page-gutter) clamp(18px, 2.6vh, 32px); overflow: hidden; }
+.tm { position: relative; background: var(--cream); padding: clamp(28px, 4vh, 52px) var(--page-gutter) clamp(30px, 4.5vh, 60px); overflow: hidden; }
 /* the gold hairline that opens the section — draws left→right (scaleX). */
 html.alive-ready .tm-rule[data-reveal] {
   width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3);
@@ -329,56 +329,56 @@ html.alive-ready .tm-rule[data-reveal] {
 html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 .tm-rule { width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3); margin: 0 0 clamp(8px, 1.4vh, 14px); }
 .tm-title {
-  margin: 0 0 clamp(10px, 1.5vh, 16px); max-width: 20ch;
+  margin: 0 0 clamp(18px, 2.8vh, 34px); max-width: 20ch;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(24px, 2.5vw, 34px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink);
+  font-size: clamp(28px, 3vw, 44px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink);
 }
 
-/* ── Six uniform, COMPACT cards in a 3-up grid (3×2 fits one 1536×743 screen). ────
-   Each card = a full-frame 2:3 portrait + name + title + a 2-line bio excerpt +
-   a Read more toggle. The collapsed state sets the uniform card height. Opening a
-   card (accordion — one at a time) reveals its full bio + quote with a smooth
-   grid-rows height animation; the excerpt fades and collapses as it opens. */
-.tm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 18px); align-items: start; max-width: 1000px; margin-inline: auto; }
+/* ── Six full-bleed portrait cards in a 3-up grid. Each card = a FULL-BLEED, card-width
+   2:3 portrait (uncropped) as the top block + a compact left-aligned text column below
+   (name, gold-mono title, 2-line bio excerpt, Read more). Collapsed cards share one
+   height; opening a card (accordion — one at a time) reveals its full bio + quote with a
+   smooth grid-rows animation. The big photos push the section past one screen: row 1
+   fills the first viewport, row 2 is a short scroll. */
+.tm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 1.8vw, 24px); align-items: start; max-width: 1200px; margin-inline: auto; }
 
+/* the photo is full-bleed, so the card carries NO padding — the image runs to the card's
+   left / right / top edges and the card's own radius + overflow clip its top corners. */
 .tm-card {
   display: flex; flex-direction: column; min-width: 0;
-  padding: clamp(12px, 1vw, 16px);
   background: var(--cream); border: 1px solid rgb(var(--navy-rgb) / 0.09);
-  border-radius: var(--r-card);
+  border-radius: var(--r-card); overflow: hidden;
   box-shadow: 0 2px 10px rgb(var(--navy-rgb) / 0.05);
-  transition: box-shadow 0.3s var(--e-out), border-color 0.3s var(--e-out);
+  transition: box-shadow 0.3s var(--e-out), border-color 0.3s var(--e-out), transform 0.3s var(--e-out);
 }
 
-/* photo — a fixed 2:3 frame the pre-padded 2:3 webp fills EXACTLY (never cropped).
-   Kept compact + centred so all six rows fit one screen. Grayscale → colour on hover. */
-.tm-media {
-  width: clamp(96px, 34%, 112px); aspect-ratio: 2 / 3; margin: 0 auto clamp(8px, 0.9vh, 11px);
-  border-radius: 9px; overflow: hidden; background: var(--cream-2);
-}
+/* full-bleed 2:3 portrait — spans the whole card width as the top block, uncropped (the
+   webp is pre-padded to 2:3 so it fills exactly). Grayscale at rest → full colour on hover. */
+.tm-media { width: 100%; aspect-ratio: 2 / 3; overflow: hidden; background: var(--cream-2); }
 .tm-media img {
   display: block; width: 100%; height: 100%; object-fit: cover;
-  filter: grayscale(1); transition: filter 0.3s var(--e-out);
+  filter: grayscale(1); transition: filter 0.4s var(--e-out);
 }
 
-.tm-body { display: flex; flex-direction: column; min-width: 0; text-align: center; }
+/* text column — left-aligned, modest 20px side padding, tight vertical rhythm. */
+.tm-body { display: flex; flex-direction: column; min-width: 0; text-align: left; padding: 15px 20px 18px; }
 .tm-name {
   margin: 0; overflow-wrap: break-word;
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(15.5px, 1.1vw, 18px); line-height: 1.18; letter-spacing: -0.015em; color: var(--ink);
+  font-size: clamp(17px, 1.25vw, 20px); line-height: 1.16; letter-spacing: -0.015em; color: var(--ink);
 }
-/* title — capped + reserved at two lines so a long title (Priyanka) matches a short one. */
+/* title — gold mono; capped + reserved at two lines so a long title (Priyanka) matches a short one. */
 .tm-role {
-  margin: 4px 0 0; min-height: 2.3em;
+  margin: 5px 0 0; min-height: 2.5em;   /* exactly two lines at line-height 1.25 → uniform whatever the title length */
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 9.5px;
-  letter-spacing: 0.06em; line-height: 1.2; text-transform: uppercase; color: #925C10;   /* AA orange on cream */
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 10.5px;
+  letter-spacing: 0.08em; line-height: 1.25; text-transform: uppercase; color: #925C10;   /* AA orange on cream */
 }
 
 /* collapsed 2-line excerpt — always reserves two lines (blank for a card with no bio,
    e.g. Priyanka) so every collapsed card is identical height. Fades away on open. */
 .tm-excerpt-wrap {
-  display: grid; grid-template-rows: 1fr; margin-top: 8px; opacity: 1;
+  display: grid; grid-template-rows: 1fr; margin-top: 9px; opacity: 1;
   transition: grid-template-rows 0.4s var(--e-out), opacity 0.24s var(--e-out), margin-top 0.4s var(--e-out);
 }
 .tm-card.is-open .tm-excerpt-wrap { grid-template-rows: 0fr; opacity: 0; margin-top: 0; }
@@ -386,7 +386,7 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 .tm-excerpt {
   overflow: hidden; min-height: calc(2 * 1.5em); margin: 0;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-  font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: rgb(var(--navy-rgb) / 0.72);
+  font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.5; color: rgb(var(--navy-rgb) / 0.72);
 }
 
 /* expanded detail — full bio + quote; grows from 0 with a smooth grid-rows animation. */
@@ -394,20 +394,20 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 .tm-card.is-open .tm-detail-wrap { grid-template-rows: 1fr; }
 .tm-detail { overflow: hidden; min-height: 0; text-align: left; }
 .tm-bio {
-  margin: 8px 0 0;
-  font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.55;
+  margin: 9px 0 0;
+  font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.55;
   letter-spacing: -0.005em; color: rgb(var(--navy-rgb) / 0.75);
 }
 /* quote — expanded-only, italic with the thin orange left rule. */
 .tm-quote {
-  margin: 11px 0 2px; padding-left: 12px; border-left: 2px solid #B06F15;
+  margin: 12px 0 2px; padding-left: 12px; border-left: 2px solid #B06F15;
   font-family: 'Inter Tight', sans-serif; font-style: italic; font-weight: 500;
-  font-size: 13px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.9);
+  font-size: 13.5px; line-height: 1.5; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.9);
 }
 
 /* Read more / Read less */
 .tm-toggle {
-  align-self: center; margin-top: 9px; padding: 3px 4px;
+  align-self: flex-start; margin-top: 10px; padding: 3px 2px;
   background: none; border: 0; cursor: pointer;
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 10.5px;
   letter-spacing: 0.08em; text-transform: uppercase; color: #925C10;
@@ -460,10 +460,12 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .fnd-spread { grid-template-columns: 1fr; gap: clamp(30px, 8vw, 44px); }
   .fnd-portrait-wrap { max-width: 320px; }
 }
-/* team grid — three per row on desktop, two per row on tablet and phones. */
+/* team grid — 3 per row on desktop, 2 on tablet, 1 on phones (full-bleed photo throughout). */
 @media (max-width: 900px) {
-  .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .tm-media { width: clamp(120px, 46%, 168px); }
+  .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 760px; }
+}
+@media (max-width: 600px) {
+  .tm-grid { grid-template-columns: 1fr; max-width: 440px; }
 }
 @media (max-width: 520px) {
   .ab-hl-1 { font-size: clamp(34px, 11vw, 64px); }
