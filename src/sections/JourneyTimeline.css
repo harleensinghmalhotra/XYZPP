@@ -1,0 +1,261 @@
+/* ── THE PRESS RUN — About-page journey timeline ──────────────────────────────
+   A token-routed port of the "Press Run" design. Base styles below are the
+   design's inline styles moved into rules; the controller (JourneyTimeline.jsx)
+   drives motion via WAAPI, so the *resting* state defined here is the settled
+   final state — line drawn, head parked at the right, every card/dot/count/
+   console visible. That is exactly what shows with JS off or under reduced
+   motion. Palette: navy/gold/gold-2/cream/cream-2(=beige)/ink via tokens; small
+   mono text uses --gold-text/navy for AA; a few emboss + map gradient stops with
+   no token equivalent stay literal. Fonts: Inter Tight / Inter / DM Mono only. */
+
+/* ── the pin — a tall wrapper holds the page while the sticky stage runs ──────
+   The wrapper's scroll region (its height minus one viewport) is the run's
+   progress track; the controller reads it against window scroll. The user cannot
+   scroll to the sections below until they've scrolled through the whole run — the
+   tall wrapper enforces that natively (no wheel hijacking). */
+.prun-scroll { position: relative; min-height: 300vh; }
+
+.prun {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(16px, 2.6vh, 40px) var(--page-gutter);
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* faint dotted world-map + print-grain, both decorative */
+.prun-map {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.prun-map-svg { width: min(1080px, 94%); height: auto; fill: #c3b896; opacity: 0.32; }
+.prun-noise {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.03; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+.prun-skew {
+  position: relative; z-index: 1; width: 100%; max-width: 1240px; margin: 0 auto;
+  transform-origin: center center; will-change: transform;
+}
+
+/* ── header — mono eyebrow (decorative) + translated section heading ────────── */
+.prun-header { text-align: center; }
+.prun-eyebrow {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  font-family: 'DM Mono', ui-monospace, monospace; font-weight: 500;
+  font-size: 11.5px; letter-spacing: 0.24em; color: var(--gold-text);
+}
+.prun-reg { fill: none; stroke: currentColor; stroke-width: 1.6; }
+.prun-eyebrow-text { white-space: nowrap; }
+.prun-lead {
+  margin: clamp(6px, 1vh, 12px) 0 0;
+  font-family: 'Inter Tight', sans-serif; font-weight: 650;
+  font-size: clamp(26px, 3.6vw, 50px); line-height: 1.04; letter-spacing: -0.025em;
+  color: var(--navy);
+}
+
+/* ── track — the gold line, the press head, the five stops. Height fills the pin
+   viewport (minus header + padding) so the whole run reads in one screen. ────── */
+.prun-track { position: relative; height: clamp(360px, calc(100vh - 152px), 660px); margin-top: clamp(10px, 1.6vh, 20px); }
+
+.prun-line {
+  position: absolute; left: 0; right: 0; top: 50%; height: 3px; margin-top: -1.5px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-2)); border-radius: 2px;
+  transform-origin: left center; box-shadow: 0 0 12px rgb(var(--gold-rgb) / 0.3);
+  z-index: 1; will-change: transform;
+}
+.prun-pulse {
+  position: absolute; left: 0; top: 50%; width: 120px; height: 3px; margin-top: -1.5px;
+  background: linear-gradient(90deg, rgb(var(--gold-2-rgb) / 0), rgb(var(--gold-2-rgb) / 0.9), rgb(var(--gold-2-rgb) / 0));
+  border-radius: 2px; opacity: 0; z-index: 2; will-change: transform, opacity;
+}
+.prun-head {
+  position: absolute; top: 50%; left: 100%; width: 30px; height: 14px; margin: -7px 0 0 -30px;
+  border-radius: 7px; box-sizing: border-box;
+  background: linear-gradient(180deg, var(--navy-2), var(--navy));
+  border: 1px solid rgb(var(--gold-2-rgb) / 0.4);
+  box-shadow: 0 0 14px 2px rgb(var(--gold-2-rgb) / 0.5);
+  z-index: 4; will-change: transform;
+}
+.prun-headglow {
+  position: absolute; inset: -8px; border-radius: 16px; opacity: 0.6;
+  background: radial-gradient(closest-side, rgb(var(--gold-2-rgb) / 0.5), rgb(var(--gold-2-rgb) / 0));
+}
+.prun-slit {
+  position: absolute; left: 50%; top: 50%; width: 2px; height: 8px; margin: -4px 0 0 -1px;
+  background: var(--gold-2); border-radius: 1px;
+}
+
+.prun-stops {
+  position: absolute; inset: 0; z-index: 3; list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+}
+.prun-stop { position: relative; height: 100%; }
+
+.prun-dotwrap { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 3; }
+.prun-ripple {
+  position: absolute; left: -17px; top: -17px; width: 34px; height: 34px;
+  border: 1.5px solid var(--gold); border-radius: 50%; opacity: 0;
+}
+.prun-dot {
+  position: absolute; left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--gold); box-shadow: 0 0 0 3px var(--cream);
+}
+
+.prun-wrap {
+  position: absolute; left: 9px; right: 9px; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: clamp(7px, 1vh, 11px);
+}
+.prun-wrap--a { bottom: calc(50% + 14px); }
+.prun-wrap--b { top: calc(50% + 14px); }
+
+/* copy card — auto height (the localised copy runs longer than the design's);
+   compact so the tallest card still fits its half of the pinned viewport. */
+.prun-card {
+  position: relative; box-sizing: border-box; width: 236px; max-width: 100%;
+  padding: 13px 15px; overflow: hidden;
+  background: var(--cream); border: 1px solid rgb(var(--navy-rgb) / 0.1); border-radius: 5px;
+  box-shadow: 0 14px 34px rgb(var(--navy-rgb) / 0.06);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) {
+  .prun-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgb(var(--navy-rgb) / 0.1); }
+}
+.prun-title {
+  margin: 0 0 6px; font-family: 'Inter Tight', sans-serif; font-weight: 600;
+  font-size: clamp(14px, 0.95vw, 15px); line-height: 1.2; letter-spacing: -0.01em; color: var(--navy);
+}
+.prun-body {
+  margin: 0; font-family: 'Inter', sans-serif; font-size: clamp(11px, 0.78vw, 12.5px); line-height: 1.5;
+  color: rgb(var(--navy-rgb) / 0.68); text-wrap: pretty;
+}
+.prun-body [data-count] { font-variant-numeric: tabular-nums; }
+
+/* embossed medallion + single-stroke glyph */
+.prun-icon {
+  position: relative; flex: none; width: 50px; height: 50px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 32% 24%, #fffef9 0%, #f3edde 52%, #e3d8bd 100%);
+  box-shadow:
+    0 14px 26px rgb(var(--navy-rgb) / 0.16), 0 4px 8px rgb(var(--navy-rgb) / 0.1),
+    inset 0 2px 2px rgba(255, 255, 255, 0.95), inset 0 -5px 10px rgb(var(--gold-rgb) / 0.22),
+    inset 0 0 0 1px rgb(var(--navy-rgb) / 0.05);
+}
+.prun-icon::before {
+  content: ''; position: absolute; inset: 3px; border-radius: 50%;
+  border: 1px solid rgb(var(--gold-rgb) / 0.3); box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+.prun-icon::after {
+  content: ''; position: absolute; left: 16%; right: 16%; top: 5%; height: 42%; border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0)); pointer-events: none;
+}
+.prun-icon-svg {
+  position: relative; z-index: 1; fill: none; stroke: var(--gold); stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.85)) drop-shadow(0 2px 3px rgb(var(--gold-rgb) / 0.35));
+}
+
+/* year pill — mono, tabular, corner registration ticks */
+.prun-pill {
+  position: relative; align-self: center; white-space: nowrap; padding: 4px 10px 3px;
+  font-family: 'DM Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums; color: var(--navy);
+  background: var(--cream-2); border: 1px solid rgb(var(--navy-rgb) / 0.4);
+}
+.prun-wrap--a .prun-pill { transform-origin: center bottom; }
+.prun-wrap--b .prun-pill { transform-origin: center top; }
+.prun-pill::before {
+  content: ''; position: absolute; top: -4px; left: -4px; width: 7px; height: 7px;
+  border-top: 1px solid rgb(var(--navy-rgb) / 0.5); border-left: 1px solid rgb(var(--navy-rgb) / 0.5);
+}
+.prun-pill::after {
+  content: ''; position: absolute; bottom: -4px; right: -4px; width: 7px; height: 7px;
+  border-bottom: 1px solid rgb(var(--navy-rgb) / 0.5); border-right: 1px solid rgb(var(--navy-rgb) / 0.5);
+}
+
+/* mono console readout + Replay control. A cream halo keeps them legible where a
+   card scrolls under them at the bottom of the pinned viewport (mobile especially). */
+.prun-console {
+  position: absolute; left: clamp(20px, 5vw, 44px); bottom: 20px; z-index: 2; white-space: pre;
+  font-family: 'DM Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.14em;
+  color: var(--navy); opacity: 0.4; text-shadow: 0 0 7px var(--cream), 0 0 3px var(--cream);
+}
+.prun-replay {
+  position: absolute; right: 20px; bottom: 14px; z-index: 2;
+  display: flex; align-items: center; gap: 7px; padding: 10px; cursor: pointer;
+  background: none; border: none;
+  font-family: 'DM Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.16em;
+  color: rgb(var(--navy-rgb) / 0.5); transition: color 0.3s ease;
+  text-shadow: 0 0 7px var(--cream), 0 0 3px var(--cream);
+}
+.prun-replay:hover { color: var(--gold); }
+.prun-replay:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.prun-replay-ic { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── vertical rail (mobile / narrow) — the design's own ≤1023 breakpoint, which
+   the JS matches so the animation axis follows the layout. Line on the left,
+   stops stacked, every card full-width. ────────────────────────────────────── */
+@media (max-width: 1023px) {
+  /* still pinned (sticky, 100vh) — but top-aligned so the taller vertical run can
+     be panned up through the pin by the controller (skew translateY). */
+  .prun {
+    justify-content: flex-start;
+    padding: clamp(36px, 7vw, 60px) var(--page-gutter) 0;
+  }
+  .prun-lead { font-size: clamp(28px, 8vw, 36px); }
+  .prun-track { height: auto; margin-top: 16px; padding: 6px 0 10px; }
+  .prun-stops { position: static; inset: auto; display: block; height: auto; }
+  .prun-stop { height: auto; margin: 0 0 20px; padding-left: 60px; }
+  .prun-wrap { position: static; left: auto; right: auto; align-items: flex-start; gap: 10px; }
+  .prun-card { width: 100%; min-height: 0; }
+  .prun-body { font-size: 13px; }
+  /* side-a DOM order is card,icon,pill → reorder to pill,icon,card so every stop
+     reads uniformly down the left rail */
+  .prun-wrap--a [data-pr-o='p'] { order: 1; }
+  .prun-wrap--a [data-pr-o='i'] { order: 2; }
+  .prun-wrap--a [data-pr-o='c'] { order: 3; }
+  .prun-dotwrap { left: 24.5px; top: 13px; }
+  .prun-line {
+    left: 23px; right: auto; top: 0; bottom: 0; width: 3px; height: auto; margin: 0;
+    transform-origin: center top; background: linear-gradient(180deg, var(--gold), var(--gold-2));
+  }
+  .prun-pulse {
+    left: 23px; top: 0; width: 3px; height: 120px; margin: 0;
+    background: linear-gradient(180deg, rgb(var(--gold-2-rgb) / 0), rgb(var(--gold-2-rgb) / 0.9), rgb(var(--gold-2-rgb) / 0));
+  }
+  .prun-head { left: 24.5px; top: 100%; right: auto; margin: -30px 0 0 -7px; width: 14px; height: 30px; }
+  .prun-slit { width: 8px; height: 2px; margin: -1px 0 0 -4px; }
+  .prun-console { left: 20px; bottom: 18px; }
+  .prun-replay { right: 12px; bottom: 10px; }
+}
+
+/* mobile pin: a shorter wrapper (~250vh) than desktop's 300vh */
+@media (max-width: 767px) {
+  .prun-scroll { min-height: 250vh; }
+}
+
+/* ── reduced motion — no pin, no scroll-drive. The wrapper collapses to normal
+   height and the section is a plain static block resting in its final state; the
+   Replay control is hidden since there is nothing to replay. ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .prun-scroll { min-height: 0; }
+  .prun {
+    position: static; height: auto; min-height: clamp(720px, 90vh, 900px);
+    justify-content: center; padding: clamp(48px, 7vh, 84px) var(--page-gutter);
+  }
+  .prun-skew { transform: none !important; }
+  .prun-replay { display: none; }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 1023px) {
+  .prun { min-height: 0; justify-content: flex-start; padding: clamp(48px, 8vw, 72px) var(--page-gutter) clamp(64px, 10vw, 88px); }
+}

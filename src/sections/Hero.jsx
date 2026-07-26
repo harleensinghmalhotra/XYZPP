@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next'
 
 // ── QFP homepage hero — headline → CTAs → localised artwork (top to bottom) ──────
 // Plain document flow, no absolute positioning:
-//   1. Visible <h1> headline — one heading, two lines: headlineTop (cream, display)
-//      and headlineAccent (gold-2, its own line), stepped down from --h1 to --h2 so
-//      the block clears the fold. Centred in a navy band that matches the artwork's
-//      baked sky (var(--navy) resolves to #030C31 under .home-palette). Sits below
-//      the in-flow (non-sticky) cream nav.
+//   1. Visible <h1> headline — one heading, two lines in the big-caps display
+//      treatment: headlineTop (cream, 8.6vw→6.4vw bold) over headlineAccent (gold-2,
+//      4.2vw→3.1vw tracked caps), font-metrisch, leading-[0.9], uppercased in CSS so
+//      the locale JSON stays natural case. Centred in a navy band that matches the
+//      artwork's baked sky (var(--navy) resolves to #030C31 under .home-palette).
+//      Sits below the in-flow (non-sticky) cream nav.
 //   2. A visible subhead (headlineSub), then the two pill CTAs, centred in normal
 //      flow; the pills wrap (stack) rather than squash on narrow screens.
 //   3. The full-width artwork image (natural 2400×1350 aspect). Its navy sky
@@ -44,26 +45,48 @@ export default function Hero() {
 
   return (
     <section id="hero" ref={section} data-theme="dark" className="relative overflow-x-clip bg-[var(--navy)]">
-      {/* Headline + CTAs — centred in the navy band above the artwork, normal flow.
-          Top padding is deliberately smaller than the shared --hero-pad-top: the
-          nav is in normal flow (non-sticky), so the headline block + CTAs stay short
-          enough that the top of the artwork clears the fold at 1536×743. */}
-      <div className="mx-auto max-w-[var(--content-max)] px-[var(--page-gutter)] pt-[clamp(48px,7vh,84px)] pb-[clamp(24px,4vh,40px)] text-center">
-        {/* ONE <h1> (SEO + a11y): line 1 cream/display, line 2 accent on its own line.
-            Stepped down from --h1 to --h2 so the block never fills the fold. Accent
-            colour comes from the existing --gold-2 token. */}
-        <h1 className="mx-auto max-w-[20ch] [font-family:'Inter_Tight',sans-serif] font-bold leading-[1.05] tracking-[-0.02em] text-[length:var(--h2)] text-[color:var(--cream-3)] [text-wrap:balance]">
-          <span className="block">{t('hero.headlineTop')}</span>
-          <span className="block text-[color:var(--gold-2)]">{t('hero.headlineAccent')}</span>
+      {/* Headline + CTAs — one centred block in the navy band above the artwork.
+          The block claims a min-height of (viewport − nav − sliver) and vertically
+          centres its content, so the headline/subtext/CTAs settle in the middle of
+          the first screen and the artwork (in normal flow, directly below) crests
+          the fold showing only its top sliver. The nav is in normal flow (non-sticky,
+          87px tall) and scrolls away, so it is subtracted once here. The sliver is
+          sized in vw (≈6.6% of the 16:9 artwork's height) so it stays a constant
+          fraction of the image at any width — a true sliver at 1536 and at 390. */}
+      <div className="mx-auto flex min-h-[calc(100svh-87px-3.7vw)] max-w-[var(--content-max)] flex-col items-center justify-center px-[var(--page-gutter)] py-[clamp(24px,4vh,48px)] text-center">
+        {/* ONE visible <h1> (SEO + a11y) — the effd335 big-caps display treatment,
+            recoloured onto the CURRENT homepage tokens: line 1 cream (--cream-3),
+            line 2 accent (--gold-2) on its own line. font-metrisch (→ Inter Tight),
+            centred, leading-[0.9], uppercased in CSS so the locale JSON keeps natural
+            case. Sizes/weights/letter-spacing and the 14px inter-line rhythm reproduce
+            the reference's on-screen real estate. lg:whitespace-nowrap keeps each line
+            single on desktop within the 1280 content box (the reference was full-width);
+            below lg the copy wraps as the vw type scales down. */}
+        <h1 className="m-0 flex flex-col items-center font-metrisch leading-[0.9]">
+          {/* Line 1 — cream, big display caps. */}
+          <span
+            className="text-[8.6vw] font-bold uppercase text-[color:var(--cream-3)] lg:whitespace-nowrap lg:text-[6.4vw]"
+            style={{ letterSpacing: '-0.2vw' }}
+          >
+            {t('hero.headlineTop')}
+          </span>
+          {/* Line 2 — accent gold, smaller tracked caps kicker. paddingLeft offsets the
+              trailing 0.16em tracking so the line stays optically centred. */}
+          <span
+            className="mt-[14px] text-[4.2vw] font-semibold uppercase text-[color:var(--gold-2)] lg:whitespace-nowrap lg:text-[3.1vw]"
+            style={{ letterSpacing: '0.16em', paddingLeft: '0.16em' }}
+          >
+            {t('hero.headlineAccent')}
+          </span>
         </h1>
 
-        {/* Visible subhead — smaller, cream at reduced opacity, between headline and CTAs. */}
-        <p className="mx-auto mt-4 max-w-[52ch] text-[length:var(--body)] leading-[1.6] text-[color:var(--cream-3)] opacity-80">
-          {t('hero.headlineSub')}
+        {/* Visible subhead — the reference's subtext geometry (18px / 1.4 / 720px),
+            kept in the current cream-3 @ 80% opacity so no colour changes. */}
+        <p className="mt-[4vh] max-w-[720px] text-center text-[18px] leading-[1.4] text-[color:var(--cream-3)] opacity-80">
+          {t('hero.subhead')}
         </p>
 
-        {/* Painted-into-art copy, surfaced sr-only for SEO + a11y. */}
-        <p className="sr-only">{t('hero.subhead')}</p>
+        {/* Painted-into-art speech-bubble copy, surfaced sr-only for SEO + a11y. */}
         <ul className="sr-only">
           {bubbleLines.map((line) => (
             <li key={line}>{line}</li>

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useState, useEffect, useRef } from 'react'
-import { Flag, Globe, Building2, Cog, Target, Telescope, HeartHandshake } from 'lucide-react'
+import { Target, Telescope, HeartHandshake } from 'lucide-react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import CTAButton from '@/components/CTAButton'
@@ -11,13 +11,11 @@ import { PaperGrain } from '@/components/atmosphere'
 // No homepage files are modified; tokens resolve to the inner-page palette.
 import Awards from '@/sections/Awards'
 import Certifications from '@/sections/Certifications'
+// The Journey timeline — "The Press Run", a self-contained animated section
+// (WAAPI + IntersectionObserver) that consumes the ourStory.timeline copy.
+import JourneyTimeline from '@/sections/JourneyTimeline'
 import { GALLERY } from '@/assets/gallery/manifest'
 import './OurStory.css'
-
-// Task 6 — horizontal timeline, one lucide milestone icon per stop. Order matches
-// timeline.stops: 2014 first order (flag) · 2015-17 startup (globe) · 2018 first
-// facility (building) · 2021-23 scale (gears) · 2024-26 global operation (target).
-const TIMELINE_ICONS = [Flag, Globe, Building2, Cog, Target]
 
 // ── /about — "Our Story", the definitive craft pass ──────────────────────────
 // Hero band (~74vh) → THE JOURNEY (Union-Properties three-zone timeline) → INK
@@ -59,8 +57,6 @@ export default function OurStory() {
     ],
   }
 
-  const timelineStops = t('timeline.stops', { returnObjects: true })
-
   return (
     <main id="main">
       <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={breadcrumb} />
@@ -91,8 +87,10 @@ export default function OurStory() {
         </div>
       </section>
 
-      {/* SECTION 3 ── THE JOURNEY — pure vertical-scroll timeline (no interaction) */}
-      <Timeline stops={timelineStops} />
+      {/* SECTION 3 ── THE JOURNEY — "The Press Run" animated timeline. Self-contained
+          (WAAPI + IntersectionObserver); auto-plays on entry, replays on re-entry
+          and via its Replay control, and consumes ourStory.timeline in all locales. */}
+      <JourneyTimeline />
 
       {/* SECTION 3 ── INK SPREADS — MVV, three navy spines + drawn gold hairlines */}
       <InkSpreads />
@@ -147,43 +145,6 @@ function Spine() {
     }
   }, [reduced])
   return <span ref={ref} className="ab-spine" aria-hidden="true" />
-}
-
-// ── THE JOURNEY — horizontal timeline (Task 6) ────────────────────────────────
-// A single horizontal axis. At each of the five stops a small boxed year sits ON
-// the axis, and the milestone icon + copy alternate ABOVE and BELOW the line
-// (stop 1 above, 2 below, 3 above, …). Sized to read as one screen at 1536×743;
-// below 900px it folds into a vertical rail. Reveal-on-scroll via the shared
-// [data-reveal] system (content rests fully visible when JS is off).
-function Timeline({ stops }) {
-  const { t } = useTranslation('ourStory')
-
-  return (
-    <section data-theme="light" className="tlh" aria-label={t('timeline.eyebrow')}>
-      <PaperGrain />
-      <div className="ab-wrap">
-        <p className="ab-eyebrow tlh-eyebrow" data-reveal>{t('timeline.eyebrow')}</p>
-        <ol className="tlh-track">
-          {stops.map((s, i) => {
-            const Ic = TIMELINE_ICONS[i] || Flag
-            const side = i % 2 === 0 ? 'above' : 'below'
-            return (
-              <li className={`tlh-stop tlh-stop--${side}`} data-reveal style={{ '--i': i }} key={i}>
-                <div className="tlh-panel">
-                  <span className="tlh-icon" aria-hidden="true"><Ic size={25} strokeWidth={1.6} /></span>
-                  <h3 className="tlh-title">{s.title}</h3>
-                  <p className="tlh-body">{s.desc}</p>
-                </div>
-                <div className="tlh-axis">
-                  <span className="tlh-year">{s.year}</span>
-                </div>
-              </li>
-            )
-          })}
-        </ol>
-      </div>
-    </section>
-  )
 }
 
 // ── MVV — ONE-SCREEN TRIPTYCH ─────────────────────────────────────────────────

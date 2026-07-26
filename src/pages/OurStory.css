@@ -10,7 +10,7 @@
    --ab-orange     : the #B06F15 accent as-is; decorative marks + on-navy text.
    --ab-orange-ink : a darker burnt-orange of the same family that clears AA
                      (≈4.8:1) as 11-12px text on the cream ground. */
-.ab-hero, .ab-lede, .tlh, .mvv, .fnd, .tm, .gal {
+.ab-hero, .ab-lede, .mvv, .fnd, .tm, .gal {
   --ab-orange: #B06F15;
   --ab-orange-ink: #925C10;
 }
@@ -110,91 +110,9 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   color: rgb(var(--navy-rgb) / 0.82);
 }
 
-/* ── SECTION 3 — THE JOURNEY (center-spine scroll-draw timeline) ──────────────
-   A vertical line runs down the CENTRE of the section; its orange (#B06F15) fill
-   draws downward with scroll progress (scaleY, 60fps; reduced-motion → fully
-   drawn). Each stop has a node ON the line (orange once the fill reaches it, navy
-   outline before) with the year (DM Mono) beside it on the empty side. Cards
-   alternate left/right of the spine; media + copy stack inside each card. Below
-   720px the spine moves to the left edge and every card sits to its right. */
-/* ── THE JOURNEY — horizontal timeline (Task 6). A single centre axis; a small
-   boxed year sits ON the line at each stop, with the icon + copy alternating
-   above/below. Sized to read as one screen at 1536×743; folds to a vertical rail
-   below 900px. ────────────────────────────────────────────────────────────── */
-.tlh {
-  position: relative; background: var(--cream); overflow: hidden;
-  padding: clamp(24px, 3.5vh, 48px) var(--page-gutter) clamp(48px, 7vh, 84px);
-}
-.tlh-eyebrow { margin: 0 0 clamp(18px, 2.6vh, 34px); }
-
-.tlh-track {
-  position: relative; list-style: none; margin: 0; padding: 0;
-  display: flex; min-height: clamp(540px, 66vh, 600px);
-}
-/* the horizontal axis line (trimmed to sit between the first and last year box) */
-.tlh-track::before {
-  content: ''; position: absolute; top: 50%; left: 10%; right: 10%; height: 2px;
-  transform: translateY(-50%); background: rgb(var(--navy-rgb) / 0.14);
-}
-.tlh-stop { flex: 1 1 0; position: relative; padding: 0 clamp(6px, 0.7vw, 14px); }
-/* connector stem from the axis up/down to the panel */
-.tlh-stop::after {
-  content: ''; position: absolute; left: 50%; width: 2px; height: 26px;
-  transform: translateX(-50%); background: rgb(176 111 21 / 0.32); z-index: 0;
-}
-.tlh-stop--above::after { bottom: 50%; }
-.tlh-stop--below::after { top: 50%; }
-
-/* year — a small boxed label centred on the axis */
-.tlh-axis { position: absolute; inset: 0; }
-.tlh-year {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: clamp(12px, 0.9vw, 14px);
-  letter-spacing: 0.05em; color: var(--ab-orange-ink); white-space: nowrap;
-  background: var(--cream); border: 1.5px solid var(--ab-orange);
-  border-radius: 999px; padding: 6px 15px; box-shadow: 0 2px 12px rgb(var(--navy-rgb) / 0.08);
-}
-
-/* panel — icon + copy, centred, above or below the axis */
-.tlh-panel {
-  position: absolute; left: 50%; transform: translateX(-50%);
-  width: clamp(240px, 20vw, 300px); display: flex; flex-direction: column; align-items: center;
-  text-align: center; z-index: 1;
-}
-.tlh-stop--above .tlh-panel { bottom: calc(50% + 26px); }
-.tlh-stop--below .tlh-panel { top: calc(50% + 26px); }
-.tlh-icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 50px; height: 50px; border-radius: 50%; margin: 0 0 clamp(10px, 1.4vh, 15px);
-  color: var(--ab-orange); background: rgb(176 111 21 / 0.08); border: 1px solid rgb(176 111 21 / 0.28);
-}
-.tlh-icon svg { display: block; }
-.tlh-title {
-  margin: 0 0 clamp(7px, 1vh, 11px); max-width: 22ch;
-  font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(16px, 1.35vw, 21px); line-height: 1.15; letter-spacing: -0.02em; color: var(--ink);
-}
-.tlh-body {
-  margin: 0; max-width: 40ch;
-  font-family: 'Inter', sans-serif; font-weight: 400; font-size: clamp(11.5px, 0.82vw, 13.5px);
-  line-height: 1.5; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.72);
-}
-
-/* Mobile — fold to a vertical rail: a left spine, year + panel per stacked stop. */
-@media (max-width: 900px) {
-  .tlh-track { flex-direction: column; min-height: 0; gap: clamp(28px, 6vw, 44px); }
-  .tlh-track::before { top: 0; bottom: 0; left: 9px; right: auto; width: 2px; height: auto; transform: none; }
-  .tlh-stop { flex: none; padding: 2px 0 2px 40px; display: flex; flex-direction: column; }
-  .tlh-stop::after { display: none; }
-  .tlh-stop::before {
-    content: ''; position: absolute; left: 9px; top: 8px; width: 12px; height: 12px;
-    border-radius: 50%; background: var(--ab-orange); transform: translateX(-50%); z-index: 1;
-  }
-  .tlh-axis { position: static; order: -1; }
-  .tlh-year { position: static; transform: none; align-self: flex-start; margin-bottom: 14px; }
-  .tlh-panel { position: static; transform: none; width: auto; align-items: flex-start; text-align: left; }
-  .tlh-title, .tlh-body { max-width: 56ch; }
-}
+/* ── SECTION 3 — THE JOURNEY — now "The Press Run", a self-contained animated
+   section. Its styles live in src/sections/JourneyTimeline.css (imported by the
+   component); the old flat horizontal timeline (.tlh*) it replaced was removed. */
 
 /* ── SECTION 3 — MVV ONE-SCREEN TRIPTYCH ────────────────────────────────────
    One flat navy band folded into three spines split by two drawn gold hairlines.
