@@ -68,6 +68,8 @@
   },
   "team": {
     "heading": "Notre Équipe",
+    "leadershipEyebrow": "NOTRE DIRECTION",
+    "selectPrompt": "Sélectionnez un membre pour en savoir plus",
     "inWords": "Dans leurs mots",
     "readQuote": "Lire la citation",
     "close": "Fermer",

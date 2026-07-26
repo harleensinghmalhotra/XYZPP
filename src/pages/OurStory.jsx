@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useState, useEffect, useRef } from 'react'
-import { Target, Telescope, HeartHandshake } from 'lucide-react'
+import { Target, Telescope, HeartHandshake, MousePointerClick } from 'lucide-react'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import CTAButton from '@/components/CTAButton'
@@ -370,28 +370,54 @@ const TEAM_PLACEHOLDER = '/site-assets/about/team/placeholder-portrait.svg'
 // lift on hover; the SELECTED card keeps its colour and wears a 2px gold ring.
 // Clicking a card fills the panel with that person: name (Inter Tight), title
 // (gold mono), full bio (cream) and quote (italic, gold left rule) — all at
-// comfortable reading size, never truncated. Every person's block is stacked in
-// the SAME grid cell, so the panel's height is fixed to the LONGEST person and
-// never jumps on selection; the outgoing block fades down 12px while the incoming
+// comfortable reading size, never truncated.
+//
+// NOTHING is selected by default: the panel shows a centred invitation (gold-mono
+// eyebrow + cream prompt + a subtle cursor glyph) and every card sits greyscale.
+// Clicking a card selects it; clicking the active card again, clicking anywhere
+// outside the cards and panel, or pressing Escape deselects and eases the panel
+// back to the invitation. The invitation and all six people are stacked in the
+// SAME grid cell, so the panel's height is fixed to the LONGEST person and never
+// jumps between states; the outgoing block fades down 12px while the incoming
 // fades up (a directional crossfade, 250ms). Partial people render clean — Charani
 // has no quote, Priyanka no bio, and the absent block simply isn't rendered.
-// Default selection is the first card, Sameer Kazi. Mobile (<768px): the grid
-// sits on top, the panel (not sticky) below, and tapping a card scrolls it into view.
+// Mobile (<768px): grid on top, panel (not sticky) below; tapping a card scrolls
+// the panel into view, tapping elsewhere collapses it back to the invitation.
 function Team() {
   const { t } = useTranslation('ourStory')
   const reduced = useReducedMotion()
   const members = t('team.members', { returnObjects: true })
   const panelRef = useRef(null)
-  const [selected, setSelected] = useState(0)   // active card + spotlit person
+  const [selected, setSelected] = useState(null)   // null = invitation; index = spotlit person
   const photo = (i) => `/site-assets/about/team/${TEAM_SLUGS[i] || `team-${String(i + 1).padStart(2, '0')}`}.webp`
 
   const select = (i) => {
-    setSelected(i)
-    // mobile: the panel lives below the grid — bring it into view so the tap lands somewhere.
-    if (typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches) {
+    const next = selected === i ? null : i          // clicking the active card again deselects
+    setSelected(next)
+    // mobile: the panel lives below the grid — bring it into view when a person is picked.
+    if (next !== null && typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches) {
       panelRef.current?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest' })
     }
   }
+
+  // Click-away + Escape deselect. A click anywhere that is NOT inside a card or the
+  // panel returns to the invitation; card/panel clicks are handled locally. Listeners
+  // are document-scoped and torn down on unmount.
+  useEffect(() => {
+    const onDocClick = (e) => {
+      const el = e.target
+      if (!(el instanceof Element)) return
+      if (el.closest('.tm-card') || el.closest('.tm-panel')) return
+      setSelected(null)
+    }
+    const onKey = (e) => { if (e.key === 'Escape') setSelected(null) }
+    document.addEventListener('click', onDocClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('click', onDocClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [])
 
   return (
     <section data-theme="light" className="tm" aria-labelledby="tm-title">
@@ -401,7 +427,7 @@ function Team() {
         <h2 id="tm-title" className="tm-title" data-reveal>{t('team.heading')}</h2>
 
         <div className="tm-spotlight">
-          {/* LEFT (top on mobile) — the six-card grid, each card a select button */}
+          {/* LEFT (top on mobile) — the six-card grid, each card a select toggle */}
           <ul className="tm-grid" role="list">
             {members.map((p, i) => (
               <li className="tm-cell" data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 70}ms` }}>
@@ -428,11 +454,19 @@ function Team() {
             ))}
           </ul>
 
-          {/* RIGHT (below on mobile) — the sticky spotlight panel. All six people
-              are stacked in one grid cell so the panel height locks to the tallest;
-              only the selected block is visible (opacity), the rest fade out/down. */}
+          {/* RIGHT (below on mobile) — the sticky spotlight panel. The invitation and
+              all six people are stacked in one grid cell so the panel height locks to
+              the tallest; only the active block is visible (opacity), the rest fade
+              out/down. */}
           <div className="tm-panel" ref={panelRef} aria-live="polite">
             <div className="tm-panel-stack">
+              {/* invitation — shown whenever no card is selected */}
+              <div className={`tm-invite${selected === null ? ' is-active' : ''}`} aria-hidden={selected !== null}>
+                <p className="tm-invite-eyebrow">{t('team.leadershipEyebrow')}</p>
+                <p className="tm-invite-prompt">{t('team.selectPrompt')}</p>
+                <MousePointerClick className="tm-invite-glyph" strokeWidth={1.5} aria-hidden="true" />
+              </div>
+
               {members.map((p, i) => (
                 <article
                   key={i}

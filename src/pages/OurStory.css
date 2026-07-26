@@ -403,15 +403,36 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
   padding: clamp(26px, 2.6vw, 40px) clamp(24px, 2.4vw, 38px);
   box-shadow: 0 22px 54px rgb(var(--navy-rgb) / 0.18);
 }
-/* every person is placed in the SAME cell (row 1 / col 1) so the panel height is the
-   tallest person's — switching never grows or shrinks it. */
+/* the invitation + every person are placed in the SAME cell (row 1 / col 1) so the
+   panel height is the tallest person's — switching states never grows or shrinks it.
+   Both fade + slide the same way: outgoing eases down 12px, incoming eases up. */
 .tm-panel-stack { display: grid; }
-.tm-person {
+.tm-person, .tm-invite {
   grid-area: 1 / 1; min-width: 0; pointer-events: none;
   opacity: 0; transform: translateY(12px);
   transition: opacity 0.25s var(--e-out), transform 0.25s var(--e-out);
 }
-.tm-person.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.tm-person.is-active, .tm-invite.is-active { opacity: 1; transform: none; pointer-events: auto; }
+
+/* invitation (empty / deselected state) — vertically centred in the panel, left-aligned.
+   Stays within the tallest-person height, so returning to it never jumps the layout. */
+.tm-invite {
+  align-self: stretch; display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: center; gap: 14px; text-align: left;
+}
+.tm-invite-eyebrow {
+  margin: 0; color: var(--gold-2);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+.tm-invite-prompt {
+  margin: 0; max-width: 18ch; color: rgb(253 250 244 / 0.9);
+  font-family: 'Inter Tight', sans-serif; font-weight: 500;
+  font-size: clamp(19px, 1.5vw, 24px); line-height: 1.3; letter-spacing: -0.01em;
+}
+.tm-invite-glyph { width: 30px; height: 30px; margin-top: 2px; color: var(--gold-2); opacity: 0.9; }
+.tm-invite.is-active .tm-invite-glyph { animation: tm-invite-bob 2.4s ease-in-out infinite; }
+@keyframes tm-invite-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
 
 .tm-person-name {
   margin: 0; color: #fdfaf4; overflow-wrap: break-word;
@@ -496,8 +517,9 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .mvv-col::before { transform: none !important; transition: none !important; }
   .mvv-col-body { opacity: 1 !important; transform: none !important; transition: none !important; }
   .mvv-rule { transform: scaleX(0.17) !important; transition: none !important; }
-  .tm-card, .tm-card-photo, .tm-person { transition: none !important; }
+  .tm-card, .tm-card-photo, .tm-person, .tm-invite { transition: none !important; }
   .tm-card:hover { transform: none !important; }   /* colour reveal + selection stay; no lift, no crossfade */
+  .tm-invite-glyph { animation: none !important; }
   .gal-lb { animation: none !important; }
   html.alive-ready .tm-rule[data-reveal] { transform: scaleX(1) !important; transition: none !important; }
 }
