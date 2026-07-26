@@ -3247,6 +3247,7 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
   line-height: 1.6;
   color: #1c2019;
 }
+.sustain-item-lead { font-weight: 700; }   /* bold lead before the colon */
 
 @media (max-width: 900px) {
   .sustain { min-height: 0; padding: 72px 24px; }

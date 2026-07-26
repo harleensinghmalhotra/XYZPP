@@ -1,12 +1,11 @@
 {
-  "eyebrow": "Responsabilité environnementale",
   "title": "Responsables par nos pratiques",
-  "intro": "Nous sommes avant tout un imprimeur, et des pratiques durables sont intégrées à la façon dont nous gérons nos ateliers. De l'approvisionnement en papier aux déchets, nous faisons bien les fondamentaux et nous continuons à en faire plus.",
+  "intro": "La durabilité est au cœur de nos activités. Grâce à un approvisionnement responsable et à une fabrication efficace, nous travaillons continuellement à réduire notre impact environnemental.",
   "bullets": {
-    "waste": "Ateliers d'impression à production quasi zéro déchet, chutes récupérées et réutilisées dans chacun de nos sites",
-    "fsc": "Approvisionnement en papier certifié FSC intégré à notre politique d'achat, et non un simple supplément",
-    "iso": "Système de management environnemental certifié ISO 14001:2015 dans l'ensemble de nos sites",
-    "disposal": "Élimination responsable des encres, produits chimiques et déchets d'impression, auditée et documentée"
+    "recycled": "Approvisionnement en papier recyclé : Environ 60 % du papier que nous achetons est fabriqué à partir de pâte recyclée, ce qui réduit le recours à la fibre vierge et contribue à préserver les ressources forestières en limitant la nécessité d'abattre des arbres.",
+    "fsc": "Initiatives de papier certifié FSC® : Nous nous approvisionnons en papier issu de forêts certifiées FSC gérées de manière responsable, en soutenant une sylviculture durable.",
+    "manufacturing": "Fabrication durable : Nous réduisons les déchets au minimum en récupérant, en recyclant et en réutilisant les matériaux et l'eau chaque fois que possible.",
+    "resource": "Utilisation efficace des ressources : Nous optimisons nos processus pour améliorer l'efficacité et réduire l'impact environnemental."
   },
   "chips": {
     "waste": "Objectif zéro déchet en décharge",

@@ -1,12 +1,11 @@
 {
-  "eyebrow": "Environmental Responsibility",
   "title": "Responsible by Practice",
-  "intro": "We are a printing company first, and sustainable practices are built into how we run our floors. From paper sourcing to waste, we do the fundamentals right, and we keep pushing to do more.",
+  "intro": "Sustainability is at the core of our operations. Through responsible sourcing and efficient manufacturing, we continuously work to reduce our environmental impact.",
   "bullets": {
-    "waste": "Near zero waste press floors, offcuts recovered and reused across every facility",
-    "fsc": "FSC certified paper sourcing built into how we buy, not an add on",
-    "iso": "ISO 14001:2015 certified environmental management system across our facilities",
-    "disposal": "Responsible disposal of ink, chemicals and press waste, audited and documented"
+    "recycled": "Recycled Paper Sourcing: Approximately 60% of the paper we procure is manufactured using recycled pulp, reducing reliance on virgin fibre and helping conserve forest resources by reducing the need to harvest trees.",
+    "fsc": "FSC® Certified Paper Initiatives: We source paper from responsibly managed FSC certified forests, supporting sustainable forestry.",
+    "manufacturing": "Sustainable Manufacturing: We minimise waste by recovering, recycling, and reusing materials and water wherever possible.",
+    "resource": "Efficient Resource Utilisation: We optimise our processes to improve efficiency and reduce environmental impact."
   },
   "chips": {
     "waste": "0 waste-to-landfill target",

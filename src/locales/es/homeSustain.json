@@ -1,12 +1,11 @@
 {
-  "eyebrow": "Responsabilidad ambiental",
   "title": "Responsables en la práctica",
-  "intro": "Ante todo somos una empresa de impresión, y las prácticas sostenibles están integradas en la forma en que gestionamos nuestras plantas. Desde el abastecimiento de papel hasta los residuos, hacemos bien los fundamentos y seguimos esforzándonos por hacer más.",
+  "intro": "La sostenibilidad está en el centro de nuestras operaciones. Mediante un abastecimiento responsable y una fabricación eficiente, trabajamos continuamente para reducir nuestro impacto ambiental.",
   "bullets": {
-    "waste": "Plantas de impresión con residuos casi nulos, con recortes recuperados y reutilizados en todas las instalaciones",
-    "fsc": "Compra de papel con certificación FSC integrada en nuestra manera de comprar, no como un añadido",
-    "iso": "Sistema de gestión ambiental certificado ISO 14001:2015 en todas nuestras instalaciones",
-    "disposal": "Eliminación responsable de tintas, productos químicos y residuos de impresión, auditada y documentada"
+    "recycled": "Abastecimiento de papel reciclado: Aproximadamente el 60 % del papel que adquirimos se fabrica con pulpa reciclada, lo que reduce la dependencia de la fibra virgen y ayuda a conservar los recursos forestales al disminuir la necesidad de talar árboles.",
+    "fsc": "Iniciativas de papel certificado FSC®: Adquirimos papel procedente de bosques certificados FSC gestionados de forma responsable, apoyando la silvicultura sostenible.",
+    "manufacturing": "Fabricación sostenible: Reducimos al mínimo los residuos recuperando, reciclando y reutilizando materiales y agua siempre que es posible.",
+    "resource": "Uso eficiente de los recursos: Optimizamos nuestros procesos para mejorar la eficiencia y reducir el impacto ambiental."
   },
   "chips": {
     "waste": "Objetivo de 0 residuos a vertedero",

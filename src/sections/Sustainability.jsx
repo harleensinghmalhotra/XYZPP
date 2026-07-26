@@ -18,7 +18,7 @@ gsap.registerPlugin(ScrollTrigger)
 // photo; no long straight light lines (sun rays are short ticks); reduced-motion →
 // everything static, wings open. GPU-only (CSS transforms), 60fps, no JS rAF.
 
-const BULLETS = ['waste', 'fsc', 'iso', 'disposal']
+const BULLETS = ['recycled', 'fsc', 'manufacturing', 'resource']
 
 function Leaf() {
   return (
@@ -66,13 +66,12 @@ export default function Sustainability() {
     if (reduced) return
     const ctx = gsap.context(() => {
       const q = gsap.utils.selector(root)
-      gsap.set(q('.sustain-eyebrow, .sustain-title, .sustain-intro'), { autoAlpha: 0, y: 16 })
+      gsap.set(q('.sustain-title, .sustain-intro'), { autoAlpha: 0, y: 16 })
       gsap.set(q('.sustain-media'), { autoAlpha: 0, y: 24 })
       gsap.set(q('.sustain-item'), { autoAlpha: 0, y: 16 })
 
       const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: 'top 72%', once: true } })
       tl.to(q('.sustain-media'), { autoAlpha: 1, y: 0, duration: 0.75, ease: 'power2.out', clearProps: 'transform' }, 0)
-        .to(q('.sustain-eyebrow'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.15)
         .to(q('.sustain-title'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.22)
         .to(q('.sustain-intro'), { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out' }, 0.32)
         .to(q('.sustain-item'), { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.09, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, 0.4)
@@ -152,16 +151,24 @@ export default function Sustainability() {
 
         {/* RIGHT — editorial text (unchanged) */}
         <div className="sustain-body">
-          <p className="sustain-eyebrow">{t('eyebrow')}</p>
           <h2 id="sustain-title" className="sustain-title">{t('title')}</h2>
           <p className="sustain-intro">{t('intro')}</p>
           <ul className="sustain-list">
-            {BULLETS.map((b) => (
-              <li className="sustain-item" key={b}>
-                <Leaf />
-                <span className="sustain-item-text">{t(`bullets.${b}`)}</span>
-              </li>
-            ))}
+            {BULLETS.map((b) => {
+              // client bullets are "Bold lead: text" — bold the lead up to the first colon
+              const text = t(`bullets.${b}`)
+              const ci = text.indexOf(':')
+              const lead = ci >= 0 ? text.slice(0, ci) : ''
+              const rest = ci >= 0 ? text.slice(ci + 1).trim() : text
+              return (
+                <li className="sustain-item" key={b}>
+                  <Leaf />
+                  <span className="sustain-item-text">
+                    {lead ? <><strong className="sustain-item-lead">{lead}:</strong> {rest}</> : rest}
+                  </span>
+                </li>
+              )
+            })}
           </ul>
         </div>
       </div>
