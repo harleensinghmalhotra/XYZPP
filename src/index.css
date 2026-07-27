@@ -1288,7 +1288,8 @@ body {
   object-fit: contain;
   object-position: center bottom;
   margin-top: -10px;
-  transform: rotate(var(--rot, 0deg));
+  /* Cutouts render upright (no per-card tilt) so all ten books read as one
+     uniform size across the row; the source canvases are a uniform 5:4. */
   transform-origin: center bottom;
   /* grounded drop-shadow (tight blur + short offset) so the subject SITS on the
      card rather than floating; follows the cutout silhouette, not a box. */
@@ -1329,8 +1330,8 @@ body {
     box-shadow: 0 20px 44px rgb(var(--navy-rgb) / 0.16);
   }
   .wwp-card:hover .wwp-img {
-    /* magnitude eases ~1.5° further in the card's own tilt direction, + scale */
-    transform: rotate(calc(var(--rot, 0deg) * 1.18)) scale(1.06);
+    /* clean grounded scale-up on hover, no tilt (cutouts stay upright) */
+    transform: scale(1.06);
     filter: drop-shadow(0 16px 18px rgb(var(--navy-rgb) / 0.34));
   }
 }
