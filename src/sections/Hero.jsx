@@ -53,7 +53,7 @@ export default function Hero() {
           87px tall) and scrolls away, so it is subtracted once here. The sliver is
           sized in vw (≈6.6% of the 16:9 artwork's height) so it stays a constant
           fraction of the image at any width — a true sliver at 1536 and at 390. */}
-      <div className="mx-auto flex min-h-[calc(100svh-87px-3.7vw)] max-w-[var(--content-max)] flex-col items-center justify-center px-[var(--page-gutter)] py-[clamp(24px,4vh,48px)] text-center">
+      <div className="mx-auto flex min-h-[calc(100svh-87px-3.7vw-14vh)] max-w-[var(--content-max)] flex-col items-center justify-center px-[var(--page-gutter)] py-[clamp(24px,4vh,48px)] text-center">
         {/* ONE visible <h1> (SEO + a11y) — the effd335 big-caps display treatment,
             recoloured onto the CURRENT homepage tokens: line 1 cream (--cream-3),
             line 2 accent (--gold-2) on its own line. font-metrisch (→ Inter Tight),
