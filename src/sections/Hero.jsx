@@ -93,12 +93,26 @@ export default function Hero() {
           ))}
         </ul>
 
-        {/* TWO BUTTON CTAs — pill shape, one-line labels, equal width. Now in normal
-            flow, centred below the headline; they wrap (stack) rather than squash on
-            narrow screens. Navy fill + gold nebula ring + cream label read on navy. */}
-        <div className="hero-cta-pair mt-7 flex flex-wrap items-center justify-center gap-6">
+      </div>
+
+      {/* HERO IMAGE — full width, natural aspect (2400×1350). Its navy sky continues
+          the band; its white ground meets TrustStrips. The two pill CTAs are overlaid
+          in the white ground directly under the book (the earlier f4cb85a placement). */}
+      <div className="relative">
+        <img
+          key={lang}
+          src={heroArt}
+          alt={t('hero.alt')}
+          className="block w-full select-none"
+          draggable="false"
+          fetchpriority="high"
+        />
+        {/* TWO BUTTON CTAs — pill shape, one-line labels, equal width. Absolutely
+            positioned over the artwork's white ground beneath the book, centred; they
+            wrap (stack) on very narrow screens. Markup/hover/focus unchanged. */}
+        <div className="hero-cta-pair absolute inset-x-0 z-20 flex flex-wrap items-center justify-center gap-6" style={{ bottom: 'clamp(3%, 5%, 8%)' }}>
           <a
-            href="#what-we-print"
+            href="#infrastructure"
             className="hero-btn btn-nebula group relative inline-flex h-[54px] min-w-[220px] items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] pl-[22px] pr-[46px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
             {/* label centered in the reserved space; arrow pinned flush to the right padding */}
@@ -115,17 +129,6 @@ export default function Hero() {
           </a>
         </div>
       </div>
-
-      {/* HERO IMAGE — full width, natural aspect (2400×1350). Below the CTAs; its
-          navy sky continues the band, its white ground meets TrustStrips. */}
-      <img
-        key={lang}
-        src={heroArt}
-        alt={t('hero.alt')}
-        className="block w-full select-none"
-        draggable="false"
-        fetchpriority="high"
-      />
     </section>
   )
 }
