@@ -35,11 +35,11 @@ const PLACEHOLDER =
 // set is left in place for now; these paths simply repoint to the new art.
 export const CARDS = [
   { key: 'educational', img: '/site-assets/what-we-print/educational.webp', rot: -8 },
-  { key: 'trade', img: '/site-assets/what-we-print/counterbook-stationery.webp', rot: 7 },
-  { key: 'coffee', img: '/site-assets/what-we-print/trade-books.webp', rot: -9 },
-  { key: 'general', img: '/site-assets/what-we-print/general-books.webp', rot: 8 },
   { key: 'children', img: '/site-assets/what-we-print/children-books.webp', rot: -7 },
+  { key: 'general', img: '/site-assets/what-we-print/general-books.webp', rot: 8 },
+  { key: 'coffee', img: '/site-assets/what-we-print/trade-books.webp', rot: -9 },
   { key: 'kits', img: '/site-assets/what-we-print/learning-kits.webp', rot: 9 },
+  { key: 'trade', img: '/site-assets/what-we-print/counterbook-stationery.webp', rot: 7 },
   { key: 'corporate', img: '/site-assets/what-we-print/corporate.webp', rot: -8 },
   { key: 'pod', img: '/site-assets/what-we-print/pod.webp', rot: 7 },
   { key: 'religious', img: '/site-assets/what-we-print/religious-books.webp', rot: -9 },
