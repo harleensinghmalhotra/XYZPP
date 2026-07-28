@@ -97,7 +97,8 @@ function readFlipMs() {
 // orientation (the folder README lists the expected shape per slot).
 const TALL = new Set([
   'web-machines-03', 'web-machines-08', 'web-machines-09',
-  'sheetfed-08', 'binding-04', 'binding-09',
+  'sheetfed-08', 'binding-04',
+  // binding-09 is now the Aster Automatic (landscape 3:2) — spans a double page.
 ])
 const isLand = (src) => !TALL.has(src)
 
