@@ -40,11 +40,12 @@ export default function CTAFooter() {
     },
   ]
 
-  // The five featured certifications — now shown in the left brand column as icon + name
-  // (no subtext), near the social handles. Each links to the homepage Certifications
-  // section. Icons live at /site-assets/footer-certs/<slug>.webp; a file that is not yet
-  // supplied is hidden on error so the row degrades to a clean text name rather than a
-  // broken-image icon. Acronyms + "Two Star Export House" stay English in every language.
+  // The five featured certifications — a horizontal row of ICONS (no text labels) in the
+  // left brand column, under the logo near the social handles. Each links to the homepage
+  // Certifications section and carries an accessible label. Icons live at
+  // /site-assets/footer-certs/<slug>.webp (48px marks derived from the homepage cert logos;
+  // the two-star mark is drawn from the Star Export House treatment). The acronyms +
+  // "Two Star Export House" stay English in every language.
   const certs = [
     { label: 'FSC', slug: 'fsc' },
     { label: 'ISO 9001:2015', slug: 'iso-9001' },
@@ -133,24 +134,24 @@ export default function CTAFooter() {
                 <a href="https://www.quarterfoldltd.com" target="_blank" rel="noreferrer" className="text-[14px] font-medium transition-colors" style={{ color: 'rgba(28,32,25,0.82)' }}>www.quarterfoldltd.com</a>
               </div>
 
-              {/* Certifications — icon + name (no subtext), below the logo, near the socials.
-                  Icon file missing → hidden on error so the row shows the name cleanly. */}
+              {/* Certifications — a horizontal row of icons, no text labels (client). Each
+                  icon links to the homepage Certifications section and is labelled for
+                  assistive tech via the link's aria-label. */}
               <div className="mt-10">
                 <h3 className="mb-5 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#925C10' }}>{t('certified')}</h3>
-                <ul className="flex flex-col gap-3">
+                <ul className="flex flex-row flex-wrap items-center gap-5">
                   {certs.map((c) => (
                     <li key={c.label}>
-                      <Link to="/#certifications" className="inline-flex items-center gap-2.5 text-[14px] font-medium transition-colors hover:text-[#925C10]" style={{ color: 'rgba(28,32,25,0.82)' }}>
+                      <Link to="/#certifications" aria-label={c.label} className="block rounded transition-transform hover:scale-110 focus-ring">
                         <img
                           src={`/site-assets/footer-certs/${c.slug}.webp`}
                           alt=""
-                          width="24"
-                          height="24"
+                          width="44"
+                          height="44"
                           loading="lazy"
-                          className="h-6 w-6 flex-none object-contain"
+                          className="h-11 w-11 object-contain"
                           onError={(e) => { e.currentTarget.style.display = 'none' }}
                         />
-                        <span>{c.label}</span>
                       </Link>
                     </li>
                   ))}
