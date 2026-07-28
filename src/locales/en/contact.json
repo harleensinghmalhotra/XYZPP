@@ -37,8 +37,7 @@
     "factory": { "name": "Main Factory", "unit": "Unit {{n}}", "directions": "Directions" },
     "hours": {
       "name": "Business Hours",
-      "lines": "Monday to Saturday<1/>9:30am - 6:30pm IST",
-      "flag": "Hours to be confirmed"
+      "lines": "Monday to Saturday<1/>9:30am - 6:30pm IST"
     }
   },
   "form": {

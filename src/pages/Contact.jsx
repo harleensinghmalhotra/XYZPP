@@ -449,45 +449,50 @@ export default function Contact() {
           </div>
 
           <div className="ctc-addr-grid">
-            <article className="ctc-addr-card ctc-reveal">
-              <h3 className="ctc-addr-name">{t('addr.head.name')}</h3>
-              <p className="ctc-addr-lines">
-                1207, Cyber One IT Park,<br />
-                Sector 30A, Vashi,<br />
-                Navi Mumbai, 400703, India
-              </p>
-              <a className="ctc-addr-link focus-ring" href={MAPS_HEAD} target="_blank" rel="noreferrer">{t('addr.head.directions')}</a>
-            </article>
-
-            {/* Main Factory — three units listed separately (never run together) */}
-            <article className="ctc-addr-card ctc-reveal">
-              <h3 className="ctc-addr-name">{t('addr.factory.name')}</h3>
-              <div className="ctc-addr-units">
-                <p className="ctc-addr-lines">
-                  <span className="ctc-addr-unit">{t('addr.factory.unit', { n: 1 })}</span>
-                  Plot No. B-8, Taloja MIDC,<br />
-                  Navi Mumbai, 410208, India
-                </p>
-                <p className="ctc-addr-lines">
-                  <span className="ctc-addr-unit">{t('addr.factory.unit', { n: 2 })}</span>
-                  Plot No. L-143, Taloja MIDC,<br />
-                  Navi Mumbai, 410208, India
-                </p>
-                <p className="ctc-addr-lines">
-                  <span className="ctc-addr-unit">{t('addr.factory.unit', { n: 3 })}</span>
-                  Plot No. A-2/3, Taloja MIDC,<br />
-                  Navi Mumbai, 410208, India
-                </p>
+            {/* One card — head office + the three factory units in a row, business
+                hours in smaller type below. Street addresses are hardcoded verbatim. */}
+            <article className="ctc-addr-card ctc-addr-card--one ctc-reveal">
+              <div className="ctc-addr-row">
+                <div className="ctc-addr-loc">
+                  <h3 className="ctc-addr-name">{t('addr.head.name')}</h3>
+                  <p className="ctc-addr-lines">
+                    1207, Cyber One IT Park,<br />
+                    Sector 30A, Vashi,<br />
+                    Navi Mumbai, 400703, India
+                  </p>
+                </div>
+                <div className="ctc-addr-loc">
+                  <h3 className="ctc-addr-name">{t('addr.factory.unit', { n: 1 })}</h3>
+                  <p className="ctc-addr-lines">
+                    Plot No. B-8, Taloja MIDC,<br />
+                    Navi Mumbai, 410208, India
+                  </p>
+                </div>
+                <div className="ctc-addr-loc">
+                  <h3 className="ctc-addr-name">{t('addr.factory.unit', { n: 2 })}</h3>
+                  <p className="ctc-addr-lines">
+                    Plot No. L-143, Taloja MIDC,<br />
+                    Navi Mumbai, 410208, India
+                  </p>
+                </div>
+                <div className="ctc-addr-loc">
+                  <h3 className="ctc-addr-name">{t('addr.factory.unit', { n: 3 })}</h3>
+                  <p className="ctc-addr-lines">
+                    Plot No. A-2/3, Taloja MIDC,<br />
+                    Navi Mumbai, 410208, India
+                  </p>
+                </div>
               </div>
-              <a className="ctc-addr-link focus-ring" href={MAPS_FACTORY} target="_blank" rel="noreferrer">{t('addr.factory.directions')}</a>
-            </article>
-
-            <article className="ctc-addr-card ctc-reveal">
-              <h3 className="ctc-addr-name">{t('addr.hours.name')}</h3>
-              <p className="ctc-addr-lines">
-                <Trans t={t} i18nKey="addr.hours.lines" components={{ 1: <br /> }} />
-              </p>
-              <p className="ctc-addr-flag">{t('addr.hours.flag')}</p>
+              <div className="ctc-addr-foot">
+                <p className="ctc-addr-hours">
+                  <span className="ctc-addr-unit">{t('addr.hours.name')}</span>
+                  <Trans t={t} i18nKey="addr.hours.lines" components={{ 1: <br /> }} />
+                </p>
+                <div className="ctc-addr-dirs">
+                  <a className="ctc-addr-link focus-ring" href={MAPS_HEAD} target="_blank" rel="noreferrer">{t('addr.head.name')}</a>
+                  <a className="ctc-addr-link focus-ring" href={MAPS_FACTORY} target="_blank" rel="noreferrer">{t('addr.factory.name')}</a>
+                </div>
+              </div>
             </article>
           </div>
 

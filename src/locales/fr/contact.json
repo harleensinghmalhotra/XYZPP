@@ -37,8 +37,7 @@
     "factory": { "name": "Usine principale", "unit": "Unité {{n}}", "directions": "Itinéraire" },
     "hours": {
       "name": "Heures d'ouverture",
-      "lines": "Du lundi au samedi<1/>9 h 30 - 18 h 30 (IST)",
-      "flag": "Horaires à confirmer"
+      "lines": "Du lundi au samedi<1/>9 h 30 - 18 h 30 (IST)"
     }
   },
   "form": {

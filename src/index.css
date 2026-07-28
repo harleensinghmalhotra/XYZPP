@@ -3983,14 +3983,17 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
   font-size: clamp(28px, 3.6vw, 48px); line-height: 1.05; letter-spacing: -0.02em; color: #fdfaf4;
 }
-.ctc-addr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+/* one consolidated card holds all four locations, so the outer grid is a single column */
+.ctc-addr-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 .ctc-addr-card {
-  padding: 32px 30px 30px; border-radius: var(--r-card);
+  padding: 34px 34px 30px; border-radius: var(--r-card);
   background: linear-gradient(180deg, #163156, #041235);
   border: 1px solid rgb(var(--gold-2-rgb) / 0.16);
 }
+/* head office + three factory units, side by side in one horizontal row */
+.ctc-addr-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 3vw, 44px); }
 .ctc-addr-name {
-  margin: 0 0 16px;
+  margin: 0 0 10px;
   font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--gold-2);
 }
@@ -3999,24 +4002,30 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
   font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.65;
   color: rgba(253, 250, 244, 0.88);
 }
-/* Main Factory card lists its three units separately, each with a small label. */
-.ctc-addr-units { display: flex; flex-direction: column; gap: 18px; }
 .ctc-addr-unit {
-  display: block; margin-bottom: 2px;
+  display: block; margin-bottom: 4px;
   font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--gold-2);
 }
+/* business hours (smaller) + directions sit below the row, divided by a gold hairline */
+.ctc-addr-foot {
+  display: flex; flex-wrap: wrap; align-items: flex-start;
+  justify-content: space-between; gap: 16px 40px;
+  margin-top: clamp(28px, 3.4vh, 40px); padding-top: 22px;
+  border-top: 1px solid rgb(var(--gold-2-rgb) / 0.18);
+}
+.ctc-addr-hours {
+  margin: 0;
+  font-family: 'Inter', sans-serif; font-size: 13.5px; line-height: 1.55;
+  color: rgba(253, 250, 244, 0.72);
+}
+.ctc-addr-dirs { display: flex; flex-wrap: wrap; gap: 8px 24px; }
 .ctc-addr-link {
-  display: inline-flex; align-items: center; gap: 6px; margin-top: 18px;
+  display: inline-flex; align-items: center; gap: 6px;
   font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 14px; color: var(--gold-2);
 }
 .ctc-addr-link::after { content: '↗'; font-size: 13px; }
 .ctc-addr-link:hover { color: #B06F15; }
-.ctc-addr-flag {
-  margin: 14px 0 0;
-  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.06em;
-  color: rgba(253, 250, 244, 0.55);
-}
 .ctc-compliance {
   margin: 40px 0 0; max-width: 92ch;
   font-family: 'DM Mono', monospace; font-size: 11px; line-height: 1.7;
@@ -4269,10 +4278,13 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 @media (max-width: 1080px) {
   .ctc-form-inner { grid-template-columns: 1fr; gap: 36px; }
   .ctc-form-intro { position: static; }
-  .ctc-addr-grid { grid-template-columns: 1fr; }
+  .ctc-addr-row { grid-template-columns: repeat(2, 1fr); row-gap: 30px; }
 }
 @media (max-width: 960px) {
   .ctc-hero-grid { grid-template-columns: 1fr; gap: clamp(32px, 6vh, 48px); }
+}
+@media (max-width: 560px) {
+  .ctc-addr-row { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
   .ctc-hero { padding-top: 120px; }
