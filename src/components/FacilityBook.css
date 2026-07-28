@@ -527,53 +527,17 @@
    page zones: LEFT = the read, RIGHT = a full-bleed facility photo. */
 .ib-book {
   position: relative;
-  z-index: 1;                /* sits over the page-block slab behind it */
+  z-index: 1;
   width: 100%;               /* fills the book column — all remaining real estate */
   aspect-ratio: 3072 / 2048;
   background: url('/site-assets/homepage/facility-book/book-spread.webp') center / 100% 100% no-repeat;
-  /* grounding shadow lives on the page-block behind (.ib-book-block); here a tight
-     contact shadow makes the cover sit PROUD of the page stack (it overhangs the
-     pages), plus a soft edge crisp. */
+  /* the book sits on its own drop shadow alone (the stacked page-block behind it was
+     removed per client): a tight contact shadow plus a soft grounding shadow. */
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4)) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.42)) drop-shadow(0 7px 12px rgba(0, 0, 0, 0.24));
   /* query container so the resting INTRO spread scales its type in cqw with the
      book, exactly as the facility left-page already does (design law: text grows
      with the bigger page). The facility page keeps its own nearer container. */
   container-type: inline-size;
-}
-
-/* ── PAGE BLOCK — the stacked-paper depth behind the open book ──────────────────
-   A warm cream slab the size of the book, nudged down + out so its LEFT, RIGHT and
-   BOTTOM edges peek out from behind the cover as a block of stacked page edges. Fine
-   repeating hairlines read as individual sheets (paper, not a grey bar); the warm
-   tone + soft outer shadow ground it as a real object on the navy stage. Static and
-   behind the turning spread, so the depth holds through every page turn. */
-.ib-book-block {
-  position: absolute;
-  z-index: 0;
-  top: 3px; left: -7px; right: -7px;   /* thin depth up both sides, full height */
-  aspect-ratio: 3072 / 2048;           /* tracks the book box at every width */
-  border-radius: 7px;
-  pointer-events: none;
-  /* the paper stack: fine warm sheet hairlines (1px sheet, 1px valley) so the edge
-     reads as many individual pages, not one flat band */
-  background: repeating-linear-gradient(180deg, #f2e9d4 0 1px, #d8cbaa 1px 2px);
-  box-shadow:
-    0 30px 50px -22px rgba(0, 0, 0, 0.6),    /* soft ground shadow under the whole object */
-    0 12px 22px -12px rgba(0, 0, 0, 0.44);   /* tighter contact shadow */
-}
-/* the BOTTOM fore-edge — the deepest part of the stack, slightly inset from the cover
-   (pages narrower than the boards) and peeking further down than the side edges */
-.ib-book-block::after {
-  content: '';
-  position: absolute;
-  left: 1.5%; right: 1.5%;
-  bottom: -15px; height: 34px;
-  z-index: -1;
-  border-radius: 0 0 6px 6px;
-  background:
-    linear-gradient(180deg, rgba(60, 46, 18, 0.16) 0%, rgba(0,0,0,0) 24%),  /* cover contact shade */
-    repeating-linear-gradient(180deg, #ece2ca 0 1px, #d1c4a1 1px 2px);
-  box-shadow: 0 9px 15px -7px rgba(0, 0, 0, 0.46);
 }
 
 .ib-spread {

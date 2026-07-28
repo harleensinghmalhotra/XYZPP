@@ -513,13 +513,9 @@ export default function FacilityBook() {
           </div>
         )}
 
-        {/* THE OPEN BOOK — the art-backed spread that turns */}
+        {/* THE OPEN BOOK — the art-backed spread that turns. It sits on its own drop
+            shadow alone (the stacked page-block behind it was removed per client). */}
         <div className="ib-book-wrap">
-          {/* PAGE BLOCK — a stacked-paper slab sitting just behind the open book so it
-              reads as a physical object: warm layered page edges peek out on the left,
-              right and bottom, grounded by a soft outer shadow. Static (behind the
-              turning spread), so it holds through every page turn. */}
-          <span className="ib-book-block" aria-hidden="true" />
           <div
             className={`ib-book${flip ? ` is-flipping is-${flip.dir}` : ''}${turnable ? ' ib-book--turnable' : ''}`}
             data-mode={canFlip ? 'flip' : 'flat'}
