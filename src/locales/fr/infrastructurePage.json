@@ -31,7 +31,6 @@
     "certs": {
       "fsc": { "name": "FSC Chain of Custody", "sub": "Approvisionnement responsable en papier" },
       "iso9001": { "name": "ISO 9001:2015", "sub": "Management de la qualité" },
-      "iso14001": { "name": "ISO 14001:2015", "sub": "Management environnemental" },
       "sedex": { "name": "Sedex Member", "sub": "Audit de commerce éthique" },
       "starExport": { "name": "Star Export House", "sub": "Govt. of India" }
     }

@@ -9,8 +9,7 @@
   },
   "chips": {
     "waste": "0 waste-to-landfill target",
-    "fsc": "FSC certified",
-    "iso": "ISO 14001:2015"
+    "fsc": "FSC certified"
   },
   "cutoutAlt": "Stack of recycled paper",
   "fscLabel": "FSC Certified",
