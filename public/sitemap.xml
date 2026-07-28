@@ -65,4 +65,40 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://quarterfoldltd.com/newsroom/printweek-power-100-2026</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://quarterfoldltd.com/newsroom/business-connect-print-industry</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://quarterfoldltd.com/newsroom/printweek-book-education-company-of-the-year</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://quarterfoldltd.com/newsroom/printweek-investment-2022</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://quarterfoldltd.com/newsroom/printweek-400000-books-a-day</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://quarterfoldltd.com/newsroom/assocham-excellence-in-education</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
