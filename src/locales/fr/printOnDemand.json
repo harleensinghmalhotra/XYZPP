@@ -16,7 +16,7 @@
   "build": {
     "eyebrow": "Le configurateur",
     "title": "Composez votre livre",
-    "lede": "Faites chaque choix ci-dessous. L’aperçu et votre fiche technique se mettent à jour au fil de vos sélections. Aucun prix, aucun engagement, simplement le livre que vous avez en tête.",
+    "lede": "Choisissez votre format, vos matières et vos finitions pour créer un livre qui n’appartient qu’à vous.",
     "previewTag": "Aperçu en direct",
     "previewCaptionSep": " · "
   },
