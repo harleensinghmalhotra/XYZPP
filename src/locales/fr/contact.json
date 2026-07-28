@@ -12,11 +12,10 @@
     "eyebrow": "Contact",
     "title": "Parlons-en. <strong>Réponse sous un jour ouvré.</strong>",
     "line": "Parlez-nous de votre projet. Nous serons ravis de vous lire.",
-    "callLabel": "Appelez-nous directement",
-    "callFoot": "Du lundi au samedi, aux heures ouvrables, ou remplissez le formulaire ci-dessous.",
-    "callAriaLabel": "Appelez-nous directement au +91 829 199 9922",
-    "waAria": "Écrivez-nous sur WhatsApp",
-    "emailAria": "Écrivez-nous à info@quarterfoldltd.com"
+    "callLabel": "Écrivez-nous directement",
+    "callFoot": "Nous répondons sous un jour ouvré, ou remplissez le formulaire ci-dessous.",
+    "callAriaLabel": "Écrivez-nous directement à info@quarterfoldltd.com",
+    "waAria": "Écrivez-nous sur WhatsApp"
   },
   "map": {
     "regionLabel": "Où nous trouver",

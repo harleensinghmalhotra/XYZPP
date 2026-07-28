@@ -64,7 +64,9 @@
   font-size: clamp(44px, 6vw, 84px); line-height: 1; letter-spacing: -0.02em;
   color: var(--gold-2); text-decoration: none;
 }
-.ph-stat-num--text { font-size: clamp(28px, 4vw, 54px); }
+/* text-variant stat (Contact hero email) — smaller than the numeric stat so a
+   full email address sits comfortably on one line */
+.ph-stat-num--text { font-size: clamp(20px, 2.6vw, 34px); }
 a.ph-stat-num:hover { color: #B06F15; }
 .ph-stat-label {
   margin-top: 8px;
