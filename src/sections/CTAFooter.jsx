@@ -38,18 +38,19 @@ export default function CTAFooter() {
         { label: t('links.contact'), to: '/contact' },
       ],
     },
-    // The five featured certifications (Star Export House added; no ISO 14001).
-    // Each links to the homepage Certifications section.
-    {
-      h: t('certified'),
-      items: [
-        { label: 'FSC', to: '/#certifications' },
-        { label: 'ISO 9001:2015', to: '/#certifications' },
-        { label: 'ISO/IEC 27001:2022', to: '/#certifications' },
-        { label: 'Sedex', to: '/#certifications' },
-        { label: 'Star Export House', to: '/#certifications' },
-      ],
-    },
+  ]
+
+  // The five featured certifications — now shown in the left brand column as icon + name
+  // (no subtext), near the social handles. Each links to the homepage Certifications
+  // section. Icons live at /site-assets/footer-certs/<slug>.webp; a file that is not yet
+  // supplied is hidden on error so the row degrades to a clean text name rather than a
+  // broken-image icon. Acronyms + "Two Star Export House" stay English in every language.
+  const certs = [
+    { label: 'FSC', slug: 'fsc' },
+    { label: 'ISO 9001:2015', slug: 'iso-9001' },
+    { label: 'ISO/IEC 27001:2022', slug: 'iso-27001' },
+    { label: 'Sedex', slug: 'sedex' },
+    { label: 'Two Star Export House', slug: 'star-export-house' },
   ]
 
   const legalLinks = [
@@ -131,10 +132,34 @@ export default function CTAFooter() {
                 <a href="mailto:info@quarterfoldltd.com" className="text-[14px] font-medium transition-colors" style={{ color: 'rgba(28,32,25,0.82)' }}>info@quarterfoldltd.com</a>
                 <a href="https://www.quarterfoldltd.com" target="_blank" rel="noreferrer" className="text-[14px] font-medium transition-colors" style={{ color: 'rgba(28,32,25,0.82)' }}>www.quarterfoldltd.com</a>
               </div>
+
+              {/* Certifications — icon + name (no subtext), below the logo, near the socials.
+                  Icon file missing → hidden on error so the row shows the name cleanly. */}
+              <div className="mt-10">
+                <h3 className="mb-5 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#925C10' }}>{t('certified')}</h3>
+                <ul className="flex flex-col gap-3">
+                  {certs.map((c) => (
+                    <li key={c.label}>
+                      <Link to="/#certifications" className="inline-flex items-center gap-2.5 text-[14px] font-medium transition-colors hover:text-[#925C10]" style={{ color: 'rgba(28,32,25,0.82)' }}>
+                        <img
+                          src={`/site-assets/footer-certs/${c.slug}.webp`}
+                          alt=""
+                          width="24"
+                          height="24"
+                          loading="lazy"
+                          className="h-6 w-6 flex-none object-contain"
+                          onError={(e) => { e.currentTarget.style.display = 'none' }}
+                        />
+                        <span>{c.label}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             {/* Links Columns */}
-            <div className="lg:col-span-8 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="lg:col-span-8 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
 
               {columns.map((col) => (
                 <div key={col.h} className="flex flex-col">
