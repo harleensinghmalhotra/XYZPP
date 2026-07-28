@@ -559,9 +559,6 @@ export default function PrintOnDemand() {
                   {t('summary.request')}
                 </CTAButton>
               )}
-              <p className="pod-summary-note">
-                <Trans t={t} i18nKey="summary.note" components={{ 1: <Link to={contactHref} /> }} />
-              </p>
             </aside>
           </div>
         </div>

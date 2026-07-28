@@ -95,8 +95,7 @@
     "reqConsent": "J'accepte que Quarterfold utilise ces informations pour répondre à ma demande et préparer un devis, conformément à la <1>politique de confidentialité</1>.",
     "reqConsentErr": "Veuillez accepter la politique de confidentialité afin que nous puissions vous répondre.",
     "reqSuccessTitle": "Demande envoyée.",
-    "reqSuccess": "Nous avons bien reçu votre configuration et vos coordonnées ; nous vous enverrons un devis sur mesure sous un jour ouvré.",
-    "note": "Aucun prix, aucun engagement. Nous vous enverrons un devis sur mesure et une épreuve gratuite. Vous préférez en discuter ? <1>Parlez-nous.</1>"
+    "reqSuccess": "Nous avons bien reçu votre configuration et vos coordonnées ; nous vous enverrons un devis sur mesure sous un jour ouvré."
   },
   "qtyBadgeSr": "Quantité",
   "how": {

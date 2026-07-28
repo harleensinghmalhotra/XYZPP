@@ -95,8 +95,7 @@
     "reqConsent": "I agree that Quarterfold may use these details to respond to my request and prepare a quotation, in line with the <1>Privacy Policy</1>.",
     "reqConsentErr": "Please agree to the privacy policy so we can reply.",
     "reqSuccessTitle": "Request sent.",
-    "reqSuccess": "We’ve got your spec and details, and we’ll send a tailored quote within one business day.",
-    "note": "No prices, no obligation. We’ll send a tailored quote and a free proof. Prefer to talk it through? <1>Speak to us.</1>"
+    "reqSuccess": "We’ve got your spec and details, and we’ll send a tailored quote within one business day."
   },
   "qtyBadgeSr": "Quantity",
   "how": {
