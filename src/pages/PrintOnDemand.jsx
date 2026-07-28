@@ -22,7 +22,11 @@ import './PrintOnDemand.css'
    and the summary rows. */
 const FORMATS = [{ id: 'paperback' }, { id: 'hardcover' }]
 const SIZES = [{ id: 'a5' }, { id: 'b5' }, { id: 'a4' }]
-const PAPERS = [{ id: 'cream' }, { id: 'white' }, { id: 'art' }]
+const PAPERS = [
+  { id: 'white70' }, { id: 'cream70' },
+  { id: 'white80' }, { id: 'cream80' },
+  { id: 'matt100' }, { id: 'gloss100' },
+]
 const BINDINGS = [{ id: 'perfect' }, { id: 'sewn' }, { id: 'wiro' }]
 const FINISHES = [{ id: 'matte' }, { id: 'gloss' }, { id: 'layflat' }]
 const QUANTITIES = [{ id: '1' }, { id: '10' }, { id: '50' }, { id: '250' }, { id: '500' }]
@@ -37,11 +41,18 @@ const QTY_HERO = { 1: '1', 10: '10', 50: '50', 250: '250', 500: '500+' }
    8.25 × 11.00 in figure. */
 const SIZE_RATIO = { a5: 0.705, b5: 0.704, a4: 0.75 }
 const SIZE_SCALE = { a5: 0.84, b5: 0.92, a4: 1 }
+/* Every paper id MUST have an entry here — the page reads it for the book's
+   page-block tint and the swatch. PAPER_FALLBACK guards both lookup sites so a
+   future id mismatch degrades to a neutral cream edge instead of throwing. */
 const PAPER_EDGE = {
-  cream: { edge: '#f3ead4', line: 'rgba(3,12,49,0.16)' },
-  white: { edge: '#fbfaf6', line: 'rgba(3,12,49,0.12)' },
-  art: { edge: '#eef0ea', line: 'rgba(3,12,49,0.14)' },
+  white70: { edge: '#fbfaf6', line: 'rgba(3,12,49,0.12)' },
+  cream70: { edge: '#f3ead4', line: 'rgba(3,12,49,0.16)' },
+  white80: { edge: '#fbfaf6', line: 'rgba(3,12,49,0.12)' },
+  cream80: { edge: '#f3ead4', line: 'rgba(3,12,49,0.16)' },
+  matt100: { edge: '#eef0ea', line: 'rgba(3,12,49,0.14)' },
+  gloss100: { edge: '#f4f6f2', line: 'rgba(3,12,49,0.12)' },
 }
+const PAPER_FALLBACK = { edge: '#f3ead4', line: 'rgba(3,12,49,0.16)' }
 function bookDims(format, size) {
   const r = SIZE_RATIO[size] ?? 0.707
   const s = SIZE_SCALE[size] ?? 0.92
@@ -155,7 +166,7 @@ export default function PrintOnDemand() {
   const [cfg, setCfg] = useState({
     format: 'paperback',
     size: 'a5',
-    paper: 'cream',
+    paper: 'cream80',
     binding: 'perfect',
     finish: 'matte',
     quantity: '1',
@@ -167,7 +178,7 @@ export default function PrintOnDemand() {
 
   // book geometry + page-block tint + copy count, recomputed on every config change
   const dims = bookDims(cfg.format, cfg.size)
-  const edge = PAPER_EDGE[cfg.paper]
+  const edge = PAPER_EDGE[cfg.paper] ?? PAPER_FALLBACK
   const ghosts = ghostCount(cfg.quantity)
   const qtyLabel = optLabel('quantity', cfg.quantity)
 
@@ -414,10 +425,10 @@ export default function PrintOnDemand() {
               </Step>
 
               <Step num={t('steps.paper.num')} title={t('steps.paper.title')} help={t('steps.paper.help')} id="step-paper">
-                <OptionGroup groupId="paper" labelId="step-paper" options={PAPERS} value={cfg.paper} onChange={set('paper')} className="pod-opts cols-3">
+                <OptionGroup groupId="paper" labelId="step-paper" options={PAPERS} value={cfg.paper} onChange={set('paper')} className="pod-opts cols-2">
                   {(o) => (
                     <>
-                      <span className="pod-chip-sw" style={{ background: PAPER_EDGE[o.id].edge }} />
+                      <span className="pod-chip-sw" style={{ background: (PAPER_EDGE[o.id] ?? PAPER_FALLBACK).edge }} />
                       <span className="pod-chip-name">{t(`options.paper.${o.id}.label`)}</span>
                       <span className="pod-chip-desc">{t(`options.paper.${o.id}.desc`)}</span>
                     </>

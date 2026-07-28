@@ -39,9 +39,12 @@
       "a4": { "label": "A4", "sub": "8.25 × 11.00 in or 8.27 × 11.69 in" }
     },
     "paper": {
-      "cream": { "label": "Cream 80gsm", "desc": "Warm, easy on the eyes.", "sub": "Uncoated, warm" },
-      "white": { "label": "White 100gsm", "desc": "Bright, crisp for text.", "sub": "Uncoated, bright" },
-      "art": { "label": "Art 150gsm", "desc": "Coated so colour sings.", "sub": "Coated, smooth" }
+      "white70": { "label": "White 70gsm", "desc": "Light text weight, bright white.", "sub": "70gsm, bright" },
+      "cream70": { "label": "Cream 70gsm", "desc": "Light text weight, warm tone.", "sub": "70gsm, warm" },
+      "white80": { "label": "White 80gsm", "desc": "Everyday text weight, crisp.", "sub": "80gsm, bright" },
+      "cream80": { "label": "Cream 80gsm", "desc": "Warm and easy on the eyes.", "sub": "80gsm, warm" },
+      "matt100": { "label": "Matt Art 100gsm", "desc": "Coated matt, no glare.", "sub": "100gsm matt art" },
+      "gloss100": { "label": "Gloss Art 100gsm", "desc": "Coated gloss, colour pops.", "sub": "100gsm gloss art" }
     },
     "binding": {
       "perfect": { "label": "Perfect Bound", "desc": "Glued square spine.", "sub": "Glued spine" },

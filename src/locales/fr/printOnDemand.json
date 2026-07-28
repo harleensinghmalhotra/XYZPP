@@ -39,9 +39,12 @@
       "a4": { "label": "A4", "sub": "8,25 × 11,00 po ou 8,27 × 11,69 po" }
     },
     "paper": {
-      "cream": { "label": "Crème 80 g/m²", "desc": "Chaleureux et doux.", "sub": "Non couché, chaleureux" },
-      "white": { "label": "Blanc 100 g/m²", "desc": "Lumineux et net.", "sub": "Non couché, lumineux" },
-      "art": { "label": "Couché 150 g/m²", "desc": "Couché, couleurs vives.", "sub": "Couché, lisse" }
+      "white70": { "label": "Blanc 70 g/m²", "desc": "Grammage léger, blanc lumineux.", "sub": "70 g/m², lumineux" },
+      "cream70": { "label": "Crème 70 g/m²", "desc": "Grammage léger, ton chaleureux.", "sub": "70 g/m², chaleureux" },
+      "white80": { "label": "Blanc 80 g/m²", "desc": "Grammage courant, net.", "sub": "80 g/m², lumineux" },
+      "cream80": { "label": "Crème 80 g/m²", "desc": "Chaleureux et doux pour les yeux.", "sub": "80 g/m², chaleureux" },
+      "matt100": { "label": "Couché mat 100 g/m²", "desc": "Couché mat, sans reflet.", "sub": "100 g/m² couché mat" },
+      "gloss100": { "label": "Couché brillant 100 g/m²", "desc": "Couché brillant, couleurs vives.", "sub": "100 g/m² couché brillant" }
     },
     "binding": {
       "perfect": { "label": "Reliure dos carré collé", "desc": "Dos carré collé, net.", "sub": "Dos collé" },

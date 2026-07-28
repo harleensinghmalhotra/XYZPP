@@ -39,9 +39,12 @@
       "a4": { "label": "A4", "sub": "8,25 × 11,00 in u 8,27 × 11,69 in" }
     },
     "paper": {
-      "cream": { "label": "Crema 80 g/m²", "desc": "Cálido, cómodo para la vista.", "sub": "No estucado, cálido" },
-      "white": { "label": "Blanco 100 g/m²", "desc": "Brillante y nítido para el texto.", "sub": "No estucado, brillante" },
-      "art": { "label": "Estucado 150 g/m²", "desc": "Estucado para que el color luzca.", "sub": "Estucado, liso" }
+      "white70": { "label": "Blanco 70 g/m²", "desc": "Gramaje ligero, blanco brillante.", "sub": "70 g/m², brillante" },
+      "cream70": { "label": "Crema 70 g/m²", "desc": "Gramaje ligero, tono cálido.", "sub": "70 g/m², cálido" },
+      "white80": { "label": "Blanco 80 g/m²", "desc": "Gramaje habitual, nítido.", "sub": "80 g/m², brillante" },
+      "cream80": { "label": "Crema 80 g/m²", "desc": "Cálido y cómodo para la vista.", "sub": "80 g/m², cálido" },
+      "matt100": { "label": "Estucado mate 100 g/m²", "desc": "Estucado mate, sin reflejos.", "sub": "100 g/m² estucado mate" },
+      "gloss100": { "label": "Estucado brillante 100 g/m²", "desc": "Estucado brillante, el color resalta.", "sub": "100 g/m² estucado brillante" }
     },
     "binding": {
       "perfect": { "label": "Rústica fresada", "desc": "Lomo cuadrado encolado.", "sub": "Lomo encolado" },
