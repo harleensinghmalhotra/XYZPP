@@ -8,16 +8,10 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ── Certifications — faithful port of Alternativ's certs section, QFP content ──
 // Signature: the cream section sweeps in on a giant dome/arc over the section above
-// and the next dark section arcs in below. Three functional filter pills, a slow
-// rotating seal, and a flat hairline-card carousel (scroll / drag + arrow buttons).
-
-// Filter pills → which cards they reveal (default: all shown, first pill active).
-// Label text resolved from the homeCerts namespace by key (pills.<key>).
-const PILLS = [
-  { key: 'certifications', tint: 'gold' },
-  { key: 'environment', tint: 'olive' },
-  { key: 'social', tint: 'navy' },
-]
+// and the next dark section arcs in below. A slow rotating seal and a flat
+// hairline-card carousel (scroll / drag + arrow buttons). The filter pills were
+// removed: all five certifications always show, so a filter control served no
+// purpose.
 
 // eyebrow / title / body resolved from homeCerts (cards.<key>.*). Proper names,
 // cert titles, codes and logo filenames stay hardcoded; the FSC licence code and
@@ -25,7 +19,6 @@ const PILLS = [
 const CERTS = [
   {
     key: 'fsc',
-    cats: ['environment'],
     logo: 'fsc.webp',
     // COMPLIANCE LAW: the FSC licence code must render with the FSC mark on every
     // surface it appears — the card cannot ship without it.
@@ -33,26 +26,18 @@ const CERTS = [
   },
   {
     key: 'iso9001',
-    cats: ['certifications'],
     logo: 'iso.webp',
   },
   {
     key: 'iso27001',
-    cats: ['certifications'],
     logo: 'iso.webp',
   },
-  // Exactly FIVE featured certifications: FSC,
-  // ISO 9001:2015, ISO/IEC 27001:2022, Sedex, Star Export House. ISO 14001 is NOT
-  // one of them and was removed here; it stays in the Sustainability/Environment
-  // content (homeSustain `bullets.iso`) where it belongs as an EMS reference.
   {
     key: 'sedex',
-    cats: ['social'],
     logo: 'sedex.webp',
   },
   {
     key: 'star',
-    cats: ['certifications'],
     typographic: true,
   },
 ]
@@ -78,10 +63,9 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
   const root = useRef(null)
   const viewport = useRef(null)
   const [reduced] = useState(prefersReduced)
-  const [active, setActive] = useState(null) // null → all shown (first pill styled active)
   const [arrows, setArrows] = useState({ prev: false, next: true })
 
-  const visible = active ? CERTS.filter((c) => c.cats.includes(active)) : CERTS
+  const visible = CERTS
 
   // arrow enable/disable from scroll position
   const syncArrows = () => {
@@ -94,10 +78,10 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
     const el = viewport.current
     if (!el) return
     el.scrollTo({ left: 0 })
-    // let layout settle after a filter change, then re-read the extents
+    // read the scroll extents once layout has settled
     const id = requestAnimationFrame(syncArrows)
     return () => cancelAnimationFrame(id)
-  }, [active])
+  }, [])
 
   const nudge = (dir) => {
     const el = viewport.current
@@ -137,11 +121,10 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
     if (reduced) return
     const ctx = gsap.context(() => {
       const q = gsap.utils.selector(root)
-      gsap.set(q('.certs-pills, .certs-title, .certs-sub, .certs-seal'), { autoAlpha: 0, y: 18 })
+      gsap.set(q('.certs-title, .certs-sub, .certs-seal'), { autoAlpha: 0, y: 18 })
       gsap.set(q('.cert-card'), { autoAlpha: 0, y: 28 })
       const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: 'top 68%', once: true } })
-      tl.to(q('.certs-pills'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' })
-        .to(q('.certs-seal'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.05)
+      tl.to(q('.certs-seal'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' })
         .to(q('.certs-title'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.1)
         .to(q('.certs-sub'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.2)
         .to(q('.cert-card'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, 0.25)
@@ -161,25 +144,6 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
 
       <div className="certs-inner">
         <div className="certs-top">
-          {/* filter pills */}
-          <div className="certs-pills" role="group" aria-label={t('filterAria')}>
-            {PILLS.map((p, i) => {
-              const isActive = active === p.key || (active === null && i === 0)
-              return (
-                <button
-                  key={p.key}
-                  type="button"
-                  data-filter={p.key}
-                  className={`certs-pill certs-pill--${p.tint}${isActive ? ' is-active' : ''}`}
-                  aria-pressed={isActive}
-                  onClick={() => setActive((prev) => (prev === p.key ? null : p.key))}
-                >
-                  {t(`pills.${p.key}`)}
-                </button>
-              )
-            })}
-          </div>
-
           {/* rotating seal */}
           <div className="certs-seal" aria-hidden="true">
             <svg className="certs-seal-ring" viewBox="0 0 200 200">
