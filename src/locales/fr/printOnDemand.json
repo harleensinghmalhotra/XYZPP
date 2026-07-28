@@ -49,12 +49,11 @@
     "binding": {
       "perfect": { "label": "Reliure dos carré collé", "desc": "Dos carré collé, net.", "sub": "Dos collé" },
       "sewn": { "label": "Cousu par cahiers", "desc": "Cousu, ouvre à plat.", "sub": "Cousu, ouverture à plat" },
-      "wiro": { "label": "Reliure Wiro", "desc": "Spirale, bien à plat.", "sub": "Spirale double boucle" }
+      "saddle": { "label": "Piqûre à cheval", "desc": "Agrafé dans la pliure.", "sub": "Agrafé au pli" }
     },
     "finish": {
       "matte": { "label": "Pelliculage mat", "desc": "Doux et sans reflet.", "sub": "Pelliculage soft-touch" },
-      "gloss": { "label": "Pelliculage brillant", "desc": "Brillant et éclatant.", "sub": "Pelliculage brillant" },
-      "layflat": { "label": "Pelliculage ouverture à plat", "desc": "Satin, anti-traces.", "sub": "Film satiné" }
+      "gloss": { "label": "Pelliculage brillant", "desc": "Brillant et éclatant.", "sub": "Pelliculage brillant" }
     },
     "quantity": {
       "1": { "label": "1 exemplaire", "sub": "Livre unique" },

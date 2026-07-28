@@ -49,12 +49,11 @@
     "binding": {
       "perfect": { "label": "Perfect Bound", "desc": "Glued square spine.", "sub": "Glued spine" },
       "sewn": { "label": "Section-Sewn", "desc": "Sewn to open flat.", "sub": "Stitched, lay-flat" },
-      "wiro": { "label": "Wiro", "desc": "Twin-loop, lies flat.", "sub": "Twin-loop coil" }
+      "saddle": { "label": "Saddle Stitch", "desc": "Stapled through the fold.", "sub": "Stapled fold" }
     },
     "finish": {
       "matte": { "label": "Matte Lamination", "desc": "Soft and glare-free.", "sub": "Soft-touch film" },
-      "gloss": { "label": "Gloss Lamination", "desc": "High shine, colours pop.", "sub": "High-shine film" },
-      "layflat": { "label": "Lay-Flat Lamination", "desc": "Durable satin finish.", "sub": "Satin film" }
+      "gloss": { "label": "Gloss Lamination", "desc": "High shine, colours pop.", "sub": "High-shine film" }
     },
     "quantity": {
       "1": { "label": "1 copy", "sub": "Single book" },

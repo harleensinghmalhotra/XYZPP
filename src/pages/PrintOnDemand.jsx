@@ -27,8 +27,8 @@ const PAPERS = [
   { id: 'white80' }, { id: 'cream80' },
   { id: 'matt100' }, { id: 'gloss100' },
 ]
-const BINDINGS = [{ id: 'perfect' }, { id: 'sewn' }, { id: 'wiro' }]
-const FINISHES = [{ id: 'matte' }, { id: 'gloss' }, { id: 'layflat' }]
+const BINDINGS = [{ id: 'perfect' }, { id: 'sewn' }, { id: 'saddle' }]
+const FINISHES = [{ id: 'matte' }, { id: 'gloss' }]
 const QUANTITIES = [{ id: '1' }, { id: '10' }, { id: '50' }, { id: '250' }, { id: '500' }]
 /* number-hero shown on the quantity chips (the full "1 copy" label still drives the
    summary row, the qty badge and the /contact params — this is chip display only). */
@@ -83,12 +83,12 @@ const FMT_ICON = {
 const BIND_ICON = {
   perfect: <><rect x="6" y="4" width="12" height="16" rx="1" /><path d="M9 4v16" /></>,
   sewn: <><rect x="6" y="4" width="12" height="16" rx="1" /><path d="M9 6h0M9 9h0M9 12h0M9 15h0M9 18h0" strokeDasharray="0.1 3" /></>,
-  wiro: <><rect x="7" y="4" width="11" height="16" rx="1" /><path d="M4 6c3 0 3 2 0 2M4 10c3 0 3 2 0 2M4 14c3 0 3 2 0 2" /></>,
+  /* saddle stitch — an open booklet with two staples across the centre fold */
+  saddle: <><rect x="4" y="5" width="16" height="14" rx="1" /><path d="M12 5v14" /><path d="M10.5 9h3M10.5 15h3" /></>,
 }
 const FIN_ICON = {
   matte: <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" />,
   gloss: <><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" /><path d="M8 8c1.5-1.5 3.5-2 5-1.5" /></>,
-  layflat: <><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" /><path d="M6 12h12" /></>,
 }
 const HOW = [
   { key: 'upload', ico: <><path d="M12 16V4" /><path d="m7 9 5-5 5 5" /><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" /></> },
@@ -449,7 +449,7 @@ export default function PrintOnDemand() {
               </Step>
 
               <Step num={t('steps.finish.num')} title={t('steps.finish.title')} help={t('steps.finish.help')} id="step-finish">
-                <OptionGroup groupId="finish" labelId="step-finish" options={FINISHES} value={cfg.finish} onChange={set('finish')} className="pod-opts cols-3">
+                <OptionGroup groupId="finish" labelId="step-finish" options={FINISHES} value={cfg.finish} onChange={set('finish')} className="pod-opts cols-2">
                   {(o) => (
                     <>
                       <span className="pod-chip-ico"><Ico size={30}>{FIN_ICON[o.id]}</Ico></span>

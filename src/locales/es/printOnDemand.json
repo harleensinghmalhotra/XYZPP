@@ -49,12 +49,11 @@
     "binding": {
       "perfect": { "label": "Rústica fresada", "desc": "Lomo cuadrado encolado.", "sub": "Lomo encolado" },
       "sewn": { "label": "Cosido por secciones", "desc": "Cosido para abrirse plano.", "sub": "Cosido, abre plano" },
-      "wiro": { "label": "Wiro", "desc": "Doble anilla, se abre plano.", "sub": "Espiral doble" }
+      "saddle": { "label": "Grapado a caballete", "desc": "Grapado por el pliegue.", "sub": "Grapado al pliegue" }
     },
     "finish": {
       "matte": { "label": "Laminado mate", "desc": "Suave y sin reflejos.", "sub": "Película soft-touch" },
-      "gloss": { "label": "Laminado brillante", "desc": "Alto brillo, los colores resaltan.", "sub": "Película de alto brillo" },
-      "layflat": { "label": "Laminado lay-flat", "desc": "Acabado satinado y duradero.", "sub": "Película satinada" }
+      "gloss": { "label": "Laminado brillante", "desc": "Alto brillo, los colores resaltan.", "sub": "Película de alto brillo" }
     },
     "quantity": {
       "1": { "label": "1 copia", "sub": "Un solo libro" },
