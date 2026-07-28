@@ -74,11 +74,13 @@
     "note": "Renforce l'attrait visuel et la durabilité de chaque publication."
   },
   "av": {
-    "eyebrow": "AV d’entreprise",
-    "title": "Découvrez l’atelier en mouvement.",
-    "videoNote": "VIDÉO · À L’INTÉRIEUR DE NOS SITES",
-    "videoPlayLabel": "Lire la vidéo de visite des sites",
-    "videoPendingLabel": "Aperçu de la visite des sites, vidéo bientôt disponible"
+    "eyebrow": "Notre chaîne vidéo",
+    "title": "Voir notre travail en mouvement.",
+    "sub": "Les coulisses de nos sites, directement depuis notre chaîne YouTube.",
+    "playLabel": "Lire la vidéo {n}",
+    "dialogAria": "Lecteur vidéo YouTube",
+    "closeLabel": "Fermer la vidéo",
+    "watchOnYouTube": "Regarder sur YouTube"
   },
   "recognition": {
     "eyebrow": "Reconnaissance",
@@ -122,12 +124,5 @@
     "title": "Sur place ou lors d’un appel.",
     "sub": "Visitez l’atelier, rencontrez l’équipe et recevez un devis calibré sur votre tirage.",
     "button": "Demander un devis"
-  },
-  "dialog": {
-    "ariaLabel": "Vidéo de visite des sites",
-    "closeLabel": "Fermer la vidéo",
-    "captionsLabel": "English",
-    "videoNote": "VIDÉO · À L’INTÉRIEUR DE NOS SITES",
-    "comingSoon": "Séquences de visite bientôt disponibles"
   }
 }

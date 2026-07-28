@@ -74,11 +74,13 @@
     "note": "Realza el atractivo visual y la durabilidad de cada publicación."
   },
   "av": {
-    "eyebrow": "AV corporativo",
-    "title": "Vea la planta en movimiento.",
-    "videoNote": "VIDEO · DENTRO DE NUESTRAS INSTALACIONES",
-    "videoPlayLabel": "Reproducir el video del recorrido por las instalaciones",
-    "videoPendingLabel": "Vista previa del recorrido por las instalaciones, video próximamente"
+    "eyebrow": "Nuestro canal de video",
+    "title": "Vea nuestro trabajo en movimiento.",
+    "sub": "El detrás de escena de nuestras instalaciones, directo desde nuestro canal de YouTube.",
+    "playLabel": "Reproducir video {n}",
+    "dialogAria": "Reproductor de video de YouTube",
+    "closeLabel": "Cerrar video",
+    "watchOnYouTube": "Ver en YouTube"
   },
   "recognition": {
     "eyebrow": "Reconocimiento",
@@ -122,12 +124,5 @@
     "title": "Véalo en persona o en una llamada.",
     "sub": "Recorra la planta, conozca al equipo y obtenga un presupuesto ajustado a su tirada.",
     "button": "Solicitar presupuesto"
-  },
-  "dialog": {
-    "ariaLabel": "Video del recorrido por las instalaciones",
-    "closeLabel": "Cerrar video",
-    "captionsLabel": "Inglés",
-    "videoNote": "VIDEO · DENTRO DE NUESTRAS INSTALACIONES",
-    "comingSoon": "Imágenes del recorrido próximamente"
   }
 }

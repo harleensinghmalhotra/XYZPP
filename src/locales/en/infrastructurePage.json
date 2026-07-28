@@ -74,11 +74,13 @@
     "note": "Enhances the visual appeal and durability of every publication."
   },
   "av": {
-    "eyebrow": "Corporate AV",
-    "title": "See the floor in motion.",
-    "videoNote": "VIDEO · INSIDE OUR FACILITIES",
-    "videoPlayLabel": "Play facilities walkthrough video",
-    "videoPendingLabel": "Preview facilities walkthrough, video coming soon"
+    "eyebrow": "Our video channel",
+    "title": "See our work in motion.",
+    "sub": "Behind the scenes at our facilities, straight from our YouTube channel.",
+    "playLabel": "Play video {n}",
+    "dialogAria": "YouTube video player",
+    "closeLabel": "Close video",
+    "watchOnYouTube": "Watch on YouTube"
   },
   "recognition": {
     "eyebrow": "Recognition",
@@ -122,12 +124,5 @@
     "title": "See it in person or on a call.",
     "sub": "Tour the floor, meet the team, and get a quote scoped to your run.",
     "button": "Request a Quote"
-  },
-  "dialog": {
-    "ariaLabel": "Facilities walkthrough video",
-    "closeLabel": "Close video",
-    "captionsLabel": "English",
-    "videoNote": "VIDEO · INSIDE OUR FACILITIES",
-    "comingSoon": "Walkthrough footage coming soon"
   }
 }

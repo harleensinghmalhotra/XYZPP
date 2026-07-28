@@ -8,6 +8,7 @@ import CountUp from '@/components/CountUp'
 import Seo from '@/components/Seo'
 import SectionCurve from '@/components/SectionCurve'
 import FacilityBook from '@/components/FacilityBook'
+import YouTubeChannel from '@/components/YouTubeChannel'
 import Awards from '@/sections/Awards'
 import Certifications from '@/sections/Certifications'
 import CTAButton from '@/components/CTAButton'
@@ -25,20 +26,13 @@ gsap.registerPlugin(ScrollTrigger)
 //   4 machine LEDGER — four hairline rows, big gold numeral / mark (cream)
 //   5 measurable-results band + video (navy)
 //   6 recognition plaques (beige) · 7 facility gallery, photos only (cream) · 8 CTA (beige)
-// Every image + the walkthrough video are PENDING delivery: each surface is
-// a premium navy placeholder that a delivered asset drops into with zero code change.
+// Every image is a premium navy placeholder that a delivered asset drops into with
+// zero code change.
 //   public/qfp/infra/facility-0{1..3}.webp   (accordion side image)
 //   public/qfp/infra/gallery-0{1..4}.webp     (facility strip)
-//   public/qfp/infra/walkthrough.mp4 + .vtt   (then flip VIDEO_READY → true)
 
-// Walkthrough video — plays the SAME "Inside Our Facilities" file the homepage slot
-// uses (site-assets/homepage/video/facilities.*), not a duplicate copy, so both pages
-// stay in lock-step when the asset is re-cut. It ships with closed captions (facilities.vtt),
-// meeting the same accessibility bar as the homepage slot.
-const VIDEO_READY = true
-const VIDEO_SRC = '/site-assets/homepage/video/facilities.mp4'
-const VIDEO_VTT = '/site-assets/homepage/video/facilities.vtt'
-const VIDEO_POSTER = '/site-assets/homepage/video/facilities-poster.jpg'
+// The Corporate AV single-film slot was replaced by <YouTubeChannel /> — a live grid
+// of the company's YouTube videos, driven by the URL list in src/data/youtube.js.
 
 // Data carries stable keys + non-translatable values (logos, codes, icons, numbers).
 // User-facing labels/subs/specs/captions resolve via t(`<group>.<key>...`) at render.
@@ -90,22 +84,6 @@ export default function InfrastructurePage() {
   const root = useRef(null)
   const triRef = useRef(null) // capability triptych — CSS reveal container
   const [reduced] = useState(prefersReduced)
-  const [videoOpen, setVideoOpen] = useState(false)
-  const closeRef = useRef(null)
-
-  // video dialog: Esc closes, lock body scroll, focus the close button on open
-  useEffect(() => {
-    if (!videoOpen) return
-    const onKey = (e) => { if (e.key === 'Escape') setVideoOpen(false) }
-    window.addEventListener('keydown', onKey)
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    closeRef.current?.focus()
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prev
-    }
-  }, [videoOpen])
 
   // §3 capability triptych — hairlines draw + columns fade-stagger via the CSS
   // `.is-in` gate (About-MVV mechanism). Reduced motion mounts already-in (see JSX).
@@ -140,7 +118,7 @@ export default function InfrastructurePage() {
       // OWN entrance animations, so no reveal() is wired for them here.
       // §3 capability triptych reveals via CSS `.is-in` (IntersectionObserver above).
       reveal('.inf-finish-cell', { trigger: '.inf-finish-grid', stagger: 0.05, start: 'top 82%' })
-      reveal('.inf-video', { trigger: '.inf-av', start: 'top 78%' })
+      reveal('.yt-channel', { trigger: '.inf-av', start: 'top 78%' })
       reveal('.inf-gallery-item', { trigger: '.inf-gallery', stagger: 0.08 })
       reveal('.inf-cta-inner', { trigger: '.inf-cta', start: 'top 84%' })
     }, root)
@@ -222,10 +200,11 @@ export default function InfrastructurePage() {
         </div>
       </section>
 
-      {/* ── 2 · CORPORATE AV — the walkthrough video, directly after Premium Finishing
-          (client). Relocated here from the retired Results band; reuses VIDEO_SRC/VTT/
-          POSTER and the dialog player at the foot. Cream, so Premium Finishing flows into
-          it and the capability triptych below keeps its own cream top-curve. ── */}
+      {/* ── 2 · VIDEO CHANNEL — a live grid of the company's YouTube videos, directly
+          after Premium Finishing (client: replaces the single Corporate AV film). The
+          card list is driven by the plain URL file src/data/youtube.js; the panel
+          scrolls internally so the page never grows as videos are added. Cream, so
+          Premium Finishing flows into it and the triptych below keeps its cream curve. ── */}
       <section data-theme="light" className="inf-av" aria-labelledby="inf-av-h">
         <PaperGrain />
         <div className="inf-wrap inf-z">
@@ -233,23 +212,13 @@ export default function InfrastructurePage() {
             <p className="inf-eyebrow">{t('av.eyebrow')}</p>
             <h2 id="inf-av-h" className="inf-h2">{t('av.title')}</h2>
           </div>
-          <div className="inf-video inf-av-video">
-            <button
-              type="button"
-              className="inf-video-thumb"
-              onClick={() => setVideoOpen(true)}
-              data-pending={!VIDEO_READY}
-              aria-label={VIDEO_READY ? t('av.videoPlayLabel') : t('av.videoPendingLabel')}
-            >
-              <span className="inf-video-img" aria-hidden="true" style={{ backgroundImage: `url(${VIDEO_POSTER})` }} />
-              <span className="inf-video-scrim" aria-hidden="true" />
-              <span className="inf-video-note" aria-hidden="true">{t('av.videoNote')}</span>
-              <span className="inf-play" aria-hidden="true">
-                <span className="inf-play-ring" />
-                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" /></svg>
-              </span>
-            </button>
-          </div>
+          <YouTubeChannel
+            sub={t('av.sub')}
+            dialogAria={t('av.dialogAria')}
+            closeLabel={t('av.closeLabel')}
+            playLabel={t('av.playLabel')}
+            watchOnYouTube={t('av.watchOnYouTube')}
+          />
         </div>
       </section>
 
@@ -346,34 +315,6 @@ export default function InfrastructurePage() {
           <CTAButton to="/contact">{t('cta.button')}</CTAButton>
         </div>
       </section>
-
-      {/* ── VIDEO DIALOG — backdrop blur + navy scrim; Esc / click-out close ─ */}
-      {videoOpen && (
-        <div
-          className="inf-dialog"
-          role="dialog"
-          aria-modal="true"
-          aria-label={t('dialog.ariaLabel')}
-          onMouseDown={(e) => { if (e.target === e.currentTarget) setVideoOpen(false) }}
-        >
-          <div className="inf-dialog-panel">
-            <button ref={closeRef} type="button" className="inf-dialog-close" onClick={() => setVideoOpen(false)} aria-label={t('dialog.closeLabel')}>
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
-            </button>
-            {VIDEO_READY ? (
-              // COMPLIANCE: ship with <track kind="captions"> + linked transcript before go-live.
-              <video className="inf-dialog-video" src={VIDEO_SRC} poster={VIDEO_POSTER} controls autoPlay playsInline>
-                <track kind="captions" src={VIDEO_VTT} srcLang="en" label={t('dialog.captionsLabel')} default />
-              </video>
-            ) : (
-              <div className="inf-dialog-ph" aria-hidden="true">
-                <span className="inf-video-note">{t('dialog.videoNote')}</span>
-                <span className="inf-dialog-soon">{t('dialog.comingSoon')}</span>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </main>
   )
 }
