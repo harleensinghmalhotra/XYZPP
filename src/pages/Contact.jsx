@@ -737,15 +737,6 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ── 8. CTA BAND (beige) — quiet email closer ── */}
-      <section data-theme="light" className="ctc-closer relative overflow-hidden">
-        <SectionCurve position="top" fill="#f0ebe0" />
-        <PaperGrain />
-        <div className="ctc-closer-inner ctc-reveal relative z-10">
-          <p className="ctc-closer-line">{t('closer.line')}</p>
-          <a className="ctc-closer-mail focus-ring" href={`mailto:${EMAIL_ENQ}`}>{EMAIL_ENQ}</a>
-        </div>
-      </section>
     </main>
   )
 }

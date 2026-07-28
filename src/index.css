@@ -3809,7 +3809,7 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
    global .focus-ring cyan so no System-A token bleeds in) */
 .ctc-tile:focus-visible, .ctc-map-btn:focus-visible, .ctc-addr-link:focus-visible,
 .ctc-tab:focus-visible, .ctc-qa-btn:focus-visible, .ctc-submit:focus-visible,
-.ctc-btn:focus-visible, .ctc-closer-mail:focus-visible, .ctc-crumb a:focus-visible {
+.ctc-btn:focus-visible, .ctc-crumb a:focus-visible {
   outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px;
 }
 
@@ -4256,25 +4256,6 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
   font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.3vw, 19px);
   line-height: 1.65; color: rgba(253, 250, 244, 0.85);
 }
-
-.ctc-closer {
-  background:
-    radial-gradient(800px 460px at 50% 0%, rgb(var(--gold-2-rgb) / 0.1), transparent 62%),
-    #f0ebe0;
-  padding: 84px 24px 96px; text-align: center;
-}
-.ctc-closer-line {
-  margin: 0 0 12px;
-  font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(20px, 2.4vw, 28px); letter-spacing: -0.01em; color: var(--navy);
-}
-.ctc-closer-mail {
-  font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(22px, 3vw, 36px); letter-spacing: -0.02em; color: #925C10;
-  text-decoration: underline; text-decoration-color: rgb(var(--gold-rgb) / 0.4);
-  text-underline-offset: 4px; transition: color 0.25s ease, text-decoration-color 0.25s ease;
-}
-.ctc-closer-mail:hover { color: #925C10; text-decoration-color: var(--gold); }
 
 /* ── Responsive ── */
 @media (max-width: 1080px) {
