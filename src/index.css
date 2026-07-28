@@ -3936,19 +3936,19 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 }
 .ctc-cell:hover .ctc-cell-icon svg, .ctc-cell:focus-visible .ctc-cell-icon svg { transform: translateY(-3px); }
 .ctc-cell-label {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em;
   text-transform: uppercase; color: var(--gold-2);
 }
 .ctc-cell-value {
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(18px, 1.6vw, 21px); line-height: 1.2; letter-spacing: -0.015em;
+  font-size: clamp(16px, 1.4vw, 19px); line-height: 1.2; letter-spacing: -0.015em;
   color: #fdfaf4; overflow-wrap: anywhere; transition: color 0.3s ease;
 }
 .ctc-cell:hover .ctc-cell-value, .ctc-cell:focus-visible .ctc-cell-value { color: var(--gold-2); }
 .ctc-cell-note {
-  margin-top: 10px; max-width: 30ch;
-  font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.5;
+  margin-top: 8px; max-width: 30ch;
+  font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.5;
   color: rgb(253 250 244 / 0.65);
 }
 /* action cells (WhatsApp / Quote) — arrow that nudges on hover */
