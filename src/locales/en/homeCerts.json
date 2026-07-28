@@ -9,7 +9,7 @@
   "cards": {
     "fsc": {
       "eyebrow": "Forest Stewardship Council",
-      "title": "FSC Chain of Custody",
+      "title": "FSC",
       "body": "Quarterfold Printabilities is FSC certified under the Chain of Custody standard (FSC STD 40 004), ensuring that our paper and print products are sourced from responsibly managed forests. This certification reflects our commitment to sustainable sourcing across FSC Mix, FSC Recycled, and FSC 100% material categories."
     },
     "iso9001": {
@@ -24,7 +24,7 @@
     },
     "sedex": {
       "eyebrow": "Ethical Trade Audit",
-      "title": "Sedex Member",
+      "title": "Sedex",
       "body": "Quarterfold Printabilities is a member of Sedex (Supplier Ethical Data Exchange), reflecting our commitment to responsible and ethical business practices across labour standards, health and safety, environment, and business ethics."
     },
     "star": {
