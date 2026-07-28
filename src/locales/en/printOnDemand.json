@@ -31,14 +31,12 @@
   "options": {
     "format": {
       "paperback": { "label": "Paperback", "desc": "The classic soft cover.", "sub": "Soft cover" },
-      "hardcover": { "label": "Hardcover", "desc": "Rigid, built to last.", "sub": "Case bound" },
-      "landscape": { "label": "Landscape", "desc": "Wide, room for images.", "sub": "Wide format" }
+      "hardcover": { "label": "Hardcover", "desc": "Rigid, built to last.", "sub": "Case bound" }
     },
     "size": {
-      "5x8": { "label": "5 × 8 in", "sub": "Pocket novel" },
-      "6x9": { "label": "6 × 9 in", "sub": "Trade standard" },
-      "8x10": { "label": "8 × 10 in", "sub": "Illustrated" },
-      "a4": { "label": "A4", "sub": "210 × 297 mm" }
+      "a5": { "label": "A5", "sub": "5.83 × 8.27 in" },
+      "b5": { "label": "B5", "sub": "6.93 × 9.85 in" },
+      "a4": { "label": "A4", "sub": "8.25 × 11.00 in or 8.27 × 11.69 in" }
     },
     "paper": {
       "cream": { "label": "Cream 80gsm", "desc": "Warm, easy on the eyes.", "sub": "Uncoated, warm" },

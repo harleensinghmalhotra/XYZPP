@@ -20,8 +20,8 @@ import './PrintOnDemand.css'
    description, summary sub-label) is resolved at render time via
    t(`options.<group>.<id>.label|desc|sub`). Group ids drive OptionGroup rendering
    and the summary rows. */
-const FORMATS = [{ id: 'paperback' }, { id: 'hardcover' }, { id: 'landscape' }]
-const SIZES = [{ id: '5x8' }, { id: '6x9' }, { id: '8x10' }, { id: 'a4' }]
+const FORMATS = [{ id: 'paperback' }, { id: 'hardcover' }]
+const SIZES = [{ id: 'a5' }, { id: 'b5' }, { id: 'a4' }]
 const PAPERS = [{ id: 'cream' }, { id: 'white' }, { id: 'art' }]
 const BINDINGS = [{ id: 'perfect' }, { id: 'sewn' }, { id: 'wiro' }]
 const FINISHES = [{ id: 'matte' }, { id: 'gloss' }, { id: 'layflat' }]
@@ -30,20 +30,22 @@ const QUANTITIES = [{ id: '1' }, { id: '10' }, { id: '50' }, { id: '250' }, { id
    summary row, the qty badge and the /contact params — this is chip display only). */
 const QTY_HERO = { 1: '1', 10: '10', 50: '50', 250: '250', 500: '500+' }
 
-/* ── preview geometry ────────────────────────────────────────────────────────── */
-const SIZE_RATIO = { '5x8': 0.625, '6x9': 0.667, '8x10': 0.8, a4: 0.707 }
+/* ── preview geometry ──────────────────────────────────────────────────────────
+   SIZE_RATIO is width ÷ height per trim (drives the preview proportions). A5 and B5
+   share the ISO √2 ratio, so SIZE_SCALE renders each trim at its true relative size
+   (A5 < B5 < A4) — otherwise A5 and B5 would look identical. A4 uses its primary
+   8.25 × 11.00 in figure. */
+const SIZE_RATIO = { a5: 0.705, b5: 0.704, a4: 0.75 }
+const SIZE_SCALE = { a5: 0.84, b5: 0.92, a4: 1 }
 const PAPER_EDGE = {
   cream: { edge: '#f3ead4', line: 'rgba(3,12,49,0.16)' },
   white: { edge: '#fbfaf6', line: 'rgba(3,12,49,0.12)' },
   art: { edge: '#eef0ea', line: 'rgba(3,12,49,0.14)' },
 }
 function bookDims(format, size) {
-  const r = SIZE_RATIO[size] ?? 0.66
-  if (format === 'landscape') {
-    const bw = 350
-    return { bw, bh: Math.round(bw * r), thick: 30 }
-  }
-  const bh = format === 'hardcover' ? 338 : 328
+  const r = SIZE_RATIO[size] ?? 0.707
+  const s = SIZE_SCALE[size] ?? 0.92
+  const bh = Math.round((format === 'hardcover' ? 344 : 334) * s)
   const thick = format === 'hardcover' ? 44 : 30
   return { bw: Math.round(bh * r), bh, thick }
 }
@@ -66,7 +68,6 @@ function Ico({ d, children, size }) {
 const FMT_ICON = {
   paperback: <><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4Z" /><path d="M8 20V7" /></>,
   hardcover: <><path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4Z" /><path d="M4 4a3 3 0 0 0-1 2.3V18" /><path d="M7 8h9M7 11h9" /></>,
-  landscape: <><path d="M3 7h15a3 3 0 0 1 3 3v7H6a3 3 0 0 1-3-3V7Z" /><path d="M6 17V10" /></>,
 }
 const BIND_ICON = {
   perfect: <><rect x="6" y="4" width="12" height="16" rx="1" /><path d="M9 4v16" /></>,
@@ -153,7 +154,7 @@ export default function PrintOnDemand() {
   const reqRef = useRef(null)
   const [cfg, setCfg] = useState({
     format: 'paperback',
-    size: '6x9',
+    size: 'a5',
     paper: 'cream',
     binding: 'perfect',
     finish: 'matte',
@@ -390,7 +391,7 @@ export default function PrintOnDemand() {
             {/* CENTRE — the six steps */}
             <div className="pod-steps">
               <Step num={t('steps.format.num')} title={t('steps.format.title')} help={t('steps.format.help')} id="step-format">
-                <OptionGroup groupId="format" labelId="step-format" options={FORMATS} value={cfg.format} onChange={set('format')} className="pod-opts cols-3">
+                <OptionGroup groupId="format" labelId="step-format" options={FORMATS} value={cfg.format} onChange={set('format')} className="pod-opts cols-2">
                   {(o) => (
                     <>
                       <span className="pod-chip-ico"><Ico size={30}>{FMT_ICON[o.id]}</Ico></span>

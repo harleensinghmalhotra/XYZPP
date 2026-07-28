@@ -31,14 +31,12 @@
   "options": {
     "format": {
       "paperback": { "label": "Couverture souple", "desc": "Le classique souple.", "sub": "Couverture souple" },
-      "hardcover": { "label": "Couverture rigide", "desc": "Rigide, fait pour durer.", "sub": "Reliure cartonnée" },
-      "landscape": { "label": "Format paysage", "desc": "Large, pour l’image.", "sub": "Format large" }
+      "hardcover": { "label": "Couverture rigide", "desc": "Rigide, fait pour durer.", "sub": "Reliure cartonnée" }
     },
     "size": {
-      "5x8": { "label": "5 × 8 po", "sub": "Roman de poche" },
-      "6x9": { "label": "6 × 9 po", "sub": "Standard édition" },
-      "8x10": { "label": "8 × 10 po", "sub": "Illustré" },
-      "a4": { "label": "A4", "sub": "210 × 297 mm" }
+      "a5": { "label": "A5", "sub": "5,83 × 8,27 po" },
+      "b5": { "label": "B5", "sub": "6,93 × 9,85 po" },
+      "a4": { "label": "A4", "sub": "8,25 × 11,00 po ou 8,27 × 11,69 po" }
     },
     "paper": {
       "cream": { "label": "Crème 80 g/m²", "desc": "Chaleureux et doux.", "sub": "Non couché, chaleureux" },

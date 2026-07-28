@@ -5139,3 +5139,11 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 @media (hover: hover) and (pointer: fine) {
   .nav-link:hover::after { transform: scaleX(1); }
 }
+
+/* ── Print on Demand · Size step — three trims (A5/B5/A4) sit 3-up. The base
+   `.pod-opts.chips.size` in PrintOnDemand.css is a 4-up grid (four legacy sizes);
+   scope by `.pod` here so this wins regardless of stylesheet order. ──────────── */
+.pod .pod-opts.chips.size { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 640px) {
+  .pod .pod-opts.chips.size { grid-template-columns: repeat(2, 1fr); }
+}

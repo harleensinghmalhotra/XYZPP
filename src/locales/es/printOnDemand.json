@@ -31,14 +31,12 @@
   "options": {
     "format": {
       "paperback": { "label": "Rústica", "desc": "La clásica tapa blanda.", "sub": "Tapa blanda" },
-      "hardcover": { "label": "Tapa dura", "desc": "Rígida, hecha para durar.", "sub": "Encuadernación cartoné" },
-      "landscape": { "label": "Horizontal", "desc": "Ancho, espacio para imágenes.", "sub": "Formato ancho" }
+      "hardcover": { "label": "Tapa dura", "desc": "Rígida, hecha para durar.", "sub": "Encuadernación cartoné" }
     },
     "size": {
-      "5x8": { "label": "5 × 8 in", "sub": "Novela de bolsillo" },
-      "6x9": { "label": "6 × 9 in", "sub": "Estándar comercial" },
-      "8x10": { "label": "8 × 10 in", "sub": "Ilustrado" },
-      "a4": { "label": "A4", "sub": "210 × 297 mm" }
+      "a5": { "label": "A5", "sub": "5,83 × 8,27 in" },
+      "b5": { "label": "B5", "sub": "6,93 × 9,85 in" },
+      "a4": { "label": "A4", "sub": "8,25 × 11,00 in u 8,27 × 11,69 in" }
     },
     "paper": {
       "cream": { "label": "Crema 80 g/m²", "desc": "Cálido, cómodo para la vista.", "sub": "No estucado, cálido" },
