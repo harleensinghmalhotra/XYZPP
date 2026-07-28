@@ -58,7 +58,10 @@ const BOOKS = [
   { id: '01', base: 'facilities.01', images: seq('web-machines', 9), Icon: Printer, pIcons: [Stack, Ruler, BookOpen, Gauge] },
   { id: '02', base: 'facilities.02', images: seq('sheetfed', 8), Icon: StackSimple, pIcons: [GearSix, Target, Books, Palette] },
   { id: '03', base: 'facilities.03', images: seq('binding', 11), Icon: BookOpenText, pIcons: [BookOpen, PushPin, Needle, Books] },
-  { id: '04', base: 'books.04', images: seq('warehousing', 6), Icon: Warehouse, pIcons: [Package, Stack, Truck, GlobeHemisphereWest] },
+  // Warehouse photos FIRST (racking / dispatch), paper stock AFTER (client). The
+  // sequence helper ordered paper-stock first, so this list is explicit + hand-ordered:
+  //   04/05/06 = storage racking + dispatch floor · 01/02/03 = paper reels + rolls.
+  { id: '04', base: 'books.04', images: ['warehousing-04', 'warehousing-05', 'warehousing-06', 'warehousing-01', 'warehousing-02', 'warehousing-03'], Icon: Warehouse, pIcons: [Package, Stack, Truck, GlobeHemisphereWest] },
   { id: '05', base: 'books.05', images: seq('head-office', 1), Icon: Buildings, pIcons: [Palette, Headset, UsersThree, Buildings] },
 ]
 

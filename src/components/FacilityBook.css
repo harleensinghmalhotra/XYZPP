@@ -585,7 +585,8 @@
 /* LEFT PAGE — the read: facility title at the top, body below, key phrases emphasised */
 .ib-textpage {
   position: absolute;
-  top: 9%; left: 6.5%; width: 38%; height: 82%;
+  /* more breathing room from the page borders (client: text sat too close) */
+  top: 9%; left: 8.5%; width: 34%; height: 82%;
   display: flex; flex-direction: column;
   overflow: hidden;
 }
@@ -614,7 +615,7 @@
    block scales in lock-step with the book and the last feature point keeps its
    ≥28px foot margin across the whole desktop range (1280→1920+), where a vw scale
    drifts as the stack↔book gap and the interactive cap change the book width. ── */
-.ib-facpage { position: relative; justify-content: flex-start; top: 6.5%; height: 88%; container-type: inline-size; }
+.ib-facpage { position: relative; justify-content: flex-start; top: 8%; height: 84%; container-type: inline-size; }
 /* decorative orange dot-grid, top-right of the page */
 .ib-fac-dots {
   position: absolute; top: 2%; right: 4%;
@@ -693,7 +694,7 @@
    grows in lock-step with the enlarged page (design law), matching how the facility
    left-page already scales. 1cqw ≈ 9px at the 1536 render, ≈ 7.5px at 1280. */
 .ib-intro-left {
-  top: 7.5%; left: 6.5%; width: 39%; height: 86%;
+  top: 8.5%; left: 8%; width: 37%; height: 84%;
   justify-content: flex-start; overflow: hidden;
 }
 .ib-intro-title {
@@ -829,8 +830,10 @@
 .ib-img-frame {
   position: absolute; inset: 0;
   overflow: hidden; border-radius: 3px;
-  background: #0b1c38;
-  box-shadow: 0 8px 22px -10px rgba(11, 28, 56, 0.55);
+  /* CREAM page ground, never a navy mat — a contain-fit photo letterboxes onto the
+     page itself, so there is no black border round any book image (client). Cover-fit
+     spreads fill the frame, so the ground is only seen behind portrait / square shots. */
+  background: linear-gradient(120deg, #fdfaf4 0%, #f7f2e8 62%, #f1ead9 100%);
 }
 .ib-img {
   width: 100%; height: 100%; object-fit: contain; display: block;
