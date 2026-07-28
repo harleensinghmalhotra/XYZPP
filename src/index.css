@@ -4199,12 +4199,12 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 .ctc-btn:hover { background: #163156; transform: translateY(-2px); }
 
 /* ── 7. FAQ (audience tabs) ── */
-.ctc-faq { background: #fdfaf4; padding: 116px 24px 116px; }
+.ctc-faq { background: #fdfaf4; padding: 80px 24px 84px; }
 .ctc-faq-inner { max-width: 900px; margin: 0 auto; }
 .ctc-faq-title {
-  margin: 0 0 34px;
+  margin: 0 0 24px;
   font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(28px, 3.6vw, 46px); line-height: 1.06; letter-spacing: -0.02em; color: var(--navy);
+  font-size: clamp(24px, 3vw, 38px); line-height: 1.08; letter-spacing: -0.02em; color: var(--navy);
 }
 .ctc-tabs {
   display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;
@@ -4223,16 +4223,16 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 .ctc-qa-h { margin: 0; }
 .ctc-qa-btn {
   width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 18px;
-  padding: 24px 2px; background: none; border: none; cursor: pointer; text-align: left;
-  font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: clamp(16px, 1.8vw, 19px);
+  padding: 18px 2px; background: none; border: none; cursor: pointer; text-align: left;
+  font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: clamp(15px, 1.4vw, 17px);
   letter-spacing: -0.01em; color: var(--navy);
 }
 .ctc-qa-chev { flex: none; color: var(--gold); transition: transform 0.3s ease; }
 .ctc-qa.is-open .ctc-qa-chev { transform: rotate(180deg); }
-.ctc-qa-a { padding: 0 44px 26px 2px; }
+.ctc-qa-a { padding: 0 44px 20px 2px; }
 .ctc-qa-a p {
-  margin: 0; max-width: 64ch;
-  font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.65; color: #4a4436;
+  margin: 0; max-width: 66ch;
+  font-family: 'Inter', sans-serif; font-size: 14.5px; line-height: 1.6; color: #4a4436;
 }
 
 /* ── 8. CTA BAND (beige) — quiet closer ── */
