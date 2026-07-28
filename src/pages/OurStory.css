@@ -438,19 +438,25 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
    Stays within the tallest-person height, so returning to it never jumps the layout. */
 .tm-invite {
   align-self: stretch; display: flex; flex-direction: column;
-  align-items: flex-start; justify-content: center; gap: 14px; text-align: left;
+  align-items: flex-start; justify-content: center; gap: clamp(14px, 2vh, 20px); text-align: left;
 }
 .tm-invite-eyebrow {
   margin: 0; color: var(--gold-2);
   font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
   letter-spacing: 0.18em; text-transform: uppercase;
 }
-.tm-invite-hint {
-  margin: 0; max-width: 18ch; color: rgb(253 250 244 / 0.9);
-  font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(19px, 1.5vw, 24px); line-height: 1.3; letter-spacing: -0.01em;
+/* the leadership paragraph leads the empty-state panel (client subtext). */
+.tm-invite-body {
+  margin: 0; color: rgb(253 250 244 / 0.9);
+  font-family: 'Inter', sans-serif; font-weight: 400;
+  font-size: clamp(14.5px, 1.05vw, 16px); line-height: 1.68; letter-spacing: -0.005em;
 }
-.tm-invite-glyph { width: 30px; height: 30px; margin-top: 2px; color: var(--gold-2); opacity: 0.9; }
+/* the interaction hint reads as a smaller prompt, with the cursor glyph inline. */
+.tm-invite-hint {
+  margin: 0; display: inline-flex; align-items: center; gap: 9px; color: var(--gold-2);
+  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12.5px; letter-spacing: 0.06em;
+}
+.tm-invite-glyph { width: 18px; height: 18px; flex: none; color: var(--gold-2); }
 .tm-invite.is-active .tm-invite-glyph { animation: tm-invite-bob 2.4s ease-in-out infinite; }
 @keyframes tm-invite-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
 

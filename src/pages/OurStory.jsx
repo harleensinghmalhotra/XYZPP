@@ -469,8 +469,11 @@ function Team() {
               {/* invitation — shown whenever no card is selected */}
               <div className={`tm-invite${selected === null ? ' is-active' : ''}`} aria-hidden={selected !== null}>
                 <p className="tm-invite-eyebrow">{t('team.leadershipEyebrow')}</p>
-                <p className="tm-invite-hint">{t('team.selectHint')}</p>
-                <MousePointerClick className="tm-invite-glyph" strokeWidth={1.5} aria-hidden="true" />
+                <p className="tm-invite-body">{t('team.leadershipBody')}</p>
+                <p className="tm-invite-hint">
+                  <MousePointerClick className="tm-invite-glyph" strokeWidth={1.5} aria-hidden="true" />
+                  {t('team.selectHint')}
+                </p>
               </div>
 
               {members.map((p, i) => (
