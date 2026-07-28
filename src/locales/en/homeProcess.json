@@ -4,14 +4,7 @@
   "sub": "One partner. One workflow. We take care of everything so you can focus on your mission.",
   "legs": ["Paper", "Paper to Book", "Book to Package", "Packed & Sealed", "Shipped", "Delivered"],
   "detailsAria": "Our process, from print to delivery",
-  "steps": [
-    { "title": "Printing", "desc": "High volume web offset and sheet fed presses run every job to the same standard, from a single title to millions of copies." },
-    { "title": "Binding and Finishing", "desc": "Perfect binding, saddle stitching, case binding and specialty finishing are completed in house, so quality stays consistent through every stage." },
-    { "title": "Quality Checks", "desc": "Every batch is inspected against defined standards before it leaves the floor, catching issues before they reach the customer." },
-    { "title": "Fulfilment", "desc": "Books are kitted, packed and prepared for dispatch to exact order specifications, ready for shipment without delay." },
-    { "title": "Shipped", "desc": "Documentation, customs and freight are managed end to end for every consignment leaving the facility." },
-    { "title": "Delivered", "desc": "Books reach publishers, ministries and institutions on schedule, anywhere in the world." }
-  ],
+
   "stages": {
     "print": {
       "name": "Print",
@@ -45,9 +38,6 @@
   "badges": [
     { "lead": "One partner.", "sub": "Zero runaround." },
     { "lead": "Single point of contact", "sub": "throughout." },
-    { "lead": "Real-time updates", "sub": "at every stage." },
-    { "lead": "Timelines met.", "sub": "Every time." },
-    { "lead": "Quality you can trust,", "sub": "every time." },
-    { "lead": "Built for scale.", "sub": "Backed by experience." }
+    { "lead": "Real-time updates", "sub": "at every stage." }
   ]
 }

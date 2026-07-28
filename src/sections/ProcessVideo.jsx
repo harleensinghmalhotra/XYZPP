@@ -47,8 +47,6 @@ export default function ProcessVideo() {
 
   const rawBadges = t('badges', { returnObjects: true })
   const badges = Array.isArray(rawBadges) ? rawBadges : []
-  const rawSteps = t('steps', { returnObjects: true })
-  const steps = Array.isArray(rawSteps) ? rawSteps : []
 
   // Autoplay/pause on scroll — but ONLY when reduced motion is off. Under reduced
   // motion the video never plays; the poster frame stays shown (see autoPlay gate below).
@@ -111,19 +109,23 @@ export default function ProcessVideo() {
         </video>
       </div>
 
-      {/* THE SIX STEPS — one continuous process, print → delivered. A compact numbered
-          grid on the page cream; each step a title + one sentence. Sits directly under
-          the video so the whole section reads as one workflow. */}
-      <ol className="pv-steps" aria-label={t('detailsAria')}>
-        {steps.map((s, i) => (
-          <li className="pv-step2" key={i}>
-            <span className="pv-step2-num">{String(i + 1).padStart(2, '0')}</span>
-            <span className="pv-step2-rule" aria-hidden="true" />
-            <h3 className="pv-step2-name">{s.title}</h3>
-            <p className="pv-step2-desc">{s.desc}</p>
-          </li>
-        ))}
-      </ol>
+      {/* THE PROMISE STRIP — the guarantees of a single partner, surfaced directly below
+          the video (the numbered step list was removed per the client). The rest of the
+          illustrated exhibit stays gated below (SHOW_PROCESS_EXHIBIT). */}
+      <ul className="pv-badges pv-badges--strip" aria-label={t('sub')}>
+        {badges.map((b, i) => {
+          const BIcon = BADGE_ICONS[i]
+          return (
+            <li className="pv-badge" key={i}>
+              <span className="pv-badge-medallion" aria-hidden="true">{BIcon && <BIcon weight="regular" size={14} />}</span>
+              <span className="pv-badge-text">
+                <span className="pv-badge-lead">{b.lead}</span>
+                <span className="pv-badge-sub">{b.sub}</span>
+              </span>
+            </li>
+          )
+        })}
+      </ul>
 
       {/* THE EXHIBIT — no box, no border, no panel. The artwork, text row and promise
           band bleed straight onto the page cream as normal flow; the artwork's cream is
@@ -161,24 +163,8 @@ export default function ProcessVideo() {
             ))}
           </div>
 
-          <span className="pv-divide" aria-hidden="true" />
-
-          {/* THE PROMISE BAND — the six guarantees of a single partner, each on a
-              thin-ring medallion; quiet and institutional, inside the same plate. */}
-          <ul className="pv-badges" aria-label={t('sub')}>
-            {badges.map((b, i) => {
-              const BIcon = BADGE_ICONS[i]
-              return (
-                <li className="pv-badge" key={i}>
-                  <span className="pv-badge-medallion" aria-hidden="true">{BIcon && <BIcon weight="regular" size={14} />}</span>
-                  <span className="pv-badge-text">
-                    <span className="pv-badge-lead">{b.lead}</span>
-                    <span className="pv-badge-sub">{b.sub}</span>
-                  </span>
-                </li>
-              )
-            })}
-          </ul>
+          {/* The promise strip was extracted to render below the video; the artwork +
+              text row remain here, gated by SHOW_PROCESS_EXHIBIT. */}
         </div>
       </div>
       )}
