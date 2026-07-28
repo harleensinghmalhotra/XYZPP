@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import Seo from '@/components/Seo'
 
 const TIGHT = "'Inter Tight', sans-serif"
 const INTER = "'Inter', sans-serif"
@@ -18,6 +19,7 @@ export default function NotFound() {
       className="relative flex min-h-[100svh] flex-col items-center justify-center px-6 py-24 text-center"
       style={{ background: '#FDFAF4' }}
     >
+      <Seo title={t('notFound.seoTitle')} description={t('notFound.seoDesc')} noindex />
       {/* Closed hardcover — olive stroke, gold spine rule + bookmark ribbon.
           Square corners, dark-on-cream strokes (no light interior hairlines). */}
       <svg

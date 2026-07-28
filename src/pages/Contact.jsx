@@ -8,6 +8,7 @@ import SectionCurve from '@/components/SectionCurve'
 import PageHero, { splitTitle } from '@/components/PageHero'
 import CTAButton from '@/components/CTAButton'
 import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
+import Seo from '@/components/Seo'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -123,79 +124,17 @@ export default function Contact() {
     }))
   }, [location])
 
-  // ── SEO: title, meta description, BreadcrumbList + Organization JSON-LD ──
-  useEffect(() => {
-    const prevTitle = document.title
-    document.title = t('seo.title')
-    const meta = document.querySelector('meta[name="description"]')
-    const prevDesc = meta?.getAttribute('content')
-    if (meta) meta.setAttribute('content', t('seo.description'))
-
-    const ld = document.createElement('script')
-    ld.type = 'application/ld+json'
-    ld.textContent = JSON.stringify([
-      {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: t('breadcrumb.home'), item: 'https://www.quarterfoldltd.com/' },
-          { '@type': 'ListItem', position: 2, name: t('breadcrumb.contact'), item: 'https://www.quarterfoldltd.com/contact' },
-        ],
-      },
-      {
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        name: 'Quarterfold Printabilities Private Limited',
-        url: 'https://www.quarterfoldltd.com/',
-        email: EMAIL_ENQ,
-        telephone: PHONE_TEL,
-        address: [
-          {
-            '@type': 'PostalAddress',
-            name: 'Head Office',
-            streetAddress: '1207, Cyber One IT Park, Sector 30A, Vashi',
-            addressLocality: 'Navi Mumbai',
-            postalCode: '400703',
-            addressRegion: 'Maharashtra',
-            addressCountry: 'IN',
-          },
-          {
-            '@type': 'PostalAddress',
-            name: 'Main Factory, Unit 1',
-            streetAddress: 'Plot No. B-8, Taloja MIDC',
-            addressLocality: 'Navi Mumbai',
-            postalCode: '410208',
-            addressRegion: 'Maharashtra',
-            addressCountry: 'IN',
-          },
-          {
-            '@type': 'PostalAddress',
-            name: 'Main Factory, Unit 2',
-            streetAddress: 'Plot No. L-143, Taloja MIDC',
-            addressLocality: 'Navi Mumbai',
-            postalCode: '410208',
-            addressRegion: 'Maharashtra',
-            addressCountry: 'IN',
-          },
-          {
-            '@type': 'PostalAddress',
-            name: 'Main Factory, Unit 3',
-            streetAddress: 'Plot No. A-2/3, Taloja MIDC',
-            addressLocality: 'Navi Mumbai',
-            postalCode: '410208',
-            addressRegion: 'Maharashtra',
-            addressCountry: 'IN',
-          },
-        ],
-      },
-    ])
-    document.head.appendChild(ld)
-    return () => {
-      document.title = prevTitle
-      if (meta && prevDesc != null) meta.setAttribute('content', prevDesc)
-      ld.remove()
-    }
-  }, [t, i18n.language])
+  // ── SEO: breadcrumb JSON-LD; title/description/canonical/OG/Twitter via <Seo>.
+  // FAQPage JSON-LD is added below (see faqJsonLd). Organization now lives on the
+  // homepage (one canonical Organization node for the whole site).
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('breadcrumb.home'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('breadcrumb.contact'), item: 'https://quarterfoldltd.com/contact' },
+    ],
+  }
 
   // ── Desk seam geometry — keep the SVG horizontal hairline on the real row
   // boundary at any width / language (native scroll, no ScrollTrigger needed). ──
@@ -365,6 +304,7 @@ export default function Contact() {
 
   return (
     <main id="main" ref={root}>
+      <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={breadcrumbJsonLd} />
       {/* ── 1. HERO (navy) — centered two-line band; phone stat moves below ── */}
       {(() => {
         const [l1, l2] = splitTitle(t('hero.title'))

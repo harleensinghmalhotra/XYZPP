@@ -7,6 +7,7 @@ import PageHero, { splitTitle } from '@/components/PageHero'
 import CTAButton from '@/components/CTAButton'
 import { DotField, EdgeGlow, PaperGrain } from '@/components/atmosphere'
 import { CARDS } from '@/sections/WhatWePrint'
+import Seo from '@/components/Seo'
 import './PrintOnDemand.css'
 
 /* /print-on-demand — replaces the ShellPage. A "Build Your Book" configurator
@@ -200,30 +201,15 @@ export default function PrintOnDemand() {
   })
   const contactHref = `/contact?${params.toString()}`
 
-  // SEO — title, meta description, BreadcrumbList (managed for this route only)
-  useEffect(() => {
-    const prevTitle = document.title
-    document.title = t('seo.title')
-    const meta = document.querySelector('meta[name="description"]')
-    const prevDesc = meta?.getAttribute('content')
-    meta?.setAttribute('content', t('seo.description'))
-    const ld = document.createElement('script')
-    ld.type = 'application/ld+json'
-    ld.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: t('seo.breadcrumbHome'), item: '/' },
-        { '@type': 'ListItem', position: 2, name: t('seo.breadcrumbCurrent'), item: '/print-on-demand' },
-      ],
-    })
-    document.head.appendChild(ld)
-    return () => {
-      document.title = prevTitle
-      if (meta && prevDesc != null) meta.setAttribute('content', prevDesc)
-      ld.remove()
-    }
-  }, [t])
+  // SEO — breadcrumb JSON-LD; title/description/canonical/OG/Twitter via <Seo>.
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumbHome'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumbCurrent'), item: 'https://quarterfoldltd.com/print-on-demand' },
+    ],
+  }
 
   const summaryRows = [
     ['format', optLabel('format', cfg.format), t(`options.format.${cfg.format}.sub`)],
@@ -289,6 +275,7 @@ export default function PrintOnDemand() {
 
   return (
     <main id="main" className="pod">
+      <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={breadcrumbJsonLd} />
       {/* 1 · HERO */}
       {(() => {
         const [l1, l2] = splitTitle(t('hero.title'))
