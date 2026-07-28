@@ -88,29 +88,38 @@
   "cookies": {
     "eyebrow": "Legal",
     "title": "Cookie Policy",
-    "seoDesc": "Quarterfold Printabilities uses only essential, functional browser storage. No advertising or analytics trackers. Here is exactly what we store and how to clear it.",
-    "intro": "This Cookie Policy explains the small amount of information this website stores in your browser. In short: we use only essential and functional storage. We do not use advertising cookies or analytics trackers, and we do not track you across other sites.",
+    "seoDesc": "Quarterfold Printabilities sets no cookies. The site keeps only three functional items in your browser to remember your choices, and runs no analytics or tracking.",
+    "intro": "In plain terms: this website sets no cookies at all. It runs no analytics or advertising trackers and does not track you across other websites. The only things it keeps are three functional items saved in your browser's local storage to remember your choices, listed in full below.",
     "sections": [
       {
-        "h": "What we store",
-        "p": ["The only information kept in your browser is functional. It makes the site work and remembers your choices:"],
+        "h": "What this site stores",
+        "p": ["These three items live in your browser's local storage. They are first-party (set by Quarterfold, not by anyone else), hold only your own preferences, and stay until you clear your browser. None of them is a cookie."],
+        "table": {
+          "headers": ["Item", "What it is for", "Provider", "How long it lasts"],
+          "rows": [
+            ["Cookie choice (qfp.consent)", "Records whether you accepted or declined this banner, so you are not asked again.", "Quarterfold, first-party", "Until you clear your browser storage"],
+            ["Language preference (qfp.lang)", "Remembers whether you read the site in English, French or Spanish. Saved only if you change the language.", "Quarterfold, first-party", "Until you clear your browser storage"],
+            ["Sound preference (qfp-sound)", "Remembers whether you muted the site's typing sound. Saved only if you change it.", "Quarterfold, first-party", "Until you clear your browser storage"]
+          ]
+        }
+      },
+      {
+        "h": "Third-party services the site loads",
+        "p": ["To show you the site, your browser loads a few things directly from other providers. Because your browser contacts them itself, they receive your IP address, but none of them sets any cookies:"],
         "list": [
-          "Language preference: remembers whether you are viewing the site in English, French or Spanish.",
-          "Cookie choice: records whether you have accepted or declined non-essential storage, so we do not ask again.",
-          "Sound preference: remembers if you have muted on-site sound.",
-          "Content delivery: images and content are served through the Sanity content platform's global CDN, which may set essential storage to deliver files efficiently."
+          "Google Fonts serves the site's typefaces on every page.",
+          "OpenFreeMap serves map tiles, only on the pages that show the interactive globe.",
+          "Sanity serves the images and articles in the Newsroom, only when you open it.",
+          "Web3Forms delivers your message when you submit the enquiry form."
         ]
       },
       {
-        "h": "What we do not use",
-        "p": [
-          "We do not use advertising or marketing cookies, and we run no third-party analytics or tracking tools (for example Google Analytics, Meta Pixel or similar). Because of this, declining non-essential storage changes nothing about how the site behaves for you today.",
-          "Should we ever add a non-essential tool in future, it will load only after you have given consent through the cookie banner."
-        ]
+        "h": "What this site does not use",
+        "p": ["No advertising or marketing cookies, and no third-party analytics or tracking tools such as Google Analytics or Meta Pixel. Because there is nothing non-essential to switch on or off, declining the banner changes nothing about how the site works for you. If we ever add a non-essential tool, it will load only after you consent through the banner."]
       },
       {
-        "h": "Managing and clearing storage",
-        "p": ["You can clear or block this storage at any time through your browser settings:"],
+        "h": "Managing and clearing what is stored",
+        "p": ["You can clear or block this local storage at any time through your browser settings:"],
         "list": [
           "Chrome: Settings, then Privacy and security, then Clear browsing data.",
           "Firefox: Settings, then Privacy & Security, then Cookies and Site Data, then Clear Data.",
@@ -120,7 +129,7 @@
       },
       {
         "h": "Changes to this policy",
-        "p": ["If our use of cookies or browser storage changes, we will update this page and the date shown below."]
+        "p": ["If what the site stores ever changes, we will update this page and the date shown below."]
       }
     ]
   },

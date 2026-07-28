@@ -39,6 +39,31 @@ export default function LegalPage({ doc }) {
                   {s.list.map((li, k) => <li key={k}>{li}</li>)}
                 </ul>
               )}
+              {/* Optional data table (e.g. the Cookie Policy storage list). Styled
+                  inline since LegalPage.css is out of this lane's territory; wrapped
+                  so wide tables scroll rather than overflow the page. */}
+              {Array.isArray(s.table?.rows) && (
+                <div style={{ overflowX: 'auto', margin: '20px 0 4px' }}>
+                  <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 560, fontFamily: 'Inter, sans-serif', fontSize: '15px' }}>
+                    <thead>
+                      <tr>
+                        {s.table.headers.map((hh, hi) => (
+                          <th key={hi} style={{ textAlign: 'left', padding: '10px 16px 10px 0', borderBottom: '2px solid rgba(3,12,49,0.22)', fontFamily: "'Inter Tight', sans-serif", fontWeight: 600, color: '#030C31', whiteSpace: 'nowrap' }}>{hh}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {s.table.rows.map((row, ri) => (
+                        <tr key={ri}>
+                          {row.map((cell, ci) => (
+                            <td key={ci} style={{ padding: '12px 16px 12px 0', borderBottom: '1px solid rgba(3,12,49,0.1)', color: '#4a4436', verticalAlign: 'top', lineHeight: 1.55 }}>{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </section>
           ))}
 

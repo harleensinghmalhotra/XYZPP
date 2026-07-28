@@ -1,7 +1,7 @@
 {
   "aria": "Cookie consent",
-  "body": "We use cookies to understand how visitors use our site and to improve it. You can accept all cookies or manage your preferences.",
-  "accept": "Accept all",
-  "reject": "Reject all",
+  "body": "This site uses only essential, functional storage to remember your choices. It sets no cookies and runs no analytics or tracking.",
+  "accept": "Accept",
+  "reject": "Decline",
   "policyLink": "Cookie Policy"
 }
