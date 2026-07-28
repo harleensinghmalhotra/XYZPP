@@ -679,16 +679,8 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ── 7B. PRINT SOMETHING THAT MATTERS — compact navy closing band. One line of
-          copy + a single primary CTA that scrolls up to the enquiry form (#enquiry). ── */}
-      <section data-theme="dark" className="ctc-matters relative overflow-hidden" aria-labelledby="ctc-matters-title">
-        <div className="ctc-matters-inner ctc-reveal relative z-10">
-          <h2 id="ctc-matters-title" className="ctc-matters-title">{t('matters.title')}</h2>
-          <p className="ctc-matters-body">{t('matters.body')}</p>
-          <a className="u-btn u-btn--gold" href="#enquiry">{t('matters.cta')}</a>
-        </div>
-      </section>
-
+      {/* The page's own "Print Something That Matters" navy closing band was removed
+          (client): it duplicated the site-wide footer CTA that follows directly below. */}
     </main>
   )
 }

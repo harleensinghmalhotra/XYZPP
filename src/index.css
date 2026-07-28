@@ -4241,24 +4241,6 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 /* ── 7B. PRINT SOMETHING THAT MATTERS — compact navy closing band, cream text,
    one primary CTA (scrolls to the enquiry form). Same navy + gold-glow vocabulary
    as the addresses band above. ── */
-.ctc-matters {
-  background:
-    radial-gradient(800px 460px at 50% 0%, rgb(var(--gold-2-rgb) / 0.1), transparent 62%),
-    var(--navy);
-  padding: clamp(64px, 9vh, 96px) 24px; text-align: center; color: #fdfaf4;
-}
-.ctc-matters-inner { max-width: 720px; margin: 0 auto; }
-.ctc-matters-title {
-  margin: 0 0 20px;
-  font-family: 'Inter Tight', sans-serif; font-weight: 600;
-  font-size: clamp(28px, 3.6vw, 46px); line-height: 1.08; letter-spacing: -0.02em; color: #fdfaf4;
-}
-.ctc-matters-body {
-  margin: 0 auto 32px; max-width: 56ch;
-  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.3vw, 19px);
-  line-height: 1.65; color: rgba(253, 250, 244, 0.85);
-}
-
 /* ── Responsive ── */
 @media (max-width: 1080px) {
   .ctc-form-inner { grid-template-columns: 1fr; gap: 36px; }
