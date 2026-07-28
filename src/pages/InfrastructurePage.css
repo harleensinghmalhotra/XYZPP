@@ -385,6 +385,21 @@
 @media (max-width: 760px) { .inf-hero-stats { grid-template-columns: repeat(2, 1fr); row-gap: clamp(18px, 3vw, 24px); } }
 @media (max-width: 420px) { .inf-hero-stats { grid-template-columns: 1fr; } }
 
+/* Each figure: a prominent value with its label beneath (client Infrastructure
+   reference), stacked to the right of the gold icon in the cream trust belt. */
+.inf-hero-stat { align-items: center; }
+.inf-hero-stat-text { display: flex; flex-direction: column; min-width: 0; }
+.inf-hero-stat-value {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(17px, 1.5vw, 22px); line-height: 1.05; letter-spacing: -0.4px;
+  color: var(--navy);
+}
+.inf-hero-stat-label {
+  font-family: 'DM Mono', monospace; font-weight: 500;
+  font-size: clamp(9.5px, 0.72vw, 11.5px); line-height: 1.2; letter-spacing: 0.05em;
+  text-transform: uppercase; color: rgb(var(--navy-rgb) / 0.62); margin-top: 4px;
+}
+
 .inf-finish-sec {
   position: relative; overflow: hidden;
   background: #fdfaf4;

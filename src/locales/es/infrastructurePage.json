@@ -7,7 +7,7 @@
   },
   "hero": {
     "eyebrow": "Infraestructura",
-    "title": "Preparados para escalar. <strong>Diseñados para generar confianza.</strong>",
+    "title": "Preparados para escalar. <strong>Diseñados para la precisión.</strong>",
     "sub": "Tres instalaciones de impresión y dos almacenes en Navi Mumbai. 300,000 pies cuadrados diseñados para una sola cosa: libros que se envían a tiempo.",
     "ctaQuote": "Solicitar presupuesto",
     "ctaProcess": "Ver nuestro proceso",
@@ -18,10 +18,10 @@
   "heroStats": {
     "aria": "La capacidad de un vistazo",
     "items": [
-      "Capacidad 300,000 sq ft",
-      "3 plantas de impresión",
-      "75M de libros al año",
-      "800+ personas"
+      { "value": "300,000 sq. ft.", "label": "Superficie de fabricación" },
+      { "value": "3", "label": "Plantas de producción integradas" },
+      { "value": "800+", "label": "Profesionales cualificados" },
+      { "value": "75 millones+", "label": "Libros producidos al año" }
     ]
   },
   "strip": {

@@ -15,7 +15,7 @@ import PageHero, { splitTitle } from '@/components/PageHero'
 import { DotField, PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
 import { Books } from '@phosphor-icons/react'
-import { Maximize, Factory, BookOpen, Users } from 'lucide-react'
+import { Maximize, Warehouse, Building2, BookOpen, Users } from 'lucide-react'
 import './InfrastructurePage.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -76,9 +76,10 @@ const STATS = [
   { k: 'people', value: 600, suffix: '+' },
 ]
 
-// The hero capacity strip: one lucide icon per figure (order matches
-// heroStats.items). Its gold-hairline cream band reuses the homepage trust-belt look.
-const HERO_STAT_ICONS = [Maximize, Factory, BookOpen, Users]
+// The hero capacity strip: one lucide icon per figure (order matches heroStats.items,
+// per the client reference: footprint, facilities, professionals, books). Its
+// gold-hairline cream band reuses the homepage trust-belt look.
+const HERO_STAT_ICONS = [Warehouse, Building2, Users, BookOpen]
 
 // Recognition is now the shared homepage <Awards /> component (see §6) — the page's
 // own plaque rail was retired.
@@ -196,12 +197,15 @@ export default function InfrastructurePage() {
           homepage trust-belt visual language (gold top-hairline, cream, icon per figure). */}
       <section className="tb-band" aria-label={t('heroStats.aria')}>
         <ul className="inf-hero-stats">
-          {(t('heroStats.items', { returnObjects: true }) || []).map((line, i) => {
+          {(t('heroStats.items', { returnObjects: true }) || []).map((it, i) => {
             const Icon = HERO_STAT_ICONS[i] || Maximize
             return (
-              <li className="tb-item" key={i}>
-                <span className="tb-ico" aria-hidden="true"><Icon size={20} strokeWidth={1.6} /></span>
-                <span className="tb-text">{line}</span>
+              <li className="tb-item inf-hero-stat" key={i}>
+                <span className="tb-ico" aria-hidden="true"><Icon size={22} strokeWidth={1.6} /></span>
+                <span className="inf-hero-stat-text">
+                  <span className="inf-hero-stat-value">{it.value}</span>
+                  <span className="inf-hero-stat-label">{it.label}</span>
+                </span>
               </li>
             )
           })}

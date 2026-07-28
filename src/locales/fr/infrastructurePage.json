@@ -7,7 +7,7 @@
   },
   "hero": {
     "eyebrow": "Infrastructure",
-    "title": "Conçu pour l’échelle. <strong>Pensé pour la confiance.</strong>",
+    "title": "Conçu pour l’échelle. <strong>Pensé pour la précision.</strong>",
     "sub": "Trois sites d’impression et deux entrepôts à Navi Mumbai. 300 000 sq ft pensés pour une seule chose : des livres expédiés à temps.",
     "ctaQuote": "Demander un devis",
     "ctaProcess": "Découvrir notre processus",
@@ -18,10 +18,10 @@
   "heroStats": {
     "aria": "La capacité en un coup d'œil",
     "items": [
-      "Capacité 300,000 sq ft",
-      "3 usines d'impression",
-      "75M de livres par an",
-      "800+ personnes"
+      { "value": "300 000 sq. ft.", "label": "Surface de fabrication" },
+      { "value": "3", "label": "Sites de production intégrés" },
+      { "value": "800+", "label": "Professionnels qualifiés" },
+      { "value": "75 millions+", "label": "Livres produits par an" }
     ]
   },
   "strip": {

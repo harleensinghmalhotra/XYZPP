@@ -7,7 +7,7 @@
   },
   "hero": {
     "eyebrow": "Infrastructure",
-    "title": "Built for Scale. <strong>Engineered for Trust.</strong>",
+    "title": "Built for Scale. <strong>Engineered for Precision.</strong>",
     "sub": "Three printing facilities and two warehouses across Navi Mumbai. 300,000 sq ft engineered for one thing: books that ship on time.",
     "ctaQuote": "Request a Quote",
     "ctaProcess": "See our process",
@@ -18,10 +18,10 @@
   "heroStats": {
     "aria": "Capacity at a glance",
     "items": [
-      "Capacity 300,000 sq ft",
-      "3 printing facilities",
-      "75M books per year",
-      "800+ people"
+      { "value": "300,000 sq. ft.", "label": "Manufacturing Footprint" },
+      { "value": "3", "label": "Integrated Production Facilities" },
+      { "value": "800+", "label": "Skilled Professionals" },
+      { "value": "75 Million+", "label": "Books Produced Annually" }
     ]
   },
   "strip": {
