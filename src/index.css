@@ -2876,6 +2876,7 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 .cert-card {
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   padding: 16px 14px;
   background: #fdfaf4;
   border: 1px solid rgb(var(--navy-rgb) / 0.08);
@@ -2987,6 +2988,76 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
   background: transparent;
   color: #a49e8f;
   border: 1px solid rgba(28, 32, 25, 0.18);
+}
+
+/* card focus ring — the click-to-expand affordance */
+.cert-card:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 3px;
+}
+
+/* expanded-card dialog — full, unclamped body */
+.cert-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(var(--navy-rgb) / 0.55);
+  animation: cert-modal-fade 0.2s ease;
+}
+.cert-modal {
+  position: relative;
+  width: min(560px, 100%);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #fdfaf4;
+  border-radius: var(--r-card);
+  padding: 34px 32px 36px;
+  box-shadow: 0 40px 90px -20px rgb(var(--navy-rgb) / 0.55);
+  animation: cert-modal-pop 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cert-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: rgb(var(--navy-rgb) / 0.08);
+  color: var(--navy);
+  transition: background 0.2s ease;
+}
+.cert-modal-close:hover { background: rgb(var(--navy-rgb) / 0.16); }
+.cert-modal-close:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+.cert-modal-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  margin: 10px 0 18px;
+}
+.cert-modal-mark img { max-height: 48px; max-width: 60%; width: auto; height: auto; object-fit: contain; }
+.cert-modal-body {
+  margin: 0;
+  padding-left: 14px;
+  border-left: 2px solid rgb(var(--navy-rgb) / 0.2);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #1c2019;
+}
+@keyframes cert-modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cert-modal-pop { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .cert-modal-backdrop, .cert-modal { animation: none; }
 }
 
 @media (max-width: 900px) {

@@ -6,6 +6,8 @@
   "carouselAria": "Carrusel de certificaciones (desplácese o use las teclas de flecha)",
   "prevAria": "Certificaciones anteriores",
   "nextAria": "Certificaciones siguientes",
+  "expandHint": "Leer la descripción completa",
+  "close": "Cerrar",
   "cards": {
     "fsc": {
       "eyebrow": "Forest Stewardship Council",

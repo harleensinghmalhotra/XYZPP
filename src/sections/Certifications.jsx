@@ -11,7 +11,8 @@ gsap.registerPlugin(ScrollTrigger)
 // and the next dark section arcs in below. A slow rotating seal and a flat
 // hairline-card carousel (scroll / drag + arrow buttons). The filter pills were
 // removed: all five certifications always show, so a filter control served no
-// purpose.
+// purpose. Each card is click-to-expand: clicking (or Enter/Space) opens a dialog
+// with the full, unclamped body; Escape / backdrop / the close button dismiss it.
 
 // eyebrow / title / body resolved from homeCerts (cards.<key>.*). Proper names,
 // cert titles, codes and logo filenames stay hardcoded; the FSC licence code and
@@ -51,6 +52,22 @@ function CheckMark() {
   )
 }
 
+// The mark (logo image or the typographic two-star lockup), shared by the card and
+// the expanded dialog so both read identically.
+function CertMark({ c, t }) {
+  if (c.typographic) {
+    return (
+      <div className="cert-star" aria-label="Two Star Export House">
+        <span className="cert-star-glyph" aria-hidden="true"><span>★</span><span>★</span></span>
+        <span className="cert-star-word">STAR EXPORT<br />HOUSE</span>
+      </div>
+    )
+  }
+  return (
+    <img src={`/site-assets/homepage/certifications/${c.logo}`} alt={`${t(`cards.${c.key}.title`)} logo`} loading="lazy" decoding="async" />
+  )
+}
+
 // `flatBottom` suppresses the navy sweep-arc at the section's foot. Default (false)
 // keeps the arc for a navy neighbour below (the homepage Marquee / the Infrastructure
 // page's capability triptych, which carries its own cream top-curve). Pass `flatBottom`
@@ -64,8 +81,15 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
   const viewport = useRef(null)
   const [reduced] = useState(prefersReduced)
   const [arrows, setArrows] = useState({ prev: false, next: true })
+  const [expanded, setExpanded] = useState(null) // cert key of the open dialog, or null
+  const triggerRef = useRef(null)                 // card that opened the dialog (focus return)
+  const closeBtnRef = useRef(null)
 
   const visible = CERTS
+  const openCert = expanded ? CERTS.find((c) => c.key === expanded) : null
+
+  const openCard = (key, el) => { triggerRef.current = el; setExpanded(key) }
+  const closeModal = () => setExpanded(null)
 
   // arrow enable/disable from scroll position
   const syncArrows = () => {
@@ -99,8 +123,19 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
     const onDown = (e) => { down = true; moved = false; startX = e.clientX; startLeft = el.scrollLeft; el.setPointerCapture?.(e.pointerId) }
     const onMove = (e) => { if (!down) return; const dx = e.clientX - startX; if (Math.abs(dx) > 4) moved = true; el.scrollLeft = startLeft - dx }
     const onUp = (e) => { down = false; el.releasePointerCapture?.(e.pointerId) }
-    // swallow click after a drag so cards/arrows don't misfire
-    const onClick = (e) => { if (moved) { e.preventDefault(); e.stopPropagation() } }
+    // After a drag, swallow the click so nothing misfires. On a genuine click, open
+    // the card that was clicked — delegated here (not a per-card onClick) because the
+    // pointer-capture drag routes the click through the viewport, so a card-level
+    // onClick can't be relied on. Arrows live outside .certs-viewport, so they are
+    // unaffected. `moved` is the drag-versus-click guard.
+    const onClick = (e) => {
+      if (moved) { e.preventDefault(); e.stopPropagation(); return }
+      // pointer capture during the drag makes the click target the viewport, so read
+      // the real element under the pointer to find which card was clicked.
+      const hit = document.elementFromPoint(e.clientX, e.clientY)
+      const card = hit?.closest?.('.cert-card')
+      if (card && card.dataset.certKey) { triggerRef.current = card; setExpanded(card.dataset.certKey) }
+    }
     el.addEventListener('pointerdown', onDown)
     el.addEventListener('pointermove', onMove)
     el.addEventListener('pointerup', onUp)
@@ -116,6 +151,23 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
       el.removeEventListener('scroll', syncArrows)
     }
   }, [])
+
+  // dialog lifecycle: Escape closes, body scroll locks, focus moves to the close
+  // button on open and returns to the triggering card on close.
+  useEffect(() => {
+    if (!expanded) return
+    const onKey = (e) => { if (e.key === 'Escape') closeModal() }
+    document.addEventListener('keydown', onKey)
+    const id = requestAnimationFrame(() => closeBtnRef.current?.focus())
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      cancelAnimationFrame(id)
+      document.body.style.overflow = prevOverflow
+      triggerRef.current?.focus?.()
+    }
+  }, [expanded])
 
   useLayoutEffect(() => {
     if (reduced) return
@@ -176,21 +228,25 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
           <div className="certs-viewport" ref={viewport} tabIndex={0} role="group" aria-label={t('carouselAria')}>
             <div className="certs-track">
               {visible.map((c) => (
-                <article className="cert-card" key={c.key}>
+                <article
+                  className="cert-card"
+                  key={c.key}
+                  data-cert-key={c.key}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={expanded === c.key}
+                  aria-label={`${t(`cards.${c.key}.title`)}. ${t('expandHint')}`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCard(c.key, e.currentTarget) }
+                  }}
+                >
                   <div className="cert-card-eyebrow">
                     <CheckMark />
                     <span>{t(`cards.${c.key}.eyebrow`)}</span>
                   </div>
 
                   <div className="cert-card-mark">
-                    {c.typographic ? (
-                      <div className="cert-star" aria-label="Two Star Export House">
-                        <span className="cert-star-glyph" aria-hidden="true"><span>★</span><span>★</span></span>
-                        <span className="cert-star-word">STAR EXPORT<br />HOUSE</span>
-                      </div>
-                    ) : (
-                      <img src={`/site-assets/homepage/certifications/${c.logo}`} alt={`${t(`cards.${c.key}.title`)} logo`} loading="lazy" decoding="async" />
-                    )}
+                    <CertMark c={c} t={t} />
                     <div className="cert-card-title">{t(`cards.${c.key}.title`)}</div>
                     {c.code && <div className="cert-card-code">{t('licence')} {c.code}</div>}
                   </div>
@@ -212,6 +268,33 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
           </div>
         </div>
       </div>
+
+      {/* expanded card dialog — full, unclamped body */}
+      {openCert && (
+        <div className="cert-modal-backdrop" onClick={closeModal}>
+          <div
+            className="cert-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cert-modal-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button type="button" className="cert-modal-close" onClick={closeModal} aria-label={t('close')} ref={closeBtnRef}>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg>
+            </button>
+            <div className="cert-card-eyebrow">
+              <CheckMark />
+              <span>{t(`cards.${openCert.key}.eyebrow`)}</span>
+            </div>
+            <div className="cert-modal-mark">
+              <CertMark c={openCert} t={t} />
+              <div id="cert-modal-title" className="cert-card-title">{t(`cards.${openCert.key}.title`)}</div>
+              {openCert.code && <div className="cert-card-code">{t('licence')} {openCert.code}</div>}
+            </div>
+            <p className="cert-modal-body">{t(`cards.${openCert.key}.body`)}</p>
+          </div>
+        </div>
+      )}
 
       {/* signature curve — the next dark section arcs in below. Suppressed when a cream
           section follows (flatBottom), so the navy dome never lands on a light background. */}
