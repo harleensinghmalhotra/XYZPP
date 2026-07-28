@@ -138,7 +138,7 @@
   height: var(--bh);
   transform-style: preserve-3d;
   /* positive rotateY reveals the SPINE (left face) so the binding choice —
-     perfect / sewn headband / wiro coil — visibly responds; the top edge still
+     perfect / sewn headband — visibly responds; the top edge still
      shows the paper stock. */
   transform: rotateX(6deg) rotateY(30deg);
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -224,7 +224,6 @@
   transition: opacity 0.4s ease;
 }
 .pod-book[data-finish='gloss'] .pod-sheen { opacity: 1; }
-.pod-book[data-finish='layflat'] .pod-sheen { opacity: 0.45; }
 /* matte = a faint tooth wash instead of shine */
 .pod-matte {
   position: absolute;
@@ -307,17 +306,13 @@
 .pod-headband.top { top: 2px; }
 .pod-headband.bottom { bottom: 2px; }
 .pod-book[data-binding='sewn'] .pod-headband { opacity: 1; }
-/* wiro = a drawn twin-loop coil overlaying the spine */
+/* The coil overlay element still ships in the book preview markup but is never shown
+   (Wiro binding was removed): the base rule keeps it hidden across every binding. */
 .pod-coil {
   position: absolute;
   inset: 0;
   display: none;
   color: #8a8069;
-}
-.pod-book[data-binding='wiro'] .pod-coil { display: block; }
-.pod-book[data-binding='wiro'] .pod-spine {
-  background: #efe9dc;
-  box-shadow: inset 0 0 0 1px rgba(3, 12, 49, 0.12);
 }
 .pod-coil svg { width: 100%; height: 100%; }
 
@@ -571,82 +566,6 @@
 }
 .pod-opts.chips .pod-chip[aria-checked='true'] .pod-chip-hero { color: var(--gold-3); }
 
-/* included-with-every-order block */
-.pod-included {
-  margin-top: clamp(30px, 4vh, 46px);
-  padding: clamp(22px, 3vh, 30px);
-  border-radius: var(--r-card);
-  background: var(--beige);
-  border: 1px solid var(--hair-soft);
-}
-.pod-included-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 18px;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold-3);
-}
-.pod-included-head::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--hair);
-}
-.pod-included-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 24px;
-  row-gap: 20px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.pod-incl {
-  display: grid;
-  grid-template-columns: 36px 1fr;
-  column-gap: 13px;
-  align-items: start;
-  min-height: 100%;
-}
-.pod-incl-ico {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--r-chip);
-  background: #fffdf8;
-  border: 1px solid var(--hair);
-  display: grid;
-  place-items: center;
-  color: var(--gold-3);
-}
-.pod-incl-ico svg {
-  width: 19px;
-  height: 19px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.pod-incl-name {
-  margin: 0 0 4px;
-  padding-top: 1px; /* optical-align name cap-height with the icon tile */
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 600;
-  font-size: 14.5px;
-  line-height: 1.25;
-  color: var(--navy);
-}
-.pod-incl-desc {
-  margin: 0;
-  font-size: 12.5px;
-  line-height: 1.45;
-  color: rgba(28, 32, 25, 0.74);
-}
-
 /* — RIGHT · sticky live summary — */
 .pod-summary {
   position: sticky;
@@ -842,76 +761,6 @@
 .pod-req-done-sub { margin: 0; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.55; color: rgba(253, 250, 244, 0.72); }
 @media (prefers-reduced-motion: reduce) { .pod-spin { animation: none; } }
 
-/* ── 3 · HOW IT WORKS ────────────────────────────────────────────────────────── */
-.pod-how {
-  position: relative;
-  overflow: hidden;
-  background: var(--beige);
-  padding: clamp(64px, 9vh, 104px) clamp(24px, 5vw, 72px);
-  border-top: 1px solid var(--hair-soft);
-}
-.pod-how-inner { position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; }
-.pod-how-head { text-align: center; margin-bottom: clamp(36px, 5vh, 56px); }
-.pod-how-title {
-  margin: 12px 0 0;
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 600;
-  font-size: clamp(28px, 3.4vw, 44px);
-  letter-spacing: -0.6px;
-  color: var(--navy);
-}
-.pod-how-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(18px, 2.4vw, 30px);
-}
-.pod-how-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  padding: clamp(26px, 3vh, 34px);
-  border-radius: var(--r-card);
-  background: var(--cream);
-  border: 1px solid var(--hair-soft);
-  box-shadow: 0 2px 14px rgba(3, 12, 49, 0.05);
-}
-.pod-how-step {
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 1px;
-  color: var(--gold-3);
-}
-.pod-how-ico {
-  width: 52px;
-  height: 52px;
-  margin: 18px 0 22px;
-  color: var(--gold-3);
-}
-.pod-how-ico svg {
-  width: 52px;
-  height: 52px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.pod-how-name {
-  margin: 0 0 8px;
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 600;
-  font-size: 20px;
-  letter-spacing: -0.3px;
-  color: var(--navy);
-}
-.pod-how-desc {
-  margin: 0;
-  font-size: 14.5px;
-  line-height: 1.55;
-  color: rgba(28, 32, 25, 0.66);
-}
-
 /* ── 4 · REASSURANCE BAND (navy) ─────────────────────────────────────────────── */
 .pod-band {
   position: relative;
@@ -1065,8 +914,6 @@
     text-align: left;
     max-width: 52ch;
   }
-  .pod-how-grid { grid-template-columns: 1fr; }
-  .pod-included-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .pod-opts.cols-3 { grid-template-columns: 1fr; }
