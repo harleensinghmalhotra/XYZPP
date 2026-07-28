@@ -463,9 +463,12 @@ function Team() {
           {/* RIGHT (below on mobile) — the sticky spotlight panel. The invitation and
               all six people are stacked in one grid cell so the panel height locks to
               the tallest; only the active block is visible (opacity), the rest fade
-              out/down. */}
-          <div className="tm-panel" ref={panelRef} aria-live="polite">
-            <div className="tm-panel-stack">
+              out/down. The panel column is a normal grid child (top-aligned with the
+              card grid); the sticky lives on the inner .tm-panel so its top edge lines
+              up with the first card row and only follows once you scroll past. */}
+          <div className="tm-panel-col">
+            <div className="tm-panel" ref={panelRef} aria-live="polite">
+              <div className="tm-panel-stack">
               {/* invitation — shown whenever no card is selected */}
               <div className={`tm-invite${selected === null ? ' is-active' : ''}`} aria-hidden={selected !== null}>
                 <p className="tm-invite-eyebrow">{t('team.leadershipEyebrow')}</p>
@@ -488,6 +491,7 @@ function Team() {
                   {p.quote && <blockquote className="tm-person-quote">{p.quote}</blockquote>}
                 </article>
               ))}
+              </div>
             </div>
           </div>
         </div>

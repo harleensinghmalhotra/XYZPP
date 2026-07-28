@@ -417,8 +417,13 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 }
 
 /* ── the spotlight panel ───────────────────────────────────────────────────── */
+/* The COLUMN is the grid child — a normal, top-aligned item so the panel's top edge
+   sits on the first card row's top edge. The sticky lives on the inner .tm-panel
+   (sticky ON a grid item is nudged down by the tall track; sticky INSIDE a normal
+   block is not), so the panel top-aligns at rest and only follows once scrolled past. */
+.tm-panel-col { align-self: start; }
 .tm-panel {
-  position: sticky; top: calc(var(--nav-h) + clamp(14px, 2.4vh, 26px)); align-self: start;
+  position: sticky; top: calc(var(--nav-h) + clamp(14px, 2.4vh, 26px));
   background: var(--navy); border-radius: 16px;
   padding: clamp(26px, 2.6vw, 40px) clamp(24px, 2.4vw, 38px);
   box-shadow: 0 22px 54px rgb(var(--navy-rgb) / 0.18);
