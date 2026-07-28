@@ -2759,7 +2759,9 @@ body {
 .certs {
   position: relative;
   background: #fdfaf4;
-  padding: 64px 56px 80px;
+  /* top trimmed 64→28 and bottom 80→56 so the section sits closer to the band above
+     and below it (client: reduce dead vertical space above the Certification heading). */
+  padding: 28px 56px 56px;
   color: #1c2019;
   isolation: isolate;
 }
@@ -3061,7 +3063,7 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 }
 
 @media (max-width: 900px) {
-  .certs { padding: 80px 24px 120px; }
+  .certs { padding: 36px 24px 88px; }
   .certs-viewport { margin-right: -24px; padding-right: 24px; }
   .certs-top { flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
 }
@@ -5111,4 +5113,10 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 @media (max-width: 640px) {
   .pod .pod-opts.chips.size { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ── Homepage One Continuous Process — trim the section's top padding so it sits
+   closer to the Certification band above (client: reduce dead vertical space). The base
+   `.pv-section` (var(--section-pad-y) ≈ 99px) lives in ProcessVideo.css; the doubled
+   class here out-specifies it regardless of stylesheet order. ──────────────────── */
+.pv-section.pv-section { padding-top: clamp(36px, 4.5vh, 52px); }
 
