@@ -5,71 +5,95 @@
   "privacy": {
     "eyebrow": "Mentions légales",
     "title": "Politique de confidentialité",
-    "seoDesc": "Comment Quarterfold Printabilities collecte, utilise et protège les données personnelles que vous partagez via ce site, conformément à la loi indienne DPDP de 2023.",
-    "intro": "La présente politique de confidentialité explique comment Quarterfold Printabilities Private Limited (« Quarterfold », « nous ») traite les données personnelles collectées via ce site. Nous agissons en tant que responsable du traitement (Data Fiduciary) de ces données et les traitons de manière licite, loyale et uniquement aux fins décrites ci-dessous.",
+    "seoDesc": "Comment Quarterfold Printabilities collecte, utilise et protège les données personnelles que vous partagez via ce site, conforme à la loi indienne DPDP de 2023, au RGPD britannique et européen, à la PIPEDA et au CCPA.",
+    "intro": "La présente politique de confidentialité explique comment Quarterfold Printabilities Private Limited (« Quarterfold », « nous ») traite les données personnelles collectées via ce site. Nous agissons en tant que responsable du traitement (Data Fiduciary) de ces données et les traitons de manière licite, loyale et uniquement aux fins décrites ci-dessous. Comme nos visiteurs proviennent de plusieurs pays, cette politique est rédigée pour respecter conjointement la loi indienne Digital Personal Data Protection Act de 2023, le RGPD britannique et européen, la PIPEDA canadienne et le CCPA/CPRA californien.",
     "sections": [
       {
         "h": "Qui nous sommes",
         "p": [
           "Quarterfold Printabilities Private Limited (CIN U74999MH2020PTC337494) est le responsable du traitement des données personnelles collectées via ce site.",
           "Siège social : Office No 1207, Plot No 4 & 6, Sector 30A, Navi Mumbai, Maharashtra 400705, Inde.",
-          "Pour toute question ou demande relative à la confidentialité, écrivez-nous à info@quarterfoldltd.com."
+          "Pour toute question ou demande relative à la confidentialité, ou pour joindre notre point de contact en la matière, écrivez à info@quarterfoldltd.com."
         ]
       },
       {
         "h": "Quelles données nous collectons",
-        "p": ["Nous ne collectons que les informations que vous choisissez de nous transmettre via nos formulaires de demande et d'échantillon, ainsi que des informations techniques de base créées automatiquement lors de toute visite d'un site :"],
+        "p": ["Nous ne collectons que les informations que vous choisissez de nous transmettre via nos formulaires de demande et de devis. Nous n'utilisons aucun outil d'analyse et ne déposons aucun cookie ; nous ne dressons donc aucun profil de votre visite. Les seules données créées automatiquement sont les informations techniques standard que tout site reçoit lorsque votre navigateur effectue une requête :"],
         "list": [
           "Les informations que vous saisissez dans un formulaire : votre nom, votre adresse e-mail, votre numéro de téléphone, votre société (le cas échéant) et le message ou les notes de projet que vous rédigez.",
-          "Des journaux serveur de base, tels que l'adresse IP, le type de navigateur ainsi que la date et l'heure d'une requête, conservés pour des raisons de sécurité et pour assurer le bon fonctionnement du site."
+          "Des données de requête standard telles que votre adresse IP, le type de navigateur et l'heure de la requête. Elles ne proviennent d'aucun outil d'analyse ; il s'agit des informations ordinaires que notre hébergeur peut enregistrer dans les journaux serveur pour maintenir le site sécurisé et opérationnel, et nous ne les utilisons pas pour identifier ou suivre des visiteurs individuels."
         ]
       },
       {
         "h": "Pourquoi nous utilisons vos données",
-        "p": [
-          "Nous utilisons les informations que vous fournissez uniquement pour répondre à votre demande et préparer un devis ou un échantillon. Nous ne vendons pas vos données personnelles et ne les utilisons pas à des fins de marketing sans votre consentement.",
-          "Votre choix de langue est enregistré dans votre navigateur afin de mémoriser votre préférence, comme expliqué dans notre politique relative aux cookies."
+        "p": ["Nous utilisons les informations que vous fournissez pour :"],
+        "list": [
+          "répondre à votre demande et préparer un devis, un échantillon ou une proposition ;",
+          "vous envoyer les communications que vous avez demandées ou consenti à recevoir ;",
+          "exploiter, maintenir, sécuriser et améliorer ce site ; et",
+          "respecter nos obligations légales, réglementaires et comptables."
         ]
       },
       {
         "h": "Base légale",
+        "p": ["Nous nous appuyons sur la base légale correspondant à chaque finalité et à votre localisation. Nous ne vendons pas vos données personnelles et ne les utilisons pas à des fins de marketing sans votre consentement."],
+        "list": [
+          "Le consentement, que vous donnez en envoyant un formulaire ou en acceptant de recevoir des communications, et que vous pouvez retirer à tout moment (article 6, paragraphe 1, point a) du RGPD britannique et européen ; loi DPDP indienne de 2023 ; PIPEDA canadienne).",
+          "Nos intérêts légitimes à vous répondre, à exploiter le site et à le sécuriser, mis en balance avec vos droits (article 6, paragraphe 1, point f) du RGPD britannique et européen).",
+          "Le respect d'une obligation légale, lorsque la loi nous impose de conserver ou de divulguer des données (article 6, paragraphe 1, point c) du RGPD britannique et européen)."
+        ]
+      },
+      {
+        "h": "Californie et Canada",
         "p": [
-          "Pour les visiteurs en Inde, nous traitons vos données sur la base de votre consentement et des usages légitimes autorisés par la loi Digital Personal Data Protection Act de 2023 et ses règlements.",
-          "Pour les visiteurs de l'Union européenne et du Royaume-Uni, notre base légale est notre intérêt légitime à répondre à votre demande et, le cas échéant, votre consentement (article 6, paragraphe 1, points a) et f) du RGPD)."
+          "Pour les résidents de Californie : nous ne traitons les informations personnelles que pour les finalités commerciales décrites ci-dessus. Nous ne vendons ni ne partageons vos informations personnelles au sens du CCPA/CPRA, et nous n'exercerons aucune discrimination à votre encontre si vous faites valoir vos droits.",
+          "Pour les visiteurs au Canada : nous collectons, utilisons et divulguons les informations personnelles avec votre connaissance et votre consentement, comme l'exige la PIPEDA, et uniquement aux fins énoncées ici."
         ]
       },
       {
         "h": "Avec qui nous les partageons",
         "p": [
-          "Nous ne partageons vos données qu'avec les prestataires qui nous aident à exploiter le site et à vous répondre, par exemple notre prestataire de traitement des formulaires et notre plateforme de contenu, et uniquement dans la mesure nécessaire à la fourniture de ces services. Ces prestataires traitent les données selon nos instructions.",
-          "Nous pouvons également divulguer des données lorsque la loi l'exige ou pour protéger nos droits."
+          "Nous ne partageons vos données qu'avec les prestataires qui nous aident à exploiter le site et à vous répondre, et uniquement dans la mesure nécessaire à ces services. Il s'agit actuellement de notre prestataire de traitement des formulaires (Web3Forms), de notre plateforme de contenu (Sanity), de notre hébergeur, ainsi que des fournisseurs de polices et de tuiles cartographiques que votre navigateur charge directement. Ils agissent selon nos instructions ou selon leurs propres conditions publiées.",
+          "Nous pouvons également divulguer des données lorsque la loi, un règlement ou une décision de justice l'exige, ou pour établir ou protéger nos droits."
+        ]
+      },
+      {
+        "h": "Transferts internationaux",
+        "p": [
+          "Ce site est exploité depuis l'Inde, et les données personnelles que vous transmettez y sont traitées.",
+          "Certains des prestataires qui nous aident à exploiter le site sont situés dans d'autres pays ; vos données peuvent donc être transférées hors de l'Inde, du Royaume-Uni et de l'UE vers ces prestataires. Le cas échéant, nous nous appuyons sur les bases légales ci-dessus et sur des garanties appropriées, telles que les engagements contractuels de protection des données du prestataire.",
+          "En particulier, pour afficher le site, votre navigateur charge des polices auprès de Google (Google Fonts) et, sur certaines pages, des tuiles cartographiques et du contenu d'articles auprès d'autres fournisseurs. Ces fournisseurs reçoivent votre adresse IP directement de votre navigateur, dans le cadre normal de la diffusion de leur contenu. Vos données de formulaire ne leur sont pas transmises et, d'après nos vérifications, ils ne déposent aucun cookie."
         ]
       },
       {
         "h": "Durée de conservation",
-        "p": ["Nous conservons les données de demande aussi longtemps que nécessaire pour traiter votre demande et gérer notre relation, puis uniquement pendant les durées requises pour respecter nos obligations légales, comptables et réglementaires. Lorsqu'elles ne sont plus nécessaires, nous les supprimons ou les anonymisons."]
+        "p": ["Nous conservons les détails de demande et de devis que vous soumettez pendant 24 mois au maximum après notre dernier échange à ce sujet, sauf si une durée plus longue est nécessaire pour respecter nos obligations légales, comptables ou réglementaires. Passé ce délai, nous supprimons ou anonymisons les données. Lorsque notre hébergeur conserve des journaux serveur, ceux-ci ne sont conservés que le court laps de temps nécessaire pour maintenir le site sécurisé et opérationnel."]
       },
       {
         "h": "Vos droits",
-        "p": ["Sous réserve du droit applicable, vous pouvez nous demander de :"],
+        "p": ["Sous réserve du droit qui vous est applicable, vous pouvez nous demander de :"],
         "list": [
           "accéder aux données personnelles que nous détenons à votre sujet ;",
           "corriger ou mettre à jour des données inexactes ou incomplètes ;",
           "effacer vos données lorsqu'elles ne sont plus nécessaires ;",
+          "fournir une copie des données que vous nous avez transmises dans un format portable et lisible par machine ;",
+          "vous opposer à certains traitements ou nous demander de les limiter ;",
           "retirer à tout moment un consentement que vous avez donné ; et",
-          "désigner une autre personne pour exercer vos droits en cas de décès ou d'incapacité, comme le prévoit la loi DPDP."
+          "désigner une autre personne pour exercer vos droits en cas de décès ou d'incapacité, comme le prévoit la loi DPDP indienne."
         ]
       },
       {
         "h": "Formuler une demande ou une réclamation",
         "p": [
           "Pour exercer l'un de ces droits, écrivez-nous à info@quarterfoldltd.com et nous vous répondrons dans les délais prévus par la loi.",
-          "Si vous n'êtes pas satisfait de la manière dont nous avons traité vos données, vous avez le droit de saisir le Data Protection Board of India."
+          "Si vous n'êtes pas satisfait de notre réponse, vous pouvez saisir l'autorité de contrôle de votre région :"
+        ],
+        "list": [
+          "Inde : le Data Protection Board of India ;",
+          "Royaume-Uni : l'Information Commissioner's Office (ICO) ;",
+          "Californie : la California Privacy Protection Agency, ou le procureur général de Californie ;",
+          "Canada : le Commissariat à la protection de la vie privée du Canada."
         ]
-      },
-      {
-        "h": "Visiteurs internationaux",
-        "p": ["Ce site est exploité depuis l'Inde. Si vous y accédez depuis l'extérieur de l'Inde, vos données peuvent être traitées en Inde. Nous nous appuyons sur les bases légales indiquées ci-dessus et appliquons le même soin à vos données où qu'elles soient traitées."]
       },
       {
         "h": "Données des enfants",
