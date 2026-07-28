@@ -103,11 +103,15 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   position: relative; background: var(--cream); overflow: hidden;
   padding: clamp(56px, 8vh, 104px) var(--page-gutter) clamp(36px, 5vh, 60px);
 }
+/* Our Story lede — centred on the page (client: one point smaller, centre-aligned).
+   Centring needs both text-align AND margin-inline:auto; the eyebrow above is
+   centred too so the block reads as one deliberate centred unit. */
+.ab-lede .ab-eyebrow { text-align: center; }
 .ab-lede-text {
-  margin: clamp(18px, 2.4vh, 28px) 0 0; max-width: 62ch;
+  margin: clamp(18px, 2.4vh, 28px) auto 0; max-width: 62ch;
   font-family: 'Inter', sans-serif; font-weight: 400;
-  font-size: clamp(18px, 1.45vw, 23px); line-height: 1.58; letter-spacing: -0.011em;
-  color: rgb(var(--navy-rgb) / 0.82);
+  font-size: clamp(17px, 1.4vw, 22px); line-height: 1.58; letter-spacing: -0.011em;
+  color: rgb(var(--navy-rgb) / 0.82); text-align: center;
 }
 
 /* ── SECTION 3 — THE JOURNEY — now "The Press Run", a self-contained animated
