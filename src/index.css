@@ -5112,13 +5112,3 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   .pod .pod-opts.chips.size { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ── Homepage One Continuous Process — the promise strip surfaced below the video.
-   The exhibit's base .pv-badges is a 6-column grid (in ProcessVideo.css); this scopes
-   a centred strip of the guarantees the client kept, winning on higher specificity. */
-.pv-badges.pv-badges--strip {
-  display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
-  gap: clamp(22px, 4vw, 60px);
-  max-width: var(--content-max);
-  margin: clamp(40px, 6vh, 68px) auto 0;
-  padding: 0 var(--page-gutter);
-}

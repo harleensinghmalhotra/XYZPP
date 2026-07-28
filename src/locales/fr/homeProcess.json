@@ -34,10 +34,5 @@
       "name": "Livré",
       "desc": "Une preuve de livraison pour chaque commande, de notre atelier jusqu'aux mains de vos lecteurs."
     }
-  },
-  "badges": [
-    { "lead": "Un seul partenaire.", "sub": "Aucun va-et-vient." },
-    { "lead": "Un interlocuteur unique", "sub": "du début à la fin." },
-    { "lead": "Mises à jour en temps réel", "sub": "à chaque étape." }
-  ]
+  }
 }

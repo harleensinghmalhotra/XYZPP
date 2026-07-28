@@ -34,10 +34,5 @@
       "name": "Delivered",
       "desc": "Proof of delivery on every order, from our floor to your readers' hands."
     }
-  },
-  "badges": [
-    { "lead": "One partner.", "sub": "Zero runaround." },
-    { "lead": "Single point of contact", "sub": "throughout." },
-    { "lead": "Real-time updates", "sub": "at every stage." }
-  ]
+  }
 }

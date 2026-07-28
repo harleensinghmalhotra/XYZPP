@@ -2,7 +2,6 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Handshake, Headset, Broadcast, Clock, ShieldCheck, TrendUp } from '@phosphor-icons/react'
 import { useReducedMotion } from '@/lib/useReducedMotion'
 import './ProcessVideo.css'
 
@@ -25,12 +24,8 @@ const POSTER = '/site-assets/homepage/video/how-we-work-poster.jpg'
 const ARTWORK = '/site-assets/homepage/process/process-artwork.webp'
 
 // Seven steps, in workflow order — our copy, keyed to the locale. "delivered" closes the
-// sequence; "One Partner" lives only in the promise band so it isn't said twice.
+// sequence.
 const POINTS = ['print', 'quality', 'fulfillment', 'warehouse', 'ship', 'covered', 'delivered']
-
-// The promise band — six guarantees of a single partner. Text (lead + sub) is localised
-// via badges.<i>.{lead,sub}; the medallion icon is the non-translatable mark per row.
-const BADGE_ICONS = [Handshake, Headset, Broadcast, Clock, ShieldCheck, TrendUp]
 
 // Section disabled — the 7-step illustrated process exhibit (artwork + the numbered
 // text row + the six-guarantee promise band) is currently hidden. Nothing is deleted:
@@ -44,9 +39,6 @@ export default function ProcessVideo() {
   const reduced = useReducedMotion()
   const videoRef = useRef(null)
   const bandRef = useRef(null)
-
-  const rawBadges = t('badges', { returnObjects: true })
-  const badges = Array.isArray(rawBadges) ? rawBadges : []
 
   // Autoplay/pause on scroll — but ONLY when reduced motion is off. Under reduced
   // motion the video never plays; the poster frame stays shown (see autoPlay gate below).
@@ -78,9 +70,6 @@ export default function ProcessVideo() {
       // 2 — the text columns cascade, left→right
       tl.fromTo('.pv-step', { autoAlpha: 0, y: 10 },
         { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.06, clearProps: 'transform,opacity,visibility' }, 0.32)
-      // 3 — the promise band, last
-      tl.fromTo('.pv-badge', { autoAlpha: 0, y: 8 },
-        { autoAlpha: 1, y: 0, duration: 0.38, stagger: 0.035, clearProps: 'transform,opacity,visibility' }, 0.68)
     }, bandRef)
     return () => ctx.revert()
   }, [reduced])
@@ -109,23 +98,9 @@ export default function ProcessVideo() {
         </video>
       </div>
 
-      {/* THE PROMISE STRIP — the guarantees of a single partner, surfaced directly below
-          the video (the numbered step list was removed per the client). The rest of the
-          illustrated exhibit stays gated below (SHOW_PROCESS_EXHIBIT). */}
-      <ul className="pv-badges pv-badges--strip" aria-label={t('sub')}>
-        {badges.map((b, i) => {
-          const BIcon = BADGE_ICONS[i]
-          return (
-            <li className="pv-badge" key={i}>
-              <span className="pv-badge-medallion" aria-hidden="true">{BIcon && <BIcon weight="regular" size={14} />}</span>
-              <span className="pv-badge-text">
-                <span className="pv-badge-lead">{b.lead}</span>
-                <span className="pv-badge-sub">{b.sub}</span>
-              </span>
-            </li>
-          )
-        })}
-      </ul>
+      {/* The three-badge promise strip that sat here was removed per the client — it
+          duplicated the six-line TrustBelt band that renders directly below this section
+          (Home.jsx). The rest of the illustrated exhibit stays gated (SHOW_PROCESS_EXHIBIT). */}
 
       {/* THE EXHIBIT — no box, no border, no panel. The artwork, text row and promise
           band bleed straight onto the page cream as normal flow; the artwork's cream is

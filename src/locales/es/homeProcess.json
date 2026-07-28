@@ -34,10 +34,5 @@
       "name": "Entregado",
       "desc": "Prueba de entrega en cada pedido, desde nuestra planta hasta las manos de sus lectores."
     }
-  },
-  "badges": [
-    { "lead": "Un solo socio.", "sub": "Cero complicaciones." },
-    { "lead": "Un único punto de contacto", "sub": "en todo momento." },
-    { "lead": "Actualizaciones en tiempo real", "sub": "en cada etapa." }
-  ]
+  }
 }
