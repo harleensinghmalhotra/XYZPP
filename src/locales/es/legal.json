@@ -5,7 +5,7 @@
   "privacy": {
     "eyebrow": "Legal",
     "title": "Política de privacidad",
-    "seoDesc": "Cómo Quarterfold Printabilities recopila, utiliza y protege los datos personales que usted comparte a través de este sitio web, conforme a la Ley DPDP de la India de 2023, el RGPD del Reino Unido y la UE, la PIPEDA y la CCPA.",
+    "seoDesc": "Cómo Quarterfold Printabilities recopila, usa y protege los datos personales que comparte en este sitio, conforme a la DPDP, el RGPD, la PIPEDA y la CCPA.",
     "intro": "Esta Política de privacidad explica cómo Quarterfold Printabilities Private Limited («Quarterfold», «nosotros») trata los datos personales recopilados a través de este sitio web. Actuamos como responsable de los datos (Data Fiduciary) y los tratamos de forma lícita, leal y únicamente para los fines descritos a continuación. Como nuestros visitantes proceden de varios países, esta política está redactada para cumplir conjuntamente la Ley de Protección de Datos Personales Digitales de la India de 2023, el RGPD del Reino Unido y la UE, la PIPEDA de Canadá y la CCPA/CPRA de California.",
     "sections": [
       {
@@ -112,7 +112,7 @@
   "cookies": {
     "eyebrow": "Legal",
     "title": "Política de cookies",
-    "seoDesc": "Quarterfold Printabilities no establece ninguna cookie. El sitio solo conserva tres elementos funcionales en su navegador para recordar sus elecciones, sin análisis ni seguimiento.",
+    "seoDesc": "Quarterfold Printabilities no usa cookies. El sitio guarda solo tres elementos funcionales para recordar sus preferencias, sin analítica ni rastreo.",
     "intro": "En pocas palabras: este sitio web no establece ninguna cookie. No utiliza herramientas de análisis ni rastreadores publicitarios y no le sigue por otros sitios web. Lo único que conserva son tres elementos funcionales guardados en el almacenamiento local de su navegador para recordar sus elecciones, que se enumeran íntegramente a continuación.",
     "sections": [
       {
@@ -160,7 +160,7 @@
   "terms": {
     "eyebrow": "Legal",
     "title": "Condiciones de uso",
-    "seoDesc": "Las condiciones que rigen su uso del sitio web de Quarterfold Printabilities: propiedad del contenido, uso permitido, consultas, responsabilidad y ley aplicable.",
+    "seoDesc": "Las condiciones de uso del sitio de Quarterfold Printabilities: propiedad del contenido, uso permitido, consultas, responsabilidad y ley aplicable.",
     "intro": "Estas Condiciones de uso rigen su acceso al sitio web de Quarterfold Printabilities y su utilización. Al usar este sitio, usted acepta estas condiciones. Si no está de acuerdo, le rogamos que no utilice el sitio.",
     "sections": [
       {
@@ -200,7 +200,7 @@
   "accessibility": {
     "eyebrow": "Legal",
     "title": "Declaración de accesibilidad",
-    "seoDesc": "Quarterfold Printabilities se compromete con un sitio accesible, con el objetivo de cumplir WCAG 2.1 AA: contraste, navegación por teclado, soporte de movimiento reducido y texto legible.",
+    "seoDesc": "Quarterfold Printabilities aspira al WCAG 2.1 AA: contraste, navegación por teclado, soporte de movimiento reducido y textos legibles en todo el sitio.",
     "intro": "Quarterfold Printabilities se compromete a que este sitio web sea utilizable por el mayor número posible de personas, incluidas aquellas que dependen de tecnologías de asistencia. Nuestro objetivo es cumplir las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.1 en el nivel AA.",
     "sections": [
       {

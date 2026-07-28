@@ -5,7 +5,7 @@
   "privacy": {
     "eyebrow": "Legal",
     "title": "Privacy Policy",
-    "seoDesc": "How Quarterfold Printabilities collects, uses and protects the personal data you share through this website, written to meet India's DPDP Act 2023, UK and EU GDPR, PIPEDA and the CCPA.",
+    "seoDesc": "How Quarterfold Printabilities collects, uses and protects the personal data you share on this site, aligned with India's DPDP Act, GDPR, PIPEDA and CCPA.",
     "intro": "This Privacy Policy explains how Quarterfold Printabilities Private Limited (\"Quarterfold\", \"we\", \"us\") handles personal data collected through this website. We act as the Data Fiduciary for that data and process it lawfully, fairly and only for the purposes described below. Because visitors reach us from several countries, this policy is written to meet India's Digital Personal Data Protection Act, 2023, the UK and EU GDPR, Canada's PIPEDA and California's CCPA/CPRA together.",
     "sections": [
       {
@@ -112,7 +112,7 @@
   "cookies": {
     "eyebrow": "Legal",
     "title": "Cookie Policy",
-    "seoDesc": "Quarterfold Printabilities sets no cookies. The site keeps only three functional items in your browser to remember your choices, and runs no analytics or tracking.",
+    "seoDesc": "Quarterfold Printabilities sets no cookies. The site keeps only three functional items to remember your choices, with no analytics or tracking.",
     "intro": "In plain terms: this website sets no cookies at all. It runs no analytics or advertising trackers and does not track you across other websites. The only things it keeps are three functional items saved in your browser's local storage to remember your choices, listed in full below.",
     "sections": [
       {
@@ -200,7 +200,7 @@
   "accessibility": {
     "eyebrow": "Legal",
     "title": "Accessibility Statement",
-    "seoDesc": "Quarterfold Printabilities is committed to an accessible website, targeting WCAG 2.1 AA: contrast, keyboard navigation, reduced-motion support and readable text.",
+    "seoDesc": "Quarterfold Printabilities targets WCAG 2.1 AA: contrast, keyboard navigation, reduced-motion support and readable text across the site.",
     "intro": "Quarterfold Printabilities is committed to making this website usable for as many people as possible, including people who rely on assistive technologies. We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1 at Level AA.",
     "sections": [
       {
