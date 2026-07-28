@@ -18,6 +18,10 @@
   "seo": {
     "indexTitle": "Sala de prensa | Quarterfold Printabilities",
     "indexDesc": "Descubra los últimos premios, apariciones en prensa e hitos de Quarterfold Printabilities, incluidos PrintWeek, Forbes India y CAPEXIL.",
-    "articleSuffix": "Sala de prensa · Quarterfold Printabilities"
+    "articleSuffix": "Sala de prensa · Quarterfold Printabilities",
+    "breadcrumb": {
+      "home": "Inicio",
+      "newsroom": "Sala de prensa"
+    }
   }
 }

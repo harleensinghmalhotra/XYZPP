@@ -52,8 +52,8 @@ export default function OurStory() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://www.quarterfoldltd.com/' },
-      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.about'), item: 'https://www.quarterfoldltd.com/about' },
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.about'), item: 'https://quarterfoldltd.com/about' },
     ],
   }
 

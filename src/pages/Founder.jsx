@@ -31,8 +31,8 @@ export default function Founder() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://www.quarterfoldltd.com/' },
-      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.founder'), item: 'https://www.quarterfoldltd.com/founder' },
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.founder'), item: 'https://quarterfoldltd.com/founder' },
     ],
   }
 

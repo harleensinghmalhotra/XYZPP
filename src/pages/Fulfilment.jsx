@@ -424,8 +424,8 @@ export default function Fulfilment() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://www.quarterfoldltd.com/' },
-      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.fulfilment'), item: 'https://www.quarterfoldltd.com/fulfilment' },
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.fulfilment'), item: 'https://quarterfoldltd.com/fulfilment' },
     ],
   }
 

@@ -107,9 +107,18 @@ export default function Newsroom() {
     return revealDynamic(document.querySelector('.nr-index'))
   }, [status, posts])
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.newsroom'), item: 'https://quarterfoldltd.com/newsroom' },
+    ],
+  }
+
   return (
     <main id="main">
-      <Seo title={t('seo.indexTitle')} description={t('seo.indexDesc')} />
+      <Seo title={t('seo.indexTitle')} description={t('seo.indexDesc')} jsonLd={breadcrumbJsonLd} />
 
       <PageHero
         id="newsroom-h1"

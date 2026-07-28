@@ -19,9 +19,18 @@ export default function LegalPage({ doc }) {
   // the key string — fall back to the ShellPage-style bare title rather than crash.
   const sections = Array.isArray(data?.sections) ? data.sections : []
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('breadcrumbHome'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: data.title, item: `https://quarterfoldltd.com/legal/${doc}` },
+    ],
+  }
+
   return (
     <main id="main">
-      <Seo title={`${data.title}, Quarterfold Printabilities`} description={data.seoDesc} />
+      <Seo title={`${data.title}, Quarterfold Printabilities`} description={data.seoDesc} jsonLd={breadcrumbJsonLd} />
 
       <PageHero eyebrow={data.eyebrow} line1={data.title} minVh={44} />
 

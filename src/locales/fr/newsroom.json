@@ -18,6 +18,10 @@
   "seo": {
     "indexTitle": "Actualités | Quarterfold Printabilities",
     "indexDesc": "Découvrez les dernières distinctions, retombées presse et jalons de Quarterfold Printabilities, dont PrintWeek, Forbes India et CAPEXIL.",
-    "articleSuffix": "Actualités · Quarterfold Printabilities"
+    "articleSuffix": "Actualités · Quarterfold Printabilities",
+    "breadcrumb": {
+      "home": "Accueil",
+      "newsroom": "Actualités"
+    }
   }
 }

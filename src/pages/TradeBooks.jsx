@@ -152,9 +152,9 @@ export default function TradeBooks() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://www.quarterfoldltd.com/' },
-      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.whatWePrint'), item: 'https://www.quarterfoldltd.com/trade-books' },
-      { '@type': 'ListItem', position: 3, name: t('seo.breadcrumb.tradeBooks'), item: 'https://www.quarterfoldltd.com/trade-books' },
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.whatWePrint'), item: 'https://quarterfoldltd.com/trade-books' },
+      { '@type': 'ListItem', position: 3, name: t('seo.breadcrumb.tradeBooks'), item: 'https://quarterfoldltd.com/trade-books' },
     ],
   }
 

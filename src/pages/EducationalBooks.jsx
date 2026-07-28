@@ -100,8 +100,8 @@ export default function EducationalBooks() {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: t('seo.breadcrumbHome'), item: 'https://www.quarterfoldltd.com/' },
-        { '@type': 'ListItem', position: 2, name: t('seo.breadcrumbCurrent'), item: 'https://www.quarterfoldltd.com/educational-books' },
+        { '@type': 'ListItem', position: 1, name: t('seo.breadcrumbHome'), item: 'https://quarterfoldltd.com/' },
+        { '@type': 'ListItem', position: 2, name: t('seo.breadcrumbCurrent'), item: 'https://quarterfoldltd.com/educational-books' },
       ],
     })
     document.head.appendChild(ld)

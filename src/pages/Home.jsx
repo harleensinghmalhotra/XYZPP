@@ -98,6 +98,49 @@ function wwpLanded() {
 // The "How We Work" video (ProcessVideo) sits just after Certifications, near the
 // closing CTA/footer, and its 7-step illustrated exhibit is hidden
 // (SHOW_PROCESS_EXHIBIT in ProcessVideo.jsx) so only the heading + video remain.
+
+// ── Site-level JSON-LD (Organization + WebSite) — emitted on the homepage only,
+// the single canonical Organization node for the whole site. Language-independent,
+// so it lives at module scope. Every value here is true on the page / of record:
+// legal name, registered office, public contact point. No ratings, prices, staff
+// counts or unverified social profiles (the footer's social icons are placeholders).
+const HOME_JSONLD = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Quarterfold Printabilities Private Limited',
+    alternateName: 'Quarterfold Printabilities',
+    url: 'https://quarterfoldltd.com/',
+    logo: 'https://quarterfoldltd.com/qfp/brand/qfp-logo.png',
+    description:
+      'Large scale educational and trade book printing, binding and fulfilment company based in Navi Mumbai, India, exporting to publishers, ministries and NGOs across 25+ countries.',
+    foundingDate: '2014',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Office No 1207, Plot No 4 and 6, Sector 30A',
+      addressLocality: 'Navi Mumbai',
+      addressRegion: 'Maharashtra',
+      postalCode: '400705',
+      addressCountry: 'IN',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+91-82-9199-9922',
+      email: 'info@quarterfoldltd.com',
+      contactType: 'sales',
+      availableLanguage: ['English', 'French', 'Spanish'],
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Quarterfold Printabilities',
+    url: 'https://quarterfoldltd.com/',
+    inLanguage: ['en', 'fr', 'es'],
+    publisher: { '@type': 'Organization', name: 'Quarterfold Printabilities Private Limited' },
+  },
+]
+
 export default function Home() {
   const { t } = useTranslation('home')
   const { hash } = useLocation()
@@ -153,7 +196,7 @@ export default function Home() {
 
   return (
     <SmoothScrollProvider>
-      <Seo title={t('seo.title')} description={t('seo.description')} />
+      <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={HOME_JSONLD} />
       <main id="main" className="home-palette relative" style={{ '--video-tone': '#030C31' }}>
         <span id="top" />
         <Hero />

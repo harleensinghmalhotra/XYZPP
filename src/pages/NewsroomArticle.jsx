@@ -20,7 +20,7 @@ import './NewsroomArticle.css'
 const ARTICLE_QUERY = `{
   "post": *[_type == "post" && slug.current == $slug && published == true && publishedAt <= now()][0]{
     "title": coalesce(title[$lang], title.en),
-    "slug": slug.current, publishedAt, category,
+    "slug": slug.current, publishedAt, _updatedAt, category,
     "excerpt": coalesce(excerpt[$lang], excerpt.en),
     coverImage,
     "body": coalesce(body[$lang], body.en)[]{ ..., _type == "videoFile" => { "url": asset->url } }
@@ -179,7 +179,7 @@ export default function NewsroomArticle() {
   if (status === 'missing' || !post) {
     return (
       <main id="main">
-        <Seo title={t('seo.indexTitle')} description={t('seo.indexDesc')} />
+        <Seo title={t('seo.indexTitle')} description={t('seo.indexDesc')} noindex />
         <section className="nra-missing" data-theme="dark">
           <div className="nra-missing-inner">
             <p className="nra-missing-eyebrow">404</p>
@@ -195,14 +195,23 @@ export default function NewsroomArticle() {
   }
 
   const coverUrl = post.coverImage ? urlFor(post.coverImage).width(2000).auto('format').url() : null
+  const articleUrl = `https://quarterfoldltd.com/newsroom/${post.slug}`
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: post.title,
+    description: post.excerpt || undefined,
     datePublished: post.publishedAt,
+    dateModified: post._updatedAt || post.publishedAt,
     image: coverUrl ? [coverUrl] : undefined,
     articleSection: post.category || undefined,
-    publisher: { '@type': 'Organization', name: 'Quarterfold Printabilities' },
+    mainEntityOfPage: articleUrl,
+    author: { '@type': 'Organization', name: 'Quarterfold Printabilities' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Quarterfold Printabilities',
+      logo: { '@type': 'ImageObject', url: 'https://quarterfoldltd.com/qfp/brand/qfp-logo.png' },
+    },
   }
 
   return (
@@ -210,6 +219,8 @@ export default function NewsroomArticle() {
       <Seo
         title={`${post.title}, ${t('seo.articleSuffix')}`}
         description={post.excerpt}
+        image={coverUrl || undefined}
+        type="article"
         jsonLd={jsonLd}
       />
 

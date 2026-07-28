@@ -135,6 +135,18 @@ export default function Contact() {
       { '@type': 'ListItem', position: 2, name: t('breadcrumb.contact'), item: 'https://quarterfoldltd.com/contact' },
     ],
   }
+  // FAQPage built from the 16 on-page questions (faq.items.q0..q15), localised
+  // through t() so the structured data matches the language the visitor sees.
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: Array.from({ length: 16 }, (_, i) => ({
+      '@type': 'Question',
+      name: t(`faq.items.q${i}.q`),
+      acceptedAnswer: { '@type': 'Answer', text: t(`faq.items.q${i}.a`) },
+    })),
+  }
+  const contactJsonLd = [breadcrumbJsonLd, faqJsonLd]
 
   // ── Desk seam geometry — keep the SVG horizontal hairline on the real row
   // boundary at any width / language (native scroll, no ScrollTrigger needed). ──
@@ -304,7 +316,7 @@ export default function Contact() {
 
   return (
     <main id="main" ref={root}>
-      <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={breadcrumbJsonLd} />
+      <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={contactJsonLd} />
       {/* ── 1. HERO (navy) — centered two-line band; phone stat moves below ── */}
       {(() => {
         const [l1, l2] = splitTitle(t('hero.title'))
