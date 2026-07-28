@@ -98,13 +98,6 @@
     "reqSuccess": "Hemos recibido su configuración y sus datos; le enviaremos un presupuesto a medida en un día laborable."
   },
   "qtyBadgeSr": "Cantidad",
-  "how": {
-    "eyebrow": "Cómo funciona",
-    "title": "Tres pasos hasta los ejemplares terminados",
-    "upload": { "step": "Paso 01", "name": "Suba sus archivos", "desc": "Envíe sus archivos listos para imprimir, o su manuscrito y su cubierta. Los revisamos por usted." },
-    "approve": { "step": "Paso 02", "name": "Apruebe la prueba", "desc": "Le enviamos una prueba con color fiel. Nada se imprime hasta que usted quede satisfecho." },
-    "ship": { "step": "Paso 03", "name": "Imprimimos y enviamos", "desc": "Su libro se produce en las mismas prensas que nuestros millones, y luego se envía a su puerta." }
-  },
   "band": {
     "eyebrow": "Las mismas prensas",
     "quote": "Un libro pasa por las mismas prensas que <em>un millón.</em>",

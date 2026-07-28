@@ -98,13 +98,6 @@
     "reqSuccess": "Nous avons bien reçu votre configuration et vos coordonnées ; nous vous enverrons un devis sur mesure sous un jour ouvré."
   },
   "qtyBadgeSr": "Quantité",
-  "how": {
-    "eyebrow": "Comment ça marche",
-    "title": "Trois étapes vers vos exemplaires finis",
-    "upload": { "step": "Étape 01", "name": "Envoi des fichiers", "desc": "Envoyez vos fichiers prêts à imprimer, ou votre manuscrit et votre couverture. Nous les vérifions pour vous." },
-    "approve": { "step": "Étape 02", "name": "Validation de l’épreuve", "desc": "Nous vous envoyons une épreuve fidèle en couleur. Rien n’est imprimé tant que vous n’êtes pas satisfait." },
-    "ship": { "step": "Étape 03", "name": "Impression et expédition", "desc": "Votre livre passe sur les mêmes presses que nos millions d’exemplaires, puis part vers votre porte." }
-  },
   "band": {
     "eyebrow": "Les mêmes presses",
     "quote": "Un seul livre bénéficie des mêmes presses <em>qu’un million.</em>",

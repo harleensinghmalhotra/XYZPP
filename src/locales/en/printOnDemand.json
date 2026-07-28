@@ -98,13 +98,6 @@
     "reqSuccess": "We’ve got your spec and details, and we’ll send a tailored quote within one business day."
   },
   "qtyBadgeSr": "Quantity",
-  "how": {
-    "eyebrow": "How it works",
-    "title": "Three steps to finished copies",
-    "upload": { "step": "Step 01", "name": "Upload", "desc": "Send your print-ready files, or your manuscript and cover. We check them for you." },
-    "approve": { "step": "Step 02", "name": "Approve Proof", "desc": "We send a colour-accurate proof. Nothing prints until you are happy with it." },
-    "ship": { "step": "Step 03", "name": "We Print & Ship", "desc": "Your book runs on the same presses as our millions, then ships to your door." }
-  },
   "band": {
     "eyebrow": "The same presses",
     "quote": "One book gets the same presses as <em>one million.</em>",

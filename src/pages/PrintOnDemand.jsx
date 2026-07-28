@@ -90,12 +90,6 @@ const FIN_ICON = {
   matte: <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" />,
   gloss: <><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" /><path d="M8 8c1.5-1.5 3.5-2 5-1.5" /></>,
 }
-const HOW = [
-  { key: 'upload', ico: <><path d="M12 16V4" /><path d="m7 9 5-5 5 5" /><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" /></> },
-  { key: 'approve', ico: <><path d="M4 5h16v11H4z" /><path d="M9 20h6" /><path d="m8 10 2.5 2.5L16 7" /></> },
-  { key: 'ship', ico: <><path d="M6 9V4h9l3 3v2" /><path d="M6 18H4v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6h-2" /><rect x="8" y="15" width="8" height="5" rx="1" /></> },
-]
-
 /* ── accessible single-select group (radiogroup + roving tabindex + arrows) ───── */
 function OptionGroup({ groupId, labelId, options, value, onChange, className, children }) {
   const refs = useRef([])
@@ -576,31 +570,10 @@ export default function PrintOnDemand() {
         </div>
       </section>
 
-      {/* 3 · HOW IT WORKS */}
-      <section className="pod-how" data-theme="light" aria-labelledby="pod-how-title">
-        <SectionCurve position="top" fill="#f0ebe0" />
-        <PaperGrain opacity={0.05} />
-        <div className="pod-how-inner">
-          <div className="pod-how-head" data-reveal>
-            <p className="pod-eyebrow">{t('how.eyebrow')}</p>
-            <h2 className="pod-how-title" id="pod-how-title">{t('how.title')}</h2>
-          </div>
-          <div className="pod-how-grid">
-            {HOW.map((s) => (
-              <article className="pod-how-card" key={s.key} data-reveal>
-                <span className="pod-how-step">{t(`how.${s.key}.step`)}</span>
-                <span className="pod-how-ico"><svg viewBox="0 0 24 24" aria-hidden="true">{s.ico}</svg></span>
-                <h3 className="pod-how-name">{t(`how.${s.key}.name`)}</h3>
-                <p className="pod-how-desc">{t(`how.${s.key}.desc`)}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4 · REASSURANCE BAND */}
+      {/* 3 · REASSURANCE BAND */}
       <section className="pod-band" data-theme="dark" aria-labelledby="pod-band-title">
-        <SectionCurve position="top" fill="#f0ebe0" inward />
+        {/* top curve fills cream (#fdfaf4) to match the Build section directly above */}
+        <SectionCurve position="top" fill="#fdfaf4" inward />
         <SectionCurve position="bottom" fill="#f0ebe0" inward />
         <div className="pod-band-inner">
           <p className="pod-eyebrow" style={{ color: '#925C10' }} data-reveal>{t('band.eyebrow')}</p>
