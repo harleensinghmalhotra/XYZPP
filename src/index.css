@@ -2943,7 +2943,7 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
   line-height: 1.3;
 }
 .cert-star { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.cert-star-glyph { font-size: 32px; line-height: 1; color: var(--gold-2); }
+.cert-star-glyph { display: inline-flex; gap: 8px; font-size: 32px; line-height: 1; color: var(--gold-2); }
 .cert-star-word {
   font-family: 'Inter Tight', sans-serif;
   font-weight: 800;

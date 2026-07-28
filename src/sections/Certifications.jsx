@@ -184,8 +184,8 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
 
                   <div className="cert-card-mark">
                     {c.typographic ? (
-                      <div className="cert-star" aria-label="Star Export House">
-                        <span className="cert-star-glyph" aria-hidden="true">★</span>
+                      <div className="cert-star" aria-label="Two Star Export House">
+                        <span className="cert-star-glyph" aria-hidden="true"><span>★</span><span>★</span></span>
                         <span className="cert-star-word">STAR EXPORT<br />HOUSE</span>
                       </div>
                     ) : (
