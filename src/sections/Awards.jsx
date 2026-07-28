@@ -35,14 +35,14 @@ const SLOTS = CARDS
 
 // Silent drop-in photo: real webp reveals on load and hides the elegant frame
 // placeholder; a 404 keeps the placeholder (zero code change when the file lands).
-function AwardPhoto({ img, ph }) {
+function AwardPhoto({ img, ph, alt }) {
   const [ok, setOk] = useState(false)
   return (
     <>
       <img
         className="aw-photo-img"
         src={`/site-assets/homepage/awards/${img}`}
-        alt=""
+        alt={alt}
         loading="lazy"
         decoding="async"
         style={{ opacity: ok ? 1 : 0 }}
@@ -111,7 +111,7 @@ export default function Awards() {
               {SLOTS.map((c) => (
                 <article className="plq" key={c.key}>
                   <div className="aw-photo">
-                    <AwardPhoto img={c.img} ph={t(`cards.${c.key}.ph`)} />
+                    <AwardPhoto img={c.img} ph={t(`cards.${c.key}.ph`)} alt={t(`cards.${c.key}.name`)} />
                     <div className="plq-tint" aria-hidden="true" />
                     <div className="plq-sheen" aria-hidden="true" />
                   </div>

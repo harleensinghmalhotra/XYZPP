@@ -224,7 +224,7 @@ function Founder() {
         <div className="fnd-spread">
           <div className="fnd-portrait-wrap" data-reveal>
             <div className="ab-frame fnd-portrait" data-slot="founder-portrait" aria-hidden="true">
-              <img src="/site-assets/about/founder/founder-portrait.webp" alt="" loading="lazy" decoding="async" />
+              <img src="/site-assets/about/founder/founder-portrait.webp" alt={t('seo.founderPortraitAlt')} loading="lazy" decoding="async" />
             </div>
           </div>
           <div className="fnd-copy">
@@ -312,7 +312,7 @@ function Gallery() {
         <div className="gal-grid">
           {preview.map((src, i) => (
             <figure className="gal-item" data-reveal key={i} style={{ '--reveal-delay': `${(i % 3) * 60}ms` }}>
-              <img className="gal-img" src={src} alt="" loading="lazy" decoding="async" />
+              <img className="gal-img" src={src} alt={t('seo.galleryAlt', { n: i + 1 })} loading="lazy" decoding="async" />
             </figure>
           ))}
         </div>
@@ -339,7 +339,7 @@ function Gallery() {
           <div className="gal-lb-stage">
             {isVideoSrc(current)
               ? <video className="gal-lb-media" src={current} controls autoPlay muted playsInline />
-              : <img className="gal-lb-media" src={current} alt="" />}
+              : <img className="gal-lb-media" src={current} alt={t('seo.galleryAlt', { n: idx + 1 })} />}
           </div>
           <button type="button" className="gal-lb-nav gal-lb-next" onClick={() => go(1)} aria-label={t('gallery.next')}>›</button>
           <p className="gal-lb-counter">{idx + 1} / {n}</p>

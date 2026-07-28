@@ -94,7 +94,7 @@ function RelatedCard({ post }) {
     <article className="nra-rel-card" data-reveal>
       <Link className="nra-rel-link" to={`/newsroom/${post.slug}`}>
         <div className="nra-rel-media nr-cover-inset">
-          {cover && <img src={cover} alt="" loading="lazy" decoding="async" />}
+          {cover && <img src={cover} alt={post.title} loading="lazy" decoding="async" />}
           {post.category && (
             <span className="nra-chip nra-chip--sm">{t(`categories.${post.category}`, post.category)}</span>
           )}
@@ -245,7 +245,7 @@ export default function NewsroomArticle() {
           {coverUrl && (
             <div className="nra-hero" data-reveal>
               <div className="nra-hero-inner">
-                <img src={coverUrl} alt="" decoding="async" />
+                <img src={coverUrl} alt={post.title} decoding="async" />
               </div>
             </div>
           )}
