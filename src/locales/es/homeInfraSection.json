@@ -160,10 +160,10 @@
     "05": {
       "eyebrow": "Sede central",
       "title": "Sede central",
-      "body": "Nuestra sede corporativa reúne dirección, atención al cliente, diseño, finanzas, compras y gestión de proyectos bajo un mismo techo, en el corazón de la ciudad de Navi Mumbai. 200+ profesionales. Espacios de trabajo colaborativos contemporáneos. Salas de reunión dedicadas para clientes. Cafetería interna y áreas de colaboración para empleados. Oficinas equipadas con tecnología que facilitan una comunicación fluida con los clientes de todo el mundo.",
+      "body": "Nuestra sede corporativa reúne dirección, atención al cliente, diseño, finanzas, compras y gestión de proyectos bajo un mismo techo, en el corazón de la ciudad de Navi Mumbai. 800+ profesionales. Espacios de trabajo colaborativos contemporáneos. Salas de reunión dedicadas para clientes. Cafetería interna y áreas de colaboración para empleados. Oficinas equipadas con tecnología que facilitan una comunicación fluida con los clientes de todo el mundo.",
       "cover": "FOTO · SEDE CENTRAL SANPADA",
       "highlights": [
-        "200+ profesionales"
+        "800+ profesionales"
       ],
       "intro": "Ubicada en el corazón de Navi Mumbai, nuestra sede corporativa de 15,000 pies cuadrados es el centro neurálgico de atención al cliente, planificación estratégica, finanzas, diseño y operaciones.",
       "points": [
@@ -206,7 +206,7 @@
     "captionsLabel": "Subtítulos"
   },
   "people": {
-    "count": "600+",
+    "count": "800+",
     "title": "Manos detrás de cada envío",
     "body": "Operarios de prensa, inspectores de calidad, equipos de preparación de kits y especialistas en logística, trabajando por turnos, formados según el mismo estándar en cada instalación.",
     "photoNote": "FOTO · {{team}}",

@@ -160,10 +160,10 @@
     "05": {
       "eyebrow": "Siège social",
       "title": "Siège social",
-      "body": "Notre siège social réunit la direction, le service client, le design, la finance, les achats et la gestion de projet sous un même toit, au cœur de la ville de Navi Mumbai. 200+ professionnels. Espaces de travail collaboratifs contemporains. Salles de réunion client dédiées. Café interne et espaces de collaboration pour les employés. Bureaux équipés de technologies assurant une communication fluide avec les clients partout dans le monde.",
+      "body": "Notre siège social réunit la direction, le service client, le design, la finance, les achats et la gestion de projet sous un même toit, au cœur de la ville de Navi Mumbai. 800+ professionnels. Espaces de travail collaboratifs contemporains. Salles de réunion client dédiées. Café interne et espaces de collaboration pour les employés. Bureaux équipés de technologies assurant une communication fluide avec les clients partout dans le monde.",
       "cover": "PHOTO · SIÈGE SOCIAL SANPADA",
       "highlights": [
-        "200+ professionnels"
+        "800+ professionnels"
       ],
       "intro": "Situé au cœur de Navi Mumbai, notre siège social de 15 000 pi² est le centre névralgique du service client, de la planification stratégique, des finances, du design et des opérations.",
       "points": [
@@ -206,7 +206,7 @@
     "captionsLabel": "Sous-titres"
   },
   "people": {
-    "count": "600+",
+    "count": "800+",
     "title": "personnes derrière chaque expédition",
     "body": "Opérateurs de presse, inspecteurs qualité, équipes d'assemblage et spécialistes de la logistique, travaillant en équipes successives, formés selon la même norme sur chaque site.",
     "photoNote": "PHOTO · {{team}}",

@@ -160,10 +160,10 @@
     "05": {
       "eyebrow": "Corporate Headquarters",
       "title": "Corporate Headquarters",
-      "body": "Our corporate headquarters brings together leadership, customer service, design, finance, procurement, and project management under one roof in the heart of the city of Navi Mumbai. 200+ professionals. Contemporary collaborative workspaces. Dedicated client meeting rooms. In-house café and employee collaboration areas. Technology-enabled offices supporting seamless communication with customers across the globe.",
+      "body": "Our corporate headquarters brings together leadership, customer service, design, finance, procurement, and project management under one roof in the heart of the city of Navi Mumbai. 800+ professionals. Contemporary collaborative workspaces. Dedicated client meeting rooms. In-house café and employee collaboration areas. Technology-enabled offices supporting seamless communication with customers across the globe.",
       "cover": "PHOTO · SANPADA HEAD OFFICE",
       "highlights": [
-        "200+ professionals"
+        "800+ professionals"
       ],
       "intro": "Located in the heart of Navi Mumbai, our 15,000 sq. ft. corporate headquarters is the central hub for customer support, strategic planning, finance, design, and business operations.",
       "points": [
@@ -206,7 +206,7 @@
     "captionsLabel": "Captions"
   },
   "people": {
-    "count": "600+",
+    "count": "800+",
     "title": "Hands Behind Every Shipment",
     "body": "Press operators, quality inspectors, kitting teams and logistics specialists, working across shifts, trained to the same standard at every facility.",
     "photoNote": "PHOTO · {{team}}",

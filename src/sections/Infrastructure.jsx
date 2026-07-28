@@ -23,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger)
 const VIDEO_READY = true
 const VIDEO_SRC = '/site-assets/homepage/video/facilities.mp4'
 
-// "Our People" grid ("600+ Hands Behind Every Shipment" — Press Floor Team /
+// "Our People" grid ("800+ Hands Behind Every Shipment" — Press Floor Team /
 // Quality Check / Kitting & Packing / Leadership Team). Feature-flagged off; the
 // locale keys stay so the block returns by flipping this to true. Same pattern as
 // SHOW_STRIP_3.
