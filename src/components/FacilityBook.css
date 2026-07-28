@@ -1173,16 +1173,10 @@
   height: 88%;
 }
 .ib-img-frame--double { position: absolute; inset: 0; }
-/* the spine valley down the centre of the spread image */
-.ib-double-spine {
-  position: absolute;
-  top: 0; bottom: 0; left: 50%;
-  width: 46px;
-  transform: translateX(-50%);
-  z-index: 2;
-  pointer-events: none;
-  background: linear-gradient(90deg, transparent 0%, rgba(6, 16, 32, 0.30) 44%, rgba(6, 16, 32, 0.36) 50%, rgba(6, 16, 32, 0.30) 56%, transparent 100%);
-}
+/* NO centre gutter overlay on a spanning photo — the client's complaint was that the
+   dark fold band cut the image in half. A landscape spread now reads as one uncut
+   image edge-to-edge (the book-spread art keeps its own subtle fold on TEXT / single
+   pages, where nothing is cut). */
 
 /* ── DISCOVERABILITY — "click a book" hint (pulses until first open) + thin
    hand-drawn arrows pointing at each spine (idle drift), both dimming after the
@@ -1396,5 +1390,4 @@
   .ib-img-frame--stack { position: relative; inset: auto; height: 150px; flex: none; border-radius: 12px; }
   .ib-doublepage { position: static; width: 100%; height: 240px; order: -1; }
   .ib-img-frame--double { position: relative; inset: auto; height: 100%; border-radius: 12px; }
-  .ib-double-spine { display: none; }
 }

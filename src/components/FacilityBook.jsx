@@ -600,12 +600,12 @@ export default function FacilityBook() {
                 </>
               ) : cur.t === 'double' ? (
                 // LANDSCAPE — one image stretched across BOTH pages, continuous through
-                // the spine (never a small centred landscape on one page).
+                // the spine (never a small centred landscape on one page). No centre
+                // gutter overlay: a spanning photo must read as one uncut image (client).
                 <div className="ib-doublepage">
                   <div className="ib-img-frame ib-img-frame--double">
                     <img className="ib-img ib-img--cover" key={cur.src} src={IMG(cur.src)} alt="" aria-hidden="true" loading="lazy" decoding="async" draggable="false" />
                   </div>
-                  <span className="ib-double-spine" aria-hidden="true" />
                 </div>
               ) : cur.t === 'solo' ? (
                 // Lone tall leftover — one photo filling a single centred page, repeat-free.
