@@ -416,27 +416,12 @@ export default function FacilityBook() {
     </button>
   )
 
-  // DISCOVERABILITY — a DM-Mono instruction that pulses until the first book is
-  // opened this session, and thin hand-drawn arrows pointing at each spine (idle
-  // drift). Arrow positions are approximate. Both dim once a facility has been opened.
+  // DISCOVERABILITY — a DM-Mono instruction that pulses until the first book is opened
+  // this session, dimming once a facility has been opened. (The hand-drawn spine arrows
+  // were removed per client; the hint + the spine labels' hover glow/lift signal that
+  // the stack is interactive.)
   const hint = (
     <p className={`ib-hint${hasOpened || reduced ? ' is-done' : ''}`}>{t('books.ui.hint')}</p>
-  )
-  const spineArrows = !narrow && (
-    <div className={`ib-spine-arrows${hasOpened ? ' is-dim' : ''}`} aria-hidden="true">
-      {SPINE_POS.map((pos, i) => (
-        <span
-          key={i}
-          className="ib-spine-arrow"
-          style={{ top: `${pos.cy}%`, animationDelay: `${(i * 0.14).toFixed(2)}s` }}
-        >
-          <svg viewBox="0 0 46 14" fill="none">
-            <path d="M2 7c12-4.2 24-4.2 40 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-            <path d="M42 7l-7.5-3.6M42 7l-7.5 3.6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
-      ))}
-    </div>
   )
 
   return (
@@ -455,7 +440,6 @@ export default function FacilityBook() {
             {hint}
             {overviewPill}
             <div className="ib-imgstack">
-              {spineArrows}
               <img
                 className="ib-imgstack-photo"
                 src={STACK_IMG}

@@ -1220,9 +1220,9 @@
    image edge-to-edge (the book-spread art keeps its own subtle fold on TEXT / single
    pages, where nothing is cut). */
 
-/* ── DISCOVERABILITY — "click a book" hint (pulses until first open) + thin
-   hand-drawn arrows pointing at each spine (idle drift), both dimming after the
-   first facility is opened. Spine labels lift 4px on hover with a stronger glow. */
+/* ── DISCOVERABILITY — "click a book" hint (pulses until first open, then dims after
+   the first facility is opened). Spine labels lift 4px on hover with a stronger glow.
+   (The hand-drawn spine arrows were removed per client.) */
 .ib-hint {
   align-self: stretch;
   margin: 0 0 10px;
@@ -1241,30 +1241,6 @@
 }
 .ib-hint.is-done { animation: none; opacity: 0.7; }
 @media (prefers-reduced-motion: reduce) { .ib-hint { animation: none; opacity: 0.85; } }
-
-.ib-spine-arrows {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
-}
-.ib-spine-arrows.is-dim { opacity: 0; }
-.ib-spine-arrow {
-  position: absolute;
-  left: -5%;
-  width: 14%;
-  color: #B18120;
-  transform: translateY(-50%);
-  animation: ib-arrow-drift 2.6s ease-in-out infinite;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
-}
-.ib-spine-arrow svg { width: 100%; height: auto; display: block; }
-@keyframes ib-arrow-drift {
-  0%, 100% { transform: translateY(-50%) translateX(0); }
-  50%      { transform: translateY(-50%) translateX(3px); }
-}
-@media (prefers-reduced-motion: reduce) { .ib-spine-arrow { animation: none; } }
 
 /* spine hover — a 4px lift + the existing gold glow strengthens */
 .ib-imglabel { transition: transform 0.24s ease; }
