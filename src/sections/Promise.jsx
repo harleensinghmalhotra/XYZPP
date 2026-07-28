@@ -28,7 +28,6 @@ export default function PromiseSection() {
             </span>
           ))}
         </blockquote>
-        <p className="promise-support">{t('promise.support')}</p>
         <p className="promise-attr">{t('promise.attribution')}</p>
       </div>
     </section>
