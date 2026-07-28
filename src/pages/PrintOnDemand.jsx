@@ -293,11 +293,10 @@ export default function PrintOnDemand() {
       {(() => {
         const [l1, l2] = splitTitle(t('hero.title'))
         return (
-          <PageHero id="pod-h1" eyebrow={t('hero.eyebrow')} line1={l1} line2={l2} subline={t('hero.sub')} minVh={62}>
+          <PageHero id="pod-h1" eyebrow={t('hero.eyebrow')} line1={l1} line2={l2} minVh={62}>
             <div className="ph-stat" aria-label={t('hero.statAria')}>
               <span className="ph-stat-num" aria-hidden="true">{t('hero.statNum')}</span>
               <span className="ph-stat-label">{t('hero.statUnit')}</span>
-              <span className="ph-stat-foot">{t('hero.statFoot')}</span>
             </div>
             <div className="ph-ctas" style={{ marginTop: 'clamp(24px, 4vh, 36px)' }}>
               <CTAButton href="#build" dark arrow={false}>

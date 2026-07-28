@@ -8,11 +8,9 @@
   "hero": {
     "eyebrow": "Impresión bajo demanda",
     "title": "Su libro. <em>Exactamente</em> como lo imaginó.",
-    "sub": "Desde un solo ejemplar hasta una tirada corta, impreso con el mismo estándar que nuestros millones. Elija cómo se ve y se siente su libro, y convertiremos sus archivos en ejemplares terminados que estará orgulloso de sostener.",
     "cta": "Empezar a crear",
     "statNum": "1",
     "statUnit": "Ejemplar mínimo",
-    "statFoot": "Desde un solo ejemplar hasta una tirada corta, impreso con el mismo estándar que nuestros millones.",
     "statAria": "Mínimo un ejemplar"
   },
   "build": {
