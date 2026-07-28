@@ -78,12 +78,6 @@ const FIN_ICON = {
   gloss: <><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" /><path d="M8 8c1.5-1.5 3.5-2 5-1.5" /></>,
   layflat: <><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" /><path d="M6 12h12" /></>,
 }
-const INCLUDED = [
-  { key: 'proof', ico: <><path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6Z" /><circle cx="12" cy="12" r="2.5" /></> },
-  { key: 'check', ico: <><path d="M20 7 10 17l-5-5" /><path d="M4 20h16" /></> },
-  { key: 'packing', ico: <><path d="M3 8 12 3l9 5v8l-9 5-9-5V8Z" /><path d="M3 8l9 5 9-5" /><path d="M12 13v8" /></> },
-  { key: 'delivery', ico: <><path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z" /><circle cx="7" cy="17" r="1.6" /><circle cx="17.5" cy="17" r="1.6" /></> },
-]
 const HOW = [
   { key: 'upload', ico: <><path d="M12 16V4" /><path d="m7 9 5-5 5 5" /><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" /></> },
   { key: 'approve', ico: <><path d="M4 5h16v11H4z" /><path d="M9 20h6" /><path d="m8 10 2.5 2.5L16 7" /></> },
@@ -464,24 +458,6 @@ export default function PrintOnDemand() {
                   )}
                 </OptionGroup>
               </Step>
-
-              {/* included with every order */}
-              <div className="pod-included">
-                <p className="pod-included-head">{t('included.head')}</p>
-                <ul className="pod-included-grid">
-                  {INCLUDED.map((it) => (
-                    <li className="pod-incl" key={it.key}>
-                      <span className="pod-incl-ico">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">{it.ico}</svg>
-                      </span>
-                      <div>
-                        <p className="pod-incl-name">{t(`included.${it.key}.name`)}</p>
-                        <p className="pod-incl-desc">{t(`included.${it.key}.desc`)}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
 
             {/* RIGHT — sticky live summary */}

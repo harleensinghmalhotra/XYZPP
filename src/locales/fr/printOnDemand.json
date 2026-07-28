@@ -63,13 +63,6 @@
       "500": { "label": "500 exemplaires et plus", "sub": "Tirage complet" }
     }
   },
-  "included": {
-    "head": "Inclus avec chaque commande",
-    "proof": { "name": "Épreuve numérique gratuite", "desc": "Consultez une épreuve fidèle en couleur et validez-la avant que nous imprimions la moindre page." },
-    "check": { "name": "Contrôle qualité manuel", "desc": "Chaque exemplaire est vérifié, couleur, coupe et reliure, par une personne réelle." },
-    "packing": { "name": "Emballage sécurisé", "desc": "Les livres sont emballés pour arriver impeccables : aucun coin abîmé, aucune éraflure." },
-    "delivery": { "name": "Livraison à domicile", "desc": "Expédition suivie jusqu’à votre porte, qu’il s’agisse d’un livre ou de cinq cents." }
-  },
   "summary": {
     "eyebrow": "Votre configuration",
     "title": "Ce livre",

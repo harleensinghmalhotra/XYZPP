@@ -63,13 +63,6 @@
       "500": { "label": "500+ copias", "sub": "Tirada completa" }
     }
   },
-  "included": {
-    "head": "Incluido en cada pedido",
-    "proof": { "name": "Prueba digital gratuita", "desc": "Vea una prueba con color fiel y dé su aprobación antes de que imprimamos una sola página." },
-    "check": { "name": "Control de calidad manual", "desc": "Cada ejemplar es inspeccionado en color, corte y encuadernación por una persona real." },
-    "packing": { "name": "Embalaje seguro", "desc": "Los libros se envuelven para llegar impecables: sin esquinas golpeadas ni rozaduras." },
-    "delivery": { "name": "Entrega a domicilio", "desc": "Envío con seguimiento hasta su puerta, ya sea un libro o quinientos." }
-  },
   "summary": {
     "eyebrow": "Su especificación",
     "title": "Este libro",

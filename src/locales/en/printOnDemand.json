@@ -63,13 +63,6 @@
       "500": { "label": "500+ copies", "sub": "Full run" }
     }
   },
-  "included": {
-    "head": "Included with every order",
-    "proof": { "name": "Free digital proof", "desc": "See a colour-accurate proof and sign off before we print a single page." },
-    "check": { "name": "Hand quality check", "desc": "Every copy is inspected for colour, trim and binding by a real person." },
-    "packing": { "name": "Secure packing", "desc": "Books are wrapped to arrive crisp: no dinged corners, no scuffs." },
-    "delivery": { "name": "Doorstep delivery", "desc": "Tracked shipping to your door, whether it is one book or five hundred." }
-  },
   "summary": {
     "eyebrow": "Your spec",
     "title": "This book",
