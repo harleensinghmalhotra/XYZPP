@@ -249,7 +249,20 @@ export default function FacilityBook() {
   // A `solo` spread on either side of the turn can't ride the two-face leaf, so those
   // transitions fall back to the crossfade (as do narrow / reduced-motion).
   const go = (target) => {
-    if (busy.current || isIntro || target === safeSpread || target < 0 || target >= totalSpreads) return
+    if (busy.current || isIntro) return
+    // Cross-section roll-over: turning PAST the last spread opens the NEXT facility at
+    // its first spread; turning BEFORE the first opens the PREVIOUS facility at its last
+    // spread — so a visitor reads all five books front to back with the right arrow
+    // alone. The very first / very last spread stop cleanly (their arrow is disabled).
+    if (target >= totalSpreads) {
+      if (activeBook < BOOKS.length - 1) { if (!hasTurned) setHasTurned(true); select(activeBook + 1, 0) }
+      return
+    }
+    if (target < 0) {
+      if (activeBook > 0) { if (!hasTurned) setHasTurned(true); select(activeBook - 1, 'last') }
+      return
+    }
+    if (target === safeSpread) return
     if (!hasTurned) setHasTurned(true)
     const dir = target > safeSpread ? 'next' : 'prev'
     // The two-face leaf can only carry a photo↔photo turn (both spreads `pair`). Any
@@ -275,12 +288,17 @@ export default function FacilityBook() {
 
   // Jump to a different book (0+) or back to the Overview (-1) — a crossfade, never a
   // leaf turn. Guarded by the same input lock so it can't collide with a running turn.
-  const select = (target) => {
-    if (busy.current || target === activeBook || target < -1 || target >= BOOKS.length) return
+  const select = (target, spreadTarget = 0) => {
+    if (busy.current || target < -1 || target >= BOOKS.length) return
+    // clicking the already-open book's spine is a no-op; the cross-section roll-over
+    // always targets a DIFFERENT book, so it passes this guard.
+    if (target === activeBook && (spreadTarget === 0 || spreadTarget === safeSpread)) return
     if (target >= 0 && !hasOpened) setHasOpened(true)
     setFlip(null)
     setActiveBook(target)
-    setSpread(0)
+    // 'last' resolves to the destination book's final spread (previous-facility roll-over).
+    let s = spreadTarget === 'last' && target >= 0 ? Math.max(0, buildSpreads(BOOKS[target]).length - 1) : spreadTarget
+    setSpread(typeof s === 'number' ? s : 0)
     setXfade((k) => k + 1)
     playTurn()
   }
@@ -398,11 +416,16 @@ export default function FacilityBook() {
 
   const regionLabel = t('books.ui.region')
   const overviewLabel = t('books.ui.overview')
-  const showTurn = !isIntro && totalSpreads > 1
+  // A facility is open → the arrows show and roll across sections. Only the very first
+  // spread of Web Offset and the very last spread of Corporate Headquarters stop (their
+  // arrow disables); everywhere else an arrow always leads somewhere.
+  const atVeryStart = activeBook <= 0 && safeSpread === 0
+  const atVeryEnd = activeBook === BOOKS.length - 1 && safeSpread === totalSpreads - 1
+  const showTurn = !isIntro
   const pulse = showTurn && !hasTurned && !reduced
-  // Turnable = the desktop flip state with more than one spread. Only then does the
+  // Turnable = the desktop flip state with somewhere forward to go. Only then does the
   // "Turn →" cursor hint appear and clicking the book turn forward.
-  const turnable = showTurn && canFlip
+  const turnable = showTurn && !atVeryEnd && canFlip
 
   const overviewPill = (
     <button
@@ -631,7 +654,7 @@ export default function FacilityBook() {
                 type="button"
                 className={`ib-nav ib-nav--prev${pulse ? ' is-pulsing' : ''}`}
                 onClick={() => go(safeSpread - 1)}
-                disabled={safeSpread === 0}
+                disabled={atVeryStart}
                 aria-label={t('books.ui.prev')}
               >
                 <span aria-hidden="true">←</span>
@@ -640,7 +663,7 @@ export default function FacilityBook() {
                 type="button"
                 className={`ib-nav ib-nav--next${pulse ? ' is-pulsing' : ''}`}
                 onClick={() => go(safeSpread + 1)}
-                disabled={safeSpread === totalSpreads - 1}
+                disabled={atVeryEnd}
                 aria-label={t('books.ui.next')}
               >
                 <span aria-hidden="true">→</span>
