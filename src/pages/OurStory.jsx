@@ -362,7 +362,11 @@ function Gallery() {
 // roles + bios localise, quotes stay in their original language. Photos live at
 // public/site-assets/about/team/<slug>.webp (see that folder's README); order matches
 // team.members in ourStory.json. A missing file falls back to the neutral placeholder.
-const TEAM_SLUGS = ['sameer-kazi', 'charani-dhankani', 'dhiresh-verlekar', 'dilip-ramrakhyani', 'patrick-carrapiett', 'priyanka-rajpal']
+// Order matches team.members in ourStory.json (index-aligned). Nilesh is card 1 —
+// his photo is a top-anchored crop of the founder portrait; Charani's slug is kept
+// while her displayed name gains her full middle name. Milton is intentionally
+// omitted (no name, title, photo, bio or quote supplied).
+const TEAM_SLUGS = ['nilesh-dhankani', 'patrick-carrapiett', 'dilip-ramrakhyani', 'charani-dhankani', 'sameer-kazi', 'dhiresh-verlekar', 'priyanka-rajpal']
 const TEAM_PLACEHOLDER = '/site-assets/about/team/placeholder-portrait.svg'
 
 // ── OUR TEAM — the spotlight ─────────────────────────────────────────────────

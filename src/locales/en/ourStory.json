@@ -78,22 +78,16 @@
     "readLess": "Read less",
     "members": [
       {
-        "name": "Sameer Kazi",
-        "role": "Director, Sales",
-        "bio": "With over 20 years of experience in sales and business development, Mr. Sameer Kazi holds an M.Com from the University of Mumbai and an MBA in Marketing. He is passionate about building lasting customer relationships and driving business growth through a customer centric approach.",
-        "quote": "Our greatest strength lies in understanding our customers' needs and delivering beyond expectations. At Quarterfold Printabilities, every partnership is built on trust, responsiveness, and a shared commitment to long term success."
+        "name": "Nilesh Dhankani",
+        "role": "Founder and CEO",
+        "bio": "Nilesh Dhankani began as a graphic designer in 2000, moved into marketing, and found his defining work in print. In 2014, an order of 50,000 books for an African publisher led him to found Quarterfold Printabilities. What started as a two person operation grew into one of India's most advanced book printing companies.",
+        "quote": "The best is always yet to come."
       },
       {
-        "name": "Charani Dhankani",
-        "role": "Director",
-        "bio": "Ms. Charani Dhankani is a distinguished graduate of the University of Delhi, where she topped her department and was awarded a Certificate of Excellence by former Prime Minister Shri Atal Bihari Vajpayee. She received specialized training in Marketing and Merchandising from Wigan and Leigh College. Having previously overseen the company's Human Resources function, she is now actively involved in Corporate Social Responsibility (CSR) initiatives and educational development programs.",
-        "quote": ""
-      },
-      {
-        "name": "Dhiresh Verlekar",
-        "role": "Head, Procurement",
-        "bio": "Mr. Dhiresh Verlekar leads Quarterfold's procurement function, managing a network of 100+ trusted vendor partners across paper, consumables, machinery, and allied services. His focus on supplier resilience, quality, and cost optimization supports the company's large scale production capabilities.",
-        "quote": "A great book begins long before the press starts spinning. By building a resilient supply chain and strong vendor partnerships, we ensure Quarterfold remains a reliable, cost effective partner for publishers worldwide."
+        "name": "Patrick Carrapiett",
+        "role": "President",
+        "bio": "With over 25 years of experience, Patrick spearheads our International and Indian initiatives, leveraging market insights to expand our global footprint and cultivate partnerships.",
+        "quote": "Quarterfold Printabilities represents far more than manufacturing books, it represents reliability, innovation, and global partnerships. I am proud to be part of an organization that consistently delivers world class printing solutions while helping publishers bring knowledge to millions of readers across the globe."
       },
       {
         "name": "Dilip Ramrakhyani",
@@ -102,10 +96,22 @@
         "quote": "A strong company is built on financial discipline, operational excellence, and long term relationships. Quarterfold Printabilities continues to grow because we combine prudent financial management with a relentless focus on creating value for our customers and stakeholders."
       },
       {
-        "name": "Patrick Carrapiett",
-        "role": "President",
-        "bio": "With over 25 years of experience, Patrick spearheads our International and Indian initiatives, leveraging market insights to expand our global footprint and cultivate partnerships.",
-        "quote": "Quarterfold Printabilities represents far more than manufacturing books, it represents reliability, innovation, and global partnerships. I am proud to be part of an organization that consistently delivers world class printing solutions while helping publishers bring knowledge to millions of readers across the globe."
+        "name": "Charani Khekho Dhankani",
+        "role": "Director",
+        "bio": "Ms. Charani Dhankani is a distinguished graduate of the University of Delhi, where she topped her department and was awarded a Certificate of Excellence by former Prime Minister Shri Atal Bihari Vajpayee. She received specialized training in Marketing and Merchandising from Wigan and Leigh College. Having previously overseen the company's Human Resources function, she is now actively involved in Corporate Social Responsibility (CSR) initiatives and educational development programs.",
+        "quote": ""
+      },
+      {
+        "name": "Sameer Kazi",
+        "role": "Director, Sales",
+        "bio": "With over 20 years of experience in sales and business development, Mr. Sameer Kazi holds an M.Com from the University of Mumbai and an MBA in Marketing. He is passionate about building lasting customer relationships and driving business growth through a customer centric approach.",
+        "quote": "Our greatest strength lies in understanding our customers' needs and delivering beyond expectations. At Quarterfold Printabilities, every partnership is built on trust, responsiveness, and a shared commitment to long term success."
+      },
+      {
+        "name": "Dhiresh Verlekar",
+        "role": "Head, Procurement",
+        "bio": "Mr. Dhiresh Verlekar leads Quarterfold's procurement function, managing a network of 100+ trusted vendor partners across paper, consumables, machinery, and allied services. His focus on supplier resilience, quality, and cost optimization supports the company's large scale production capabilities.",
+        "quote": "A great book begins long before the press starts spinning. By building a resilient supply chain and strong vendor partnerships, we ensure Quarterfold remains a reliable, cost effective partner for publishers worldwide."
       },
       {
         "name": "Priyanka Rajpal",

@@ -373,6 +373,9 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
   gap: clamp(12px, 1.1vw, 18px); align-content: start;
 }
 .tm-cell { min-width: 0; }
+/* Seven cards in a 3-up grid leave a trailing orphan; drop it into the middle
+   column so the odd last row reads as deliberate rather than a broken left-hang. */
+.tm-grid > .tm-cell:last-child:nth-child(3n + 1) { grid-column: 2; }
 
 /* one card — a full-bleed 3:4 photo with the name + title on a bottom scrim. */
 .tm-card {
@@ -517,6 +520,8 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 @media (max-width: 768px) {
   .tm-spotlight { grid-template-columns: 1fr; gap: clamp(20px, 5vw, 30px); }
   .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  /* two-column layout: let the orphan flow normally (the 3-up centring is desktop-only) */
+  .tm-grid > .tm-cell:last-child:nth-child(3n + 1) { grid-column: auto; }
   .tm-panel { position: static; padding: clamp(24px, 6vw, 32px) clamp(20px, 5vw, 28px); }
   .tm-person-name { font-size: clamp(22px, 6vw, 28px); }
   .tm-person-bio, .tm-person-quote { font-size: 14.5px; }

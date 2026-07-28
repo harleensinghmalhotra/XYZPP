@@ -78,22 +78,16 @@
     "readLess": "Ver menos",
     "members": [
       {
-        "name": "Sameer Kazi",
-        "role": "Director, Ventas",
-        "bio": "Con más de 20 años de experiencia en ventas y desarrollo comercial, el Sr. Sameer Kazi posee un M.Com de la Universidad de Mumbai y un MBA en Marketing. Le apasiona construir relaciones duraderas con los clientes e impulsar el crecimiento del negocio mediante un enfoque centrado en el cliente.",
-        "quote": "Nuestra mayor fortaleza reside en comprender las necesidades de nuestros clientes y superar sus expectativas. En Quarterfold Printabilities, cada alianza se basa en la confianza, la capacidad de respuesta y un compromiso compartido con el éxito a largo plazo."
+        "name": "Nilesh Dhankani",
+        "role": "Fundador y CEO",
+        "bio": "Nilesh Dhankani comenzó como diseñador gráfico en 2000, pasó al marketing y encontró su verdadera vocación en la impresión. En 2014, un pedido de 50.000 libros para una editorial africana lo llevó a fundar Quarterfold Printabilities. Lo que empezó como una operación de dos personas se convirtió en una de las empresas de impresión de libros más avanzadas de la India.",
+        "quote": "Lo mejor está siempre por venir."
       },
       {
-        "name": "Charani Dhankani",
-        "role": "Directora",
-        "bio": "La Sra. Charani Dhankani es una distinguida graduada de la Universidad de Delhi, donde fue la mejor de su departamento y recibió un Certificado de Excelencia de manos del ex Primer Ministro Shri Atal Bihari Vajpayee. Recibió formación especializada en Marketing y Merchandising en el Wigan and Leigh College. Tras haber dirigido la función de Recursos Humanos de la empresa, ahora participa activamente en iniciativas de Responsabilidad Social Corporativa (RSC) y programas de desarrollo educativo.",
-        "quote": ""
-      },
-      {
-        "name": "Dhiresh Verlekar",
-        "role": "Jefe, Compras",
-        "bio": "El Sr. Dhiresh Verlekar lidera la función de compras de Quarterfold, gestionando una red de más de 100 proveedores de confianza en papel, consumibles, maquinaria y servicios afines. Su enfoque en la resiliencia de los proveedores, la calidad y la optimización de costos respalda las capacidades de producción a gran escala de la empresa.",
-        "quote": "Un gran libro comienza mucho antes de que las prensas empiecen a girar. Al construir una cadena de suministro resiliente y sólidas alianzas con los proveedores, garantizamos que Quarterfold siga siendo un socio fiable y rentable para las editoriales de todo el mundo."
+        "name": "Patrick Carrapiett",
+        "role": "Presidente",
+        "bio": "Con más de 25 años de experiencia, Patrick lidera nuestras iniciativas internacionales e indias, aprovechando su conocimiento del mercado para ampliar nuestra presencia global y cultivar alianzas.",
+        "quote": "Quarterfold Printabilities representa mucho más que fabricar libros, representa fiabilidad, innovación y alianzas globales. Me enorgullece formar parte de una organización que ofrece de forma constante soluciones de impresión de clase mundial, ayudando a las editoriales a llevar el conocimiento a millones de lectores en todo el mundo."
       },
       {
         "name": "Dilip Ramrakhyani",
@@ -102,10 +96,22 @@
         "quote": "Una empresa sólida se construye sobre la disciplina financiera, la excelencia operativa y las relaciones a largo plazo. Quarterfold Printabilities sigue creciendo porque combinamos una gestión financiera prudente con un enfoque incansable en la creación de valor para nuestros clientes y grupos de interés."
       },
       {
-        "name": "Patrick Carrapiett",
-        "role": "Presidente",
-        "bio": "Con más de 25 años de experiencia, Patrick lidera nuestras iniciativas internacionales e indias, aprovechando su conocimiento del mercado para ampliar nuestra presencia global y cultivar alianzas.",
-        "quote": "Quarterfold Printabilities representa mucho más que fabricar libros, representa fiabilidad, innovación y alianzas globales. Me enorgullece formar parte de una organización que ofrece de forma constante soluciones de impresión de clase mundial, ayudando a las editoriales a llevar el conocimiento a millones de lectores en todo el mundo."
+        "name": "Charani Khekho Dhankani",
+        "role": "Directora",
+        "bio": "La Sra. Charani Dhankani es una distinguida graduada de la Universidad de Delhi, donde fue la mejor de su departamento y recibió un Certificado de Excelencia de manos del ex Primer Ministro Shri Atal Bihari Vajpayee. Recibió formación especializada en Marketing y Merchandising en el Wigan and Leigh College. Tras haber dirigido la función de Recursos Humanos de la empresa, ahora participa activamente en iniciativas de Responsabilidad Social Corporativa (RSC) y programas de desarrollo educativo.",
+        "quote": ""
+      },
+      {
+        "name": "Sameer Kazi",
+        "role": "Director, Ventas",
+        "bio": "Con más de 20 años de experiencia en ventas y desarrollo comercial, el Sr. Sameer Kazi posee un M.Com de la Universidad de Mumbai y un MBA en Marketing. Le apasiona construir relaciones duraderas con los clientes e impulsar el crecimiento del negocio mediante un enfoque centrado en el cliente.",
+        "quote": "Nuestra mayor fortaleza reside en comprender las necesidades de nuestros clientes y superar sus expectativas. En Quarterfold Printabilities, cada alianza se basa en la confianza, la capacidad de respuesta y un compromiso compartido con el éxito a largo plazo."
+      },
+      {
+        "name": "Dhiresh Verlekar",
+        "role": "Jefe, Compras",
+        "bio": "El Sr. Dhiresh Verlekar lidera la función de compras de Quarterfold, gestionando una red de más de 100 proveedores de confianza en papel, consumibles, maquinaria y servicios afines. Su enfoque en la resiliencia de los proveedores, la calidad y la optimización de costos respalda las capacidades de producción a gran escala de la empresa.",
+        "quote": "Un gran libro comienza mucho antes de que las prensas empiecen a girar. Al construir una cadena de suministro resiliente y sólidas alianzas con los proveedores, garantizamos que Quarterfold siga siendo un socio fiable y rentable para las editoriales de todo el mundo."
       },
       {
         "name": "Priyanka Rajpal",
