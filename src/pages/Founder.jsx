@@ -64,21 +64,19 @@ export default function Founder() {
         <PaperGrain />
         <div className="relative z-10 mx-auto max-w-[1400px]">
           <div className="grid gap-12 md:grid-cols-2 items-start">
-            {/* Portrait placeholder */}
+            {/* Founder portrait — the real photo (also used on the About page) */}
             <div data-reveal className="flex justify-center">
               <div
-                className="w-full max-w-sm aspect-[3/4] rounded-lg flex items-center justify-center border border-[#925C10]/20"
+                className="w-full max-w-sm aspect-[3/4] rounded-lg overflow-hidden border border-[#925C10]/20"
                 style={{ background: BEIGE }}
-                aria-label={t('hero.portraitAlt')}
               >
-                <div className="text-center" style={{ color: GOLD_TEXT }}>
-                  <p style={{ fontFamily: MONO, fontSize: '12px', letterSpacing: '0.28em', marginBottom: '12px', textTransform: 'uppercase', fontWeight: '500' }}>
-                    Portrait
-                  </p>
-                  <p style={{ fontFamily: INTER, fontSize: '14px', lineHeight: '1.5' }}>
-                    Awaiting founder photo
-                  </p>
-                </div>
+                <img
+                  src="/site-assets/about/founder/founder-portrait.webp"
+                  alt={t('hero.portraitAlt')}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover"
+                />
               </div>
             </div>
 
