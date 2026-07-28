@@ -57,24 +57,6 @@
       }
     }
   },
-  "machines": {
-    "eyebrow": "On the press floor",
-    "title": "The machines behind the volume.",
-    "items": {
-      "tower": {
-        "name": "Web Offset Printing",
-        "spec": "22 high-capacity web offset towers engineered for large-volume education and commercial printing. Capable of producing millions of printed forms every day, delivering exceptional speed, consistency, and colour accuracy. Multiple cut-off configurations provide flexibility for textbooks, trade books, workbooks, newspapers, and other publications."
-      },
-      "press": {
-        "name": "Sheetfed Printing",
-        "spec": "6 state-of-the-art sheetfed presses: 1 × Eight-colour perfecting press, 5 × Four-colour presses. Featuring premium technology from Komori and Ryobi, enabling outstanding print quality for covers, coffee table books, children's books, packaging, diaries, annual reports, and premium commercial printing."
-      },
-      "book": {
-        "name": "Binding & Book Finishing",
-        "spec": "An integrated post-press setup designed for speed, durability, and precision. 3 Online Perfect Binding Lines from Bindwell. 7 six-clamp machines. 3 Müller Martini Saddle Stitching (Centre Pinning) Lines. 8 automatic Section Sewing Machines, and 17 manual sewing machines. 1 book block line, HXCP. Case maker, Kolbus DA 260. Case-in line, HXCP. Along with various spiral wire and lamination machines. Together, these systems enable the production of millions of high-quality books annually while ensuring consistent binding strength and timely deliveries."
-      }
-    }
-  },
   "finish": {
     "eyebrow": "Premium Finishing",
     "title": "Value Added Finishing Under One Roof",
@@ -91,19 +73,12 @@
     },
     "note": "Enhances the visual appeal and durability of every publication."
   },
-  "results": {
-    "eyebrow": "Real capacity",
-    "title": "Measured, not estimated.",
-    "sub": "Not a projection. The plant that prints and ships, counted across three printing facilities and two warehouses.",
-    "stats": {
-      "sqft": { "label": "Sq ft engineered", "foot": "Across three printing facilities and two warehouses" },
-      "sites": { "label": "Printing facilities", "foot": "Plus two warehouses in Navi Mumbai" },
-      "books": { "label": "Books a year", "foot": "Shipped to 25+ countries" },
-      "people": { "label": "People on the floor", "foot": "Trained to one standard" }
-    },
+  "av": {
+    "eyebrow": "Corporate AV",
+    "title": "See the floor in motion.",
+    "videoNote": "VIDEO · INSIDE OUR FACILITIES",
     "videoPlayLabel": "Play facilities walkthrough video",
-    "videoPendingLabel": "Preview facilities walkthrough, video coming soon",
-    "videoNote": "VIDEO · INSIDE OUR FACILITIES"
+    "videoPendingLabel": "Preview facilities walkthrough, video coming soon"
   },
   "recognition": {
     "eyebrow": "Recognition",

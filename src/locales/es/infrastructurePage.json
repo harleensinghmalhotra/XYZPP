@@ -57,24 +57,6 @@
       }
     }
   },
-  "machines": {
-    "eyebrow": "En la planta de impresión",
-    "title": "Las máquinas detrás del volumen.",
-    "items": {
-      "tower": {
-        "name": "Impresión offset web",
-        "spec": "22 torres offset web de alta capacidad diseñadas para impresión educativa y comercial de gran volumen. Capaces de producir millones de formas impresas cada día, ofreciendo una velocidad, consistencia y precisión de color excepcionales. Múltiples configuraciones de corte brindan flexibilidad para libros de texto, libros comerciales, cuadernos de trabajo, periódicos y otras publicaciones."
-      },
-      "press": {
-        "name": "Impresión de pliego",
-        "spec": "6 prensas de pliego de última generación: 1 × prensa de retiración de ocho colores, 5 × prensas de cuatro colores. Con tecnología premium de Komori y Ryobi, que permite una calidad de impresión excepcional para cubiertas, libros de mesa, libros infantiles, embalajes, agendas, informes anuales e impresión comercial premium."
-      },
-      "book": {
-        "name": "Encuadernación y acabado del libro",
-        "spec": "Una configuración de posprensa integrada diseñada para velocidad, durabilidad y precisión. 3 líneas de encuadernación perfecta en línea de Bindwell. 7 máquinas de seis pinzas. 3 líneas de cosido al centro Müller Martini (grapado central). 8 máquinas automáticas de cosido por secciones, y 17 máquinas de cosido manuales. 1 línea de cuerpo de libro, HXCP. Confección de tapas, Kolbus DA 260. Línea de encasado, HXCP. Junto con diversas máquinas de encuadernación en espiral y de laminado. En conjunto, estos sistemas permiten la producción de millones de libros de alta calidad al año, garantizando una solidez de encuadernación constante y entregas puntuales."
-      }
-    }
-  },
   "finish": {
     "eyebrow": "Acabado premium",
     "title": "Acabado de valor añadido bajo un mismo techo",
@@ -91,19 +73,12 @@
     },
     "note": "Realza el atractivo visual y la durabilidad de cada publicación."
   },
-  "results": {
-    "eyebrow": "Capacidad real",
-    "title": "Medida, no estimada.",
-    "sub": "No es una proyección. La planta que imprime y envía, contabilizada en tres instalaciones de impresión y dos almacenes.",
-    "stats": {
-      "sqft": { "label": "Pies² diseñados", "foot": "En tres instalaciones de impresión y dos almacenes" },
-      "sites": { "label": "Instalaciones de impresión", "foot": "Más dos almacenes en Navi Mumbai" },
-      "books": { "label": "Libros al año", "foot": "Enviados a más de 25 países" },
-      "people": { "label": "Personas en la planta", "foot": "Formadas según un mismo estándar" }
-    },
+  "av": {
+    "eyebrow": "AV corporativo",
+    "title": "Vea la planta en movimiento.",
+    "videoNote": "VIDEO · DENTRO DE NUESTRAS INSTALACIONES",
     "videoPlayLabel": "Reproducir el video del recorrido por las instalaciones",
-    "videoPendingLabel": "Vista previa del recorrido por las instalaciones, video próximamente",
-    "videoNote": "VIDEO · DENTRO DE NUESTRAS INSTALACIONES"
+    "videoPendingLabel": "Vista previa del recorrido por las instalaciones, video próximamente"
   },
   "recognition": {
     "eyebrow": "Reconocimiento",

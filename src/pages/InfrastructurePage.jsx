@@ -12,9 +12,7 @@ import Awards from '@/sections/Awards'
 import Certifications from '@/sections/Certifications'
 import CTAButton from '@/components/CTAButton'
 import PageHero, { splitTitle } from '@/components/PageHero'
-import { DotField, PaperGrain } from '@/components/atmosphere'
-import LightRays from '@/components/LightRays'
-import { Books } from '@phosphor-icons/react'
+import { PaperGrain } from '@/components/atmosphere'
 import { Maximize, Warehouse, Building2, BookOpen, Users } from 'lucide-react'
 import './InfrastructurePage.css'
 
@@ -52,29 +50,11 @@ const CAPABILITIES = [
   { k: 'ware' },
 ]
 
-// The ledger's defining mark per machine — a numeral pulled straight from the source
-// copy (non-translatable, like a code): "22 … web offset towers" → 22, "6 … sheetfed
-// presses" → 6. Binding & Book Finishing is a whole equipment line with no single
-// headline count, so it carries a Phosphor Books glyph (bind:true) rather than picking
-// one number out of many and reading as if that were the whole story.
-const MACHINES = [
-  { k: 'tower', mark: '22' },
-  { k: 'press', mark: '6' },
-  { k: 'book', bind: true },
-]
-
 // Premium finishing services — the approved list, in the given order. No counts attach to
 // these (they're capabilities, not machine tallies), so each renders as a hairline
 // cell with a gold DM-Mono index in the ledger's cream+gold vocabulary. Names resolve
 // via t(`finish.items.<k>`); the index is decorative sequencing, not a data figure.
 const FINISH = ['foiling', 'embossing', 'debossing', 'spotuv', 'dripuvlamination', 'diecutting', 'windowpatching', 'specialtycoating', 'premiumdecorative']
-
-const STATS = [
-  { k: 'sqft', value: 300000, suffix: '' },
-  { k: 'sites', value: 3, suffix: '' },
-  { k: 'books', value: 75, suffix: 'M' },
-  { k: 'people', value: 800, suffix: '+' },
-]
 
 // The hero capacity strip: one lucide icon per figure (order matches heroStats.items,
 // per the client reference: footprint, facilities, professionals, books). Its
@@ -159,10 +139,8 @@ export default function InfrastructurePage() {
       // §2 Certifications + §6 Awards are the shared homepage components — they own their
       // OWN entrance animations, so no reveal() is wired for them here.
       // §3 capability triptych reveals via CSS `.is-in` (IntersectionObserver above).
-      reveal('.inf-ledger-row', { trigger: '.inf-ledger', stagger: 0.1, start: 'top 80%' })
       reveal('.inf-finish-cell', { trigger: '.inf-finish-grid', stagger: 0.05, start: 'top 82%' })
-      reveal('.inf-results-head, .inf-stat', { trigger: '.inf-results', stagger: 0.08 })
-      reveal('.inf-video', { trigger: '.inf-results', start: 'top 72%' })
+      reveal('.inf-video', { trigger: '.inf-av', start: 'top 78%' })
       reveal('.inf-gallery-item', { trigger: '.inf-gallery', stagger: 0.08 })
       reveal('.inf-cta-inner', { trigger: '.inf-cta', start: 'top 84%' })
     }, root)
@@ -244,13 +222,36 @@ export default function InfrastructurePage() {
         </div>
       </section>
 
-      {/* ── 2 · CERTIFICATIONS — shared homepage <Certifications /> ──
-          Replaces the page's old custom trust strip. flatBottom: the capability triptych
-          (§3) below carries its OWN cream top-curve, so the certs navy sweep-arc is
-          suppressed here to avoid a clashing double curve. The shared component keeps the
-          FSC licence code with its mark (same compliance bar as the retired strip).
-          flatTop too: no cream dome to invade the navy facility-book stage above. ── */}
-      <Certifications flatTop flatBottom />
+      {/* ── 2 · CORPORATE AV — the walkthrough video, directly after Premium Finishing
+          (client). Relocated here from the retired Results band; reuses VIDEO_SRC/VTT/
+          POSTER and the dialog player at the foot. Cream, so Premium Finishing flows into
+          it and the capability triptych below keeps its own cream top-curve. ── */}
+      <section data-theme="light" className="inf-av" aria-labelledby="inf-av-h">
+        <PaperGrain />
+        <div className="inf-wrap inf-z">
+          <div className="inf-sec-head">
+            <p className="inf-eyebrow">{t('av.eyebrow')}</p>
+            <h2 id="inf-av-h" className="inf-h2">{t('av.title')}</h2>
+          </div>
+          <div className="inf-video inf-av-video">
+            <button
+              type="button"
+              className="inf-video-thumb"
+              onClick={() => setVideoOpen(true)}
+              data-pending={!VIDEO_READY}
+              aria-label={VIDEO_READY ? t('av.videoPlayLabel') : t('av.videoPendingLabel')}
+            >
+              <span className="inf-video-img" aria-hidden="true" style={{ backgroundImage: `url(${VIDEO_POSTER})` }} />
+              <span className="inf-video-scrim" aria-hidden="true" />
+              <span className="inf-video-note" aria-hidden="true">{t('av.videoNote')}</span>
+              <span className="inf-play" aria-hidden="true">
+                <span className="inf-play-ring" />
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" /></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
 
       {/* ── 3 · CAPABILITY TRIPTYCH (navy) — About-MVV vocabulary ───────────
           One flat #030C31 band folded into three spines split by two drawn gold
@@ -300,103 +301,14 @@ export default function InfrastructurePage() {
         <SectionCurve position="bottom" fill="#fdfaf4" inward />
       </section>
 
-      {/* ── 4 · MACHINE LEDGER — full-width hairline rows (cream) ───────────
-          Editorial, About-chapter anatomy. Each machine is one ledger row split
-          into three locked zones: the defining numeral / mark BIG in gold ·
-          machine name · spec (max 44ch). Rows reveal in stagger; on hover the
-          row's top hairline warms gold, drawn scaleX from the left. ────────── */}
-      <section data-theme="light" className="inf-ledger-sec" aria-labelledby="inf-mach-h">
-        <PaperGrain />
-        <div className="inf-wrap inf-z">
-          <div className="inf-sec-head">
-            <p className="inf-eyebrow">{t('machines.eyebrow')}</p>
-            <h2 id="inf-mach-h" className="inf-h2">{t('machines.title')}</h2>
-          </div>
-          <div className="inf-ledger">
-            {MACHINES.map((m) => (
-              <article key={m.k} className="inf-ledger-row">
-                <span className="inf-ledger-rule" aria-hidden="true" />
-                <div className="inf-ledger-mark" aria-hidden="true">
-                  {m.bind
-                    ? <Books size={56} weight="light" />
-                    : <span className="inf-ledger-num">{m.mark}</span>}
-                </div>
-                <h3 className="inf-ledger-name">{t(`machines.items.${m.k}.name`)}</h3>
-                <p className="inf-ledger-spec">{t(`machines.items.${m.k}.spec`)}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5 · MEASURABLE RESULTS + video (navy) ───────────────────────── */}
-      <section data-theme="dark" className="inf-results" aria-labelledby="inf-res-h">
-        <SectionCurve position="top" fill="#fdfaf4" inward />
-        <div className="inf-results-beam" aria-hidden="true" />
-        <DotField tone="navy" />
-        {/* LIGHT RAYS — factory light raking the results band. Sole WebGL here; the
-            beam/dots are 2D. Gold, top-center, low-sat, slight noise, no pulse. */}
-        <LightRays className="inf-results-rays" rayLength={1.5} lightSpread={0.9} />
-        <div className="inf-wrap inf-results-grid inf-z">
-          <div className="inf-results-left">
-            <div className="inf-results-head">
-              <p className="inf-eyebrow inf-eyebrow--ondark">{t('results.eyebrow')}</p>
-              <h2 id="inf-res-h" className="inf-h2 inf-h2--ondark">{t('results.title')}</h2>
-              <p className="inf-results-sub">
-                {t('results.sub')}
-              </p>
-            </div>
-            <div className="inf-stats">
-              {STATS.map((s) => (
-                <div key={s.k} className="inf-stat">
-                  <span className="inf-stat-num">
-                    <CountUp value={s.value} suffix={s.suffix} grouping />
-                  </span>
-                  <span className="inf-stat-label">{t(`results.stats.${s.k}.label`)}</span>
-                  <span className="inf-stat-foot">{t(`results.stats.${s.k}.foot`)}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* video walkthrough — VIDEO_READY gate (poster placeholder until footage lands) */}
-          <div className="inf-video">
-            <button
-              type="button"
-              className="inf-video-thumb"
-              onClick={() => setVideoOpen(true)}
-              data-pending={!VIDEO_READY}
-              aria-label={VIDEO_READY ? t('results.videoPlayLabel') : t('results.videoPendingLabel')}
-            >
-              {/* Poster = the shared homepage "Inside Our Facilities" still. */}
-              <span className="inf-video-img" aria-hidden="true" style={{ backgroundImage: `url(${VIDEO_POSTER})` }} />
-              <span className="inf-video-scrim" aria-hidden="true" />
-              <span className="inf-video-note" aria-hidden="true">{t('results.videoNote')}</span>
-              <span className="inf-play" aria-hidden="true">
-                <span className="inf-play-ring" />
-                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" /></svg>
-              </span>
-            </button>
-          </div>
-        </div>
-        {/* No bottom curve here — Results flows seamlessly into the navy Recognition
-            plaques below; the navy→cream sweep happens at the foot of Recognition. */}
-      </section>
-
-      {/* ── 6 · RECOGNITION — shared homepage <Awards /> ────
-          Replaces the page's old custom recognition rail with the exact homepage
-          Awards section (Broadway spotlights, navy gold-bordered plaques, gold-foil
-          names). Flows on from the navy Results band (both navy, flush) into the cream
-          Gallery below. Position within the page layout is preserved. ── */}
-      <Awards />
-
-      {/* ── 7 · GALLERY — facility photos only, no testimonials (cream) ─── */}
+      {/* ── 3 · GALLERY — facility photos only, no testimonials (cream) ─── */}
       <section data-theme="light" className="inf-gallery" aria-labelledby="inf-gal-h">
         <PaperGrain />
         <div className="inf-wrap inf-z">
-          <div className="inf-sec-head">
-            <p className="inf-eyebrow">{t('gallery.eyebrow')}</p>
-            <h2 id="inf-gal-h" className="inf-h2">{t('gallery.title')}</h2>
+          {/* Heading "A look across the floor" removed (client); the eyebrow labels the
+              band and stays as the section's accessible name. */}
+          <div className="inf-sec-head inf-sec-head--eyebrowonly">
+            <p id="inf-gal-h" className="inf-eyebrow">{t('gallery.eyebrow')}</p>
           </div>
           <div className="inf-gallery-strip">
             {GALLERY.map((g) => {
@@ -412,7 +324,17 @@ export default function InfrastructurePage() {
         </div>
       </section>
 
-      {/* ── 8 · CTA (beige) ─────────────────────────────────────────────── */}
+      {/* ── 4 · CERTIFICATIONS — shared homepage <Certifications /> (moved to sit after
+          the gallery, per client). flatTop suppresses the cream dome (the cream Gallery
+          sits directly above); flatBottom stays false so the section keeps its navy
+          sweep-arc into the navy Awards band below. ── */}
+      <Certifications flatTop />
+
+      {/* ── 5 · RECOGNITION — shared homepage <Awards /> (moved below the gallery, after
+          Certifications). Navy; its foot flows into the beige CTA's own top curve. ── */}
+      <Awards />
+
+      {/* ── 6 · CTA (beige) ─────────────────────────────────────────────── */}
       <section data-theme="light" className="inf-cta" aria-labelledby="inf-cta-h">
         <PaperGrain />
         <SectionCurve position="top" fill="#f0ebe0" />

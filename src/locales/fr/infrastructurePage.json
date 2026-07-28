@@ -57,24 +57,6 @@
       }
     }
   },
-  "machines": {
-    "eyebrow": "Sur l’atelier des presses",
-    "title": "Les machines derrière le volume.",
-    "items": {
-      "tower": {
-        "name": "Impression offset web",
-        "spec": "22 tours offset web haute capacité conçues pour l’impression éducative et commerciale en grand volume. Capables de produire des millions de formes imprimées chaque jour, offrant une vitesse, une régularité et une précision des couleurs exceptionnelles. De multiples configurations de coupe offrent une flexibilité pour les manuels, les livres grand public, les cahiers d’exercices, les journaux et d’autres publications."
-      },
-      "press": {
-        "name": "Impression feuille à feuille",
-        "spec": "6 presses feuille à feuille de pointe : 1 × presse à retiration huit couleurs, 5 × presses quatre couleurs. Dotées de technologies haut de gamme Komori et Ryobi, permettant une qualité d’impression exceptionnelle pour les couvertures, les beaux livres, les livres pour enfants, les emballages, les agendas, les rapports annuels et l’impression commerciale haut de gamme."
-      },
-      "book": {
-        "name": "Reliure et façonnage du livre",
-        "spec": "Un atelier de façonnage intégré conçu pour la vitesse, la durabilité et la précision. 3 lignes de dos carré collé en ligne de Bindwell. 7 machines à six pinces. 3 lignes de piqûre à cheval Müller Martini (agrafage au centre). 8 machines de couture de cahiers automatiques, et 17 machines à coudre manuelles. 1 ligne de corps d’ouvrage, HXCP. Fabrication de couvertures cartonnées, Kolbus DA 260. Ligne d’emboîtage, HXCP. Ainsi que diverses machines de reliure spirale et de pelliculage. Ensemble, ces systèmes permettent la production de millions de livres de haute qualité chaque année, tout en garantissant une solidité de reliure constante et des livraisons dans les délais."
-      }
-    }
-  },
   "finish": {
     "eyebrow": "Façonnage haut de gamme",
     "title": "Façonnage à valeur ajoutée sous un même toit",
@@ -91,19 +73,12 @@
     },
     "note": "Renforce l'attrait visuel et la durabilité de chaque publication."
   },
-  "results": {
-    "eyebrow": "Capacité réelle",
-    "title": "Mesurée, pas estimée.",
-    "sub": "Pas une projection. L’usine qui imprime et expédie, mesurée sur trois sites d’impression et deux entrepôts.",
-    "stats": {
-      "sqft": { "label": "Sq ft aménagés", "foot": "Sur trois sites d’impression et deux entrepôts" },
-      "sites": { "label": "Sites d’impression", "foot": "Plus deux entrepôts à Navi Mumbai" },
-      "books": { "label": "Livres par an", "foot": "Expédiés dans plus de 25 pays" },
-      "people": { "label": "Personnes à l’atelier", "foot": "Formées à un standard unique" }
-    },
+  "av": {
+    "eyebrow": "AV d’entreprise",
+    "title": "Découvrez l’atelier en mouvement.",
+    "videoNote": "VIDÉO · À L’INTÉRIEUR DE NOS SITES",
     "videoPlayLabel": "Lire la vidéo de visite des sites",
-    "videoPendingLabel": "Aperçu de la visite des sites, vidéo bientôt disponible",
-    "videoNote": "VIDÉO · À L’INTÉRIEUR DE NOS SITES"
+    "videoPendingLabel": "Aperçu de la visite des sites, vidéo bientôt disponible"
   },
   "recognition": {
     "eyebrow": "Reconnaissance",
