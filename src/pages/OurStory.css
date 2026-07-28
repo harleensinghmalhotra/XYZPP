@@ -213,11 +213,26 @@ html.alive-ready .fnd-rule[data-reveal].is-in { transform: scaleX(1); }
   font-family: 'Inter Tight', sans-serif; font-weight: 700;
   font-size: clamp(28px, 3vw, 44px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink);
 }
-.fnd-spread { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(40px, 6vw, 88px); align-items: start; }
-/* fitted portrait — a clean institutional frame; the editorial offset-rule is gone. */
-.fnd-portrait-wrap { position: relative; width: 100%; max-width: 340px; }   /* smaller founder portrait */
+/* stretch both columns to the taller (right) column so the portrait's bottom edge
+   lands on the quote box's bottom edge — the two columns end on the same line. */
+.fnd-spread { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(40px, 6vw, 88px); align-items: stretch; }
+/* fitted portrait — a clean institutional frame; the editorial offset-rule is gone.
+   It fills the left column's width and stretches to the row height (see the desktop
+   rule below); the 3:4 source is covered, so the face is never distorted, only the
+   margins trim by a few pixels. */
+.fnd-portrait-wrap { position: relative; width: 100%; }
 .fnd-portrait { position: relative; }
-.fnd-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.fnd-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+/* desktop two-column: the portrait must end exactly on the quote box's bottom edge.
+   The wrapper stretches to the RIGHT column's height (its content, ending at the quote
+   box); the frame is taken out of flow (absolute inset:0) so its 3:4 ratio never
+   inflates the row — it simply fills the wrapper. The 900×1200 source is covered from
+   the top, so the face is kept and only the lower margin trims. Mobile (≤860px, single
+   column) keeps the fixed 3:4 frame below. */
+@media (min-width: 861px) {
+  .fnd-portrait-wrap { height: 100%; min-height: 420px; }
+  .fnd-portrait { position: absolute; inset: 0; aspect-ratio: auto; }
+}
 
 /* RIGHT column — descriptor kicker, name, role, narrative, then the quote block. */
 .fnd-copy { min-width: 0; }
