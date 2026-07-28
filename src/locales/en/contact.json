@@ -17,12 +17,6 @@
     "callAriaLabel": "Email us direct at info@quarterfoldltd.com",
     "waAria": "Message us on WhatsApp"
   },
-  "map": {
-    "regionLabel": "Where we are",
-    "alt": "Map showing Quarterfold's two locations in Navi Mumbai, India: the Vashi head office and the Taloja main factory.",
-    "kicker": "Navi Mumbai, India",
-    "openInMaps": "Open in Google Maps"
-  },
   "welcome": {
     "eyebrow": "We'd love to hear from you",
     "head": "One partner for the whole print journey, from a national textbook programme to a first run of one book.",

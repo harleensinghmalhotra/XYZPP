@@ -17,12 +17,6 @@
     "callAriaLabel": "Écrivez-nous directement à info@quarterfoldltd.com",
     "waAria": "Écrivez-nous sur WhatsApp"
   },
-  "map": {
-    "regionLabel": "Où nous trouver",
-    "alt": "Carte indiquant les deux sites de Quarterfold à Navi Mumbai, en Inde : le siège de Vashi et l'usine principale de Taloja.",
-    "kicker": "Navi Mumbai, Inde",
-    "openInMaps": "Ouvrir dans Google Maps"
-  },
   "welcome": {
     "eyebrow": "Nous serions ravis d'échanger avec vous",
     "head": "Un seul partenaire pour tout le parcours d'impression, du programme national de manuels scolaires au premier tirage d'un livre unique.",

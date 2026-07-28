@@ -389,50 +389,6 @@ export default function Contact() {
         )
       })()}
 
-      {/* ── 2. LOCATION STRIP (navy, compact) — replaces the oversized static map ── */}
-      <section data-theme="dark" className="ctc-loc" aria-label={t('map.regionLabel')}>
-        <div className="ctc-loc-inner">
-          <p className="ctc-loc-eyebrow">{t('map.kicker')}</p>
-          <div className="ctc-loc-grid">
-            <article className="ctc-loc-item">
-              <span className="ctc-loc-pin" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" /><circle cx="12" cy="10" r="2.6" />
-                </svg>
-              </span>
-              <div className="ctc-loc-body">
-                <p className="ctc-loc-name">{t('addr.head.name')}</p>
-                <p className="ctc-loc-addr">1207, Cyber One IT Park, Sector 30A, Vashi · Navi Mumbai 400703</p>
-                <a className="ctc-loc-link focus-ring" href={MAPS_HEAD} target="_blank" rel="noreferrer">
-                  {t('map.openInMaps')}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M7 17 17 7" /><path d="M8 7h9v9" />
-                  </svg>
-                </a>
-              </div>
-            </article>
-
-            <article className="ctc-loc-item">
-              <span className="ctc-loc-pin" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z" /><circle cx="12" cy="10" r="2.6" />
-                </svg>
-              </span>
-              <div className="ctc-loc-body">
-                <p className="ctc-loc-name">{t('addr.factory.name')}</p>
-                <p className="ctc-loc-addr">Taloja MIDC · Navi Mumbai 410208</p>
-                <a className="ctc-loc-link focus-ring" href={MAPS_FACTORY} target="_blank" rel="noreferrer">
-                  {t('map.openInMaps')}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M7 17 17 7" /><path d="M8 7h9v9" />
-                  </svg>
-                </a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
       {/* ── 3. WELCOME STATEMENT ── */}
       <section data-theme="light" className="ctc-welcome relative overflow-hidden">
         <SectionCurve position="top" fill="#fdfaf4" />
