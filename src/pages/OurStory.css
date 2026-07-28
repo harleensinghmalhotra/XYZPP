@@ -200,6 +200,19 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    quote card. Trim the founder's BOTTOM padding so the two sit at a normal, single
    section rhythm; the top padding is untouched (founder still breathes from MVV). */
 .fnd { position: relative; background: var(--cream); padding: var(--section-pad-y) var(--page-gutter) clamp(32px, 4vh, 48px); overflow: hidden; }
+/* Founder section header — a gold hairline + title mirroring the Team header, so
+   the two adjacent cream sections read as distinct titled sections after the swap. */
+.fnd-rule { width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3); margin: 0 0 clamp(8px, 1.4vh, 14px); }
+html.alive-ready .fnd-rule[data-reveal] {
+  opacity: 1; transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.75s var(--e-out);
+}
+html.alive-ready .fnd-rule[data-reveal].is-in { transform: scaleX(1); }
+.fnd-section-title {
+  margin: 0 0 clamp(28px, 4vh, 48px); max-width: 24ch;
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(28px, 3vw, 44px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink);
+}
 .fnd-spread { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(40px, 6vw, 88px); align-items: start; }
 /* fitted portrait — a clean institutional frame; the editorial offset-rule is gone. */
 .fnd-portrait-wrap { position: relative; width: 100%; max-width: 340px; }   /* smaller founder portrait */

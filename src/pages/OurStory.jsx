@@ -95,11 +95,11 @@ export default function OurStory() {
       {/* SECTION 3 ── INK SPREADS — MVV, three navy spines + drawn gold hairlines */}
       <InkSpreads />
 
-      {/* SECTION 5 ── THE FOUNDER — corporate boardroom profile ──────────────── */}
-      <Founder />
-
-      {/* SECTION 6 ── OUR TEAM — full roster, one grid, everyone shown ────────── */}
+      {/* SECTION 5 ── OUR TEAM — full roster, one grid, everyone shown ────────── */}
       <Team />
+
+      {/* SECTION 6 ── FOUNDER AND CEO PROFILE — corporate boardroom profile ────── */}
+      <Founder />
 
       {/* SECTION 7 ── GALLERY — print-industry placeholder imagery, trivially swappable */}
       <Gallery />
@@ -216,9 +216,11 @@ function InkSpreads() {
 function Founder() {
   const { t } = useTranslation('ourStory')
   return (
-    <section data-theme="light" className="fnd" aria-labelledby="fnd-name">
+    <section data-theme="light" className="fnd" aria-labelledby="fnd-section-title">
       <PaperGrain />
       <div className="ab-wrap">
+        <hr className="fnd-rule" data-reveal aria-hidden="true" />
+        <h2 id="fnd-section-title" className="fnd-section-title" data-reveal>{t('founder.sectionTitle')}</h2>
         <div className="fnd-spread">
           <div className="fnd-portrait-wrap" data-reveal>
             <div className="ab-frame fnd-portrait" data-slot="founder-portrait" aria-hidden="true">
@@ -227,7 +229,7 @@ function Founder() {
           </div>
           <div className="fnd-copy">
             <p className="ab-eyebrow fnd-kicker" data-reveal>{t('founder.eyebrow')}</p>
-            <h2 id="fnd-name" className="fnd-name" data-reveal>{t('founder.name')}</h2>
+            <h3 id="fnd-name" className="fnd-name" data-reveal>{t('founder.name')}</h3>
             <p className="fnd-role" data-reveal>{t('founder.role')}</p>
             <p className="fnd-bio" data-reveal>{t('founder.bio')}</p>
             <figure className="fnd-quote" data-reveal>
