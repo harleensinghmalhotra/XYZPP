@@ -1,10 +1,6 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
-
-gsap.registerPlugin(ScrollTrigger)
 
 // ── Certifications — faithful port of Alternativ's certs section, QFP content ──
 // Signature: the cream section sweeps in on a giant dome/arc over the section above
@@ -72,7 +68,6 @@ function CertMark({ c, t }) {
 // facility-book stage) that the cream curve would otherwise invade.
 export default function Certifications({ flatBottom = false, flatTop = false }) {
   const { t } = useTranslation('homeCerts')
-  const root = useRef(null)
   const viewport = useRef(null)
   const [reduced] = useState(prefersReduced)
   const [arrows, setArrows] = useState({ prev: false, next: true })
@@ -164,23 +159,8 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
     }
   }, [expanded])
 
-  useLayoutEffect(() => {
-    if (reduced) return
-    const ctx = gsap.context(() => {
-      const q = gsap.utils.selector(root)
-      gsap.set(q('.certs-title, .certs-sub, .certs-seal'), { autoAlpha: 0, y: 18 })
-      gsap.set(q('.cert-card'), { autoAlpha: 0, y: 28 })
-      const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: 'top 68%', once: true } })
-      tl.to(q('.certs-seal'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' })
-        .to(q('.certs-title'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.1)
-        .to(q('.certs-sub'), { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.2)
-        .to(q('.cert-card'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, 0.25)
-    }, root)
-    return () => ctx.revert()
-  }, [reduced])
-
   return (
-    <section id="certifications" ref={root} data-theme="light" className={`certs${flatBottom ? '' : ' certs-archb'}`} aria-labelledby="certs-title">
+    <section id="certifications" data-theme="light" className={`certs${flatBottom ? '' : ' certs-archb'}`} aria-labelledby="certs-title">
       {/* signature curve — cream dome sweeping over the section above. Suppressed when
           the section above is a self-contained panel (flatTop) it would invade. */}
       {!flatTop && (

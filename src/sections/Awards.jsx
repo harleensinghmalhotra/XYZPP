@@ -1,18 +1,13 @@
-import { useLayoutEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { prefersReduced } from '@/lib/useReducedMotion'
 import CTAButton from '@/components/CTAButton'
-
-gsap.registerPlugin(ScrollTrigger)
 
 // ── Awards & Press — pixel-faithful port of the approved design ──
 // Navy plaque cards with gold-foil names, a CAPEXIL/press label row, and the
 // Forbes press-clipping card. One approved change vs the design: the "RECOGNITION"
-// eyebrow LOSES its gold dash/hairline. Only motion added: a subtle stagger reveal
-// on the four cards (the design is static); reduced-motion → static.
+// eyebrow LOSES its gold dash/hairline. The section is fully static — the scroll-in
+// stagger reveal was removed (a killAll() on homepage→inner navigation could strand
+// the hide-first elements invisible), so the cards render present exactly as the CSS.
 
 // Eleven real awards, newest first (title + year + issuer are verbatim in the locale).
 // Real award photography lives at site-assets/homepage/awards/award-01..11.webp; only
@@ -56,29 +51,13 @@ function AwardPhoto({ img, ph, alt }) {
 
 export default function Awards() {
   const { t } = useTranslation('homeAwards')
-  const root = useRef(null)
   const viewport = useRef(null)
-  const [reduced] = useState(prefersReduced)
   // The prev/next arrow paging was retired: the header now carries a single
   // "See More" pill → /newsroom instead. The plaque row stays a native overflow-x
   // scroller (aw-viewport) so more awards dropped into RESERVED still scroll.
 
-  useLayoutEffect(() => {
-    if (reduced) return
-    const ctx = gsap.context(() => {
-      const q = gsap.utils.selector(root)
-      gsap.set(q('.aw-head'), { autoAlpha: 0, y: 16 })
-      gsap.set(q('.plq'), { autoAlpha: 0, y: 28 })
-      const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: 'top 72%', once: true } })
-      tl.to(q('.aw-head'), { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' })
-        // clearProps hands the cards back to CSS so :hover lift/sheen work
-        .to(q('.plq'), { autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.12, ease: 'power2.out', clearProps: 'transform,opacity,visibility' }, 0.15)
-    }, root)
-    return () => ctx.revert()
-  }, [reduced])
-
   return (
-    <section id="awards" ref={root} data-theme="dark" className="aw" aria-labelledby="aw-title">
+    <section id="awards" data-theme="dark" className="aw" aria-labelledby="aw-title">
       {/* lighting spans the FULL section — beams emerge from the top edges */}
       <div className="aw-glow" aria-hidden="true" />
       <div className="aw-carpet" aria-hidden="true" />
