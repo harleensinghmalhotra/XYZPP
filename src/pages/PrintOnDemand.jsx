@@ -149,6 +149,73 @@ const isValidPhone = (v) => {
   return d.length >= 7 && d.length <= 15
 }
 
+/* ── Uploadcare direct upload ────────────────────────────────────────────────────
+   Optional artwork/brief attachment. The browser uploads straight to Uploadcare with
+   the public key only (no backend, no secret), then the resulting CDN link rides along
+   as a plain text field in the existing Web3Forms submission. Web3Forms' free tier
+   cannot carry attachments, so a hosted link is the mechanism.
+   UPLOADCARE_CDN_BASE is this project's public delivery domain (Uploadcare dashboard →
+   Delivery tab). New Uploadcare accounts serve from a per-project *.ucarecd.net
+   subdomain rather than the legacy ucarecdn.com, and the value is not derivable from
+   the key — it must be the exact base shown in that tab. Must end with a slash. */
+const UPLOADCARE_PUB_KEY = 'a6e0ef37b180782394f8'
+const UPLOADCARE_UPLOAD_URL = 'https://upload.uploadcare.com/base/'
+const UPLOADCARE_CDN_BASE = 'https://64frdhu94e.ucarecd.net/' // project's public delivery domain (Delivery tab). NOT the secure 64frdhu94e.s.ucarecd.net variant — signed URLs stay off.
+const UPLOAD_MAX_BYTES = 10 * 1024 * 1024 // 10 MB, mirrors the account's max file size
+const UPLOAD_MAX_FILES = 3
+const UPLOAD_ALLOWED_EXT = ['pdf', 'jpg', 'jpeg', 'png', 'zip']
+// input accept hint — extensions plus MIME types the browser can match on
+const UPLOAD_ACCEPT = '.pdf,.jpg,.jpeg,.png,.zip,application/pdf,image/jpeg,image/png,application/zip'
+const UPLOAD_ERR_KEY = {
+  wrongType: 'summary.uploadWrongType',
+  tooBig: 'summary.uploadTooBig',
+  tooMany: 'summary.uploadTooMany',
+}
+
+// Validate before uploading so an oversized or wrong-type file fails instantly.
+// Returns an error code ('wrongType' | 'tooBig') or null; the component maps it to copy.
+function validateUploadFile(file) {
+  const ext = (file.name.split('.').pop() || '').toLowerCase()
+  if (!UPLOAD_ALLOWED_EXT.includes(ext)) return 'wrongType'
+  if (file.size > UPLOAD_MAX_BYTES) return 'tooBig'
+  return null
+}
+
+// Build the public download link from the returned file uuid, keeping the original
+// filename as the last path segment so the client's email link reads clearly.
+const uploadcareCdnUrl = (uuid, name) =>
+  `${UPLOADCARE_CDN_BASE}${uuid}/${encodeURIComponent(name)}`
+
+// POST one file to the Uploadcare base upload endpoint. XHR (not fetch) so we can
+// surface upload progress. Resolves with the stored file uuid. Uploadcare is not
+// CORS-blocked, so this runs from the browser with only the public key.
+function uploadToUploadcare(file, onProgress) {
+  return new Promise((resolve, reject) => {
+    const fd = new FormData()
+    fd.append('UPLOADCARE_PUB_KEY', UPLOADCARE_PUB_KEY)
+    fd.append('UPLOADCARE_STORE', 'auto')
+    fd.append('file', file)
+    const xhr = new XMLHttpRequest()
+    xhr.open('POST', UPLOADCARE_UPLOAD_URL)
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable && onProgress) onProgress(Math.round((e.loaded / e.total) * 100))
+    }
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          const data = JSON.parse(xhr.responseText)
+          if (data && data.file) return resolve(data.file)
+        } catch { /* fall through to reject */ }
+        return reject(new Error('bad-response'))
+      }
+      reject(new Error(`status-${xhr.status}`))
+    }
+    xhr.onerror = () => reject(new Error('network'))
+    xhr.onabort = () => reject(new Error('abort'))
+    xhr.send(fd)
+  })
+}
+
 export default function PrintOnDemand() {
   const { t } = useTranslation('printOnDemand')
   const { t: tw } = useTranslation('homeWwp')   // category names for the Explore band
@@ -158,6 +225,12 @@ export default function PrintOnDemand() {
   const [req, setReq] = useState({ name: '', email: '', phone: '', notes: '', consent: false })
   const [reqErr, setReqErr] = useState({})
   const reqRef = useRef(null)
+  // Optional attachments — each: { id, name, size, status: 'uploading'|'done'|'error', progress, url }
+  const [uploads, setUploads] = useState([])
+  const [uploadErr, setUploadErr] = useState(null)   // 'wrongType' | 'tooBig' | 'tooMany' | null
+  const [uploadLive, setUploadLive] = useState('')   // screen-reader announcement of the latest change
+  const fileMap = useRef(new Map())                  // id → File, for retry without stale closures
+  const uploadSeq = useRef(0)                         // stable per-file ids
   const [cfg, setCfg] = useState({
     format: 'paperback',
     size: 'a5',
@@ -225,6 +298,62 @@ export default function PrintOnDemand() {
     if (reqErr[k]) setReqErr((e) => { const n = { ...e }; delete n[k]; return n })
   }
 
+  // ── attachments ────────────────────────────────────────────────────────────
+  // Upload starts the moment a file is chosen so progress shows before submit. The
+  // field is optional and never blocks the form: a failed or pending upload is simply
+  // left out of the payload at submit time.
+  const beginUpload = (file, id) => {
+    fileMap.current.set(id, file)
+    uploadToUploadcare(file, (pct) =>
+      setUploads((list) => list.map((u) => (u.id === id ? { ...u, progress: pct } : u))),
+    )
+      .then((uuid) => {
+        setUploads((list) =>
+          list.map((u) => (u.id === id ? { ...u, status: 'done', progress: 100, url: uploadcareCdnUrl(uuid, file.name) } : u)),
+        )
+        setUploadLive(t('summary.uploadStatusDone', { name: file.name }))
+      })
+      .catch(() => {
+        setUploads((list) => list.map((u) => (u.id === id ? { ...u, status: 'error' } : u)))
+        setUploadLive(t('summary.uploadStatusFailed', { name: file.name }))
+      })
+  }
+
+  const onPickFiles = (ev) => {
+    const picked = Array.from(ev.target.files || [])
+    ev.target.value = '' // reset so the same file can be re-picked after a remove
+    if (!picked.length) return
+    setUploadErr(null)
+    const remaining = UPLOAD_MAX_FILES - uploads.length
+    let toAdd = picked
+    if (picked.length > remaining) {
+      setUploadErr('tooMany')
+      toAdd = picked.slice(0, Math.max(0, remaining))
+    }
+    for (const file of toAdd) {
+      const bad = validateUploadFile(file)
+      if (bad) { setUploadErr(bad); continue }
+      const id = `u${uploadSeq.current++}`
+      setUploads((list) => [...list, { id, name: file.name, size: file.size, status: 'uploading', progress: 0, url: null }])
+      setUploadLive(t('summary.uploadStatusStart', { name: file.name }))
+      beginUpload(file, id)
+    }
+  }
+
+  const retryUpload = (id) => {
+    const file = fileMap.current.get(id)
+    if (!file) return
+    setUploadErr(null)
+    setUploads((list) => list.map((u) => (u.id === id ? { ...u, status: 'uploading', progress: 0 } : u)))
+    beginUpload(file, id)
+  }
+
+  const removeUpload = (id) => {
+    setUploads((list) => list.filter((u) => u.id !== id))
+    fileMap.current.delete(id)
+    setUploadErr(null)
+  }
+
   const submitReq = async (ev) => {
     ev.preventDefault()
     const hp = ev.currentTarget?.elements?.botcheck?.value
@@ -243,6 +372,11 @@ export default function PrintOnDemand() {
     if (hp) { setReqStatus('success'); return }
     setReqStatus('submitting')
     const spec = summaryRows.map(([k, v]) => `${t(`summary.keys.${k}`)}: ${v}`).join('\n')
+    // Optional attachment links — only fully-uploaded files ride along; a failed or
+    // still-uploading file is left out so it can never block the submission. "None"
+    // reads more clearly than an empty line in the received email.
+    const fileUrls = uploads.filter((u) => u.status === 'done' && u.url).map((u) => u.url)
+    const attachedFiles = fileUrls.length ? fileUrls.join('\n') : 'None'
     try {
       const res = await fetch(WEB3FORMS_URL, {
         method: 'POST',
@@ -256,6 +390,7 @@ export default function PrintOnDemand() {
           email: req.email,
           phone: req.phone,
           notes: req.notes,
+          attached_files: attachedFiles,
           format: optLabel('format', cfg.format),
           size: optLabel('size', cfg.size),
           paper: optLabel('paper', cfg.paper),
@@ -514,6 +649,66 @@ export default function PrintOnDemand() {
                     <textarea id="pod-req-notes" name="notes" rows={3}
                       value={req.notes} onChange={(e) => setReqField('notes', e.target.value)}
                       placeholder={t('summary.reqNotesPlaceholder')} />
+                  </div>
+                  <div className="pod-req-field pod-upload">
+                    <span className="pod-upload-label" id="pod-upload-label">{t('summary.uploadLabel')}</span>
+                    <p className="pod-upload-help" id="pod-upload-help">{t('summary.uploadHelp')}</p>
+                    <label className="pod-upload-drop">
+                      <input
+                        type="file"
+                        className="pod-upload-input"
+                        accept={UPLOAD_ACCEPT}
+                        multiple
+                        onChange={onPickFiles}
+                        disabled={uploads.length >= UPLOAD_MAX_FILES}
+                        aria-labelledby="pod-upload-label"
+                        aria-describedby={`pod-upload-help${uploadErr ? ' pod-upload-err' : ''}`}
+                        aria-invalid={uploadErr ? 'true' : undefined}
+                      />
+                      <span className="pod-upload-cta" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 16V4" /><path d="m6 10 6-6 6 6" /><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+                        </svg>
+                        {t('summary.uploadChoose')}
+                      </span>
+                    </label>
+                    {uploads.length > 0 && (
+                      <ul className="pod-upload-list">
+                        {uploads.map((u) => (
+                          <li key={u.id} className="pod-upload-item" data-status={u.status}>
+                            <span className="pod-upload-file">
+                              <span className="pod-upload-name">{u.name}</span>
+                              {u.status === 'uploading' && (
+                                <span className="pod-upload-bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={u.progress}
+                                  aria-label={t('summary.uploadUploading', { pct: u.progress })}>
+                                  <span className="pod-upload-bar-fill" style={{ width: `${u.progress}%` }} />
+                                </span>
+                              )}
+                              <span className="pod-upload-state">
+                                {u.status === 'uploading' && t('summary.uploadUploading', { pct: u.progress })}
+                                {u.status === 'done' && t('summary.uploadUploaded')}
+                                {u.status === 'error' && t('summary.uploadFailed')}
+                              </span>
+                            </span>
+                            {u.status === 'error' && (
+                              <button type="button" className="pod-upload-act" onClick={() => retryUpload(u.id)}>
+                                {t('summary.uploadRetry')}
+                              </button>
+                            )}
+                            {u.status !== 'uploading' && (
+                              <button type="button" className="pod-upload-remove" onClick={() => removeUpload(u.id)}
+                                aria-label={t('summary.uploadRemoveAria', { name: u.name })}>
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                  <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                                </svg>
+                              </button>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {uploadErr && <span className="pod-req-err" id="pod-upload-err" role="alert">{t(UPLOAD_ERR_KEY[uploadErr])}</span>}
+                    <span className="pod-upload-sr" role="status" aria-live="polite">{uploadLive}</span>
                   </div>
                   <div className={`pod-req-consent${reqErr.consent ? ' has-err' : ''}`}>
                     <input id="pod-req-consent" name="consent" type="checkbox"

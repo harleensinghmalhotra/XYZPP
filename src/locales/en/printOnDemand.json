@@ -95,7 +95,21 @@
     "reqConsent": "I agree that Quarterfold may use these details to respond to my request and prepare a quotation, in line with the <1>Privacy Policy</1>.",
     "reqConsentErr": "Please agree to the privacy policy so we can reply.",
     "reqSuccessTitle": "Request sent.",
-    "reqSuccess": "We’ve got your spec and details, and we’ll send a tailored quote within one business day."
+    "reqSuccess": "We’ve got your spec and details, and we’ll send a tailored quote within one business day.",
+    "uploadLabel": "Attachment (optional)",
+    "uploadHelp": "PDF, JPG, PNG or ZIP, up to 10 MB each. Three files maximum.",
+    "uploadChoose": "Choose a file",
+    "uploadUploading": "Uploading {{pct}}%",
+    "uploadUploaded": "Uploaded",
+    "uploadFailed": "Upload failed",
+    "uploadRetry": "Try again",
+    "uploadRemoveAria": "Remove {{name}}",
+    "uploadWrongType": "That file type is not supported. Attach a PDF, JPG, PNG or ZIP.",
+    "uploadTooBig": "That file is over 10 MB. Choose a smaller one.",
+    "uploadTooMany": "You can attach up to three files.",
+    "uploadStatusStart": "Uploading {{name}}.",
+    "uploadStatusDone": "{{name}} attached.",
+    "uploadStatusFailed": "{{name}} failed to upload."
   },
   "qtyBadgeSr": "Quantity",
   "band": {

@@ -95,7 +95,21 @@
     "reqConsent": "J'accepte que Quarterfold utilise ces informations pour répondre à ma demande et préparer un devis, conformément à la <1>politique de confidentialité</1>.",
     "reqConsentErr": "Veuillez accepter la politique de confidentialité afin que nous puissions vous répondre.",
     "reqSuccessTitle": "Demande envoyée.",
-    "reqSuccess": "Nous avons bien reçu votre configuration et vos coordonnées ; nous vous enverrons un devis sur mesure sous un jour ouvré."
+    "reqSuccess": "Nous avons bien reçu votre configuration et vos coordonnées ; nous vous enverrons un devis sur mesure sous un jour ouvré.",
+    "uploadLabel": "Pièce jointe (facultatif)",
+    "uploadHelp": "PDF, JPG, PNG ou ZIP, jusqu’à 10 Mo par fichier. Trois fichiers maximum.",
+    "uploadChoose": "Choisir un fichier",
+    "uploadUploading": "Téléversement {{pct}} %",
+    "uploadUploaded": "Téléversé",
+    "uploadFailed": "Échec du téléversement",
+    "uploadRetry": "Réessayer",
+    "uploadRemoveAria": "Retirer {{name}}",
+    "uploadWrongType": "Ce type de fichier n’est pas pris en charge. Joignez un PDF, JPG, PNG ou ZIP.",
+    "uploadTooBig": "Ce fichier dépasse 10 Mo. Choisissez-en un plus petit.",
+    "uploadTooMany": "Vous pouvez joindre jusqu’à trois fichiers.",
+    "uploadStatusStart": "Téléversement de {{name}}.",
+    "uploadStatusDone": "{{name}} joint.",
+    "uploadStatusFailed": "Échec du téléversement de {{name}}."
   },
   "qtyBadgeSr": "Quantité",
   "band": {

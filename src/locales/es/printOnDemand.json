@@ -95,7 +95,21 @@
     "reqConsent": "Acepto que Quarterfold utilice estos datos para responder a mi solicitud y preparar un presupuesto, conforme a la <1>Política de privacidad</1>.",
     "reqConsentErr": "Acepte la política de privacidad para que podamos responder.",
     "reqSuccessTitle": "Solicitud enviada.",
-    "reqSuccess": "Hemos recibido su configuración y sus datos; le enviaremos un presupuesto a medida en un día laborable."
+    "reqSuccess": "Hemos recibido su configuración y sus datos; le enviaremos un presupuesto a medida en un día laborable.",
+    "uploadLabel": "Archivo adjunto (opcional)",
+    "uploadHelp": "PDF, JPG, PNG o ZIP, hasta 10 MB por archivo. Máximo tres archivos.",
+    "uploadChoose": "Elegir un archivo",
+    "uploadUploading": "Subiendo {{pct}} %",
+    "uploadUploaded": "Subido",
+    "uploadFailed": "Error al subir",
+    "uploadRetry": "Reintentar",
+    "uploadRemoveAria": "Quitar {{name}}",
+    "uploadWrongType": "Ese tipo de archivo no es compatible. Adjunte un PDF, JPG, PNG o ZIP.",
+    "uploadTooBig": "El archivo supera los 10 MB. Elija uno más pequeño.",
+    "uploadTooMany": "Puede adjuntar hasta tres archivos.",
+    "uploadStatusStart": "Subiendo {{name}}.",
+    "uploadStatusDone": "{{name}} adjuntado.",
+    "uploadStatusFailed": "Error al subir {{name}}."
   },
   "qtyBadgeSr": "Cantidad",
   "band": {
