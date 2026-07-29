@@ -3,7 +3,6 @@ import SiteLayout from '@/components/SiteLayout'
 import Home from '@/pages/Home'
 import LegalPage from '@/pages/LegalPage'
 import OurStory from '@/pages/OurStory'
-import Founder from '@/pages/Founder'
 import GlobalMarkets from '@/pages/GlobalMarkets'
 import PrintOnDemand from '@/pages/PrintOnDemand'
 import InfrastructurePage from '@/pages/InfrastructurePage'
@@ -23,7 +22,6 @@ export default function App() {
         <Route index element={<Home />} />
 
         <Route path="/about" element={<OurStory />} />
-        <Route path="/founder" element={<Founder />} />
         <Route path="/global-markets" element={<GlobalMarkets />} />
         <Route path="/educational-books" element={<Navigate to="/#wwp-educational" replace />} />
         <Route path="/trade-books" element={<Navigate to="/#wwp-trade" replace />} />
