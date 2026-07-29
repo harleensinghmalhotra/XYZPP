@@ -19,41 +19,38 @@
       "description": "Cadena de Custodia FSC, ISO 9001:2015, ISO/IEC 27001:2022, Sedex."
     },
     {
-      "title": "Soporte editorial y de preprensa en inglés",
+      "title": "Soporte editorial y de preprensa",
       "description": "Con un único punto de contacto en todas las zonas horarias."
     },
     {
-      "title": "Capacidad de ampliación sin sobrecostos",
-      "description": "En 22 torres de impresión, 6 prensas de pliego y una línea de acabado completa incluyendo 10 líneas de encuadernación, 8 máquinas automáticas de cosido por secciones y 17 máquinas de cosido manuales."
+      "title": "Capacidad escalable, rendimiento constante",
+      "description": "Con 22 torres de impresión web, 6 prensas de pliego y una infraestructura de acabado integral que incluye 10 líneas de encuadernación, 8 máquinas automáticas de cosido por secciones y 17 máquinas de cosido manuales, estamos equipados para gestionar proyectos de gran volumen con rapidez, flexibilidad y fiabilidad."
     },
     {
-      "title": "Gerente de cuenta dedicado",
-      "description": "Para todos nuestros clientes en todo el mundo, en todas las zonas horarias, con documentación, aduanas y flete manejados de principio a fin."
+      "title": "Gestión de cuentas dedicada",
+      "description": "Nuestros gerentes de cuenta dedicados atienden a los clientes en todas las zonas horarias, garantizando una coordinación fluida desde la planificación de la producción hasta la documentación, las aduanas, el flete y la entrega final."
     }
   ],
   "regions": {
     "africa": {
       "tag": "África",
       "name": "África",
-      "descriptor": "Mercado de exportación establecido",
       "alt": "Una estudiante africana sonriente sosteniendo libros al aire libre con otros estudiantes",
       "stat": "19",
       "statLabel": "Países atendidos",
       "body": "Ministerios de Educación e instituciones gubernamentales en Nigeria, Ghana, Kenia, Uganda, Tanzania, Zambia, Costa de Marfil, Camerún, Congo, Senegal, Benín, Etiopía, Ruanda, Mozambique, Madagascar, Mauricio, Sudáfrica, Gabón y Zimbabue, para proyectos financiados por el Banco Mundial, USAID y la ONU."
     },
     "asia": {
-      "tag": "India y Asia Occidental",
-      "name": "India y Asia Occidental",
-      "descriptor": "Entrega integral",
+      "tag": "India y el resto de Asia",
+      "name": "India y el resto de Asia",
       "alt": "Un grupo de estudiantes indios leyendo un libro juntos al aire libre",
       "stat": "2",
       "statLabel": "Países atendidos",
-      "body": "Las oficinas de libros de texto en India y los Emiratos Árabes Unidos reciben soluciones completas de principio a fin: impresión, preparación, empaque y entrega directa a escuelas para bancos nacionales y principales empresas educativas."
+      "body": "Apoyamos a editoriales y consejos educativos de toda Asia con soluciones completas de impresión, preparación, empaque y entrega para escuelas y estudiantes."
     },
     "europe": {
       "tag": "América y Europa",
       "name": "EE. UU., Europa y América Latina",
-      "descriptor": "Mercados en expansión",
       "alt": "Niñas sentadas en un banco, cada una leyendo un libro ilustrado",
       "stat": "6",
       "statLabel": "Países atendidos",

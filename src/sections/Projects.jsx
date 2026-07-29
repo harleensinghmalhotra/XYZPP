@@ -130,7 +130,6 @@ function DestPanel({ slug, img, t, onFocus, onReset }) {
           </div>
           <div className="proj-dest-scrim" aria-hidden="true" />
           <div className="proj-dest-content">
-            <span className="proj-dest-kicker">{t(`regions.${slug}.descriptor`)}</span>
             <h3 className="proj-dest-name">{name}</h3>
             <div className="proj-dest-stat">
               <span className="proj-dest-stat-num">{stat}</span>

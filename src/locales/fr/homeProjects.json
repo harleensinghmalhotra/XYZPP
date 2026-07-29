@@ -19,41 +19,38 @@
       "description": "Chaîne de traçabilité FSC, ISO 9001:2015, ISO/IEC 27001:2022, Sedex."
     },
     {
-      "title": "Support éditorial et de préparation en anglais",
+      "title": "Support éditorial et de préimpression",
       "description": "Avec un point de contact unique à travers les fuseaux horaires."
     },
     {
-      "title": "Capacité de montée en charge sans surcoût",
-      "description": "Sur 22 tours d'impression, 6 presses feuille à feuille et une gamme de finition complète incluant 10 lignes de reliure, 8 machines de couture de cahiers automatiques et 17 machines à coudre manuelles."
+      "title": "Capacité évolutive, performance constante",
+      "description": "Avec 22 tours d'impression Web, 6 presses feuille à feuille et une infrastructure de finition complète comprenant 10 lignes de reliure, 8 machines de couture de cahiers automatiques et 17 machines à coudre manuelles, nous sommes équipés pour gérer des projets à grand volume avec rapidité, flexibilité et fiabilité."
     },
     {
-      "title": "Gestionnaire de compte dédié",
-      "description": "Pour tous nos clients partout dans le monde, sur tous les fuseaux horaires, avec documentation, douanes et fret gérés de bout en bout."
+      "title": "Gestion de compte dédiée",
+      "description": "Nos gestionnaires de compte dédiés accompagnent les clients à travers les fuseaux horaires, assurant une coordination fluide, de la planification de la production à la documentation, aux douanes, au fret et à la livraison finale."
     }
   ],
   "regions": {
     "africa": {
       "tag": "Afrique",
       "name": "Afrique",
-      "descriptor": "Marché d'export établi",
       "alt": "Une étudiante africaine souriante tenant des livres en extérieur avec d'autres étudiants",
       "stat": "19",
       "statLabel": "Pays desservis",
       "body": "Ministères de l'Éducation et institutions gouvernementales au Nigéria, Ghana, Kenya, Ouganda, Tanzanie, Zambie, Côte d'Ivoire, Cameroun, Congo, Sénégal, Bénin, Éthiopie, Rwanda, Mozambique, Madagascar, Maurice, Afrique du Sud, Gabon et Zimbabwe, pour les projets financés par la Banque mondiale, l'USAID et l'ONU."
     },
     "asia": {
-      "tag": "Inde et Asie de l'Ouest",
-      "name": "Inde et Asie de l'Ouest",
-      "descriptor": "Livraison de bout en bout",
+      "tag": "L'Inde et le reste de l'Asie",
+      "name": "L'Inde et le reste de l'Asie",
       "alt": "Un groupe d'étudiants indiens lisant un livre ensemble en extérieur",
       "stat": "2",
       "statLabel": "Pays desservis",
-      "body": "Les bureaux des manuels scolaires en Inde et aux Émirats arabes unis reçoivent des solutions complètes de bout en bout : impression, assemblage, emballage et livraison directe aux écoles pour les banques nationales et les principales sociétés d'éducation."
+      "body": "Nous accompagnons les éditeurs et les conseils d'éducation à travers l'Asie avec des solutions complètes d'impression, d'assemblage, d'emballage et de livraison pour les écoles et les apprenants."
     },
     "europe": {
       "tag": "Amériques et Europe",
       "name": "États-Unis, Europe et Amérique latine",
-      "descriptor": "Marchés en expansion",
       "alt": "De jeunes filles assises sur un banc, lisant chacune un livre illustré",
       "stat": "6",
       "statLabel": "Pays desservis",
