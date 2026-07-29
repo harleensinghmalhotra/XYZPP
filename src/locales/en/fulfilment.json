@@ -1,14 +1,14 @@
 {
   "seo": {
-    "title": "Warehousing & Fulfilment | Quarterfold Printabilities",
+    "title": "Warehousing & Fulfillment | Quarterfold Printabilities",
     "description": "Kitting, 100,000 sq ft warehousing, in-house 5-colour cartons and last-mile shipping: your books handled under one roof, from press to port.",
     "breadcrumb": {
       "home": "Home",
-      "fulfilment": "Warehousing & Fulfilment"
+      "fulfilment": "Warehousing & Fulfillment"
     }
   },
   "hero": {
-    "eyebrow": "Warehousing & Fulfilment",
+    "eyebrow": "Warehousing & Fulfillment",
     "title": {
       "one": "One",
       "system": "System,",
@@ -59,7 +59,7 @@
     }
   },
   "value": {
-    "eyebrow": "Why trust our fulfilment",
+    "eyebrow": "Why trust our fulfillment",
     "title": "A single roof engineered for scale, speed and safe transit."
   },
   "values": {
@@ -102,7 +102,7 @@
     "panelLabel": "More about {{title}}"
   },
   "sections": {
-    "featuresLabel": "How fulfilment works, step by step"
+    "featuresLabel": "How fulfillment works, step by step"
   },
   "journey": {
     "eyebrow": "From Press to Port",
