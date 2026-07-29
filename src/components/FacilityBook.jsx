@@ -625,13 +625,28 @@ export default function FacilityBook() {
                 // LEFT page is a clean cream plate carrying the facility mark + title so
                 // the spread never reads as an awkwardly empty leaf.
                 <>
-                  <div className="ib-imgpage ib-imgpage--left ib-soloplate" aria-hidden="true">
-                    <span className="ib-soloplate-mark">
-                      {book.Icon && <book.Icon weight="light" size={30} />}
-                    </span>
-                    <span className="ib-soloplate-rule" />
-                    <span className="ib-soloplate-label">{title}</span>
-                  </div>
+                  {book.id === '03' ? (
+                    // Binding & Finishing: the client's binding-hall diptych (top) and
+                    // three-knife trimmer (bottom) replace the icon/title plate on the
+                    // left page — stacked, contain-fit so the diptych reads whole, held
+                    // inside the same page margin. Right page keeps its solo photo.
+                    <div className="ib-imgpage ib-imgpage--left ib-stackpair">
+                      <div className="ib-img-frame ib-img-frame--stack">
+                        <img className="ib-img" key="bf-diptych" src={IMG('binding-finishing-diptych')} alt="" aria-hidden="true" loading="lazy" decoding="async" draggable="false" />
+                      </div>
+                      <div className="ib-img-frame ib-img-frame--stack">
+                        <img className="ib-img" key="bf-trimmer" src={IMG('binding-finishing-trimmer')} alt="" aria-hidden="true" loading="lazy" decoding="async" draggable="false" />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="ib-imgpage ib-imgpage--left ib-soloplate" aria-hidden="true">
+                      <span className="ib-soloplate-mark">
+                        {book.Icon && <book.Icon weight="light" size={30} />}
+                      </span>
+                      <span className="ib-soloplate-rule" />
+                      <span className="ib-soloplate-label">{title}</span>
+                    </div>
+                  )}
                   <div className="ib-imgpage ib-imgpage--right"><PhotoFrame src={cur.solo.src} /></div>
                 </>
               ) : (
