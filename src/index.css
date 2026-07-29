@@ -3067,6 +3067,12 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
   .certs-viewport { margin-right: -24px; padding-right: 24px; }
   .certs-top { flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
 }
+/* When the navy sweep-arc is present at the foot (flatBottom = false → About and
+   Infrastructure), the 76px arc band rose ~4px into the card row, so the cards sat
+   flush against the navy curve (client). Extra bottom padding pushes the arc clear of
+   the cards. Homepage uses flatBottom (no arc), so it keeps the base 56px and is left
+   untouched. Placed after the mobile rule so it wins at every width. */
+.certs-archb { padding-bottom: clamp(104px, 12vh, 132px); }
 @media (prefers-reduced-motion: reduce) {
   .certs-seal-ring { animation: none; }
 }

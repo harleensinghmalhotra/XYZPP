@@ -185,7 +185,7 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
   }, [reduced])
 
   return (
-    <section id="certifications" ref={root} data-theme="light" className="certs" aria-labelledby="certs-title">
+    <section id="certifications" ref={root} data-theme="light" className={`certs${flatBottom ? '' : ' certs-archb'}`} aria-labelledby="certs-title">
       {/* signature curve — cream dome sweeping over the section above. Suppressed when
           the section above is a self-contained panel (flatTop) it would invade. */}
       {!flatTop && (
