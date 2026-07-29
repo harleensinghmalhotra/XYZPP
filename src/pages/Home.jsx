@@ -113,7 +113,7 @@ const HOME_JSONLD = [
     url: 'https://quarterfoldltd.com/',
     logo: 'https://quarterfoldltd.com/qfp/brand/qfp-logo.png',
     description:
-      'Large scale educational and trade book printing, binding and fulfilment company based in Navi Mumbai, India, exporting to publishers, ministries and NGOs across 25+ countries.',
+      'Large scale educational and trade book printing, binding and fulfillment company based in Navi Mumbai, India, exporting to publishers, ministries and NGOs across 25+ countries.',
     foundingDate: '2014',
     address: {
       '@type': 'PostalAddress',
