@@ -218,6 +218,7 @@ export default function InfrastructurePage() {
             closeLabel={t('av.closeLabel')}
             playLabel={t('av.playLabel')}
             watchOnYouTube={t('av.watchOnYouTube')}
+            channelLabel={t('av.watchChannel')}
           />
         </div>
       </section>

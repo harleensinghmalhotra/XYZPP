@@ -74,13 +74,14 @@
     "note": "Realza el atractivo visual y la durabilidad de cada publicación."
   },
   "av": {
-    "eyebrow": "Nuestro canal de video",
+    "eyebrow": "YouTube",
     "title": "Vea nuestro trabajo en movimiento.",
     "sub": "El detrás de escena de nuestras instalaciones, directo desde nuestro canal de YouTube.",
     "playLabel": "Reproducir video {n}",
     "dialogAria": "Reproductor de video de YouTube",
     "closeLabel": "Cerrar video",
-    "watchOnYouTube": "Ver en YouTube"
+    "watchOnYouTube": "Ver en YouTube",
+    "watchChannel": "Ver más en nuestro canal de YouTube"
   },
   "recognition": {
     "eyebrow": "Reconocimiento",

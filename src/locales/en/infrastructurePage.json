@@ -74,13 +74,14 @@
     "note": "Enhances the visual appeal and durability of every publication."
   },
   "av": {
-    "eyebrow": "Our video channel",
+    "eyebrow": "YouTube",
     "title": "See our work in motion.",
     "sub": "Behind the scenes at our facilities, straight from our YouTube channel.",
     "playLabel": "Play video {n}",
     "dialogAria": "YouTube video player",
     "closeLabel": "Close video",
-    "watchOnYouTube": "Watch on YouTube"
+    "watchOnYouTube": "Watch on YouTube",
+    "watchChannel": "Watch more on our YouTube channel"
   },
   "recognition": {
     "eyebrow": "Recognition",

@@ -74,13 +74,14 @@
     "note": "Renforce l'attrait visuel et la durabilité de chaque publication."
   },
   "av": {
-    "eyebrow": "Notre chaîne vidéo",
+    "eyebrow": "YouTube",
     "title": "Voir notre travail en mouvement.",
     "sub": "Les coulisses de nos sites, directement depuis notre chaîne YouTube.",
     "playLabel": "Lire la vidéo {n}",
     "dialogAria": "Lecteur vidéo YouTube",
     "closeLabel": "Fermer la vidéo",
-    "watchOnYouTube": "Regarder sur YouTube"
+    "watchOnYouTube": "Regarder sur YouTube",
+    "watchChannel": "Voir plus sur notre chaîne YouTube"
   },
   "recognition": {
     "eyebrow": "Reconnaissance",

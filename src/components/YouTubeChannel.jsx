@@ -29,12 +29,17 @@ function youTubeId(url) {
   return null
 }
 
+// The company's public YouTube channel — the link-out target for the channel promo.
+const CHANNEL_URL = 'https://www.youtube.com/@quarterfoldprintabilities6000'
+
 export default function YouTubeChannel({
   sub,
   dialogAria = 'Video player',
   closeLabel = 'Close video',
   playLabel = 'Play video {n}',
   watchOnYouTube = 'Watch on YouTube',
+  channelLabel = 'Visit our YouTube channel',
+  channelHref = CHANNEL_URL,
 }) {
   // Build the card list once from the URL file, dropping anything unparseable.
   const videos = YOUTUBE_VIDEOS.map((url) => ({ url, id: youTubeId(url) })).filter((v) => v.id)
@@ -92,6 +97,20 @@ export default function YouTubeChannel({
           ))}
         </ul>
       </div>
+
+      {/* channel promo — a clear link out to the company's YouTube channel, so the
+          section reads as "watch more on our channel". The red YouTube glyph carries
+          the brand; the pill itself stays on the site's navy/cream palette. */}
+      <a className="yt-channel-cta" href={channelHref} target="_blank" rel="noreferrer">
+        <span className="yt-channel-cta-glyph" aria-hidden="true">
+          <svg viewBox="0 0 28 20" width="26" height="19">
+            <rect width="28" height="20" rx="5" fill="#ff0000" />
+            <path d="M11 6l7 4-7 4z" fill="#fff" />
+          </svg>
+        </span>
+        <span className="yt-channel-cta-label">{channelLabel}</span>
+        <svg className="yt-channel-cta-arrow" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+      </a>
 
       {active && (
         <div
