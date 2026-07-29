@@ -2,7 +2,6 @@
   "seo": {
     "title": "Nuestra Historia | Quarterfold Printabilities, desde 2014",
     "description": "De un único pedido de 50 000 ejemplares en 2014 a una de las imprentas de libros más avanzadas de India. Descubra la trayectoria de Quarterfold.",
-    "founderPortraitAlt": "Nilesh Dhankani, fundador y CEO de Quarterfold Printabilities",
     "galleryAlt": "Impresión y acabado de libros en la planta de Quarterfold en Navi Mumbai, foto {{n}}",
     "breadcrumb": {
       "home": "Inicio",
@@ -61,11 +60,6 @@
     "desc": "Calidad, confiabilidad y cuidado en cada proyecto, ya sea mil copias o un millón."
   },
   "founder": {
-    "sectionTitle": "Perfil del fundador y CEO",
-    "eyebrow": "De diseñador a uno de los impresores de libros más celebrados de la India",
-    "name": "Nilesh Dhankani",
-    "role": "Fundador y CEO",
-    "bio": "Nilesh Dhankani comenzó como diseñador gráfico en 2000, pasó al marketing y encontró su verdadera vocación en la impresión. En 2014, un pedido de 50.000 libros para una editorial africana lo llevó a fundar Quarterfold Printabilities. Lo que empezó como una operación de dos personas se convirtió en una de las empresas de impresión de libros más avanzadas de la India.",
     "quote": "Cada libro que imprimimos lleva el conocimiento de alguien, el sueño de alguien y el futuro de alguien. Estamos agradecidos de ser una pequeña parte de ese recorrido.",
     "attribution": "Nilesh Dhankani, Fundador y CEO"
   },

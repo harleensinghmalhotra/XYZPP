@@ -98,8 +98,11 @@ export default function OurStory() {
       {/* SECTION 5 ── OUR TEAM — full roster, one grid, everyone shown ────────── */}
       <Team />
 
-      {/* SECTION 6 ── FOUNDER AND CEO PROFILE — corporate boardroom profile ────── */}
-      <Founder />
+      {/* SECTION 6 ── FOUNDER QUOTE — the CEO profile spread was removed (client, it
+          duplicated the team section; Nilesh stays as the first Team card). Only the
+          founder's words remain, set as a standalone pull quote between the team and
+          the gallery. */}
+      <FounderQuote />
 
       {/* SECTION 7 ── GALLERY — print-industry placeholder imagery, trivially swappable */}
       <Gallery />
@@ -207,37 +210,25 @@ function InkSpreads() {
   )
 }
 
-// ── THE FOUNDER — corporate boardroom profile ─────────────────────────────────
-// A clean institutional grid: a fitted portrait LEFT, structured text RIGHT
-// (descriptor kicker, name, role, narrative, then the quote in a bordered pull-
-// quote block). The editorial drama is gone — no gold offset-rule behind the
-// portrait, no word-mask name rise, no scroll-driven ink-fill quote. Everything
-// rests plainly and reveals once: restrained, boardroom-flat, attribution kept.
-function Founder() {
+// ── FOUNDER QUOTE — a standalone pull quote ───────────────────────────────────
+// The corporate CEO-profile spread (portrait + bio + role) was removed at the
+// client's request because it duplicated the Our Team section, where Nilesh is
+// already the first card. His words are kept as a single deliberate interstitial
+// between the team and the gallery: a short gold rule, the quote in inverted
+// commas, the attribution beneath — centred, on the cream ground. Reveals once.
+function FounderQuote() {
   const { t } = useTranslation('ourStory')
   return (
-    <section data-theme="light" className="fnd" aria-labelledby="fnd-section-title">
+    <section data-theme="light" className="ab-quote" aria-labelledby="ab-quote-text">
       <PaperGrain />
       <div className="ab-wrap">
-        <hr className="fnd-rule" data-reveal aria-hidden="true" />
-        <h2 id="fnd-section-title" className="fnd-section-title" data-reveal>{t('founder.sectionTitle')}</h2>
-        <div className="fnd-spread">
-          <div className="fnd-portrait-wrap" data-reveal>
-            <div className="ab-frame fnd-portrait" data-slot="founder-portrait" aria-hidden="true">
-              <img src="/site-assets/about/founder/founder-portrait.webp" alt={t('seo.founderPortraitAlt')} loading="lazy" decoding="async" />
-            </div>
-          </div>
-          <div className="fnd-copy">
-            <p className="ab-eyebrow fnd-kicker" data-reveal>{t('founder.eyebrow')}</p>
-            <h3 id="fnd-name" className="fnd-name" data-reveal>{t('founder.name')}</h3>
-            <p className="fnd-role" data-reveal>{t('founder.role')}</p>
-            <p className="fnd-bio" data-reveal>{t('founder.bio')}</p>
-            <figure className="fnd-quote" data-reveal>
-              <blockquote className="fnd-quote-text">{t('founder.quote')}</blockquote>
-              <figcaption className="fnd-quote-cite">{t('founder.attribution')}</figcaption>
-            </figure>
-          </div>
-        </div>
+        <figure className="ab-quote-fig">
+          <span className="ab-quote-rule" aria-hidden="true" />
+          <blockquote id="ab-quote-text" className="ab-quote-text" data-reveal>
+            {`“${t('founder.quote')}”`}
+          </blockquote>
+          <figcaption className="ab-quote-cite" data-reveal>{t('founder.attribution')}</figcaption>
+        </figure>
       </div>
     </section>
   )

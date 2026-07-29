@@ -10,7 +10,7 @@
    --ab-orange     : the #B06F15 accent as-is; decorative marks + on-navy text.
    --ab-orange-ink : a darker burnt-orange of the same family that clears AA
                      (≈4.8:1) as 11-12px text on the cream ground. */
-.ab-hero, .ab-lede, .mvv, .fnd, .tm, .gal {
+.ab-hero, .ab-lede, .mvv, .ab-quote, .tm, .gal {
   --ab-orange: #B06F15;
   --ab-orange-ink: #925C10;
 }
@@ -194,81 +194,32 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
   .mvv-col:hover .mvv-rule { transform: scaleX(1); transition-delay: 0s; }
 }
 
-/* ── SECTION 4 — THE FOUNDER (corporate boardroom profile) ──────────────────── */
-/* The founder→Team boundary carried a double gap (full section-pad-y here
-   + the Team section's own top padding), reading as a large empty band under the
-   quote card. Trim the founder's BOTTOM padding so the two sit at a normal, single
-   section rhythm; the top padding is untouched (founder still breathes from MVV). */
-.fnd { position: relative; background: var(--cream); padding: var(--section-pad-y) var(--page-gutter) clamp(32px, 4vh, 48px); overflow: hidden; }
-/* Founder section header — a gold hairline + title mirroring the Team header, so
-   the two adjacent cream sections read as distinct titled sections after the swap. */
-.fnd-rule { width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3); margin: 0 0 clamp(8px, 1.4vh, 14px); }
-html.alive-ready .fnd-rule[data-reveal] {
-  opacity: 1; transform: scaleX(0); transform-origin: left center;
-  transition: transform 0.75s var(--e-out);
+/* ── SECTION 4 — FOUNDER QUOTE (standalone pull quote) ───────────────────────────
+   The corporate CEO-profile spread (portrait + bio + role) was removed at the
+   client's request — it duplicated Our Team, where Nilesh is already the first
+   card. Only his words remain, set as a single deliberate interstitial between the
+   team and the gallery: a short gold rule, the quote in inverted commas, the
+   attribution beneath. Centred on the cream ground, sized to read as a statement
+   without competing with the section headlines around it. */
+.ab-quote {
+  position: relative; background: var(--cream); overflow: hidden;
+  padding: clamp(56px, 9vh, 104px) var(--page-gutter);
 }
-html.alive-ready .fnd-rule[data-reveal].is-in { transform: scaleX(1); }
-.fnd-section-title {
-  margin: 0 0 clamp(28px, 4vh, 48px); max-width: 24ch;
-  font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(28px, 3vw, 44px); line-height: 1.04; letter-spacing: -0.02em; color: var(--ink);
+.ab-quote-fig { margin: 0 auto; max-width: 42ch; text-align: center; }
+.ab-quote-rule {
+  display: block; width: 44px; height: 3px; margin: 0 auto clamp(24px, 3.4vh, 34px);
+  background: var(--ab-orange); border-radius: 2px;
 }
-/* stretch both columns to the taller (right) column so the portrait's bottom edge
-   lands on the quote box's bottom edge — the two columns end on the same line. */
-.fnd-spread { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(40px, 6vw, 88px); align-items: stretch; }
-/* fitted portrait — a clean institutional frame; the editorial offset-rule is gone.
-   It fills the left column's width and stretches to the row height (see the desktop
-   rule below); the 3:4 source is covered, so the face is never distorted, only the
-   margins trim by a few pixels. */
-.fnd-portrait-wrap { position: relative; width: 100%; }
-.fnd-portrait { position: relative; }
-.fnd-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-/* desktop two-column: the portrait must end exactly on the quote box's bottom edge.
-   The wrapper stretches to the RIGHT column's height (its content, ending at the quote
-   box); the frame is taken out of flow (absolute inset:0) so its 3:4 ratio never
-   inflates the row — it simply fills the wrapper. The 900×1200 source is covered from
-   the top, so the face is kept and only the lower margin trims. Mobile (≤860px, single
-   column) keeps the fixed 3:4 frame below. */
-@media (min-width: 861px) {
-  .fnd-portrait-wrap { height: 100%; min-height: 420px; }
-  .fnd-portrait { position: absolute; inset: 0; aspect-ratio: auto; }
+.ab-quote-text {
+  margin: 0;
+  font-family: 'Inter Tight', sans-serif; font-weight: 500; font-style: italic;
+  font-size: clamp(22px, 2.6vw, 34px); line-height: 1.36; letter-spacing: -0.015em;
+  color: var(--ink);
 }
-
-/* RIGHT column — descriptor kicker, name, role, narrative, then the quote block. */
-.fnd-copy { min-width: 0; }
-.fnd-kicker { margin: 0 0 clamp(16px, 2.2vh, 22px); max-width: 54ch; }
-.fnd-name {
-  margin: 0 0 clamp(8px, 1.2vh, 12px);
-  font-family: 'Inter Tight', sans-serif; font-weight: 700;
-  font-size: clamp(26px, 3vw, 38px); line-height: 1.06; letter-spacing: -0.025em; color: var(--ink);   /* reduced */
-}
-.fnd-role {
-  margin: 0 0 clamp(24px, 3.4vh, 34px);
-  font-family: 'DM Mono', monospace; font-weight: 500; font-size: 11px;   /* reduced */
-  letter-spacing: 0.16em; text-transform: uppercase; color: var(--ab-orange-ink);
-}
-.fnd-bio {
-  margin: 0; max-width: 60ch;
-  font-family: 'Inter', sans-serif; font-size: clamp(16px, 1.15vw, 18px);
-  line-height: 1.7; letter-spacing: -0.01em; color: rgb(var(--navy-rgb) / 0.78);
-}
-
-/* pull quote — a bordered institutional block under the narrative: a left accent
-   rule, the quote, then the attribution. No ink-fill, no drawn dash — restrained. */
-.fnd-quote {
-  margin: clamp(32px, 4.6vh, 48px) 0 0; max-width: 52ch;
-  padding: clamp(22px, 3vh, 30px) clamp(24px, 3vw, 34px);
-  border: 1px solid rgb(var(--navy-rgb) / 0.12); border-left: 3px solid var(--ab-orange);
-  border-radius: 8px; background: rgb(var(--navy-rgb) / 0.02);
-}
-.fnd-quote-text {
-  margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 500;
-  font-size: clamp(19px, 1.9vw, 24px); line-height: 1.4; letter-spacing: -0.015em; color: var(--ink);
-}
-.fnd-quote-cite {
-  display: block; margin-top: clamp(14px, 2vh, 18px);
-  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.16em;
-  text-transform: uppercase; color: rgb(var(--navy-rgb) / 0.55);
+.ab-quote-cite {
+  display: block; margin-top: clamp(20px, 3vh, 28px);
+  font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ab-orange-ink);
 }
 
 /* ── SECTION 7 — GALLERY (capped masonry preview + See More lightbox) ─────────
@@ -502,7 +453,7 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 }
 
 /* ── shared reveal durations (alive.js [data-reveal]/[data-textreveal]) ─────── */
-html.alive-ready :is(.ab-hero, .fnd, .tm) [data-reveal] { transition-duration: 0.6s; }
+html.alive-ready :is(.ab-hero, .ab-quote, .tm) [data-reveal] { transition-duration: 0.6s; }
 html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56s; }
 
 /* ── TIMELINE mobile (≤720px) — spine to the left edge, all cards to its right */
@@ -538,8 +489,6 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 /* mobile grid + spread reflow */
 @media (max-width: 860px) {
   .ab-hero { min-height: clamp(320px, 46vh, 460px); }
-  .fnd-spread { grid-template-columns: 1fr; gap: clamp(30px, 8vw, 44px); }
-  .fnd-portrait-wrap { max-width: 320px; }
 }
 /* spotlight → mobile (<768px): grid on top (2-wide), the panel below it, not sticky.
    Tapping a card scrolls the panel into view (see Team's select()). */
