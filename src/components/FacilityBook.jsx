@@ -620,8 +620,20 @@ export default function FacilityBook() {
                   </div>
                 </div>
               ) : cur.t === 'solo' ? (
-                // Lone tall leftover — one photo filling a single centred page, repeat-free.
-                <div className="ib-imgpage ib-imgpage--solo"><PhotoFrame src={cur.solo.src} /></div>
+                // Lone portrait leftover — ONE page only, never centred across the fold
+                // (client). It lands on the RIGHT well within the margins; the facing
+                // LEFT page is a clean cream plate carrying the facility mark + title so
+                // the spread never reads as an awkwardly empty leaf.
+                <>
+                  <div className="ib-imgpage ib-imgpage--left ib-soloplate" aria-hidden="true">
+                    <span className="ib-soloplate-mark">
+                      {book.Icon && <book.Icon weight="light" size={30} />}
+                    </span>
+                    <span className="ib-soloplate-rule" />
+                    <span className="ib-soloplate-label">{title}</span>
+                  </div>
+                  <div className="ib-imgpage ib-imgpage--right"><PhotoFrame src={cur.solo.src} /></div>
+                </>
               ) : (
                 <>
                   {/* BASE PAGES — the destination spread's left + right faces (facing

@@ -549,8 +549,9 @@
 /* LEFT PAGE — the read: facility title at the top, body below, key phrases emphasised */
 .ib-textpage {
   position: absolute;
-  /* more breathing room from the page borders (client: text sat too close) */
-  top: 9%; left: 8.5%; width: 34%; height: 82%;
+  /* Generous margin on all four sides so the read sits well inside the paper like a
+     printed page (client: content ran too close to the borders). */
+  top: 10.5%; left: 9.5%; width: 33%; height: 79%;
   display: flex; flex-direction: column;
   overflow: hidden;
 }
@@ -579,7 +580,7 @@
    block scales in lock-step with the book and the last feature point keeps its
    ≥28px foot margin across the whole desktop range (1280→1920+), where a vw scale
    drifts as the stack↔book gap and the interactive cap change the book width. ── */
-.ib-facpage { position: relative; justify-content: flex-start; top: 8%; height: 84%; container-type: inline-size; }
+.ib-facpage { position: relative; justify-content: flex-start; top: 10.5%; height: 79%; container-type: inline-size; }
 /* decorative orange dot-grid, top-right of the page */
 .ib-fac-dots {
   position: absolute; top: 2%; right: 4%;
@@ -658,7 +659,7 @@
    grows in lock-step with the enlarged page (design law), matching how the facility
    left-page already scales. 1cqw ≈ 9px at the 1536 render, ≈ 7.5px at 1280. */
 .ib-intro-left {
-  top: 8.5%; left: 8%; width: 37%; height: 84%;
+  top: 10.5%; left: 9.5%; width: 35%; height: 79%;
   justify-content: flex-start; overflow: hidden;
 }
 .ib-intro-title {
@@ -702,7 +703,7 @@
 
 /* RIGHT PAGE — dated heading, spec list, closing note */
 .ib-intro-right {
-  position: absolute; top: 6.5%; left: 53.5%; width: 40.5%; height: 87%;
+  position: absolute; top: 9%; left: 55%; width: 37.5%; height: 82%;
   display: flex; flex-direction: column;
 }
 .ib-intro-rhead {
@@ -778,11 +779,12 @@
    deep-navy page ground. Uniform frame size across the whole flip set. */
 .ib-imgpage {
   position: absolute;
-  top: 6%; width: 40.5%; height: 88%;
+  top: 8.5%; width: 37%; height: 83%;
 }
-/* mirror-symmetric wells either side of the ~50% gutter; a solo leftover centres */
-.ib-imgpage--right { left: 53.5%; }
-.ib-imgpage--left  { left: 6%; }
+/* mirror-symmetric wells either side of the ~50% gutter, each held inside a clear
+   page margin. A lone portrait now takes ONE well (never centred across the fold). */
+.ib-imgpage--right { left: 55%; }
+.ib-imgpage--left  { left: 8%; }
 .ib-imgpage--solo  { left: 29.75%; }
 /* an empty cream end-page — defensive; the solo close means it isn't reached today */
 .ib-blankpage {
@@ -1173,16 +1175,47 @@
 /* full double-page spread — one image across both cream pages, through the gutter */
 .ib-doublepage {
   position: absolute;
-  top: 6%;
-  left: 6%;
-  width: 88%;
-  height: 88%;
+  top: 8%;
+  left: 7%;
+  width: 86%;
+  height: 84%;
 }
 .ib-img-frame--double { position: absolute; inset: 0; }
 /* NO centre gutter overlay on a spanning photo — the client's complaint was that the
    dark fold band cut the image in half. A landscape spread now reads as one uncut
    image edge-to-edge (the book-spread art keeps its own subtle fold on TEXT / single
    pages, where nothing is cut). */
+
+/* ── LONE-PORTRAIT FACING PLATE ─────────────────────────────────────────────────
+   A single leftover portrait now sits on ONE page (the right well) instead of being
+   centred across the fold (client: "no image can be in the centre of the page"). Its
+   facing LEFT page is this clean cream plate carrying the facility mark + title, so
+   the spread never reads as an awkwardly empty leaf. Positioned by .ib-imgpage--left. */
+.ib-soloplate {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: clamp(9px, 2.4cqw, 20px);
+  padding: 8%;
+  text-align: center;
+  border-radius: 3px;
+  background: linear-gradient(120deg, #fdfaf4 0%, #f7f2e8 62%, #f1ead9 100%);
+  box-shadow: inset 0 0 40px -18px rgba(11, 28, 56, 0.4);
+  container-type: inline-size;
+}
+.ib-soloplate-mark {
+  display: inline-grid; place-items: center;
+  width: clamp(44px, 22cqw, 84px); aspect-ratio: 1;
+  border: 1.5px solid var(--gold-2); border-radius: 50%;
+  color: var(--gold-2);
+}
+.ib-soloplate-rule {
+  width: clamp(26px, 11cqw, 52px); height: 3px; border-radius: 2px;
+  background: var(--gold-2);
+}
+.ib-soloplate-label {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(13px, 6.6cqw, 26px); line-height: 1.1; letter-spacing: 0.02em;
+  text-transform: uppercase; color: var(--navy); max-width: 14ch;
+}
 
 /* ── DISCOVERABILITY — "click a book" hint (pulses until first open, then dims after
    the first facility is opened). Spine labels lift 4px on hover with a stronger glow.
@@ -1372,4 +1405,7 @@
   .ib-img-frame--stack { position: relative; inset: auto; height: 150px; flex: none; border-radius: 12px; }
   .ib-doublepage { position: static; width: 100%; height: 240px; order: -1; }
   .ib-img-frame--double { position: relative; inset: auto; height: 100%; border-radius: 12px; }
+  /* the lone-portrait facing plate is a desktop-spread divider; on the stacked mobile
+     layout the portrait card stands alone, so the plate would be a dead cream card. */
+  .ib-soloplate { display: none; }
 }
