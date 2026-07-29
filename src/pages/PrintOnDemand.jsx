@@ -43,22 +43,32 @@ const QTY_HERO = { 1: '1', 10: '10', 50: '50', 250: '250', 500: '500+' }
 const SIZE_RATIO = { a5: 0.705, b5: 0.704, a4: 0.75 }
 const SIZE_SCALE = { a5: 0.84, b5: 0.92, a4: 1 }
 /* Every paper id MUST have an entry here — the page reads it for the book's
-   page-block tint and the swatch. PAPER_FALLBACK guards both lookup sites so a
-   future id mismatch degrades to a neutral cream edge instead of throwing. */
+   page-block tint and the swatch. Colour signals the STOCK (white / cream / art); the
+   leaf period + PAPER_BULK thickness (below) signal the WEIGHT (70 / 80 / 100 gsm), so
+   no two papers ever render an identical page edge. PAPER_FALLBACK guards both lookup
+   sites so a future id mismatch degrades to a neutral cream edge instead of throwing. */
 const PAPER_EDGE = {
-  white70: { edge: '#fbfaf6', line: 'rgba(3,12,49,0.12)' },
-  cream70: { edge: '#f3ead4', line: 'rgba(3,12,49,0.16)' },
-  white80: { edge: '#fbfaf6', line: 'rgba(3,12,49,0.12)' },
-  cream80: { edge: '#f3ead4', line: 'rgba(3,12,49,0.16)' },
-  matt100: { edge: '#eef0ea', line: 'rgba(3,12,49,0.14)' },
-  gloss100: { edge: '#f4f6f2', line: 'rgba(3,12,49,0.12)' },
+  white70:  { edge: '#fdfcf8', line: 'rgba(3,12,49,0.10)', period: '1.6px' },
+  cream70:  { edge: '#f5edda', line: 'rgba(3,12,49,0.15)', period: '1.6px' },
+  white80:  { edge: '#f8f5ee', line: 'rgba(3,12,49,0.13)', period: '2px' },
+  cream80:  { edge: '#efe3ca', line: 'rgba(3,12,49,0.18)', period: '2px' },
+  matt100:  { edge: '#e7ebe9', line: 'rgba(3,12,49,0.17)', period: '2.6px' },
+  gloss100: { edge: '#eef4f9', line: 'rgba(3,12,49,0.13)', period: '2.6px' },
 }
-const PAPER_FALLBACK = { edge: '#f3ead4', line: 'rgba(3,12,49,0.16)' }
-function bookDims(format, size) {
+const PAPER_FALLBACK = { edge: '#f3ead4', line: 'rgba(3,12,49,0.16)', period: '2px' }
+/* Weight → page-block bulk: heavier stock makes a visibly thicker book. Drives --thick
+   via bookDims so 70 / 80 / 100 gsm each read as a different thickness at the same trim. */
+const PAPER_BULK = {
+  white70: 0.82, cream70: 0.84,
+  white80: 1.0,  cream80: 1.03,
+  matt100: 1.24, gloss100: 1.22,
+}
+function bookDims(format, size, paper) {
   const r = SIZE_RATIO[size] ?? 0.707
   const s = SIZE_SCALE[size] ?? 0.92
   const bh = Math.round((format === 'hardcover' ? 344 : 334) * s)
-  const thick = format === 'hardcover' ? 44 : 30
+  const baseThick = format === 'hardcover' ? 44 : 30
+  const thick = Math.max(15, Math.round(baseThick * (PAPER_BULK[paper] ?? 1)))
   return { bw: Math.round(bh * r), bh, thick }
 }
 function ghostCount(q) {
@@ -66,7 +76,8 @@ function ghostCount(q) {
   if (n <= 1) return 0
   if (n <= 10) return 2
   if (n <= 50) return 3
-  return 4
+  if (n <= 250) return 4
+  return 5
 }
 
 /* ── icons (stroke-draw, System-B) ───────────────────────────────────────────── */
@@ -245,7 +256,7 @@ export default function PrintOnDemand() {
   const optLabel = (group, id) => t(`options.${group}.${id}.label`)
 
   // book geometry + page-block tint + copy count, recomputed on every config change
-  const dims = bookDims(cfg.format, cfg.size)
+  const dims = bookDims(cfg.format, cfg.size, cfg.paper)
   const edge = PAPER_EDGE[cfg.paper] ?? PAPER_FALLBACK
   const ghosts = ghostCount(cfg.quantity)
   const qtyLabel = optLabel('quantity', cfg.quantity)
@@ -471,6 +482,7 @@ export default function PrintOnDemand() {
                       '--thick': `${dims.thick}px`,
                       '--edge': edge.edge,
                       '--edge-line': edge.line,
+                      '--edge-period': edge.period,
                     }}
                   >
                     <div className="pod-face pod-back" />
@@ -479,6 +491,10 @@ export default function PrintOnDemand() {
                     <div className="pod-face pod-spine">
                       <span className="pod-headband top" />
                       <span className="pod-headband bottom" />
+                      {/* saddle-stitch staples across the folded spine (shown only for
+                          data-binding=saddle) */}
+                      <span className="pod-staple top" />
+                      <span className="pod-staple bottom" />
                       <span className="pod-coil">
                         <svg viewBox="0 0 20 320" preserveAspectRatio="none">
                           {Array.from({ length: 13 }).map((_, i) => {
