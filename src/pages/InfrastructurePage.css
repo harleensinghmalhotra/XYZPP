@@ -22,7 +22,11 @@
    below, its bottom padding read as a two-tone beige seam even after the trim. Force
    it cream so the navy stage floats on ONE continuous cream surface that flows
    straight into the certs — no band, no seam. */
-.inf-facilitybook.infra { background: #fdfaf4; padding-top: clamp(18px, 2.5vh, 32px); padding-bottom: clamp(36px, 4.5vh, 56px); }
+/* Task 11: the client flagged a thin cream sliver between the beige capacity strip
+   and the navy book stage — this section's top padding, serving no purpose. Zero it so
+   the navy stage begins immediately after the stat strip (the two bands meet cleanly).
+   No shaped divider sits here — it was plain padding. */
+.inf-facilitybook.infra { background: #fdfaf4; padding-top: 0; padding-bottom: clamp(36px, 4.5vh, 56px); }
 /* The navy stage carries a margin-top (clamp(44px,6vh,80px)) that on the HOMEPAGE
    separates it from the Infrastructure section heading above it. Here the stage is
    the only child of `.infra-inner` (no heading), so that margin stacks on top of the
