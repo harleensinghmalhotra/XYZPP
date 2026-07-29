@@ -43,6 +43,14 @@ export default function Hero() {
   const bubbles = t('hero.bubbles', { returnObjects: true })
   const bubbleLines = Array.isArray(bubbles) ? bubbles : []
 
+  // Optional lead word lifted onto its own line ABOVE the headline (EN: "An"). Kept as
+  // a separate locale key so the break is STRUCTURAL, never a typed newline, and never
+  // forced onto languages whose headline does not begin with a liftable article. Read
+  // per-language via getResource (NOT t) because i18n.js sets returnEmptyString:false —
+  // an empty value through t() would fall back to the English "An"; getResource returns
+  // each language's own value, so FR/ES (shipped empty) stay two-line.
+  const lead = (i18n.getResource(lang, 'home', 'hero.headlineLead') || '').trim()
+
   return (
     <section id="hero" ref={section} data-theme="dark" className="relative overflow-x-clip bg-[var(--navy)]">
       {/* Headline + CTAs — one centred block in the navy band above the artwork.
@@ -63,6 +71,17 @@ export default function Hero() {
             single on desktop within the 1280 content box (the reference was full-width);
             below lg the copy wraps as the vw type scales down. */}
         <h1 className="m-0 flex flex-col items-center font-metrisch leading-[0.9]">
+          {/* Lead word on its own line (EN "An") — same cream, font and uppercase as the
+              line below, set a touch smaller so a two-letter word reads as a deliberate
+              editorial lead-in rather than an oversized orphan. Omitted when empty. */}
+          {lead && (
+            <span
+              className="mb-[0.14em] text-[5.4vw] font-bold uppercase text-[color:var(--cream-3)] lg:text-[4vw]"
+              style={{ letterSpacing: '-0.1vw' }}
+            >
+              {lead}
+            </span>
+          )}
           {/* Line 1 — cream, big display caps. */}
           <span
             className="text-[8.6vw] font-bold uppercase text-[color:var(--cream-3)] lg:whitespace-nowrap lg:text-[6.4vw]"
