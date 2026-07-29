@@ -15,8 +15,9 @@ gsap.registerPlugin(ScrollTrigger)
 // with the full, unclamped body; Escape / backdrop / the close button dismiss it.
 
 // eyebrow / title / body resolved from homeCerts (cards.<key>.*). Proper names,
-// cert titles, codes and logo filenames stay hardcoded; the FSC licence code and
-// the typographic Star Export House mark are non-translatable by compliance/brand.
+// cert titles, codes and logo filenames stay hardcoded; the FSC licence code and the
+// "Two Star Export House" name are non-translatable by compliance/brand (the name stays
+// English in every locale, so its logo alt does too).
 const CERTS = [
   {
     key: 'fsc',
@@ -39,7 +40,7 @@ const CERTS = [
   },
   {
     key: 'star',
-    typographic: true,
+    logo: 'star-export-house.webp',
   },
 ]
 
@@ -52,17 +53,11 @@ function CheckMark() {
   )
 }
 
-// The mark (logo image or the typographic two-star lockup), shared by the card and
-// the expanded dialog so both read identically.
+// The certification logo image, shared by the card and the expanded dialog so both
+// read identically. All five certifications now use a real logo (the Two Star Export
+// House badge included); the alt derives from the localised card title, so it matches
+// how the other four are labelled.
 function CertMark({ c, t }) {
-  if (c.typographic) {
-    return (
-      <div className="cert-star" aria-label="Two Star Export House">
-        <span className="cert-star-glyph" aria-hidden="true"><span>★</span><span>★</span></span>
-        <span className="cert-star-word">STAR EXPORT<br />HOUSE</span>
-      </div>
-    )
-  }
   return (
     <img src={`/site-assets/homepage/certifications/${c.logo}`} alt={`${t(`cards.${c.key}.title`)} logo`} loading="lazy" decoding="async" />
   )

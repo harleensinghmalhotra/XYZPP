@@ -2945,16 +2945,6 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
   color: #925C10;
   line-height: 1.3;
 }
-.cert-star { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.cert-star-glyph { display: inline-flex; gap: 8px; font-size: 32px; line-height: 1; color: var(--gold-2); }
-.cert-star-word {
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 800;
-  font-size: 13px;
-  line-height: 1.1;
-  letter-spacing: 0.3px;
-  color: var(--navy);
-}
 .cert-card-body {
   margin: 4px 0 0;
   padding-left: 12px;
