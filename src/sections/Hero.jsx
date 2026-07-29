@@ -76,7 +76,7 @@ export default function Hero() {
               editorial lead-in rather than an oversized orphan. Omitted when empty. */}
           {lead && (
             <span
-              className="mb-[0.14em] text-[5.4vw] font-bold uppercase text-[color:var(--cream-3)] lg:text-[4vw]"
+              className="mb-[0.14em] text-[5.4vw] font-bold uppercase text-[color:var(--gold-2)] lg:text-[4vw]"
               style={{ letterSpacing: '-0.1vw' }}
             >
               {lead}
@@ -84,7 +84,7 @@ export default function Hero() {
           )}
           {/* Line 1 — cream, big display caps. */}
           <span
-            className="text-[8.6vw] font-bold uppercase text-[color:var(--cream-3)] lg:whitespace-nowrap lg:text-[6.4vw]"
+            className="text-[7.9vw] font-bold uppercase text-[color:var(--cream-3)] lg:whitespace-nowrap lg:text-[5.9vw]"
             style={{ letterSpacing: '-0.2vw' }}
           >
             {t('hero.headlineTop')}
@@ -129,7 +129,7 @@ export default function Hero() {
         {/* TWO BUTTON CTAs — pill shape, one-line labels, equal width. Absolutely
             positioned over the artwork's white ground beneath the book, centred; they
             wrap (stack) on very narrow screens. Markup/hover/focus unchanged. */}
-        <div className="hero-cta-pair absolute inset-x-0 z-20 flex flex-wrap items-center justify-center gap-6" style={{ bottom: 'clamp(3%, 5%, 8%)' }}>
+        <div className="hero-cta-pair absolute inset-x-0 z-20 flex flex-wrap items-center justify-center gap-6" style={{ bottom: 'clamp(3%, 5%, 8%)', transform: 'translate(0.7vw, 11px)' }}>
           <a
             href="#infrastructure"
             className="hero-btn btn-nebula group relative inline-flex h-[54px] min-w-[220px] items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] pl-[22px] pr-[46px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
