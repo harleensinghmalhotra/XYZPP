@@ -28,7 +28,7 @@ const EMAIL_INFO = 'info@quarterfoldltd.com'
 const EMAIL_ENQ = 'enquiry@quarterfoldltd.com'
 const EMAIL_CAREERS = 'careers@quarterfoldltd.com'
 const WA_URL = `https://wa.me/${PHONE_TEL.replace('+', '')}`
-const MAPS_HEAD = 'https://www.google.com/maps/search/?api=1&query=Cyber+One+IT+Park+Sector+30A+Vashi+Navi+Mumbai+400703'
+const MAPS_HEAD = 'https://www.google.com/maps/search/?api=1&query=Quarterfold+Printabilities+Plot+No+31+Sector+22+Sanpada+Navi+Mumbai+400703'
 const MAPS_FACTORY = 'https://www.google.com/maps/search/?api=1&query=Taloja+MIDC+Navi+Mumbai+410208'
 
 // Web3Forms — public-safe access key (delivery endpoint for the live enquiry form).
@@ -408,9 +408,9 @@ export default function Contact() {
                 <div className="ctc-addr-loc">
                   <h3 className="ctc-addr-name">{t('addr.head.name')}</h3>
                   <p className="ctc-addr-lines">
-                    1207, Cyber One IT Park,<br />
-                    Sector 30A, Vashi,<br />
-                    Navi Mumbai, 400703, India
+                    Plot No. 31, Sector 22,<br />
+                    Sanpada, Navi Mumbai,<br />
+                    400703, Maharashtra, India
                   </p>
                 </div>
                 <div className="ctc-addr-loc">
@@ -451,8 +451,8 @@ export default function Contact() {
           {/* Compliance line — registered entity + CIN + registered office (DM Mono, 11px floor) */}
           <p className="ctc-compliance">
             Quarterfold Printabilities Private Limited · CIN U74999MH2020PTC337494 ·
-            Registered Office: Office No 1207, Plot No 4 &amp; 6, Sector 30A, Navi
-            Mumbai 400705
+            Registered Office: Office No 1207, Plot No 4 &amp; 6, Sector 30A, Cyber
+            One IT Park, Vashi, Navi Mumbai, Maharashtra 400703
           </p>
         </div>
       </section>

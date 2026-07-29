@@ -117,10 +117,10 @@ const HOME_JSONLD = [
     foundingDate: '2014',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Office No 1207, Plot No 4 and 6, Sector 30A',
+      streetAddress: 'Office No 1207, Plot No 4 & 6, Sector 30A, Cyber One IT Park, Vashi',
       addressLocality: 'Navi Mumbai',
       addressRegion: 'Maharashtra',
-      postalCode: '400705',
+      postalCode: '400703',
       addressCountry: 'IN',
     },
     contactPoint: {

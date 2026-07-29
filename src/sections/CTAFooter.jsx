@@ -185,7 +185,7 @@ export default function CTAFooter() {
               <div className="flex flex-col">
                 <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#925C10' }}>{t('headOffice')}</h3>
                 <p className="text-[14px] font-medium leading-relaxed" style={{ color: 'rgba(28,32,25,0.82)' }}>
-                  1207, Cyber One IT Park,<br />Sector 30A, Vashi,<br />Navi Mumbai, 400703, India
+                  Plot No. 31, Sector 22,<br />Sanpada, Navi Mumbai,<br />400703, Maharashtra, India
                 </p>
               </div>
 
@@ -229,7 +229,7 @@ export default function CTAFooter() {
             </div>
             {/* Statutory entity line — site-wide compliance (CIN + registered office). DM Mono, 11px floor. */}
             <p className="mt-5 max-w-full text-[11px] leading-relaxed" style={{ fontFamily: MONO, color: 'rgba(92,83,70,0.92)' }}>
-              Quarterfold Printabilities Private Limited · CIN U74999MH2020PTC337494 · Registered Office: Office No 1207, Plot No 4 &amp; 6, Sector 30A, Navi Mumbai, Maharashtra 400705
+              Quarterfold Printabilities Private Limited · CIN U74999MH2020PTC337494 · Registered Office: Office No 1207, Plot No 4 &amp; 6, Sector 30A, Cyber One IT Park, Vashi, Navi Mumbai, Maharashtra 400703
             </p>
           </div>
 
