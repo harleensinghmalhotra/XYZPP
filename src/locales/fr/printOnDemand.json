@@ -8,10 +8,7 @@
   "hero": {
     "eyebrow": "Impression à la demande",
     "title": "Votre livre. <em>Exactement</em> comme vous l’imaginiez.",
-    "cta": "Commencer la composition",
-    "statNum": "1",
-    "statUnit": "Exemplaire minimum",
-    "statAria": "Un exemplaire minimum"
+    "cta": "Commencer la composition"
   },
   "build": {
     "eyebrow": "Le configurateur",
@@ -112,15 +109,6 @@
     "uploadStatusFailed": "Échec du téléversement de {{name}}."
   },
   "qtyBadgeSr": "Quantité",
-  "band": {
-    "eyebrow": "Les mêmes presses",
-    "quote": "Un seul livre bénéficie des mêmes presses <em>qu’un million.</em>",
-    "sub": "Il n’y a pas de raccourci pour les « petites commandes » ici. Que vous imprimiez une seule épreuve ou un tirage complet, votre livre passe par les mêmes presses à couleur maîtrisée et entre les mêmes mains qui produisent nos millions de livres par an.",
-    "stat1Label": "Exemplaire, notre plus petit tirage",
-    "stat2Label": "Livres par an sur les mêmes presses",
-    "stat3Num": "Jours",
-    "stat3Label": "Pas des semaines : délai d’échantillon"
-  },
   "explore": {
     "title": "Explorer les catégories"
   }

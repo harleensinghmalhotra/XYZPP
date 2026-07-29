@@ -8,10 +8,7 @@
   "hero": {
     "eyebrow": "Print on Demand",
     "title": "Your Book. <em>Exactly</em> as You Imagined.",
-    "cta": "Start building",
-    "statNum": "1",
-    "statUnit": "Copy Minimum",
-    "statAria": "Minimum one copy"
+    "cta": "Start building"
   },
   "build": {
     "eyebrow": "The Configurator",
@@ -112,15 +109,6 @@
     "uploadStatusFailed": "{{name}} failed to upload."
   },
   "qtyBadgeSr": "Quantity",
-  "band": {
-    "eyebrow": "The same presses",
-    "quote": "One book gets the same presses as <em>one million.</em>",
-    "sub": "There is no “small order” shortcut here. Whether you print a single proof or a full run, your book moves through the same colour-managed presses and the same hands that produce our millions of books a year.",
-    "stat1Label": "Copy, our smallest run",
-    "stat2Label": "Books a year on the same presses",
-    "stat3Num": "Days",
-    "stat3Label": "Not weeks: sample turnaround"
-  },
   "explore": {
     "title": "Explore Categories"
   }

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation, Trans } from 'react-i18next'
-import CountUp from '@/components/CountUp'
 import SectionCurve from '@/components/SectionCurve'
 import PageHero, { splitTitle } from '@/components/PageHero'
 import CTAButton from '@/components/CTAButton'
@@ -427,10 +426,6 @@ export default function PrintOnDemand() {
         const [l1, l2] = splitTitle(t('hero.title'))
         return (
           <PageHero id="pod-h1" eyebrow={t('hero.eyebrow')} line1={l1} line2={l2} minVh={62}>
-            <div className="ph-stat" aria-label={t('hero.statAria')}>
-              <span className="ph-stat-num" aria-hidden="true">{t('hero.statNum')}</span>
-              <span className="ph-stat-label">{t('hero.statUnit')}</span>
-            </div>
             <div className="ph-ctas" style={{ marginTop: 'clamp(24px, 4vh, 36px)' }}>
               <CTAButton href="#build" dark arrow={false}>
                 {t('hero.cta')}
@@ -768,39 +763,12 @@ export default function PrintOnDemand() {
         </div>
       </section>
 
-      {/* 3 · REASSURANCE BAND */}
-      <section className="pod-band" data-theme="dark" aria-labelledby="pod-band-title">
-        {/* top curve fills cream (#fdfaf4) to match the Build section directly above */}
-        <SectionCurve position="top" fill="#fdfaf4" inward />
-        <SectionCurve position="bottom" fill="#f0ebe0" inward />
-        <div className="pod-band-inner">
-          <p className="pod-eyebrow" style={{ color: '#925C10' }} data-reveal>{t('band.eyebrow')}</p>
-          <p className="pod-band-quote" id="pod-band-title" data-reveal>
-            <Trans t={t} i18nKey="band.quote" components={{ em: <em /> }} />
-          </p>
-          <p className="pod-band-sub" data-reveal>
-            {t('band.sub')}
-          </p>
-          <ul className="pod-band-stats">
-            <li className="pod-stat" data-reveal>
-              <div className="pod-stat-num"><CountUp value={1} /></div>
-              <p className="pod-stat-lbl">{t('band.stat1Label')}</p>
-            </li>
-            <li className="pod-stat" data-reveal>
-              <div className="pod-stat-num"><CountUp value={75} suffix="M" /></div>
-              <p className="pod-stat-lbl">{t('band.stat2Label')}</p>
-            </li>
-            <li className="pod-stat" data-reveal>
-              <div className="pod-stat-num">{t('band.stat3Num')}</div>
-              <p className="pod-stat-lbl">{t('band.stat3Label')}</p>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      {/* 5 · EXPLORE CATEGORIES — reuses the What We Print category data (same keys +
-          images); each tile links to that category on the homepage What We Print band. */}
+      {/* 3 · EXPLORE CATEGORIES — reuses the What We Print category data (same keys +
+          images); each tile links to that category on the homepage What We Print band.
+          The reassurance band that used to sit above this was removed (client); a top
+          curve carries the cream Build section into the beige Explore band. */}
       <section className="pod-explore" data-theme="light" aria-labelledby="pod-explore-title">
+        <SectionCurve position="top" fill="#fdfaf4" inward />
         <PaperGrain opacity={0.05} />
         <div className="pod-explore-inner">
           <h2 className="pod-explore-title" id="pod-explore-title" data-textreveal>{t('explore.title')}</h2>

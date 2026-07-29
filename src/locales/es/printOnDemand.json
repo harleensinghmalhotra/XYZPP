@@ -8,10 +8,7 @@
   "hero": {
     "eyebrow": "Impresión bajo demanda",
     "title": "Su libro. <em>Exactamente</em> como lo imaginó.",
-    "cta": "Empezar a crear",
-    "statNum": "1",
-    "statUnit": "Ejemplar mínimo",
-    "statAria": "Mínimo un ejemplar"
+    "cta": "Empezar a crear"
   },
   "build": {
     "eyebrow": "El configurador",
@@ -112,15 +109,6 @@
     "uploadStatusFailed": "Error al subir {{name}}."
   },
   "qtyBadgeSr": "Cantidad",
-  "band": {
-    "eyebrow": "Las mismas prensas",
-    "quote": "Un libro pasa por las mismas prensas que <em>un millón.</em>",
-    "sub": "Aquí no hay atajos para los «pedidos pequeños». Ya imprima una sola prueba o una tirada completa, su libro pasa por las mismas prensas con gestión de color y por las mismas manos que producen nuestros millones de libros al año.",
-    "stat1Label": "Copia, nuestra tirada más pequeña",
-    "stat2Label": "Libros al año en las mismas prensas",
-    "stat3Num": "Días",
-    "stat3Label": "No semanas: tiempo de entrega de muestras"
-  },
   "explore": {
     "title": "Explorar categorías"
   }
