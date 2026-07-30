@@ -1,8 +1,6 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import CountUp from '@/components/CountUp'
 import Seo from '@/components/Seo'
@@ -16,8 +14,6 @@ import PageHero, { splitTitle } from '@/components/PageHero'
 import { PaperGrain } from '@/components/atmosphere'
 import { Maximize, Warehouse, Building2, BookOpen, Users } from 'lucide-react'
 import './InfrastructurePage.css'
-
-gsap.registerPlugin(ScrollTrigger)
 
 // ── /infrastructure — "Built for Scale. Engineered for Trust." ───────────────
 // Structure + rhythm reskinned from dispel.com into QFP brand System B:
@@ -81,7 +77,6 @@ function InfraPhoto({ src, note, className = '' }) {
 
 export default function InfrastructurePage() {
   const { t } = useTranslation('infrastructurePage')
-  const root = useRef(null)
   const triRef = useRef(null) // capability triptych — CSS reveal container
   const [reduced] = useState(prefersReduced)
 
@@ -98,33 +93,6 @@ export default function InfrastructurePage() {
     return () => io.disconnect()
   }, [reduced])
 
-  useLayoutEffect(() => {
-    if (reduced) return
-    const ctx = gsap.context(() => {
-      const q = gsap.utils.selector(root)
-      const reveal = (sel, opts = {}) => {
-        const els = q(sel)
-        if (!els.length) return
-        gsap.set(els, { autoAlpha: 0, y: 24 })
-        gsap.to(els, {
-          autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out',
-          stagger: opts.stagger || 0, clearProps: 'transform,opacity,visibility',
-          scrollTrigger: { trigger: opts.trigger || els[0], start: opts.start || 'top 82%', once: true },
-        })
-      }
-
-      // (hero reveals now handled by PageHero via alive.js data-reveal/textreveal)
-      // §2 Certifications + §6 Awards are the shared homepage components — they own their
-      // OWN entrance animations, so no reveal() is wired for them here.
-      // §3 capability triptych reveals via CSS `.is-in` (IntersectionObserver above).
-      reveal('.inf-finish-cell', { trigger: '.inf-finish-grid', stagger: 0.05, start: 'top 82%' })
-      reveal('.yt-channel', { trigger: '.inf-av', start: 'top 78%' })
-      reveal('.inf-gallery-item', { trigger: '.inf-gallery', stagger: 0.08 })
-      reveal('.inf-cta-inner', { trigger: '.inf-cta', start: 'top 84%' })
-    }, root)
-    return () => ctx.revert()
-  }, [reduced])
-
   const canonical = 'https://quarterfoldltd.com/infrastructure'
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -136,7 +104,7 @@ export default function InfrastructurePage() {
   }
 
   return (
-    <main id="main" ref={root} className="inf">
+    <main id="main" className="inf">
       <Seo
         title={t('seo.title')}
         description={t('seo.description')}

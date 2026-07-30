@@ -399,14 +399,6 @@ export default function Fulfilment() {
   useLayoutEffect(() => {
     if (reduced) return
     const ctx = gsap.context(() => {
-      // generic reveal — every .ff-reveal rises in when its section enters
-      gsap.utils.toArray('.ff-reveal').forEach((el) => {
-        gsap.set(el, { autoAlpha: 0, y: 22 })
-        gsap.to(el, {
-          autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-        })
-      })
       // stroke-draw the value-grid icons as the grid enters
       const draws = gsap.utils.toArray('.ff-vi-draw')
       if (draws.length) {

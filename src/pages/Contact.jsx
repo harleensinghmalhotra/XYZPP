@@ -163,7 +163,7 @@ export default function Contact() {
     return () => window.removeEventListener('resize', measure)
   }, [i18n.language])
 
-  // ── GSAP: icon stroke-draw + desk hairline draw + light fade-up reveals ──
+  // ── GSAP: icon stroke-draw + desk hairline draw (decorative only) ──
   useLayoutEffect(() => {
     const el = root.current
     if (!el) return
@@ -189,10 +189,6 @@ export default function Contact() {
             strokeDashoffset: 0, duration: 0.9, ease: 'power2.out', stagger: 0.08,
             scrollTrigger: { trigger: desk, start: 'top 84%', once: true },
           })
-          gsap.from(desk.querySelectorAll('.ctc-cell'), {
-            y: 22, autoAlpha: 0, duration: 0.7, ease: 'power2.out', stagger: 0.07, delay: 0.15,
-            scrollTrigger: { trigger: desk, start: 'top 84%', once: true },
-          })
         }
       }
       if (reduced) return
@@ -201,12 +197,6 @@ export default function Contact() {
         gsap.to(cell.querySelectorAll('.ctc-draw'), {
           strokeDashoffset: 0, duration: 0.7, ease: 'power2.out', stagger: 0.06,
           scrollTrigger: { trigger: cell, start: 'top 92%', once: true },
-        })
-      })
-      gsap.utils.toArray('.ctc-reveal').forEach((node) => {
-        gsap.from(node, {
-          y: 26, autoAlpha: 0, duration: 0.7, ease: 'power2.out',
-          scrollTrigger: { trigger: node, start: 'top 86%', once: true },
         })
       })
     }, root)
