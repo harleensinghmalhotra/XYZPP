@@ -152,8 +152,8 @@ export default function CTAFooter() {
               </p>
 
               <div className="mt-4 flex flex-col gap-2">
-                <a href="mailto:info@quarterfoldltd.com" className="text-[14px] font-medium transition-colors" style={{ color: 'rgba(28,32,25,0.82)' }}>info@quarterfoldltd.com</a>
-                <a href="https://www.quarterfoldltd.com" target="_blank" rel="noreferrer" className="text-[14px] font-medium transition-colors" style={{ color: 'rgba(28,32,25,0.82)' }}>www.quarterfoldltd.com</a>
+                <a href="mailto:info@quarterfoldltd.com" className="text-[14px] font-medium transition-colors max-[900px]:flex max-[900px]:min-h-[44px] max-[900px]:items-center" style={{ color: 'rgba(28,32,25,0.82)' }}>info@quarterfoldltd.com</a>
+                <a href="https://www.quarterfoldltd.com" target="_blank" rel="noreferrer" className="text-[14px] font-medium transition-colors max-[900px]:flex max-[900px]:min-h-[44px] max-[900px]:items-center" style={{ color: 'rgba(28,32,25,0.82)' }}>www.quarterfoldltd.com</a>
               </div>
 
               {/* Certifications — a horizontal row of icons, no text labels (client). Each
@@ -187,10 +187,13 @@ export default function CTAFooter() {
               {columns.map((col) => (
                 <div key={col.h} className="flex flex-col">
                   <h3 className="mb-6 text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: MONO, color: '#925C10' }}>{col.h}</h3>
-                  <ul className="flex flex-col gap-4">
+                  {/* mobile: each link is a >=44px flex row (real tap target); the row
+                      gap tightens so nine 44px targets don't stack into an absurd column.
+                      Desktop (>=901px) keeps the inline 14px links at gap-4, unchanged. */}
+                  <ul className="flex flex-col gap-4 max-[900px]:gap-1">
                     {col.items.map((it) => (
                       <li key={it.label}>
-                        <Link to={it.to} className="text-[14px] font-medium transition-colors hover:text-[#925C10]" style={{ color: 'rgba(28,32,25,0.82)' }}>{it.label}</Link>
+                        <Link to={it.to} className="text-[14px] font-medium transition-colors hover:text-[#925C10] max-[900px]:flex max-[900px]:min-h-[44px] max-[900px]:items-center" style={{ color: 'rgba(28,32,25,0.82)' }}>{it.label}</Link>
                       </li>
                     ))}
                   </ul>
@@ -223,7 +226,7 @@ export default function CTAFooter() {
               <div className="h-[3px] w-48" style={{ background: '#B06F15' }} />
               <div className="flex items-center gap-3">
                 {socials.map((s) => (
-                  <a key={s.net} href={s.href} target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full bg-[#030C31]/6 transition-all hover:bg-[#B06F15]/20 hover:scale-110 active:scale-95" aria-label={s.net}>
+                  <a key={s.net} href={s.href} target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full bg-[#030C31]/6 transition-all hover:bg-[#B06F15]/20 hover:scale-110 active:scale-95 max-[900px]:h-11 max-[900px]:w-11" aria-label={s.net}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#5c5346] transition-colors group-hover:text-[#B06F15]">
                       {s.net === 'Instagram' && <><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></>}
                       {s.net === 'YouTube' && <><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" /><path d="m10 15 5-3-5-3z" /></>}
@@ -238,7 +241,7 @@ export default function CTAFooter() {
               </p>
               <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                 {legalLinks.map((it) => (
-                  <Link key={it.key} to={`/legal/${it.key}`} className="text-[11px] font-semibold tracking-wider uppercase transition-colors hover:text-[#925C10]" style={{ color: '#5c5346' }}>{it.label}</Link>
+                  <Link key={it.key} to={`/legal/${it.key}`} className="text-[11px] font-semibold tracking-wider uppercase transition-colors hover:text-[#925C10] max-[900px]:flex max-[900px]:min-h-[44px] max-[900px]:items-center" style={{ color: '#5c5346' }}>{it.label}</Link>
                 ))}
               </div>
             </div>
