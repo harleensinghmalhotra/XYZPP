@@ -28,7 +28,7 @@ export default function LanguageToggle({ light = false }) {
 
   return (
     <div
-      className={`inline-flex items-center gap-0.5 rounded-full px-1 py-0.5 ring-1 ${ring}`}
+      className={`inline-flex items-center gap-0.5 rounded-full px-1 py-0.5 max-[900px]:py-0 ring-1 ${ring}`}
       role="group"
       aria-label={t('language')}
       style={{ fontFamily: MONO }}
@@ -47,7 +47,7 @@ export default function LanguageToggle({ light = false }) {
               onClick={() => i18n.changeLanguage(lng.code)}
               aria-pressed={active}
               aria-current={active ? 'true' : undefined}
-              className="focus-ring rounded-full px-2 py-0.5 text-[12px] font-medium uppercase tracking-[0.08em] transition-colors duration-200"
+              className="focus-ring rounded-full px-2 py-0.5 text-[12px] font-medium uppercase tracking-[0.08em] transition-colors duration-200 max-[900px]:inline-flex max-[900px]:min-h-[44px] max-[900px]:min-w-[44px] max-[900px]:items-center max-[900px]:justify-center"
               style={{ color: active ? GOLD : inactive }}
               onMouseEnter={(e) => { if (!active) e.currentTarget.style.color = inactiveHover }}
               onMouseLeave={(e) => { if (!active) e.currentTarget.style.color = inactive }}
