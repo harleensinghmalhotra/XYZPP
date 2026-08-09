@@ -152,7 +152,12 @@ function Globe3D({ reduced = false, className = '' }, ref) {
     },
   }), [reduced])
 
-  // Mount gate: proximity IntersectionObserver (rootMargin 200px), like GlobeFlyTo.
+  // Mount gate: proximity IntersectionObserver. The heavy react-globe.gl chunk (~1.8MB)
+  // + earth texture (~1.4MB) are dynamic-imported only once this fires, so they never
+  // ride the cold page load. rootMargin '150% 0px' = ~1.5 viewports of lead, so the
+  // globe has mounted and loaded by the time the section scrolls into view (on a fast
+  // connection the reserved-size placeholder is never seen). The .proj-globe container
+  // reserves its square via CSS, so mounting causes zero layout shift.
   useEffect(() => {
     const wrap = wrapRef.current
     if (!wrap) return
@@ -167,7 +172,7 @@ function Globe3D({ reduced = false, className = '' }, ref) {
           setInview(true)
         }
       },
-      { rootMargin: '200px' },
+      { rootMargin: '150% 0px' },
     )
     io.observe(wrap)
     return () => io.disconnect()
