@@ -9,6 +9,9 @@ const MONO = "'DM Mono', monospace"
 
 export default function CTAFooter() {
   const { t } = useTranslation('footer')
+  // Nav-namespace labels for the routes the footer newly exposes — the SAME keys the
+  // mobile drawer (MobileNav.jsx) uses, so the two navigation surfaces stay in sync.
+  const { t: tn } = useTranslation('nav')
 
   // Every footer link is wired ({ label, to }). Several targets are
   // SECTIONS on the homepage, not standalone pages: those use a hash route (e.g.
@@ -30,11 +33,23 @@ export default function CTAFooter() {
       h: t('quickLinks'),
       // Case Studies link gated with the section — hidden while
       // SHOW_CASE_STUDIES is false so no link points at a hidden section.
+      // Standalone PAGES first, in site order (About, Print on Demand, Infrastructure,
+      // Global Markets, Fulfilment, Newsroom) — every route a visitor can reach, so the
+      // footer is a complete nav on mobile where the header nav is a drawer. The two
+      // homepage-SECTION shortcuts (Products → #what-we-print, Global Reach → #projects)
+      // sit apart from the /global-markets PAGE so "Global Markets" and "Global Reach"
+      // never read as a duplicate. New labels come from the nav namespace (tn); the four
+      // pre-existing links keep their footer-namespace labels unchanged.
       items: [
         { label: t('links.products'), to: '/#what-we-print' },
-        { label: t('links.globalReach'), to: '/#projects' },
+        { label: tn('about'), to: '/about' },
+        { label: tn('printOnDemand'), to: '/print-on-demand' },
         { label: t('links.infrastructure'), to: '/infrastructure' },
+        { label: tn('globalMarkets'), to: '/global-markets' },
+        { label: tn('fulfilment'), to: '/fulfilment' },
+        { label: tn('newsroom'), to: '/newsroom' },
         ...(SHOW_CASE_STUDIES ? [{ label: t('links.caseStudies'), to: '/#cases' }] : []),
+        { label: t('links.globalReach'), to: '/#projects' },
         { label: t('links.contact'), to: '/contact' },
       ],
     },
