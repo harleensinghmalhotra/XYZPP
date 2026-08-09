@@ -1308,6 +1308,24 @@
   .ib-face--panel { position: absolute; inset: 0; }
   /* the leaf turn assumes side-by-side geometry → flat crossfade here */
   .ib-leaf { display: none; }
+
+  /* 11px accessibility floor (client compliance doc). On the narrow mobile container
+     these all resolve to their clamp() minimum — pillar labels 9px, spec subs 9.5px,
+     the intro closing 10px, the hint 10.5px, and the ⌂ Overview pill label 10.5px.
+     Pin every one to 11px. Desktop (≥901px) keeps its canonical clamp() scale. */
+  .ib-pillar-label {
+    font-size: 11px;
+    overflow-wrap: break-word;   /* safety net; the 2-col grid below gives clean word wraps */
+  }
+  /* At 11px the four labels can't sit 4-across on the ~300px card without breaking
+     "Manufacturing" mid-word. Drop to a 2x2 grid so each label has ~140px and wraps
+     on word boundaries (as it does on desktop). Two rows are fine — the spread just
+     grows a row taller. */
+  .ib-pillars { grid-template-columns: repeat(2, 1fr); gap: 16px 10px; }
+  .ib-spec-sub { font-size: 11px; }
+  .ib-intro-closing { font-size: 11px; }
+  .ib-hint { font-size: 11px; }
+  .ib-overview { font-size: 11px; }  /* also lifts its inner label span ("Infrastructure") */
 }
 
 /* ── SCALED UP (canonical desktop ≥1280) — bigger pages, nav scales ─────────── */
