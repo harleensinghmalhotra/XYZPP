@@ -357,7 +357,7 @@ function Gallery() {
 // his photo is a top-anchored crop of the founder portrait; Charani's slug is kept
 // while her displayed name gains her full middle name. Milton is intentionally
 // omitted (no name, title, photo, bio or quote supplied).
-const TEAM_SLUGS = ['nilesh-dhankani', 'patrick-carrapiett', 'dilip-ramrakhyani', 'charani-dhankani', 'sameer-kazi', 'dhiresh-verlekar', 'priyanka-rajpal']
+const TEAM_SLUGS = ['nilesh-dhankani', 'patrick-carrapiett', 'dilip-ramrakhyani', 'charani-dhankani', 'sameer-kazi', 'dhiresh-verlekar', 'tushar-wadhwani', 'namrata-mankani', 'sameer-chavan']
 const TEAM_PLACEHOLDER = '/site-assets/about/team/placeholder-portrait.svg'
 
 // ── OUR TEAM — the spotlight ─────────────────────────────────────────────────
