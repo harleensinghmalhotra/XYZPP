@@ -779,6 +779,18 @@
   text-decoration: underline; text-underline-offset: 2px;
 }
 .pod-req-cancel:hover { color: rgba(253, 250, 244, 0.9); }
+/* Mobile touch-target + spacing fixes for the request form.
+   - Consent: the checkbox was 18px, but its <label for> already toggles it, so the
+     real tap target is the whole label (~269x56, well over 44px). Bump the box to 24px
+     for an easier direct hit and give the wrapping sentence a right gutter so it no
+     longer runs hard against the card edge (measured right gap was 0).
+   - Submit (42px) and Cancel (27px) sat just under the 44px floor. */
+@media (max-width: 900px) {
+  .pod-req-consent { grid-template-columns: 24px 1fr; padding-right: 14px; }
+  .pod-req-consent input { width: 24px; height: 24px; }
+  .pod-req button[type="submit"] { min-height: 44px; }
+  .pod-req-cancel { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: 10px 14px; }
+}
 /* attachment upload — optional file field inside the request form. Styled to match the
    light-on-navy inputs above it; uploads direct to Uploadcare, link rides in the payload. */
 .pod-upload { position: relative; }
