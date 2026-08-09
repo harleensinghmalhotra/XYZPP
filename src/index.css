@@ -5151,3 +5151,36 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   }
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE UX LANE 1 · TASK 2 — homepage hardcoded sections (≤900px only)
+   Bring the non-token homepage sections into the 48–64 band and onto one left
+   edge (20px). Desktop untouched. Ref recon §1.
+   NOTE — three homepage items are NOT reachable from index.css and are left for
+   a follow-up lane: #marquee's 152px top is Tailwind pt-[18svh] in
+   src/sections/Marquee.jsx; #process bottom is now handled here via the Task-1
+   token (.pv-section uses var(--section-pad-y) in ProcessVideo.css → 64px);
+   .tb-band is already compliant (clamp(28px,4vh,44px)=34px / 20px gutter).
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  /* Promise — was 84px/22px (@≤640). */
+  .promise { padding: 56px var(--page-gutter); }
+
+  /* Infrastructure (home) — was 72px 24px 80px. Top → 56; bottom kept at 64 (in
+     band) rather than 56 because it is STRUCTURAL clearance for the Certification
+     dome that rises into this section's tail — verified on screen it stays clear. */
+  .infra { padding: 56px var(--page-gutter) 64px; }
+
+  /* Certifications — was 36px 24px 88px. */
+  .certs { padding: 36px var(--page-gutter) 56px; }
+
+  /* Sustainability — was 72px 24px (min-height:0 kept from the ≤900 rule above). */
+  .sustain { padding: 56px var(--page-gutter); }
+
+  /* Reach/GlobeReach — the copy column sat 56px in (gr-grid padding-left:max(56px…))
+     and carried 76px top/bottom (gr-copy). Pull the left edge to the 20px gutter
+     and trim the vertical so the What-We-Print→Reach seam stops showing ~148px of
+     empty. Globe still bleeds right (grid untouched on the right). */
+  .gr-grid { padding-left: var(--page-gutter); }
+  .gr-copy { padding-top: 48px; padding-bottom: 48px; }
+}
+
