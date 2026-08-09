@@ -5186,7 +5186,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
 
 /* ══════════════════════════════════════════════════════════════════════════
    MOBILE UX LANE 1 · TASK 3 — fulfilment + contact sections (≤900px only)
-   All ff-*/ctc-* padding lives in index.css. Trim the 84–127px vh-clamp and
+   All ff- and ctc- padding lives in index.css. Trim the 84–127px vh-clamp and
    hardcoded pads to the 56px band and the 20px gutter (ff-* were 56px side).
    Keep the deliberate 40px shoulders on the welcome/desk pair. Global-Markets
    own py-24 sections are Tailwind in GlobalMarkets.jsx → separate lane (skipped
@@ -5213,6 +5213,8 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
    CANNOT be done from index.css (reported for follow-up lanes — sizing lives in
    JSX-Tailwind or component CSS, not here):
      • Hero CTA pair  — src/sections/Hero.jsx (h-[54px] min-w-[220px], inline)
+     • Shared CTAButton (pod / infra / global / newsroom primaries such as
+       Request a Quote, Start building) — Tailwind BASE in src/components/CTAButton.jsx
      • See More / view-all-cases / cs-cta — src/sections/Cases.css
      • Header Request-a-Quote— src/components/SiteNav.jsx (inline Tailwind)
      • POD CTAs (Start building / Request This Book) — src/pages/PrintOnDemand.css
@@ -5231,7 +5233,9 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   .ctc-careers-ctas { flex-direction: column; align-items: stretch; }
   .ctc-careers-ctas .u-btn { width: 100%; justify-content: center; }
 
-  /* Fulfilment primary CTA — full-width (height stays 60px: deliberate primary). */
-  .ff-cta-pill { width: 100%; justify-content: center; }
+  /* Fulfilment primary CTA — the shared <CTAButton> (btn-nebula) inside the
+     index.css-owned .ff-cta section → full-width, centred. (.ff-cta-pill is a
+     legacy unused class, so it is NOT the target.) */
+  .ff-cta .btn-nebula { width: 100%; justify-content: center; }
 }
 
