@@ -1,0 +1,126 @@
+/* ── Mobile navigation drawer ──────────────────────────────────────────────────
+   Hamburger lives in the cream header (navy bars); the drawer is a full-screen navy
+   panel portalled to <body>. Palette: navy #030C31, gold #B06F15, cream #FDFAF4,
+   Inter Tight for the links — reads like the rest of the site. Hidden at >=1024px,
+   where the desktop nav takes over. */
+
+.mnav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: #030C31;                 /* navy bars on the cream header */
+  -webkit-tap-highlight-color: transparent;
+}
+.mnav-bars { display: flex; flex-direction: column; gap: 5px; width: 24px; }
+.mnav-bars span { display: block; width: 100%; height: 2px; border-radius: 2px; background: currentColor; }
+.mnav-toggle:hover { color: #B06F15; }
+.mnav-toggle:focus-visible { outline: 2px solid #030C31; outline-offset: 2px; border-radius: 6px; }
+
+/* the desktop nav appears at lg (1024px); the hamburger is mobile-only. */
+@media (min-width: 1024px) {
+  .mnav-toggle { display: none; }
+}
+
+/* full-screen drawer (portalled to body) — above the cookie banner (z-200) and the
+   WhatsApp float (z-190). */
+.mnav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  background: #030C31;
+  color: #FDFAF4;
+  padding: 16px 20px calc(22px + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: mnav-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes mnav-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.mnav-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+}
+.mnav-logo { width: 40px; height: 40px; object-fit: contain; }
+.mnav-close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: #FDFAF4;
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.mnav-close:hover { color: #B06F15; background: rgba(253, 250, 244, 0.06); }
+.mnav-close:focus-visible { outline: 2px solid #B06F15; outline-offset: 2px; }
+
+.mnav-links {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.mnav-link {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 8px 4px;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #FDFAF4;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(253, 250, 244, 0.12);
+  transition: color 0.18s ease, padding-left 0.18s ease;
+}
+.mnav-link:hover,
+.mnav-link.is-active { color: #B06F15; }
+.mnav-link.is-active { padding-left: 8px; }
+.mnav-link:focus-visible { outline: 2px solid #B06F15; outline-offset: 2px; border-radius: 4px; }
+
+.mnav-foot {
+  margin-top: auto;
+  padding-top: 26px;
+}
+.mnav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 22px;
+  background: #B06F15;
+  color: #FDFAF4;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+.mnav-cta:hover { background: #925C10; }
+.mnav-cta:focus-visible { outline: 2px solid #FDFAF4; outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mnav-overlay { animation: none; }
+  .mnav-link { transition: color 0.18s ease; }
+}

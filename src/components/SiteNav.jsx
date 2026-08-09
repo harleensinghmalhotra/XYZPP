@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import LanguageToggle from '@/components/LanguageToggle'
+import MobileNav from '@/components/MobileNav'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import { scrollToWwp } from '@/pages/Home'
 
@@ -266,6 +267,8 @@ export default function SiteNav() {
             {t('requestQuote')}
             <span aria-hidden="true">→</span>
           </Link>
+          {/* Hamburger — visible below 1024px only (where the centre nav is hidden). */}
+          <MobileNav />
         </div>
       </div>
     </header>
