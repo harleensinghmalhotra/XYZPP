@@ -1325,7 +1325,10 @@
   .ib-spec-sub { font-size: 11px; }
   .ib-intro-closing { font-size: 11px; }
   .ib-hint { font-size: 11px; }
-  .ib-overview { font-size: 11px; }  /* also lifts its inner label span ("Infrastructure") */
+  /* font-size lifts the pill's inner label span ("Infrastructure") to 11px; the
+     taller padding + 44px floor bring the tap target up from 32px to >=44px. It stays
+     a full-width rounded pill (border-radius:999px, align-self:stretch), not a slab. */
+  .ib-overview { font-size: 11px; min-height: 44px; padding-top: 13px; padding-bottom: 13px; }
 }
 
 /* ── SCALED UP (canonical desktop ≥1280) — bigger pages, nav scales ─────────── */
