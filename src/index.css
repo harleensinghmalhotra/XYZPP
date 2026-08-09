@@ -4135,6 +4135,12 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 .ctc-field input[aria-invalid="true"], .ctc-field select[aria-invalid="true"], .ctc-field textarea[aria-invalid="true"] {
   border-color: #925C10; box-shadow: 0 0 0 3px rgba(194, 85, 27, 0.14);
 }
+/* iOS Safari zooms the page when a focused control's font-size is < 16px, shoving
+   the layout sideways mid-typing. Desktop keeps 15px; below 900px raise the eight
+   contact fields (first/last/email/phone/company/country/enquiry/message) to 16px. */
+@media (max-width: 900px) {
+  .ctc-field input, .ctc-field select, .ctc-field textarea { font-size: 16px; }
+}
 .ctc-err {
   margin-top: 7px;
   font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; color: #925C10;
