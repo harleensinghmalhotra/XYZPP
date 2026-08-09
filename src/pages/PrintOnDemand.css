@@ -755,6 +755,12 @@
   outline: none; border-color: var(--gold-2); box-shadow: 0 0 0 3px rgb(var(--gold-2-rgb) / 0.3);
 }
 .pod-req-field input[aria-invalid="true"] { border-color: #B06F15; box-shadow: 0 0 0 3px rgba(177, 129, 32, 0.22); }
+/* iOS Safari zooms the page when a focused field is < 16px, shoving the layout
+   sideways mid-typing. Desktop keeps 14px; below 900px raise the four request fields
+   (name, email, phone, notes) to 16px. */
+@media (max-width: 900px) {
+  .pod-req-field input, .pod-req-field textarea { font-size: 16px; }
+}
 .pod-req-err { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #925C10; }
 .pod-req-error { margin: 2px 0 0; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.5; color: #925C10; }
 .pod-req-error a { color: #925C10; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
