@@ -5156,7 +5156,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
    Bring the non-token homepage sections into the 48–64 band and onto one left
    edge (20px). Desktop untouched. Ref recon §1.
    NOTE — three homepage items are NOT reachable from index.css and are left for
-   a follow-up lane: #marquee's 152px top is Tailwind pt-[18svh] in
+   a follow-up lane: the #marquee 152px top is Tailwind pt-[18svh] in
    src/sections/Marquee.jsx; #process bottom is now handled here via the Task-1
    token (.pv-section uses var(--section-pad-y) in ProcessVideo.css → 64px);
    .tb-band is already compliant (clamp(28px,4vh,44px)=34px / 20px gutter).
@@ -5188,7 +5188,7 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
    MOBILE UX LANE 1 · TASK 3 — fulfilment + contact sections (≤900px only)
    All ff-*/ctc-* padding lives in index.css. Trim the 84–127px vh-clamp and
    hardcoded pads to the 56px band and the 20px gutter (ff-* were 56px side).
-   Keep the deliberate 40px shoulders on the welcome/desk pair. Global-Markets'
+   Keep the deliberate 40px shoulders on the welcome/desk pair. Global-Markets
    own py-24 sections are Tailwind in GlobalMarkets.jsx → separate lane (skipped
    per the brief). Reach/.gr-section handled in Task 2. Desktop untouched.
    ══════════════════════════════════════════════════════════════════════════ */
@@ -5214,10 +5214,10 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
    JSX-Tailwind or component CSS, not here):
      • Hero CTA pair  — src/sections/Hero.jsx (h-[54px] min-w-[220px], inline)
      • See More / view-all-cases / cs-cta — src/sections/Cases.css
-     • Header "Request a Quote" — src/components/SiteNav.jsx (inline Tailwind)
+     • Header Request-a-Quote— src/components/SiteNav.jsx (inline Tailwind)
      • POD CTAs (Start building / Request This Book) — src/pages/PrintOnDemand.css
      • Infrastructure CTA — src/pages/InfrastructurePage.css
-     • "Watch more on our YouTube channel" — src/components/YouTubeChannel.css
+     • Watch-more-on-our-YouTube-channel— src/components/YouTubeChannel.css
      • Global-Markets CTAs — src/pages/GlobalMarkets.jsx
      • Footer CTA full-width — its row is Tailwind flex-col sm:flex-row in
        src/sections/CTAFooter.jsx (the .u-btn scale below still applies to it)
