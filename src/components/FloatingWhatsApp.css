@@ -52,6 +52,21 @@
   .wa-fab svg { width: 24px; height: 24px; }
 }
 
+/* Cookie banner overlap (mobile). The banner is a fixed bottom bar at z-200 with its
+   Accept/Reject buttons filling the bottom row, so on first visit it sat ON TOP of the
+   fab (z-190) — elementFromPoint at the fab centre returned the Reject button, i.e. a
+   WhatsApp tap hit the banner. While the banner is present, lift the fab clear ABOVE it
+   (the banner is at most ~205px tall — FR @360) and raise it above the banner in the
+   stack, but keep it BELOW the mobile nav drawer (z-500), which covers everything by
+   design. :has() drops the fab straight back to its resting bottom-right 16px the moment
+   the banner is dismissed. Pure CSS, no shared state; desktop (>900px) is untouched. */
+@media (max-width: 900px) {
+  body:has(.ck-banner) .wa-fab {
+    bottom: calc(212px + env(safe-area-inset-bottom, 0px));
+    z-index: 201;
+  }
+}
+
 /* Motion-safe: fade only, no scale/translate, no hover growth. */
 @media (prefers-reduced-motion: reduce) {
   .wa-fab {
