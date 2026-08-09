@@ -3054,8 +3054,39 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 
 @media (max-width: 900px) {
   .certs { padding: 36px 24px 88px; }
-  .certs-viewport { margin-right: -24px; padding-right: 24px; }
   .certs-top { flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
+
+  /* Certifications carousel — mobile scroller.
+     The desktop layout is a static five-across grid (.certs-track: repeat(5, 1fr),
+     width:100%) inside an overflow:visible viewport. Five 1fr tracks cannot shrink
+     below their combined min-content (~717px), and nothing clips them, so the whole
+     document was forced to a constant 741px wide — dead horizontal scroll on /, /about
+     and /infrastructure. Below 900px, restore the horizontal SCROLLER this component
+     was actually built for: .certs-viewport already carries drag-to-scroll, arrow
+     nudge() and syncArrows() wiring (dormant only because the grid never overflowed).
+     Turning the viewport into an x-scroller and flowing the cards in one wide row keeps
+     the overflow INSIDE the section, so documentElement.scrollWidth === clientWidth.
+     Desktop (>900px) is untouched and keeps the pixel-identical five-across grid. */
+  .certs-viewport {
+    margin-right: -24px;              /* bleed the scroller to the screen edge */
+    padding: 6px 24px 26px 0;         /* room for the card drop-shadow + a trailing gutter */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 0;
+    overscroll-behavior-x: contain;   /* horizontal swipe stays in the carousel */
+    -webkit-overflow-scrolling: touch;
+  }
+  .certs-track {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(240px, 78vw, 300px);
+    width: max-content;
+  }
+  .cert-card { scroll-snap-align: start; }
+
+  /* the prev/next arrows are already built + wired (nudge/syncArrows) and were only
+     hidden for the one-screen desktop grid — surface them as mobile tap controls. */
+  .certs-arrows { display: flex; justify-content: center; margin-top: 22px; }
 }
 /* When the navy sweep-arc is present at the foot (flatBottom = false → About and
    Infrastructure), the 76px arc band rose ~4px into the card row, so the cards sat
