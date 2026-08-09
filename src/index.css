@@ -5184,3 +5184,25 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   .gr-copy { padding-top: 48px; padding-bottom: 48px; }
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE UX LANE 1 · TASK 3 — fulfilment + contact sections (≤900px only)
+   All ff-*/ctc-* padding lives in index.css. Trim the 84–127px vh-clamp and
+   hardcoded pads to the 56px band and the 20px gutter (ff-* were 56px side).
+   Keep the deliberate 40px shoulders on the welcome/desk pair. Global-Markets'
+   own py-24 sections are Tailwind in GlobalMarkets.jsx → separate lane (skipped
+   per the brief). Reach/.gr-section handled in Task 2. Desktop untouched.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .ff-conv     { padding: 56px var(--page-gutter); }        /* was clamp(84,12vh,148) 56 clamp(72,10vh,120) */
+  .ff-value    { padding: 56px var(--page-gutter); }        /* was clamp(84,12vh,150) 56 */
+  .ff-features { padding: 48px var(--page-gutter) 56px; }   /* was clamp(48,7vh,88) 56 clamp(72,10vh,116) */
+  .ff-journey  { padding: 56px var(--page-gutter); }        /* was clamp(88,13vh,160) 56 */
+  .ff-cta      { padding: 56px var(--page-gutter); }        /* was clamp(96,14vh,148) 24 clamp(104,15vh,156) */
+
+  .ctc-welcome  { padding: 56px var(--page-gutter) 40px; }  /* was 96 24 40 */
+  .ctc-desk-sec { padding: 40px var(--page-gutter) 56px; }  /* was 40 24 104 */
+  .ctc-addr     { padding: 56px var(--page-gutter) 56px; }  /* was 116 24 108 */
+  .ctc-form-sec { padding: 56px var(--page-gutter) 56px; }  /* was 116 24 120 */
+  .ctc-faq      { padding: 56px var(--page-gutter) 56px; }  /* was 80 24 84 */
+}
+
