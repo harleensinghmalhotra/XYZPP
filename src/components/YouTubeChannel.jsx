@@ -42,7 +42,7 @@ export default function YouTubeChannel({
   channelHref = CHANNEL_URL,
 }) {
   // Build the card list once from the URL file, dropping anything unparseable.
-  const videos = YOUTUBE_VIDEOS.map((url) => ({ url, id: youTubeId(url) })).filter((v) => v.id)
+  const videos = YOUTUBE_VIDEOS.map(({ url, title }) => ({ url, title, id: youTubeId(url) })).filter((v) => v.id)
 
   const [active, setActive] = useState(null)  // the playing video ({ id, url }) or null
   const closeRef = useRef(null)
@@ -75,7 +75,7 @@ export default function YouTubeChannel({
         <ul className="yt-grid" role="list">
           {videos.map((v, i) => (
             <li className="yt-cell" key={v.id}>
-              <button type="button" className="yt-card" onClick={() => setActive(v)} aria-label={playLabel.replace('{n}', String(i + 1))}>
+              <button type="button" className="yt-card" onClick={() => setActive(v)} aria-label={v.title || playLabel.replace('{n}', String(i + 1))}>
                 <span className="yt-thumb">
                   <img
                     className="yt-thumb-img"
@@ -91,6 +91,10 @@ export default function YouTubeChannel({
                   <span className="yt-play" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor" /></svg>
                   </span>
+                </span>
+                <span className="yt-meta">
+                  <img className="yt-avatar" src="/qfp/brand/qfp-mark.png" alt="" aria-hidden="true" width="32" height="32" loading="lazy" decoding="async" />
+                  <span className="yt-card-title">{v.title}</span>
                 </span>
               </button>
             </li>
