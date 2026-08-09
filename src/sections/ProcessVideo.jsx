@@ -83,13 +83,17 @@ export default function ProcessVideo() {
       </div>
 
       <div className="pv-video-wrap">
+        {/* No `autoPlay`: the attribute forces the browser to fetch the ~6MB clip during
+            the cold page load even with preload="none". Playback is driven entirely by
+            the IntersectionObserver above — it calls .play() when the section scrolls
+            into view (and .pause() when it leaves), so the poster shows until then and
+            the bytes download only on approach. Behaviour on screen is unchanged. */}
         <video
           ref={videoRef}
           className="pv-video"
           muted
           loop
           playsInline
-          autoPlay={!reduced}
           preload="none"
           poster={POSTER}
           aria-hidden="true"
