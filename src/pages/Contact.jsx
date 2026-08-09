@@ -420,7 +420,7 @@ export default function Contact() {
                 <div className="ctc-addr-loc">
                   <h3 className="ctc-addr-name">{t('addr.factory.unit', { n: 3 })}</h3>
                   <p className="ctc-addr-lines">
-                    Plot No. A-2/3, Taloja MIDC,<br />
+                    Plot No. L23, Taloja MIDC,<br />
                     Navi Mumbai, 410208, India
                   </p>
                 </div>

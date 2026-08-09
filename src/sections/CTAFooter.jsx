@@ -195,7 +195,7 @@ export default function CTAFooter() {
                 <div className="flex flex-col gap-4 text-[14px] font-medium leading-relaxed" style={{ color: 'rgba(28,32,25,0.82)' }}>
                   <p><span className="block font-semibold text-[#030C31]">{t('unit', { n: 1 })}</span>Plot No. B-8, Taloja MIDC,<br />Navi Mumbai, 410208, India</p>
                   <p><span className="block font-semibold text-[#030C31]">{t('unit', { n: 2 })}</span>Plot No. L-143, Taloja MIDC,<br />Navi Mumbai, 410208, India</p>
-                  <p><span className="block font-semibold text-[#030C31]">{t('unit', { n: 3 })}</span>Plot No. A-2/3, Taloja MIDC,<br />Navi Mumbai, 410208, India</p>
+                  <p><span className="block font-semibold text-[#030C31]">{t('unit', { n: 3 })}</span>Plot No. L23, Taloja MIDC,<br />Navi Mumbai, 410208, India</p>
                 </div>
               </div>
 
