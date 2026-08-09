@@ -5206,3 +5206,32 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   .ctc-faq      { padding: 56px var(--page-gutter) 56px; }  /* was 80 24 84 */
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE UX LANE 1 · TASK 4 — button system, index.css-owned parts (≤900px)
+   Only the .u-btn family, the contact-careers pair and .ff-cta-pill are sized
+   in index.css, so only those are unified/full-width here.
+   CANNOT be done from index.css (reported for follow-up lanes — sizing lives in
+   JSX-Tailwind or component CSS, not here):
+     • Hero CTA pair  — src/sections/Hero.jsx (h-[54px] min-w-[220px], inline)
+     • See More / view-all-cases / cs-cta — src/sections/Cases.css
+     • Header "Request a Quote" — src/components/SiteNav.jsx (inline Tailwind)
+     • POD CTAs (Start building / Request This Book) — src/pages/PrintOnDemand.css
+     • Infrastructure CTA — src/pages/InfrastructurePage.css
+     • "Watch more on our YouTube channel" — src/components/YouTubeChannel.css
+     • Global-Markets CTAs — src/pages/GlobalMarkets.jsx
+     • Footer CTA full-width — its row is Tailwind flex-col sm:flex-row in
+       src/sections/CTAFooter.jsx (the .u-btn scale below still applies to it)
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  /* One scale for the .u-btn family: 48px min height, 15px label (was 13px). */
+  .u-btn { min-height: 48px; font-size: 15px; }
+
+  /* Contact careers pair (Email your CV + Send an Inquiry) — was a squashed
+     side-by-side wrap; stack full-width. */
+  .ctc-careers-ctas { flex-direction: column; align-items: stretch; }
+  .ctc-careers-ctas .u-btn { width: 100%; justify-content: center; }
+
+  /* Fulfilment primary CTA — full-width (height stays 60px: deliberate primary). */
+  .ff-cta-pill { width: 100%; justify-content: center; }
+}
+
