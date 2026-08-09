@@ -29,7 +29,7 @@ const EMAIL_ENQ = 'enquiry@quarterfoldltd.com'
 const EMAIL_CAREERS = 'careers@quarterfoldltd.com'
 const WA_URL = `https://wa.me/${PHONE_TEL.replace('+', '')}`
 const MAPS_HEAD = 'https://www.google.com/maps/search/?api=1&query=Quarterfold+Printabilities+Plot+No+31+Sector+22+Sanpada+Navi+Mumbai+400703'
-const MAPS_FACTORY = 'https://www.google.com/maps/search/?api=1&query=Taloja+MIDC+Navi+Mumbai+410208'
+const MAPS_FACTORY = 'https://maps.app.goo.gl/rouscuBgdiPzABzR7'
 
 // Web3Forms — public-safe access key (delivery endpoint for the live enquiry form).
 // NOTE(WhatsApp): WA_URL points at the canonical business number above; no separate
