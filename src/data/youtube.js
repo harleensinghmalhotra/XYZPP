@@ -19,4 +19,5 @@ export const YOUTUBE_VIDEOS = [
   'https://www.youtube.com/watch?v=RBH8Fl20UhI',
   'https://www.youtube.com/watch?v=C5zvmiujeig',
   'https://youtu.be/Y0V-H3to8Jw',
+  'https://youtube.com/shorts/zOvbbldPbTc',
 ]
