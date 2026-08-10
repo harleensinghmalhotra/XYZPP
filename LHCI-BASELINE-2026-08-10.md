@@ -165,3 +165,18 @@ Until then, `.lighthouseci/` shows as untracked after each run; it was **deliber
 **The commit stages exactly four paths:** `package.json`, `pnpm-lock.yaml`, `lighthouserc.json`, `LHCI-BASELINE-2026-08-10.md` — on branch `phase2-routing`.
 
 **Final commit SHA:** recorded in the delivery message and retrievable via `git log -1 --format=%H` (it is this commit, HEAD of `phase2-routing`). A file cannot contain its own commit hash, so it is reported alongside this commit rather than embedded above.
+
+---
+
+## Lane 2 (Performance polish) results — 2026-08-11
+
+`pnpm audit:lhci` after the Lane-2 commits (LCP preload `604a708`, image recompression `8f4f0e8`): **GREEN (exit 0)**. Median-of-3 vs the 2026-08-10 baseline (gate in the third column):
+
+| Route | Perf (base / gate) | LCP (base) | CLS | TBT ms (base) | Byte weight KiB (base) |
+|---|---|---|---|---|---|
+| `/` | 51 (50 / ≥42) | **10.2s (11.0s) −0.8s** | 0.005 | 316 (352) | **2465 (2614) −149** |
+| `/fulfilment` | 55 (58 / ≥50) | 8.5s (8.3s) | 0 | 209 (139)* | 2372 (2404) −32 |
+| `/infrastructure` | 60 (61 / ≥54) | **7.0s (8.3s) −1.3s** | 0.001 | 128 (68)* | 1723 (1765) −42 |
+| `/contact` | 60 (65 / ≥58) | 5.7s (5.5s) | 0.005 | 252 (124)* | 945 (944) |
+
+**Wins:** the route-conditional LCP preload cut LCP on exactly the two routes it targets — **`/` −0.8s, `/infrastructure` −1.3s** — and the in-place image recompression trimmed byte-weight on every route (−149 KiB on `/`). CLS unchanged (~0). *The TBT/perf wobble on `/fulfilment` and `/contact` is host-load run variance (both are text-LCP routes with no preload and no cold-image change); all four routes remain above their gates.
