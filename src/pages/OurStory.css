@@ -504,6 +504,16 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
   .ab-hl-2 { font-size: clamp(16px, 5vw, 28px); }
 }
 
+/* ── Lane 4 · Task 2 — About section vertical spacing into the 48–64 mobile band
+   (≤900px). Horizontal stays on --page-gutter (20px < 900, via Lane 1). .tm (team)
+   is intentionally left alone. #certifications bottom on this page is .certs-archb
+   in src/index.css — outside this lane's two files (noted in the report). ── */
+@media (max-width: 900px) {
+  .ab-lede  { padding-top: 56px; }                        /* was clamp(56,8vh,104) = ~68 */
+  .ab-quote { padding-top: 56px; padding-bottom: 56px; }  /* was clamp(56,9vh,104) = 76/76 */
+  .gal      { padding-bottom: 56px; }                     /* was var(--section-pad-y) = 64 (recon pre-Lane1: 96) */
+}
+
 /* ── reduced-motion — explicit resting states for every custom mechanic ────── */
 @media (prefers-reduced-motion: reduce) {
   .ab-spine { transform: scaleY(1) !important; }
