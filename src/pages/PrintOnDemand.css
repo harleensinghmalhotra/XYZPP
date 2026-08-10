@@ -959,6 +959,23 @@
   .pod-opts.chips.qty { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE UX LANE 6 — /print-on-demand section rhythm (≤900px only)
+   Two section pads into the 48–64 mobile band. Longhand overrides so the base
+   clamps keep their top/side values; both resolve to their desktop clamp above
+   900px width, so 1536×743 is pixel-identical (hard gate). Ref recon §1.
+   .pod-build's recon "bot 101" = section pad-bottom (76 @390) + the summary
+   card's own internal bottom padding (~25); trimming the section pad to 56 is
+   the only dead-space lever — the card's inner padding is legitimate breathing
+   room and stays. Configurator internal rhythm (steps gap 34, config gap 24,
+   head 42 @390) is consistent and intentional — left as-is. Form internals
+   (16px fields, 24px consent box, 44px submit/cancel targets) NOT touched.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .pod-build   { padding-bottom: 56px; }                    /* was clamp(70px,9vh,110px) = 76 @390 */
+  .pod-explore { padding-top: 56px; padding-bottom: 56px; } /* was clamp(56px,8vh,78px) = 68/68 @390 */
+}
+
 /* reduced motion — the book stops floating; selections already swap instantly.
    The spec-row pulse/pop/ping become a brief gold underline under the value. */
 @media (prefers-reduced-motion: reduce) {
