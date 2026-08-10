@@ -1440,3 +1440,16 @@
      layout the portrait card stands alone, so the plate would be a dead cream card. */
   .ib-soloplate { display: none; }
 }
+
+/* ── Lane 3 · Task 3 — legible facility-page copy on mobile (≤900px) ─────────────
+   On the narrow container the reading copy resolves to its 11px clamp() floor
+   (recon §4: .ib-facpage-intro / .ib-fpoint-desc measured 11px). Lift it to 14px.
+   The point TITLE is raised with it so a bold label never ends up smaller than the
+   description beneath it. The facility title (~18px) stays. The mobile facility
+   card is position:static / height:auto / overflow:visible, so the card simply
+   grows taller — no clipping, no fixed-height fight. Desktop keeps its cqw scale. */
+@media (max-width: 900px) {
+  .ib-facpage-intro { font-size: 14px; }
+  .ib-fpoint-desc   { font-size: 14px; }
+  .ib-fpoint-title  { font-size: 14px; }
+}
