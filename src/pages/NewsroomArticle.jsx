@@ -29,6 +29,12 @@ const ARTICLE_QUERY = `{
     | order(publishedAt desc){ "title": coalesce(title[$lang], title.en), "slug": slug.current, publishedAt, category, coverImage }
 }`
 
+// Meta descriptions cap at 155 chars for clean SERP display. An article's excerpt can
+// run longer (233 chars on some posts); trim at a word boundary + ellipsis for the
+// <meta> only — the NewsArticle JSON-LD keeps the full excerpt.
+const metaDescription = (s) =>
+  s && s.length > 155 ? s.slice(0, 154).replace(/\s+\S*$/, '').trimEnd() + '…' : s
+
 function Arrow() {
   return (
     <svg className="nra-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -218,7 +224,7 @@ export default function NewsroomArticle() {
     <main id="main">
       <Seo
         title={`${post.title}, ${t('seo.articleSuffix')}`}
-        description={post.excerpt}
+        description={metaDescription(post.excerpt)}
         image={coverUrl || undefined}
         type="article"
         jsonLd={jsonLd}
