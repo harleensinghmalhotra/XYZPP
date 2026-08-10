@@ -57,6 +57,8 @@ export default function SiteNav() {
   const { t } = useTranslation('nav')
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(-1)
+  // Below 1024px the header is fixed (see MobileNav.css): true slides it up out of view.
+  const [hidden, setHidden] = useState(false)
   const menuRef = useRef(null)
   const triggerRef = useRef(null)
   const itemsRef = useRef([])
@@ -67,7 +69,36 @@ export default function SiteNav() {
   useEffect(() => {
     setMenuOpen(false)
     setActiveItem(-1)
+    setHidden(false) // every route lands at the top (ScrollToTop) → header visible
   }, [pathname])
+
+  // Hide-on-scroll-down / reveal-on-scroll-up, below the hamburger breakpoint only.
+  // The header is position:fixed <1024px (MobileNav.css) so the nav is always one tap
+  // away; here we only toggle the translateY via data-hidden. Plain rAF-throttled
+  // window-scroll listener with a direction compare + ~10px jitter threshold — NO
+  // GSAP/ScrollTrigger (would trip killAll). Works on native scroll AND on the
+  // homepage: Lenis smooths WHEEL only (no syncTouch), so on a touch device the scroll
+  // is native and window.scrollY updates either way. Reduced-motion: skip entirely →
+  // the fixed header just stays visible (no slide). Desktop (>=1024px): force-visible
+  // and the CSS keeps it position:relative, so this is inert there.
+  useEffect(() => {
+    if (prefersReduced()) return
+    let lastY = Math.max(0, window.scrollY || 0)
+    let ticking = false
+    const update = () => {
+      ticking = false
+      const y = Math.max(0, window.scrollY || 0)
+      if (window.innerWidth >= 1024) { setHidden(false); lastY = y; return }
+      if (y <= 8) { setHidden(false); lastY = y; return } // near the very top: always show
+      const dy = y - lastY
+      if (Math.abs(dy) < 10) return // ignore jitter; don't move the reference point
+      setHidden(dy > 0) // scrolling down → hide; up → reveal
+      lastY = y
+    }
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update) } }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Keyboard roving focus: when arrow keys move the highlight, move real focus too,
   // so a focused item's native Enter/Space selects it. Mouse hover is highlight-only.
@@ -148,7 +179,8 @@ export default function SiteNav() {
   return (
     <header
       role="banner"
-      className="relative z-[200] border-b border-[#030C31]/[0.08] bg-[#fdfaf4]"
+      data-hidden={hidden ? 'true' : undefined}
+      className="site-header relative z-[200] border-b border-[#030C31]/[0.08] bg-[#fdfaf4]"
       style={{ boxShadow: '0 2px 24px rgba(3,12,49,0.06)' }}
     >
       <div

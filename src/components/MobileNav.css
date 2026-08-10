@@ -27,6 +27,52 @@
   .mnav-toggle { display: none; }
 }
 
+/* ── Header hide-on-scroll-down / reveal-on-scroll-up (below 1024px) ─────────────
+   The site header ships as position:relative (SiteNav.jsx) and scrolls away with the
+   page — so once you scroll down on a phone the hamburger, and all navigation, is
+   gone. Below the hamburger breakpoint we make the header position:fixed so the nav
+   is always one tap away, then slide it up on scroll-down and back on scroll-up. The
+   translateY is driven by [data-hidden], toggled by a rAF-throttled scroll listener
+   in SiteNav.jsx (no GSAP/ScrollTrigger). Header CSS lives here (MobileNav.css) — the
+   header itself has no separate stylesheet; its resting look is Tailwind-inline.
+   `header.site-header` (0,1,1) intentionally out-specifies Tailwind's `.relative`
+   (0,1,0) so the fixed rule wins regardless of bundle order.
+   z-index stays 200 (Tailwind z-[200]): above page content, below the drawer (z-500);
+   the cookie banner (z-200) and WhatsApp float (z-190) sit at the bottom edge and
+   never overlap the top header, so no collision. Desktop (>=1024px): none of this
+   applies — the header stays position:relative exactly as it ships. */
+/* base (desktop): header in normal flow, no spacer. Declared BEFORE the mobile
+   media query so the ≤1023px `display: block` wins on a phone (equal specificity). */
+.site-header-spacer {
+  display: none;
+}
+@media (max-width: 1023px) {
+  header.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    will-change: transform;
+    transform: translateY(0);
+    transition: transform 250ms ease;
+  }
+  header.site-header[data-hidden='true'] {
+    transform: translateY(-100%);
+  }
+  /* reserve the fixed header's height so page content starts in the same place — 0 CLS */
+  .site-header-spacer {
+    display: block;
+    height: 87px; /* 86px inner bar + 1px bottom hairline */
+  }
+}
+/* reduced motion: no slide — the fixed header simply stays visible (the scroll
+   listener is skipped in SiteNav.jsx, so it never translates away). */
+@media (prefers-reduced-motion: reduce) {
+  header.site-header {
+    transition: none;
+  }
+}
+
 /* full-screen drawer (portalled to body) — above the cookie banner (z-200) and the
    WhatsApp float (z-190). */
 .mnav-overlay {

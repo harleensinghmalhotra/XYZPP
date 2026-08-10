@@ -28,6 +28,11 @@ export default function SiteLayout() {
         Skip to content
       </a>
       <SiteNav />
+      {/* Below 1024px the header is position:fixed (it hides on scroll-down / reveals on
+          scroll-up — see SiteNav.jsx + MobileNav.css). This spacer reserves its 87px so
+          page content starts in the exact same place → zero layout shift. Hidden at
+          >=1024px, where the header stays in normal flow. */}
+      <div className="site-header-spacer" aria-hidden="true" />
       <Outlet />
       <CTAFooter />
       <FloatingWhatsApp />
