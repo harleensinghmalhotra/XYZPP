@@ -201,6 +201,21 @@
   .nra-back:hover .nra-backarrow { transform: none; }
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE UX LANE 7 — article masthead top into the mobile band (≤900px only)
+   The recon's "top pad 127" on /newsroom/:slug is this navy masthead's own
+   top padding — clamp(120px,15vh,172px) = 126.6 ≈ 127 @390 (the only ~127 value
+   in the file; there is no PageHero on articles). Trim it to 56 so the title
+   sits a normal distance under the site header instead of floating in navy.
+   padding-bottom (51 @390, in band) and the hero→body gap (.nra-body margin-top
+   51 @390, already ~56) are left alone. Desktop top padding is clamp-floored at
+   120px above 900px width, so this override never fires at 1536 (hard gate).
+   Ref recon §1 article. Sanity content/query logic NOT touched (CSS only).
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .nra-head { padding-top: 56px; } /* was clamp(120px,15vh,172px) = 127 @390 */
+}
+
 /* ── Portable Text extras — headings / quote / link in the article's type voice.
    (Seed content is paragraphs + images + one video; these cover future editor
    copy so headings/links land on-brand.) ── */

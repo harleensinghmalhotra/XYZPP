@@ -124,6 +124,17 @@
   .nr-grid { grid-template-columns: 1fr; gap: 22px; }
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE UX LANE 7 — /newsroom index bottom into the mobile band (≤900px only)
+   Trim only the section's bottom pad (68 @390 → 56); top (51 @390) is already in
+   the 48–64 band, sides stay on --page-gutter. Longhand keeps top/side clamps.
+   Resolves to the desktop clamp above 900px width, so 1536×743 is untouched
+   (hard gate). Ref recon §1 /newsroom. Sanity content/query logic NOT touched.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .nr-index { padding-bottom: 56px; } /* was clamp(52px,8vh,84px) = 68 @390 */
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nr-card-link,
   .nr-card-media img,
