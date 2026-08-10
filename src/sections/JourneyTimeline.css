@@ -239,9 +239,16 @@
   .prun-replay { right: 12px; bottom: 10px; }
 }
 
-/* mobile pin: a shorter wrapper (~250vh) than desktop's 300vh */
-@media (max-width: 767px) {
-  .prun-scroll { min-height: 250vh; }
+/* mobile pin (≤900px): a shorter wrapper. The 250vh/300vh wrapper left an ~822px
+   dead-scroll void after the last milestone on phones (recon §1 /about: .prun-scroll
+   2110px, content 1288px). The wrapper height is the ONLY thing that sets the pin
+   scroll length — JourneyTimeline.jsx reads it, never writes it — so trimming it
+   here closes the void. panVertical() maps progress 0→1 to the content pan
+   regardless of wrapper height, so all five stops still print before the pin
+   releases; only the empty tail is removed. Desktop (≥901px) keeps its 300vh.
+   (Lane 4 · Task 1) */
+@media (max-width: 900px) {
+  .prun-scroll { min-height: 160vh; }
 }
 
 /* ── reduced motion — no pin, no scroll-drive. The wrapper collapses to normal
