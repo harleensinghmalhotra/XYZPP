@@ -4,6 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0F2444" />
+    <script>
+      /* LCP-image preload. This SPA serves one index.html for every route, so the
+         preload is injected route-conditionally — inner routes get no preload (an
+         unused preload would waste bytes + trip Lighthouse). Homepage hero art is
+         language-keyed (qfp.lang, same key i18n uses); we preload the ACTIVE variant
+         so a FR/ES visitor never downloads the wrong hero. Runs during head parse,
+         before the app bundle, so the fetch starts as early as possible. */
+      (function () {
+        var path = location.pathname
+        function preload(href) {
+          var l = document.createElement('link')
+          l.rel = 'preload'; l.as = 'image'; l.href = href
+          l.setAttribute('fetchpriority', 'high')
+          document.head.appendChild(l)
+        }
+        if (path === '/') {
+          var lang = 'en'
+          try { var s = localStorage.getItem('qfp.lang'); if (s) lang = s.slice(0, 2).toLowerCase() } catch (e) {}
+          var hero = { en: 'hero-main', fr: 'hero-main-fr', es: 'hero-main-es' }
+          preload('/site-assets/homepage/hero/' + (hero[lang] || 'hero-main') + '.webp')
+        } else if (path === '/infrastructure') {
+          preload('/site-assets/homepage/facility-book/book-stack.webp')
+        }
+      })()
+    </script>
     <link rel="icon" type="image/png" href="/qfp/brand/qfp-mark.png" />
     <meta
       name="description"
