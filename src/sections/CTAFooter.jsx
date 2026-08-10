@@ -164,10 +164,10 @@ export default function CTAFooter() {
                 <ul className="flex flex-row flex-wrap items-center gap-5">
                   {certs.map((c) => (
                     <li key={c.label}>
-                      <Link to="/#certifications" aria-label={c.label} className="block rounded transition-transform hover:scale-110 focus-ring">
+                      <Link to="/#certifications" className="block rounded transition-transform hover:scale-110 focus-ring">
                         <img
                           src={`/site-assets/footer-certs/${c.slug}.webp`}
-                          alt=""
+                          alt={c.label}
                           width="44"
                           height="44"
                           loading="lazy"
