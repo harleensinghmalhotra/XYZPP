@@ -443,8 +443,15 @@ export default function FacilityBook() {
   // this session, dimming once a facility has been opened. (The hand-drawn spine arrows
   // were removed per client; the hint + the spine labels' hover glow/lift signal that
   // the stack is interactive.)
+  // Device-word swap below 900px: "Click a book…" → "Tap a book…". Not new copy,
+  // so it stays a runtime swap on the existing i18n string (no new locale key);
+  // non-EN strings that lack the word "Click" pass through unchanged. Desktop keeps
+  // the pointer word. (Lane 3 · Task 1)
+  const hintText = t('books.ui.hint')
   const hint = (
-    <p className={`ib-hint${hasOpened || reduced ? ' is-done' : ''}`}>{t('books.ui.hint')}</p>
+    <p className={`ib-hint${hasOpened || reduced ? ' is-done' : ''}`}>
+      {narrow ? hintText.replace(/\bClick\b/i, 'Tap') : hintText}
+    </p>
   )
 
   return (
