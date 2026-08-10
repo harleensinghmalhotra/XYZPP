@@ -203,14 +203,13 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
           <div className="certs-viewport" ref={viewport} tabIndex={0} role="group" aria-label={t('carouselAria')}>
             <div className="certs-track">
               {visible.map((c) => (
-                <article
+                <div
                   className="cert-card"
                   key={c.key}
                   data-cert-key={c.key}
                   role="button"
                   tabIndex={0}
                   aria-expanded={expanded === c.key}
-                  aria-label={`${t(`cards.${c.key}.title`)}. ${t('expandHint')}`}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCard(c.key, e.currentTarget) }
                   }}
@@ -227,7 +226,7 @@ export default function Certifications({ flatBottom = false, flatTop = false }) 
                   </div>
 
                   <p className="cert-card-body">{t(`cards.${c.key}.body`)}</p>
-                </article>
+                </div>
               ))}
             </div>
           </div>
