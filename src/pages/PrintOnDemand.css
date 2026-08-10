@@ -412,6 +412,14 @@
   text-transform: uppercase;
   color: var(--gold-3);
 }
+/* A11y contrast (mobile only — desktop is design-locked). --gold-3 (#B06F15) on the
+   cream configurator hits only 3.93:1; the eyebrow + step kickers are 11–12px normal
+   text and need 4.5:1. Darken one brand step to #925C10 (→ 5.36:1 on cream / 4.70:1
+   on beige). Same visible text/size, colour only. */
+@media (max-width: 900px) {
+  .pod-eyebrow,
+  .pod-step-kicker { color: #925C10; }
+}
 .pod-step-title {
   grid-column: 1;
   margin: 0;

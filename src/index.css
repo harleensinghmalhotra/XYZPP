@@ -4394,6 +4394,14 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
   display: flex; flex-direction: column;
 }
 .ff-card-index { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #925C10; margin-bottom: 12px; }
+/* A11y contrast (mobile only — desktop design-locked). The ff-card sits on --navy, so
+   #925C10 index number is 3.42:1 (11px normal needs 4.5:1). Switch to --gold-2 (#B18120),
+   the token made for on-navy numbers → 5.48:1. Contact required-asterisk (.ctc-req,
+   var(--gold) #B06F15 on cream = 3.93:1) darkens to #925C10 → 5.36:1. Colour only. */
+@media (max-width: 900px) {
+  .ff-card-index { color: var(--gold-2); }
+  .ctc-req { color: #925C10; }
+}
 .ff-card-name {
   margin: 0 0 10px; font-family: 'Inter Tight', sans-serif;
   font-weight: 600; font-size: clamp(20px, 1.7vw, 25px); letter-spacing: -0.02em; line-height: 1.14; color: #fdfaf4;
