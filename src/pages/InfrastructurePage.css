@@ -417,3 +417,27 @@
   .inf-tri-head, .inf-tri-col-body, .inf-tri-stat, .inf-tri-frame,
   .inf-tri-col::before { transition: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE UX LANE 5 — /infrastructure section rhythm (≤900px only)
+   Bring the five hardcoded vh-clamp section pads into the 48–64 mobile band.
+   Every value below resolves ABOVE 900px width to its desktop clamp, so this
+   block never fires at 1536 — desktop stays pixel-identical (hard gate). All
+   five keep horizontal padding 0 (the navy/cream bands are full-bleed; the
+   gutter is carried by an inner .inf-wrap). Ref recon §1 /infrastructure.
+
+   NOT DONE HERE — the `.tb-band` stats strip off-centre (recon L28/R122):
+   `.tb-band` and the `.tb-item` atom are defined in src/index.css (padding is
+   already the symmetric `var(--page-gutter)`); the lopsidedness is the single-
+   column, left-aligned trust-belt item, which is intrinsically too narrow to
+   reach ≤24px insets on both sides by centring alone. That fix belongs to an
+   index.css lane — skipped here per the two-file scope.
+   The facility-book section (Lane 3) is deliberately left untouched.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .inf-finish-sec { padding: 56px 0; } /* was clamp(72px,11vh,130px) = 93 @390 */
+  .inf-av         { padding: 56px 0; } /* was clamp(64px, 9vh,110px) = 76 @390 */
+  .inf-tri        { padding: 56px 0; } /* was clamp(84px,12vh,148px) = 101 @390 */
+  .inf-gallery    { padding: 56px 0; } /* was clamp(72px,11vh,130px) = 93 @390 */
+  .inf-cta        { padding: 56px 0; } /* was clamp(80px,12vh,150px) = 101 @390 */
+}
