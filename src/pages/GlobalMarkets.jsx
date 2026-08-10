@@ -67,7 +67,7 @@ export default function GlobalMarkets() {
       })()}
 
       {/* 2 ── REGIONS (cream) ─ three regional blocks ────────────────────────── */}
-      <section data-theme="light" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
+      <section data-theme="light" className="relative overflow-hidden px-6 py-14 sm:px-10 md:py-32" style={{ background: CREAM }}>
         <PaperGrain />
         <div className="relative z-10 mx-auto max-w-[1400px]">
           <div className="grid gap-12 md:grid-cols-3">
@@ -91,7 +91,7 @@ export default function GlobalMarkets() {
       </section>
 
       {/* 3 ── CREDENTIALS (navy) ─ lead-in + 4-column aligned cards ────────────── */}
-      <section data-theme="dark" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: NAVY }}>
+      <section data-theme="dark" className="relative overflow-hidden px-6 py-14 sm:px-10 md:py-32" style={{ background: NAVY }}>
         <SectionCurve position="top" fill={NAVY} />
         <div className="relative z-10 mx-auto max-w-[1400px]">
           <div data-reveal className="mb-16">
@@ -126,7 +126,7 @@ export default function GlobalMarkets() {
       </section>
 
       {/* 4 ── PENDING TEAM SECTION (cream) ────────────────────────────────────── */}
-      <section data-theme="light" className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32" style={{ background: CREAM }}>
+      <section data-theme="light" className="relative overflow-hidden px-6 py-14 sm:px-10 md:py-32" style={{ background: CREAM }}>
         <PaperGrain />
         <div className="relative z-10 mx-auto max-w-[1400px] text-center" data-reveal>
           <h2 className="font-bold leading-[1.1] tracking-tight text-[clamp(40px,6vw,64px)] mb-6" style={{ fontFamily: TIGHT, color: NAVY }}>
