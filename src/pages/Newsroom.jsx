@@ -49,7 +49,7 @@ function NewsCard({ post }) {
         </div>
         <div className="nr-card-body">
           <time className="nr-date" dateTime={post.publishedAt}>{formatDate(post.publishedAt, i18n.language)}</time>
-          <h3 className="nr-card-title">{post.title}</h3>
+          <h2 className="nr-card-title">{post.title}</h2>
           {post.excerpt && <p className="nr-card-excerpt">{post.excerpt}</p>}
           <span className="nr-card-more">
             {t('readArticle')}

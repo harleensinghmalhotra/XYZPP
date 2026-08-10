@@ -380,7 +380,7 @@ export default function FacilityBook() {
       <span className="ib-fac-badge" aria-hidden="true">
         {book.Icon && <book.Icon weight="light" size={24} />}
       </span>
-      <h3 className="ib-facpage-title">{title}</h3>
+      <h2 className="ib-facpage-title">{title}</h2>
       <span className="ib-facpage-rule" aria-hidden="true" />
       <p className="ib-facpage-intro">{facIntro}</p>
       <ul className="ib-facpage-points">
@@ -577,7 +577,7 @@ export default function FacilityBook() {
                   {/* OVERVIEW (resting) — full text takeover, no photo. LEFT: the
                       Infrastructure overview + four capability pillars. */}
                   <div className="ib-textpage ib-intro-left">
-                    <h3 className="ib-intro-title">{title}</h3>
+                    <h2 className="ib-intro-title">{title}</h2>
                     <p className="ib-intro-sub">{t('books.intro.subtitle')}</p>
                     <span className="ib-intro-rule" aria-hidden="true" />
                     <p className="ib-intro-para">{t('books.intro.para1')}</p>
@@ -599,7 +599,7 @@ export default function FacilityBook() {
 
                   {/* RIGHT: the dated spec list + closing line. */}
                   <div className="ib-intro-right">
-                    <h4 className="ib-intro-rhead">{t('books.intro.rightHeading')}</h4>
+                    <h3 className="ib-intro-rhead">{t('books.intro.rightHeading')}</h3>
                     <ul className="ib-speclist">
                       {specs.map((it, i) => {
                         const SIcon = SPEC_ICONS[i]
