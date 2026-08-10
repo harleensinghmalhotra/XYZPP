@@ -175,6 +175,7 @@ export default function FacilityBook() {
   const busy = useRef(false)
   const timer = useRef(null)
   const sectionRef = useRef(null)
+  const bookWrapRef = useRef(null)                  // the open book column — scrolled into view on mobile select (Lane 3 · Task 2)
   const inView = useRef(false)                      // ≥50% of the stack fills the viewport
   const stepRef = useRef(() => {})
   const flipMs = useRef(FLIP_MS)
@@ -286,6 +287,18 @@ export default function FacilityBook() {
     }, flipMs.current)
   }
 
+  // KILL THE DEAD TAP (Lane 3 · Task 2) — on mobile the book reads BELOW the spines
+  // (Task 1), so a spine tap updates content ~490px off-screen. After the selection
+  // renders, smooth-scroll the book column just into view. Plain window.scrollTo — no
+  // Lenis, no GSAP; the header is position:relative (not sticky, recon §6) so a small
+  // breathing offset is all that's needed, not an 87px header gutter.
+  const scrollBookIntoView = () => {
+    const el = bookWrapRef.current
+    if (!el || typeof window === 'undefined') return
+    const y = window.scrollY + el.getBoundingClientRect().top - 20
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' })
+  }
+
   // Jump to a different book (0+) or back to the Overview (-1) — a crossfade, never a
   // leaf turn. Guarded by the same input lock so it can't collide with a running turn.
   const select = (target, spreadTarget = 0) => {
@@ -301,6 +314,9 @@ export default function FacilityBook() {
     setSpread(typeof s === 'number' ? s : 0)
     setXfade((k) => k + 1)
     playTurn()
+    // Bring the (below-the-spines) book into view once the new spread has rendered.
+    // Covers spine taps, the ⌂ Overview return, and cross-facility roll-over via go().
+    if (narrow) requestAnimationFrame(() => requestAnimationFrame(scrollBookIntoView))
   }
 
   const onKeyDown = (e) => {
@@ -545,7 +561,7 @@ export default function FacilityBook() {
 
         {/* THE OPEN BOOK — the art-backed spread that turns. It sits on its own drop
             shadow alone (the stacked page-block behind it was removed per client). */}
-        <div className="ib-book-wrap">
+        <div className="ib-book-wrap" ref={bookWrapRef}>
           <div
             className={`ib-book${flip ? ` is-flipping is-${flip.dir}` : ''}${turnable ? ' ib-book--turnable' : ''}`}
             data-mode={canFlip ? 'flip' : 'flat'}
