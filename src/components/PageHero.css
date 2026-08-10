@@ -80,3 +80,23 @@ a.ph-stat-num:hover { color: #B06F15; }
 }
 /* CTA row under the band */
 .ph-ctas { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE (≤900px) — let the band wrap its content instead of standing 60vh tall.
+   On a phone the short headline block floated in a ~half-empty navy hero (recon
+   §1/§7: fill 0.24 infra … 0.31 about). Dropping min-height and the 127/84 pad to
+   56/36 fills the band to ≥0.55 everywhere and lets the next section peek in to
+   invite the scroll. Internal eyebrow/headline/sub margins are LEFT ALONE on
+   purpose — tightening them would shrink the content and LOWER the fill ratio.
+   Horizontal stays on --page-gutter (20px < 900). Desktop (≥901px) untouched.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .ph-hero {
+    /* The band height is an INLINE style on the <section> (PageHero.jsx:
+       style={{ minHeight: `${minVh}vh` }}, default 60vh ≈ 506px). Inline beats
+       normal author rules, so !important is the only way to release it from CSS
+       — and it is scoped to ≤900px, so desktop keeps its inline 60vh untouched. */
+    min-height: 0 !important;                      /* was inline 60vh (~506px) — forced the tall empty band */
+    padding: 56px var(--page-gutter) 36px;         /* was clamp(112,15vh,168) / clamp(72,10vh,112) = 127/84 */
+  }
+}
