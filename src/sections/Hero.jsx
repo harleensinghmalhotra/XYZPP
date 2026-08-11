@@ -61,7 +61,7 @@ export default function Hero() {
           87px tall) and scrolls away, so it is subtracted once here. The sliver is
           sized in vw (≈6.6% of the 16:9 artwork's height) so it stays a constant
           fraction of the image at any width — a true sliver at 1536 and at 390. */}
-      <div className="mx-auto flex min-h-[calc(100svh-87px-3.7vw-14vh)] max-w-[var(--content-max)] flex-col items-center justify-center px-[var(--page-gutter)] py-[clamp(24px,4vh,48px)] text-center">
+      <div className="mx-auto flex min-h-[calc(100svh-87px-3.7vw-14vh)] max-[900px]:min-h-0 max-w-[var(--content-max)] flex-col items-center justify-center px-[var(--page-gutter)] py-[clamp(24px,4vh,48px)] max-[900px]:pb-[16px] text-center">
         {/* ONE visible <h1> (SEO + a11y) — the effd335 big-caps display treatment,
             recoloured onto the CURRENT homepage tokens: line 1 cream (--cream-3),
             line 2 accent (--gold-2) on its own line. font-metrisch (→ Inter Tight),
@@ -117,22 +117,22 @@ export default function Hero() {
       {/* HERO IMAGE — full width, natural aspect (2400×1350). Its navy sky continues
           the band; its white ground meets TrustStrips. The two pill CTAs are overlaid
           in the white ground directly under the book (the earlier f4cb85a placement). */}
-      <div className="relative">
+      <div className="relative max-[900px]:flex max-[900px]:flex-col max-[900px]:gap-[16px]">
         <img
           key={lang}
           src={heroArt}
           alt={t('hero.alt')}
-          className="block w-full select-none"
+          className="block w-full select-none max-[900px]:aspect-[2400/1350]"
           draggable="false"
           fetchpriority="high"
         />
         {/* TWO BUTTON CTAs — pill shape, one-line labels, equal width. Absolutely
             positioned over the artwork's white ground beneath the book, centred; they
             wrap (stack) on very narrow screens. Markup/hover/focus unchanged. */}
-        <div className="hero-cta-pair absolute inset-x-0 z-20 flex flex-wrap items-center justify-center gap-6" style={{ bottom: 'clamp(3%, 5%, 8%)', transform: 'translate(1.05vw, 22px)' }}>
+        <div className="hero-cta-pair absolute inset-x-0 z-20 flex flex-wrap items-center justify-center gap-6 max-[900px]:static max-[900px]:z-auto max-[900px]:order-[-1] max-[900px]:w-full max-[900px]:flex-col max-[900px]:flex-nowrap max-[900px]:gap-[12px] max-[900px]:px-[var(--page-gutter)] max-[900px]:![bottom:auto] max-[900px]:![transform:none]" style={{ bottom: 'clamp(3%, 5%, 8%)', transform: 'translate(1.05vw, 22px)' }}>
           <a
             href="#infrastructure"
-            className="hero-btn btn-nebula group relative inline-flex h-[54px] min-w-[220px] items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] pl-[22px] pr-[46px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
+            className="hero-btn btn-nebula group relative inline-flex h-[54px] min-w-[220px] max-[900px]:w-full max-[900px]:min-w-0 items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] pl-[22px] pr-[46px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
             {/* label centered in the reserved space; arrow pinned flush to the right padding */}
             <span className="relative z-10 whitespace-nowrap">{t('hero.ctaPrint')}</span>
@@ -142,7 +142,7 @@ export default function Hero() {
           </a>
           <a
             href="#projects"
-            className="hero-btn btn-nebula relative inline-flex h-[54px] min-w-[220px] items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] px-[24px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
+            className="hero-btn btn-nebula relative inline-flex h-[54px] min-w-[220px] max-[900px]:w-full max-[900px]:min-w-0 items-center justify-center rounded-full border-[1.5px] border-[var(--gold-2)] bg-[var(--navy)] px-[24px] text-[15px] font-medium tracking-[0.3px] text-[#fdfaf4] transition-all duration-300 ease-out hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-[2px] focus-visible:outline-[var(--gold)] focus-visible:outline-offset-[3px] prefers-reduced:scale-100"
           >
             <span className="relative z-10 whitespace-nowrap">{t('hero.ctaReach')}</span>
           </a>
