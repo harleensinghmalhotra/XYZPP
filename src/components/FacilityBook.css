@@ -1256,7 +1256,10 @@
 
 /* ── responsive — narrow layout: stack book above nav ────────────────────────── */
 @media (max-width: 900px) {
-  .ib-stage { padding: 34px 20px 44px; }
+  /* Round 2: margin-top was clamp(44px,6vh,80px) = 57px at 956 (6vh balloons on a
+     tall phone) → the 89px infra-title→hint gap; cap to the floor. Bottom pad
+     trimmed 44→36 to tighten the navy panel foot before the video card. */
+  .ib-stage { padding: 34px 20px 36px; margin-top: 44px; }
   .ib-interactive {
     flex-direction: column;
     align-items: stretch;
@@ -1420,6 +1423,12 @@
   .ib-img { object-fit: cover; }   /* cards are a fixed 240px box → cover reads better */
   /* turn controls become a bottom bar under the stacked cards */
   .ib-book-wrap { padding-bottom: 58px; }
+  /* Round 2: the 58px reserves room for the page-turn nav bar — but that bar only
+     renders once a facility is OPENED (showTurn = !isIntro). At rest (the loaded
+     overview state) there is no nav, so the reserve was ~130px of dead navy before
+     the video card. Collapse it while intro; the compound selector wins regardless
+     of source order. Restored to 58px the moment a facility opens. */
+  .ib-book-wrap.ib-book-wrap--intro { padding-bottom: 12px; }
   .ib-nav { top: auto; bottom: 8px; transform: none; width: 46px; height: 46px; }
   .ib-nav:hover:not(:disabled), .ib-nav:active:not(:disabled) { transform: none; }
   .ib-nav--prev { left: 12px; }
