@@ -5390,3 +5390,17 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   .home-palette .certs { padding-top: 20px; }
 }
 
+/* ── Patch: certs arrows must clear the bottom sweep-arc on /about + /infrastructure ──
+   Those two routes render `.certs.certs-archb` (flatBottom=false → a 76px navy arc at
+   the section foot). `.certs-archb` (index.css:3104) carries a large bottom pad to hold
+   that arc clear, BUT the later mobile `.certs { padding: … 56px }` (index.css:5211,
+   equal specificity, wins by source order) clobbered it to 56px — so the mobile prev/
+   next arrows sat 20px INTO the navy arc of the next section. Restore the clearance at
+   the same 900px breakpoint, placed AFTER the 5211/5381 rules so it wins: 76px arc +
+   48px cream below the arrows = 124px, matching the homepage's arrow→foot 48px rhythm.
+   Homepage (flatBottom, no arc, `.home-palette` 48px) is untouched. Desktop >900px keeps
+   the 3104 vh-clamp. */
+@media (max-width: 900px) {
+  .certs-archb { padding-bottom: 124px; }
+}
+
