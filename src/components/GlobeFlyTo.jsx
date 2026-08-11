@@ -149,9 +149,13 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
           boot()
         }
       },
-      // Desktop keeps its 200px lead; mobile pre-warms ~1.5 viewports out (like the
-      // Projects globe) so tiles are ready by the time the section is on screen.
-      { rootMargin: mobile ? `${Math.round(window.innerHeight * 1.5)}px 0px` : '200px' },
+      // Desktop keeps its 200px lead. Mobile pre-warms half a viewport out — a
+      // deliberately bounded lead: #reach is only the 4th section (~0.75 viewport
+      // below the fold), and its cold-load gap is ~707px at 440×956, so a full
+      // "1.5 viewports" margin would fire at scrollY=0 and pull maplibre into the
+      // COLD load (the one hard budget line). 0.5vh (~478px) pre-warms on approach
+      // yet stays clear of cold load at every matrix height. See lane report.
+      { rootMargin: mobile ? `${Math.round(window.innerHeight * 0.5)}px 0px` : '200px' },
     )
     io.observe(wrap)
     cleanups.push(() => io.disconnect())
