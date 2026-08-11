@@ -510,8 +510,13 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
    in src/index.css — outside this lane's two files (noted in the report). ── */
 @media (max-width: 900px) {
   .ab-lede  { padding-top: 56px; }                        /* was clamp(56,8vh,104) = ~68 */
-  .ab-quote { padding-top: 56px; padding-bottom: 56px; }  /* was clamp(56,9vh,104) = 76/76 */
-  .gal      { padding-bottom: 56px; }                     /* was var(--section-pad-y) = 64 (recon pre-Lane1: 96) */
+  /* founder quote → gallery are both CREAM and consecutive, so their full pads
+     doubled into a ~116px seam of dead cream (ab-quote pb 56 + gal pt ~60). Split
+     the boundary into a single ~56px rhythm: 28 below the quote + 28 above the
+     gallery. The quote keeps its 56px TOP (interstitial breathing from the team
+     quote above); only the shared seam is halved. */
+  .ab-quote { padding-top: 56px; padding-bottom: 28px; }  /* was clamp(56,9vh,104) = 76/76 */
+  .gal      { padding-top: 28px; padding-bottom: 56px; }  /* top was clamp(60,7vh,88)=~60; bottom was var(--section-pad-y)=64 */
 }
 
 /* ── reduced-motion — explicit resting states for every custom mechanic ────── */
