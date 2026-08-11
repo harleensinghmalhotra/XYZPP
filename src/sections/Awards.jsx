@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import CTAButton from '@/components/CTAButton'
+import { prefersReduced } from '@/lib/useReducedMotion'
 
 // ── Awards & Press — pixel-faithful port of the approved design ──
 // Navy plaque cards with gold-foil names, a CAPEXIL/press label row, and the
@@ -52,9 +53,37 @@ function AwardPhoto({ img, ph, alt }) {
 export default function Awards() {
   const { t } = useTranslation('homeAwards')
   const viewport = useRef(null)
-  // The prev/next arrow paging was retired: the header now carries a single
-  // "See More" pill → /newsroom instead. The plaque row stays a native overflow-x
-  // scroller (aw-viewport) so more awards dropped into RESERVED still scroll.
+  const [reduced] = useState(prefersReduced)
+  // Mobile-only prev/next affordance for the plaque row. Desktop keeps the
+  // arrow-free swipe/peek design (the header's "See More" pill stays). The row is
+  // the same native overflow-x scroller (.aw-viewport); the arrows only surface
+  // below 900px (CSS-gated) and mirror the Certifications carousel exactly —
+  // 46px round buttons, grey/disabled at the ends, synced to the scroll position.
+  const [arrows, setArrows] = useState({ prev: false, next: true })
+
+  const syncArrows = () => {
+    const el = viewport.current
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    setArrows({ prev: el.scrollLeft > 4, next: el.scrollLeft < max - 4 })
+  }
+  useEffect(() => {
+    const el = viewport.current
+    if (!el) return
+    el.scrollTo({ left: 0 })
+    const id = requestAnimationFrame(syncArrows)
+    el.addEventListener('scroll', syncArrows, { passive: true })
+    return () => { cancelAnimationFrame(id); el.removeEventListener('scroll', syncArrows) }
+  }, [])
+
+  // one plaque per nudge (card width + the .aw-grid column gap)
+  const nudge = (dir) => {
+    const el = viewport.current
+    if (!el) return
+    const card = el.querySelector('.plq')
+    const step = card ? card.offsetWidth + 24 : 300
+    el.scrollBy({ left: dir * step, behavior: reduced ? 'auto' : 'smooth' })
+  }
 
   return (
     <section id="awards" data-theme="dark" className="aw" aria-labelledby="aw-title">
@@ -103,6 +132,18 @@ export default function Awards() {
                 </article>
               ))}
             </div>
+          </div>
+
+          {/* prev / next arrows — mobile-only (CSS-gated to ≤900px), wired to the
+              .aw-viewport scroller. Same 46px round control + disabled-at-ends
+              behaviour as the Certifications carousel; desktop stays arrow-free. */}
+          <div className="aw-arrows">
+            <button type="button" className="aw-arrow" onClick={() => nudge(-1)} disabled={!arrows.prev} aria-label={t('scrollPrev')}>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+            </button>
+            <button type="button" className="aw-arrow" onClick={() => nudge(1)} disabled={!arrows.next} aria-label={t('scrollNext')}>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+            </button>
           </div>
         </div>
       </div>

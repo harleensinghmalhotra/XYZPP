@@ -3635,6 +3635,32 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 }
 .aw-more-link:hover { border-bottom-color: rgba(177, 129, 32, 0.7); color: #f1d397; }
 
+/* Awards carousel — mobile prev/next arrows. Mirrors the Certifications mobile
+   arrow pattern exactly (46px round control, 12px gap, grey/disabled at the ends);
+   the palette is adapted for the navy Awards band (gold-outline + cream glyph
+   instead of the certs cream-band navy fill). Hidden on desktop — the arrow-free
+   swipe/peek affordance is the shipped design there. Surfaced only ≤900px below. */
+.aw-arrows { display: none; gap: 12px; margin-top: 22px; justify-content: center; }
+.aw-arrow {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: rgb(var(--gold-2-rgb) / 0.12);
+  border: 1px solid rgb(var(--gold-2-rgb) / 0.55);
+  color: #fdfaf4;
+  transition: background 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+}
+.aw-arrow:not(:disabled):hover { background: rgb(var(--gold-2-rgb) / 0.24); }
+.aw-arrow:disabled {
+  cursor: default;
+  background: transparent;
+  color: rgba(253, 250, 244, 0.32);
+  border-color: rgba(253, 250, 244, 0.16);
+}
+
 @media (max-width: 1200px) {
   .aw-content { padding: 96px 48px 80px; }
   .aw-grid { gap: 24px; }
@@ -3644,6 +3670,10 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 @media (max-width: 640px) {
   .aw-head { flex-direction: column; align-items: flex-start; }
   .plq { flex-basis: 100%; } /* 1 across */
+}
+@media (max-width: 900px) {
+  /* surface the mobile prev/next tap controls (desktop keeps the swipe/peek row) */
+  .aw-arrows { display: flex; }
 }
 /* reduced motion → the strip still scrolls, just instantly (matches .wwp-viewport) */
 @media (prefers-reduced-motion: reduce) {
