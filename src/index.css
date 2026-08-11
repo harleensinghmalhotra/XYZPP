@@ -1365,10 +1365,18 @@ body {
     justify-content: space-between;
   }
   .wwp-lede {
+    /* CRITICAL: on mobile .wwp-head-meta flips to flex-direction:column, so the
+       desktop `flex: 1 1 520px` (a WIDTH basis in the row) becomes a HEIGHT basis
+       here — inflating the intro paragraph's box to 520px tall (text is ~67px),
+       ~450px of dead cream that shoved "Learn more" + the card row down almost a
+       full screen. Neutralise the flex so the intro sizes to its own text. */
+    flex: 0 0 auto;
     max-width: 560px;
   }
   .wwp-viewport {
-    margin-top: 28px;
+    /* 12px margin + the ~20px slack inside the 120px pop-padding = ~32px from the
+       controls to the first painted book, so intro → controls → cards flow tight. */
+    margin-top: 12px;
   }
 }
 
