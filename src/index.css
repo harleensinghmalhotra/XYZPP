@@ -5331,9 +5331,11 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   .proj-creds { margin-top: 44px; padding-top: 32px; }
 
   /* Marquee top — Tailwind pt-[18svh] = 172px at 956, an 86px navy void below the
-     9svh divider curve before the words. Cap to 104px, which always clears the
-     ≤86px curve on a phone; #id beats the utility class, no !important needed. */
-  #marquee { padding-top: 104px; }
+     9svh divider curve before the words. Round-2 capped this to 104px; Round-3 final
+     lane trims it to 80px so the whole band (curve 76–86 + one 20px word-row + the
+     16px pb-4 bottom) lands ~117px total (was ~140) — the words still clear the
+     ≤86px curve's hairline (at ~32px). #id beats the utility class, no !important. */
+  #marquee { padding-top: 80px; }
 
   /* Awards — .aw-content inherits 96px top / 80px bottom from the ≤1200 rule
      (index.css:3630); that 96px top is the 152px sustainability→awards gap. Into
