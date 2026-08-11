@@ -3343,8 +3343,17 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
 @media (max-width: 900px) {
   .sustain { min-height: 0; padding: 72px 24px; }
   .sustain-inner { grid-template-columns: 1fr; gap: 48px; }
-  .sustain-media { max-width: 460px; margin: 0 auto; }
-  .svA-frame { height: clamp(420px, 74vw, 520px); }
+  /* Round 3 Lane 2 — the sustainability "showpiece" media column is a DESKTOP-only
+     scene (stroke line-art sun/clouds/plant + FSC plate). On mobile it collapses to
+     a 420px-tall × 0px-WIDE box: as a 1-col grid item with `margin:0 auto`, its auto
+     inline-margins make it size to CONTENT width, and every child is position:absolute
+     (0 content width) → the frame paints nothing and its line-art/chip are clipped by
+     the 0-width overflow:hidden frame. Result = ~420px of empty cream before
+     "Responsible by Practice" (owner mark #6). Nothing inside renders on mobile
+     (verified by screenshot), and the FSC claim is already in the body list
+     ("FSC® Certified Paper Initiatives…") + the Certifications section — so DON'T
+     render the empty box below 900px. Desktop (≥901px) keeps the full showpiece. */
+  .sustain-media { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   /* the whole scene rests — no drift, no flap, no sway, no shimmer, no cloud.
@@ -5300,5 +5309,38 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
      (index.css:3630); that 96px top is the 152px sustainability→awards gap. Into
      the band (64px), side kept at 48px so the red-carpet art doesn't reflow. */
   .aw-content { padding: 64px 48px 64px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ROUND 3 LANE 2 — content-level index.css spacing kills (≤900px only)
+   From CONTENT-RECON-2026-08-11.md §1/§2, the findings whose owning rule lives in
+   index.css. All ≤900; desktop (≥901px) pixel-identical. Component-owned findings
+   (ProcessVideo.css pv-section, Marquee.jsx #marquee) are left for Lanes 3–6.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  /* Fulfilment "They trust us" band — `.ff-trust` (index.css:4335) carries
+     clamp(56,8vh,92)/clamp(60,8vh,96) ≈ 76px top+bottom around a ~200px marquee
+     (content-fill 0.54) and was the ONE `.ff-*` section missed by the Round-2 ≤900
+     56px override. Into the band; fixes /fulfilment gaps g1 (113px) + g3 (150px). */
+  .ff-trust { padding: 56px 0; }
+
+  /* Reach — the copy→map separation was `.gr-subhead margin-bottom:42` + `.gr-copy
+     padding-bottom:48` = ~90px of navy. Trim the subhead's own bottom margin. */
+  .gr-subhead { margin-bottom: 20px; }
+
+  /* Projects credentials (owner mark #3) — the 4 stacked items sat ~72px apart. The
+     inter-card grid gap (was clamp(32,5vw,48)=32 on a phone) tightens; and the fixed
+     42px title-row reservation exists only to baseline-align a SIDE-BY-SIDE desktop
+     grid — pointless once the cards stack 1-col, where it just adds slack. Let the
+     card size to its content. */
+  .proj-creds-grid { gap: 24px; }
+  .proj-cred-card { grid-template-rows: auto auto auto; }
+
+  /* Certifications → "HOW WE WORK" (owner mark #2, 99px). The index.css half is
+     `.certs padding-bottom:56` (index.css:5202) — trim to the band floor, but SCOPED
+     to the homepage (`.home-palette`): /about + /infrastructure use `.certs-archb`
+     with a large navy-dome clearance that must NOT be touched. The other ~43px is
+     `.pv-section padding-top` in ProcessVideo.css → Lane 3–6. */
+  .home-palette .certs { padding-bottom: 48px; }
 }
 
