@@ -3076,8 +3076,13 @@ main:has(.ab-spine) .certs-arc-bottom path { fill: #0f1838; }
      the overflow INSIDE the section, so documentElement.scrollWidth === clientWidth.
      Desktop (>900px) is untouched and keeps the pixel-identical five-across grid. */
   .certs-viewport {
-    margin-right: -24px;              /* bleed the scroller to the screen edge */
-    padding: 6px 24px 26px 0;         /* room for the card drop-shadow + a trailing gutter */
+    /* bleed the scroller to the screen edge. Must track the section's own side
+       padding (`.certs` uses var(--page-gutter) = 20px ≤900) — a hardcoded -24px
+       here (from when .certs was 24px) overshot by 4px and pushed the whole
+       document 4px wide on every certs route (scrollWidth 394 vs 390). Tie both to
+       the gutter so the right edge lands exactly on the viewport edge. */
+    margin-right: calc(-1 * var(--page-gutter));
+    padding: 6px var(--page-gutter) 26px 0; /* room for the card drop-shadow + a trailing gutter */
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-padding-left: 0;
@@ -5357,8 +5362,9 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   .ff-trust { padding: 56px 0; }
 
   /* Reach — the copy→map separation was `.gr-subhead margin-bottom:42` + `.gr-copy
-     padding-bottom:48` = ~90px of navy. Trim the subhead's own bottom margin. */
-  .gr-subhead { margin-bottom: 20px; }
+     padding-bottom:48` = ~90px of navy. Round-2 trimmed the subhead margin to 20
+     (gap → 68); Round-3 final lane takes it to 12 so the copy→map gap lands ~60 (≤64). */
+  .gr-subhead { margin-bottom: 12px; }
 
   /* Projects credentials (owner mark #3) — the 4 stacked items sat ~72px apart. The
      inter-card grid gap (was clamp(32,5vw,48)=32 on a phone) tightens; and the fixed
@@ -5374,5 +5380,13 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
      with a large navy-dome clearance that must NOT be touched. The other ~43px is
      `.pv-section padding-top` in ProcessVideo.css → Lane 3–6. */
   .home-palette .certs { padding-bottom: 48px; }
+
+  /* Homepage infra-video → certs seal (recon §1.1, 95px). The `.infra` bottom is a
+     deliberate 64px dome-clearance floor (documented above — must stay), so the only
+     safe lever is the certs top padding: 36 → 20 pulls the rotating seal up ~16px
+     (still clears the cream dome that rises above it). Gap → ~79; the remainder is
+     the designed navy→cream certification-dome transition, not empty void. Homepage-
+     scoped so /about + /infrastructure certs spacing is untouched. */
+  .home-palette .certs { padding-top: 20px; }
 }
 
