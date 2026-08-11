@@ -1462,3 +1462,100 @@
   .ib-fpoint-desc   { font-size: 14px; }
   .ib-fpoint-title  { font-size: 14px; }
 }
+
+/* ═══ Round 2 Lane 3 — MOBILE SWIPE DECK (<900px) ═════════════════════════════
+   Below 900px the desktop flip-book tree (.ib-interactive) is NOT rendered — the
+   component swaps in a chip selector + a native horizontal scroll-snap deck (see
+   FacilityBook.jsx). The old ≤900 rules that targeted the book's mobile fallback
+   (.ib-interactive / .ib-stack / .ib-book-wrap / .ib-spread / .ib-nav …) are now
+   inert (those nodes only render ≥901px). The content classes they also styled
+   (.ib-textpage / .ib-imgpage / .ib-intro-* / .ib-stackpair …) are REUSED verbatim
+   inside the deck cards, so the read/photo pages keep their look + the 14px copy.
+   Desktop (≥901px) is entirely untouched. ══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .ib-mobile { display: flex; flex-direction: column; gap: 16px; }
+
+  /* ── FACILITY SELECTOR — one horizontally-scrollable line of chips; the active
+        facility (or Overview) is a solid gold pill. The spine-stack imagery is gone. */
+  .ib-chips {
+    display: flex; gap: 8px; overflow-x: auto; scroll-behavior: smooth;
+    padding: 0 4px 4px; margin: 0 -4px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .ib-chips::-webkit-scrollbar { display: none; }
+  .ib-chip {
+    flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px;
+    min-height: 40px; padding: 9px 15px; border-radius: 999px;
+    font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+    color: rgba(253, 250, 244, 0.76);
+    background: rgb(var(--gold-2-rgb) / 0.06);
+    border: 1px solid rgba(253, 250, 244, 0.22);
+    cursor: pointer; transition: color .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .ib-chip svg { flex: none; }
+  .ib-chip.is-active {
+    color: var(--navy); font-weight: 600;
+    background: var(--gold-2); border-color: var(--gold-2);
+  }
+  .ib-chip:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; }
+
+  /* ── THE DECK — native x scroll-snap. Card width 85% ⇒ the next card peeks ~15%
+        (the whole "there's more" cue). overflow-y:hidden gives the deck no vertical
+        scroll range, so a vertical swipe chains straight to the page (NO touch-action:
+        pan-x — that would DISABLE vertical panning and trap page scroll; this mirrors
+        the shipped .wwp-viewport carousel, verified). align-items:stretch makes the
+        deck as tall as the tallest card of THIS facility ⇒ no vertical jump when
+        swiping. The scroller clips internally, so it never leaks document overflow. */
+  .ib-deck {
+    display: flex; gap: 12px; align-items: stretch;
+    overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory; scroll-padding-left: 4px;
+    padding: 2px 4px; margin: 0 -4px;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .ib-deck::-webkit-scrollbar { display: none; }
+  .ib-deck:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 4px; border-radius: 12px; }
+
+  .ib-deck-card {
+    flex: 0 0 85%; min-width: 0; scroll-snap-align: start;
+    display: flex; flex-direction: column;
+  }
+  .ib-deck-card--text { justify-content: flex-start; }
+  /* PHOTO CARD — the photo fills the card height (= tallest card of the facility, the
+     read card) and is CONTAIN-fit on a transparent frame, so it letterboxes onto the
+     navy stage (no crop, no cream mat) and reads as one photo floating per page. */
+  .ib-deck-card--photo { justify-content: center; }
+  .ib-deck-card--photo .ib-imgpage {
+    position: relative; width: 100%; height: auto; flex: 1 1 auto; min-height: 200px;
+    order: 0; overflow: hidden; border-radius: 12px;
+  }
+  .ib-deck-card--photo .ib-img-frame { position: absolute; inset: 0; background: transparent; }
+  .ib-deck-card--photo .ib-img { object-fit: contain; }
+  /* the read card is position:static on mobile, so its decorative absolute dot-grid
+     would escape to the stage corner — drop it on the deck (it's aria-hidden). */
+  .ib-deck-card .ib-fac-dots { display: none; }
+
+  /* ── PAGE BAR — dots + "PAGE 0X / 0N" counter + light arrows. */
+  .ib-deck-bar { display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .ib-deck-arrow {
+    flex: none; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 999px; border: 1px solid rgba(253, 250, 244, 0.28);
+    background: rgb(var(--gold-2-rgb) / 0.06); color: #fdfaf4; font-size: 18px; line-height: 1;
+    cursor: pointer; transition: background .2s ease, border-color .2s ease, color .2s ease, opacity .2s ease;
+  }
+  .ib-deck-arrow:disabled { opacity: 0.3; cursor: default; }
+  .ib-deck-arrow:not(:disabled):active { background: var(--gold-2); color: var(--navy); border-color: var(--gold-2); }
+  .ib-deck-arrow:focus-visible { outline: 2px solid var(--gold-2); outline-offset: 2px; }
+  .ib-deck-dots { display: flex; gap: 6px; }
+  .ib-deck-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(253, 250, 244, 0.28); transition: background .2s ease, transform .2s ease; }
+  .ib-deck-dot.is-on { background: var(--gold-2); transform: scale(1.35); }
+  .ib-deck-count {
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(253, 250, 244, 0.7); white-space: nowrap;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ib-chips, .ib-deck { scroll-behavior: auto; }
+  }
+}

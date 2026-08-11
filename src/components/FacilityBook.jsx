@@ -172,10 +172,13 @@ export default function FacilityBook() {
   const [flip, setFlip] = useState(null)            // { from, dir } while a leaf is turning
   const [hasTurned, setHasTurned] = useState(false) // first turn stops the nav-arrow pulse for good
   const [hasOpened, setHasOpened] = useState(false) // first book opened → stop the "click a book" hint pulse + dim the spine arrows
+  const [deckPage, setDeckPage] = useState(0)       // Round 2 Lane 3 — current card in the mobile horizontal swipe deck (native scroll = source of truth)
   const busy = useRef(false)
   const timer = useRef(null)
   const sectionRef = useRef(null)
-  const bookWrapRef = useRef(null)                  // the open book column — scrolled into view on mobile select (Lane 3 · Task 2)
+  const bookWrapRef = useRef(null)                  // the open book column (desktop)
+  const deckRef = useRef(null)                      // the mobile scroll-snap deck scroller
+  const deckRaf = useRef(0)
   const inView = useRef(false)                      // ≥50% of the stack fills the viewport
   const stepRef = useRef(() => {})
   const flipMs = useRef(FLIP_MS)
@@ -287,18 +290,6 @@ export default function FacilityBook() {
     }, flipMs.current)
   }
 
-  // KILL THE DEAD TAP (Lane 3 · Task 2) — on mobile the book reads BELOW the spines
-  // (Task 1), so a spine tap updates content ~490px off-screen. After the selection
-  // renders, smooth-scroll the book column just into view. Plain window.scrollTo — no
-  // Lenis, no GSAP; the header is position:relative (not sticky, recon §6) so a small
-  // breathing offset is all that's needed, not an 87px header gutter.
-  const scrollBookIntoView = () => {
-    const el = bookWrapRef.current
-    if (!el || typeof window === 'undefined') return
-    const y = window.scrollY + el.getBoundingClientRect().top - 20
-    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' })
-  }
-
   // Jump to a different book (0+) or back to the Overview (-1) — a crossfade, never a
   // leaf turn. Guarded by the same input lock so it can't collide with a running turn.
   const select = (target, spreadTarget = 0) => {
@@ -314,9 +305,11 @@ export default function FacilityBook() {
     setSpread(typeof s === 'number' ? s : 0)
     setXfade((k) => k + 1)
     playTurn()
-    // Bring the (below-the-spines) book into view once the new spread has rendered.
-    // Covers spine taps, the ⌂ Overview return, and cross-facility roll-over via go().
-    if (narrow) requestAnimationFrame(() => requestAnimationFrame(scrollBookIntoView))
+    // Round 2 Lane 3 — the earlier lane's mobile auto-scroll (bookWrapRef into view on
+    // spine tap) is GONE: on mobile the chip selector and the swipe deck are adjacent,
+    // so a chip tap swaps content in place with no scroll jump. The deck-reset effect
+    // (below) slides the deck back to page 1 on any facility change. Desktop is
+    // unaffected (it never auto-scrolled).
   }
 
   const onKeyDown = (e) => {
@@ -373,6 +366,41 @@ export default function FacilityBook() {
     touch.current = null
   }
 
+  // ── MOBILE SWIPE DECK (<900px) ───────────────────────────────────────────────
+  // Below 900px the flip-book is replaced by a native horizontal scroll-snap deck
+  // (see the render + FacilityBook.css). Native scroll IS the source of truth: the
+  // crossfade/leaf/`spread` machinery is bypassed entirely here. `deckPage` is
+  // derived from scrollLeft so the counter/arrows/dots track the snapped card.
+  const deckStepPx = () => {
+    const el = deckRef.current
+    if (!el) return 0
+    const card = el.querySelector('.ib-deck-card')
+    return card ? card.getBoundingClientRect().width + 12 /* gap */ : el.clientWidth
+  }
+  const onDeckScroll = () => {
+    cancelAnimationFrame(deckRaf.current)
+    deckRaf.current = requestAnimationFrame(() => {
+      const el = deckRef.current
+      if (!el) return
+      const step = deckStepPx() || 1
+      const page = Math.round(el.scrollLeft / step)
+      setDeckPage((p) => (p === page ? p : page))
+    })
+  }
+  const deckScrollTo = (page, count) => {
+    const el = deckRef.current
+    if (!el) return
+    const clamped = Math.max(0, Math.min(page, count - 1))
+    el.scrollTo({ left: clamped * deckStepPx(), behavior: reduced ? 'auto' : 'smooth' })
+  }
+  // Any facility change (chip tap, Overview return) resets the deck to page 1.
+  useEffect(() => {
+    if (!narrow) return
+    const el = deckRef.current
+    if (el) el.scrollLeft = 0
+    setDeckPage(0)
+  }, [activeBook, narrow])
+
   // The facility read — icon badge, title, orange rule, intro, feature points.
   const renderText = () => (
     <div className="ib-textpage ib-facpage">
@@ -413,6 +441,36 @@ export default function FacilityBook() {
     return <div className={`ib-imgpage ${cls} ib-blankpage`} aria-hidden="true" />
   }
 
+  // ── MOBILE DECK PAGES (<900px) — flatten the desktop SPREADS (built for a two-page
+  // book) into single-purpose phone cards: page 1 is the facility READ (the cream
+  // text card), the rest are ONE photo each. This keeps every card a uniform, honest
+  // height (a tall read + two stacked photos in one card ballooned to ~800px and
+  // forced every sibling to match); it also surfaces each photo on its own so the
+  // "there's more" peek is meaningful. All curation from buildSpreads is preserved —
+  // we just re-emit its photos in order. Reuses renderText() + PhotoFrame verbatim.
+  const buildMobilePages = () => {
+    if (isIntro || !book) return []
+    const pages = [{ kind: 'read' }]
+    for (const sp of spreads) {
+      if (sp.t === 'intro0') (sp.stack || []).forEach((s) => pages.push({ kind: 'photo', src: s }))
+      else if (sp.t === 'double') pages.push({ kind: 'photo', src: sp.src })
+      else if (sp.t === 'solo') {
+        // Binding & Finishing's solo carries the diptych + trimmer plate on desktop;
+        // on the phone they become their own photo cards ahead of the solo shot.
+        if (book.id === '03') {
+          pages.push({ kind: 'photo', src: 'binding-finishing-diptych' })
+          pages.push({ kind: 'photo', src: 'binding-finishing-trimmer' })
+        }
+        if (sp.solo?.src) pages.push({ kind: 'photo', src: sp.solo.src })
+      } else {
+        if (sp.left?.kind === 'photo') pages.push({ kind: 'photo', src: sp.left.src })
+        if (sp.right?.kind === 'photo') pages.push({ kind: 'photo', src: sp.right.src })
+      }
+    }
+    return pages
+  }
+  const mobilePages = buildMobilePages()
+
   // ── Resolve the two base faces + (while turning) the leaf's two faces ──────────
   // The SAME leaf geometry the original used: a right-half page hinged on the spine,
   // 0° → −180° for NEXT, −180° → 0° for PREV. Base pages show the DESTINATION spread;
@@ -437,6 +495,9 @@ export default function FacilityBook() {
   // arrow disables); everywhere else an arrow always leads somewhere.
   const atVeryStart = activeBook <= 0 && safeSpread === 0
   const atVeryEnd = activeBook === BOOKS.length - 1 && safeSpread === totalSpreads - 1
+  // Mobile deck card count: the Overview is two cards (intro + spec list); a facility
+  // is its read card + one card per photo. Drives the counter/dots + arrow disabling.
+  const deckCount = isIntro ? 2 : Math.max(1, mobilePages.length)
   const showTurn = !isIntro
   const pulse = showTurn && !hasTurned && !reduced
   // Turnable = the desktop flip state with somewhere forward to go. Only then does the
@@ -472,6 +533,135 @@ export default function FacilityBook() {
 
   return (
     <div className="ib-stage" ref={sectionRef} data-theme="dark">
+      {narrow ? (
+        /* ═══ MOBILE (<900px) — chip selector + horizontal swipe deck ═══════════════
+           The vertical spine-stack + single stacked spread (which forced up-down
+           hunting and hid that more pages existed) is replaced by: a one-line chip
+           row to pick the facility, and a native scroll-snap deck of that facility's
+           pages with the next card peeking ~15% as the "there's more" cue. The
+           desktop flip-book below is untouched (rendered only when !narrow). */
+        <div className="ib-mobile">
+          <div className="ib-chips" role="tablist" aria-label={regionLabel}>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={isIntro}
+              className={`ib-chip ib-chip--ov${isIntro ? ' is-active' : ''}`}
+              onClick={() => select(-1)}
+            >
+              <House weight={isIntro ? 'fill' : 'regular'} size={13} aria-hidden="true" />
+              <span>{overviewLabel}</span>
+            </button>
+            {BOOKS.map((b, bi) => (
+              <button
+                key={b.id}
+                type="button"
+                role="tab"
+                aria-selected={bi === activeBook}
+                className={`ib-chip${bi === activeBook ? ' is-active' : ''}`}
+                onClick={() => select(bi)}
+              >
+                {t(`${b.base}.title`)}
+              </button>
+            ))}
+          </div>
+
+          <div
+            className="ib-deck"
+            ref={deckRef}
+            onScroll={onDeckScroll}
+            tabIndex={0}
+            aria-label={isIntro ? overviewLabel : title}
+          >
+            {isIntro ? (
+              <>
+                <div className="ib-deck-card ib-deck-card--text">
+                  <div className="ib-textpage ib-intro-left">
+                    <h2 className="ib-intro-title">{title}</h2>
+                    <p className="ib-intro-sub">{t('books.intro.subtitle')}</p>
+                    <span className="ib-intro-rule" aria-hidden="true" />
+                    <p className="ib-intro-para">{t('books.intro.para1')}</p>
+                    <p className="ib-intro-para">{t('books.intro.para2')}</p>
+                    <ul className="ib-pillars">
+                      {pillars.map((p, i) => {
+                        const PIcon = PILLAR_ICONS[i]
+                        return (
+                          <li key={i} className="ib-pillar">
+                            <span className="ib-pillar-icon" aria-hidden="true">{PIcon && <PIcon weight="light" size={22} />}</span>
+                            <span className="ib-pillar-label">{p.label}</span>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                </div>
+                <div className="ib-deck-card ib-deck-card--text">
+                  <div className="ib-intro-right">
+                    <h3 className="ib-intro-rhead">{t('books.intro.rightHeading')}</h3>
+                    <ul className="ib-speclist">
+                      {specs.map((it, i) => {
+                        const SIcon = SPEC_ICONS[i]
+                        return (
+                          <li key={i} className="ib-spec">
+                            <span className="ib-spec-chip" aria-hidden="true">{SIcon && <SIcon weight="regular" size={14} />}</span>
+                            <span className="ib-spec-num">{it.num || ''}</span>
+                            <span className="ib-spec-text">
+                              <span className="ib-spec-title">{it.title}</span>
+                              {it.sub && <span className="ib-spec-sub">{it.sub}</span>}
+                            </span>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                    <p className="ib-intro-closing">{t('books.intro.closing')}</p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              mobilePages.map((pg, i) => (
+                <div
+                  className={`ib-deck-card ib-deck-card--${pg.kind === 'read' ? 'text' : 'photo'}`}
+                  key={`${activeBook}-${i}`}
+                >
+                  {pg.kind === 'read' ? renderText() : (
+                    <div className="ib-imgpage"><PhotoFrame src={pg.src} /></div>
+                  )}
+                </div>
+              ))
+            )}
+          </div>
+
+          <div className="ib-deck-bar">
+            <button
+              type="button"
+              className="ib-deck-arrow"
+              onClick={() => deckScrollTo(deckPage - 1, deckCount)}
+              disabled={deckPage <= 0}
+              aria-label={t('books.ui.prev')}
+            >
+              <span aria-hidden="true">←</span>
+            </button>
+            <div className="ib-deck-dots" aria-hidden="true">
+              {Array.from({ length: deckCount }, (_, i) => (
+                <span key={i} className={`ib-deck-dot${i === Math.min(deckPage, deckCount - 1) ? ' is-on' : ''}`} />
+              ))}
+            </div>
+            <span className="ib-deck-count" aria-live="polite">
+              {t('books.ui.pageWord').toUpperCase()} {num(Math.min(deckPage, deckCount - 1) + 1)}
+              <span className="ib-pagecount-sep"> / </span>{num(deckCount)}
+            </span>
+            <button
+              type="button"
+              className="ib-deck-arrow"
+              onClick={() => deckScrollTo(deckPage + 1, deckCount)}
+              disabled={deckPage >= deckCount - 1}
+              aria-label={t('books.ui.next')}
+            >
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+      ) : (
       <div
         className="ib-interactive"
         role="group"
@@ -737,6 +927,7 @@ export default function FacilityBook() {
           )}
         </div>
       </div>
+      )}
     </div>
   )
 }
