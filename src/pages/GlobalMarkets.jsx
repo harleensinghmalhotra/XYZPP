@@ -94,7 +94,10 @@ export default function GlobalMarkets() {
       <section data-theme="dark" className="relative overflow-hidden px-6 py-14 sm:px-10 md:py-32" style={{ background: NAVY }}>
         <SectionCurve position="top" fill={NAVY} />
         <div className="relative z-10 mx-auto max-w-[1400px]">
-          <div data-reveal className="mb-16">
+          {/* Mobile: the outer mb-16 (64px) stacked on the lede's mb-12 (48px) = ~112px
+              of navy void before the first credential card. Collapse to the single
+              48px margin below md (drop the wrapper's margin); desktop keeps both. */}
+          <div data-reveal className="mb-0 md:mb-16">
             <p className="text-[18px] font-semibold leading-relaxed mb-12" style={{ fontFamily: TIGHT, color: CREAM }}>
               {t('credentials.leadIn')}
             </p>
