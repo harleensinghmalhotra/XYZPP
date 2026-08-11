@@ -120,6 +120,10 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
   const canvasRef = useRef(null)
   const mapRef = useRef(null)
   const [fallback, setFallback] = useState(false)
+  // Round 2 Lane 2: the live map now mounts below 900px too. The dotted graphic no
+  // longer short-circuits the map — it becomes a same-size, zero-CLS POSTER that the
+  // map fades in over. `isMobile` drives that poster render + the mobile-scoped CSS.
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const wrap = wrapRef.current
@@ -127,12 +131,7 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const mobile = window.matchMedia(MOBILE_MQ).matches
-
-    // Mobile → static fallback, maplibre never loads (protect low-power fps).
-    if (mobile) {
-      setFallback(true)
-      return
-    }
+    setIsMobile(mobile)
 
     let cancelled = false
     const cleanups = []
@@ -150,7 +149,9 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
           boot()
         }
       },
-      { rootMargin: '200px' },
+      // Desktop keeps its 200px lead; mobile pre-warms ~1.5 viewports out (like the
+      // Projects globe) so tiles are ready by the time the section is on screen.
+      { rootMargin: mobile ? `${Math.round(window.innerHeight * 1.5)}px 0px` : '200px' },
     )
     io.observe(wrap)
     cleanups.push(() => io.disconnect())
@@ -171,8 +172,10 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
         map = new maplibregl.Map({
           container: canvasRef.current,
           style: STYLE_URL,
-          center: reduced ? TARGET.center : SPACE_VIEW.center,
-          zoom: reduced ? TARGET.zoom : SPACE_VIEW.zoom,
+          // Mobile + reduced-motion both open on the landed frame (no space→flyTo
+          // flight); mobile re-frames to fit both pins on load, below.
+          center: (reduced || mobile) ? TARGET.center : SPACE_VIEW.center,
+          zoom: (reduced || mobile) ? TARGET.zoom : SPACE_VIEW.zoom,
           // Non-compact: the OSM/OpenMapTiles credit stays permanently expanded and
           // readable (never gated behind the ⓘ toggle) — CSS quiets it to a whisper.
           attributionControl: { compact: false },
@@ -244,8 +247,24 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
         brandStyle(map)
         brandSky(map)
 
-        // Reduced motion → skip the flight, show the landed state with pins.
-        if (reduced) {
+        // Mobile + reduced motion → skip the flight, open on the landed state with
+        // pins. Mobile additionally re-frames so BOTH pins sit in view at any width
+        // without interaction (a space→flight would leave the initial frame in space).
+        if (reduced || mobile) {
+          if (mobile) {
+            try {
+              const bounds = new maplibregl.LngLatBounds()
+              MARKERS.forEach((m) => bounds.extend(m.lngLat))
+              map.fitBounds(bounds, {
+                padding: { top: 104, bottom: 88, left: 64, right: 64 },
+                maxZoom: 11,
+                duration: 0,
+                animate: false,
+              })
+            } catch {
+              /* fitBounds unsupported — the TARGET framing already frames both pins */
+            }
+          }
           landed(map, maplibregl, setPhase)
           return
         }
@@ -336,7 +355,7 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
   }
 
   return (
-    <div ref={wrapRef} className={`qfp-globe ${className}`} data-phase="boot">
+    <div ref={wrapRef} className={`qfp-globe ${className}`} data-phase="boot" data-mobile={isMobile ? '' : undefined}>
       {fallback ? (
         <div className="qfp-globe-fallback">
           <img src="/site-assets/homepage/globe/worldmap-dots.webp" alt="" aria-hidden="true" loading="lazy" />
@@ -345,7 +364,20 @@ export default function GlobeFlyTo({ flightMs = 6000, beatMs = 1200, className =
           <p className="qfp-globe-fbcap">Vashi · Taloja, Navi Mumbai, India</p>
         </div>
       ) : (
-        <div ref={canvasRef} className="qfp-globe-canvas" aria-hidden="true" />
+        <>
+          {/* Mobile only: the dotted graphic rides as a same-size POSTER behind the
+              canvas — a branded, zero-CLS placeholder the live map fades in over (no
+              hide-first reveal). Desktop never renders it, so its path is identical. */}
+          {isMobile && (
+            <div className="qfp-globe-fallback qfp-globe-poster" aria-hidden="true">
+              <img src="/site-assets/homepage/globe/worldmap-dots.webp" alt="" aria-hidden="true" loading="lazy" />
+              <span className="qfp-globe-fbpin qfp-globe-fbpin--vashi" aria-hidden="true" />
+              <span className="qfp-globe-fbpin qfp-globe-fbpin--taloja" aria-hidden="true" />
+              <p className="qfp-globe-fbcap">Vashi · Taloja, Navi Mumbai, India</p>
+            </div>
+          )}
+          <div ref={canvasRef} className="qfp-globe-canvas" aria-hidden="true" />
+        </>
       )}
     </div>
   )

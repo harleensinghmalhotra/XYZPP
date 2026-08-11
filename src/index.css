@@ -5007,6 +5007,18 @@ html.alive-ready [data-textreveal].is-in .aw-word { opacity: 1; transform: none;
   text-transform: uppercase; color: rgba(240, 235, 224, 0.86);
 }
 
+/* ── Round 2 Lane 2 — live map on mobile (<900px) ────────────────────────────
+   The dotted graphic rides as a same-size POSTER behind the live canvas; the map
+   fades in over it once it lands (zero CLS, no hide-first reveal — a CSS opacity
+   transition on the incoming canvas ONLY). Everything is scoped to [data-mobile],
+   which React only stamps below 900px, so the desktop map path stays identical. */
+.qfp-globe[data-mobile] .qfp-globe-poster { z-index: 1; }
+.qfp-globe[data-mobile] .qfp-globe-canvas { opacity: 0; transition: opacity 600ms ease; }
+.qfp-globe[data-mobile][data-phase="landed"] .qfp-globe-canvas { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .qfp-globe[data-mobile] .qfp-globe-canvas { transition: none; }
+}
+
 /* --- homepage reach section (gr-) --- */
 .gr-section {
   position: relative; overflow: hidden; background: var(--navy);
