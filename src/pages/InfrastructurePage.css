@@ -435,8 +435,15 @@
    The facility-book section (Lane 3) is deliberately left untouched.
    ══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .inf-finish-sec { padding: 56px 0; } /* was clamp(72px,11vh,130px) = 93 @390 */
-  .inf-av         { padding: 56px 0; } /* was clamp(64px, 9vh,110px) = 76 @390 */
+  /* Round-3 final lane, two seam trims (recon §1.5):
+     · deck → "Premium Finishing" was ~138 (facility-deck bottom [FacilityBook.css,
+       out of territory] + this section's 56px top + the 3px gold rule). The only
+       lever here is the top pad: 56 → 26 pulls the eyebrow up ~30 (→ ~108).
+     · finish note → "YouTube" was 112 (finish pb 56 + av pt 56, both cream). Halve
+       each toward 36 so the cream→cream seam lands ~72 (−40). av bottom stays 56
+       (it faces the navy capability triptych below). */
+  .inf-finish-sec { padding: 26px 0 36px; } /* was 56px 0 (top→deck seam, bottom→av seam) */
+  .inf-av         { padding: 36px 0 56px; } /* top→finish seam; bottom kept 56 (→ navy triptych) */
   .inf-tri        { padding: 56px 0; } /* was clamp(84px,12vh,148px) = 101 @390 */
   .inf-gallery    { padding: 56px 0; } /* was clamp(72px,11vh,130px) = 93 @390 */
   .inf-cta        { padding: 56px 0; } /* was clamp(80px,12vh,150px) = 101 @390 */
