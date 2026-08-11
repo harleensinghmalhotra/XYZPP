@@ -36,7 +36,12 @@ export default function Marquee() {
       data-theme="dark"
       // z-0 so the hero (z-1) overhangs onto this section as it lands; extra top
       // padding leaves the landing zone clear for the overhanging book spine.
-      className="relative z-0 overflow-hidden border-b border-paper/10 bg-[var(--navy)] pb-8 pt-[18svh] md:pb-10 md:pt-[16svh]"
+      // Round 3 Lane 3: mobile bottom padding pb-8(32px)→pb-4(16px) — the only
+      // marquee spacing this component still owns. The top padding (pt-[18svh]) is
+      // overridden by `#marquee { padding-top: 104px }` in index.css (Lane 2), so
+      // the band's dominant over-tallness is index.css-owned and out of territory.
+      // Desktop keeps md:pb-10 / md:pt-[16svh] unchanged (hard gate).
+      className="relative z-0 overflow-hidden border-b border-paper/10 bg-[var(--navy)] pb-4 pt-[18svh] md:pb-10 md:pt-[16svh]"
     >
       {/* curved boundary that tops the section — the book overhangs and lands on it */}
       <svg
