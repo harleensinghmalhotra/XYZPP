@@ -301,7 +301,14 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    colour (300ms), the card lifts 4px, and the orange rule draws in. */
 /* Team top padding reduced (was clamp(60,7vh,88)) so it sits comfortably
    close to the founder quote above, at the page's standard section rhythm. */
-.tm { position: relative; background: var(--cream); padding: clamp(28px, 4vh, 52px) var(--page-gutter) clamp(30px, 4.5vh, 60px); overflow: hidden; }
+/* overflow-x only (Client Lane C · Task 1): the section has no horizontal-bleed
+   content that needs a Y clip, and a Y-axis overflow value here was the actual
+   cause of the spotlight panel's sticky bug below (an ancestor with overflow
+   other than visible on the Y axis becomes the sticky containing block; since
+   .tm never scrolls internally, .tm-panel could never engage its own sticky
+   and just scrolled away with the grid). PaperGrain is absolute/inset:0, so it
+   was already exactly contained by this box regardless of overflow. */
+.tm { position: relative; background: var(--cream); padding: clamp(28px, 4vh, 52px) var(--page-gutter) clamp(30px, 4.5vh, 60px); overflow-x: hidden; }
 /* the gold hairline that opens the section — draws left→right (scaleX). */
 html.alive-ready .tm-rule[data-reveal] {
   width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3);
@@ -329,7 +336,7 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
   display: grid;
   grid-template-columns: minmax(0, 1fr) clamp(300px, 37%, 440px);
   gap: clamp(24px, 3vw, 48px);
-  align-items: start;
+  align-items: stretch;
 }
 
 /* ── the grid of cards ─────────────────────────────────────────────────────── */
@@ -383,11 +390,12 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
 }
 
 /* ── the spotlight panel ───────────────────────────────────────────────────── */
-/* The COLUMN is the grid child — a normal, top-aligned item so the panel's top edge
-   sits on the first card row's top edge. The sticky lives on the inner .tm-panel
-   (sticky ON a grid item is nudged down by the tall track; sticky INSIDE a normal
-   block is not), so the panel top-aligns at rest and only follows once scrolled past. */
-.tm-panel-col { align-self: start; }
+/* The COLUMN is the grid child, STRETCHED to the row's full height (= the tall
+   photo grid's height) — that tall box is what gives the sticky .tm-panel room
+   to travel. A short (start-aligned) column gives sticky nowhere to stick: with
+   zero travel room it behaves like a normal in-flow element and scrolls away
+   with the grid (Client Lane C · Task 1 — this was the actual bug). */
+.tm-panel-col { align-self: stretch; }
 .tm-panel {
   position: sticky; top: calc(var(--nav-h) + clamp(14px, 2.4vh, 26px));
   background: var(--navy); border-radius: 16px;
