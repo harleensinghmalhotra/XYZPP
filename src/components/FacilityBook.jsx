@@ -113,6 +113,26 @@ const isLand = (src) => !TALL.has(src)
 //                 a lone leftover shows centred on one page (`solo`).
 // Corporate Headquarters (id 05) is left UNTOUCHED: its single tall photo keeps the
 // original read-left / photo-right single spread.
+// Chunk a flat, ordered photo list into 2-3-photo groups for the mobile deck
+// (Lane A · Task 2). Greedy by 3; if the final remainder would leave a lone
+// orphaned photo (n % 3 === 1), the last two groups become 2+2 instead of
+// ...+3+1 so no page ever shows a single photo when 2+ are available.
+function chunkPhotos(list) {
+  const n = list.length
+  if (n <= 3) return n ? [list] : []
+  const groups = []
+  let i = 0
+  if (n % 3 === 1) {
+    const full3Count = Math.floor(n / 3) - 1
+    for (let g = 0; g < full3Count; g++) { groups.push(list.slice(i, i + 3)); i += 3 }
+    groups.push(list.slice(i, i + 2)); i += 2
+    groups.push(list.slice(i, i + 2)); i += 2
+  } else {
+    while (i < n) { groups.push(list.slice(i, Math.min(i + 3, n))); i += 3 }
+  }
+  return groups
+}
+
 const BLANK = { kind: 'blank' }
 function buildSpreads(book) {
   if (!book) return []
@@ -442,32 +462,34 @@ export default function FacilityBook() {
   }
 
   // ── MOBILE DECK PAGES (<900px) — flatten the desktop SPREADS (built for a two-page
-  // book) into single-purpose phone cards: page 1 is the facility READ (the cream
-  // text card), the rest are ONE photo each. This keeps every card a uniform, honest
-  // height (a tall read + two stacked photos in one card ballooned to ~800px and
-  // forced every sibling to match); it also surfaces each photo on its own so the
-  // "there's more" peek is meaningful. All curation from buildSpreads is preserved —
-  // we just re-emit its photos in order. Reuses renderText() + PhotoFrame verbatim.
+  // book) into a flat, order-preserving photo list, exactly as before, then regroup
+  // into 2-3-photo pages (Lane A · Task 2: a single 16:9 photo rendered small in a
+  // tall uniform card wasted the page; stacking 2-3 per page fills it instead). Page 1
+  // is always the facility READ (the cream text card); every following page is a
+  // photo group. All curation from buildSpreads is preserved — we just re-flatten its
+  // photos in order, then chunk. Reuses renderText() verbatim; desktop is untouched
+  // (buildSpreads / the flip-book render path never call this).
   const buildMobilePages = () => {
     if (isIntro || !book) return []
-    const pages = [{ kind: 'read' }]
+    const photos = []
     for (const sp of spreads) {
-      if (sp.t === 'intro0') (sp.stack || []).forEach((s) => pages.push({ kind: 'photo', src: s }))
-      else if (sp.t === 'double') pages.push({ kind: 'photo', src: sp.src })
+      if (sp.t === 'intro0') (sp.stack || []).forEach((s) => photos.push(s))
+      else if (sp.t === 'double') photos.push(sp.src)
       else if (sp.t === 'solo') {
         // Binding & Finishing's solo carries the diptych + trimmer plate on desktop;
-        // on the phone they become their own photo cards ahead of the solo shot.
+        // on the phone they become their own photos ahead of the solo shot.
         if (book.id === '03') {
-          pages.push({ kind: 'photo', src: 'binding-finishing-diptych' })
-          pages.push({ kind: 'photo', src: 'binding-finishing-trimmer' })
+          photos.push('binding-finishing-diptych')
+          photos.push('binding-finishing-trimmer')
         }
-        if (sp.solo?.src) pages.push({ kind: 'photo', src: sp.solo.src })
+        if (sp.solo?.src) photos.push(sp.solo.src)
       } else {
-        if (sp.left?.kind === 'photo') pages.push({ kind: 'photo', src: sp.left.src })
-        if (sp.right?.kind === 'photo') pages.push({ kind: 'photo', src: sp.right.src })
+        if (sp.left?.kind === 'photo') photos.push(sp.left.src)
+        if (sp.right?.kind === 'photo') photos.push(sp.right.src)
       }
     }
-    return pages
+    const groups = chunkPhotos(photos)
+    return [{ kind: 'read' }, ...groups.map((g) => ({ kind: 'photoGroup', srcs: g }))]
   }
   const mobilePages = buildMobilePages()
 
@@ -624,7 +646,21 @@ export default function FacilityBook() {
                   key={`${activeBook}-${i}`}
                 >
                   {pg.kind === 'read' ? renderText() : (
-                    <div className="ib-imgpage"><PhotoFrame src={pg.src} /></div>
+                    <div className="ib-deck-photo-group">
+                      {pg.srcs.map((s) => (
+                        <div className="ib-img-frame ib-img-frame--deckgroup" key={s}>
+                          <img
+                            className="ib-img ib-img--cover"
+                            src={IMG(s)}
+                            alt=""
+                            aria-hidden="true"
+                            loading="lazy"
+                            decoding="async"
+                            draggable="false"
+                          />
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
               ))

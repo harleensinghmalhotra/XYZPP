@@ -1523,19 +1523,25 @@
     display: flex; flex-direction: column;
   }
   .ib-deck-card--text { justify-content: flex-start; }
-  /* PHOTO CARD — the photo fills the card height (= tallest card of the facility, the
-     read card) and is CONTAIN-fit on a transparent frame, so it letterboxes onto the
-     navy stage (no crop, no cream mat) and reads as one photo floating per page. */
+  /* PHOTO CARD — Lane A · Task 2: 2-3 photos stacked full-width per page (see
+     .ib-deck-photo-group below), the GROUP centred within the now-uniform card
+     height rather than a single small image floating in a tall card. */
   .ib-deck-card--photo { justify-content: center; }
-  .ib-deck-card--photo .ib-imgpage {
-    position: relative; width: 100%; height: auto; flex: 1 1 auto; min-height: 200px;
-    order: 0; overflow: hidden; border-radius: 12px;
-  }
-  .ib-deck-card--photo .ib-img-frame { position: absolute; inset: 0; background: transparent; }
-  .ib-deck-card--photo .ib-img { object-fit: contain; }
   /* the read card is position:static on mobile, so its decorative absolute dot-grid
      would escape to the stage corner — drop it on the deck (it's aria-hidden). */
   .ib-deck-card .ib-fac-dots { display: none; }
+  /* PHOTO GROUP — 2-3 full-width 16:9 frames stacked with a consistent gap,
+     centred as a block within the uniform card height (Lane A · Task 2). Each
+     frame keeps a true 16:9 box (not stretched to fill) — cover-fit crops only
+     what cover naturally would, never distorts. */
+  .ib-deck-photo-group {
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 12px; width: 100%; height: 100%;
+  }
+  .ib-img-frame--deckgroup {
+    position: relative; inset: auto; flex: none;
+    width: 100%; aspect-ratio: 16 / 9; border-radius: 12px;
+  }
 
   /* ── PAGE BAR — dots + "PAGE 0X / 0N" counter + light arrows. */
   .ib-deck-bar { display: flex; align-items: center; justify-content: center; gap: 14px; }
