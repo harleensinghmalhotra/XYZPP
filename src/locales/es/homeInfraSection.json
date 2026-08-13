@@ -103,7 +103,10 @@
       "glanceEyebrow": "De un vistazo",
       "overview": "Infraestructura",
       "hint": "Haz clic en un libro para explorar cada instalación",
-      "turn": "Pasar"
+      "turn": "Pasar",
+      "close": "Cerrar",
+      "viewPhoto": "Ver foto",
+      "photoViewer": "Visor de fotos de la instalación"
     },
     "intro": {
       "heading": "Infraestructura",

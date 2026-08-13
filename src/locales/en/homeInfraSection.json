@@ -103,7 +103,10 @@
       "glanceEyebrow": "At a Glance",
       "overview": "Infrastructure",
       "hint": "Click a book to explore each facility",
-      "turn": "Turn"
+      "turn": "Turn",
+      "close": "Close",
+      "viewPhoto": "View photo",
+      "photoViewer": "Facility photo viewer"
     },
     "intro": {
       "heading": "Infrastructure",

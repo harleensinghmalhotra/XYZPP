@@ -103,7 +103,10 @@
       "glanceEyebrow": "En bref",
       "overview": "Infrastructure",
       "hint": "Cliquez sur un livre pour explorer chaque installation",
-      "turn": "Tourner"
+      "turn": "Tourner",
+      "close": "Fermer",
+      "viewPhoto": "Voir la photo",
+      "photoViewer": "Visionneuse de photos de l'installation"
     },
     "intro": {
       "heading": "Infrastructure",

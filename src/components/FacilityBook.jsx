@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import {
   Printer, StackSimple, BookOpenText, Warehouse, Buildings, Stack, Gauge, Palette,
@@ -193,6 +194,7 @@ export default function FacilityBook() {
   const [hasTurned, setHasTurned] = useState(false) // first turn stops the nav-arrow pulse for good
   const [hasOpened, setHasOpened] = useState(false) // first book opened → stop the "click a book" hint pulse + dim the spine arrows
   const [deckPage, setDeckPage] = useState(0)       // Round 2 Lane 3 — current card in the mobile horizontal swipe deck (native scroll = source of truth)
+  const [viewer, setViewer] = useState(null)        // Lane A · Task 3 — { photos, idx } while the fullscreen photo viewer is open, else null
   const busy = useRef(false)
   const timer = useRef(null)
   const sectionRef = useRef(null)
@@ -421,6 +423,78 @@ export default function FacilityBook() {
     setDeckPage(0)
   }, [activeBook, narrow])
 
+  // ── FULLSCREEN PHOTO VIEWER (<900px only) — Lane A · Task 3. Tap any photo in the
+  // deck to open a fullscreen overlay over the WHOLE facility's photo list (across
+  // its pages, in order), swipeable left/right, with a close (×), a position
+  // indicator, and pinch-zoom free from the native <img> — no zoom code written.
+  // Mirrors the site's proven Gallery lightbox pattern (OurStory.jsx `Gallery`):
+  // keyboard nav, a Tab trap, body-scroll lock, focus into the dialog on open and
+  // back to the tapped photo on close — all in one effect keyed on `viewer`, so
+  // every close path (×, Escape, backdrop tap, swipe-to-end-then-close) runs the
+  // same cleanup and can never leave scroll locked or focus stranded.
+  const viewerDialogRef = useRef(null)
+  const lastTappedRef = useRef(null)
+  const wasViewerOpen = useRef(false)
+  const viewerTouch = useRef(null)
+
+  const openViewer = (photos, idx, triggerEl) => {
+    lastTappedRef.current = triggerEl || null
+    setViewer({ photos, idx })
+  }
+  const closeViewer = () => setViewer(null)
+  const viewerGo = (delta) => {
+    setViewer((v) => {
+      if (!v) return v
+      const n = v.photos.length
+      return { ...v, idx: (v.idx + delta + n) % n }
+    })
+  }
+
+  useEffect(() => {
+    if (!viewer) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') { e.preventDefault(); closeViewer() }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); viewerGo(-1) }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); viewerGo(1) }
+      else if (e.key === 'Tab') {
+        const f = viewerDialogRef.current?.querySelectorAll('button')
+        if (!f || !f.length) return
+        const first = f[0]
+        const last = f[f.length - 1]
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const raf = requestAnimationFrame(() => viewerDialogRef.current?.focus())
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+      cancelAnimationFrame(raf)
+    }
+  }, [viewer])
+
+  // Return focus to the tapped photo when the overlay closes (any close path).
+  useEffect(() => {
+    if (wasViewerOpen.current && !viewer) lastTappedRef.current?.focus?.()
+    wasViewerOpen.current = !!viewer
+  }, [viewer])
+
+  // Decisive horizontal drag only — mirrors the book-spread swipe below, never
+  // preventDefault()s, so a native edge-swipe / back-gesture is never trapped.
+  const onViewerTouchStart = (e) => { viewerTouch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY } }
+  const onViewerTouchEnd = (e) => {
+    if (!viewerTouch.current) return
+    const dx = e.changedTouches[0].clientX - viewerTouch.current.x
+    const dy = e.changedTouches[0].clientY - viewerTouch.current.y
+    if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      viewerGo(dx < 0 ? 1 : -1)
+    }
+    viewerTouch.current = null
+  }
+
   // The facility read — icon badge, title, orange rule, intro, feature points.
   const renderText = () => (
     <div className="ib-textpage ib-facpage">
@@ -466,10 +540,13 @@ export default function FacilityBook() {
   // into 2-3-photo pages (Lane A · Task 2: a single 16:9 photo rendered small in a
   // tall uniform card wasted the page; stacking 2-3 per page fills it instead). Page 1
   // is always the facility READ (the cream text card); every following page is a
-  // photo group. All curation from buildSpreads is preserved — we just re-flatten its
-  // photos in order, then chunk. Reuses renderText() verbatim; desktop is untouched
-  // (buildSpreads / the flip-book render path never call this).
-  const buildMobilePages = () => {
+  // photo group, each stamped with its startIdx into the flat list so a tapped photo
+  // (Lane A · Task 3) can open the fullscreen viewer at the right position and swipe
+  // through the WHOLE facility, not just its own page. All curation from buildSpreads
+  // is preserved — we just re-flatten its photos in order, then chunk. Reuses
+  // renderText() verbatim; desktop is untouched (buildSpreads / the flip-book render
+  // path never call this).
+  const buildFacilityPhotos = () => {
     if (isIntro || !book) return []
     const photos = []
     for (const sp of spreads) {
@@ -488,8 +565,19 @@ export default function FacilityBook() {
         if (sp.right?.kind === 'photo') photos.push(sp.right.src)
       }
     }
-    const groups = chunkPhotos(photos)
-    return [{ kind: 'read' }, ...groups.map((g) => ({ kind: 'photoGroup', srcs: g }))]
+    return photos
+  }
+  const facilityPhotos = buildFacilityPhotos()
+  const buildMobilePages = () => {
+    if (isIntro || !book) return []
+    const groups = chunkPhotos(facilityPhotos)
+    let offset = 0
+    const pages = [{ kind: 'read' }]
+    for (const g of groups) {
+      pages.push({ kind: 'photoGroup', srcs: g, startIdx: offset })
+      offset += g.length
+    }
+    return pages
   }
   const mobilePages = buildMobilePages()
 
@@ -562,6 +650,7 @@ export default function FacilityBook() {
            row to pick the facility, and a native scroll-snap deck of that facility's
            pages with the next card peeking ~15% as the "there's more" cue. The
            desktop flip-book below is untouched (rendered only when !narrow). */
+        <>
         <div className="ib-mobile">
           <div className="ib-chips" role="tablist" aria-label={regionLabel}>
             <button
@@ -647,18 +736,26 @@ export default function FacilityBook() {
                 >
                   {pg.kind === 'read' ? renderText() : (
                     <div className="ib-deck-photo-group">
-                      {pg.srcs.map((s) => (
-                        <div className="ib-img-frame ib-img-frame--deckgroup" key={s}>
-                          <img
-                            className="ib-img ib-img--cover"
-                            src={IMG(s)}
-                            alt=""
-                            aria-hidden="true"
-                            loading="lazy"
-                            decoding="async"
-                            draggable="false"
-                          />
-                        </div>
+                      {pg.srcs.map((s, gi) => (
+                        <button
+                          type="button"
+                          className="ib-deckphoto-tap"
+                          key={s}
+                          onClick={(e) => openViewer(facilityPhotos, pg.startIdx + gi, e.currentTarget)}
+                          aria-label={t('books.ui.viewPhoto')}
+                        >
+                          <div className="ib-img-frame ib-img-frame--deckgroup">
+                            <img
+                              className="ib-img ib-img--cover"
+                              src={IMG(s)}
+                              alt=""
+                              aria-hidden="true"
+                              loading="lazy"
+                              decoding="async"
+                              draggable="false"
+                            />
+                          </div>
+                        </button>
                       ))}
                     </div>
                   )}
@@ -697,6 +794,39 @@ export default function FacilityBook() {
             </button>
           </div>
         </div>
+
+        {/* FULLSCREEN PHOTO VIEWER — portaled to document.body so it is never
+            constrained by an ancestor's transform (the section gets a GSAP `y`
+            reveal transform on scroll-in) or clipped by `.ib-stage`'s
+            overflow:hidden. Mobile-only: this whole branch only exists when
+            narrow === true. */}
+        {viewer && createPortal(
+          <div
+            className="ib-viewer"
+            role="dialog"
+            aria-modal="true"
+            aria-label={t('books.ui.photoViewer')}
+            ref={viewerDialogRef}
+            tabIndex={-1}
+            onClick={(e) => { if (e.target === e.currentTarget) closeViewer() }}
+            onTouchStart={onViewerTouchStart}
+            onTouchEnd={onViewerTouchEnd}
+          >
+            <button type="button" className="ib-viewer-close" onClick={closeViewer} aria-label={t('books.ui.close')}>×</button>
+            {viewer.photos.length > 1 && (
+              <button type="button" className="ib-viewer-nav ib-viewer-prev" onClick={() => viewerGo(-1)} aria-label={t('books.ui.prev')}>‹</button>
+            )}
+            <div className="ib-viewer-stage">
+              <img className="ib-viewer-img" src={IMG(viewer.photos[viewer.idx])} alt="" />
+            </div>
+            {viewer.photos.length > 1 && (
+              <button type="button" className="ib-viewer-nav ib-viewer-next" onClick={() => viewerGo(1)} aria-label={t('books.ui.next')}>›</button>
+            )}
+            <p className="ib-viewer-counter">{viewer.idx + 1} / {viewer.photos.length}</p>
+          </div>,
+          document.body,
+        )}
+        </>
       ) : (
       <div
         className="ib-interactive"

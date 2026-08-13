@@ -1590,3 +1590,53 @@
     overflow: hidden;
   }
 }
+
+/* ═══ CLIENT LANE A · Task 3 — FULLSCREEN PHOTO VIEWER (mobile only) ══════════
+   Tap any deck photo to open a fullscreen viewer swiping through the WHOLE
+   facility's photo set. Portaled to document.body (see FacilityBook.jsx) so it
+   is never constrained by `.ib-stage`'s GSAP reveal transform or clipped by its
+   overflow:hidden. z-index matches the site's other fullscreen overlays — the
+   About-page Gallery lightbox and the YouTube video dialog both already use
+   1000, the established ceiling above the header (200), the mobile drawer
+   (500) and the WhatsApp fab (190/201). No zoom code: pinch-zoom on the native
+   <img> comes free from the browser. ═══════════════════════════════════════ */
+.ib-deckphoto-tap {
+  display: block; width: 100%; padding: 0; margin: 0;
+  background: none; border: 0; cursor: pointer;
+}
+.ib-viewer {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(48px, 12vw, 80px) 16px;
+  background: rgba(3, 12, 49, 0.94);
+  animation: ib-viewer-fade 0.18s ease-out;
+}
+@keyframes ib-viewer-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.ib-viewer-stage { display: flex; align-items: center; justify-content: center; max-width: 100%; max-height: 100%; }
+.ib-viewer-img {
+  display: block; max-width: 100%; max-height: 100%; width: auto; height: auto;
+  border-radius: 6px; box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+}
+.ib-viewer-close, .ib-viewer-nav {
+  position: absolute; display: grid; place-items: center;
+  width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+  border: 1.5px solid rgba(253, 250, 244, 0.3); background: rgba(253, 250, 244, 0.06);
+  color: #fdfaf4; z-index: 1;
+}
+.ib-viewer-close:hover, .ib-viewer-nav:hover { background: #B06F15; border-color: #B06F15; color: #030C31; }
+.ib-viewer-close:focus-visible, .ib-viewer-nav:focus-visible { outline: 2px solid #B06F15; outline-offset: 3px; }
+.ib-viewer-close { top: 16px; right: 16px; font-size: 26px; line-height: 1; }
+.ib-viewer-nav { top: 50%; transform: translateY(-50%); font-size: 26px; }
+.ib-viewer-prev { left: 12px; }
+.ib-viewer-next { right: 12px; }
+.ib-viewer-counter {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  margin: 0; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.16em;
+  color: rgba(253, 250, 244, 0.85);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ib-viewer { animation: none; }
+}
