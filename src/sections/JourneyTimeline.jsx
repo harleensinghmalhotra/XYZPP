@@ -466,7 +466,7 @@ export default function JourneyTimeline() {
   const heading = t('timeline.eyebrow')
 
   return (
-    <div ref={wrapRef} className="prun-scroll">
+    <div ref={wrapRef} className="prun-scroll" id="journey">
       <section ref={rootRef} data-theme="light" className="prun" aria-label={heading}>
         {/* faint dotted world-map + print-grain, both decorative and aria-hidden */}
         <div data-pr-map className="prun-map" aria-hidden="true" />

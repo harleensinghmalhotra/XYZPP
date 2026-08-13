@@ -13,7 +13,10 @@
    progress track; the controller reads it against window scroll. The user cannot
    scroll to the sections below until they've scrolled through the whole run — the
    tall wrapper enforces that natively (no wheel hijacking). */
-.prun-scroll { position: relative; min-height: 300vh; }
+/* scroll-margin-top so the #journey anchor (About dropdown, Client Lane C ·
+   Task 3) lands clear of the fixed header rather than under it — same
+   convention as .wwp-section's #services anchor in index.css. */
+.prun-scroll { position: relative; min-height: 300vh; scroll-margin-top: var(--nav-h); }
 
 .prun {
   position: sticky;

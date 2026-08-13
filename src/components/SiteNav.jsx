@@ -22,6 +22,35 @@ function reScrollWwp(cardId) {
   if (!reduced) setTimeout(run, 320)
 }
 
+// About Us dropdown — mirrors reScrollWwp's role: ScrollToTop (global) only
+// refires when [pathname, hash] actually CHANGES, so re-clicking the anchor
+// we're already on needs its own scroll. /about has no Lenis (only the
+// homepage does — see ScrollToTop.jsx), so this is a plain native scroll to
+// NAV_OFFSET above the target, matching ScrollToTop's own math.
+const ABOUT_NAV_OFFSET = 86
+function reScrollAbout(id) {
+  const reduced = prefersReduced()
+  const run = () => {
+    if (!id) { window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }); return }
+    const el = document.getElementById(id)
+    if (!el) return
+    const y = el.getBoundingClientRect().top + window.scrollY - ABOUT_NAV_OFFSET
+    window.scrollTo({ top: Math.max(0, y), behavior: reduced ? 'auto' : 'smooth' })
+  }
+  run()
+}
+
+// 3-item About Us dropdown: clones the What We Print pattern exactly (same
+// markup, hover/focus/keyboard behaviour, styling). "Our Story" has no anchor
+// (recon: nothing to add — plain /about already lands at the top); "Our
+// Journey" and "Our Team" anchor to #journey / #team (ids added for this —
+// see JourneyTimeline.jsx and OurStory.jsx).
+const ABOUT_ITEMS = [
+  { key: 'ourStory', to: '/about' },
+  { key: 'ourJourney', to: '/about#journey' },
+  { key: 'ourTeam', to: '/about#team' },
+]
+
 // 9-item What We Print dropdown: all anchor to homepage WWP section.
 const PRODUCTS = [
   { key: 'educationalBooks', cardKey: 'educational' },
@@ -57,6 +86,15 @@ export default function SiteNav() {
   const { t } = useTranslation('nav')
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(-1)
+  // About Us dropdown — Client Lane C · Task 3. Separate state/refs from WWP's
+  // (not a shared/generalized abstraction) so the already-verified WWP dropdown
+  // can't regress from a refactor; the two instances are otherwise identical.
+  const [aboutMenuOpen, setAboutMenuOpen] = useState(false)
+  const [aboutActiveItem, setAboutActiveItem] = useState(-1)
+  const aboutMenuRef = useRef(null)
+  const aboutTriggerRef = useRef(null)
+  const aboutItemsRef = useRef([])
+  const aboutFocusIntent = useRef(false)
   // Below 1024px the header is fixed (see MobileNav.css): true slides it up out of view.
   const [hidden, setHidden] = useState(false)
   const menuRef = useRef(null)
@@ -69,6 +107,8 @@ export default function SiteNav() {
   useEffect(() => {
     setMenuOpen(false)
     setActiveItem(-1)
+    setAboutMenuOpen(false)
+    setAboutActiveItem(-1)
     setHidden(false) // every route lands at the top (ScrollToTop) → header visible
   }, [pathname])
 
@@ -109,6 +149,13 @@ export default function SiteNav() {
     focusIntent.current = false
   }, [menuOpen, activeItem])
 
+  useEffect(() => {
+    if (aboutMenuOpen && aboutActiveItem >= 0 && aboutFocusIntent.current) {
+      aboutItemsRef.current[aboutActiveItem]?.focus()
+    }
+    aboutFocusIntent.current = false
+  }, [aboutMenuOpen, aboutActiveItem])
+
   // The WWP LABEL itself navigates to the homepage WWP section (from any page) —
   // Home.jsx's hash-scroll effect scrolls #what-we-print into view on arrival.
   const goToWWP = () => {
@@ -126,6 +173,25 @@ export default function SiteNav() {
     setMenuOpen(false)
     setActiveItem(-1)
     if (alreadyThere) reScrollWwp(id)
+  }
+
+  // The About Us LABEL itself still navigates to plain /about, exactly as the
+  // plain Link it replaces did.
+  const goToAbout = () => {
+    const alreadyThere = pathname === '/about' && !window.location.hash
+    navigate('/about')
+    setAboutMenuOpen(false)
+    setAboutActiveItem(-1)
+    if (alreadyThere) reScrollAbout(null)
+  }
+
+  const handleAboutItemClick = (item) => {
+    const hash = item.to.includes('#') ? item.to.split('#')[1] : null
+    const alreadyThere = pathname === '/about' && (hash ? window.location.hash === `#${hash}` : !window.location.hash)
+    navigate(item.to)
+    setAboutMenuOpen(false)
+    setAboutActiveItem(-1)
+    if (alreadyThere) reScrollAbout(hash)
   }
 
   // TRIGGER keys: Enter/Space navigate (same as a click); ArrowDown/Up open the menu
@@ -176,6 +242,51 @@ export default function SiteNav() {
     }
   }
 
+  // About Us — identical keyboard behaviour to WWP's onTriggerKey/onItemKey above.
+  const onAboutTriggerKey = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      goToAbout()
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      aboutFocusIntent.current = true
+      setAboutMenuOpen(true)
+      setAboutActiveItem(0)
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      aboutFocusIntent.current = true
+      setAboutMenuOpen(true)
+      setAboutActiveItem(ABOUT_ITEMS.length - 1)
+    } else if (e.key === 'Escape') {
+      e.preventDefault()
+      setAboutMenuOpen(false)
+      setAboutActiveItem(-1)
+    }
+  }
+
+  const onAboutItemKey = (e, idx) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      aboutFocusIntent.current = true
+      setAboutActiveItem(idx < ABOUT_ITEMS.length - 1 ? idx + 1 : 0)
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (idx > 0) {
+        aboutFocusIntent.current = true
+        setAboutActiveItem(idx - 1)
+      } else {
+        setAboutMenuOpen(false)
+        setAboutActiveItem(-1)
+        aboutTriggerRef.current?.focus()
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault()
+      setAboutMenuOpen(false)
+      setAboutActiveItem(-1)
+      aboutTriggerRef.current?.focus()
+    }
+  }
+
   return (
     <header
       role="banner"
@@ -204,7 +315,83 @@ export default function SiteNav() {
               item. aria-current marks it on "/" (no other link carries an active
               treatment, so we match that: same qnav-link, semantics only). */}
           <Link to="/" aria-current={pathname === '/' ? 'page' : undefined} className="qnav-link">{t('home')}</Link>
-          <Link to="/about" className="qnav-link">{t('about')}</Link>
+
+          {/* About Us — 3-item dropdown, cloned from What We Print (Client Lane C ·
+              Task 3). The label itself still navigates straight to /about. */}
+          <div
+            className="relative"
+            ref={aboutMenuRef}
+            onMouseEnter={() => setAboutMenuOpen(true)}
+            onMouseLeave={() => setAboutMenuOpen(false)}
+            onFocus={() => setAboutMenuOpen(true)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) setAboutMenuOpen(false)
+            }}
+          >
+            <button
+              ref={aboutTriggerRef}
+              type="button"
+              className="qnav-link inline-flex items-center gap-1.5"
+              aria-haspopup="true"
+              aria-expanded={aboutMenuOpen}
+              aria-controls="about-dropdown"
+              onClick={goToAbout}
+              onKeyDown={onAboutTriggerKey}
+            >
+              {t('about')}
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 12 12"
+                fill="none"
+                aria-hidden="true"
+                style={{
+                  transition: 'transform 200ms ease',
+                  transform: aboutMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                }}
+              >
+                <path
+                  d="M2.5 4.5 6 8l3.5-3.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            {aboutMenuOpen && (
+              <div className="absolute left-0 top-full pt-4">
+                <div
+                  id="about-dropdown"
+                  className="min-w-[260px] rounded-[var(--radius-md)] border border-[#030C31]/10 bg-[#fdfaf4] p-2 shadow-[0_16px_48px_rgba(3,12,49,0.14)]"
+                  role="menu"
+                >
+                  {ABOUT_ITEMS.map((item, idx) => (
+                    <button
+                      key={item.key}
+                      ref={(el) => (aboutItemsRef.current[idx] = el)}
+                      type="button"
+                      onClick={() => handleAboutItemClick(item)}
+                      onKeyDown={(e) => onAboutItemKey(e, idx)}
+                      onMouseEnter={() => setAboutActiveItem(idx)}
+                      className="focus-ring w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F15]/[0.08] hover:pl-6 hover:text-[#925C10]"
+                      style={{
+                        fontFamily: INTER,
+                        backgroundColor:
+                          aboutActiveItem === idx ? '#B06F15/[0.08]' : 'transparent',
+                        paddingLeft: aboutActiveItem === idx ? '1.5rem' : '1rem',
+                        color: aboutActiveItem === idx ? '#925C10' : '#1c2019/85',
+                      }}
+                      role="menuitem"
+                      aria-current={aboutActiveItem === idx ? 'true' : undefined}
+                    >
+                      {t(item.key)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* What We Print — 10-item dropdown */}
           <div

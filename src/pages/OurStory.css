@@ -308,7 +308,7 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    .tm never scrolls internally, .tm-panel could never engage its own sticky
    and just scrolled away with the grid). PaperGrain is absolute/inset:0, so it
    was already exactly contained by this box regardless of overflow. */
-.tm { position: relative; background: var(--cream); padding: clamp(28px, 4vh, 52px) var(--page-gutter) clamp(30px, 4.5vh, 60px); overflow-x: hidden; }
+.tm { position: relative; background: var(--cream); padding: clamp(28px, 4vh, 52px) var(--page-gutter) clamp(30px, 4.5vh, 60px); overflow-x: hidden; scroll-margin-top: var(--nav-h); }
 /* the gold hairline that opens the section — draws left→right (scaleX). */
 html.alive-ready .tm-rule[data-reveal] {
   width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3);

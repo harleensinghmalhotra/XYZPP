@@ -417,7 +417,7 @@ function Team() {
   }, [])
 
   return (
-    <section data-theme="light" className="tm" aria-labelledby="tm-title">
+    <section data-theme="light" className="tm" id="team" aria-labelledby="tm-title">
       <PaperGrain />
       <div className="ab-wrap">
         <hr className="tm-rule" data-reveal aria-hidden="true" />

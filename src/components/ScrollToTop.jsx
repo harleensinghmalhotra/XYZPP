@@ -20,9 +20,23 @@ export default function ScrollToTop() {
       const tick = () => {
         const el = document.getElementById(id)
         if (!el) { if (tries++ < 120) raf = requestAnimationFrame(tick); return }
-        const lenis = typeof window !== 'undefined' ? window.__lenis : null
+        // Lenis only ever mounts on the homepage (Home.jsx's SmoothScrollProvider),
+        // but `window.__lenis` is a bare global: on a Home -> other-route navigation
+        // with a hash (Client Lane C · Task 3's "Our Journey"/"Our Team"), this
+        // layout effect can run BEFORE Home's Lenis instance unmounts (its cleanup
+        // is a regular, async useEffect, so it fires a phase later) — reading a
+        // STALE, about-to-be-destroyed Lenis here calls .scrollTo() on an instance
+        // whose DOM no longer matters, moves nothing, and this branch never
+        // retries. Gating on pathname === '/' (the only route Lenis ever runs on)
+        // makes a stale reference impossible to reach.
+        const onHome = pathname === '/'
+        const lenis = (onHome && typeof window !== 'undefined') ? window.__lenis : null
         if (wantsLenis && lenis) { lenis.scrollTo(el, { offset: -NAV_OFFSET }); return }
-        if (wantsLenis && tries++ < 90) { raf = requestAnimationFrame(tick); return }
+        // Only worth waiting/retrying for Lenis on the route that can ever mount it —
+        // elsewhere (e.g. an in-page anchor on /about) Lenis will never appear, so
+        // retrying here just adds up to ~1.5s of pointless delay before the native
+        // fallback below.
+        if (wantsLenis && onHome && tries++ < 90) { raf = requestAnimationFrame(tick); return }
         // reduced-motion, or Lenis never mounted → jump natively
         const y = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET
         window.scrollTo(0, Math.max(0, y))

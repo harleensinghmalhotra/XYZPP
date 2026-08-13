@@ -17,6 +17,11 @@ import './MobileNav.css'
 // context (the cookie banner sits at z-200 and is later in the DOM). No GSAP / no
 // hide-first reveal — a plain CSS entrance animation on a conditionally-rendered
 // node, driven by React state.
+// Client Lane C · Task 3 — the new desktop About Us dropdown (Our Story / Our
+// Journey / Our Team) does NOT get a drawer accordion: What We Print's own
+// 9-item dropdown isn't in this NAV array at all today (no children shown on
+// mobile for that pattern either), so matching that precedent means About Us
+// stays exactly what it already is below — a single flat link to /about.
 const NAV = [
   { key: 'home', to: '/', end: true },
   { key: 'about', to: '/about' },

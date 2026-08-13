@@ -571,8 +571,8 @@ body {
 .qnav-link:focus-visible::after { left: 0; right: 0; }
 
 @media (prefers-reduced-motion: reduce) {
-  #wwp-dropdown button { transition: none; }
-  #wwp-dropdown svg { transition: none; }
+  #wwp-dropdown button, #about-dropdown button { transition: none; }
+  #wwp-dropdown svg, #about-dropdown svg { transition: none; }
 }
 
 @keyframes marquee {
