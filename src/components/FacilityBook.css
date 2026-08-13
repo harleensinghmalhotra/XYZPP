@@ -1559,3 +1559,28 @@
     .ib-chips, .ib-deck { scroll-behavior: auto; }
   }
 }
+
+/* ═══ CLIENT LANE A · Task 1 — UNIFORM DECK PAGE HEIGHT (<900px) ══════════════
+   Every deck card (text page AND photo pages) now renders at ONE fixed height
+   for the whole deck at a given width, so swiping within a facility or
+   switching facilities via chips never jumps the card height. The height is
+   derived from the TALLEST facility text page (Corporate Headquarters, whose
+   per-point body copy runs 2-3x longer than the other four facilities') across
+   all 5 facilities AND all 3 locales (FR/ES translations run longer than EN),
+   measured live at the matrix widths: 360→755px, 390→688px, 412→659px,
+   440→602px (script: measure-deck-heights.mjs). Fit as a 2-point line anchored
+   at 360/440 with a safety margin (765/615) so it clears the 390 and 412
+   measurements too (390 needs 688, formula gives ~709; 412 needs 659, formula
+   gives ~667.5) — never undershoots at any tested width. Beyond 440 the clamp
+   floor holds flat at 615px (safe: taller viewports need less text height).
+   `overflow: hidden` is a safety net, not the expected path — content should
+   never actually reach it given the margin above. ═══════════════════════════ */
+@media (max-width: 900px) {
+  .ib-deck-card {
+    height: clamp(615px, calc(1440px - 187.5vw), 850px);
+  }
+  .ib-deck-card--text .ib-textpage {
+    height: 100%;
+    overflow: hidden;
+  }
+}
