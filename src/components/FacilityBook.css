@@ -1225,10 +1225,10 @@
   margin: 0 0 10px;
   font-family: 'DM Mono', monospace;
   font-size: clamp(10.5px, 0.92vw, 12px);
-  font-weight: 500;
+  font-weight: 700;                     /* Client Lane C · Task 2 — white + bold on desktop */
   letter-spacing: 0.06em;
   line-height: 1.34;
-  color: #B18120;                       /* AA-safe orange on the navy stage */
+  color: var(--cream);
   text-align: center;
   animation: ib-hint-pulse 2s ease-in-out infinite;
 }
@@ -1337,7 +1337,9 @@
   .ib-pillars { grid-template-columns: repeat(2, 1fr); gap: 16px 10px; }
   .ib-spec-sub { font-size: 11px; }
   .ib-intro-closing { font-size: 11px; }
-  .ib-hint { font-size: 11px; }
+  /* Client Lane C · Task 2 — mobile keeps its pre-existing gold/500 look; only
+     desktop moves to white/bold (see the base .ib-hint rule above). */
+  .ib-hint { font-size: 11px; color: #B18120; font-weight: 500; }
   /* font-size lifts the pill's inner label span ("Infrastructure") to 11px; the
      taller padding + 44px floor bring the tap target up from 32px to >=44px. It stays
      a full-width rounded pill (border-radius:999px, align-self:stretch), not a slab. */

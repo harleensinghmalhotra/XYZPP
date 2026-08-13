@@ -630,14 +630,17 @@ export default function FacilityBook() {
   // this session, dimming once a facility has been opened. (The hand-drawn spine arrows
   // were removed per client; the hint + the spine labels' hover glow/lift signal that
   // the stack is interactive.)
-  // Device-word swap below 900px: "Click a book…" → "Tap a book…". Not new copy,
-  // so it stays a runtime swap on the existing i18n string (no new locale key);
-  // non-EN strings that lack the word "Click" pass through unchanged. Desktop keeps
-  // the pointer word. (Lane 3 · Task 1)
-  const hintText = t('books.ui.hint')
+  // Client Lane C · Task 2 — the old "Click a book…" → "Tap a book…" mechanism was a
+  // regex .replace(/\bClick\b/i, 'Tap') on the ONE `books.ui.hint` string. That only
+  // ever worked for EN (FR/ES never contain the literal word "Click", so those locales
+  // silently showed the desktop wording verbatim on mobile) — and separately, the
+  // {hint} element was only ever rendered inside the desktop (!narrow) branch below, so
+  // on mobile no hint rendered at all and the swap was dead code. Both are fixed here:
+  // a dedicated `books.ui.hintMobile` key (translated per-locale, not derived) replaces
+  // the regex, and {hint} is now also rendered inside the mobile branch.
   const hint = (
     <p className={`ib-hint${hasOpened || reduced ? ' is-done' : ''}`}>
-      {narrow ? hintText.replace(/\bClick\b/i, 'Tap') : hintText}
+      {narrow ? t('books.ui.hintMobile') : t('books.ui.hint')}
     </p>
   )
 
@@ -652,6 +655,7 @@ export default function FacilityBook() {
            desktop flip-book below is untouched (rendered only when !narrow). */
         <>
         <div className="ib-mobile">
+          {hint}
           <div className="ib-chips" role="tablist" aria-label={regionLabel}>
             <button
               type="button"
