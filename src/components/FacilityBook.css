@@ -1524,25 +1524,45 @@
     flex: 0 0 85%; min-width: 0; scroll-snap-align: start;
     display: flex; flex-direction: column;
   }
+  /* Client Lane C-2 fix — the uniform height (Task 1) is set on .ib-deck-card, a
+     transparent flex slot with no background/border/radius of its own; it was
+     never the box a swiping user actually sees. Only ONE of the three content
+     types .ib-deck-card ever renders (.ib-textpage, .ib-intro-right, or
+     .ib-deck-photo-group) also stretched to fill it (a type-specific
+     .ib-textpage rule) — .ib-intro-right (Overview's 2nd card) and every photo
+     group were left at their own natural height, top/centre-anchored with dead
+     space around them, so the PAINTED box fell short of the uniform height
+     everywhere except the facility read page. Fixed generically on whichever
+     single child renders, not by enumerating classes, so nothing can be missed
+     again: it flex-grows to fill .ib-deck-card exactly. */
+  .ib-deck-card > * {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+  }
   .ib-deck-card--text { justify-content: flex-start; }
-  /* PHOTO CARD — Lane A · Task 2: 2-3 photos stacked full-width per page (see
-     .ib-deck-photo-group below), the GROUP centred within the now-uniform card
-     height rather than a single small image floating in a tall card. */
-  .ib-deck-card--photo { justify-content: center; }
   /* the read card is position:static on mobile, so its decorative absolute dot-grid
      would escape to the stage corner — drop it on the deck (it's aria-hidden). */
   .ib-deck-card .ib-fac-dots { display: none; }
-  /* PHOTO GROUP — 2-3 full-width 16:9 frames stacked with a consistent gap,
-     centred as a block within the uniform card height (Lane A · Task 2). Each
-     frame keeps a true 16:9 box (not stretched to fill) — cover-fit crops only
-     what cover naturally would, never distorts. */
+  /* PHOTO GROUP — now a real card (background/border/radius matching
+     .ib-textpage) so it reads as ONE continuous page the same as a text card,
+     not several small photo islands floating on the navy stage with dead gaps
+     between them (the actual cause of the "shorter" complaint). 2-3 full-width
+     true-16:9 frames stack inside it with a consistent gap, centred as a block
+     — client-approved (Lane A) — within the card's own padding. Cover-fit crops
+     only what cover naturally would, never distorts. */
   .ib-deck-photo-group {
     display: flex; flex-direction: column; justify-content: center;
     gap: 12px; width: 100%; height: 100%;
+    background: #fdfaf4;
+    border: 1px solid rgb(var(--navy-rgb) / 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
   }
   .ib-img-frame--deckgroup {
     position: relative; inset: auto; flex: none;
-    width: 100%; aspect-ratio: 16 / 9; border-radius: 12px;
+    width: 100%; aspect-ratio: 16 / 9; border-radius: 8px;
   }
 
   /* ── PAGE BAR — dots + "PAGE 0X / 0N" counter + light arrows. */
@@ -1587,10 +1607,10 @@
   .ib-deck-card {
     height: clamp(615px, calc(1440px - 187.5vw), 850px);
   }
-  .ib-deck-card--text .ib-textpage {
-    height: 100%;
-    overflow: hidden;
-  }
+  /* Superseded by the generic ".ib-deck-card > *" fill rule (Client Lane C-2 fix,
+     near the deck card definitions above) — that rule covers .ib-textpage AND
+     .ib-intro-right AND .ib-deck-photo-group uniformly instead of only this one
+     type-specific selector, which is what let the other two fall through. */
 }
 
 /* ═══ CLIENT LANE A · Task 3 — FULLSCREEN PHOTO VIEWER (mobile only) ══════════
