@@ -1613,6 +1613,37 @@
   }
 }
 
+/* ═══ ROW ALIGNMENT — spec list, mobile only (<900px) ═════════════════════════
+   The desktop/small-desktop .ib-spec grid (align-items:center) is untouched —
+   approved, hard gate. On mobile it produced the reported bug: centering the
+   icon/number against `.ib-spec-text` (a flex column holding title + optional
+   sub) meant a row's icon drifted relative to its title depending on whether
+   that row had a subtitle or a wrapped 2-line title — measured up to 16.7px
+   of drift between rows on the same page.
+   Fix: `.ib-spec-text` is unwrapped via display:contents so title/sub become
+   direct grid children of `.ib-spec`, on their OWN row-2 — this decouples the
+   icon/number (row 1) from whatever follows underneath, so their alignment to
+   the title's FIRST LINE is identical whether or not a sub exists and however
+   many lines the title wraps to. Chosen alignment: TOP (align-items:start),
+   matching the facility feature-point rows below (.ib-fpoint already uses
+   align-items:flex-start) — one system, same principle, everywhere in the
+   deck. The number column stays a single FIXED track width (1.6em, unchanged)
+   rather than minmax/auto: each `.ib-spec` is its own independent grid (one
+   per <li>, not a shared table), so an auto-sized column would size per-row
+   off that row's own digit count and reintroduce the ragged-label bug this
+   is fixing. tabular-nums is added for digit-width consistency per spec.
+   `.ib-speclist` drops `justify-content: space-between` (which stretched
+   gaps to fill leftover vertical space unevenly) for one fixed row gap. ═══ */
+@media (max-width: 900px) {
+  .ib-speclist { justify-content: flex-start; gap: clamp(10px, 1.6cqw, 16px); }
+  .ib-spec { align-items: start; row-gap: 2px; }
+  .ib-spec-chip { grid-row: 1; grid-column: 1; }
+  .ib-spec-num { grid-row: 1; grid-column: 2; font-variant-numeric: tabular-nums; }
+  .ib-spec-text { display: contents; }
+  .ib-spec-title { grid-row: 1; grid-column: 3; }
+  .ib-spec-sub { grid-row: 2; grid-column: 3; margin-top: 0; }
+}
+
 /* ═══ CLIENT LANE A · Task 1 — UNIFORM DECK PAGE HEIGHT (<900px) ══════════════
    Every deck card (text page AND photo pages) now renders at ONE fixed height
    for the whole deck at a given width, so swiping within a facility or
