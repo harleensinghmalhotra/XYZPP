@@ -740,15 +740,22 @@ export default function FacilityBook() {
                 >
                   {pg.kind === 'read' ? renderText() : (
                     <div className="ib-deck-photo-group">
-                      {pg.srcs.map((s, gi) => (
+                      {pg.srcs.map((s, gi) => {
+                        // Corporate Headquarters' single mobile photo is portrait
+                        // (head-office-01, 1086×1448) — the shared 16:9 cover frame
+                        // every other facility uses would crop most of the building
+                        // away. Scoped to book 05 alone via this modifier; every
+                        // other facility keeps the untouched --deckgroup frame.
+                        const natural = book.id === '05'
+                        return (
                         <button
                           type="button"
-                          className="ib-deckphoto-tap"
+                          className={`ib-deckphoto-tap${natural ? ' ib-deckphoto-tap--natural' : ''}`}
                           key={s}
                           onClick={(e) => openViewer(facilityPhotos, pg.startIdx + gi, e.currentTarget)}
                           aria-label={t('books.ui.viewPhoto')}
                         >
-                          <div className="ib-img-frame ib-img-frame--deckgroup">
+                          <div className={`ib-img-frame ib-img-frame--deckgroup${natural ? ' ib-img-frame--natural' : ''}`}>
                             <img
                               className="ib-img ib-img--cover"
                               src={IMG(s)}
@@ -760,7 +767,8 @@ export default function FacilityBook() {
                             />
                           </div>
                         </button>
-                      ))}
+                        )
+                      })}
                     </div>
                   )}
                 </div>

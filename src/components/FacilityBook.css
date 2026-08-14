@@ -1564,6 +1564,31 @@
     position: relative; inset: auto; flex: none;
     width: 100%; aspect-ratio: 16 / 9; border-radius: 8px;
   }
+  /* Corporate Headquarters' single mobile photo (head-office-01, 1086×1448 — a
+     portrait ~3:4 building shot) — the shared 16:9 cover frame above cropped most
+     of it away (sky + entrance lost) and, being short, left the tall uniform card
+     mostly empty around it. This variant sizes the frame to the photo's own
+     aspect ratio and stretches it to the card's available height (object-fit
+     switches to contain, so nothing crops) instead of forcing 16:9. Scoped to
+     book 05 alone via `.ib-img-frame--natural` (see FacilityBook.jsx) — every
+     other facility's photos are genuinely ~16:9 already (verified against the
+     shipped assets) and keep the untouched .ib-img-frame--deckgroup above. */
+  .ib-deckphoto-tap--natural {
+    flex: 1 1 auto; min-height: 0;
+    display: flex; align-items: stretch; justify-content: center;
+  }
+  /* width-driven (not height-driven): stretched to the tap button's full width
+     by the flex parent, height follows from the photo's own ratio. Tried
+     height-driven (height:100% + width:auto) first — it fills more of the
+     card's vertical space, but fighting flexbox's cross-axis stretch and the
+     aspect-ratio property against each other produced a distorted, non-ratio
+     box (measured 272×581, ratio 0.47 instead of 0.75). This version measures
+     true to the source (0.75) at every matrix width — verified — so it's kept
+     over the taller-but-fragile alternative. */
+  .ib-img-frame--deckgroup.ib-img-frame--natural {
+    width: auto; max-width: 100%; aspect-ratio: 1086 / 1448;
+  }
+  .ib-img-frame--natural .ib-img--cover { object-fit: contain; }
 
   /* ── PAGE BAR — dots + "PAGE 0X / 0N" counter + light arrows. */
   .ib-deck-bar { display: flex; align-items: center; justify-content: center; gap: 14px; }
