@@ -1651,8 +1651,20 @@
   display: block; width: 100%; padding: 0; margin: 0;
   background: none; border: 0; cursor: pointer;
 }
+/* `inset: 0` alone sizes a `position: fixed` box against the LAYOUT viewport,
+   which on real mobile browsers is the larger, toolbar-hidden height — not
+   necessarily what's actually visible. While the address bar is showing, the
+   box extends behind it, so content centred within that oversized box renders
+   in the lower portion of the visible area (bug reported: image sits in the
+   bottom half). `100dvh` tracks the CURRENT visible viewport as the toolbar
+   shows/hides, so centring stays correct; `100vh` is kept first as a fallback
+   for browsers that don't support dvh (an explicit height + `bottom: 0` from
+   `inset: 0` isn't a conflict — `bottom` is simply superseded by `top` +
+   `height` per the CSS box-position resolution rules). Width is untouched:
+   only the vertical dimension is affected by a collapsing toolbar. */
 .ib-viewer {
   position: fixed; inset: 0; z-index: 1000;
+  height: 100vh; height: 100dvh;
   display: flex; align-items: center; justify-content: center;
   padding: clamp(48px, 12vw, 80px) 16px;
   background: rgba(3, 12, 49, 0.94);
