@@ -216,8 +216,24 @@ export default function NewsroomArticle() {
     publisher: {
       '@type': 'Organization',
       name: 'Quarterfold Printabilities',
-      logo: { '@type': 'ImageObject', url: 'https://quarterfoldltd.com/qfp/brand/qfp-logo.png' },
+      // 747x175: the real, on-disk dimensions of public/qfp/brand/qfp-logo.png --
+      // not Google's preferred 60x600 lockup, but the actual asset's real size,
+      // which is what "no invented facts" means here: declare it accurately
+      // rather than either omit it or claim a size the file isn't.
+      logo: { '@type': 'ImageObject', url: 'https://quarterfoldltd.com/qfp/brand/qfp-logo.png', width: 747, height: 175 },
     },
+  }
+  // Home -> Newsroom -> this article. Reuses the exact same "Home"/"Newsroom"
+  // strings Newsroom.jsx's own breadcrumb already renders (seo.breadcrumb.home /
+  // .newsroom, same `newsroom` namespace) rather than new copy.
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.newsroom'), item: 'https://quarterfoldltd.com/newsroom' },
+      { '@type': 'ListItem', position: 3, name: post.title, item: articleUrl },
+    ],
   }
 
   return (
@@ -227,7 +243,7 @@ export default function NewsroomArticle() {
         description={metaDescription(post.excerpt)}
         image={coverUrl || undefined}
         type="article"
-        jsonLd={jsonLd}
+        jsonLd={[jsonLd, breadcrumbJsonLd]}
       />
 
       <article className="nra">
