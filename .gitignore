@@ -26,8 +26,15 @@ studio/.sanity/
 # Local, non-shipping working material (backups, scratch, source dumps)
 _archive/
 
-# Local verification / asset-prep scratch (one-off Playwright + transcode harnesses)
-scripts/
+# Local verification / asset-prep scratch (one-off Playwright + transcode harnesses).
+# Ignore contents via a glob, not the directory itself (`scripts/`) — negating a
+# file below an excluded *directory* doesn't work in git; excluding its
+# contents does, which is what lets the exception below actually take effect.
+scripts/*
+# ...except the prerender step: a real build dependency (package.json's
+# "build" script requires it), not a one-off dev/verification harness — must
+# ship, unlike everything else in this directory.
+!scripts/prerender.mjs
 
 # Root-level image scratch (screenshots). Real bundler assets under src/assets and
 # the client-swap deliverable tree under public/site-assets must always ship.
