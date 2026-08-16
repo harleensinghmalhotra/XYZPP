@@ -1,0 +1,111 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Quarterfold Printabilities — Apache rewrite rules for the prerendered build.
+#
+# Ships from public/.htaccess, so it lands in dist/.htaccess on every `pnpm
+# build` (scripts/prerender.mjs then prerenders every route into dist/ in
+# place — see SEO-RECON-2026-08-15.md §1, SEO-ARCH-RECON-2026-08-15.md Part 3,
+# and the SEO Lane 2 report for the full background). Deploy dist/ itself as
+# Hostinger's public_html — do NOT look for a separate "dist-prerendered/"
+# directory; that name was specific to the architecture-recon spike, not what
+# the shipped pipeline actually produces.
+#
+# Background: every route used to serve one identical, empty
+# `<div id="root"></div>` shell (index.html) regardless of the URL requested —
+# confirmed byte-for-byte identical across all 16 routes tested in the
+# original recon. The build now prerenders every real route into its own
+# `<path>/index.html` with real, route-specific title/description/canonical/
+# OG/JSON-LD. This file's only job is to make Apache serve those real files
+# natively, instead of the previous behavior (effectively `RewriteRule ^
+# index.html` for everything, which is functionally what vercel.json's
+# unconditional catch-all rewrite still did before this same lane fixed it —
+# see vercel.json in this repo for the equivalent policy on that platform).
+#
+# ── Policy, in priority order ──────────────────────────────────────────────
+#   0. Canonicalize the host to the bare apex domain (see block below) —
+#      independent of and prior to the routing policy.
+#   1. A request that maps to a real FILE or DIRECTORY on disk is served
+#      as-is, untouched, via Apache's own static-file + DirectoryIndex
+#      handling. This covers every asset (/assets/*.js, /site-assets/*,
+#      /qfp/*, /fonts/*, robots.txt, sitemap.xml, llms.txt) AND every
+#      prerendered route (/about, /newsroom/<slug>, etc. — each is a real
+#      directory containing its own index.html).
+#   2. Anything else (no matching file or directory) falls through to
+#      app-shell.html — the pristine, pre-prerender, route-agnostic SPA
+#      shell (generic <title>, no canonical/OG/JSON-LD, just
+#      <div id="root">) — NOT this deploy's homepage index.html. This lets
+#      React Router's client-side "*" route (NotFound) or any brand-new,
+#      not-yet-prerendered route still boot and render correctly. It
+#      deliberately does NOT reuse the homepage's own prerendered
+#      index.html as the fallback target: doing so would make every typo'd
+#      or unknown URL serve homepage-branded <title>/canonical/JSON-LD to
+#      any crawler that doesn't execute JS — a subtler variant of the same
+#      soft-404 problem this file exists to reduce.
+#
+# This is the SAFE (non-strict) variant, verified live against a real local
+# Apache install during the architecture-recon spike: every real route and
+# every asset resolves correctly; unknown paths get a 200 with the generic
+# app-shell.html, not a 404. A STRICTER variant exists (swap the final
+# `RewriteRule ^ /app-shell.html [L]` for `RewriteRule ^ - [R=404,L]` plus
+# `ErrorDocument 404 /app-shell.html`, also verified live in that spike) that
+# turns unknown paths into a real HTTP 404 instead — deliberately NOT enabled
+# here. That's a Lane 5 decision: it's only safe once prerendering is trusted
+# to run on every deploy without exception (a route added to the app but not
+# yet re-prerendered would otherwise 404 instead of falling through to a
+# working shell). Do not flip this without re-reading that lane's reasoning.
+# ─────────────────────────────────────────────────────────────────────────────
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # ── 0. Canonical host: www.quarterfoldltd.com -> quarterfoldltd.com ───────
+  # Confirmed live (SEO-RECON-2026-08-15.md / CLAUDE-SEO-AUDIT-2026-08-15.md):
+  # www.quarterfoldltd.com currently returns its own 200 rather than
+  # redirecting to the apex — every canonical tag and every sitemap.xml <loc>
+  # already uses the bare apex, so this makes the actual serving behavior
+  # match what the site already claims as canonical everywhere else.
+  # This rule only takes effect for requests that reach THIS vhost/document
+  # root in the first place. It fixes the problem if (as is typical for
+  # single-hosting-account setups like Hostinger) both quarterfoldltd.com and
+  # www.quarterfoldltd.com already resolve in DNS to this same server/account
+  # — the common case, and the one this rule assumes. If www is instead
+  # pointed at a different server, CDN, or parking target at the DNS layer,
+  # this rule is never reached for those requests at all, and the fix has to
+  # happen at DNS / the hosting panel instead, not here. Verify which case
+  # applies before assuming this alone closes the gap.
+  RewriteCond %{HTTP_HOST} ^www\.quarterfoldltd\.com$ [NC]
+  RewriteRule ^ https://quarterfoldltd.com%{REQUEST_URI} [L,R=301]
+
+  Options -MultiViews
+  DirectoryIndex index.html
+
+  # ── 1. Never rewrite a request that already resolves to something real ────
+  # -f = real file (an asset, or a prerendered route's own index.html once
+  #      Apache has already resolved the directory case below).
+  # -d = real directory (e.g. /about, /newsroom/printweek-power-100-2026).
+  #      Matching here does NOT hand-roll a "/about -> /about/index.html"
+  #      rewrite — that would fight Apache's own directory handling. Instead
+  #      we stop rewriting entirely ([L] with a no-op "-" substitution) and
+  #      let Apache's native DirectorySlash + DirectoryIndex machinery do what
+  #      it always does for any directory on disk: redirect "/about" (no
+  #      trailing slash) -> "/about/" (301, DirectorySlash, "On" by default),
+  #      then serve DirectoryIndex's index.html for "/about/". Confirmed
+  #      against Apache's own mod_dir docs — DirectoryIndex is only evaluated
+  #      for directory requests that already carry the trailing slash, which
+  #      is exactly what DirectorySlash's redirect guarantees. Verified live.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # ── 2. Everything else: hand off to the SPA shell, not a 404 ──────────────
+  # No real file/directory matched step 1 — either a not-yet-prerendered but
+  # valid React Router path, or a genuinely invalid one. Either way, let the
+  # client app decide (React Router's "*" -> NotFound for real 404s, with its
+  # own <meta name="robots" content="noindex"> injected client-side).
+  RewriteRule ^ /app-shell.html [L]
+</IfModule>
+
+# Deliberately NO "ErrorDocument 404" here: under this policy every request
+# resolves to either a real file (step 1) or a 200 app-shell.html (step 2) —
+# Apache never organically reaches its own 404 handling, by design. See the
+# strict-variant note above for the alternative that changes this on purpose.
