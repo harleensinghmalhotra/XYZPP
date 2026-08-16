@@ -284,7 +284,7 @@ export default function PrintOnDemand() {
   })
   const contactHref = `/contact?${params.toString()}`
 
-  // SEO — breadcrumb JSON-LD; title/description/canonical/OG/Twitter via <Seo>.
+  // SEO — breadcrumb + Service JSON-LD; title/description/canonical/OG/Twitter via <Seo>.
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -292,6 +292,18 @@ export default function PrintOnDemand() {
       { '@type': 'ListItem', position: 1, name: t('seo.breadcrumbHome'), item: 'https://quarterfoldltd.com/' },
       { '@type': 'ListItem', position: 2, name: t('seo.breadcrumbCurrent'), item: 'https://quarterfoldltd.com/print-on-demand' },
     ],
+  }
+  // Name/description straight from this page's own SEO copy (seo.title minus the
+  // brand suffix, seo.description verbatim) -- provider @id references the one
+  // canonical Organization node declared on the homepage (Home.jsx).
+  const serviceJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Print on demand book printing',
+    name: 'Print on Demand',
+    description: t('seo.description'),
+    provider: { '@id': 'https://quarterfoldltd.com/#organization' },
+    url: 'https://quarterfoldltd.com/print-on-demand',
   }
 
   const summaryRows = [
@@ -420,7 +432,7 @@ export default function PrintOnDemand() {
 
   return (
     <main id="main" className="pod">
-      <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={breadcrumbJsonLd} />
+      <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={[breadcrumbJsonLd, serviceJsonLd]} />
       {/* 1 · HERO */}
       {(() => {
         const [l1, l2] = splitTitle(t('hero.title'))

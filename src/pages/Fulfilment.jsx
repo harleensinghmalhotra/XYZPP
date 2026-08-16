@@ -420,13 +420,24 @@ export default function Fulfilment() {
       { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.fulfilment'), item: 'https://quarterfoldltd.com/fulfilment' },
     ],
   }
+  // Name/description from this page's own SEO copy -- provider @id references the
+  // one canonical Organization node declared on the homepage (Home.jsx).
+  const serviceJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Book warehousing, kitting and fulfilment',
+    name: 'Warehousing & Fulfilment',
+    description: t('seo.description'),
+    provider: { '@id': 'https://quarterfoldltd.com/#organization' },
+    url: 'https://quarterfoldltd.com/fulfilment',
+  }
 
   return (
     <main id="main" ref={root}>
       <Seo
         title={t('seo.title')}
         description={t('seo.description')}
-        jsonLd={breadcrumb}
+        jsonLd={[breadcrumb, serviceJsonLd]}
       />
       <Hero />
       <TrustMarquee reduced={reduced} />
