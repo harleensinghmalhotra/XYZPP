@@ -174,6 +174,35 @@ async function renderRoute(page, base, route) {
   return html
 }
 
+// ── 6b. The 404 page: prerender NotFound to a static file ────────────────────
+// Feeds public/.htaccess's strict-404 ErrorDocument (SEO Lane 5) — so a
+// crawler that can't run JS still gets real, on-brand 404 content instead of
+// an empty shell. Reuses none of renderRoute()'s assertions: NotFound sets no
+// JSON-LD (renderRoute would hang waiting for one) and its canonical is
+// whatever bogus path triggered it, not a fixed route. Its <title> is unique
+// site-wide (src/locales/en/common.json: notFound.seoTitle) and is set by the
+// same Seo.jsx effect every other route uses, so waiting for it is an
+// equally precise "the route has actually mounted and settled" signal.
+const NOT_FOUND_TITLE = 'Page Not Found | Quarterfold Printabilities'
+
+async function renderNotFound(page, base) {
+  // Any path with no matching React Router route hits the "*" -> NotFound
+  // catch-all. This one is deliberately unrecognizable as a real or
+  // soon-to-be-real route.
+  await page.goto(`${base}/__prerender-404-probe__`, { waitUntil: 'networkidle', timeout: 30000 })
+  await page.waitForFunction(
+    (expected) => document.title === expected,
+    NOT_FOUND_TITLE,
+    { timeout: 15000 },
+  )
+  await page.waitForTimeout(150)
+  const html = await page.content()
+  if (!html.includes('noindex')) {
+    throw new Error('404 capture is missing its noindex robots tag -- captured the wrong page')
+  }
+  return html
+}
+
 // ── 7. Run ─────────────────────────────────────────────────────────────────
 async function main() {
   const articleRoutes = await discoverArticleRoutes()
@@ -208,6 +237,29 @@ async function main() {
       const page = await context.newPage()
       try {
         return await renderRoute(page, base, route)
+      } finally {
+        await page.close()
+      }
+    }
+
+    // 404.html first, at dist/'s root -- while dist/index.html is still the
+    // pristine pre-prerender shell (the "/" entry in the loop below hasn't
+    // overwritten it yet), so vite preview's SPA fallback serves the clean
+    // shell for the probe path, not a stale prerendered homepage. Hard-fails
+    // the build on error: shipping the strict-404 .htaccess (public/.htaccess)
+    // with a missing or stale ErrorDocument target is worse than not having
+    // it, the same reasoning as the Sanity-token guard above.
+    {
+      const start = Date.now()
+      const page = await context.newPage()
+      try {
+        const html = await renderNotFound(page, base)
+        writeFileSync(join(DIST, '404.html'), html)
+        console.log(`[prerender] ok    404.html${' '.repeat(37)} ${Date.now() - start}ms  ${Buffer.byteLength(html)}B`)
+      } catch (err) {
+        console.error('[prerender] FATAL: could not prerender 404.html:', err.message)
+        process.exitCode = 1
+        throw err
       } finally {
         await page.close()
       }

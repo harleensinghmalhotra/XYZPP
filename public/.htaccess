@@ -29,29 +29,46 @@
 #      /qfp/*, /fonts/*, robots.txt, sitemap.xml, llms.txt) AND every
 #      prerendered route (/about, /newsroom/<slug>, etc. — each is a real
 #      directory containing its own index.html).
-#   2. Anything else (no matching file or directory) falls through to
-#      app-shell.html — the pristine, pre-prerender, route-agnostic SPA
-#      shell (generic <title>, no canonical/OG/JSON-LD, just
-#      <div id="root">) — NOT this deploy's homepage index.html. This lets
-#      React Router's client-side "*" route (NotFound) or any brand-new,
-#      not-yet-prerendered route still boot and render correctly. It
-#      deliberately does NOT reuse the homepage's own prerendered
-#      index.html as the fallback target: doing so would make every typo'd
-#      or unknown URL serve homepage-branded <title>/canonical/JSON-LD to
-#      any crawler that doesn't execute JS — a subtler variant of the same
-#      soft-404 problem this file exists to reduce.
+#   2. Anything else (no matching file or directory) is a real HTTP 404 —
+#      body served from /404.html, itself NotFound.jsx prerendered ahead of
+#      time (real title/body/nav, <meta name="robots" content="noindex,
+#      follow">, no JSON-LD). The 404 page's own script tags boot the SPA on
+#      top of that static body exactly like every other prerendered route,
+#      so a human who lands here via a bad link still gets a fully
+#      interactive page — nav, language toggle, WhatsApp fab — with a
+#      working link back to "/". A crawler that never runs JS still sees
+#      real content and the correct status code, not an empty shell held at
+#      a soft 200. This used to fall through to app-shell.html (a 200 with a
+#      generic, contentless shell) — the "safe" variant Lane 3 shipped. See
+#      the strict-variant note below for why and when this was changed, and
+#      its one operating precondition.
 #
-# This is the SAFE (non-strict) variant, verified live against a real local
-# Apache install during the architecture-recon spike: every real route and
-# every asset resolves correctly; unknown paths get a 200 with the generic
-# app-shell.html, not a 404. A STRICTER variant exists (swap the final
-# `RewriteRule ^ /app-shell.html [L]` for `RewriteRule ^ - [R=404,L]` plus
-# `ErrorDocument 404 /app-shell.html`, also verified live in that spike) that
-# turns unknown paths into a real HTTP 404 instead — deliberately NOT enabled
-# here. That's a Lane 5 decision: it's only safe once prerendering is trusted
-# to run on every deploy without exception (a route added to the app but not
-# yet re-prerendered would otherwise 404 instead of falling through to a
-# working shell). Do not flip this without re-reading that lane's reasoning.
+# This is the STRICT variant (SEO Lane 5, switched from the safe variant Lane
+# 3 shipped): unknown paths now return a genuine HTTP 404 — `RewriteRule ^ -
+# [R=404,L]` plus `ErrorDocument 404 /404.html` — instead of a 200 with the
+# generic app-shell.html. `[R=404]` with a `-` substitution drops the
+# `Location` header entirely and routes through Apache's normal
+# error-response path (confirmed live via `curl -D -`: `HTTP/1.1 404 Not
+# Found`, not a redirect). `/404.html` is NotFound.jsx prerendered to a real
+# static file by scripts/prerender.mjs — a crawler that never runs JS still
+# gets real, on-brand 404 content (title, body copy, working nav links to
+# real pages) with the correct status code, not an empty shell. ErrorDocument
+# serves that file's content while preserving the 404 status; it's not a
+# redirect, so the address bar and status code both stay correct.
+#
+# The one condition this depends on: `dist/` must be a complete, current
+# mirror of every route App.jsx actually serves. Apache has no way to tell
+# "invalid path" from "valid React Router path that just hasn't been
+# prerendered yet" — that distinction only exists in App.jsx's route table.
+# package.json's "build" script ("vite build && node scripts/prerender.mjs")
+# makes prerendering unconditional for the one documented, checklisted deploy
+# command (see README.md's Hostinger deploy drill) — but this is a manual
+# deploy with no CI enforcement, so nothing at the tooling level stops someone
+# from running `vite build` alone and deploying that instead. If that ever
+# happens, EVERY route (including real ones) 404s until the next full
+# `pnpm build`+prerender runs — worse than the safe variant's degraded-but-
+# working fallback. See the SEO Lane 5 report for the full residual-risk
+# writeup before assuming this is airtight.
 # ─────────────────────────────────────────────────────────────────────────────
 
 <IfModule mod_rewrite.c>
@@ -97,15 +114,17 @@
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # ── 2. Everything else: hand off to the SPA shell, not a 404 ──────────────
-  # No real file/directory matched step 1 — either a not-yet-prerendered but
-  # valid React Router path, or a genuinely invalid one. Either way, let the
-  # client app decide (React Router's "*" -> NotFound for real 404s, with its
-  # own <meta name="robots" content="noindex"> injected client-side).
-  RewriteRule ^ /app-shell.html [L]
+  # ── 2. Everything else: a real 404 ─────────────────────────────────────────
+  # No real file/directory matched step 1, and (per the precondition above)
+  # every valid route is prerendered, so anything left over genuinely is
+  # invalid. "-" is a no-op substitution; [R=404] is what actually produces
+  # the error response — Apache then serves ErrorDocument 404 below for the
+  # body, still with a 404 status.
+  RewriteRule ^ - [R=404,L]
 </IfModule>
 
-# Deliberately NO "ErrorDocument 404" here: under this policy every request
-# resolves to either a real file (step 1) or a 200 app-shell.html (step 2) —
-# Apache never organically reaches its own 404 handling, by design. See the
-# strict-variant note above for the alternative that changes this on purpose.
+# Served for the 404 triggered above (and for any 404 Apache reaches
+# organically, e.g. a request outside mod_rewrite's reach) — the real
+# prerendered NotFound page, not Apache's default error page or the generic
+# app-shell.html. Status code stays 404; only the body comes from this file.
+ErrorDocument 404 /404.html
