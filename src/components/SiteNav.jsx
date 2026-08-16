@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import LanguageToggle from '@/components/LanguageToggle'
 import MobileNav from '@/components/MobileNav'
 import { prefersReduced } from '@/lib/useReducedMotion'
-import { scrollToWwp } from '@/pages/Home'
+import { scrollToWwp } from '@/lib/wwp-scroll'
 
 const TIGHT = "'Inter Tight', sans-serif"
 const INTER = "'Inter', sans-serif"
