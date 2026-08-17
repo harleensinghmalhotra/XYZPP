@@ -1,0 +1,271 @@
+{
+  "lang": "es",
+  "submitMode": "honeypot",
+  "defaults": [
+    {
+      "key": "Formato",
+      "val": "Rústica"
+    },
+    {
+      "key": "Tamaño",
+      "val": "A5"
+    },
+    {
+      "key": "Papel",
+      "val": "Crema 80 g/m²"
+    },
+    {
+      "key": "Encuadernación",
+      "val": "Rústica fresada"
+    },
+    {
+      "key": "Acabado",
+      "val": "Laminado mate"
+    },
+    {
+      "key": "Cantidad",
+      "val": "1 copia"
+    }
+  ],
+  "optionCounts": {
+    "format": 2,
+    "size": 3,
+    "paper": 6,
+    "binding": 3,
+    "finish": 2,
+    "quantity": 5
+  },
+  "anyThrewOnClick": false,
+  "clickLog": [
+    {
+      "group": "format",
+      "i": 0,
+      "chip": "Rústica",
+      "summaryVal": "Rústica",
+      "threw": false
+    },
+    {
+      "group": "format",
+      "i": 1,
+      "chip": "Tapa dura",
+      "summaryVal": "Tapa dura",
+      "threw": false
+    },
+    {
+      "group": "size",
+      "i": 0,
+      "chip": "A5",
+      "summaryVal": "A5",
+      "threw": false
+    },
+    {
+      "group": "size",
+      "i": 1,
+      "chip": "B5",
+      "summaryVal": "B5",
+      "threw": false
+    },
+    {
+      "group": "size",
+      "i": 2,
+      "chip": "A4",
+      "summaryVal": "A4",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 0,
+      "chip": "Blanco 70 g/m²",
+      "summaryVal": "Blanco 70 g/m²",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 1,
+      "chip": "Crema 70 g/m²",
+      "summaryVal": "Crema 70 g/m²",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 2,
+      "chip": "Blanco 80 g/m²",
+      "summaryVal": "Blanco 80 g/m²",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 3,
+      "chip": "Crema 80 g/m²",
+      "summaryVal": "Crema 80 g/m²",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 4,
+      "chip": "Estucado mate 100 g/m²",
+      "summaryVal": "Estucado mate 100 g/m²",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 5,
+      "chip": "Estucado brillante 100 g/m²",
+      "summaryVal": "Estucado brillante 100 g/m²",
+      "threw": false
+    },
+    {
+      "group": "binding",
+      "i": 0,
+      "chip": "Rústica fresada",
+      "summaryVal": "Rústica fresada",
+      "threw": false
+    },
+    {
+      "group": "binding",
+      "i": 1,
+      "chip": "Cosido por secciones",
+      "summaryVal": "Cosido por secciones",
+      "threw": false
+    },
+    {
+      "group": "binding",
+      "i": 2,
+      "chip": "Grapado a caballete",
+      "summaryVal": "Grapado a caballete",
+      "threw": false
+    },
+    {
+      "group": "finish",
+      "i": 0,
+      "chip": "Laminado mate",
+      "summaryVal": "Laminado mate",
+      "threw": false
+    },
+    {
+      "group": "finish",
+      "i": 1,
+      "chip": "Laminado brillante",
+      "summaryVal": "Laminado brillante",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 0,
+      "chip": "1",
+      "summaryVal": "1 copia",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 1,
+      "chip": "10",
+      "summaryVal": "10 copias",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 2,
+      "chip": "50",
+      "summaryVal": "50 copias",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 3,
+      "chip": "250",
+      "summaryVal": "250 copias",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 4,
+      "chip": "500+",
+      "summaryVal": "500+ copias",
+      "threw": false
+    }
+  ],
+  "cfgSummaries": {
+    "A": [
+      {
+        "key": "Formato",
+        "val": "Rústica"
+      },
+      {
+        "key": "Tamaño",
+        "val": "A5"
+      },
+      {
+        "key": "Papel",
+        "val": "Crema 80 g/m²"
+      },
+      {
+        "key": "Encuadernación",
+        "val": "Rústica fresada"
+      },
+      {
+        "key": "Acabado",
+        "val": "Laminado mate"
+      },
+      {
+        "key": "Cantidad",
+        "val": "1 copia"
+      }
+    ],
+    "B": [
+      {
+        "key": "Formato",
+        "val": "Tapa dura"
+      },
+      {
+        "key": "Tamaño",
+        "val": "A4"
+      },
+      {
+        "key": "Papel",
+        "val": "Blanco 70 g/m²"
+      },
+      {
+        "key": "Encuadernación",
+        "val": "Cosido por secciones"
+      },
+      {
+        "key": "Acabado",
+        "val": "Laminado brillante"
+      },
+      {
+        "key": "Cantidad",
+        "val": "500+ copias"
+      }
+    ],
+    "C": [
+      {
+        "key": "Formato",
+        "val": "Rústica"
+      },
+      {
+        "key": "Tamaño",
+        "val": "B5"
+      },
+      {
+        "key": "Papel",
+        "val": "Estucado brillante 100 g/m²"
+      },
+      {
+        "key": "Encuadernación",
+        "val": "Grapado a caballete"
+      },
+      {
+        "key": "Acabado",
+        "val": "Laminado mate"
+      },
+      {
+        "key": "Cantidad",
+        "val": "50 copias"
+      }
+    ]
+  },
+  "formSuccess": true,
+  "consoleErrors": [],
+  "consoleWarnings": []
+}

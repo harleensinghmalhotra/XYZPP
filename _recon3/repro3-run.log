@@ -1,0 +1,19 @@
+/ -> /about #0  aw=HIDDEN ce=HIDDEN  stTriggers=0 []
+/ -> /about #1  aw=HIDDEN ce=HIDDEN  stTriggers=0 []
+/ -> /about #2  aw=HIDDEN ce=HIDDEN  stTriggers=0 []
+/ -> /about #3  aw=HIDDEN ce=HIDDEN  stTriggers=0 []
+==== / -> /about: 4/4 blank ====
+/contact -> /about #0  aw=VISIBLE ce=VISIBLE  stTriggers=0 []
+/contact -> /about #1  aw=VISIBLE ce=VISIBLE  stTriggers=0 []
+/contact -> /about #2  aw=VISIBLE ce=VISIBLE  stTriggers=0 []
+/contact -> /about #3  aw=VISIBLE ce=VISIBLE  stTriggers=0 []
+==== /contact -> /about: 0/4 blank ====
+/infrastructure -> /about #0  aw=VISIBLE ce=VISIBLE  stTriggers=0 []
+/infrastructure -> /about #1  aw=VISIBLE ce=VISIBLE  stTriggers=0 []
+/infrastructure -> /about #2  aw=VISIBLE ce=VISIBLE  stTriggers=0 []
+==== /infrastructure -> /about: 0/3 blank ====
+/about -> /infrastructure #0  aw=VISIBLE ce=VISIBLE  stTriggers=0 []
+/about -> /infrastructure #1  aw=VISIBLE ce=VISIBLE  stTriggers=0 []
+/about -> /infrastructure #2  aw=VISIBLE ce=VISIBLE  stTriggers=0 []
+==== /about -> /infrastructure: 0/3 blank ====
+WROTE repro3-control.json

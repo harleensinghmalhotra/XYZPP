@@ -1,0 +1,5 @@
+Already up to date
+Done in 354ms using pnpm v11.8.0
+$ vite preview "--port" "4173"
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m4173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://10.169.113.35:[1m4173[22m/[39m

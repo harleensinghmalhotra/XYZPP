@@ -1,0 +1,3350 @@
+[
+  {
+    "tag": "about-footerBottom-normal",
+    "idx": 0,
+    "pagePath": "/about",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 410,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 410,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-normal",
+    "idx": 1,
+    "pagePath": "/about",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 343,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 343,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-normal",
+    "idx": 2,
+    "pagePath": "/about",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 335,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 335,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-normal",
+    "idx": 3,
+    "pagePath": "/about",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 527,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 527,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-normal",
+    "idx": 4,
+    "pagePath": "/about",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 461,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 461,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-normal",
+    "idx": 5,
+    "pagePath": "/about",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 461,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 461,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-normal",
+    "idx": 6,
+    "pagePath": "/about",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 486,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 486,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-normal",
+    "idx": 7,
+    "pagePath": "/about",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 488,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 488,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-normal",
+    "idx": 8,
+    "pagePath": "/about",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 494,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 494,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-normal",
+    "idx": 9,
+    "pagePath": "/about",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 461,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 461,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "infra-footerBottom-normal",
+    "idx": 0,
+    "pagePath": "/infrastructure",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 333,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 333,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-normal",
+    "idx": 1,
+    "pagePath": "/infrastructure",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 360,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 360,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-normal",
+    "idx": 2,
+    "pagePath": "/infrastructure",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 364,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 364,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-normal",
+    "idx": 3,
+    "pagePath": "/infrastructure",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 401,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 401,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-normal",
+    "idx": 4,
+    "pagePath": "/infrastructure",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 364,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 364,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-normal",
+    "idx": 5,
+    "pagePath": "/infrastructure",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 357,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 357,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-normal",
+    "idx": 6,
+    "pagePath": "/infrastructure",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 370,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 370,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-normal",
+    "idx": 7,
+    "pagePath": "/infrastructure",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 357,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 357,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-normal",
+    "idx": 8,
+    "pagePath": "/infrastructure",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 425,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 425,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-normal",
+    "idx": 9,
+    "pagePath": "/infrastructure",
+    "throttle": "none",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 374,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 374,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "about-footerBottom-slow3g",
+    "idx": 0,
+    "pagePath": "/about",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 353,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 353,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-slow3g",
+    "idx": 1,
+    "pagePath": "/about",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 345,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 345,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-slow3g",
+    "idx": 2,
+    "pagePath": "/about",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 346,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 346,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-slow3g",
+    "idx": 3,
+    "pagePath": "/about",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 351,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 351,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-slow3g",
+    "idx": 4,
+    "pagePath": "/about",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 367,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 367,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-slow3g",
+    "idx": 5,
+    "pagePath": "/about",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 344,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 344,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-slow3g",
+    "idx": 6,
+    "pagePath": "/about",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 489,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 489,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "about-footerBottom-slow3g",
+    "idx": 7,
+    "pagePath": "/about",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 6720,
+    "docHeight": 8894,
+    "awardsOffsetTop": 6063,
+    "certsOffsetTop": 6768,
+    "firstSeen": {
+      "awards": {
+        "t": 407,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 407,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 6063,
+      "certsTop": 6768,
+      "scrollY": 0,
+      "docHeight": 8894
+    }
+  },
+  {
+    "tag": "infra-footerBottom-slow3g",
+    "idx": 0,
+    "pagePath": "/infrastructure",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 464,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 464,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-slow3g",
+    "idx": 1,
+    "pagePath": "/infrastructure",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 395,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 395,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-slow3g",
+    "idx": 2,
+    "pagePath": "/infrastructure",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 518,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 518,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-slow3g",
+    "idx": 3,
+    "pagePath": "/infrastructure",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 354,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 354,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-slow3g",
+    "idx": 4,
+    "pagePath": "/infrastructure",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 396,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 396,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-slow3g",
+    "idx": 5,
+    "pagePath": "/infrastructure",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 447,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 447,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-slow3g",
+    "idx": 6,
+    "pagePath": "/infrastructure",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 422,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 422,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  },
+  {
+    "tag": "infra-footerBottom-slow3g",
+    "idx": 7,
+    "pagePath": "/infrastructure",
+    "throttle": "slow3g",
+    "referrerScroll": "bottom",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "fail": true,
+    "finalTargets": {
+      "awHead": {
+        "sel": "#awards .aw-head",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1060,
+        "h": 87
+      },
+      "plq": {
+        "sel": "#awards .plq",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 241,
+        "h": 473
+      },
+      "certsTitle": {
+        "sel": "#certifications .certs-title",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 1409,
+        "h": 35
+      },
+      "certsSeal": {
+        "sel": "#certifications .certs-seal",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 85,
+        "h": 85
+      },
+      "certCard": {
+        "sel": "#certifications .cert-card",
+        "exists": true,
+        "opacity": "0",
+        "visibility": "hidden",
+        "transform": "set",
+        "w": 267,
+        "h": 280
+      }
+    },
+    "finalST": {
+      "ok": false
+    },
+    "finalScrollY": 5040,
+    "docHeight": 7620,
+    "awardsOffsetTop": 5024,
+    "certsOffsetTop": 4354,
+    "firstSeen": {
+      "awards": {
+        "t": 407,
+        "offsetTop": 9887,
+        "dh": 12027,
+        "sy": 0
+      },
+      "certifications": {
+        "t": 407,
+        "offsetTop": 6977,
+        "dh": 12027,
+        "sy": 0
+      }
+    },
+    "peek": {
+      "verdict": {
+        "awards": "HIDDEN",
+        "certs": "HIDDEN"
+      },
+      "st": {
+        "ok": false
+      },
+      "awardsTop": 5024,
+      "certsTop": 4354,
+      "scrollY": 0,
+      "docHeight": 7620
+    }
+  }
+]

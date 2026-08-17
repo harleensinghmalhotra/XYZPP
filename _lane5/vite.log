@@ -1,0 +1,42 @@
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m398[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5185[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://10.169.113.35:[1m5185[22m/[39m
+[2m2:32:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.jsx, /src/index.css[22m
+[2m2:32:32 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/PageHero.css[22m
+[2m2:33:06 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/contact.json[22m
+[2m2:33:10 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/contact.json[22m
+[2m2:33:12 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/contact.json[22m
+[2m2:35:46 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.jsx, /src/index.css[22m
+[2m2:36:13 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/contact.json[22m
+[2m2:36:18 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/contact.json[22m
+[2m2:36:48 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/contact.json[22m
+[2m2:37:30 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:37:32 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:38:05 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:40:34 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/contact.json[22m
+[2m2:40:36 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/contact.json[22m
+[2m2:40:40 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/contact.json[22m
+[2m2:40:55 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:43:13 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:43:15 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:48:21 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.jsx, /src/index.css[22m
+[2m2:50:02 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:51:43 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:52:23 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/contact.json[22m
+[2m2:52:25 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/contact.json[22m
+[2m2:53:55 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/contact.json[22m
+[2m3:09:09 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m3:09:11 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m3:15:33 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/contact.json[22m
+[2m3:15:35 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/contact.json[22m
+[2m3:15:37 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/contact.json[22m
+[2m3:27:39 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m3:27:45 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m3:31:18 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.jsx, /src/index.css[22m
+[2m3:32:08 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/contact.json[22m
+[2m3:32:10 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/contact.json[22m
+[2m3:32:44 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/contact.json[22m
+[2m3:33:28 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m3:33:30 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m

@@ -1,0 +1,142 @@
+[
+  {
+    "via": "/",
+    "target": "/about",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/",
+    "target": "/about",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/",
+    "target": "/about",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/",
+    "target": "/about",
+    "verdict": {
+      "awards": "HIDDEN",
+      "certs": "HIDDEN"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/contact",
+    "target": "/about",
+    "verdict": {
+      "awards": "VISIBLE",
+      "certs": "VISIBLE"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/contact",
+    "target": "/about",
+    "verdict": {
+      "awards": "VISIBLE",
+      "certs": "VISIBLE"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/contact",
+    "target": "/about",
+    "verdict": {
+      "awards": "VISIBLE",
+      "certs": "VISIBLE"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/contact",
+    "target": "/about",
+    "verdict": {
+      "awards": "VISIBLE",
+      "certs": "VISIBLE"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/infrastructure",
+    "target": "/about",
+    "verdict": {
+      "awards": "VISIBLE",
+      "certs": "VISIBLE"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/infrastructure",
+    "target": "/about",
+    "verdict": {
+      "awards": "VISIBLE",
+      "certs": "VISIBLE"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/infrastructure",
+    "target": "/about",
+    "verdict": {
+      "awards": "VISIBLE",
+      "certs": "VISIBLE"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/about",
+    "target": "/infrastructure",
+    "verdict": {
+      "awards": "VISIBLE",
+      "certs": "VISIBLE"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/about",
+    "target": "/infrastructure",
+    "verdict": {
+      "awards": "VISIBLE",
+      "certs": "VISIBLE"
+    },
+    "stCount": 0,
+    "st": []
+  },
+  {
+    "via": "/about",
+    "target": "/infrastructure",
+    "verdict": {
+      "awards": "VISIBLE",
+      "certs": "VISIBLE"
+    },
+    "stCount": 0,
+    "st": []
+  }
+]

@@ -1,0 +1,107 @@
+  "privacy": {
+    "eyebrow": "Legal",
+    "title": "Privacy Policy",
+    "seoDesc": "How Quarterfold Printabilities collects, uses and protects the personal data you share through this website, written to meet India's DPDP Act 2023, UK and EU GDPR, PIPEDA and the CCPA.",
+    "intro": "This Privacy Policy explains how Quarterfold Printabilities Private Limited (\"Quarterfold\", \"we\", \"us\") handles personal data collected through this website. We act as the Data Fiduciary for that data and process it lawfully, fairly and only for the purposes described below. Because visitors reach us from several countries, this policy is written to meet India's Digital Personal Data Protection Act, 2023, the UK and EU GDPR, Canada's PIPEDA and California's CCPA/CPRA together.",
+    "sections": [
+      {
+        "h": "Who we are",
+        "p": [
+          "Quarterfold Printabilities Private Limited (CIN U74999MH2020PTC337494) is the Data Fiduciary responsible for personal data collected through this site.",
+          "Registered office: Office No 1207, Plot No 4 & 6, Sector 30A, Navi Mumbai, Maharashtra 400705, India.",
+          "For any privacy question or request, or to reach our privacy contact point, email info@quarterfoldltd.com."
+        ]
+      },
+      {
+        "h": "What data we collect",
+        "p": ["We collect only the information you choose to submit through our enquiry and quote forms. We run no analytics and set no cookies, so we do not build a profile of your visit. The only data created automatically is the standard technical information any website receives when your browser makes a request:"],
+        "list": [
+          "Details you enter in a form: your name, email address, phone number, company (where provided) and the message or project notes you write.",
+          "Standard request data such as your IP address, browser type and the time of the request. This comes from no analytics tool; it is the ordinary information our hosting provider may record in server logs to keep the site secure and running, and we do not use it to identify or track individual visitors."
+        ]
+      },
+      {
+        "h": "Why we use your data",
+        "p": ["We use the information you provide to:"],
+        "list": [
+          "respond to your enquiry and prepare a quotation, sample or proposal;",
+          "send you communications you have asked for or consented to receive;",
+          "operate, maintain, secure and improve this website; and",
+          "meet our legal, regulatory and accounting obligations."
+        ]
+      },
+      {
+        "h": "Legal basis",
+        "p": ["We rely on the lawful basis that fits each purpose and your location. We do not sell your personal data, and we do not use it for marketing without your consent."],
+        "list": [
+          "Consent, which you give when you submit a form or opt in to communications, and which you can withdraw at any time (UK and EU GDPR Article 6(1)(a); India's DPDP Act, 2023; Canada's PIPEDA).",
+          "Our legitimate interests in responding to you, running the site and keeping it secure, weighed against your rights (UK and EU GDPR Article 6(1)(f)).",
+          "Compliance with a legal obligation, where the law requires us to keep or disclose data (UK and EU GDPR Article 6(1)(c))."
+        ]
+      },
+      {
+        "h": "California and Canada",
+        "p": [
+          "For California residents: we process personal information only for the business purposes described above. We do not sell or share your personal information as those terms are defined under the CCPA/CPRA, and we will not discriminate against you for exercising your rights.",
+          "For visitors in Canada: we collect, use and disclose personal information with your knowledge and consent, as required by PIPEDA, and only for the purposes set out here."
+        ]
+      },
+      {
+        "h": "Who we share it with",
+        "p": [
+          "We share your data only with the service providers that help us operate the site and respond to you, and only as far as needed to provide those services. These currently include our form-delivery provider (Web3Forms), our content platform (Sanity), our website host, and the font and map-tile providers your browser loads directly. They act on our instructions or their own published terms.",
+          "We may also disclose data where required by law, regulation or court order, or to establish or protect our legal rights."
+        ]
+      },
+      {
+        "h": "International transfers",
+        "p": [
+          "This website is operated from India, and the personal data you submit is processed in India.",
+          "Some of the service providers that help us run the site are located in other countries, so your data may be transferred outside India, the UK and the EU to them. Where it is, we rely on the lawful bases above and on appropriate safeguards, such as the provider's contractual data-protection commitments.",
+          "In particular, to display the site your browser loads fonts from Google (Google Fonts) and, on some pages, map tiles and article content from other providers. These providers receive your IP address directly from your browser as a normal part of delivering their content. They are not sent your form data and, in our checks, they set no cookies."
+        ]
+      },
+      {
+        "h": "How long we keep it",
+        "p": ["We keep the enquiry and quote details you submit for up to 24 months after our last contact about your request, unless a longer period is needed to meet our legal, accounting or statutory obligations. After that we delete or anonymise the data. Where our hosting provider keeps server logs, they are retained only for the short period needed to keep the site secure and running."]
+      },
+      {
+        "h": "Your rights",
+        "p": ["Subject to the law that applies to you, you may ask us to:"],
+        "list": [
+          "access the personal data we hold about you;",
+          "correct or update data that is inaccurate or incomplete;",
+          "erase your data where it is no longer required;",
+          "provide a copy of the data you gave us in a portable, machine-readable format;",
+          "object to, or ask us to restrict, certain processing;",
+          "withdraw a consent you have given, at any time; and",
+          "nominate another person to exercise your rights in the event of death or incapacity, as provided under India's DPDP Act."
+        ]
+      },
+      {
+        "h": "Raising a request or complaint",
+        "p": [
+          "To exercise any of these rights, email us at info@quarterfoldltd.com and we will respond within the timelines the law requires.",
+          "If you are not satisfied with our response, you may complain to the supervisory authority for your region:"
+        ],
+        "list": [
+          "India: the Data Protection Board of India;",
+          "United Kingdom: the Information Commissioner's Office (ICO);",
+          "California: the California Privacy Protection Agency, or the California Attorney General;",
+          "Canada: the Office of the Privacy Commissioner of Canada."
+        ]
+      },
+      {
+        "h": "Children's data",
+        "p": ["This site is intended for a business audience and is not directed at children. We do not knowingly collect the personal data of children. If you believe a child has provided us with data, contact us and we will delete it."]
+      },
+      {
+        "h": "Security",
+        "p": ["We apply reasonable technical and organisational safeguards to protect personal data against loss, misuse and unauthorised access. No method of transmission over the internet is completely secure, but we work to protect your data using appropriate measures."]
+      },
+      {
+        "h": "Changes to this policy",
+        "p": ["We may update this Privacy Policy from time to time. The current version is always available on this page, with the date it was last updated shown below."]
+      }
+    ]
+  }

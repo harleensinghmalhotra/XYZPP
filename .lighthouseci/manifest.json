@@ -1,0 +1,146 @@
+[
+  {
+    "url": "http://127.0.0.1:4319/",
+    "isRepresentativeRun": false,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1--2026_08_11_17_05_45.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1--2026_08_11_17_05_45.report.json",
+    "summary": {
+      "performance": 0.52,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/",
+    "isRepresentativeRun": false,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1--2026_08_11_17_07_05.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1--2026_08_11_17_07_05.report.json",
+    "summary": {
+      "performance": 0.53,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/fulfilment",
+    "isRepresentativeRun": false,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-fulfilment-2026_08_11_17_07_31.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-fulfilment-2026_08_11_17_07_31.report.json",
+    "summary": {
+      "performance": 0.62,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/fulfilment",
+    "isRepresentativeRun": false,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-fulfilment-2026_08_11_17_08_13.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-fulfilment-2026_08_11_17_08_13.report.json",
+    "summary": {
+      "performance": 0.53,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/infrastructure",
+    "isRepresentativeRun": false,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-infrastructure-2026_08_11_17_08_35.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-infrastructure-2026_08_11_17_08_35.report.json",
+    "summary": {
+      "performance": 0.63,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/infrastructure",
+    "isRepresentativeRun": false,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-infrastructure-2026_08_11_17_08_57.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-infrastructure-2026_08_11_17_08_57.report.json",
+    "summary": {
+      "performance": 0.61,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/contact",
+    "isRepresentativeRun": false,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-contact-2026_08_11_17_10_24.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-contact-2026_08_11_17_10_24.report.json",
+    "summary": {
+      "performance": 0.65,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/contact",
+    "isRepresentativeRun": false,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-contact-2026_08_11_17_11_40.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-contact-2026_08_11_17_11_40.report.json",
+    "summary": {
+      "performance": 0.65,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/",
+    "isRepresentativeRun": true,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1--2026_08_11_17_05_17.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1--2026_08_11_17_05_17.report.json",
+    "summary": {
+      "performance": 0.53,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/fulfilment",
+    "isRepresentativeRun": true,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-fulfilment-2026_08_11_17_07_51.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-fulfilment-2026_08_11_17_07_51.report.json",
+    "summary": {
+      "performance": 0.59,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/infrastructure",
+    "isRepresentativeRun": true,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-infrastructure-2026_08_11_17_09_41.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-infrastructure-2026_08_11_17_09_41.report.json",
+    "summary": {
+      "performance": 0.61,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4319/contact",
+    "isRepresentativeRun": true,
+    "htmlPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-contact-2026_08_11_17_10_44.report.html",
+    "jsonPath": "D:\\WEBSITES\\Website University\\.lighthouseci\\127_0_0_1-contact-2026_08_11_17_10_44.report.json",
+    "summary": {
+      "performance": 0.68,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  }
+]

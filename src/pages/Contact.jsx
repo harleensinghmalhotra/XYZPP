@@ -248,6 +248,7 @@ export default function Contact() {
           access_key: WEB3FORMS_KEY,
           subject: 'Website Enquiry, Contact Form',
           from_name: 'QFP Website',
+          replyto: form.email,
           botcheck: '',
           name: `${form.first} ${form.last}`.trim(),
           email: form.email,

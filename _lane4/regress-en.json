@@ -1,0 +1,271 @@
+{
+  "lang": "en",
+  "submitMode": "honeypot",
+  "defaults": [
+    {
+      "key": "Format",
+      "val": "Paperback"
+    },
+    {
+      "key": "Size",
+      "val": "A5"
+    },
+    {
+      "key": "Paper",
+      "val": "Cream 80gsm"
+    },
+    {
+      "key": "Binding",
+      "val": "Perfect Bound"
+    },
+    {
+      "key": "Finish",
+      "val": "Matte Lamination"
+    },
+    {
+      "key": "Quantity",
+      "val": "1 copy"
+    }
+  ],
+  "optionCounts": {
+    "format": 2,
+    "size": 3,
+    "paper": 6,
+    "binding": 3,
+    "finish": 2,
+    "quantity": 5
+  },
+  "anyThrewOnClick": false,
+  "clickLog": [
+    {
+      "group": "format",
+      "i": 0,
+      "chip": "Paperback",
+      "summaryVal": "Paperback",
+      "threw": false
+    },
+    {
+      "group": "format",
+      "i": 1,
+      "chip": "Hardcover",
+      "summaryVal": "Hardcover",
+      "threw": false
+    },
+    {
+      "group": "size",
+      "i": 0,
+      "chip": "A5",
+      "summaryVal": "A5",
+      "threw": false
+    },
+    {
+      "group": "size",
+      "i": 1,
+      "chip": "B5",
+      "summaryVal": "B5",
+      "threw": false
+    },
+    {
+      "group": "size",
+      "i": 2,
+      "chip": "A4",
+      "summaryVal": "A4",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 0,
+      "chip": "White 70gsm",
+      "summaryVal": "White 70gsm",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 1,
+      "chip": "Cream 70gsm",
+      "summaryVal": "Cream 70gsm",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 2,
+      "chip": "White 80gsm",
+      "summaryVal": "White 80gsm",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 3,
+      "chip": "Cream 80gsm",
+      "summaryVal": "Cream 80gsm",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 4,
+      "chip": "Matt Art 100gsm",
+      "summaryVal": "Matt Art 100gsm",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 5,
+      "chip": "Gloss Art 100gsm",
+      "summaryVal": "Gloss Art 100gsm",
+      "threw": false
+    },
+    {
+      "group": "binding",
+      "i": 0,
+      "chip": "Perfect Bound",
+      "summaryVal": "Perfect Bound",
+      "threw": false
+    },
+    {
+      "group": "binding",
+      "i": 1,
+      "chip": "Section-Sewn",
+      "summaryVal": "Section-Sewn",
+      "threw": false
+    },
+    {
+      "group": "binding",
+      "i": 2,
+      "chip": "Saddle Stitch",
+      "summaryVal": "Saddle Stitch",
+      "threw": false
+    },
+    {
+      "group": "finish",
+      "i": 0,
+      "chip": "Matte Lamination",
+      "summaryVal": "Matte Lamination",
+      "threw": false
+    },
+    {
+      "group": "finish",
+      "i": 1,
+      "chip": "Gloss Lamination",
+      "summaryVal": "Gloss Lamination",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 0,
+      "chip": "1",
+      "summaryVal": "1 copy",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 1,
+      "chip": "10",
+      "summaryVal": "10 copies",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 2,
+      "chip": "50",
+      "summaryVal": "50 copies",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 3,
+      "chip": "250",
+      "summaryVal": "250 copies",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 4,
+      "chip": "500+",
+      "summaryVal": "500+ copies",
+      "threw": false
+    }
+  ],
+  "cfgSummaries": {
+    "A": [
+      {
+        "key": "Format",
+        "val": "Paperback"
+      },
+      {
+        "key": "Size",
+        "val": "A5"
+      },
+      {
+        "key": "Paper",
+        "val": "Cream 80gsm"
+      },
+      {
+        "key": "Binding",
+        "val": "Perfect Bound"
+      },
+      {
+        "key": "Finish",
+        "val": "Matte Lamination"
+      },
+      {
+        "key": "Quantity",
+        "val": "1 copy"
+      }
+    ],
+    "B": [
+      {
+        "key": "Format",
+        "val": "Hardcover"
+      },
+      {
+        "key": "Size",
+        "val": "A4"
+      },
+      {
+        "key": "Paper",
+        "val": "White 70gsm"
+      },
+      {
+        "key": "Binding",
+        "val": "Section-Sewn"
+      },
+      {
+        "key": "Finish",
+        "val": "Gloss Lamination"
+      },
+      {
+        "key": "Quantity",
+        "val": "500+ copies"
+      }
+    ],
+    "C": [
+      {
+        "key": "Format",
+        "val": "Paperback"
+      },
+      {
+        "key": "Size",
+        "val": "B5"
+      },
+      {
+        "key": "Paper",
+        "val": "Gloss Art 100gsm"
+      },
+      {
+        "key": "Binding",
+        "val": "Saddle Stitch"
+      },
+      {
+        "key": "Finish",
+        "val": "Matte Lamination"
+      },
+      {
+        "key": "Quantity",
+        "val": "50 copies"
+      }
+    ]
+  },
+  "formSuccess": true,
+  "consoleErrors": [],
+  "consoleWarnings": []
+}

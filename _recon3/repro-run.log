@@ -1,0 +1,47 @@
+about-SOFT-normal-slow #0  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-normal-slow #1  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-normal-slow #2  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-normal-slow #3  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-normal-slow #4  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-normal-slow #5  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-normal-slow #6  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-normal-slow #7  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-normal-slow #8  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-normal-slow #9  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+==== about-SOFT-normal-slow: 0/10 iterations had a blank band (awards 0/10, certs 0/10) ====
+infra-SOFT-normal-slow #0  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-normal-slow #1  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-normal-slow #2  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-normal-slow #3  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-normal-slow #4  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-normal-slow #5  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-normal-slow #6  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-normal-slow #7  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-normal-slow #8  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-normal-slow #9  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+==== infra-SOFT-normal-slow: 0/10 iterations had a blank band (awards 0/10, certs 0/10) ====
+about-SOFT-slow3g-slow #0  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-slow3g-slow #1  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-slow3g-slow #2  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-slow3g-slow #3  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-slow3g-slow #4  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+about-SOFT-slow3g-slow #5  aw=VISIBLE ce=VISIBLE  | peekTriggers[#awards@5528,#certifications@6263] peekAwTop=6063 settledAwTop=6063 settledCeTop=6768 DH 743->8894
+==== about-SOFT-slow3g-slow: 0/6 iterations had a blank band (awards 0/6, certs 0/6) ====
+infra-SOFT-slow3g-slow #0  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-slow3g-slow #1  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-slow3g-slow #2  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-slow3g-slow #3  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-slow3g-slow #4  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+infra-SOFT-slow3g-slow #5  aw=VISIBLE ce=VISIBLE  | peekTriggers[#certifications@3848,#awards@4489,.inf-finish-grid@1072,.inf-av@1452,.inf-gallery@3191,.inf-cta@5105] peekAwTop=5024 settledAwTop=5024 settledCeTop=4354 DH 743->7620
+==== infra-SOFT-slow3g-slow: 0/6 iterations had a blank band (awards 0/6, certs 0/6) ====
+page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:5199/about", waiting until "domcontentloaded"[22m
+
+    at runOne (D:\WEBSITES\Website University\_recon3\repro.mjs:121:16)
+    at async main (D:\WEBSITES\Website University\_recon3\repro.mjs:186:19) {
+  log: [
+    '  - navigating to "http://localhost:5199/about", waiting until "domcontentloaded"'
+  ],
+  name: 'TimeoutError'
+}

@@ -1,0 +1,41 @@
+about-footerBottom-normal #0 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-normal #1 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-normal #2 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-normal #3 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-normal #4 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-normal #5 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-normal #6 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-normal #7 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-normal #8 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-normal #9 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+==== about-footerBottom-normal: 10/10 blank (awards 10/10, certs 10/10) ====
+infra-footerBottom-normal #0 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-normal #1 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-normal #2 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-normal #3 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-normal #4 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-normal #5 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-normal #6 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-normal #7 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-normal #8 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-normal #9 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+==== infra-footerBottom-normal: 10/10 blank (awards 10/10, certs 10/10) ====
+about-footerBottom-slow3g #0 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-slow3g #1 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-slow3g #2 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-slow3g #3 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-slow3g #4 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-slow3g #5 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-slow3g #6 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+about-footerBottom-slow3g #7 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=6063 dh=8894 v=HIDDEN/HIDDEN -] settledAwTop=6063 dh=8894
+==== about-footerBottom-slow3g: 8/8 blank (awards 8/8, certs 8/8) ====
+infra-footerBottom-slow3g #0 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-slow3g #1 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-slow3g #2 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-slow3g #3 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-slow3g #4 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-slow3g #5 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-slow3g #6 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+infra-footerBottom-slow3g #7 aw=HIDDEN ce=HIDDEN  <== FAIL | peek[nav sy=0 awTop=5024 dh=7620 v=HIDDEN/HIDDEN -] settledAwTop=5024 dh=7620
+==== infra-footerBottom-slow3g: 8/8 blank (awards 8/8, certs 8/8) ====
+WROTE repro2-results.json

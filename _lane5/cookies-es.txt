@@ -1,0 +1,48 @@
+  "cookies": {
+    "eyebrow": "Legal",
+    "title": "Política de cookies",
+    "seoDesc": "Quarterfold Printabilities no establece ninguna cookie. El sitio solo conserva tres elementos funcionales en su navegador para recordar sus elecciones, sin análisis ni seguimiento.",
+    "intro": "En pocas palabras: este sitio web no establece ninguna cookie. No utiliza herramientas de análisis ni rastreadores publicitarios y no le sigue por otros sitios web. Lo único que conserva son tres elementos funcionales guardados en el almacenamiento local de su navegador para recordar sus elecciones, que se enumeran íntegramente a continuación.",
+    "sections": [
+      {
+        "h": "Qué almacena este sitio",
+        "p": ["Estos tres elementos se guardan en el almacenamiento local de su navegador. Son propios del sitio (los establece Quarterfold, nadie más), solo contienen sus propias preferencias y permanecen hasta que borre su navegador. Ninguno es una cookie."],
+        "table": {
+          "headers": ["Elemento", "Para qué sirve", "Proveedor", "Cuánto dura"],
+          "rows": [
+            ["Elección de cookies (qfp.consent)", "Registra si aceptó o rechazó este banner, para no volver a preguntárselo.", "Quarterfold, propio del sitio", "Hasta que borre el almacenamiento de su navegador"],
+            ["Preferencia de idioma (qfp.lang)", "Recuerda si lee el sitio en inglés, francés o español. Se guarda solo si cambia el idioma.", "Quarterfold, propio del sitio", "Hasta que borre el almacenamiento de su navegador"],
+            ["Preferencia de sonido (qfp-sound)", "Recuerda si silenció el sonido de escritura del sitio. Se guarda solo si lo cambia.", "Quarterfold, propio del sitio", "Hasta que borre el almacenamiento de su navegador"]
+          ]
+        }
+      },
+      {
+        "h": "Servicios de terceros que carga el sitio",
+        "p": ["Para mostrarle el sitio, su navegador carga algunos elementos directamente desde otros proveedores. Como su navegador los contacta por sí mismo, estos reciben su dirección IP, pero ninguno establece cookies:"],
+        "list": [
+          "Google Fonts sirve las tipografías del sitio en cada página.",
+          "OpenFreeMap sirve las teselas del mapa, solo en las páginas que muestran el globo interactivo.",
+          "Sanity sirve las imágenes y los artículos de la Sala de prensa, solo cuando la abre.",
+          "Web3Forms entrega su mensaje cuando envía el formulario de consulta."
+        ]
+      },
+      {
+        "h": "Qué no utiliza este sitio",
+        "p": ["Ninguna cookie publicitaria o de marketing, y ninguna herramienta de análisis o seguimiento de terceros como Google Analytics o Meta Pixel. Como no hay nada no esencial que activar o desactivar, rechazar el banner no cambia nada en el funcionamiento del sitio para usted. Si algún día añadimos una herramienta no esencial, solo se cargará después de que usted dé su consentimiento a través del banner."]
+      },
+      {
+        "h": "Gestionar y borrar lo que se almacena",
+        "p": ["Puede borrar o bloquear este almacenamiento local en cualquier momento desde la configuración de su navegador:"],
+        "list": [
+          "Chrome: Configuración, luego Privacidad y seguridad, luego Borrar datos de navegación.",
+          "Firefox: Ajustes, luego Privacidad y seguridad, luego Cookies y datos del sitio, luego Limpiar datos.",
+          "Safari: Ajustes, luego Privacidad, luego Gestionar datos de sitios web (o Borrar historial).",
+          "Edge: Configuración, luego Cookies y permisos del sitio, luego Administrar y eliminar cookies y datos del sitio."
+        ]
+      },
+      {
+        "h": "Cambios en esta política",
+        "p": ["Si lo que el sitio almacena cambia alguna vez, actualizaremos esta página y la fecha que se muestra más abajo."]
+      }
+    ]
+  }

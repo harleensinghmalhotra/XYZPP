@@ -1,0 +1,48 @@
+  "cookies": {
+    "eyebrow": "Mentions légales",
+    "title": "Politique relative aux cookies",
+    "seoDesc": "Quarterfold Printabilities ne dépose aucun cookie. Le site ne conserve que trois éléments fonctionnels dans votre navigateur pour mémoriser vos choix, sans aucune analyse ni suivi.",
+    "intro": "En clair : ce site ne dépose aucun cookie. Il n'utilise ni outil d'analyse ni traceur publicitaire et ne vous suit pas sur d'autres sites. Les seuls éléments conservés sont trois éléments fonctionnels enregistrés dans le stockage local de votre navigateur pour mémoriser vos choix, listés intégralement ci-dessous.",
+    "sections": [
+      {
+        "h": "Ce que ce site stocke",
+        "p": ["Ces trois éléments se trouvent dans le stockage local de votre navigateur. Ils sont propres au site (déposés par Quarterfold, par personne d'autre), ne contiennent que vos propres préférences et restent jusqu'à ce que vous effaciez votre navigateur. Aucun n'est un cookie."],
+        "table": {
+          "headers": ["Élément", "À quoi il sert", "Fournisseur", "Durée de conservation"],
+          "rows": [
+            ["Choix des cookies (qfp.consent)", "Enregistre si vous avez accepté ou refusé cette bannière, afin de ne plus vous le redemander.", "Quarterfold, propre au site", "Jusqu'à l'effacement de votre stockage de navigateur"],
+            ["Préférence de langue (qfp.lang)", "Mémorise si vous lisez le site en anglais, en français ou en espagnol. Enregistré uniquement si vous changez de langue.", "Quarterfold, propre au site", "Jusqu'à l'effacement de votre stockage de navigateur"],
+            ["Préférence de son (qfp-sound)", "Mémorise si vous avez coupé le son de saisie du site. Enregistré uniquement si vous le modifiez.", "Quarterfold, propre au site", "Jusqu'à l'effacement de votre stockage de navigateur"]
+          ]
+        }
+      },
+      {
+        "h": "Services tiers chargés par le site",
+        "p": ["Pour afficher le site, votre navigateur charge certains éléments directement auprès d'autres fournisseurs. Comme votre navigateur les contacte lui-même, ils reçoivent votre adresse IP, mais aucun ne dépose de cookie :"],
+        "list": [
+          "Google Fonts fournit les polices du site sur chaque page.",
+          "OpenFreeMap fournit les tuiles cartographiques, uniquement sur les pages affichant le globe interactif.",
+          "Sanity fournit les images et les articles de la Salle de presse, uniquement lorsque vous l'ouvrez.",
+          "Web3Forms transmet votre message lorsque vous envoyez le formulaire de demande."
+        ]
+      },
+      {
+        "h": "Ce que ce site n'utilise pas",
+        "p": ["Aucun cookie publicitaire ou marketing, et aucun outil d'analyse ou de suivi tiers tel que Google Analytics ou Meta Pixel. Comme il n'y a rien de non essentiel à activer ou à désactiver, refuser la bannière ne change rien au fonctionnement du site pour vous. Si nous ajoutons un jour un outil non essentiel, il ne se chargera qu'après votre consentement via la bannière."]
+      },
+      {
+        "h": "Gérer et effacer ce qui est stocké",
+        "p": ["Vous pouvez effacer ou bloquer ce stockage local à tout moment via les paramètres de votre navigateur :"],
+        "list": [
+          "Chrome : Paramètres, puis Confidentialité et sécurité, puis Effacer les données de navigation.",
+          "Firefox : Paramètres, puis Vie privée et sécurité, puis Cookies et données de sites, puis Effacer les données.",
+          "Safari : Réglages, puis Confidentialité, puis Gérer les données de sites web (ou Effacer l'historique).",
+          "Edge : Paramètres, puis Cookies et autorisations de site, puis Gérer et supprimer les cookies et les données de site."
+        ]
+      },
+      {
+        "h": "Modifications de cette politique",
+        "p": ["Si ce que le site stocke venait à changer, nous mettrons à jour cette page et la date indiquée ci-dessous."]
+      }
+    ]
+  }

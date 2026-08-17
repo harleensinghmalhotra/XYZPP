@@ -1,0 +1,372 @@
+[
+  {
+    "name": "home",
+    "path": "/",
+    "status": 200,
+    "finalUrl": "https://xyzpp.vercel.app/",
+    "error": null,
+    "logs": [],
+    "title": "Quarterfold Printabilities | Global Book Printing & Fulfilment",
+    "lang": "en",
+    "h1count": 1,
+    "h1s": [
+      "Integrated Global BookManufacturing & Fulfilment Partner"
+    ],
+    "imgCount": 33,
+    "noAltCount": 14,
+    "noAltSrcs": [
+      "qfp-mark.png",
+      "book-stack.webp",
+      "award-01.webp",
+      "award-11.webp",
+      "award-02.webp",
+      "award-03.webp",
+      "award-04.webp",
+      "award-05.webp",
+      "award-06.webp",
+      "award-07.webp",
+      "award-08.webp",
+      "award-09.webp",
+      "award-10.webp",
+      "qfp-mark.png"
+    ],
+    "brokenImgs": [],
+    "scrollWidth": 1529,
+    "innerWidth": 1536,
+    "horizontalScroll": false,
+    "pageHeight": 13266,
+    "articleLinks": [],
+    "cardTitles": [
+      "Educational Book Printing",
+      "Counterbook and Stationery",
+      "Trade Books",
+      "General Books",
+      "Children's Books",
+      "Learning Activity Kits",
+      "Corporate, Banks & MNCs",
+      "Print on Demand",
+      "Religious Books",
+      "Packaging and Gifting",
+      "PrintWeek Power 100",
+      "One of the Most Inspiring Business Leaders",
+      "Forbes India D.Gems",
+      "Book Education Company of the Year",
+      "Excellence in the Field of Education, Runner-Up",
+      "Export Company of the Year",
+      "Most Trusted Brand of the Year, Print & Publishing",
+      "Two Star Export House",
+      "Highest Exporter of Printed Books",
+      "One of the Youngest and Most Enterprising Book Presses in India",
+      "Most Emerging SME, Indian Company",
+      "Quick Links",
+      "Certified",
+      "Head Office",
+      "Factories"
+    ]
+  },
+  {
+    "name": "about",
+    "path": "/about",
+    "status": 200,
+    "finalUrl": "https://xyzpp.vercel.app/about",
+    "error": null,
+    "logs": [],
+    "title": "Our Story | Quarterfold Printabilities",
+    "lang": "en",
+    "h1count": 1,
+    "h1s": [
+      "Powering Global Education Through Print Excellence"
+    ],
+    "imgCount": 31,
+    "noAltCount": 20,
+    "noAltSrcs": [
+      "qfp-mark.png",
+      "founder-portrait.webp",
+      "gallery-01.webp",
+      "gallery-02.webp",
+      "gallery-03.webp",
+      "gallery-04.webp",
+      "gallery-05.webp",
+      "gallery-06.webp",
+      "award-01.webp",
+      "award-11.webp",
+      "award-02.webp",
+      "award-03.webp",
+      "award-04.webp",
+      "award-05.webp",
+      "award-06.webp",
+      "award-07.webp",
+      "award-08.webp",
+      "award-09.webp",
+      "award-10.webp",
+      "qfp-mark.png"
+    ],
+    "brokenImgs": [],
+    "scrollWidth": 1521,
+    "innerWidth": 1536,
+    "horizontalScroll": false,
+    "pageHeight": 8709,
+    "articleLinks": [],
+    "cardTitles": [
+      "The First Order",
+      "Began as a Startup",
+      "Our First Facility",
+      "Scale With Systems",
+      "A Global Operation",
+      "PrintWeek Power 100",
+      "One of the Most Inspiring Business Leaders",
+      "Forbes India D.Gems",
+      "Book Education Company of the Year",
+      "Excellence in the Field of Education, Runner-Up",
+      "Export Company of the Year",
+      "Most Trusted Brand of the Year, Print & Publishing",
+      "Two Star Export House",
+      "Highest Exporter of Printed Books",
+      "One of the Youngest and Most Enterprising Book Presses in India",
+      "Most Emerging SME, Indian Company",
+      "Quick Links",
+      "Certified",
+      "Head Office",
+      "Factories"
+    ]
+  },
+  {
+    "name": "founder",
+    "path": "/founder",
+    "status": 200,
+    "finalUrl": "https://xyzpp.vercel.app/founder",
+    "error": null,
+    "logs": [],
+    "title": "Founder | Quarterfold Printabilities",
+    "lang": "en",
+    "h1count": 1,
+    "h1s": [
+      "Nilesh Dhankani"
+    ],
+    "imgCount": 3,
+    "noAltCount": 2,
+    "noAltSrcs": [
+      "qfp-mark.png",
+      "qfp-mark.png"
+    ],
+    "brokenImgs": [],
+    "scrollWidth": 1521,
+    "innerWidth": 1536,
+    "horizontalScroll": false,
+    "pageHeight": 3950,
+    "articleLinks": [],
+    "cardTitles": [
+      "Quick Links",
+      "Certified",
+      "Head Office",
+      "Factories"
+    ]
+  },
+  {
+    "name": "infrastructure",
+    "path": "/infrastructure",
+    "status": 200,
+    "finalUrl": "https://xyzpp.vercel.app/infrastructure",
+    "error": null,
+    "logs": [],
+    "title": "Print Infrastructure | Quarterfold Printabilities",
+    "lang": "en",
+    "h1count": 1,
+    "h1s": [
+      "Built for Scale. Engineered for Trust."
+    ],
+    "imgCount": 19,
+    "noAltCount": 14,
+    "noAltSrcs": [
+      "qfp-mark.png",
+      "book-stack.webp",
+      "award-01.webp",
+      "award-11.webp",
+      "award-02.webp",
+      "award-03.webp",
+      "award-04.webp",
+      "award-05.webp",
+      "award-06.webp",
+      "award-07.webp",
+      "award-08.webp",
+      "award-09.webp",
+      "award-10.webp",
+      "qfp-mark.png"
+    ],
+    "brokenImgs": [],
+    "scrollWidth": 1529,
+    "innerWidth": 1536,
+    "horizontalScroll": false,
+    "pageHeight": 9076,
+    "articleLinks": [],
+    "cardTitles": [
+      "Web Offset Printing",
+      "Sheetfed Printing",
+      "Binding & Book Finishing",
+      "PrintWeek Power 100",
+      "One of the Most Inspiring Business Leaders",
+      "Forbes India D.Gems",
+      "Book Education Company of the Year",
+      "Excellence in the Field of Education, Runner-Up",
+      "Export Company of the Year",
+      "Most Trusted Brand of the Year, Print & Publishing",
+      "Two Star Export House",
+      "Highest Exporter of Printed Books",
+      "One of the Youngest and Most Enterprising Book Presses in India",
+      "Most Emerging SME, Indian Company",
+      "Quick Links",
+      "Certified",
+      "Head Office",
+      "Factories"
+    ]
+  },
+  {
+    "name": "print-on-demand",
+    "path": "/print-on-demand",
+    "status": 200,
+    "finalUrl": "https://xyzpp.vercel.app/print-on-demand",
+    "error": null,
+    "logs": [],
+    "title": "Print on Demand | Quarterfold Printabilities",
+    "lang": "en",
+    "h1count": 1,
+    "h1s": [
+      "Your Book. Exactly as You Imagined."
+    ],
+    "imgCount": 12,
+    "noAltCount": 11,
+    "noAltSrcs": [
+      "qfp-mark.png",
+      "educational.webp",
+      "counterbook-stationery.webp",
+      "trade-books.webp",
+      "general-books.webp",
+      "children-books.webp",
+      "learning-kits.webp",
+      "corporate.webp",
+      "religious-books.webp",
+      "packaging.webp",
+      "qfp-mark.png"
+    ],
+    "brokenImgs": [],
+    "scrollWidth": 1521,
+    "innerWidth": 1536,
+    "horizontalScroll": false,
+    "pageHeight": 6151,
+    "articleLinks": [],
+    "cardTitles": [
+      "Upload",
+      "Approve Proof",
+      "We Print & Ship",
+      "Quick Links",
+      "Certified",
+      "Head Office",
+      "Factories"
+    ]
+  },
+  {
+    "name": "contact",
+    "path": "/contact",
+    "status": 200,
+    "finalUrl": "https://xyzpp.vercel.app/contact",
+    "error": null,
+    "logs": [],
+    "title": "Contact Us | Quarterfold Printabilities",
+    "lang": "en",
+    "h1count": 1,
+    "h1s": [
+      "Let's Talk. We Reply in One Business Day."
+    ],
+    "imgCount": 4,
+    "noAltCount": 3,
+    "noAltSrcs": [
+      "qfp-mark.png",
+      "facility-navy.webp",
+      "qfp-mark.png"
+    ],
+    "brokenImgs": [],
+    "scrollWidth": 1521,
+    "innerWidth": 1536,
+    "horizontalScroll": false,
+    "pageHeight": 8261,
+    "articleLinks": [],
+    "cardTitles": [
+      "Head Office",
+      "Main Factory",
+      "Business Hours",
+      "Quick Links",
+      "Certified",
+      "Head Office",
+      "Factories"
+    ]
+  },
+  {
+    "name": "newsroom",
+    "path": "/newsroom",
+    "status": 200,
+    "finalUrl": "https://xyzpp.vercel.app/newsroom",
+    "error": null,
+    "logs": [],
+    "title": "Newsroom, Quarterfold Printabilities",
+    "lang": "en",
+    "h1count": 1,
+    "h1s": [
+      "Newsroom"
+    ],
+    "imgCount": 9,
+    "noAltCount": 8,
+    "noAltSrcs": [
+      "qfp-mark.png",
+      "1c1023db21b59c19aa4345cccd4702bb016d04a6-1600x900.webp?w=800&auto=format",
+      "645eb93aedd3f35efd77998ba7a92d4d037bde36-1600x900.webp?w=800&auto=format",
+      "230ee7f1fe097f2d37cca5d00fa125321a648f6f-1600x900.webp?w=800&auto=format",
+      "8d0a8474a5d56a1c5effe44c73f2dab3b5bf34a2-1600x900.webp?w=800&auto=format",
+      "77933c26dabe5e82e1511db60863219500e8e097-1600x900.webp?w=800&auto=format",
+      "a70ebd578bf0f0584e1631fd017c4bc058dff19c-1600x900.webp?w=800&auto=format",
+      "qfp-mark.png"
+    ],
+    "brokenImgs": [],
+    "scrollWidth": 1521,
+    "innerWidth": 1536,
+    "horizontalScroll": false,
+    "pageHeight": 3016,
+    "articleLinks": [
+      {
+        "href": "/newsroom/printweek-power-100-2026",
+        "text": "AwardsJun 15, 2026Quarterfold’s Nilesh Dhankani named to PrintWeek’s Power 100 f"
+      },
+      {
+        "href": "/newsroom/business-connect-print-industry",
+        "text": "PressJul 01, 2024Business Connect: Quarterfold Printabilities, revolutionising t"
+      },
+      {
+        "href": "/newsroom/printweek-book-education-company-of-the-year",
+        "text": "AwardsJan 15, 2024Quarterfold wins PrintWeek’s Book Education Company of the Yea"
+      },
+      {
+        "href": "/newsroom/printweek-investment-2022",
+        "text": "PressSep 15, 2022PrintWeek: bullish about print, Quarterfold embarks on investme"
+      },
+      {
+        "href": "/newsroom/printweek-400000-books-a-day",
+        "text": "PressJan 15, 2022PrintWeek: how Quarterfold is producing 4,00,000 books a dayA J"
+      },
+      {
+        "href": "/newsroom/assocham-excellence-in-education",
+        "text": "AwardsNov 15, 2017ASSOCHAM names Quarterfold runner-up for Excellence in the Fie"
+      }
+    ],
+    "cardTitles": [
+      "Quarterfold’s Nilesh Dhankani named to PrintWeek’s Power 100 for 2026",
+      "Business Connect: Quarterfold Printabilities, revolutionising the print industry",
+      "Quarterfold wins PrintWeek’s Book Education Company of the Year",
+      "PrintWeek: bullish about print, Quarterfold embarks on investment",
+      "PrintWeek: how Quarterfold is producing 4,00,000 books a day",
+      "ASSOCHAM names Quarterfold runner-up for Excellence in the Field of Education",
+      "Quick Links",
+      "Certified",
+      "Head Office",
+      "Factories"
+    ]
+  }
+]

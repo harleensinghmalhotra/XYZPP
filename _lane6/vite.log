@@ -1,0 +1,305 @@
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m253[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5186[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.1.105:[1m5186[22m/[39m
+[2m5:14:49 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/ourStory.json[22m
+[2m5:14:52 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/ourStory.json[22m
+[2m5:14:53 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/ourStory.json[22m
+[2m5:17:20 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m5:19:43 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.jsx, /src/index.css[22m
+[2m5:19:49 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.jsx, /src/index.css[22m
+[2m5:20:28 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m5:21:04 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/ourStory.json[22m
+[2m5:21:06 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/ourStory.json[22m
+[2m5:21:08 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/ourStory.json[22m
+[2m7:02:00 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.jsx, /src/index.css[22m
+[2m7:02:44 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/ourStory.json[22m
+[2m7:02:44 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/ourStory.json[22m
+[2m7:02:44 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/ourStory.json[22m
+[2m7:03:45 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m7:04:22 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m7:09:15 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/ourStory.json[22m
+[2m7:09:17 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/ourStory.json[22m
+[2m7:09:18 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/ourStory.json[22m
+[2m7:10:48 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Founder.jsx, /src/index.css[22m
+[2m7:14:14 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.jsx, /src/index.css[22m
+[2m7:15:15 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m7:15:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/ourStory.json[22m
+[2m7:16:00 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/ourStory.json[22m
+[2m7:16:03 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/ourStory.json[22m
+[2m7:26:25 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/ProcessVideo.jsx, /src/index.css[22m
+[2m7:27:16 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/ProcessVideo.jsx, /src/index.css[22m
+[2m7:28:19 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/ProcessVideo.jsx, /src/index.css[22m
+[2m7:31:07 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/homeProcess.json[22m
+[2m7:31:07 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/homeProcess.json[22m
+[2m7:31:07 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/homeProcess.json[22m
+[2m7:32:45 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m7:37:49 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m7:43:01 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/footer.json[22m
+[2m7:43:04 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/footer.json[22m
+[2m7:43:06 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/footer.json[22m
+[2m7:49:22 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/CTAFooter.jsx, /src/index.css[22m
+[2m7:50:12 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/CTAFooter.jsx, /src/index.css[22m
+[2m8:25:54 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m8:26:19 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m8:26:32 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m8:29:41 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m8:30:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m8:33:13 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m8:33:37 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m8:34:56 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m8:35:09 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m8:39:29 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m8:51:19 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m8:51:42 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m8:52:10 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m8:53:15 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.css[22m
+[2m8:53:40 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/infrastructurePage.json[22m
+[2m8:54:02 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/infrastructurePage.json[22m
+[2m9:03:01 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/infrastructurePage.json[22m
+[2m9:03:20 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/infrastructurePage.json[22m
+[2m9:03:34 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/infrastructurePage.json[22m
+[2m9:03:58 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/infrastructurePage.json[22m
+[2m9:07:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/homeInfraSection.json[22m
+[2m9:08:17 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/homeInfraSection.json[22m
+[2m9:08:43 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/homeInfraSection.json[22m
+[2m9:08:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/homeInfraSection.json[22m
+[2m9:09:19 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/homeInfraSection.json[22m
+[2m9:09:33 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/homeInfraSection.json[22m
+[2m9:09:47 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:10:48 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Infrastructure.jsx, /src/index.css[22m
+[2m9:12:22 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/homeInfraSection.json[22m
+[2m9:12:36 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/homeInfraSection.json[22m
+[2m9:12:52 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/homeInfraSection.json[22m
+[2m9:20:13 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:20:31 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:20:42 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:20:55 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:21:22 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m9:25:39 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m9:25:53 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m9:27:06 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:27:38 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:36:36 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:37:09 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:37:46 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:38:20 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:39:03 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:40:08 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:40:56 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:41:29 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:41:49 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:43:04 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/infrastructurePage.json[22m
+[2m9:43:04 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/infrastructurePage.json[22m
+[2m9:43:04 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/infrastructurePage.json[22m
+[2m9:44:13 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.css[22m
+[2m9:56:43 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.css[22m
+[2m9:57:06 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.css[22m
+[2m9:57:26 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.css[22m
+[2m10:38:31 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Seo.jsx, /src/index.css[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/home.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/home.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/home.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/ourStory.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/ourStory.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/ourStory.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/founder.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/founder.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/globalMarkets.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/founder.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/globalMarkets.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/newsroom.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/globalMarkets.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/newsroom.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/newsroom.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/contact.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/contact.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/legal.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/common.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/contact.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/legal.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/common.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/legal.json[22m
+[2m10:47:57 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/common.json[22m
+[2m10:48:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/home.json[22m
+[2m10:48:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/globalMarkets.json[22m
+[2m10:48:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/printOnDemand.json[22m
+[2m10:48:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/fulfilment.json[22m
+[2m10:48:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/legal.json[22m
+[2m10:48:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/home.json[22m
+[2m10:48:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/printOnDemand.json[22m
+[2m10:48:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/fulfilment.json[22m
+[2m10:49:10 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/fulfilment.json[22m
+[2m10:51:29 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.jsx, /src/index.css[22m
+[2m10:51:41 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.jsx, /src/index.css[22m
+[2m10:51:44 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.jsx, /src/index.css[22m
+[2m10:52:01 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m10:52:07 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m10:52:09 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m10:52:20 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NotFound.jsx, /src/index.css[22m
+[2m10:52:23 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NotFound.jsx, /src/index.css[22m
+[2m10:54:23 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home.jsx, /src/index.css[22m
+[2m10:54:29 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home.jsx, /src/index.css[22m
+[2m10:54:46 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.jsx, /src/index.css[22m
+[2m10:54:53 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.jsx, /src/index.css[22m
+[2m10:55:20 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Founder.jsx, /src/index.css[22m
+[2m10:55:20 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Fulfilment.jsx, /src/index.css[22m
+[2m10:55:20 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/GlobalMarkets.jsx, /src/index.css[22m
+[2m10:55:20 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.jsx, /src/index.css[22m
+[2m10:55:20 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/pages/EducationalBooks.jsx[22m
+[2m10:55:20 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/pages/TradeBooks.jsx[22m
+[2m10:55:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/newsroom.json[22m
+[2m10:55:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/legal.json[22m
+[2m10:55:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/newsroom.json[22m
+[2m10:55:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/legal.json[22m
+[2m10:55:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/newsroom.json[22m
+[2m10:55:56 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/legal.json[22m
+[2m10:56:19 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Newsroom.jsx, /src/index.css[22m
+[2m10:56:22 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/LegalPage.jsx, /src/index.css[22m
+[2m10:56:54 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NewsroomArticle.jsx, /src/index.css[22m
+[2m10:57:00 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NewsroomArticle.jsx, /src/index.css[22m
+[2m10:57:06 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NewsroomArticle.jsx, /src/index.css[22m
+[2m10:59:38 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/ourStory.json[22m
+[2m10:59:38 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/ourStory.json[22m
+[2m10:59:38 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/ourStory.json[22m
+[2m10:59:43 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.jsx, /src/index.css[22m
+[2m10:59:45 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.jsx, /src/index.css[22m
+[2m10:59:46 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.jsx, /src/index.css[22m
+[2m10:59:58 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Awards.jsx, /src/index.css[22m
+[2m11:00:00 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Awards.jsx, /src/index.css[22m
+[2m11:00:02 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Awards.jsx, /src/index.css[22m
+[2m11:00:09 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Newsroom.jsx, /src/index.css[22m
+[2m11:00:11 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NewsroomArticle.jsx, /src/index.css[22m
+[2m11:00:12 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NewsroomArticle.jsx, /src/index.css[22m
+[2m11:32:23 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/founder.json[22m
+[2m11:32:26 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/founder.json[22m
+[2m11:32:27 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/founder.json[22m
+[2m11:40:07 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.jsx, /src/index.css[22m
+[2m11:40:25 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.jsx, /src/index.css[22m
+[2m11:40:47 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m11:41:00 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m11:41:14 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m11:42:18 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m11:42:31 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m11:42:43 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m11:42:51 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m11:45:13 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m11:46:51 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m11:47:56 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/OurStory.css[22m
+[2m11:54:34 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m11:54:43 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m11:54:53 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m11:55:01 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m11:55:17 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m11:55:47 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m11:56:12 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m11:57:14 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/infrastructurePage.json[22m
+[2m11:57:20 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/infrastructurePage.json[22m
+[2m11:57:36 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/infrastructurePage.json[22m
+[2m11:57:43 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/infrastructurePage.json[22m
+[2m11:57:53 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/infrastructurePage.json[22m
+[2m11:58:01 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/infrastructurePage.json[22m
+[2m12:04:09 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m12:04:17 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/infrastructurePage.json[22m
+[2m12:04:26 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/infrastructurePage.json[22m
+[2m12:04:34 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/infrastructurePage.json[22m
+[2m12:08:47 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m12:09:10 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m12:11:34 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m12:11:45 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m12:11:56 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m12:12:06 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m12:15:15 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/homeProjects.json[22m
+[2m12:15:24 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/homeProjects.json[22m
+[2m12:15:31 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/homeProjects.json[22m
+[2m12:19:42 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/homeProjects.json[22m
+[2m12:19:51 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/homeProjects.json[22m
+[2m12:19:59 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/homeProjects.json[22m
+[2m12:20:07 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/homeProjects.json[22m
+[2m12:20:14 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/homeProjects.json[22m
+[2m12:20:23 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/homeProjects.json[22m
+[2m12:20:31 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/homeProjects.json[22m
+[2m12:20:39 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/homeProjects.json[22m
+[2m12:20:47 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/homeProjects.json[22m
+[2m12:24:35 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/ProcessVideo.jsx, /src/index.css[22m
+[2m12:24:46 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/ProcessVideo.jsx, /src/index.css[22m
+[2m12:24:54 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/ProcessVideo.jsx, /src/index.css[22m
+[2m12:25:05 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/ProcessVideo.jsx, /src/index.css[22m
+[2m12:25:17 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/ProcessVideo.jsx, /src/index.css[22m
+[2m12:25:28 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m12:26:07 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/homeProcess.json[22m
+[2m12:26:22 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/homeProcess.json[22m
+[2m12:26:31 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/homeProcess.json[22m
+[2m12:33:48 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m12:33:57 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m12:34:21 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m12:39:52 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Contact.jsx, /src/index.css[22m
+[2m12:40:16 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/contact.json[22m
+[2m12:40:36 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/contact.json[22m
+[2m12:40:47 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/contact.json[22m
+[2m12:41:00 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m12:46:23 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/CTAFooter.jsx, /src/index.css[22m
+[2m12:46:41 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/CTAFooter.jsx, /src/index.css[22m
+[2m12:47:19 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/CTAFooter.jsx, /src/index.css[22m
+[2m12:47:38 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/CTAFooter.jsx, /src/index.css[22m
+[2m12:48:43 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/CTAFooter.jsx, /src/index.css[22m
+[2m12:49:05 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/CTAFooter.jsx, /src/index.css[22m
+[2m12:49:31 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/CTAFooter.jsx, /src/index.css[22m
+[2m12:49:50 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/CTAFooter.jsx, /src/index.css[22m
+[2m12:54:12 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.css[22m
+[2m12:54:24 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.css[22m
+[2m12:55:30 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.css[22m
+[2m12:55:52 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.css[22m
+[2m12:56:48 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.css[22m
+[2m12:58:20 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.css[22m
+[2m12:58:56 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.css[22m
+[2m12:59:37 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.css[22m
+[2m8:09:40 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m8:09:50 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m8:10:08 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m8:10:31 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m8:11:02 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m8:11:21 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m8:12:16 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.css[22m
+[2m8:12:40 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/printOnDemand.json[22m
+[2m8:12:52 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/printOnDemand.json[22m
+[2m8:13:01 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/printOnDemand.json[22m
+[2m8:41:12 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m9:12:53 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:13:01 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:13:11 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:13:21 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:13:32 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:13:54 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:14:13 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:14:27 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.css[22m
+[2m9:14:39 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/FacilityBook.jsx, /src/index.css[22m
+[2m9:25:14 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.css[22m
+[2m9:34:26 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/InfrastructurePage.jsx, /src/index.css[22m
+[2m9:34:44 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/infrastructurePage.json[22m
+[2m9:34:46 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/infrastructurePage.json[22m
+[2m9:34:55 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/infrastructurePage.json[22m
+[2m9:34:57 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/infrastructurePage.json[22m
+[2m9:35:08 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/infrastructurePage.json[22m
+[2m9:35:10 am[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/infrastructurePage.json[22m
+[2m9:39:56 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Certifications.jsx, /src/index.css[22m
+[2m9:40:10 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m9:43:17 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m9:44:04 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m9:44:20 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m9:44:35 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.jsx, /src/index.css[22m
+[2m9:44:59 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.css[22m
+[2m9:45:23 am[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/PrintOnDemand.css[22m
+[2m4:01:15 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Certifications.jsx, /src/index.css[22m
+[2m4:01:47 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Certifications.jsx, /src/index.css[22m
+[2m4:02:14 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Certifications.jsx, /src/index.css[22m
+[2m4:03:14 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m4:50:01 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/en/home.json[22m
+[2m4:50:25 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/fr/home.json[22m
+[2m4:50:26 pm[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/locales/es/home.json[22m
+[2m4:50:55 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Hero.jsx, /src/index.css[22m
+[2m4:51:17 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Hero.jsx, /src/index.css[22m
+[2m4:53:38 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Hero.jsx, /src/index.css[22m
+[2m4:54:36 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Hero.jsx, /src/index.css[22m
+[2m4:55:59 pm[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/sections/Hero.jsx, /src/index.css[22m

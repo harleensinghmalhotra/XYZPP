@@ -301,14 +301,19 @@ html.alive-ready .ab-eyebrow--cream[data-reveal].is-in { letter-spacing: 0.25em;
    colour (300ms), the card lifts 4px, and the orange rule draws in. */
 /* Team top padding reduced (was clamp(60,7vh,88)) so it sits comfortably
    close to the founder quote above, at the page's standard section rhythm. */
-/* overflow-x only (Client Lane C · Task 1): the section has no horizontal-bleed
-   content that needs a Y clip, and a Y-axis overflow value here was the actual
-   cause of the spotlight panel's sticky bug below (an ancestor with overflow
-   other than visible on the Y axis becomes the sticky containing block; since
-   .tm never scrolls internally, .tm-panel could never engage its own sticky
-   and just scrolled away with the grid). PaperGrain is absolute/inset:0, so it
-   was already exactly contained by this box regardless of overflow. */
-.tm { position: relative; background: var(--cream); padding: clamp(28px, 4vh, 52px) var(--page-gutter) clamp(30px, 4.5vh, 60px); overflow-x: hidden; scroll-margin-top: var(--nav-h); }
+/* No overflow-x here (Team spotlight sticky bug, Aug 2026): setting overflow-x
+   alone still breaks position:sticky, because the CSS overflow spec computes
+   overflow-y to auto whenever overflow-x is non-visible and overflow-y isn't
+   set (the "visible → auto" pairing rule applies to the COMPUTED value, so
+   even an explicit `overflow-y: visible` gets silently overridden). That auto
+   turns .tm into its own scroll container; since nothing ever overflows .tm
+   internally, its scrollTop is permanently 0, so .tm-panel's sticky trigger —
+   evaluated against .tm's frozen scrollport instead of the page's — never
+   fires and the panel behaves as plain static content for the entire section.
+   Verified there's no horizontal bleed to clip here (PaperGrain is
+   absolute/inset:0; nothing else exceeds the section box at 1280–1920), so the
+   property is dropped rather than reintroduced with a workaround. */
+.tm { position: relative; background: var(--cream); padding: clamp(28px, 4vh, 52px) var(--page-gutter) clamp(30px, 4.5vh, 60px); scroll-margin-top: var(--nav-h); }
 /* the gold hairline that opens the section — draws left→right (scaleX). */
 html.alive-ready .tm-rule[data-reveal] {
   width: 100%; height: 1px; border: 0; background: rgb(176 111 21 / 0.3);
@@ -396,8 +401,14 @@ html.alive-ready .tm-rule[data-reveal].is-in { transform: scaleX(1); }
    zero travel room it behaves like a normal in-flow element and scrolls away
    with the grid (Client Lane C · Task 1 — this was the actual bug). */
 .tm-panel-col { align-self: stretch; }
+/* Capped to the space between its sticky top offset and the viewport's bottom edge
+   (minus a matching breathing margin), with internal scroll past that — the tallest
+   bio (~510px) fits comfortably at realistic desktop heights, but a short window or
+   a future longer bio scrolls inside the panel instead of overflowing the viewport. */
 .tm-panel {
   position: sticky; top: calc(var(--nav-h) + clamp(14px, 2.4vh, 26px));
+  max-height: calc(100vh - var(--nav-h) - clamp(14px, 2.4vh, 26px) - clamp(14px, 2.4vh, 26px));
+  overflow-y: auto; overscroll-behavior: contain;
   background: var(--navy); border-radius: 16px;
   padding: clamp(26px, 2.6vw, 40px) clamp(24px, 2.4vw, 38px);
   box-shadow: 0 22px 54px rgb(var(--navy-rgb) / 0.18);
@@ -503,7 +514,7 @@ html.alive-ready .ab-hero [data-textreveal] .aw-word { transition-duration: 0.56
 @media (max-width: 768px) {
   .tm-spotlight { grid-template-columns: 1fr; gap: clamp(20px, 5vw, 30px); }
   .tm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .tm-panel { position: static; padding: clamp(24px, 6vw, 32px) clamp(20px, 5vw, 28px); }
+  .tm-panel { position: static; max-height: none; overflow-y: visible; padding: clamp(24px, 6vw, 32px) clamp(20px, 5vw, 28px); }
   .tm-person-name { font-size: clamp(22px, 6vw, 28px); }
   .tm-person-bio, .tm-person-quote { font-size: 14.5px; }
 }

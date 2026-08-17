@@ -1,0 +1,271 @@
+{
+  "lang": "fr",
+  "submitMode": "honeypot",
+  "defaults": [
+    {
+      "key": "Format",
+      "val": "Couverture souple"
+    },
+    {
+      "key": "Taille",
+      "val": "A5"
+    },
+    {
+      "key": "Papier",
+      "val": "Crème 80 g/m²"
+    },
+    {
+      "key": "Reliure",
+      "val": "Reliure dos carré collé"
+    },
+    {
+      "key": "Finition",
+      "val": "Pelliculage mat"
+    },
+    {
+      "key": "Quantité",
+      "val": "1 exemplaire"
+    }
+  ],
+  "optionCounts": {
+    "format": 2,
+    "size": 3,
+    "paper": 6,
+    "binding": 3,
+    "finish": 2,
+    "quantity": 5
+  },
+  "anyThrewOnClick": false,
+  "clickLog": [
+    {
+      "group": "format",
+      "i": 0,
+      "chip": "Couverture souple",
+      "summaryVal": "Couverture souple",
+      "threw": false
+    },
+    {
+      "group": "format",
+      "i": 1,
+      "chip": "Couverture rigide",
+      "summaryVal": "Couverture rigide",
+      "threw": false
+    },
+    {
+      "group": "size",
+      "i": 0,
+      "chip": "A5",
+      "summaryVal": "A5",
+      "threw": false
+    },
+    {
+      "group": "size",
+      "i": 1,
+      "chip": "B5",
+      "summaryVal": "B5",
+      "threw": false
+    },
+    {
+      "group": "size",
+      "i": 2,
+      "chip": "A4",
+      "summaryVal": "A4",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 0,
+      "chip": "Blanc 70 g/m²",
+      "summaryVal": "Blanc 70 g/m²",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 1,
+      "chip": "Crème 70 g/m²",
+      "summaryVal": "Crème 70 g/m²",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 2,
+      "chip": "Blanc 80 g/m²",
+      "summaryVal": "Blanc 80 g/m²",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 3,
+      "chip": "Crème 80 g/m²",
+      "summaryVal": "Crème 80 g/m²",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 4,
+      "chip": "Couché mat 100 g/m²",
+      "summaryVal": "Couché mat 100 g/m²",
+      "threw": false
+    },
+    {
+      "group": "paper",
+      "i": 5,
+      "chip": "Couché brillant 100 g/m²",
+      "summaryVal": "Couché brillant 100 g/m²",
+      "threw": false
+    },
+    {
+      "group": "binding",
+      "i": 0,
+      "chip": "Reliure dos carré collé",
+      "summaryVal": "Reliure dos carré collé",
+      "threw": false
+    },
+    {
+      "group": "binding",
+      "i": 1,
+      "chip": "Cousu par cahiers",
+      "summaryVal": "Cousu par cahiers",
+      "threw": false
+    },
+    {
+      "group": "binding",
+      "i": 2,
+      "chip": "Piqûre à cheval",
+      "summaryVal": "Piqûre à cheval",
+      "threw": false
+    },
+    {
+      "group": "finish",
+      "i": 0,
+      "chip": "Pelliculage mat",
+      "summaryVal": "Pelliculage mat",
+      "threw": false
+    },
+    {
+      "group": "finish",
+      "i": 1,
+      "chip": "Pelliculage brillant",
+      "summaryVal": "Pelliculage brillant",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 0,
+      "chip": "1",
+      "summaryVal": "1 exemplaire",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 1,
+      "chip": "10",
+      "summaryVal": "10 exemplaires",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 2,
+      "chip": "50",
+      "summaryVal": "50 exemplaires",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 3,
+      "chip": "250",
+      "summaryVal": "250 exemplaires",
+      "threw": false
+    },
+    {
+      "group": "quantity",
+      "i": 4,
+      "chip": "500+",
+      "summaryVal": "500 exemplaires et plus",
+      "threw": false
+    }
+  ],
+  "cfgSummaries": {
+    "A": [
+      {
+        "key": "Format",
+        "val": "Couverture souple"
+      },
+      {
+        "key": "Taille",
+        "val": "A5"
+      },
+      {
+        "key": "Papier",
+        "val": "Crème 80 g/m²"
+      },
+      {
+        "key": "Reliure",
+        "val": "Reliure dos carré collé"
+      },
+      {
+        "key": "Finition",
+        "val": "Pelliculage mat"
+      },
+      {
+        "key": "Quantité",
+        "val": "1 exemplaire"
+      }
+    ],
+    "B": [
+      {
+        "key": "Format",
+        "val": "Couverture rigide"
+      },
+      {
+        "key": "Taille",
+        "val": "A4"
+      },
+      {
+        "key": "Papier",
+        "val": "Blanc 70 g/m²"
+      },
+      {
+        "key": "Reliure",
+        "val": "Cousu par cahiers"
+      },
+      {
+        "key": "Finition",
+        "val": "Pelliculage brillant"
+      },
+      {
+        "key": "Quantité",
+        "val": "500 exemplaires et plus"
+      }
+    ],
+    "C": [
+      {
+        "key": "Format",
+        "val": "Couverture souple"
+      },
+      {
+        "key": "Taille",
+        "val": "B5"
+      },
+      {
+        "key": "Papier",
+        "val": "Couché brillant 100 g/m²"
+      },
+      {
+        "key": "Reliure",
+        "val": "Piqûre à cheval"
+      },
+      {
+        "key": "Finition",
+        "val": "Pelliculage mat"
+      },
+      {
+        "key": "Quantité",
+        "val": "50 exemplaires"
+      }
+    ]
+  },
+  "formSuccess": true,
+  "consoleErrors": [],
+  "consoleWarnings": []
+}

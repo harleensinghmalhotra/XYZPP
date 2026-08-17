@@ -1,0 +1,107 @@
+  "privacy": {
+    "eyebrow": "Legal",
+    "title": "Política de privacidad",
+    "seoDesc": "Cómo Quarterfold Printabilities recopila, utiliza y protege los datos personales que usted comparte a través de este sitio web, conforme a la Ley DPDP de la India de 2023, el RGPD del Reino Unido y la UE, la PIPEDA y la CCPA.",
+    "intro": "Esta Política de privacidad explica cómo Quarterfold Printabilities Private Limited («Quarterfold», «nosotros») trata los datos personales recopilados a través de este sitio web. Actuamos como responsable de los datos (Data Fiduciary) y los tratamos de forma lícita, leal y únicamente para los fines descritos a continuación. Como nuestros visitantes proceden de varios países, esta política está redactada para cumplir conjuntamente la Ley de Protección de Datos Personales Digitales de la India de 2023, el RGPD del Reino Unido y la UE, la PIPEDA de Canadá y la CCPA/CPRA de California.",
+    "sections": [
+      {
+        "h": "Quiénes somos",
+        "p": [
+          "Quarterfold Printabilities Private Limited (CIN U74999MH2020PTC337494) es el responsable de los datos personales recopilados a través de este sitio.",
+          "Domicilio social: Office No 1207, Plot No 4 & 6, Sector 30A, Navi Mumbai, Maharashtra 400705, India.",
+          "Para cualquier consulta o solicitud sobre privacidad, o para contactar con nuestro punto de contacto en la materia, escriba a info@quarterfoldltd.com."
+        ]
+      },
+      {
+        "h": "Qué datos recopilamos",
+        "p": ["Solo recopilamos la información que usted decide enviarnos a través de nuestros formularios de consulta y de presupuesto. No utilizamos herramientas de análisis ni establecemos cookies, por lo que no elaboramos ningún perfil de su visita. Los únicos datos que se generan automáticamente son la información técnica estándar que cualquier sitio web recibe cuando su navegador realiza una solicitud:"],
+        "list": [
+          "La información que introduce en un formulario: su nombre, dirección de correo electrónico, número de teléfono, empresa (si la indica) y el mensaje o las notas del proyecto que redacta.",
+          "Datos estándar de la solicitud, como su dirección IP, el tipo de navegador y la hora de la solicitud. No proceden de ninguna herramienta de análisis; son la información habitual que nuestro proveedor de alojamiento puede registrar en los registros del servidor para mantener el sitio seguro y en funcionamiento, y no la utilizamos para identificar ni seguir a visitantes individuales."
+        ]
+      },
+      {
+        "h": "Por qué usamos sus datos",
+        "p": ["Utilizamos la información que nos facilita para:"],
+        "list": [
+          "responder a su consulta y preparar un presupuesto, una muestra o una propuesta;",
+          "enviarle las comunicaciones que ha solicitado o consentido recibir;",
+          "operar, mantener, proteger y mejorar este sitio web; y",
+          "cumplir nuestras obligaciones legales, reglamentarias y contables."
+        ]
+      },
+      {
+        "h": "Base jurídica",
+        "p": ["Nos basamos en la base jurídica que corresponde a cada fin y a su ubicación. No vendemos sus datos personales ni los utilizamos con fines de marketing sin su consentimiento."],
+        "list": [
+          "El consentimiento, que usted otorga al enviar un formulario o al aceptar recibir comunicaciones, y que puede retirar en cualquier momento (artículo 6, apartado 1, letra a) del RGPD del Reino Unido y la UE; Ley DPDP de la India de 2023; PIPEDA de Canadá).",
+          "Nuestros intereses legítimos en responderle, operar el sitio y mantenerlo seguro, ponderados frente a sus derechos (artículo 6, apartado 1, letra f) del RGPD del Reino Unido y la UE).",
+          "El cumplimiento de una obligación legal, cuando la ley nos exige conservar o divulgar datos (artículo 6, apartado 1, letra c) del RGPD del Reino Unido y la UE)."
+        ]
+      },
+      {
+        "h": "California y Canadá",
+        "p": [
+          "Para los residentes de California: tratamos la información personal únicamente para los fines comerciales descritos anteriormente. No vendemos ni compartimos su información personal en el sentido de la CCPA/CPRA, y no le discriminaremos por ejercer sus derechos.",
+          "Para los visitantes de Canadá: recopilamos, utilizamos y divulgamos la información personal con su conocimiento y consentimiento, tal como exige la PIPEDA, y únicamente para los fines establecidos aquí."
+        ]
+      },
+      {
+        "h": "Con quién los compartimos",
+        "p": [
+          "Solo compartimos sus datos con los proveedores de servicios que nos ayudan a operar el sitio y a responderle, y únicamente en la medida necesaria para prestar esos servicios. Actualmente incluyen nuestro proveedor de entrega de formularios (Web3Forms), nuestra plataforma de contenidos (Sanity), nuestro proveedor de alojamiento y los proveedores de tipografías y teselas de mapa que su navegador carga directamente. Actúan según nuestras instrucciones o según sus propias condiciones publicadas.",
+          "También podemos divulgar datos cuando la ley, un reglamento o una resolución judicial lo exija, o para establecer o proteger nuestros derechos."
+        ]
+      },
+      {
+        "h": "Transferencias internacionales",
+        "p": [
+          "Este sitio web se opera desde la India, y los datos personales que usted envía se tratan en la India.",
+          "Algunos de los proveedores de servicios que nos ayudan a operar el sitio se encuentran en otros países, por lo que sus datos pueden transferirse fuera de la India, el Reino Unido y la UE a dichos proveedores. Cuando así sea, nos basamos en las bases jurídicas anteriores y en garantías adecuadas, como los compromisos contractuales de protección de datos del proveedor.",
+          "En particular, para mostrar el sitio, su navegador carga tipografías de Google (Google Fonts) y, en algunas páginas, teselas de mapa y contenido de artículos de otros proveedores. Estos proveedores reciben su dirección IP directamente de su navegador, como parte normal de la entrega de su contenido. No se les envían sus datos de formulario y, según nuestras comprobaciones, no establecen cookies."
+        ]
+      },
+      {
+        "h": "Cuánto tiempo los conservamos",
+        "p": ["Conservamos los datos de consulta y de presupuesto que nos envía durante un máximo de 24 meses tras nuestro último contacto sobre su solicitud, salvo que se necesite un plazo mayor para cumplir nuestras obligaciones legales, contables o reglamentarias. Después, eliminamos o anonimizamos los datos. Cuando nuestro proveedor de alojamiento conserva registros del servidor, estos se retienen solo durante el breve periodo necesario para mantener el sitio seguro y en funcionamiento."]
+      },
+      {
+        "h": "Sus derechos",
+        "p": ["Con sujeción a la legislación que le sea aplicable, puede solicitarnos:"],
+        "list": [
+          "acceder a los datos personales que tenemos sobre usted;",
+          "rectificar o actualizar datos inexactos o incompletos;",
+          "suprimir sus datos cuando ya no sean necesarios;",
+          "facilitar una copia de los datos que nos proporcionó en un formato portátil y legible por máquina;",
+          "oponerse a determinados tratamientos o pedirnos que los limitemos;",
+          "retirar, en cualquier momento, un consentimiento que haya otorgado; y",
+          "designar a otra persona para ejercer sus derechos en caso de fallecimiento o incapacidad, según lo previsto en la Ley DPDP de la India."
+        ]
+      },
+      {
+        "h": "Presentar una solicitud o reclamación",
+        "p": [
+          "Para ejercer cualquiera de estos derechos, escríbanos a info@quarterfoldltd.com y le responderemos dentro de los plazos exigidos por la ley.",
+          "Si no está satisfecho con nuestra respuesta, puede reclamar ante la autoridad de control de su región:"
+        ],
+        "list": [
+          "India: la Data Protection Board of India;",
+          "Reino Unido: la Information Commissioner's Office (ICO);",
+          "California: la California Privacy Protection Agency, o el Fiscal General de California;",
+          "Canadá: la Oficina del Comisionado de Privacidad de Canadá."
+        ]
+      },
+      {
+        "h": "Datos de menores",
+        "p": ["Este sitio está dirigido a un público profesional y no está destinado a menores. No recopilamos deliberadamente datos personales de menores. Si cree que un menor nos ha facilitado datos, contáctenos y los eliminaremos."]
+      },
+      {
+        "h": "Seguridad",
+        "p": ["Aplicamos medidas técnicas y organizativas razonables para proteger los datos personales frente a pérdida, uso indebido y acceso no autorizado. Ningún método de transmisión por Internet es completamente seguro, pero trabajamos para proteger sus datos con medidas adecuadas."]
+      },
+      {
+        "h": "Cambios en esta política",
+        "p": ["Podemos actualizar esta Política de privacidad de vez en cuando. La versión vigente está siempre disponible en esta página, con la fecha de la última actualización indicada más abajo."]
+      }
+    ]
+  }
