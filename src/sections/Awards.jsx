@@ -52,6 +52,12 @@ function AwardPhoto({ img, ph, alt }) {
 
 export default function Awards() {
   const { t } = useTranslation('homeAwards')
+  // Anchor text fix (SEO Lane 7, internal linking): "See More" didn't say what
+  // it pointed at. Reuses the nav namespace's own already-translated "Newsroom"
+  // label -- the exact destination page's real name, the same minimal-token
+  // pattern every other link on the site already follows (nav/footer links are
+  // just the destination's name, not full sentences) -- not new copy.
+  const { t: tn } = useTranslation('nav')
   const viewport = useRef(null)
   const [reduced] = useState(prefersReduced)
   // Mobile-only prev/next affordance for the plaque row. Desktop keeps the
@@ -103,7 +109,7 @@ export default function Awards() {
             {/* See More → /newsroom: the shared button system (.u-btn), identical to the
                 homepage "Request a Quote" primary — orange --gold pill, --lg footprint,
                 btn-nebula ring, hover/press feel all inherited from the family. */}
-            <CTAButton to="/newsroom" dark>{t('seeMore')}</CTAButton>
+            <CTAButton to="/newsroom" dark>{tn('newsroom')}</CTAButton>
           </div>
 
           {/* paged plaque strip — native horizontal scroller (4 visible), focusable

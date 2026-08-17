@@ -51,11 +51,13 @@ const ABOUT_ITEMS = [
   { key: 'ourTeam', to: '/about#team' },
 ]
 
-// 9-item What We Print dropdown: all anchor to homepage WWP section.
+// 9-item What We Print dropdown: items without their own page anchor to the
+// homepage WWP section; Educational Books and Trade Books now have real,
+// standalone pages (reconnected in SEO Lane 7) and go straight there instead.
 const PRODUCTS = [
-  { key: 'educationalBooks', cardKey: 'educational' },
+  { key: 'educationalBooks', to: '/educational-books' },
   { key: 'counterbookStationery', cardKey: 'trade' },
-  { key: 'tradeBooks', cardKey: 'coffee' },
+  { key: 'tradeBooks', to: '/trade-books' },
   { key: 'generalBooks', cardKey: 'general' },
   { key: 'childrenBooks', cardKey: 'children' },
   { key: 'learningKits', cardKey: 'kits' },
@@ -166,12 +168,22 @@ export default function SiteNav() {
     if (alreadyThere) reScrollWwp(null)
   }
 
+  // Dropdown items are real <Link>s now (SEO Lane 7 -- Google needs a real href
+  // to discover and follow a link, per the recon's own citation of Google's
+  // guidance; a <button onClick> calling navigate() isn't one). Link performs
+  // the actual navigation itself on click; this handler only does the side
+  // effects Link can't: closing the menu, and re-scrolling for the one case
+  // Link's own navigation is a no-op for -- re-clicking the homepage-anchor
+  // item we're already sitting on (hash unchanged -> no navigation event
+  // fires at all). Items with a real standalone page (`to`, no `cardKey`)
+  // have no such case: revisiting a page you're already on needs no special
+  // handling, same as every plain nav Link elsewhere on the site.
   const handleProductClick = (product) => {
-    const id = `wwp-${product.cardKey}`
-    const alreadyThere = pathname === '/' && window.location.hash === `#${id}`
-    navigate(`/#${id}`)
     setMenuOpen(false)
     setActiveItem(-1)
+    if (!product.cardKey) return
+    const id = `wwp-${product.cardKey}`
+    const alreadyThere = pathname === '/' && window.location.hash === `#${id}`
     if (alreadyThere) reScrollWwp(id)
   }
 
@@ -185,10 +197,11 @@ export default function SiteNav() {
     if (alreadyThere) reScrollAbout(null)
   }
 
+  // Same Link-native pattern as handleProductClick above: Link navigates
+  // itself, this only handles the re-click-while-already-there re-scroll case.
   const handleAboutItemClick = (item) => {
     const hash = item.to.includes('#') ? item.to.split('#')[1] : null
     const alreadyThere = pathname === '/about' && (hash ? window.location.hash === `#${hash}` : !window.location.hash)
-    navigate(item.to)
     setAboutMenuOpen(false)
     setAboutActiveItem(-1)
     if (alreadyThere) reScrollAbout(hash)
@@ -367,14 +380,14 @@ export default function SiteNav() {
                   role="menu"
                 >
                   {ABOUT_ITEMS.map((item, idx) => (
-                    <button
+                    <Link
                       key={item.key}
+                      to={item.to}
                       ref={(el) => (aboutItemsRef.current[idx] = el)}
-                      type="button"
                       onClick={() => handleAboutItemClick(item)}
                       onKeyDown={(e) => onAboutItemKey(e, idx)}
                       onMouseEnter={() => setAboutActiveItem(idx)}
-                      className="focus-ring w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F15]/[0.08] hover:pl-6 hover:text-[#925C10]"
+                      className="focus-ring block w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F15]/[0.08] hover:pl-6 hover:text-[#925C10]"
                       style={{
                         fontFamily: INTER,
                         backgroundColor:
@@ -386,7 +399,7 @@ export default function SiteNav() {
                       aria-current={aboutActiveItem === idx ? 'true' : undefined}
                     >
                       {t(item.key)}
-                    </button>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -443,14 +456,14 @@ export default function SiteNav() {
                   role="menu"
                 >
                   {PRODUCTS.map((p, idx) => (
-                    <button
+                    <Link
                       key={p.key}
+                      to={p.to || `/#wwp-${p.cardKey}`}
                       ref={(el) => (itemsRef.current[idx] = el)}
-                      type="button"
                       onClick={() => handleProductClick(p)}
                       onKeyDown={(e) => onItemKey(e, idx)}
                       onMouseEnter={() => setActiveItem(idx)}
-                      className="focus-ring w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F15]/[0.08] hover:pl-6 hover:text-[#925C10]"
+                      className="focus-ring block w-full text-left rounded-[var(--radius-sm)] px-4 py-2.5 text-[13px] font-medium text-[#1c2019]/85 transition-[colors,padding] duration-200 hover:bg-[#B06F15]/[0.08] hover:pl-6 hover:text-[#925C10]"
                       style={{
                         fontFamily: INTER,
                         backgroundColor:
@@ -462,7 +475,7 @@ export default function SiteNav() {
                       aria-current={activeItem === idx ? 'true' : undefined}
                     >
                       {t(p.key)}
-                    </button>
+                    </Link>
                   ))}
                 </div>
               </div>

@@ -125,6 +125,7 @@ function relatedFor(current, candidates) {
 export default function NewsroomArticle() {
   const { slug } = useParams()
   const { t, i18n } = useTranslation('newsroom')
+  const { t: tn } = useTranslation('nav')
   const lang = groqLang(i18n.language)
   const [status, setStatus] = useState('loading') // loading | ready | error | missing
   const [post, setPost] = useState(null)
@@ -295,6 +296,26 @@ export default function NewsroomArticle() {
                 <BackArrow />
                 {t('back')}
               </Link>
+              {/* Newsroom -> money-page linking (SEO Lane 7): before this, an
+                  article's only outbound links were to other articles and back
+                  to /newsroom -- reachable elsewhere only via the site-wide
+                  nav/footer, never from inside the article itself. Two links,
+                  not content-curated per article (no editorial judgment to
+                  invent), reusing the exact nav-namespace labels every other
+                  real link on the site already uses -- not new copy. Same
+                  .nra-back treatment as "Back to Newsroom" above, just
+                  forward-pointing (Arrow, not BackArrow) since these go
+                  further into the site, not back out of it. */}
+              <div className="nra-explore">
+                <Link className="nra-back" to="/about">
+                  {tn('about')}
+                  <Arrow />
+                </Link>
+                <Link className="nra-back" to="/infrastructure">
+                  {tn('infrastructure')}
+                  <Arrow />
+                </Link>
+              </div>
             </div>
           </footer>
         </div>

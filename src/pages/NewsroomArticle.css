@@ -166,11 +166,22 @@
   transition: color 0.3s ease;
 }
 .nra-backarrow { transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.nra-arrow { transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1); }
 @media (hover: hover) and (pointer: fine) {
   .nra-back:hover { color: var(--navy); }
   .nra-back:hover .nra-backarrow { transform: translateX(-4px); }
+  .nra-back:hover .nra-arrow { transform: translateX(4px); }
 }
 .nra-back:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+/* Explore links (SEO Lane 7, newsroom -> money-page linking): same .nra-back
+   treatment, laid out in a small row under "Back to Newsroom" with the same
+   rhythm as the back-link's own gap. */
+.nra-explore {
+  display: flex; flex-wrap: wrap;
+  gap: 12px clamp(24px, 3vw, 40px);
+  margin-top: clamp(20px, 3vh, 28px);
+}
 
 /* ── 404 / missing ── */
 .nra-missing {
