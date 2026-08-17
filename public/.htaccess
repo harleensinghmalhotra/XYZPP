@@ -23,6 +23,15 @@
 # ── Policy, in priority order ──────────────────────────────────────────────
 #   0. Canonicalize the host to the bare apex domain (see block below) —
 #      independent of and prior to the routing policy.
+#   0.5. /postitnow (and /postitnow/) 302-redirects to the Sanity Studio —
+#      a friendly, memorable URL for the client instead of the long
+#      sanity.io address. Evaluated before both step 1 and step 2 below:
+#      /postitnow is deliberately NOT a prerendered route (it's an admin
+#      door, not a page — no sitemap entry, nothing in dist/postitnow/), so
+#      without this rule running first it would fall through step 1 (no
+#      matching file/directory) straight into step 2's strict 404. 302, not
+#      301 — if the Studio URL ever changes, browsers must not cache the
+#      old one permanently.
 #   1. A request that maps to a real FILE or DIRECTORY on disk is served
 #      as-is, untouched, via Apache's own static-file + DirectoryIndex
 #      handling. This covers every asset (/assets/*.js, /site-assets/*,
@@ -92,6 +101,15 @@
   # applies before assuming this alone closes the gap.
   RewriteCond %{HTTP_HOST} ^www\.quarterfoldltd\.com$ [NC]
   RewriteRule ^ https://quarterfoldltd.com%{REQUEST_URI} [L,R=301]
+
+  # ── 0.5. Friendly Studio URL: /postitnow -> Sanity Studio ─────────────────
+  # Placed before step 1's -f/-d passthrough and step 2's strict 404 so it
+  # always fires for this path, regardless of what's (or isn't) on disk.
+  # [NC] = case-insensitive (/PostItNow works too). [R=302] explicit, not the
+  # bare [R] default, so the "temporary, don't cache" intent reads directly
+  # off the rule. [L] stops processing here -- nothing below this ever runs
+  # for this path.
+  RewriteRule ^postitnow/?$ https://www.sanity.io/@ouhvp1e3D/studio/mxcc63soqh2a147zg2dlf7z5/default/home [NC,L,R=302]
 
   Options -MultiViews
   DirectoryIndex index.html
