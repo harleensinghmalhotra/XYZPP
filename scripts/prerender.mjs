@@ -60,10 +60,12 @@ if (!existsSync(DIST)) {
   process.exit(1)
 }
 
-// ── 2. Route list: the 12 static routes + every live newsroom article ────────
+// ── 2. Route list: the 14 static routes + every live newsroom article ────────
+// /educational-books and /trade-books added in SEO Lane 7 -- previously
+// client-redirected to homepage anchors, never their own prerendered route.
 const STATIC_ROUTES = [
   '/', '/about', '/global-markets', '/print-on-demand', '/infrastructure',
-  '/newsroom', '/fulfilment', '/contact',
+  '/newsroom', '/fulfilment', '/contact', '/educational-books', '/trade-books',
   '/legal/privacy', '/legal/cookies', '/legal/terms', '/legal/accessibility',
 ]
 

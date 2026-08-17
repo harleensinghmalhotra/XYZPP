@@ -70,7 +70,11 @@ function lastmodFromGit(paths) {
 
 // [path, changefreq, priority, sourceFiles[]] -- changefreq/priority carried over
 // unchanged from the hand-edited sitemap.xml this replaces (not part of this
-// lane's scope to redesign); lastmod is the new, real signal.
+// lane's scope to redesign); lastmod is the new, real signal. NOT auto-derived
+// from App.jsx's route table -- a newly-routed static page (like the two SEO
+// Lane 7 additions below) needs a manual entry here, same as it needs a manual
+// entry in prerender.mjs's STATIC_ROUTES. Only newsroom articles are
+// auto-discovered (from Sanity, below).
 const STATIC_ROUTES = [
   ['/', 'weekly', '1.0', ['src/pages/Home.jsx']],
   ['/about', 'monthly', '0.9', ['src/pages/OurStory.jsx']],
@@ -79,6 +83,8 @@ const STATIC_ROUTES = [
   ['/contact', 'monthly', '0.9', ['src/pages/Contact.jsx']],
   ['/infrastructure', 'monthly', '0.8', ['src/pages/InfrastructurePage.jsx']],
   ['/fulfilment', 'monthly', '0.8', ['src/pages/Fulfilment.jsx']],
+  ['/educational-books', 'monthly', '0.8', ['src/pages/EducationalBooks.jsx']],
+  ['/trade-books', 'monthly', '0.8', ['src/pages/TradeBooks.jsx']],
   ['/newsroom', 'weekly', '0.7', ['src/pages/Newsroom.jsx']],
   ['/legal/privacy', 'yearly', '0.3', ['src/pages/LegalPage.jsx', 'src/locales/en/legal.json']],
   ['/legal/cookies', 'yearly', '0.3', ['src/pages/LegalPage.jsx', 'src/locales/en/legal.json']],

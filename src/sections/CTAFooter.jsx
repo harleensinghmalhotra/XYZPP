@@ -12,6 +12,11 @@ export default function CTAFooter() {
   // Nav-namespace labels for the routes the footer newly exposes — the SAME keys the
   // mobile drawer (MobileNav.jsx) uses, so the two navigation surfaces stay in sync.
   const { t: tn } = useTranslation('nav')
+  // Educational Books / Trade Books (SEO Lane 7): reuse each page's own real,
+  // already-translated title -- not new copy, the same cross-namespace pattern
+  // `tn` above already follows for the nav namespace.
+  const { t: tEdu } = useTranslation('educationalBooks')
+  const { t: tTrade } = useTranslation('tradeBooks')
 
   // Every footer link is wired ({ label, to }). Several targets are
   // SECTIONS on the homepage, not standalone pages: those use a hash route (e.g.
@@ -44,6 +49,8 @@ export default function CTAFooter() {
         { label: t('links.products'), to: '/#what-we-print' },
         { label: tn('about'), to: '/about' },
         { label: tn('printOnDemand'), to: '/print-on-demand' },
+        { label: tEdu('seo.breadcrumbCurrent'), to: '/educational-books' },
+        { label: tTrade('seo.breadcrumb.tradeBooks'), to: '/trade-books' },
         { label: t('links.infrastructure'), to: '/infrastructure' },
         { label: tn('globalMarkets'), to: '/global-markets' },
         { label: tn('fulfilment'), to: '/fulfilment' },

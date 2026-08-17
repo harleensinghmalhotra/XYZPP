@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import SiteLayout from '@/components/SiteLayout'
 import NotFound from '@/pages/NotFound'
 
@@ -25,6 +25,13 @@ const Newsroom = lazy(() => import('@/pages/Newsroom'))
 const NewsroomArticle = lazy(() => import('@/pages/NewsroomArticle'))
 const Fulfilment = lazy(() => import('@/pages/Fulfilment'))
 const Contact = lazy(() => import('@/pages/Contact'))
+// Reconnected in SEO Lane 7/7: both were fully built, current (Phase 3.3
+// unified skeleton, same 2026-07-28 SEO/JSON-LD pass as every routed page —
+// verified via git log, not assumed), and simply never routed. Previously
+// "/educational-books" and "/trade-books" client-redirected to homepage
+// anchors; see the Lane 7 report for the shippability assessment.
+const EducationalBooks = lazy(() => import('@/pages/EducationalBooks'))
+const TradeBooks = lazy(() => import('@/pages/TradeBooks'))
 
 // App is now the routing host, not the scroll stack. Every route renders inside
 // <SiteLayout> (nav + footer chrome). The homepage ("/") owns the scroll engine;
@@ -37,8 +44,8 @@ export default function App() {
 
         <Route path="/about" element={<OurStory />} />
         <Route path="/global-markets" element={<GlobalMarkets />} />
-        <Route path="/educational-books" element={<Navigate to="/#wwp-educational" replace />} />
-        <Route path="/trade-books" element={<Navigate to="/#wwp-trade" replace />} />
+        <Route path="/educational-books" element={<EducationalBooks />} />
+        <Route path="/trade-books" element={<TradeBooks />} />
         <Route path="/print-on-demand" element={<PrintOnDemand />} />
         <Route path="/infrastructure" element={<InfrastructurePage />} />
         <Route path="/newsroom" element={<Newsroom />} />

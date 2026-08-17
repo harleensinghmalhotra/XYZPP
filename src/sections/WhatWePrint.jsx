@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { prefersReduced } from '@/lib/useReducedMotion'
 
@@ -46,10 +47,19 @@ export const CARDS = [
   { key: 'packaging', img: '/site-assets/what-we-print/packaging.webp', rot: 8 },
 ]
 
+// Two categories have their own dedicated page (reconnected in SEO Lane 7 --
+// previously built, unrouted). Everything else stays a plain, non-linking card
+// exactly as before; .wwp-card is class-scoped in index.css (no tag selector),
+// so swapping <article> for <Link> here carries zero visual change.
+const CARD_LINKS = { educational: '/educational-books', coffee: '/trade-books' }
+
 function Card({ c, t }) {
   const name = t(`cards.${c.key}.name`)
+  const href = CARD_LINKS[c.key]
+  const Tag = href ? Link : 'article'
+  const tagProps = href ? { to: href } : {}
   return (
-    <article className="wwp-card" id={`wwp-${c.key}`}>
+    <Tag className="wwp-card" id={`wwp-${c.key}`} {...tagProps}>
       <div className="wwp-pop">
         <img
           className="wwp-img"
@@ -63,7 +73,7 @@ function Card({ c, t }) {
       </div>
       <h3 className="wwp-name">{name}</h3>
       <p className="wwp-line">{t(`cards.${c.key}.line`)}</p>
-    </article>
+    </Tag>
   )
 }
 

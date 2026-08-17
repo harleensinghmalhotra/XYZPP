@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionCurve from '@/components/SectionCurve'
 import { PaperGrain } from '@/components/atmosphere'
 import LightRays from '@/components/LightRays'
+import Seo from '@/components/Seo'
 import { prefersReduced } from '@/lib/useReducedMotion'
 import { SHOW_MINISTRY_NAMES } from '@/lib/compliance'
 
@@ -86,31 +87,30 @@ export default function EducationalBooks() {
   const root = useRef(null)
   const heroRef = useRef(null)
 
-  // ── SEO: title, meta description, BreadcrumbList JSON-LD ──
-  useEffect(() => {
-    const prevTitle = document.title
-    document.title = t('seo.title')
-    const meta = document.querySelector('meta[name="description"]')
-    const prevDesc = meta?.getAttribute('content')
-    if (meta) meta.setAttribute('content', t('seo.description'))
-
-    const ld = document.createElement('script')
-    ld.type = 'application/ld+json'
-    ld.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: t('seo.breadcrumbHome'), item: 'https://quarterfoldltd.com/' },
-        { '@type': 'ListItem', position: 2, name: t('seo.breadcrumbCurrent'), item: 'https://quarterfoldltd.com/educational-books' },
-      ],
-    })
-    document.head.appendChild(ld)
-    return () => {
-      document.title = prevTitle
-      if (meta && prevDesc != null) meta.setAttribute('content', prevDesc)
-      ld.remove()
-    }
-  }, [t])
+  // ── SEO: title/description/canonical/OG/Twitter via <Seo>; BreadcrumbList +
+  // Service JSON-LD, consistent with SEO Lane 6's per-page pattern (provider
+  // @id references the one canonical Organization node declared on the
+  // homepage, Home.jsx). Previously this page hand-rolled its own
+  // document.title/meta/script DOM manipulation instead of using <Seo> like
+  // every other route -- a leftover from before that component existed;
+  // fixed as part of reconnecting the page in SEO Lane 7.
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('seo.breadcrumbHome'), item: 'https://quarterfoldltd.com/' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumbCurrent'), item: 'https://quarterfoldltd.com/educational-books' },
+    ],
+  }
+  const serviceJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Educational book printing and export',
+    name: 'Educational Book Printing',
+    description: t('seo.description'),
+    provider: { '@id': 'https://quarterfoldltd.com/#organization' },
+    url: 'https://quarterfoldltd.com/educational-books',
+  }
 
   // ── Pointer parallax on the hero stickers (rAF-throttled, reduced-motion off) ──
   useEffect(() => {
@@ -171,6 +171,7 @@ export default function EducationalBooks() {
 
   return (
     <main id="main" ref={root}>
+      <Seo title={t('seo.title')} description={t('seo.description')} jsonLd={[breadcrumbJsonLd, serviceJsonLd]} />
       {/* ── 1. HERO — /infrastructure anatomy, navy ── */}
       <section ref={heroRef} data-theme="dark" className="u-hero" aria-labelledby="edu-h1">
         {FLOATS.map(renderFloat)}

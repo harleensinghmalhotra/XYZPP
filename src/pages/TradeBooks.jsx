@@ -147,16 +147,32 @@ export default function TradeBooks() {
     { id: 'delivery', title: t('accordion.delivery'), body: t('delivery') },
   ]
 
-  // per-route SEO — title < 60ch, meta < 155ch, BreadcrumbList JSON-LD.
-  const jsonLd = {
+  // per-route SEO — title < 60ch, meta < 155ch, BreadcrumbList + Service JSON-LD.
+  // Fixed in SEO Lane 7 (reconnecting this page): the breadcrumb previously had
+  // positions 2 AND 3 both pointing at this same page's own URL ("What We
+  // Print" -> /trade-books, then "Trade Books" -> /trade-books again) --
+  // structurally invalid, two different names claiming the same item. "What We
+  // Print" isn't a standalone page (it's a homepage anchor), so rather than
+  // invent a breadcrumb node for a non-page destination, this now matches the
+  // plain 2-level Home -> Page pattern every other route on the site uses.
+  const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: t('seo.breadcrumb.home'), item: 'https://quarterfoldltd.com/' },
-      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.whatWePrint'), item: 'https://quarterfoldltd.com/trade-books' },
-      { '@type': 'ListItem', position: 3, name: t('seo.breadcrumb.tradeBooks'), item: 'https://quarterfoldltd.com/trade-books' },
+      { '@type': 'ListItem', position: 2, name: t('seo.breadcrumb.tradeBooks'), item: 'https://quarterfoldltd.com/trade-books' },
     ],
   }
+  const serviceJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Trade and gift book printing',
+    name: 'Trade Books',
+    description: t('seo.description'),
+    provider: { '@id': 'https://quarterfoldltd.com/#organization' },
+    url: 'https://quarterfoldltd.com/trade-books',
+  }
+  const jsonLd = [breadcrumbJsonLd, serviceJsonLd]
 
   const pick = (i) => {
     setActive(i)
